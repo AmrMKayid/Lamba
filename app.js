@@ -52,6 +52,12 @@ app.use(
   })
 );
 
+/*
+  Middleware to match the request with one of our defined routes to do a certain function,
+  All requests should have /api before writing the route as a convention for api servers
+*/
+app.use('/api', routes);
+
 // Middleware to handle any (500 Internal server error) that may occur while doing database related functions
 app.use(function(err, req, res, next) {
   if (err.statusCode === 404) return next();
@@ -76,13 +82,6 @@ app.use(function(req, res) {
 });
 
 //---------------- Middlewares ----------------//
-
-/*
-  Middleware to match the request with one of our defined routes to do a certain function,
-  All requests should have /api before writing the route as a convention for api servers
-*/
-app.use('/api', routes);
-
 
 
 module.exports = app;
