@@ -75,7 +75,7 @@ router.delete('/list/deleteList/:listId', isAuthenticated, listCtrl.deleteList);
 router.post('/store/create', isAuthenticated, storeCtrl.createItems);
 router.get('/store/view', isAuthenticated, storeCtrl.viewItems);
 router.post('/store/edit/:itemId', isAuthenticated, storeCtrl.editItems);
-router.post('/store/delete/:itemId', isAuthenticated, storeCtrl.deleteItems);
+router.delete('/store/delete/:itemId', isAuthenticated, storeCtrl.deleteItems);
 router.post('/store/buy/:itemId', isAuthenticated, storeCtrl.buyItems);
 router.post('/store/like/:itemId', isAuthenticated, storeCtrl.likeItems);
 
