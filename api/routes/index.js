@@ -2,7 +2,8 @@ var express = require('express'),
   router = express.Router(),
   jwt = require('jsonwebtoken'),
   authCtrl = require('../controllers/auth.controller'),
-  listCtrl = require('../controllers/list.controller');
+  listCtrl = require('../controllers/list.controller'),
+  storeCtrl = require('../controllers/store.controller');
 
 var isAuthenticated = function(req, res, next) {
   // Check that the request has the JWT in the authorization header
@@ -54,6 +55,7 @@ router.patch(
   isAuthenticated,
   listCtrl.updateListName
 );
+
 router.patch('/list/:listId/createTask', isAuthenticated, listCtrl.createTask);
 router.patch(
   '/list/:listId/updateTask/:taskId',
@@ -66,5 +68,14 @@ router.patch(
   listCtrl.deleteTask
 );
 router.delete('/list/deleteList/:listId', isAuthenticated, listCtrl.deleteList);
+
+
+/*-----------------------------Store Routes-------------------------------------*/
+router.post('/store/create', isAuthenticated, storeCtrl.createItems);
+router.get('/store/view', isAuthenticated, storeCtrl.viewItems);
+router.post('/store/edit/:itemId', isAuthenticated, storeCtrl.editItems);
+router.post('/store/delete/:itemId', isAuthenticated, storeCtrl.deleteItems);
+router.post('/store/buy/:itemId', isAuthenticated, storeCtrl.buyItems);
+router.post('/store/like/:itemId', isAuthenticated, storeCtrl.likeItems);
 
 module.exports = router;
