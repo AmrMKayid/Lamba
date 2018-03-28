@@ -64,6 +64,13 @@ app.use(function(err, req, res, next) {
 });
 
 /*
+  Middleware to match the request with one of our defined routes to do a certain function,
+  All requests should have /api before writing the route as a convention for api servers
+*/
+app.use('/api', routes);
+
+
+/*
   Middleware to handle any (404 Not Found) error that may occur if the request didn't find
   a matching route on our server, or the requested data could not be found in the database
 */
@@ -76,12 +83,6 @@ app.use(function(req, res) {
 });
 
 //---------------- Middlewares ----------------//
-
-/*
-  Middleware to match the request with one of our defined routes to do a certain function,
-  All requests should have /api before writing the route as a convention for api servers
-*/
-app.use('/api', routes);
 
 
 
