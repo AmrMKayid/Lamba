@@ -18,6 +18,8 @@ const ChildSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    teacher_ids: [String],
+
     schedule: {
         Timetable: [[String]],
         createdAt: {type: Date, default: Date.now},
@@ -27,7 +29,6 @@ const ChildSchema = new mongoose.Schema({
     //IDs :
     allowedArticles: [String],
     enrolledActivities: [String],
-    schedule: String
 
 });
 
