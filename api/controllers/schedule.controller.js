@@ -11,7 +11,7 @@ module.exports.getTeacherSchedule = function(req, res, next) {
                 .status(404)
                 .json({ err: null, msg: 'User not found.', data: null });
         }
-        if(user.role !== 'Teacher'){
+        if(user.role != 'Teacher'){
             return res
                 .status(401)
                 .json({ err: null, msg: 'Unauthorized Access.', data: null });

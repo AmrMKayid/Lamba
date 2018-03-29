@@ -48,7 +48,7 @@ router.post('/auth/login', isNotAuthenticated, authCtrl.login);
 
 //-------------------------------Schedule Routes------------------------------------//
 router.post('/schedule/createTeacherSchedule/:UserId',scheduleCtrl.createTeacherSchedule);
-router.get('/schedule/createTeacherSchedule/:UserId',scheduleCtrl.getTeacherSchedule);
+router.get('/schedule/getTeacherSchedule/:UserId',scheduleCtrl.getTeacherSchedule);
 //----------------------------------------------------------------------------------//
 
 module.exports = router;
