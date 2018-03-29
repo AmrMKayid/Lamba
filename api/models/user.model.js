@@ -39,7 +39,7 @@ const UserSchema = new mongoose.Schema({
   /* Teacher */
   fees: { type: Number },
   students: [ChildSchema],
-  schedule: Schedule,
+  // schedule: Schedule, TODO: Add schedule schema
 
   role: {
     type: String,
@@ -48,13 +48,13 @@ const UserSchema = new mongoose.Schema({
 });
 
 // Override the transform function of the schema to delete the password before it returns the object
-if (!userSchema.options.toObject) {
-  userSchema.options.toObject = {};
+if (!UserSchema.options.toObject) {
+  UserSchema.options.toObject = {};
 }
-userSchema.options.toObject.transform = (document, transformedDocument) => {
+UserSchema.options.toObject.transform = (document, transformedDocument) => {
   delete transformedDocument.password;
   return transformedDocument;
 };
 
 mongoose.model('Child', ChildSchema);
-mongoose.model('User', userSchema);
+mongoose.model('User', UserSchema);

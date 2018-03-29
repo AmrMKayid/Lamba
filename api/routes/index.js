@@ -1,8 +1,7 @@
 var express = require('express'),
   router = express.Router(),
   jwt = require('jsonwebtoken'),
-  authCtrl = require('../controllers/auth.controller'),
-  listCtrl = require('../controllers/list.controller');
+  authCtrl = require('../controllers/auth.controller');
 
 var isAuthenticated = function(req, res, next) {
   // Check that the request has the JWT in the authorization header

@@ -24,6 +24,7 @@ module.exports.register = function(req, res, next) {
       data: null
     });
   }
+
   // Check that the password is 8+ characters
   var password = req.body.password.trim();
   if (password.length < 8) {
@@ -33,6 +34,7 @@ module.exports.register = function(req, res, next) {
       data: null
     });
   }
+
   // Check that password matches confirmPassword
   if (password !== req.body.confirmPassword.trim()) {
     return res.status(422).json({
@@ -41,6 +43,7 @@ module.exports.register = function(req, res, next) {
       data: null
     });
   }
+
   // Check that no other user is registered with this email
   User.findOne({
     email: req.body.email.trim().toLowerCase()
@@ -58,10 +61,6 @@ module.exports.register = function(req, res, next) {
         data: null
       });
     }
-
-    // Security Check
-    delete req.body.createdAt;
-    delete req.body.updatedAt;
 
     // Encrypt the password before saving the user in the database
     Encryption.hashPassword(password, function(err, hash) {
