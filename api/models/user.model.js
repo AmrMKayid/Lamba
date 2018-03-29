@@ -1,60 +1,108 @@
 var mongoose = require('mongoose');
-// TODO: Add other models
+
+const uniqueUser = new mongoose.Schema({});
 
 const ChildSchema = new mongoose.Schema({
-  username: { type: String, unique: true, required: true, trim: true },
-  password: { type: String, required: true, trim: true },
-  score: { type: Number }
-  // activities: [Activities], // TODO: List of activities schema
-  // schedule: Schedule // TODO: Add schedule schema
+    username: {
+        type: String,
+        unique: true,
+        required: true,
+        trim: true
+    },
+    password: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    parent_id: {
+        type: String,
+        required: true
+    },
+    schedule: {
+        Timetable: [[String]],
+        createdAt: {type: Date, default: Date.now},
+        updatedAt: {type: Date, default: Date.now}
+    },
+    score: Number,
+    //IDs :
+    allowedArticles: [String],
+    enrolledActivities: [String],
+    schedule: String
+
 });
 
+
 const UserSchema = new mongoose.Schema({
-  email: { type: String, unique: true, required: true, trim: true, lowercase: true },
-  password: { type: String, required: true, trim: true },
-  name: {
-    firstName: {type: String , required: true},
-    middleName: {type: String},
-    lastName: {type: String, required: true}
-  },
-  birthday: { type: Date },
-  gender: {
+    role: {
+        type: String,
+        required: true,
+        enum: ['Admin', 'Parent', 'Teacher']
+    },
+    email: {
+        type: String,
+        unique: true,
+        required: true,
+        trim: true,
+        lowercase: true
+    },
+    password: {
+        type: String,
+        required: true,
+        trim: true //Will be trimmed in the frontend as well while sending the request.
+    },
+    name: {
+        firstName: {type: String, required: true},
+        middleName: {type: String},
+        lastName: {type: String, required: true}
+    },
+    birthday: Date,
+    gender: {
         type: String,
         enum: ['male', 'female']
-  },
-
-  photo: { type: Buffer },
-  phone: { type: String },
-  address: {
+    },
+    photo: String,
+    phone: String,
+    address: {
         street: String,
         city: String,
         state: String,
         zip: Number
-  },
-  educationSystem: { type: String },
+    },
 
-  /* Parent */
-  children: [ChildSchema],
+    myItems: [String],
+    cart: [String],
+    //Teacher:
+    fees: Number,
+    schedule: {
+        Timetable: [[String]],
+        createdAt: {type: Date, default: Date.now},
+        updatedAt: {type: Date, default: Date.now}
+    },
+    about: String,
+    qualifications: [String]
 
-  /* Teacher */
-  fees: { type: Number },
-  students: [ChildSchema],
-  // schedule: Schedule, TODO: Add schedule schema
-
-  role: {
-    type: String,
-    enum: ['Admin', 'Parent', 'Teacher']
-  }
 });
 
 // Override the transform function of the schema to delete the password before it returns the object
+
 if (!UserSchema.options.toObject) {
-  UserSchema.options.toObject = {};
+    UserSchema.options.toObject = {};
 }
+
 UserSchema.options.toObject.transform = (document, transformedDocument) => {
-  delete transformedDocument.password;
-  return transformedDocument;
+    delete transformedDocument.password;
+    return transformedDocument;
+};
+
+if (!ChildSchema.options.toObject) {
+    ChildSchema.options.toObject = {};
+}
+
+ChildSchema.options.toObject.transform = (document, transformedDocument) =>{
+    delete transformedDocument.password;
+    return transformedDocument;
 };
 
 mongoose.model('Child', ChildSchema);
 mongoose.model('User', UserSchema);
+mongoose.model('UniqueUser', uniqueUser);
