@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-const uniqueUser = new mongoose.Schema({});
+const UniqueUserSchema = new mongoose.Schema({});
 
 const ChildSchema = new mongoose.Schema({
     username: {
@@ -105,4 +105,4 @@ ChildSchema.options.toObject.transform = (document, transformedDocument) =>{
 
 mongoose.model('Child', ChildSchema);
 mongoose.model('User', UserSchema);
-mongoose.model('UniqueUser', uniqueUser);
+mongoose.model('UniqueUser', UniqueUserSchema);
