@@ -41,30 +41,9 @@ var isNotAuthenticated = function(req, res, next) {
   next();
 };
 
-//-----------------------------Authentication Routes-------------------------
+//---------------------------- Authentication Routes --------------------------------//
 router.post('/auth/register', isNotAuthenticated, authCtrl.register);
 router.post('/auth/login', isNotAuthenticated, authCtrl.login);
-
-//-------------------------------List Routes---------------------------------
-router.get('/list/getLists', isAuthenticated, listCtrl.getLists);
-router.get('/list/getList/:listId', isAuthenticated, listCtrl.getList);
-router.post('/list/createList', isAuthenticated, listCtrl.createList);
-router.patch(
-  '/list/updateListName/:listId',
-  isAuthenticated,
-  listCtrl.updateListName
-);
-router.patch('/list/:listId/createTask', isAuthenticated, listCtrl.createTask);
-router.patch(
-  '/list/:listId/updateTask/:taskId',
-  isAuthenticated,
-  listCtrl.updateTask
-);
-router.patch(
-  '/list/:listId/deleteTask/:taskId',
-  isAuthenticated,
-  listCtrl.deleteTask
-);
-router.delete('/list/deleteList/:listId', isAuthenticated, listCtrl.deleteList);
+//----------------------------------------------------------------------------------//
 
 module.exports = router;

@@ -1,58 +1,50 @@
 var mongoose = require('mongoose');
+// TODO: Add other models
 
-var taskSchema = mongoose.Schema({
-  description: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  done: {
-    type: Boolean,
-    default: false
-  },
-  dueDate: Date,
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
-  updatedAt: Date
+const ChildSchema = new mongoose.Schema({
+  username: { type: String, unique: true, required: true, trim: true },
+  password: { type: String, required: true, trim: true },
+  score: { type: Number }
+  // activities: [Activities], // TODO: List of activities schema
+  // schedule: Schedule // TODO: Add schedule schema
 });
 
-var listSchema = mongoose.Schema({
+const UserSchema = new mongoose.Schema({
+  email: { type: String, unique: true, required: true, trim: true, lowercase: true },
+  password: { type: String, required: true, trim: true },
   name: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
-    lowercase: true
+    firstName: {type: String , required: true},
+    middleName: {type: String},
+    lastName: {type: String, required: true}
   },
-  tasks: [taskSchema],
-  createdAt: {
-    type: Date,
-    default: Date.now
+  birthday: { type: Date },
+  gender: {
+        type: String,
+        enum: ['male', 'female']
   },
-  updatedAt: Date
-});
 
-var userSchema = mongoose.Schema({
-  email: {
+  photo: { type: Buffer },
+  phone: { type: String },
+  address: {
+        street: String,
+        city: String,
+        state: String,
+        zip: Number
+  },
+  educationSystem: { type: String },
+
+  /* Parent */
+  children: [ChildSchema],
+
+  /* Teacher */
+  fees: { type: Number },
+  students: [ChildSchema],
+  schedule: Schedule,
+
+  role: {
     type: String,
-    required: true,
-    unique: true,
-    trim: true,
-    lowercase: true
-  },
-  password: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  lists: [listSchema],
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
-  updatedAt: Date
+    enum: ['Admin', 'Parent', 'Teacher']
+  }
 });
 
 // Override the transform function of the schema to delete the password before it returns the object
@@ -64,4 +56,5 @@ userSchema.options.toObject.transform = (document, transformedDocument) => {
   return transformedDocument;
 };
 
+mongoose.model('Child', ChildSchema);
 mongoose.model('User', userSchema);
