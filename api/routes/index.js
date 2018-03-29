@@ -1,7 +1,8 @@
 var express = require('express'),
   router = express.Router(),
   jwt = require('jsonwebtoken'),
-  authCtrl = require('../controllers/auth.controller');
+  authCtrl = require('../controllers/auth.controller'),
+  articleCtrl = require('../controllers/article.controller');
 
 var isAuthenticated = function(req, res, next) {
   // Check that the request has the JWT in the authorization header
@@ -9,7 +10,7 @@ var isAuthenticated = function(req, res, next) {
   if (!token) {
     return res.status(401).json({
       error: null,
-      msg: 'You have to login first before you can access your lists.',
+      msg: 'You have to login to get permission.',
       data: null
     });
   }
@@ -44,5 +45,7 @@ var isNotAuthenticated = function(req, res, next) {
 router.post('/auth/register', isNotAuthenticated, authCtrl.register);
 router.post('/auth/login', isNotAuthenticated, authCtrl.login);
 //----------------------------------------------------------------------------------//
+router.get('/articles', isAuthenticated, articleCtrl.getArticles);
+router.post('/articles', isAuthenticated, articleCtrl.createArticle);
 
 module.exports = router;
