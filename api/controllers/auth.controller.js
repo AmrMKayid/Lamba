@@ -10,6 +10,12 @@ var mongoose = require('mongoose'),
 module.exports.register = function(req, res, next) {
   // Check that the body keys are in the expected format and the required fields are there
   var valid =
+    req.body.name.firstName &&
+    Validations.isString(req.body.name.firstName) &&
+    req.body.name.lastName &&
+    Validations.isString(req.body.name.lastName) &&
+    req.body.role &&
+    Validations.isString(req.body.role) &&
     req.body.email &&
     Validations.isString(req.body.email) &&
     Validations.matchesRegex(req.body.email, EMAIL_REGEX) &&

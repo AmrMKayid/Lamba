@@ -9,7 +9,7 @@ var isAuthenticated = function(req, res, next) {
   if (!token) {
     return res.status(401).json({
       error: null,
-      msg: 'You have to login first before you can access your lists.',
+      msg: 'You have to login first!',
       data: null
     });
   }
