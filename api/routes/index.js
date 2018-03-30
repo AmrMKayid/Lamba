@@ -3,6 +3,8 @@ var express = require('express'),
   jwt = require('jsonwebtoken'),
   authCtrl = require('../controllers/auth.controller'),
     scheduleCtrl = require('../controllers/schedule.controller');
+	  taskCtrl = require('../controllers/task.controller');
+
 
 var isAuthenticated = function(req, res, next) {
   // Check that the request has the JWT in the authorization header
@@ -51,6 +53,8 @@ router.post('/schedule/createTeacherSchedule/:UserId',scheduleCtrl.createTeacher
 router.get('/schedule/getTeacherSchedule/:UserId',scheduleCtrl.getTeacherSchedule);
 router.post('/schedule/createChildShcedule/:ParentId/:ChildId',scheduleCtrl.createChildShcedule);
 router.get('/schedule/getChildSchedule/:UserId/:ChildId',scheduleCtrl.getChildSchedule);
+router.post('/task/newTask', taskCtrl.createNewTask);
+router.post('/task/newComment', taskCtrl.createNewComment);
 //----------------------------------------------------------------------------------//
 
 module.exports = router;
