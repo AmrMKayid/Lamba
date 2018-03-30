@@ -20,15 +20,24 @@ const ChildSchema = new mongoose.Schema({
     },
     schedule: {
         Timetable: [[String]],
-        createdAt: {type: Date, default: Date.now},
-        updatedAt: {type: Date, default: Date.now}
+        createdAt: { type: Date, default: Date.now },
+        updatedAt: { type: Date, default: Date.now }
     },
     score: Number,
     //IDs :
     allowedArticles: [String],
     enrolledActivities: [String],
-    schedule: String
-
+    name: {
+        firstName: { type: String, required: true },
+        middleName: { type: String },
+        lastName: { type: String, required: true } //Can be passed in the backend as his parent's name
+    },
+    birthday: Date,
+    gender: {
+        type: String,
+        enum: ['male', 'female']
+    },
+    photo: String
 });
 
 
@@ -51,9 +60,9 @@ const UserSchema = new mongoose.Schema({
         trim: true //Will be trimmed in the frontend as well while sending the request.
     },
     name: {
-        firstName: {type: String, required: true},
-        middleName: {type: String},
-        lastName: {type: String, required: true}
+        firstName: { type: String, required: true },
+        middleName: { type: String },
+        lastName: { type: String, required: true }
     },
     birthday: Date,
     gender: {
@@ -71,15 +80,16 @@ const UserSchema = new mongoose.Schema({
 
     myItems: [String],
     cart: [String],
-    //Teacher:
+    //////////////////////////// Teacher:
     fees: Number,
     schedule: {
         Timetable: [[String]],
-        createdAt: {type: Date, default: Date.now},
-        updatedAt: {type: Date, default: Date.now}
+        createdAt: { type: Date, default: Date.now },
+        updatedAt: { type: Date, default: Date.now }
     },
     about: String,
-    qualifications: [String]
+    qualifications: [String],
+    students: [String]
 
 });
 
@@ -98,7 +108,7 @@ if (!ChildSchema.options.toObject) {
     ChildSchema.options.toObject = {};
 }
 
-ChildSchema.options.toObject.transform = (document, transformedDocument) =>{
+ChildSchema.options.toObject.transform = (document, transformedDocument) => {
     delete transformedDocument.password;
     return transformedDocument;
 };
