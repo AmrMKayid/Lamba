@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
   User = mongoose.model('User'),
   Item = mongoose.model('Item');
   jwt = require('jsonwebtoken');
+  mw = require('../routes/middlewares');
 
 
 
@@ -73,8 +74,28 @@ module.exports.uploadItemPhoto = function(req, res, next) {
 			  data: null
 			});
 	}
-		// The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-		console.log(req.file);
+	    var token = req.headers['authorization'];
+    if (!token) {
+        return res.status(401).json({
+            error: null,
+            msg: 'You have to login first!',
+            data: null
+        });
+    }
+    // Verify that the JWT is created using our server secret and that it hasn't expired yet
+    jwt.verify(token, req.app.get('secret'), function (err, decodedToken) {
+        if (err) {
+
+            return res.status(401).json({
+                error: err,
+                msg: 'Login timed out, please login again.',
+                data: null
+            });
+            	// TODO: delete the file
+           }
+
+
+       });
  
   // Use the mv() method to place the file somewhere on your serve
 	return res.status(200).json({ err: null, msg: "Created Item successfully" , data: "da" });
