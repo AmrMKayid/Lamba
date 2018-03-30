@@ -4,7 +4,8 @@ var mongoose = require('mongoose'),
   User = mongoose.model('User'),
   Item = mongoose.model('Item');
   jwt = require('jsonwebtoken');
-  mw = require('../routes/middlewares');
+  mw = require('../routes/middlewares'),
+  fs = require('fs');
 
 
 
@@ -76,6 +77,7 @@ module.exports.uploadItemPhoto = function(req, res, next) {
 	}
 	    var token = req.headers['authorization'];
     if (!token) {
+    	fs.unlink(req.file.path);
         return res.status(401).json({
             error: null,
             msg: 'You have to login first!',
@@ -86,19 +88,18 @@ module.exports.uploadItemPhoto = function(req, res, next) {
     jwt.verify(token, req.app.get('secret'), function (err, decodedToken) {
         if (err) {
 
+        	fs.unlink(req.file.path);
             return res.status(401).json({
                 error: err,
                 msg: 'Login timed out, please login again.',
                 data: null
             });
-            	// TODO: delete the file
            }
-
+           return res.status(200).json({ err: null, msg: "Created Item successfully" , filename:req.file.filename});
 
        });
  
   // Use the mv() method to place the file somewhere on your serve
-	return res.status(200).json({ err: null, msg: "Created Item successfully" , data: "da" });
 }
 
 module.exports.viewItems = function(req, res, next) {
