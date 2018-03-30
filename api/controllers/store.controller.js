@@ -46,7 +46,6 @@ module.exports.createItems = async function(req, res, next) {
     	picture_url: req.body.picture_url,
     	seller_id: user_id
     };
-  console.log(item);
   	// inserts the new object in the database
     Item.create(item, function(err, newItem){
     	if(err)
@@ -57,12 +56,29 @@ module.exports.createItems = async function(req, res, next) {
 			  data: null
 			});
     	}
-    	res.status(200).json({ err: null, msg: "Created Item successfully" , data: newItem });
+    	return res.status(200).json({ err: null, msg: "Created Item successfully" , data: newItem });
 
     });
 
 }
 
+
+// uploads a photo 
+module.exports.uploadItemPhoto = function(req, res, next) {
+	if (!req.file)
+	{
+    	return res.status(422).json({
+			  err: null,
+			  msg: "Couldn't upload image",
+			  data: null
+			});
+	}
+		// The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+		console.log(req.file);
+ 
+  // Use the mv() method to place the file somewhere on your serve
+	return res.status(200).json({ err: null, msg: "Created Item successfully" , data: "da" });
+}
 
 module.exports.viewItems = function(req, res, next) {
 	console.log("view\n");

@@ -1,7 +1,8 @@
 // Execute the mongoDB file to create, define the collections and connect to the database
 require('./api/config/mongoDB');
 
-var express = require('express'),
+const express = require('express'),
+  concat = require('concat-stream'),
   logger = require('morgan'),
   cors = require('cors'),
   helmet = require('helmet'),
@@ -10,6 +11,7 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   routes = require('./api/routes'),
   config = require('./api/config'),
+  multer = require('multer'),
   app = express();
 
 // Set the secret of the app that will be used in authentication
@@ -17,6 +19,21 @@ app.set('secret', config.SECRET);
 
 
 //---------------- Middlewares ----------------//
+
+// Middleware for uploading binary files 
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/store/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+});
+
+app.use(multer({
+     storage: storage
+}).single('img'));
+
 
 // Middleware to log all of the requests that comes to the server
 app.use(logger(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
@@ -40,11 +57,15 @@ app.use(passport.session());
 // Middleware to compress the server json responses to be smaller in size
 app.use(compression());
 
+
+
 /*
   Middleware to parse the request body that is in format "application/json" or
   "application/x-www-form-urlencoded" as json and make it available as a key on the req
   object as req.body
 */
+
+
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -82,5 +103,11 @@ app.use(function(req, res) {
   });
 });
 
+app.use(function(req, res, next){
+  req.pipe(concat(function(data){
+    req.body = data;
+    next();
+  }));
+});
 
 module.exports = app;
