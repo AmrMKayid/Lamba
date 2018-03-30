@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
   moment = require('moment'),
   Validations = require('../utils/validations'),
   User = mongoose.model('User'),
-  Store = mongoose.model('Store');
+  Store = mongoose.model('Item');
   jwt = require('jsonwebtoken');
 
 

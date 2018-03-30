@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-const StoreSchema = new mongoose.Schema({
+const ItemSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -44,4 +44,4 @@ const StoreSchema = new mongoose.Schema({
 });
 
 
-mongoose.model('Store', StoreSchema);
+mongoose.model('Item', ItemSchema);
