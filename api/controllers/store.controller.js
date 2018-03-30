@@ -40,6 +40,11 @@ module.exports.createItems = async function(req, res, next) {
     	name: req.body.name,
     	description: req.body.description,
     	quantity: req.body.quantity,
+    	price: req.body.price,
+    	likes_user_id: [],
+    	buyers_id: [],
+    	type: req.body.type,
+
 
     };
   
