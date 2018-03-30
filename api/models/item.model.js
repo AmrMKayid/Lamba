@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
-
-const ItemSchema = new mongoose.Schema({
+const Schema = mongoose.Schema;
+const ItemSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -37,7 +37,7 @@ const ItemSchema = new mongoose.Schema({
 	 required: true
 	},
     seller_id: {
-		type: Number,
+		type: Schema.Types.ObjectId,
 		required: true        
     }
 

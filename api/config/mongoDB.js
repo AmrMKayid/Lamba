@@ -62,4 +62,4 @@ mongoose.connect(dbUrl, function(err) {
 });
 
 require('../models/user.model');
-require('../models/store.model');
+require('../models/item.model');
