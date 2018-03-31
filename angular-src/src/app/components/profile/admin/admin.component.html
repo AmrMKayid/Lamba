@@ -1,3 +1,26 @@
-<p>
-  admin works!
-</p>
+
+<div class="row">
+  <div class="col-lg-4 col-md-4"  *ngFor="let teacher of Teacher| filter:filter | paginate: { itemsPerPage: 6, currentPage: p };">
+    <div class="card text-center">
+      <div class="card-header">
+        Name: {{ teacher.firstName+" "+teacher.lastName}}
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">{{ teacher.about }}</h3>
+        <h5 class="card-title">{{ teacher.qualifications}}</h5>
+        <h5 class="card-title">{{teacher.fees | currency }}</h5>
+        <h5 class="card-title">{{ teacher.address}}</h5>
+        <button class="btn btn-success " (click)="Accept(teacher._id)" >Accept</button>
+        <button class="btn btn-danger " (click)="Decline(teacher._id)" >Accept</button>
+
+
+      </div>
+      <div class="card-footer text-muted">
+        Listed on: <strong>{{ teacher.joinedAt | date }}</strong> 
+      </div>
+    </div>
+  </div>
+  </div>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+  
