@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { ToasterService } from 'angular5-toaster';
+//import { ToasterService } from 'angular5-toaster';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -11,29 +11,21 @@ import { HttpClient } from '@angular/common/http';
 export class TscheduleComponent implements OnInit {
 
   public timetable;
-  public sat = [];
+  public day = [];
 
-  constructor(private http: HttpClient,
-              private toaster: ToasterService) {
+  constructor(private http: HttpClient,) {
 
   }
 
   createTeacherSchedule(){
     //let user= JSON.parse(localStorage.getItem('currentUser')).user;
-    this.http.post('http://localhost:3000/api/schedule/createTeacherSchedule/'+ user._id).subscribe(res => {
-      this.toaster.pop({
-        type: 'Success',
-        title: "Success!",
-        body: "Schedule created successfully ;)",
-        timeout: 3000
-      });
-    });
+    this.http.post('http://localhost:3000/api/schedule/createTeacherSchedule/5abf8255adae82c5227d1c74',null ).subscribe();
   }
 
   getTeacherSchedule(){
     //let user= JSON.parse(localStorage.getItem('currentUser')).user;
-    this.http.get('http://localhost:3000/api/schedule/getTeacherSchedule/'+ user._id).subscribe((res: any) => { this.timetable = res.data; });
-     sat = this.timetable.saturday;
+    this.http.get('http://localhost:3000/api/schedule/getTeacherSchedule/5abf8255adae82c5227d1c74').subscribe((res: any) => { this.timetable = res.data; });
+     this.day = this.timetable.saturday;
 
   }
 
