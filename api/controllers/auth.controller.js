@@ -29,7 +29,7 @@ module.exports.register = function (req, res, next) {
         return res.status(422).json({
             err: null,
             msg:
-                'name(Object(firstName & lastName)), email(String and of valid email format), password(String) and confirmPassword(String) are required fields.',
+                'name(Object(firstName & lastName)), email(String and of valid email format), password(String), confirmPassword(String) and Role(String) are required fields.',
             data: null
         });
     }
@@ -265,6 +265,122 @@ module.exports.addChild = function (req, res, next) {
         });
     });
 
+};
+
+
+module.exports.addAdmin = function (req, res, next) {
+
+    var valid =
+        req.body.name &&
+        req.body.name.firstName &&
+        Validations.isString(req.body.name.firstName) &&
+        req.body.name.lastName &&
+        Validations.isString(req.body.name.lastName) &&
+        req.body.email &&
+        Validations.isString(req.body.email) &&
+        Validations.matchesRegex(req.body.email, EMAIL_REGEX) &&
+        req.body.password &&
+        Validations.isString(req.body.password) &&
+        req.body.confirmPassword &&
+        Validations.isString(req.body.confirmPassword);
+
+    if (!valid) {
+        return res.status(422).json({
+            err: null,
+            msg:
+                'name(Object(firstName & lastName)), email(String and of valid email format), password(String) and confirmPassword(String) are required fields.',
+            data: null
+        });
+    }
+
+    // Check that the password is 8+ characters
+    var password = req.body.password.trim();
+    if (password.length < 8) {
+        return res.status(422).json({
+            err: null,
+            msg: 'Password must be of length 8 characters or more.',
+            data: null
+        });
+    }
+
+
+    // Check that password matches confirmPassword
+    if (password !== req.body.confirmPassword.trim()) {
+        return res.status(422).json({
+            err: null,
+            msg: 'password and confirmPassword does not match.',
+            data: null
+        });
+    }
+
+
+    if (req.decodedToken.user.role !== "Admin") {
+        return res.status(401).json({
+            err: null,
+            msg: "You don't have permissions (Only Admin accounts can add new Admin!)",
+            data: null
+        });
+    }
+
+
+    if (req.body.gender && !(req.body.gender === 'male' || req.body.gender === 'female')) {
+        return res.status(422).json({
+            err: null,
+            msg: 'gender is not valid.',
+            data: null
+        });
+    }
+
+
+    // Check that no other user is registered with this email
+    User.findOne({
+        email: req.body.email.trim().toLowerCase()
+    }).exec(function (err, user) {
+        // If an err occurred, call the next middleware in the app.js which is the error handler
+        if (err) {
+            return next(err);
+        }
+        // If there is a user with this email don't continue
+        if (user) {
+            return res.status(422).json({
+                err: null,
+                msg:
+                    'A user with this email address already exists, please try another email address.',
+                data: null
+            });
+        }
+
+        // Encrypt the password before saving the user in the database
+        Encryption.hashPassword(password, function (err, hash) {
+            // If an err occurred, call the next middleware in the app.js which is the error handler
+            if (err) {
+                return next(err);
+            }
+
+            req.body.password = hash;
+
+            req.body.role = 'Admin';
+
+            UniqueUser.create({}, function (err, newUniqueUser) {
+                if (err) {
+                    return next(err);
+                }
+
+                req.body._id = newUniqueUser._id
+                User.create(req.body, function (err, newUser) {
+                    if (err) {
+                        return next(err);
+                    }
+                    res.status(201).json({
+                        err: null,
+                        msg: 'new Admin is Created!',
+                        data: newUser.toObject()
+                    });
+                });
+
+            })
+        });
+    });
 };
 
 

@@ -77,7 +77,11 @@ const UserSchema = new mongoose.Schema({
         state: String,
         zip: Number
     },
-    joinedAt: Date.now(),
+
+    joinedAt: {
+        type: Date,
+        default: Date.now()
+    },
 
     myItems: [String],
     cart: [String],
