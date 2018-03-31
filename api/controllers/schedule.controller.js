@@ -36,8 +36,6 @@ module.exports.createTeacherSchedule = function(req, res, next) {
      }*/
     //console.log(req.params.email);
     Teacher.findById(req.params.UserId).exec(function(err, user) {
-
-        console.log(req.params.UserId);
         if (err) {
             return next(err);
         }
@@ -52,7 +50,33 @@ module.exports.createTeacherSchedule = function(req, res, next) {
                 .json({ err: null, msg: 'Unauthorized Access.', data: null });
         }
 
-        user.schedule.Timetable = [[]];
+        for(var i=0; i< 8 ; i++){
+            user.schedule.table.saturday.push({});
+        }
+
+        for(var i=0; i< 8 ; i++){
+            user.schedule.table.sunday.push({});
+        }
+
+        for(var i=0; i< 8 ; i++){
+            user.schedule.table.monday.push({});
+        }
+
+        for(var i=0; i< 8 ; i++){
+            user.schedule.table.tuesday.push({});
+        }
+
+        for(var i=0; i< 8 ; i++){
+            user.schedule.table.wednesday.push({});
+        }
+
+        for(var i=0; i< 8 ; i++){
+            user.schedule.table.thursday.push({});
+        }
+
+        for(var i=0; i< 8 ; i++) {
+            user.schedule.table.friday.push({});
+        }
         user.save(function(err) {
             if (err) {
                 return next(err);
@@ -60,9 +84,11 @@ module.exports.createTeacherSchedule = function(req, res, next) {
             res.status(201).json({
                 err: null,
                 msg: 'Schedule created successfully.',
-                data: user.schedule.Timetable
+                data: user.schedule.table
             });
+
         });
+       // onsole.log(user.schedule.table);
     });
 };
 
@@ -147,7 +173,34 @@ module.exports.createChildShcedule = function(req, res, next) {
                 .json({ err: null, msg: '401 Unauthorized', data: null });
         }
 
-        user.schedule.Timetable = [[]];
+        for(var i=0; i< 8 ; i++){
+            user.schedule.table.saturday.push({});
+        }
+
+        for(var i=0; i< 8 ; i++){
+            user.schedule.table.sunday.push({});
+        }
+
+        for(var i=0; i< 8 ; i++){
+            user.schedule.table.monday.push({});
+        }
+
+        for(var i=0; i< 8 ; i++){
+            user.schedule.table.tuesday.push({});
+        }
+
+        for(var i=0; i< 8 ; i++){
+            user.schedule.table.wednesday.push({});
+        }
+
+        for(var i=0; i< 8 ; i++){
+            user.schedule.table.thursday.push({});
+        }
+
+        for(var i=0; i< 8 ; i++) {
+            user.schedule.table.friday.push({});
+        }
+
         user.save(function(err) {
             if (err) {
                 return next(err);
@@ -155,7 +208,7 @@ module.exports.createChildShcedule = function(req, res, next) {
             res.status(201).json({
                 err: null,
                 msg: 'schedule is created ',
-                data: user.schedule.Timetable
+                data: user.schedule.table
             });
         });
     });

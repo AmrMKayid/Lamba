@@ -1,5 +1,20 @@
 var mongoose = require('mongoose');
 
+const slotSchema = new mongoose.Schema({
+    time : {
+        type : String,
+        default : 'time'
+    },
+    description:{
+        type : String ,
+        default : 'description'
+    },
+    url:{
+        type : String ,
+        default : 'url'
+    }
+});
+
 const UniqueUserSchema = new mongoose.Schema({});
 
 const ChildSchema = new mongoose.Schema({
@@ -20,9 +35,124 @@ const ChildSchema = new mongoose.Schema({
     },
 
     schedule: {
-        Timetable: [[String]],
-        createdAt: { type: Date, default: Date.now },
-        updatedAt: { type: Date, default: Date.now }
+        table :{
+            saturday:[{
+                slot :{
+                    time : {
+                        type : String,
+                        default : 'time'
+                    },
+                    description:{
+                        type : String ,
+                        default : 'description'
+                    },
+                    url:{
+                        type : String ,
+                        default : 'url'
+                    }
+                }
+            }],
+            sunday:[{
+                slot :{
+                    time : {
+                        type : String,
+                        default : 'time'
+                    },
+                    description:{
+                        type : String ,
+                        default : 'description'
+                    },
+                    url:{
+                        type : String ,
+                        default : 'url'
+                    }
+                }
+            }],
+            monday:[{
+                slot :{
+                    time : {
+                        type : String,
+                        default : 'time'
+                    },
+                    description:{
+                        type : String ,
+                        default : 'description'
+                    },
+                    url:{
+                        type : String ,
+                        default : 'url'
+                    }
+                }
+            }],
+            tuesday:[{
+                slot :{
+                    time : {
+                        type : String,
+                        default : 'time'
+                    },
+                    description:{
+                        type : String ,
+                        default : 'description'
+                    },
+                    url:{
+                        type : String ,
+                        default : 'url'
+                    }
+                }
+            }],
+            wednesday:[{
+                slot :{
+                    time : {
+                        type : String,
+                        default : 'time'
+                    },
+                    description:{
+                        type : String ,
+                        default : 'description'
+                    },
+                    url:{
+                        type : String ,
+                        default : 'url'
+                    }
+                }
+            }],
+            thursday:[{
+                slot :{
+                    time : {
+                        type : String,
+                        default : 'time'
+                    },
+                    description:{
+                        type : String ,
+                        default : 'description'
+                    },
+                    url:{
+                        type : String ,
+                        default : 'url'
+                    }
+                }
+            }],
+            friday:[{
+                slot :{
+                    time : {
+                        type : String,
+                        default : 'time'
+                    },
+                    description:{
+                        type : String ,
+                        default : 'description'
+                    },
+                    url:{
+                        type : String ,
+                        default : 'url'
+                    }
+                }
+            }],
+
+            //  validate: [arrayLimit,'{PATH} exceeds the limit of 8']
+
+        },
+        updatedAt: { type: Date, default: Date.now },
     },
     score: Number,
     //IDs :
@@ -85,15 +215,131 @@ const UserSchema = new mongoose.Schema({
     //////////////////////////// Teacher:
     fees: Number,
     schedule: {
-        Timetable: [[String]],
-        createdAt: { type: Date, default: Date.now },
-        updatedAt: { type: Date, default: Date.now }
+        table :{
+            saturday:[{
+                slot :{
+                    time : {
+                        type : String,
+                        default : 'time'
+                    },
+                    description:{
+                        type : String ,
+                        default : 'description'
+                    },
+                    url:{
+                        type : String ,
+                        default : 'url'
+                    }
+                }
+            }],
+            sunday:[{
+                slot :{
+                    time : {
+                        type : String,
+                        default : 'time'
+                    },
+                    description:{
+                        type : String ,
+                        default : 'description'
+                    },
+                    url:{
+                        type : String ,
+                        default : 'url'
+                    }
+                }
+            }],
+            monday:[{
+                slot :{
+                    time : {
+                        type : String,
+                        default : 'time'
+                    },
+                    description:{
+                        type : String ,
+                        default : 'description'
+                    },
+                    url:{
+                        type : String ,
+                        default : 'url'
+                    }
+                }
+            }],
+            tuesday:[{
+                slot :{
+                    time : {
+                        type : String,
+                        default : 'time'
+                    },
+                    description:{
+                        type : String ,
+                        default : 'description'
+                    },
+                    url:{
+                        type : String ,
+                        default : 'url'
+                    }
+                }
+            }],
+            wednesday:[{
+                slot :{
+                    time : {
+                        type : String,
+                        default : 'time'
+                    },
+                    description:{
+                        type : String ,
+                        default : 'description'
+                    },
+                    url:{
+                        type : String ,
+                        default : 'url'
+                    }
+                }
+            }],
+            thursday:[{
+                slot :{
+                    time : {
+                        type : String,
+                        default : 'time'
+                    },
+                    description:{
+                        type : String ,
+                        default : 'description'
+                    },
+                    url:{
+                        type : String ,
+                        default : 'url'
+                    }
+                }
+            }],
+            friday:[{
+                slot :{
+                    time : {
+                        type : String,
+                        default : 'time'
+                    },
+                    description:{
+                        type : String ,
+                        default : 'description'
+                    },
+                    url:{
+                        type : String ,
+                        default : 'url'
+                    }
+                }
+            }],
+
+          //  validate: [arrayLimit,'{PATH} exceeds the limit of 8']
+
+        },
+        updatedAt: { type: Date, default: Date.now },
     },
     about: String,
     qualifications: [String],
     students: [String]
 
 });
+
 
 // Override the transform function of the schema to delete the password before it returns the object
 
@@ -114,6 +360,11 @@ ChildSchema.options.toObject.transform = (document, transformedDocument) => {
     delete transformedDocument.password;
     return transformedDocument;
 };
+
+
+function arrayLimit(val){
+    return val.length === 8;
+}
 
 mongoose.model('Child', ChildSchema);
 mongoose.model('User', UserSchema);
