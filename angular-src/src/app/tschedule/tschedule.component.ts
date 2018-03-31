@@ -26,12 +26,12 @@ export class TscheduleComponent implements OnInit {
 
   createTeacherSchedule(){
     //let user= JSON.parse(localStorage.getItem('currentUser')).user;
-    this.http.post('http://localhost:3000/api/schedule/createTeacherSchedule/5abfef1aadae82c5227d1c76',null ).subscribe();
+    this.http.post('http://localhost:3000/api/schedule/createTeacherSchedule/5ac00d87adae82c5227d1c77',null ).subscribe();
   }
 
   getTeacherSchedule(){
     //let user= JSON.parse(localStorage.getItem('currentUser')).user;
-    this.http.get('http://localhost:3000/api/schedule/getTeacherSchedule/5abfef1aadae82c5227d1c76').subscribe((res: any) => {
+    this.http.get('http://localhost:3000/api/schedule/getTeacherSchedule/5ac00d87adae82c5227d1c77').subscribe((res: any) => {
       this.sat = res.data.table.saturday;
       this.sun = res.data.table.sunday;
       this.mon = res.data.table.monday;
