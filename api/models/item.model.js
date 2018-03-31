@@ -39,7 +39,15 @@ const ItemSchema = new Schema({
     seller_id: {
 		type: Schema.Types.ObjectId,
 		required: true        
-    }
+    },
+    created_at:{
+        type: Date,
+        required: true
+    },
+    updated_at:{
+        type: Date, 
+        required:true
+    }  
 
 });
 
