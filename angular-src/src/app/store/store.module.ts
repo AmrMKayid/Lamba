@@ -6,16 +6,17 @@ import { StoreComponent } from './store.component';
 
 const routes: Routes = [
 	{
-	path: '',
-    component: StoreComponent,
-    children: [
-     {
-        path: 'sell',
-        component: SellComponent
-      }
-    ]
+		path: '',
+		component: StoreComponent,
+		children: [
+			 {
+				path: 'sell',
+				component: SellComponent
+			 }
+		]
     
-    }];
+    }
+];
 
 
 @NgModule({
@@ -23,7 +24,10 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [SellComponent],
+  declarations: [
+  SellComponent,
+  StoreComponent
+  ],
   exports: [RouterModule]
 })
 export class StoreModule { }
