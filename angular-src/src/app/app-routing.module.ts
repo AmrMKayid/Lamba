@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { MyitemsComponent } from './store/myitems/myitems.component';
+
 
 const routes: Routes = [
   {
-  	path: 'store/myitems',
-  	component: MyitemsComponent
+  	path: 'store',
+    loadChildren: './store/store.module#StoreModule'
   }
 ];
 
