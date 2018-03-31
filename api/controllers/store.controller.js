@@ -113,8 +113,22 @@ module.exports.uploadItemPhoto = function(req, res, next) {
 // retrieves a collection of tuples based on the paramaters
 module.exports.viewItems = function(req, res, next) {
 
+  var valid = Validations.isNumber(req.params.tuplesPerPage) &&
+    Validations.isNumber(req.params.pageNumber) &&
+    parseInt(req.params.tuplesPerPage) < 20;
+
+  // returns error if not valid
+  if (!valid) {
+    return res.status(422).json({
+      err: null,
+      msg: 'One or More field(s) is missing or of incorrect type',
+      data: null
+    });
+  }
+
   var limit = parseInt(req.params.tuplesPerPage);
   var pageNumber = parseInt(req.params.pageNumber);
+
 
   var query = Item.find().skip((pageNumber - 1) * limit).limit(limit);
 
