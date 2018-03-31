@@ -113,10 +113,17 @@ module.exports.uploadItemPhoto = function(req, res, next) {
 module.exports.viewItems = function(req, res, next) {
   console.log("view\n");
 
-  var query = Item.find().skip(req.body.pageNumber - 1 * req.body.tuplesPerPage).limit(req.body.tuplesPerPage);
+  // var query = Item.find().skip((req.params.pageNumber - 1) * req.params.tuplesPerPage).limit(req.params.tuplesPerPage);
+
+  // var limit = req.params.tuplesPerPage;
+  var limit = 2;
+  var query = Item.find().skip(2).limit(limit);
+
+  console.log("Page number = " + req.params.pageNumber + "\nTuples per page = " + limit);
 
   query.exec(function(err, items) {
-    if (err) return handleError(err);
+    if (err) return err;
+    console.log("Items retrieved");
     console.log(items);
     return res.status(200).json({
       err: null,
