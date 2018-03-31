@@ -14,30 +14,30 @@ const ChildSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    parent_id: {
-        type: String,
-        required: true
-    },
-    schedule: {
-        Timetable: [[String]],
-        createdAt: { type: Date, default: Date.now },
-        updatedAt: { type: Date, default: Date.now }
-    },
-    score: Number,
-    //IDs :
-    allowedArticles: [String],
-    enrolledActivities: [String],
     name: {
-        firstName: { type: String, required: true },
-        middleName: { type: String },
-        lastName: { type: String, required: true } //Can be passed in the backend as his parent's name
+        firstName: {type: String, required: true},
+        middleName: {type: String},
+        lastName: {type: String, required: true}
     },
     birthday: Date,
     gender: {
         type: String,
         enum: ['male', 'female']
     },
-    photo: String
+    photo: String,
+    parent_id: {
+        type: String,
+        required: true
+    },
+    schedule: {
+        Timetable: [[String]],
+        createdAt: {type: Date, default: Date.now},
+        updatedAt: {type: Date, default: Date.now}
+    },
+    score: Number,
+    //IDs :
+    allowedArticles: [String],
+    enrolledActivities: [String]
 });
 
 
@@ -60,9 +60,9 @@ const UserSchema = new mongoose.Schema({
         trim: true //Will be trimmed in the frontend as well while sending the request.
     },
     name: {
-        firstName: { type: String, required: true },
-        middleName: { type: String },
-        lastName: { type: String, required: true }
+        firstName: {type: String, required: true},
+        middleName: {type: String},
+        lastName: {type: String, required: true}
     },
     birthday: Date,
     gender: {
@@ -77,15 +77,22 @@ const UserSchema = new mongoose.Schema({
         state: String,
         zip: Number
     },
+    joinedAt: Date.now(),
 
     myItems: [String],
     cart: [String],
-    //////////////////////////// Teacher:
+
+    //------ Teacher ------ //
+
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
     fees: Number,
     schedule: {
         Timetable: [[String]],
-        createdAt: { type: Date, default: Date.now },
-        updatedAt: { type: Date, default: Date.now }
+        createdAt: {type: Date, default: Date.now},
+        updatedAt: {type: Date, default: Date.now}
     },
     about: String,
     qualifications: [String],

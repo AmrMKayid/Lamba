@@ -1,5 +1,4 @@
-let express = require('express'),
-    router = express.Router(),
+var express = require('express'),
     jwt = require('jsonwebtoken');
 
 module.exports.isAuthenticated = function (req, res, next) {
