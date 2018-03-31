@@ -17,16 +17,13 @@
 
 
 
-<div class="col-lg-4 col-md-4"  *ngFor="let slot of day">
 
-
+<table>
   <tr>
-
-    <th>{{slot.slot.description}}</th>
-
+    <td *ngFor="let slot of day"> {{slot.slot.time}} <br> {{slot.slot.description}} <br> {{slot.slot.url}}</td>
   </tr>
+</table>
 
-</div>
 
 
 </html>
