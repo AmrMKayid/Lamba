@@ -19,26 +19,68 @@ module.exports.createNewTask = function(req, res, next) {
 };
 
 module.exports.createNewComment = function(req, res, next) {
-    Comment.create(req.body, function(err, comment) {
-          if (err) {
-            return next(err);
-          }
-
-          Task.findById(req.body.taskId).exec(function(err, task) {
-            task.Comments.push(comment);
-            task.save(function(err) {
-              if (err) {
-                return next(err);
-              }
-              res.status(201).json({
-                err: null,
-                msg: 'Comment was created successfully.',
-                data: task
-              });
-
-            });
 
 
-          });
+  const com = {
+    Comment: req.body.Comment,
+    userId: req.body.userId,
+    userType: req.body.userType,
+  }
+
+  console.log(com)
+
+  Comment.create(com, function(err, comment) {
+    if (err) {
+      return next(err);
+    }
+
+    Task.findById(req.body.taskId).exec(function(err, task) {
+      task.Comments.push(comment);
+      task.save(function(err) {
+        if (err) {
+          return next(err);
+        }
+        res.status(201).json({
+          err: null,
+          msg: 'Comment was created successfully.',
+          data: task
         });
-      };
+
+      });
+
+
+    });
+  });
+};
+
+
+
+module.exports.getComments = function(req, res, next) {
+  Task.findById(req.params.taskId).exec(function(err, task) {
+    if (err) {
+      return next(err);
+    }
+
+    var ids = task.Comments;
+
+
+    const comarr = [];
+
+
+    for (var id of ids) {
+      Comment.findById(id).exec(function(err, com) {
+        comarr.push(com);
+      });
+    }
+
+    res.status(201).json({
+      err: null,
+      msg: 'Comment was r successfully.',
+      data: comarr
+    });
+
+
+
+  });
+
+};
