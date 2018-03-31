@@ -6,7 +6,7 @@ import { MyitemsComponent } from './store/myitems/myitems.component';
 const routes: Routes = [
   {
   	path: 'store/myitems',
-  	loadChildren: MyitemsComponent
+  	component: MyitemsComponent
   }
 ];
 
