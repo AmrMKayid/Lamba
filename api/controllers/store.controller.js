@@ -110,24 +110,19 @@ module.exports.uploadItemPhoto = function(req, res, next) {
   // Use the mv() method to place the file somewhere on your serve
 }
 
+// retrieves a collection of tuples based on the paramaters
 module.exports.viewItems = function(req, res, next) {
-  console.log("view\n");
 
-  // var query = Item.find().skip((req.params.pageNumber - 1) * req.params.tuplesPerPage).limit(req.params.tuplesPerPage);
+  var limit = parseInt(req.params.tuplesPerPage);
+  var pageNumber = parseInt(req.params.pageNumber);
 
-  // var limit = req.params.tuplesPerPage;
-  var limit = 2;
-  var query = Item.find().skip(2).limit(limit);
-
-  console.log("Page number = " + req.params.pageNumber + "\nTuples per page = " + limit);
+  var query = Item.find().skip((pageNumber - 1) * limit).limit(limit);
 
   query.exec(function(err, items) {
     if (err) return err;
-    console.log("Items retrieved");
-    console.log(items);
     return res.status(200).json({
       err: null,
-      msg: "Created Item successfully",
+      msg: "Items retrieved successfully",
       data: items
     });
   })
