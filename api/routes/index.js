@@ -1,8 +1,9 @@
 var express = require('express'),
   router = express.Router(),
   jwt = require('jsonwebtoken'),
+    mw = require('./middlewares'),
   authCtrl = require('../controllers/auth.controller'),
-    scheduleCtrl = require('../controllers/schedule.controller');
+    scheduleCtrl = require('../controllers/schedule.controller'),
 	  taskCtrl = require('../controllers/task.controller');
 
 
@@ -43,10 +44,15 @@ var isNotAuthenticated = function(req, res, next) {
   next();
 };
 
+
+
+
 //---------------------------- Authentication Routes --------------------------------//
-router.post('/auth/register', isNotAuthenticated, authCtrl.register);
-router.post('/auth/login', isNotAuthenticated, authCtrl.login);
+router.post('/auth/register', mw.isNotAuthenticated, authCtrl.register);
+router.post('/auth/login', mw.isNotAuthenticated, authCtrl.login);
+router.post('/auth/child', mw.isAuthenticated, mw.isNotChild, authCtrl.addChild);
 //----------------------------------------------------------------------------------//
+
 
 //-------------------------------Schedule Routes------------------------------------//
 router.post('/schedule/createTeacherSchedule/:UserId',scheduleCtrl.createTeacherSchedule);
@@ -57,5 +63,6 @@ router.get('/schedule/getMySchedule/:ChildId',scheduleCtrl.getMySchedule);
 router.post('/task/newTask', taskCtrl.createNewTask);
 router.post('/task/newComment', taskCtrl.createNewComment);
 //----------------------------------------------------------------------------------//
+
 
 module.exports = router;
