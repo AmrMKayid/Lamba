@@ -16,11 +16,10 @@
 
 
 
-<div class="col-lg-4 col-md-4"  *ngFor="let slot of day">
-
-  <tr>
-    <th>{{slot.slot.description}}</th>
+<table>
+  <tr *ngFor="let slot of day">
+    <td>{{slot.slot.description}}</th>
   </tr>
-</div>
+</table>
 
 </html>
