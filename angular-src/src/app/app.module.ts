@@ -3,10 +3,19 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { StoreComponent } from './store/store.component';
+import { LoadChildren } from '@angular/router';
 
-const myRoots: Routes = [
+const routes: Routes = [
+  {
+  	path: 'store',
+  	component: StoreComponent,
+    loadChildren: 'app/store/store.module#StoreModule'
+  },
+  {
+  	path: 'st',
+  	component: StoreComponent
+  }
 ];
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -14,7 +23,7 @@ const myRoots: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(myRoots)
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
