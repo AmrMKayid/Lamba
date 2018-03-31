@@ -1,13 +1,26 @@
-<button  class="btn btn-primary "  (click)="createTeacherSchedule()"> create</button>
 
-<button  class="btn btn-primary "  (click)="getTeacherSchedule()"> saturday</button>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<button  class="tab"  (click)="createTeacherSchedule()"> create</button>
+<div class="tab" >
+
+  <button class="tablinks" onclick= "fsat()">Saturday</button>
+  <button class="tablinks" onclick= "fsun()">Sunday</button>
+  <button class="tablinks" onclick="fmon()">Monday</button>
+  <button class="tablinks" onclick="ftues()">Tuesday</button>
+  <button class="tablinks" onclick="fwed()">Wednesday</button>
+  <button class="tablinks" onclick="fthurs()">Thursday</button>
+  <button class="tablinks" onclick="ffri()">Friday</button>
+
+</div>
+
 
 <h2>slots</h2>
 <div class="col-lg-4 col-md-4"  *ngFor="let slot of day">
 
-  <tr>
-    <th>{{slot.description}}</th>
-    <th>{{slot.time}}</th>
-    <th>{{slot.url}}</th>
+  <tr class = "tabcontent">
+    <th>{{slot.slot.description}}</th>
   </tr>
 </div>
+
+</html>
