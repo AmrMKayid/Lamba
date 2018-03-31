@@ -14,6 +14,13 @@ export class TscheduleComponent implements OnInit {
   public timetable;
 
   public day = [];
+  public sat = [];
+  public sun = [];
+  public mon = [];
+  public tues = [];
+  public wed = [];
+  public thurs = [];
+  public fri = [];
 
   constructor(private http: HttpClient) {
 
@@ -22,22 +29,54 @@ export class TscheduleComponent implements OnInit {
   createTeacherSchedule(){
     //let user= JSON.parse(localStorage.getItem('currentUser')).user;
 
-    this.http.post('http://localhost:3000/api/schedule/createTeacherSchedule/5abffbc736680295c461476c',null ).subscribe();
+    this.http.post('http://localhost:3000/api/schedule/createTeacherSchedule/5ac010fd36680295c461476d',null ).subscribe();
 
   }
 
   getTeacherSchedule(){
     //let user= JSON.parse(localStorage.getItem('currentUser')).user;
 
-    this.http.get('http://localhost:3000/api/schedule/getTeacherSchedule/5abffbc736680295c461476c').subscribe((res: any) => { this.timetable = res.data.table;
-      this.day = this.timetable.saturday;
-      console.log(this.day);
+    this.http.get('http://localhost:3000/api/schedule/getTeacherSchedule/5ac010fd36680295c461476d').subscribe((res: any) => {
+      this.sat = res.data.table.saturday;
+      this.sun = res.data.table.sunday;
+      this.mon = res.data.table.monday;
+      this.tues = res.data.table.tuesday;
+      this.wed = res.data.table.wednesday;
+      this.thurs = res.data.table.thursday;
+      this.fri = res.data.table.friday;
+
     });
 
 
   }
 
+
+
   ngOnInit() {
+    this.getTeacherSchedule();
   }
+
+   fsat() {
+    this.day = this.sat;
+  }
+   fsun() {
+    this.day = this.sun;
+  }
+   fmon() {
+    this.day = this.mon;
+  }
+   ftues() {
+    this.day = this.tues;
+  }
+   fwed() {
+    this.day = this.wed;
+  }
+  fthurs() {
+    this.day = this.thurs;
+  }
+   ffri() {
+    this.day = this.fri;
+  }
+
 
 }
