@@ -1,47 +1,26 @@
-<div class="container">
-	<form>
-		<div class="form-group row">
-			<label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
-			<div class="col-sm-10">
-				<input type="email" class="form-control" id="inputEmail3"  placeholder="Title">
+<div class="row">
+	<div class="col-md-7">
+		<h2 class="primary-text text-center">POSTED ARTICLES: </h2>
+		<div class="container" [innerHTML]="articleContainer"></div>
+	</div>
+	<div class="col-md-5 jumbotron">
+		<form>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Title: </label>
+				<div class="col-sm-10">
+					<input class="form-control" [(ngModel)]="title" name="title" placeholder="Title">
+				</div>
 			</div>
-		</div>
-		<div class="form-group row">
-			<label for="inputPassword3" class="col-sm-2 col-form-label">Tags</label>
-			<div class="col-sm-10">
-				<input type="password" class="form-control" id="inputPassword3" placeholder="Tags">
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Tags: </label>
+				<div class="col-sm-10">
+					<input class="form-control" placeholder="Tags">
+				</div>
 			</div>
-		</div>
-		<quill-editor [placeholder]="'Enter post content here...'"                     
-		(onContentChanged)="logChange($event);" 
-		(onSelectionChanged)="logSelection($event)">
-		</quill-editor>
-		<div class="form-group row">
-			<div class="col-sm-10">
-				<button type="submit" class="btn btn-primary">Post</button>
-			</div>
-		</div>
-	</form>
+			<quill-editor [placeholder]="'Enter post content here...'" (onContentChanged)="updateContent($event);">
+			</quill-editor>
+			<br>
+			<button type="button" (click)="onSubmit()" class="btn btn-block btn-success">Post</button>
+		</form>
+	</div>
 </div>
-<div>{{content}}</div>
-<!-- <quill-editor [style]="{height: '250px', width: '250px'}">
-<div quill-editor-toolbar>
-				<span class="ql-formats">
-								<button class="ql-bold" [title]="'Bold'"></button>
-				</span>
-				<span class="ql-formats">
-								<select class="ql-align" [title]="'Aligment'">
-												<option selected></option>
-												<option value="center"></option>
-												<option value="right"></option>
-												<option value="justify"></option>
-								</select>
-								<select class="ql-align" [title]="'Aligment2'">
-												<option selected></option>
-												<option value="center"></option>
-												<option value="right"></option>
-												<option value="justify"></option>
-								</select>
-				</span>
-</div>
-</quill-editor> -->

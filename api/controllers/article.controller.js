@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
 
 
 module.exports.getArticles = function (req, res, next) {
-    //If he's a child, no need for further checks since the token is coming from the server (using the secret)
+    //If he's a child, no need for further checks since the token is coming from the server (using the secret)    
     if (req.decodedToken.user.username) {
         let id = req.decodedToken.user._id;
         Child.findById(id, (err, child) => {
@@ -43,7 +43,6 @@ module.exports.getArticles = function (req, res, next) {
             if (err) {
                 return next(err);
             }
-            console.log(result);
             res.status(200).json({
                 err: null,
                 msg: 'Articles retrieved successfully.',
@@ -54,6 +53,7 @@ module.exports.getArticles = function (req, res, next) {
 };
 
 module.exports.createArticle = function (req, res, next) {
+    
     if (req.decodedToken.user.role === 'Child') {
         return res.status(401).json({
             err: null,
@@ -71,6 +71,7 @@ module.exports.createArticle = function (req, res, next) {
             data: null
         });
     }
+
     if (req.body.tags && !Validations.isArray(req.body.tags)) {
         return res.status(422).json({
             err: null,
@@ -88,6 +89,7 @@ module.exports.createArticle = function (req, res, next) {
                 .status(404)
                 .json({ err: null, msg: 'User not found.', data: null });
         }
+
         let article = {
             owner_id: req.decodedToken.user._id,
             title: req.body.title,
