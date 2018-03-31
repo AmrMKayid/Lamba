@@ -1,4 +1,15 @@
-<p>
-  tschedule works!
-</p>
-<h1> ya rab</h1>
+
+<button  class="btn btn-primary "  (click)="createTeacherSchedule()"> create</button>
+
+<button  class="btn btn-primary "  (click)="getTeacherSchedule()"> saturday</button>
+
+<h2>slots</h2>
+<div class="col-lg-4 col-md-4"  *ngFor="let slot of day">
+
+  <tr>
+    <th>{{slot.description}}</th>
+    <th>{{slot.time}}</th>
+    <th>{{slot.url}}</th>
+  </tr>
+</div>
+
