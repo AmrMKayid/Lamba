@@ -59,7 +59,7 @@ module.exports.createTeacherSchedule = function(req, res, next) {
         }
 
         for(var i=0; i< 8 ; i++){
-            user.schedule.table.monday.push(new slot);
+            user.schedule.table.monday.push({});
         }
 
         for(var i=0; i< 8 ; i++){
