@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MyitemsComponent } from './myitems.component';
 import { CreateComponent } from './create/create.component';
 import { UpdateComponent } from './update/update.component';
-import { BuyComponent } from './buy/buyupdate.component';
+import { BuyComponent } from './buy/buy.component';
 import { ViewComponent } from './view/view.component';
 import { ImageUploadModule } from "angular2-image-upload";
 import { FormsModule } from '@angular/forms';
