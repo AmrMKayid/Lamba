@@ -9,8 +9,8 @@
 				<div class="container jumbotron">
 					<div [innerHTML]="element.content | safeHtml">
 					</div>
-					<button class="btn btn-primary" (click)="upvote(i)">Upvote</button>
-					<button class="btn btn-primary" (click)="downvote(i)">Downvote</button>
+					<button class="btn btn-primary" (click)="upvote(i)">Upvote {{element.upvoters.length}}</button>
+					<button class="btn btn-danger" (click)="downvote(i)">Downvote {{element.downvoters.length}}</button>
 				</div>
 				<br>
 				<br>

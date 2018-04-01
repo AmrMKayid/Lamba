@@ -79,15 +79,35 @@ export class PostComponent implements OnInit {
   }
 
   upvote(index: number) {
-    let articleId = this.articles[index]._id;
-    let title = this.articles[index].title;
-    console.log(title);
+
+    let body = {
+      article_id : this.articles[index]._id,
+      mode : "upvote"
+    }
+
+    this.http.post('http://localhost:3000/api/articles/feedback', body , this.httpOptions)
+      .pipe().subscribe(res => {
+        this.reloadArticles();
+      }, err => {
+        let msg = err.error.msg;
+        alert(`Article was not updated: ${msg}`);
+      });
 
   }
   downvote(index: number) {
-    let articleId = this.articles[index]._id;
-    let title = this.articles[index].title;
-    console.log(title);
+    let body = {
+      article_id : this.articles[index]._id,
+      mode : "downvote"
+    }
+
+    this.http.post('http://localhost:3000/api/articles/feedback', body , this.httpOptions)
+      .pipe().subscribe(res => {
+        this.reloadArticles();
+      }, err => {
+        let msg = err.error.msg;
+        alert(`Article was not updated: ${msg}`);
+      });
+
   }
 
 }
