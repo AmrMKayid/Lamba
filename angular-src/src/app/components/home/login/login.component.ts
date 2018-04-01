@@ -19,7 +19,8 @@ export class LoginComponent implements OnInit {
   user: FormGroup;
 
   onSubmit({value, valid}: { value: User, valid: boolean }) {
-    // console.log(value, valid);
+    // TODO: Edit login method
+    // value.username = value.email;
     this.login(value);
   }
 
@@ -48,6 +49,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(value: any) {
+    console.log(value);
     this.loading = true;
     this.authService.login(value)
       .subscribe(

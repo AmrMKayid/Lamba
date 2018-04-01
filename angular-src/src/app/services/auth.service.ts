@@ -15,7 +15,8 @@ export class AuthService {
     return this.http.post<any>(appConfig.apiUrl + '/auth/login', value)
       .map(user => {
         if (user && user.data) {
-          localStorage.setItem('currentUser', JSON.stringify(this.getUserDetails(user.data).user));
+          let currentUser = JSON.stringify(this.getUserDetails(user.data).user);
+          localStorage.setItem('currentUser', currentUser);
         }
         return user;
       });

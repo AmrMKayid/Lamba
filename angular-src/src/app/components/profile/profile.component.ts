@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
+  // TO GET CURRENT USER INFO
+  // JSON.parse(localStorage.getItem('currentUser'))
+
   constructor() { }
 
   ngOnInit() {
