@@ -11,7 +11,7 @@ router.post('/auth/child', mw.isAuthenticated, mw.isNotChild, authCtrl.addChild)
 router.post('/auth/admin', mw.isAuthenticated, authCtrl.addAdmin);
 //-----------------------------------User Routes-------------------------------------//
 router.get('/admin/teachers_verfication', userCtrl.getPendingTeachers);
-router.get('/admin/acceptTeacher/:teacherID', userCtrl.acceptTeacher);
+router.get('/admin/accept_teacher/:teacherID', userCtrl.acceptTeacher);
 
 /*
 router.patch('/user/updateUser/:userId', userCtrl.updateUser);

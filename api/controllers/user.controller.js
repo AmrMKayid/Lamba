@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
     Child = mongoose.model('Child'),
     User = mongoose.model('User');
     Validations = require('../utils/validations');
-    //Article=mongoose.model('Article');
+    Article=mongoose.model('Article');
 
 
 
@@ -21,7 +21,7 @@ var mongoose = require('mongoose'),
           res.status(200).json({
             err: null,
             msg:
-              'New Teachers Requests retrieved successfully.',
+              'New Teachers Requests successfully.',
             data: requests
           });
         });
@@ -61,7 +61,7 @@ var mongoose = require('mongoose'),
    
 //Start yasmeen
   //Show Articles needed to be verified
-    /* module.exports.viewUnverifiedArticles=function (req, res, next) {
+     module.exports.viewUnverifiedArticles=function (req, res, next) {
         Article.find({ approved:false }).exec(function(err, articles) {
             if (err) {
               return next(err);
@@ -225,4 +225,4 @@ User.findByIdAndUpdate(
   });
 });
 };
- */
+ 
