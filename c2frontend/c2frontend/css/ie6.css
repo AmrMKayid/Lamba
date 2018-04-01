@@ -1,0 +1,21 @@
+#content div {
+	padding-bottom: 35px;
+}
+div.content div div#services {
+	height: 1%;
+}
+div.content div#blog div.article ul li {
+	height: 1%;
+}
+div.content div#blog div.sidebar {
+	margin-left: 20px;
+}
+div.content div#blog div.article div#paging ul {
+	margin: 0 0 0 90px;
+}
+div.content div#blog div.article div#paging ul li {
+	height: 1%;
+}
+#footer div div {
+	margin-left: 35px;
+}

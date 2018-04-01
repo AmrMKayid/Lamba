@@ -1,0 +1,477 @@
+body {
+	background: #5d802c;
+	color: #878785;
+	font-family: Arial;
+	font-size: 14px;
+	margin: 0;
+	min-width: 960px;
+	padding: 0;
+}
+a {
+	outline: none;
+}
+img {
+	border: 0;
+}
+#header {
+	background: #ffffff;
+	width: 100%;
+}
+#header div {
+	margin: 0 auto;
+	overflow: hidden;
+	width: 960px;
+}
+#header div img {
+	float: left;
+	margin-top: 15px;
+}
+#header div ul {
+	float: right;
+	list-style: none;
+	margin: 40px 0 0;
+	overflow: hidden;
+	padding: 0;
+}
+#header div ul li {
+	float: left;
+	padding: 0 5px;
+}
+#header div ul li.current a {
+	background: url(../images/bg-button.gif) no-repeat 0 0;
+}
+#header div ul li a {
+	color: #495531;
+	display: block;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	text-decoration: none;
+	width: 90px;
+}
+#header div ul li a:hover {
+	color: #82ae3f;
+}
+#content {
+	background: #7cc116 url(../images/bg-content.gif) repeat-x top left;
+	color: #67695e;
+}
+#content div {
+	background: url(../images/bg-homepage.jpg) no-repeat top center;
+	min-height: 1170px;
+	margin: 0 auto;
+	overflow: hidden;
+	width: 960px;
+}
+#content div div {
+	background: none;
+	float: right;
+	margin: 500px 0 0;
+	min-height: 0;
+	padding-right: 10px;
+	width: 460px;
+}
+#content div div h1, #content div div h2 {
+	color: #382d00;
+	font-size: 20px;
+	font-weight: normal;
+	margin: 0;
+}
+#content div div h2 {
+	padding-top: 25px;
+}
+#content div div p {
+	line-height: 23px;
+	padding-top: 5px;
+	text-align: justify;
+}
+#content div div p a, #footer div ul li p a {
+	color: #fdfd00;
+}
+div.content {
+	background: #ffffff url(../images/bg-content2.gif) repeat-x bottom center;
+	padding-bottom: 50px;
+}
+div.content div {
+	margin: 0 auto;
+	width: 960px;
+}
+div.content div div {
+	padding-top: 10px;
+	overflow: hidden;
+	width: auto;
+}
+div.content div div#services {
+	padding-top: 0;
+	position: relative;
+	top: -33px;
+}
+div.content div div div#sidebar {
+	float: left;
+	padding-top: 0;
+	width: 320px;
+}
+div.content div div div#sidebar h3 {
+	color: #9BAF58;
+	font-size: 25px;
+	font-weight: normal;
+	margin: 0;
+	text-indent: 20px;
+}
+div.content div div div#sidebar ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+div.content div div div#sidebar ul li {
+	height: 205px;
+	padding: 15px 55px 0 35px;
+}
+div.content div div div#sidebar ul li#vision {
+	background: url(../images/bg-sidebar-item1.jpg) no-repeat;
+}
+div.content div div div#sidebar ul li#mission {
+	background: url(../images/bg-sidebar-item2.jpg) no-repeat;
+}
+div.content div div div#sidebar ul li#wecare {
+	background: url(../images/bg-sidebar-item3.jpg) no-repeat;
+}
+div.content div div div#sidebar ul li span {
+	color: #FFFFFF;
+	display: block;
+	font-size: 25px;
+	font-style: italic;
+}
+div.content div div div#sidebar ul li p {
+	line-height: 23px;
+	margin: 0;
+	padding-top: 0;
+}
+div.content div div div#aside, div.content div div div#contact {
+	float: right;
+	padding-right: 10px;
+	padding-top: 0;
+	width: 620px;
+}
+div.content div div div#aside span {
+	color: #fc9500;
+	display: block;
+	font-size: 20px;
+	padding-top: 50px;
+}
+div.content div div div#aside span.first {
+	padding-top: 0;
+}
+div.content div div div#aside p {
+	margin: 0;
+	line-height: 23px;
+	padding-top: 5px;
+	text-align: justify;
+}
+div.content div div div#aside ul {
+	list-style: disc inside;
+	margin: 0;
+	padding: 0 0 0 25px;
+}
+div.content div div div#aside ul li {
+	padding: 5px 0;
+}
+div.content div div div#aside b {
+	font-weight: normal;
+	display: block;
+	padding: 5px 0 5px 25px;
+}
+div.content div div div#aside div {
+	height: auto;
+	overflow: hidden;
+	padding-top: 0;
+	width: auto;
+}
+div.content div div div#aside div ol {
+	float: left;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+div.content div div div#aside div ol li {
+	margin-left: 30px;
+	padding: 5px 30px 5px 0;
+}
+div.content div div div#contact {
+	color: #7d6e4f;
+}
+div.content div div div#contact h4 {
+	color: #3D2600;
+	font-size: 18px;
+	font-weight: normal;
+	margin-top: 50px;
+	padding-left: 30px;
+}
+div.content div div div#contact h4.first {
+	margin: 0 0 20px;
+}
+div.content div div div#contact p {
+	line-height: 23px;
+	margin: 0;
+	padding-left: 65px;
+}
+div.content div div div#contact p a {
+	color: #ff9100;
+}
+div.content div div div#contact b {
+	display: block;
+	font-weight: normal;
+	line-height: 23px;
+	margin-top: 15px;
+	padding-left: 100px;
+}
+div.content div#blog {
+	height: auto;
+	margin: 0 auto;
+	overflow: hidden;
+	padding-right: 10px;
+	width: 950px;
+}
+div.content div#blog div.sidebar {
+	float: left;
+	margin-left: 35px;
+	margin-top: 45px;
+	padding-top: 0;
+	width: 210px;
+}
+div.content div#blog div.sidebar h2 {
+	color: #9BAF58;
+	font-size: 25px;
+	font-weight: normal;
+	margin: 0 0 5px;
+}
+div.content div#blog div.sidebar h3 {
+	background: url(../images/separator.gif) no-repeat center top;
+	font-size: 18px;
+	font-weight: normal;
+	margin: 0;
+	padding: 10px 0 10px 10px;
+}
+div.content div#blog div.sidebar h3 a {
+	background: url(../images/arrow.gif) no-repeat 180px 7px;
+	color: #fc9400;
+	display: block;
+	text-decoration: none;
+}
+div.content div#blog div.sidebar h3 a:hover, div.content div#blog div.sidebar p a:hover {
+	color: #b96914;
+}
+div.content div#blog div.sidebar h3.first a {
+	background: url(../images/arrow.gif) no-repeat 180px -16px;
+}
+div.content div#blog div.sidebar h3 span {
+	color: #b96914;
+}
+div.content div#blog div.sidebar div {
+	background: url(../images/separator.gif) no-repeat center top;
+	height: auto;
+	padding: 15px 0 15px 15px;
+	width: auto;
+}
+div.content div#blog div.sidebar p {
+	color: #785d40;
+	line-height: 23px;
+	margin: 0;
+}
+div.content div#blog div.sidebar p a {
+	color: #746048;
+	text-decoration: none;
+}
+div.content div#blog div.sidebar p span {
+	color: #bc6812;
+}
+div.content div#blog div.article {
+	float: right;
+	width: 630px;
+}
+div.content div#blog div.article ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+div.content div#blog div.article ul li {
+	background: url(../images/separator-long.gif) no-repeat center top;
+	display: block;
+	overflow: hidden;
+	padding: 30px 0;
+}
+div.content div#blog div.article ul li.first {
+	background: none;
+}
+div.content div#blog div.article ul li div {
+	float: left;
+	padding-top: 0;
+	width: 511px;
+}
+div.content div#blog div.article ul li div h1 {
+	font-size: 18px;
+	font-weight: normal;
+	margin: 0;
+}
+div.content div#blog div.article ul li div h1 a {
+	color: #FC9400;
+	display: block;
+	text-decoration: none;
+}
+div.content div#blog div.article ul li div h1 a:hover {
+	color: #b96914;
+}
+div.content div#blog div.article ul li div p {
+	line-height: 23px;
+	margin: 0;
+	text-align: justify;
+}
+div.content div#blog div.article ul li div.section {
+	margin-right: 15px;
+	padding-top: 5px;
+	width: 100px;
+}
+div.content div#blog div.article ul li div.section span {
+	display: block;
+	line-height: 23px;
+}
+div.content div#blog div.article ul li div.section span a {
+	color: #878785;
+	text-decoration: none;
+}
+div.content div#blog div.article ul li div.section span a:hover {
+	color: #272725;
+}
+div.content div#blog div.article div#paging {
+	background: url(../images/dotted-separator.gif) no-repeat right top;
+	margin-left: 125px;
+	margin-top: 20px;
+	padding: 20px 0;
+	width: 500px;
+}
+div.content div#blog div.article div#paging ul {
+	float: left;
+	margin: 0 0 0 195px;
+	padding: 0;
+}
+div.content div#blog div.article div#paging ul li {
+	float: left;
+	height: 40px;
+	margin: 0 5px;
+	padding: 0;
+	width: 40px;
+}
+div.content div#blog div.article div#paging ul li a {
+	background: url(../images/bg-button.gif) 0 40px;
+	color: #FFF;
+	display: block;
+	font-size: 18px;
+	line-height: 40px;
+	text-align: center;
+	text-decoration: none;
+}
+div.content div#blog div.article div#paging ul li.selected a, div.content div#blog div.article div#paging ul li a:hover {
+	background: url(../images/bg-button.gif) 0 90px;
+}
+div.content div#blog div.article div#paging a.next {
+	background: url(../images/bg-button.gif) 0 140px;
+	color: #fff;
+	display: inline-block;
+	font-size: 18px;
+	height: 40px;
+	letter-spacing: 5px;
+	line-height: 40px;
+	margin-left: 5px;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	width: 100px;
+}
+div.content div#blog div.article div#paging a.next:hover {
+	background: url(../images/bg-button.gif) 0 190px;
+}
+div.content p a {
+	color: #2b2e1d;
+}
+#footer {
+	border-top: 1px solid #a4dd50;
+	padding-top: 20px;
+}
+#footer div {
+	margin: 0 auto;
+	overflow: hidden;
+	width: 960px;
+}
+#footer div div {
+	float: left;
+	margin-left: 65px;
+	width: 175px;
+}
+#footer div div span {
+	color: #364818;
+	display: block;
+	font-size: 18px;
+	padding-bottom: 20px;
+}
+#footer div div a {
+	color: #314810;
+	display: block;
+	margin-bottom: 15px;
+	text-decoration: none;
+	text-indent: 70px;
+}
+#footer div div a:hover {
+	color: #82ae3f;
+}
+#footer div div a.facebook {
+	background: url(../images/icon.gif) no-repeat 10px 0;
+	line-height: 41px;
+}
+#footer div div a.subscribe {
+	background: url(../images/icon.gif) no-repeat 10px -85px;
+	line-height: 27px;
+}
+#footer div div a.twitter {
+	background: url(../images/icon.gif) no-repeat 10px -123px;
+	line-height: 30px;
+}
+#footer div div a.flicker {
+	background: url(../images/icon.gif) no-repeat 10px -50px;
+	line-height: 24px;
+}
+#footer div ul {
+	float: right;
+	list-style: none;
+	margin: 0;
+	overflow: hidden;
+	padding: 0;
+	width: 640px;
+}
+#footer div ul li {
+	background: url(../images/bg-footer-item.jpg) no-repeat;
+	float: left;
+	height: 251px;
+	width: 320px;
+}
+#footer div ul li p {
+	color: #ffffff;
+	line-height: 23px;
+	margin: 0;
+	padding: 0 35px;
+	text-align: justify;
+}
+#footer div ul li a.readmore {
+	color: #fefb00;
+	display: block;
+	padding: 5px 35px 0;
+	text-align: right;
+}
+#footer p.footnote {
+	color: #2a460c;
+	padding: 5px 0;
+	text-align: center;
+}
+#footer p.footnote a {
+	color: #314810;
+	text-decoration:none;
+}
