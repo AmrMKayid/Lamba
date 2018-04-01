@@ -4,12 +4,13 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {AuthService} from '../../../services/auth.service';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {User} from "../register/register.component";
+import {ToasterService} from "angular5-toaster";
 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
 
@@ -29,6 +30,7 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
 
   constructor(private route: ActivatedRoute,
+              private toaster: ToasterService,
               private router: Router,
               private authService: AuthService) {
   }
@@ -67,6 +69,12 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.returnUrl]);
         },
         error => {
+          this.toaster.pop({
+            type: 'error',
+            title: "Error!",
+            body: error.msg,
+            timeout: 3000
+          });
           console.log(error);
           this.loading = false;
         });

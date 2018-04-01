@@ -41,7 +41,6 @@ import { HomepageComponent } from './components/home/homepage/homepage.component
     FormsModule,
     HttpModule,
     ReactiveFormsModule,
-     HttpModule,
     HttpClientModule,
     ToasterModule,
     NgbModule.forRoot()
@@ -51,6 +50,7 @@ import { HomepageComponent } from './components/home/homepage/homepage.component
     ErrorInterceptorProvider,
     JwtInterceptorProvider,
     AuthService,
+    // ToasterService,
     Http,
     HttpClient
   ],

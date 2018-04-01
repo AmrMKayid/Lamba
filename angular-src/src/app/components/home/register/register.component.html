@@ -1,4 +1,7 @@
 <form novalidate (ngSubmit)="onSubmit(user)" [formGroup]="user">
+
+  <toaster-container></toaster-container>
+
   <h1>Sign Up</h1>
 
   <div formGroupName="name">
@@ -10,10 +13,13 @@
   <input type="password" placeholder="password" formControlName="password">
   <input type="password" placeholder="confirm Password" formControlName="confirmPassword">
 
+  <label>Role: </label>
   <select formControlName="role" name="gender" placeholder="Role">
     <option value="Parent">Parent</option>
     <option value="Teacher">Teacher</option>
   </select>
+
+  <label>Gender: </label>
   <select formControlName="gender" name="gender" class="">
     <option value="male">Male</option>
     <option value="female">Female</option>
