@@ -132,6 +132,7 @@ const transformHtml = (html) => {
         parent.replaceChild(wrapperDiv, element);
         wrapperDiv.appendChild(element);
     });
-
-    return dom.serialize();
+    let result = dom.serialize();
+    console.log(result.substring(25,result.length - 14));
+    return result.substring(25,result.length - 14);
 };
