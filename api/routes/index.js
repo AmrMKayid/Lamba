@@ -63,6 +63,7 @@ router.get('/schedule/getMySchedule/:ChildId',scheduleCtrl.getMySchedule);
 router.post('/task/newTask', taskCtrl.createNewTask);
 router.post('/task/newComment', taskCtrl.createNewComment);
 router.get('/task/getComments/:taskId', taskCtrl.getComments);
+router.get('/task/getStudents', taskCtrl.getStudents);
 
 //----------------------------------------------------------------------------------//
 

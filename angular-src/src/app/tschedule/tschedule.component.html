@@ -1,4 +1,5 @@
 
+
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <button  class="tab"  (click)="createTeacherSchedule()"> create</button>
@@ -16,11 +17,15 @@
 
 
 
+
 <table>
 
   <tr>
-    <td *ngFor="let slot of day">{{slot.slot.description}}</td>
+    <td *ngFor="let slot of day"> {{slot.slot.time}} <br> {{slot.slot.description}} <br> {{slot.slot.url}}</td>
   </tr>
 </table>
 
+
+
 </html>
+

@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'),
   Task = mongoose.model('Task'),
   Comment = mongoose.model('Comment');
-
+  User = mongoose.model('User')
 
 
 module.exports.createNewTask = function(req, res, next) {
@@ -84,3 +84,15 @@ module.exports.getComments = function(req, res, next) {
   });
 
 };
+
+module.exports.getStudents = function(req, res, next) {
+  User.find({}, function(err, users) {
+    var userMap = {};
+
+    users.forEach(function(user) {
+      userMap[user._id] = user;
+    });
+
+    res.send(userMap);  
+  });
+}
