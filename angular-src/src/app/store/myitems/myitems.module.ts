@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { MyitemsComponent } from './myitems.component';
 import { CreateComponent } from './create/create.component';
 import { UpdateComponent } from './update/update.component';
-import { DeleteComponent } from './delete/delete.component';
 import { ViewComponent } from './view/view.component';
 
 const routes: Routes = [
@@ -12,6 +11,18 @@ const routes: Routes = [
 		path: '',
 		component: MyitemsComponent,
 		children: [
+			{
+				path:'create',
+				component: CreateComponent
+			},
+			{
+				path: 'update',
+				component: UpdateComponent
+			},
+			{
+				path: 'view',
+				component: ViewComponent
+			}
 		]
     
     }
@@ -22,7 +33,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [MyitemsComponent, CreateComponent, UpdateComponent, DeleteComponent, ViewComponent],
+  declarations: [MyitemsComponent, CreateComponent, UpdateComponent, ViewComponent],
   exports: [RouterModule]
 })
 export class MyitemsModule { }
