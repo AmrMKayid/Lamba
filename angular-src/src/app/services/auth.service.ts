@@ -14,10 +14,9 @@ export class AuthService {
   login(value: any) {
     return this.http.post<any>(appConfig.apiUrl + '/auth/login', value)
       .map(user => {
-        if (user && user.token) {
-          localStorage.setItem('currentUser', JSON.stringify(user));
+        if (user && user.data) {
+          localStorage.setItem('currentUser', JSON.stringify(this.getUserDetails(user.data).user));
         }
-
         return user;
       });
   }
@@ -29,6 +28,17 @@ export class AuthService {
   // Registration
   create(user: any) {
     return this.http.post(appConfig.apiUrl + '/auth/register', user);
+  }
+
+  public getUserDetails(token: any): any {
+    let payload;
+    if (token) {
+      payload = token.split('.')[1];
+      payload = window.atob(payload);
+      return JSON.parse(payload);
+    } else {
+      return null;
+    }
   }
 
 }

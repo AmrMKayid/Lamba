@@ -13,6 +13,9 @@ import {User} from "../register/register.component";
 })
 export class LoginComponent implements OnInit {
 
+  // TO GET CURRENT USER INFO
+  // JSON.parse(localStorage.getItem('currentUser'))
+
   user: FormGroup;
 
   onSubmit({value, valid}: { value: User, valid: boolean }) {
@@ -45,14 +48,10 @@ export class LoginComponent implements OnInit {
   }
 
   login(value: any) {
-    console.log(value);
     this.loading = true;
     this.authService.login(value)
       .subscribe(
         data => {
-
-          console.log((localStorage.getItem('currentUser')));
-          console.log(data);
           this.router.navigate([this.returnUrl]);
         },
         error => {
