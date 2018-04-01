@@ -8,6 +8,7 @@
     "devBack": "concurrently \"mongod\" \"node ./bin/www\""
   },
   "dependencies": {
+    "angular5-toaster": "^1.0.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "compression": "^1.7.2",

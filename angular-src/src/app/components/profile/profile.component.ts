@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToasterService } from 'angular5-toaster';
 
 @Component({
   selector: 'app-profile',

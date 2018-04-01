@@ -1,3 +1,20 @@
-<p>
-  un-verified-articles works!
-</p>
+
+
+<div class="row">
+  <div class="col-lg-4 col-md-4"  *ngFor="let article of unVerifiedArticlesList">
+    <div class="card text-center">
+      <div class="card-header">
+        Title: {{ article.title}}
+      </div>
+      <div class="card-body">
+
+        <h5 class="card-title">Tags:{{ article.tags}}</h5>
+        <button class="btn btn-primary btn-sm " id="btn"  (click)="showProduct(article._id)"> Read<i class="fas fa-cart-plus"></i></button>
+      </div>
+      <div class="card-footer text-muted">
+        Listed on: {{ article.createdAt | date}}
+      </div>
+    </div>
+  </div>
+  
+  </div>

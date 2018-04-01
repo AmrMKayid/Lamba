@@ -4,6 +4,7 @@ import {RouterModule, Routes} from "@angular/router";
 
 import { HttpClient } from '@angular/common/http';
 import { Http, Headers, HttpModule } from '@angular/http';
+import {ToasterModule} from 'angular5-toaster';
 
 import {ProfileComponent} from "./profile.component";
 import {AdminComponent} from './admin/admin.component';
@@ -40,8 +41,9 @@ const appRoutes: Routes = [
         component:UnVerifiedArticlesComponent
         },
         {
-          path:'admin/verify-articles',
+          path:'admin/verify-articles/:id',
           component:VerifyArticleComponent
+
           },
       {
         path: '',
@@ -59,7 +61,8 @@ const appRoutes: Routes = [
   imports: [
     CommonModule,
     HttpModule,
-    RouterModule.forChild(appRoutes)
+    RouterModule.forChild(appRoutes),
+    ToasterModule
   ],
   declarations: [
     ProfileComponent,
