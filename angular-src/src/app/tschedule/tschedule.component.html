@@ -17,8 +17,9 @@
 
 
 <table>
-  <tr *ngFor="let slot of day">
-    <td>{{slot.slot.description}}</td>
+
+  <tr>
+    <td *ngFor="let slot of day">{{slot.slot.description}}</td>
   </tr>
 </table>
 
