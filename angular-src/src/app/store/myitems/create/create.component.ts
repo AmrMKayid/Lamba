@@ -35,8 +35,6 @@ export class CreateComponent implements OnInit {
   onSubmit()
   {
   	
-  	this.success ='';	
-  	this.error = '';
   	if(!this.picture_url)
   	{
 		this.toaster.pop({
@@ -54,7 +52,6 @@ export class CreateComponent implements OnInit {
                   body: "you have to provide an Item Name",
                   timeout: 10000
                 });
-  		this.success ='';
   	}
   	else
   	{
@@ -76,8 +73,12 @@ export class CreateComponent implements OnInit {
 			}
 			else
 			{
-				this.error = res.err;
-			}
+				this.toaster.pop({
+		                  type: 'res.err',
+		                  title: "You need to upload a photo",
+		                  body: "you have to provide an Item Name",
+		                  timeout: 10000
+		                });  			}
 		});
   	}
 
@@ -85,8 +86,7 @@ export class CreateComponent implements OnInit {
 
   onUploadFinished(event)
   {
-  	this.success ='';	
-  	this.error = '';
+
   	var response = JSON.parse(event.serverResponse._body);
   	var status = event.serverResponse.status;
 
