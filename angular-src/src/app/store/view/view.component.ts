@@ -8,21 +8,22 @@ import { StoreService } from '../../services/store.service';
 })
 export class ViewComponent implements OnInit {
 
-  itemsCount : number;
+  itemsCount : number; // Total number of items
   limit : number; // Number of items per page
   curPage : number; // Number of the current page
 
   // TODO create item interface ?
-  items[] : any; // Current items
+  items[] :any; // Current items
 
-  constructor(private StoreService : StoreService) { }
+
+  constructor(private StoreService : StoreService) {
+    this.getItemCount();
+    this.limit = 4;
+    this.curPage = 1;
+    this.loadItems();
+  }
 
   ngOnInit() {
-    this.getItemCount();
-    this.limit = 2;
-    this.curPage = 1;
-    this.items = [];
-    this.loadItems();
   }
 
   getItemCount(){
