@@ -5,8 +5,7 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { Http, Headers } from '@angular/http';
 import { HttpModule } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
-
-import {ToasterModule} from 'angular5-toaster';
+import {ToasterModule,ToasterService} from 'angular5-toaster';
 
 import {routing} from './app.routing';
 
@@ -18,6 +17,9 @@ import { ErrorInterceptorProvider } from './helpers/error.interceptor';
 import { JwtInterceptorProvider } from './helpers/jwt.interceptor';
 import { AuthService } from './services/auth.service';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {LoginComponent} from './components/home/login/login.component';
 import {RegisterComponent} from './components/home/register/register.component';
@@ -32,6 +34,7 @@ import {RegisterComponent} from './components/home/register/register.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     routing,
     FormsModule,
     HttpModule,
@@ -39,7 +42,7 @@ import {RegisterComponent} from './components/home/register/register.component';
      HttpModule,
     HttpClientModule,
     ToasterModule,
-
+    NgbModule.forRoot()
   ],
   providers: [
     AuthGuard,
