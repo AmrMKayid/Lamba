@@ -9,10 +9,16 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./un-verified-articles.component.css']
 })
 export class UnVerifiedArticlesComponent implements OnInit {
-  public unVerifiedArticleList = [];
-  constructor() { }
+  public unVerifiedArticlesList = [];
+  constructor(
+    private httpClient: HttpClient,
+    private http: Http,
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    this.httpClient.get('http://localhost:3000/api/user/viewUnverifiedArticles')
+      .subscribe((res: any) => { this.unVerifiedArticlesList = res.data; });
 
   }
 
