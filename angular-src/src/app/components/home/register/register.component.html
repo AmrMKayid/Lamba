@@ -1,26 +1,24 @@
-<form novalidate [formGroup]="user">
-  <label>
-    <span>Full name</span>
-    <input
-      type="text"
-      placeholder="Your full name"
-      formControlName="name">
-  </label>
-  <div formGroupName="account">
-    <label>
-      <span>Email address</span>
-      <input
-        type="email"
-        placeholder="Your email address"
-        formControlName="email">
-    </label>
-    <label>
-      <span>Confirm address</span>
-      <input
-        type="email"
-        placeholder="Confirm your email address"
-        formControlName="confirm">
-    </label>
+<form novalidate (ngSubmit)="onSubmit(user)" [formGroup]="user">
+  <h1>Sign Up</h1>
+
+  <div formGroupName="name">
+    <input type="text" placeholder="First Name" formControlName="firstName">
+    <input type="text" placeholder="Last Name" formControlName="lastName">
   </div>
-  <button type="submit">Sign up</button>
+
+  <input type="text" placeholder="Email" formControlName="email">
+  <input type="password" placeholder="password" formControlName="password">
+  <input type="password" placeholder="confirm Password" formControlName="confirmPassword">
+
+  <select formControlName="role" name="gender" placeholder="Role">
+    <option value="Parent">Parent</option>
+    <option value="Teacher">Teacher</option>
+  </select>
+  <select formControlName="gender" name="gender" class="">
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+  </select>
+
+  <button type="submit" [disabled]="user.invalid">Sign up</button>
+
 </form>

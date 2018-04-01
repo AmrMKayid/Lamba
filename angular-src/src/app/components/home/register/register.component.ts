@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 
 import {AuthService} from '../../../services/auth.service';
@@ -10,17 +10,28 @@ import {AuthService} from '../../../services/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
+
 export class RegisterComponent implements OnInit {
 
   user: FormGroup;
+
   ngOnInit() {
     this.user = new FormGroup({
-      name: new FormControl(''),
-      account: new FormGroup({
-        email: new FormControl(''),
-        confirm: new FormControl('')
-      })
+      name: new FormGroup({
+        firstName: new FormControl('', Validators.required),
+        lastName: new FormControl('', Validators.required)
+      }),
+      email: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
+      confirmPassword: new FormControl('', Validators.required),
+      role: new FormControl('', Validators.required),
+      gender: new FormControl('', Validators.required),
     });
+  }
+
+  onSubmit({value, valid}: { value: User, valid: boolean }) {
+    // console.log(value, valid);
+    this.register(value);
   }
 
   model: any = {};
@@ -30,9 +41,10 @@ export class RegisterComponent implements OnInit {
               private authService: AuthService) {
   }
 
-  register() {
+  register(value: any) {
+    console.log(value);
     this.loading = true;
-    this.authService.create(this.model)
+    this.authService.create(value)
       .subscribe(
         data => {
           this.router.navigate(['/login']);
@@ -48,3 +60,15 @@ export class RegisterComponent implements OnInit {
   // }
 
 }
+
+export interface User {
+  name: {
+    firstName: string,
+    lastName: string
+  };
+  email: string;
+  password: string;
+  confirmPassword: string;
+  role: string;
+  gender: string;
+};
