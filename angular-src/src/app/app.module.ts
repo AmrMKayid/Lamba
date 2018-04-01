@@ -2,6 +2,10 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { Http, Headers } from '@angular/http';
+import { HttpModule } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
+
 
 
 import {routing} from './app.routing';
@@ -24,12 +28,13 @@ import {RegisterComponent} from './components/home/register/register.component';
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     routing,
     FormsModule,
+    HttpModule,
     ReactiveFormsModule,
     HttpClientModule,
   ],
@@ -37,7 +42,9 @@ import {RegisterComponent} from './components/home/register/register.component';
     AuthGuard,
     ErrorInterceptorProvider,
     JwtInterceptorProvider,
-    AuthService
+    AuthService,
+    Http,
+    HttpClient
   ],
   bootstrap: [AppComponent]
 })

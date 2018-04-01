@@ -125,5 +125,7 @@ ChildSchema.options.toObject.transform = (document, transformedDocument) => {
 };
 
 mongoose.model('Child', ChildSchema);
-mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
 mongoose.model('UniqueUser', UniqueUserSchema);
+
+

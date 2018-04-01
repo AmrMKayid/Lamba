@@ -12,13 +12,14 @@ router.post('/auth/register', mw.isNotAuthenticated, authCtrl.register);
 router.post('/auth/login', mw.isNotAuthenticated, authCtrl.login);
 router.post('/auth/child', mw.isAuthenticated, mw.isNotChild, authCtrl.addChild);
 router.post('/auth/admin', mw.isAuthenticated, authCtrl.addAdmin);
+//-----------------------------------User Routes-------------------------------------//
+router.get('/admin/teachers_verfication', userCtrl.getPendingTeachers);
+router.get('/admin/accept_teacher/:teacherID', userCtrl.acceptTeacher);
 
-//----------------------------------------------------------------------------------//
-
-//---------------------------User Routes----------------------------------------------//
+/*
 router.patch('/user/updateUser/:userId', userCtrl.updateUser);
 router.get('/user/getUserInfo/:userId', userCtrl.getUserInfo);
-
+*/
 // router.get('/user/getUserInfo/', (req, res, next)=> {
 //   res.status(200).json({
 //     err: null,
