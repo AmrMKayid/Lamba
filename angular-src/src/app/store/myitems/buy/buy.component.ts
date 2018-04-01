@@ -1,24 +1,25 @@
-import { Component } from '@angular/core';
+
 import { Http, Headers, Response } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
 import {ToasterContainerComponent, ToasterService} from 'angular5-toaster';
 import { StoreService } from '../../../services/store.service';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+import {Observable} from 'rxjs/Rx';
 
 Component({
-    selector: 'app-store',
-    templateUrl: './store.component.html',
-    styleUrls: ['./store.component.css']
+    selector: 'app-buy',
+    templateUrl: './buy.component.html',
+    styleUrls: ['./buy.component.css']
   })
-  export class StoreComponent {
+  export class BuyComponent  {
   
-    constructor() { }
-  
-    ngOnInit() {
-    }
-  
-  
+    constructor( private toaster: ToasterService,
+    private http : Http,
+    private storeservice : StoreService,
+    private router : Router) { }
+
      buyerId : string ;
      itemId : string ;
     buy() {
