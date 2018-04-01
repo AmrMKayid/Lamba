@@ -21,8 +21,6 @@ export class CreateComponent implements OnInit {
   item_type: string;
   item_condition: string;
   picture_url : string;
-  error : string;
-  success : string;
 
 
   constructor(private toaster: ToasterService,
@@ -41,16 +39,20 @@ export class CreateComponent implements OnInit {
   	this.error = '';
   	if(!this.picture_url)
   	{
-  		this.error = 'you need to upload a photo';
-  	}
+		this.toaster.pop({
+		                  type: 'error',
+		                  title: "You need to upload a photo",
+		                  body: "you have to provide an Item Name",
+		                  timeout: 10000
+		                });  
+	}
   	else if(!this.name || !this.description || !this.quantity || !this.price || !this.item_type || !this.item_condition)
   	{
-  		this.error = "One or More fields are missing";
   		this.toaster.pop({
-                  type: 'failure',
+                  type: 'error',
                   title: "Missing the Item name!",
                   body: "you have to provide an Item Name",
-                  timeout: 3000
+                  timeout: 10000
                 });
   		this.success ='';
   	}
@@ -90,13 +92,22 @@ export class CreateComponent implements OnInit {
 
   	if(status!= 200)
   	{
-  		this.error = "Couldn't upload image";
+  		this.toaster.pop({
+          type: 'error',
+          title: "You need to upload a photo",
+          body: "you have to provide an Item Name",
+          timeout: 10000
+        });  
   		console.log(status);
   		return;
   	}
 
   	this.picture_url = response.filename;
-  	this.success = 'Picture uploaded successfully';
-
+	this.toaster.pop({
+	      type: 'success',
+	      title: "photo uploaded successfully",
+	      body: "you have to provide an Item Name",
+	      timeout: 10000
+	    });  
   }
 }
