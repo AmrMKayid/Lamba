@@ -5,17 +5,19 @@ import { AppComponent } from './app.component';
 import { PostComponent } from './post/post.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { SafeHtmlPipe } from './post/safe-html.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PostComponent
+    PostComponent,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,
     QuillModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

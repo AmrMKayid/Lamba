@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-md-7">
-		<h2 class="primary-text text-center">POSTED ARTICLES: </h2>
-		<div class="container" [innerHTML]="articleContainer"></div>
+		<h1 class="text-center">POSTED ARTICLES: </h1>
+		<div class="container" [innerHTML]="articleContainer | safeHtml"></div>
 	</div>
 	<div class="col-md-5 jumbotron">
 		<form>
@@ -17,7 +17,7 @@
 					<input class="form-control" placeholder="Tags">
 				</div>
 			</div>
-			<quill-editor [placeholder]="'Enter post content here...'" (onContentChanged)="updateContent($event);">
+			<quill-editor [placeholder]="'Enter post content here...'" name="editorContent" id="detailEditTxt" [(ngModel)]="editorContent">
 			</quill-editor>
 			<br>
 			<button type="button" (click)="onSubmit()" class="btn btn-block btn-success">Post</button>
