@@ -1,1 +1,26 @@
-<button (click)="register()" class="btn btn-primary">Register</button>
+<form novalidate [formGroup]="user">
+  <label>
+    <span>Full name</span>
+    <input
+      type="text"
+      placeholder="Your full name"
+      formControlName="name">
+  </label>
+  <div formGroupName="account">
+    <label>
+      <span>Email address</span>
+      <input
+        type="email"
+        placeholder="Your email address"
+        formControlName="email">
+    </label>
+    <label>
+      <span>Confirm address</span>
+      <input
+        type="email"
+        placeholder="Confirm your email address"
+        formControlName="confirm">
+    </label>
+  </div>
+  <button type="submit">Sign up</button>
+</form>

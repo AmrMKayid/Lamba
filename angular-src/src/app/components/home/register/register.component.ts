@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
+
 
 import {AuthService} from '../../../services/auth.service';
 
@@ -10,17 +12,17 @@ import {AuthService} from '../../../services/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  // model: any =
-  //   {
-  //     "name" : {
-  //       "firstName" : "Amr",
-  //       "lastName" : "Kayid"
-  //     },
-  //     "email" : "amrmkayid2@Angular.com",
-  //     "password" : "1234567890",
-  //     "confirmPassword" : "1234567890",
-  //     "role" : "Parent",
-  //   };
+  user: FormGroup;
+  ngOnInit() {
+    this.user = new FormGroup({
+      name: new FormControl(''),
+      account: new FormGroup({
+        email: new FormControl(''),
+        confirm: new FormControl('')
+      })
+    });
+  }
+
   model: any = {};
   loading = false;
 
@@ -42,7 +44,7 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  ngOnInit() {
-  }
+  // ngOnInit() {
+  // }
 
 }

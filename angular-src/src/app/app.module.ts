@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 
@@ -30,6 +30,7 @@ import {RegisterComponent} from './components/home/register/register.component';
     BrowserModule,
     routing,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
   ],
   providers: [
