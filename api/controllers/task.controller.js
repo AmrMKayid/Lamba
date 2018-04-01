@@ -96,3 +96,37 @@ module.exports.getStudents = function(req, res, next) {
     res.send(userMap);  
   });
 }
+
+
+
+module.exports.getComments = function(req, res, next) {
+  Task.findById(req.params.taskId).exec(function(err, task) {
+    if (err) {
+      return next(err);
+    }
+
+    var ids = task.Comments;
+
+
+
+
+    Comment.find({
+      _id: {
+        $in: ids
+      }
+    }).exec(function(err, com) {
+      res.status(201).json({
+        err: null,
+        msg: 'Comment was r successfully.',
+        data: com
+      });
+    });
+
+
+
+
+
+
+  });
+
+};

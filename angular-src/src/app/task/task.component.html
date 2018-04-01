@@ -17,3 +17,23 @@
 
   <button (click) = "CreateNewTask()">New Task</button>
   
+
+  
+  
+  
+  <form (submit)="getComments()">
+  <button id="mybutton" type="submit">getComments</button>
+</form>
+
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Comment</th>
+  </tr>
+
+  <tr *ngFor="let com of mycomment">
+    <td>{{com.userId}}</td>
+    <td>{{com.Comment}}</td>
+  </tr>
+</table>

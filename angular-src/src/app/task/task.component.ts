@@ -11,27 +11,32 @@ export class TaskComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
   public students = {};
-  
+
   ngOnInit() {
     this.GetAllStudents();
-  }  
-  
+  }
+
   comment: string;
+
   commentdata = {
-    Comment:"",
+    Comment: "",
     userId: "",
-    userType:"",
-    taskId:""
+    userType: "",
+    taskId: ""
 
   };
+
   taskname: string;
+
   description: string;
+
   taskdata = {
-    Title:"",
+    Title: "",
     Description: "",
-    TeacherId:"",
-    StudentId:""
+    TeacherId: "",
+    StudentId: ""
   };
+
   CreateNewComment() {
     console.log("commented");
     this.commentdata.Comment = this.comment;
@@ -48,17 +53,31 @@ export class TaskComponent implements OnInit {
     this.taskdata.Title = this.taskname;
     this.taskname = "";
     this.taskdata.Description = this.description;
-    this.description="";
+    this.description = "";
     this.taskdata.TeacherId = "5abfe6f3750afc19b0689a36";
     this.taskdata.StudentId = "5abffe465388b43094a8c784";
 
     this.http.post('http://localhost:3000/api/task/newTask', this.taskdata).subscribe();
   }
-  GetAllStudents(){
+
+
+  GetAllStudents() {
     this.http.get('http://localhost:3000/api/task/getStudents').subscribe((res: any) => {
       this.students = res.data.userMap;
       console.log(this.students)
     });
-    
+
+  }
+
+
+
+  mycomment = [];
+
+  getComments() {
+
+    this.http.get('http://localhost:3000/api/task/getComments/5abffe465386b43094a8c784').subscribe((res: any) => {
+      this.mycomment = res.data;
+      console.log(this.mycomment);
+    });
   }
 }

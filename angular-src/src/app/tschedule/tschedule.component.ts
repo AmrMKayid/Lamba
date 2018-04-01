@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-
-//import { ToasterService } from 'angular5-toaster';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
