@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { StoreComponent } from './store.component';
 import { LoadChildren } from '@angular/router';
 import { StoreService } from '../services/store.service';
+import { ViewComponent } from './view/view.component';
 
 const routes: Routes = [
 	{
@@ -13,9 +14,14 @@ const routes: Routes = [
 			 {
 				path: 'myitems',
 				loadChildren: './myitems/myitems.module#MyitemsModule'
-			 }
+			},
+			{
+				path : 'view',
+				component : ViewComponent
+
+			}
 		]
-    
+
     }
 ];
 
@@ -26,7 +32,8 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [
-  StoreComponent
+  StoreComponent,
+  ViewComponent
   ],
   exports: [RouterModule],
    providers: [StoreService]

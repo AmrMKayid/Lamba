@@ -115,7 +115,7 @@ module.exports.viewItems = function(req, res, next) {
 
   var valid = Validations.isNumber(req.params.tuplesPerPage) &&
     Validations.isNumber(req.params.pageNumber) &&
-    parseInt(req.params.tuplesPerPage) < 20;
+    parseInt(req.params.tuplesPerPage) <= 20;
 
   // returns error if not valid
   if (!valid) {
@@ -130,10 +130,12 @@ module.exports.viewItems = function(req, res, next) {
   var pageNumber = parseInt(req.params.pageNumber);
 
 
+
   var query = Item.find().skip((pageNumber - 1) * limit).limit(limit);
 
   query.exec(function(err, items) {
     if (err) return err;
+    console.log(items);
     return res.status(200).json({
       err: null,
       msg: "Items retrieved successfully",
@@ -167,6 +169,19 @@ module.exports.buyItems = function(req, res, next) {
 module.exports.likeItems = function(req, res, next) {
 
   console.log("like\n");
+}
+
+module.exports.countItmes = function(req, res, next) {
+  console.log("Count items");
+  Item.count({}, function(err, count) {
+    console.log("Total count = " + count);
+    if (err) return err;
+    return res.status(200).json({
+      err: null,
+      msg: "Items' count retrieved successfully",
+      data: count
+    });
+  });
 }
 
 /*****************************************************************************

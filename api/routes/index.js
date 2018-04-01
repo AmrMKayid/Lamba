@@ -14,7 +14,9 @@ router.post('/auth/child', mw.isAuthenticated, mw.isNotChild, authCtrl.addChild)
 /*-----------------------------Store Routes-------------------------------------*/
 router.post('/store/create', mw.isAuthenticated, storeCtrl.createItems);
 router.post('/store/upload', storeCtrl.uploadItemPhoto);
-router.get('/store/view/:tuplesPerPage/:pageNumber', mw.isAuthenticated, storeCtrl.viewItems);
+// TODO add mw.isAuthenticated
+router.get('/store/countItmes', storeCtrl.countItmes);
+router.get('/store/view/:tuplesPerPage/:pageNumber', storeCtrl.viewItems);
 router.post('/store/edit/:itemId', mw.isAuthenticated, storeCtrl.editItems);
 router.delete('/store/delete/:itemId', mw.isAuthenticated, storeCtrl.deleteItems);
 router.post('/store/buy/:itemId', mw.isAuthenticated, storeCtrl.buyItems);
