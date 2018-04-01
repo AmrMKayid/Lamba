@@ -8,3 +8,12 @@
   <button id="mybutton" type="submit">Submit</button>
 
 </form>
+
+  <h2>New Task</h2>
+
+
+  <input type="text" class="form-control" [(ngModel)]="taskname" name="taskname">
+  <input type="text" class="form-control" [(ngModel)]="description" name="description">
+
+  <button (click) = "CreateNewTask()">New Task</button>
+  
