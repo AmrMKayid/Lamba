@@ -20,7 +20,7 @@ export class PostComponent implements OnInit {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       //GET THIS FROM POSTMAN'S LOGIN (won't work 3shan locally 3l database bta3ty)
-      'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InNjaGVkdWxlIjp7IlRpbWV0YWJsZSI6W10sImNyZWF0ZWRBdCI6IjIwMTgtMDMtMzBUMDY6MzY6MDguOTUyWiIsInVwZGF0ZWRBdCI6IjIwMTgtMDMtMzBUMDY6MzY6MDguOTUyWiJ9LCJuYW1lIjp7ImZpcnN0TmFtZSI6Im1hbWEiLCJsYXN0TmFtZSI6ImJhYmEifSwiYWxsb3dlZEFydGljbGVzIjpbIjVhYmRlY2M4NWYwOGQwNmM1Zjk5MjIyYiJdLCJlbnJvbGxlZEFjdGl2aXRpZXMiOltdLCJfaWQiOiI1YWJkZGFkODFhMDJjYTU4MjRhMjcwODIiLCJ1c2VybmFtZSI6ImNoaWxkMSIsInBhcmVudF9pZCI6IjVhYmRkMDczNzYwOTljNGFlMjc5M2FlZSIsIl9fdiI6MH0sImlhdCI6MTUyMjU3MTc5OCwiZXhwIjoxNTIyNjE0OTk4fQ.4lrRqy12BMmNZLxgmxW4qnD5EedhkiB0iQxWiY17neY"
+      'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOnsiZmlyc3ROYW1lIjoiYWJkbyIsImxhc3ROYW1lIjoiaGVzaGFtIn0sInNjaGVkdWxlIjp7IlRpbWV0YWJsZSI6W10sImNyZWF0ZWRBdCI6IjIwMTgtMDMtMzBUMDU6NTE6NDcuOTIwWiIsInVwZGF0ZWRBdCI6IjIwMTgtMDMtMzBUMDU6NTE6NDcuOTIwWiJ9LCJteUl0ZW1zIjpbXSwiY2FydCI6W10sInF1YWxpZmljYXRpb25zIjpbXSwic3R1ZGVudHMiOltdLCJfaWQiOiI1YWJkZDA3Mzc2MDk5YzRhZTI3OTNhZWUiLCJlbWFpbCI6InBhcmVudDFAZ21haWwuY29tIiwicm9sZSI6IlBhcmVudCIsIl9fdiI6MH0sImlhdCI6MTUyMjU3MjcwNCwiZXhwIjoxNTIyNjE1OTA0fQ.aFyVgpspb3JArTdx6rUO__5xf17sFB0ZBY0yxiwV9wQ"
     })
   };
   constructor(private http: HttpClient) { }
@@ -30,6 +30,7 @@ export class PostComponent implements OnInit {
   }
 
   reloadArticles() {
+    
     this.articleContainer = "";
     this.http.get('http://localhost:3000/api/articles', this.httpOptions)
       .pipe().subscribe((res: any) => {
@@ -42,6 +43,7 @@ export class PostComponent implements OnInit {
         let msg = err.error.msg;
         alert(`Articles not retrieved: ${msg}`);
       });
+      
   }
 
   onSubmit() {
