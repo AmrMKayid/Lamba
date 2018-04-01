@@ -222,6 +222,59 @@ module.exports.deleteItems = function(req, res, next) {
 module.exports.buyItems = function(req, res, next) {
   console.log("buy\n");
 
+  if (!req.file)
+	{
+    	return res.status(422).json({
+			  err: null,
+			  msg: "Couldn't buy item",
+			  data: null
+			});
+	}
+	    var token = req.headers['authorization'];
+    if (!token) {
+    	fs.unlink(req.file.path);
+        return res.status(401).json({
+            error: null,
+            msg: 'You have to login first!',
+            data: null
+        });
+    }
+    // Verify JWT
+    jwt.verify(token, req.app.get('secret'), function (err, decodedToken) {
+        if (err) {
+
+        	fs.unlink(req.file.path);
+            return res.status(401).json({
+                error: err,
+                msg: 'Login timed out, please login again.',
+                data: null
+            });
+           }
+           return res.status(200).json({ err: null, msg: "Bought Item successfully" , filename:req.file.filename});
+
+	   });
+
+  Item.findByIdAndUpdate(
+    req.params.itemId,
+    {
+      $set: req.body
+    },
+    { new: true }
+  ).exec(function (err, updatedItem) {
+    if (err) {
+      return next(err);
+    }
+    if (!updatedItem) {
+      return res
+      .status(404)
+      .json({ err: null, msg: 'Item found.', data: null });
+    }
+    res.status(200).json({
+      err: null,
+      msg: 'Item was updated/bought successfully.',
+      data: updatedItem
+    });
+  });
 }
 
 
