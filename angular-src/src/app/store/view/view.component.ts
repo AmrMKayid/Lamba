@@ -14,13 +14,15 @@ export class ViewComponent implements OnInit {
 
   // TODO create item interface ?
   items[] :any; // Current items
+  pages[] :any; // Holds the numbers of the pages available to be picked
 
 
   constructor(private StoreService : StoreService) {
     this.getItemCount();
-    this.limit = 4;
+    this.limit = 6 ;
     this.curPage = 1;
     this.loadItems();
+    this.pages = [1,2,3,4,5];
   }
 
   ngOnInit() {
@@ -40,5 +42,9 @@ export class ViewComponent implements OnInit {
       });
   }
 
+  loadPage(page:number){
+    this.curPage = page;
+    this.loadItems();
+  }
 
 }

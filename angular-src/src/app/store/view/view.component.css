@@ -1,8 +1,8 @@
 .container {
-  background-color: red;
+  /* background-color: red; */
 }
 
 .card {
   border: solid;
-  margin: 10px;
+  margin: 30px;
 }
