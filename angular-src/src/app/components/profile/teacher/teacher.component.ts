@@ -3,6 +3,8 @@ import {Router} from '@angular/router';
 import {Http, Headers} from '@angular/http';
 import {HttpClient} from '@angular/common/http';
 import {ToasterService} from 'angular5-toaster';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+
 
 
 @Component({
@@ -24,6 +26,7 @@ export class TeacherComponent implements OnInit {
   about: string;
   currentUserID: string;
   fees: number;
+  phone: number;
 
   constructor(private router: Router,
               private httpClient: HttpClient,
@@ -34,9 +37,22 @@ export class TeacherComponent implements OnInit {
   ngOnInit() {
     this.currentUserID = JSON.parse(localStorage.getItem('currentUser'))._id;
     // console.log(this.currentUser);
-  }
+//  this.httpClient.get('http://localhost:3000/api/user/getUserInfo/'+this.currentUserID,
+
+}
+
 
   onEditInfo(): void {
+   if (!this.firstName||!this.lastName||!this.email){
+     this.toaster.pop({
+     type: 'error',
+     title: "Error!",
+     body: "all fields are required",
+     timeout: 3000
+     });
+    console.log("faild")
+    return;
+   }
     const user = {
       name: {
         firstName: this.firstName,
@@ -51,12 +67,24 @@ export class TeacherComponent implements OnInit {
         zip: this.zip,
         street: this.street,
       },
-      fees: this.fees
+      fees: this.fees,
+      phone: this.phone
 
 
     }
-    console.log(user);
-    this.http.patch('http://localhost:3000/api/user/updateUser/' + this.currentUserID, {"email": "amr2@kayid.com"}).subscribe(
+  //  console.log(user);
+    this.http.patch('http://localhost:3000/api/user/updateUser/' + this.currentUserID, {
+    "email":user.email,
+    "name":user.name,
+    "about":user.about,
+    "Address":user.address,
+    "fees":user.fees,
+    "phone":user.phone
+
+
+
+
+  }).subscribe(
       res => {
         console.log('sucess');
         document.getElementById('editModal').style.display = 'none';

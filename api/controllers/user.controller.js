@@ -35,7 +35,7 @@ var mongoose = require('mongoose'),
             data: null
           });
         }
-       
+
         User.findByIdAndUpdate(
           req.params.teacherID,
           {
@@ -58,7 +58,7 @@ var mongoose = require('mongoose'),
           });
         });
       };
-   
+
 //Start yasmeen
   //Show Articles needed to be verified
     module.exports.viewUnverifiedArticles=function (req, res, next) {
@@ -102,7 +102,7 @@ var mongoose = require('mongoose'),
 
  //Verfiy Articles
  module.exports.verifyArticle= function (req, res, next) {
-   
+
 
     if (!Validations.isObjectId(req.params.articleId)) {
         return res.status(422).json({
@@ -129,7 +129,7 @@ var mongoose = require('mongoose'),
           msg: 'Article verified successfully.',
           data: null
         });
-      
+
     });
  };
 
@@ -167,7 +167,7 @@ if (!Validations.isObjectId(req.params.userId)) {
     data: null
   });
 }
-var valid =
+/*var valid =
   req.body.about &&
   Validations.isString(req.body.about) &&
 //  req.body.address&&
@@ -193,9 +193,9 @@ if (!valid) {
     msg: 'name(String) , fees(Number) ,address(address) and about(String) are required fields.',
     data: null
   });
-}
+}*/
 
-console.log("HIIIIIII");
+//console.log("HIIIIIII");
 User.findByIdAndUpdate(
   req.params.userId,
   {
@@ -209,7 +209,7 @@ User.findByIdAndUpdate(
     return next(err);
   }
   if (!updateUser) {
-    console.log("HIIIIIII222");
+  //  console.log("HIIIIIII222");
     return res
       .status(404)
       .json({ err: null, msg: 'User not found.', data: null });
@@ -221,4 +221,3 @@ User.findByIdAndUpdate(
   });
 });
 };
- 
