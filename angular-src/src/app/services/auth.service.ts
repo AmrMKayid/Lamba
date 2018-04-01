@@ -11,8 +11,8 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
-  login(username: string, password: string) {
-    return this.http.post<any>(appConfig.apiUrl + '/auth/login', {email: username, password: password})
+  login(value: any) {
+    return this.http.post<any>(appConfig.apiUrl + '/auth/login', value)
       .map(user => {
 
         if (user && user.token) {

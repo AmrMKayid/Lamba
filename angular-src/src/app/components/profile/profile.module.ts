@@ -15,9 +15,8 @@ import {ProfileComponent} from "./profile.component";
 import {AdminComponent} from './admin/admin.component';
 import {ParentComponent} from './parent/parent.component';
 import {TeacherComponent} from './teacher/teacher.component';
-import {ChildComponent} from './child/child.component';
-// import {UnVerifiedArticlesComponent} from './admin/admin-functions/un-verified-articles/un-verified-articles.component';
-// import {VerifyArticleComponent} from './admin/admin-functions/verify-article/verify-article.component';
+import {ChildComponent} from './child/child.component'; import {UnVerifiedArticlesComponent} from './admin/admin-functions/un-verified-articles/un-verified-articles.component';
+//import {VerifyArticleComponent} from './admin/admin-functions/verify-article/verify-article.component';
 
 const appRoutes: Routes = [
   {

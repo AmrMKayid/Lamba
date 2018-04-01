@@ -6,8 +6,7 @@ import { ToasterService } from 'angular5-toaster';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpModule, Response } from '@angular/http';
 import { FormsModule } from '@angular/forms';
-
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
