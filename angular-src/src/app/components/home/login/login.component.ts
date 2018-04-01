@@ -49,11 +49,21 @@ export class LoginComponent implements OnInit {
   }
 
   login(value: any) {
-    console.log(value);
     this.loading = true;
     this.authService.login(value)
       .subscribe(
         data => {
+          let userRole = JSON.parse(localStorage.getItem('currentUser')).role;
+          if (userRole == "Parent") {
+            console.log(userRole);
+            this.returnUrl = 'profile/parent';
+          } else if (userRole == "Teacher") {
+            console.log(userRole);
+            this.returnUrl = 'profile/teacher';
+          } else {
+            console.log(userRole);
+            this.returnUrl = 'profile/admin';
+          }
           this.router.navigate([this.returnUrl]);
         },
         error => {

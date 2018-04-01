@@ -1,211 +1,64 @@
-<!DOCTYPE html>
-<html>
+<div class="card">
+  <img src="" style="width:100%">
+  <h1 id="name"></h1>
+  <p id="email"></p>
+  <p id="fees"></p>
+  <p id="phone"></p>
+  <p id="address"></p>
 
-<head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 300px;
-  height: 600px;
-  word-wrap: break-word;
-  margin: 0px;
-  text-align: center;
-  font-family: arial;
-}
-
-.title {
-  color: grey;
-  font-size: 18px;
-}
-
-
-
-a {
-  text-decoration: none;
-  font-size: 22px;
-  color:black;
-}
-
-button:hover, a:hover {
-  opacity: 0.7;
-}
-body {font-family: Arial, Helvetica, sans-serif;}
-* {box-sizing: border-box}
-/* Full-width input fields */
-input[type=text]{
-    width: 100%;
-    padding: 15px;
-    margin: 5px 0 22px 0;
-    display: inline-block;
-    border: none;
-    background: #f1f1f1;
-}
-
-/* Add a background color when the inputs get focus */
-input[type=text]:focus {
-    background-color: #ddd;
-    outline: none;
-}
-
-/* Set a style for all buttons */
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    opacity: 0.9;
-}
-
-button:hover {
-    opacity:1;
-}
-
-/* Extra styles for the cancel button */
-.cancelbtn {
-    padding: 14px 20px;
-    background-color: #f44336;
-}
-
-/* Float cancel and signup buttons and add an equal width */
-.cancelbtn, .editbtn {
-  float: left;
-  width: 50%;
-}
-
-/* Add padding to container elements */
-.container {
-    padding: 16px;
-}
-
-/* The Modal (background) */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: #474e5d;
-    padding-top: 50px;
-}
-
-/* Modal Content/Box */
-.modal-content {
-    background-color: #fefefe;
-    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-}
-
-/* Style the horizontal ruler */
-hr {
-    border: 1px solid #f1f1f1;
-    margin-bottom: 25px;
-}
-
-/* The Close Button (x) */
-.close {
-    position: absolute;
-    right: 35px;
-    top: 15px;
-    font-size: 40px;
-    font-weight: bold;
-    color: #f1f1f1;
-}
-
-.close:hover,
-.close:focus {
-    color: #f44336;
-    cursor: pointer;
-}
-
-/* Clear floats */
-.clearfix::after {
-    content: "";
-    clear: both;
-    display: table;
-}
-
-/* Change styles for cancel button and signup button on extra small screens */
-@media screen and (max-width: 300px) {
-    .cancelbtn, .editbtn {
-       width: 100%;
-    }
-}
-</style>
-</head>
-<body>
-
-<h2 style="text-align:Left">Teacher Profile</h2>
-
- <div class="card">
-  <img src=""  style="width:100%">
-  <h1 id = "name"></h1>
-  <p id ="email"></p>
-  <p id ="fees"></p>
-  <p id ="phone"></p>
-  <p id ="address"></p>
-
-  <p id ="About"></p>
-
+  <p id="About"></p>
 
 
 </div>
 <button onclick="document.getElementById('editModal').style.display='block'" style="width:auto;">Edit</button>
 
-<div id ="editModal" class="modal">
-  <span onclick="document.getElementById('editModal').style.display='none'" class="close" title="Close Modal">&times;</span>
-  <form (submit) = onEditInfo() id = "editForm" class="modal-content" action="/action_page.php" >
-    <div id = "editContainer" class="container">
+<div id="editModal" class="modal">
+  <span onclick="document.getElementById('editModal').style.display='none'" class="close"
+        title="Close Modal">&times;</span>
+  <form (submit)=onEditInfo() id="editForm" class="modal-content" action="/action_page.php">
+    <div id="editContainer" class="container">
       <h1>Edit your info</h1>
       <hr>
       <label for="firstName"><b> Fisrt Name</b></label>
-      <input type="text" placeholder="First Name"  [(ngModel)] ="firstName" name="fname" required>
+      <input type="text" placeholder="First Name" [(ngModel)]="firstName" name="fname" required>
 
       <label for="middleName"><b> Middle Name</b></label>
-      <input type="text" placeholder="Middle Name"  [(ngModel)] ="middleName" name="Mname" >
+      <input type="text" placeholder="Middle Name" [(ngModel)]="middleName" name="Mname">
 
       <label for="lastName"><b> Last Name</b></label>
-      <input type="text" placeholder="Last Name"  [(ngModel)] ="lastName" name="lname" required>
+      <input type="text" placeholder="Last Name" [(ngModel)]="lastName" name="lname" required>
 
       <label for="email"><b> Email</b></label>
-      <input type="text" placeholder="Email"  [(ngModel)] ="email" name="email" required>
+      <input type="text" placeholder="Email" [(ngModel)]="email" name="email" required>
 
 
       <label for="about"><b>About</b></label>
-      <input type="text" placeholder=" About"  [(ngModel)] ="about" name="state" >
+      <input type="text" placeholder=" About" [(ngModel)]="about" name="state">
 
-      <label for="city"><b>  City</b></label>
-      <input type="text" placeholder=" City"  [(ngModel)] ="city"  name="city" >
+      <label for="city"><b> City</b></label>
+      <input type="text" placeholder=" City" [(ngModel)]="city" name="city">
 
-      <label for="street"><b>  Street</b></label>
-      <input type="text" placeholder=" Street"  [(ngModel)] ="street" name="street" >
+      <label for="street"><b> Street</b></label>
+      <input type="text" placeholder=" Street" [(ngModel)]="street" name="street">
 
       <label for="state"><b> State</b></label>
-      <input type="text" placeholder=" State"  [(ngModel)] ="state" name="state" >
+      <input type="text" placeholder=" State" [(ngModel)]="state" name="state">
 
 
-      <label for="zip"><b>  Zip</b></label>
-      <input type="number" placeholder=" Zip"  [(ngModel)] ="zip" name="zip" >
+      <label for="zip"><b> Zip</b></label>
+      <input type="number" placeholder=" Zip" [(ngModel)]="zip" name="zip">
 
-      <label for="fees"><b>  Fees</b></label>
-      <input type="number" placeholder=" Zip"  [(ngModel)] ="fees" name="fees" >
-
+      <label for="fees"><b> Fees</b></label>
+      <input type="number" placeholder=" Zip" [(ngModel)]="fees" name="fees">
 
 
       <div id="clearfix" class="clearfix">
-        <button type="button" onclick="document.getElementById('editModal').style.display='none'" class="cancelbtn">Cancel</button>
-        <button  id = "editbutton" type="submit" class="editbtn">Edit</button>
+        <button type="button" onclick="document.getElementById('editModal').style.display='none'" class="cancelbtn">
+          Cancel
+        </button>
+        <button id="editbutton" type="submit" class="editbtn">Edit</button>
       </div>
     </div>
   </form>
 </div>
 
-</body>
-</html>
