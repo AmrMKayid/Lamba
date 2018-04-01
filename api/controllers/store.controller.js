@@ -279,8 +279,33 @@ module.exports.buyItems = function(req, res, next) {
 
 
 module.exports.likeItems = function(req, res, next) {
+  let user = req.decodedToken.user._id;
 
-  console.log("like\n");
+  Item.findByID(
+    req.params.itemId,
+    (err,retrievedItem) =>{
+      if (err) {
+        return next(err);
+      }
+    if(retrievedItem.likes_user_id.includes(user)){
+      return res.status(422).json({
+        err: null,
+        msg: "Item already liked",
+        data: null
+      });
+    }
+    else{
+      retrievedItem.likes_user_id.push(user);}
+
+
+      return res.status(200).json({
+        err: null,
+        msg: 'Item was liked successfully.',
+        data: null
+      });
+
+  });
+
 }
 
 /*****************************************************************************
