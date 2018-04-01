@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { StoreComponent } from './store.component';
 import { LoadChildren } from '@angular/router';
+import { StoreService } from '../services/store.service';
 
 const routes: Routes = [
 	{
@@ -27,6 +28,7 @@ const routes: Routes = [
   declarations: [
   StoreComponent
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
+   providers: [StoreService]
 })
 export class StoreModule { }

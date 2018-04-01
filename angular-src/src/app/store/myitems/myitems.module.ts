@@ -5,6 +5,12 @@ import { MyitemsComponent } from './myitems.component';
 import { CreateComponent } from './create/create.component';
 import { UpdateComponent } from './update/update.component';
 import { ViewComponent } from './view/view.component';
+import { ImageUploadModule } from "angular2-image-upload";
+import { FormsModule } from '@angular/forms';
+import {ToasterModule} from 'angular5-toaster';
+
+
+
 
 const routes: Routes = [
 	{
@@ -31,7 +37,10 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+   	ImageUploadModule.forRoot(),
+   	FormsModule,
+   	ToasterModule
   ],
   declarations: [MyitemsComponent, CreateComponent, UpdateComponent, ViewComponent],
   exports: [RouterModule]

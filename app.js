@@ -32,7 +32,7 @@ var storage = multer.diskStorage({
 
 app.use(multer({
      storage: storage
-}).single('img'));
+}).single('image'));
 
 
 // Middleware to log all of the requests that comes to the server
@@ -80,6 +80,7 @@ app.use(
 app.use('/api', routes);
 
 // Middleware to handle any (500 Internal server error) that may occur while doing database related functions
+/*
 app.use(function(err, req, res, next) {
   if (err.statusCode === 404) return next();
   res.status(500).json({
@@ -89,7 +90,7 @@ app.use(function(err, req, res, next) {
     data: null
   });
 });
-
+*/
 
 /*
   Middleware to handle any (404 Not Found) error that may occur if the request didn't find

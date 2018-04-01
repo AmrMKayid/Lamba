@@ -24,6 +24,8 @@
     "@nebular/auth": "^2.0.0-rc.6",
     "@nebular/theme": "^2.0.0-rc.6",
     "ajv": "^6.4.0",
+    "angular2-image-upload": "^1.0.0-rc.0",
+    "angular5-toaster": "^1.0.2",
     "bootstrap": "^4.0.0",
     "core-js": "^2.4.1",
     "jquery": "^1.9.1",
