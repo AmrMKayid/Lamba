@@ -25,9 +25,9 @@ module.exports.createNewComment = function(req, res, next) {
     Comment: req.body.Comment,
     userId: req.body.userId,
     userType: req.body.userType,
+    name: req.body.name
   }
 
-  console.log(com)
 
   Comment.create(com, function(err, comment) {
     if (err) {
@@ -93,7 +93,7 @@ module.exports.getStudents = function(req, res, next) {
       userMap[user._id] = user;
     });
 
-    res.send(userMap);  
+    res.send(userMap);
   });
 }
 

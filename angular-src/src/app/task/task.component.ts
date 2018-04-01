@@ -22,7 +22,8 @@ export class TaskComponent implements OnInit {
     Comment: "",
     userId: "",
     userType: "",
-    taskId: ""
+    taskId: "",
+    name:""
 
   };
 
@@ -44,6 +45,7 @@ export class TaskComponent implements OnInit {
     this.commentdata.userType = "Child";
     this.commentdata.userId = "5abfe6f3750ffc19b0689a36";
     this.commentdata.taskId = "5abffe465386b43094a8c784";
+    this.commentdata.name = "Saleh";
 
     this.http.post('http://localhost:3000/api/task/newComment', this.commentdata).subscribe();
   }

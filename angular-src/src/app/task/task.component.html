@@ -1,5 +1,20 @@
 <form (submit)="CreateNewComment()">
 
+
+
+  <h2>New Task</h2>
+
+
+  <input type="text" class="form-control" [(ngModel)]="taskname" name="taskname">
+  <input type="text" class="form-control" [(ngModel)]="description" name="description">
+
+  <button (click) = "CreateNewTask()">New Task</button>
+
+
+
+
+
+
   <h2>New Comment</h2>
 
 
@@ -9,18 +24,10 @@
 
 </form>
 
-  <h2>New Task</h2>
+
+<h2>View Comments</h2>
 
 
-  <input type="text" class="form-control" [(ngModel)]="taskname" name="taskname">
-  <input type="text" class="form-control" [(ngModel)]="description" name="description">
-
-  <button (click) = "CreateNewTask()">New Task</button>
-  
-
-  
-  
-  
   <form (submit)="getComments()">
   <button id="mybutton" type="submit">getComments</button>
 </form>
@@ -33,7 +40,7 @@
   </tr>
 
   <tr *ngFor="let com of mycomment">
-    <td>{{com.userId}}</td>
+    <td>{{com.name}}</td>
     <td>{{com.Comment}}</td>
   </tr>
 </table>
