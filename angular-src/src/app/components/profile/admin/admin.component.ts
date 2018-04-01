@@ -90,4 +90,9 @@ export class AdminComponent implements OnInit {
 
   }
 
+  ViewUnverifiedArticles(){
+    this.router.navigate(['/profile/admin/un-verified-articles']);        
+
+  }
+
 }
