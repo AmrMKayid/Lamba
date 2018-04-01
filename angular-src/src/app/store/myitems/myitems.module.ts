@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { MyitemsComponent } from './myitems.component';
+import { CreateComponent } from './create/create.component';
+import { UpdateComponent } from './update/update.component';
+import { DeleteComponent } from './delete/delete.component';
+import { ViewComponent } from './view/view.component';
 
 const routes: Routes = [
 	{
@@ -18,7 +22,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [MyitemsComponent],
+  declarations: [MyitemsComponent, CreateComponent, UpdateComponent, DeleteComponent, ViewComponent],
   exports: [RouterModule]
 })
 export class MyitemsModule { }
