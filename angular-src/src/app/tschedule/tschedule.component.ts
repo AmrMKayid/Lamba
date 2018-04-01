@@ -11,8 +11,6 @@ import { HttpClient } from '@angular/common/http';
 })
 export class TscheduleComponent implements OnInit {
 
-  public timetable;
-
   public day = [];
   public sat = [];
   public sun = [];
@@ -29,7 +27,15 @@ export class TscheduleComponent implements OnInit {
   createTeacherSchedule(){
     //let user= JSON.parse(localStorage.getItem('currentUser')).user;
 
-    this.http.post('http://localhost:3000/api/schedule/createTeacherSchedule/5ac015ff36680295c461476e',null ).subscribe();
+    this.http.post('http://localhost:3000/api/schedule/createTeacherSchedule/5ac015ff36680295c461476e',null ).subscribe((res: any) => {
+      this.sat = res.data.saturday;
+      this.sun = res.data.sunday;
+      this.mon = res.data.monday;
+      this.tues = res.data.tuesday;
+      this.wed = res.data.wednesday;
+      this.thurs = res.data.thursday;
+      this.fri = res.data.friday;
+    });
 
   }
 

@@ -6,12 +6,14 @@ import { TscheduleComponent } from './tschedule/tschedule.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { TaskComponent } from './task/task.component';
+import { CscheduleComponent } from './cschedule/cschedule.component';
 
 
 
 const AppRoutes: Routes = [
   { path: 'tschedule', component: TscheduleComponent },
   { path: 'task', component: TaskComponent },
+  { path: 'cschedule', component: CscheduleComponent },
 ];
 
 
@@ -19,7 +21,8 @@ const AppRoutes: Routes = [
   declarations: [
     AppComponent,
     TscheduleComponent,
-    TaskComponent
+    TaskComponent,
+    CscheduleComponent
   ],
   imports: [
     BrowserModule,
