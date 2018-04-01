@@ -19,7 +19,7 @@ export class ViewComponent implements OnInit {
 
   constructor(private StoreService : StoreService) {
     this.getItemCount();
-    this.limit = 6 ;
+    this.limit = 2 ;
     this.curPage = 1;
     this.loadItems();
     this.pages = [1,2,3,4,5];
@@ -37,7 +37,6 @@ export class ViewComponent implements OnInit {
   loadItems(){
       this.StoreService.viewItems(this.limit,this.curPage).subscribe((data:any)=>{
         this.items = data.data;
-        console.log(this.items);
 
       });
   }

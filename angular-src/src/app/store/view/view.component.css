@@ -3,6 +3,12 @@
 }
 
 .card {
-  border: solid;
+  border: 1px solid grey;
+  border-radius: 10px;
+  box-shadow: 10px 10px 5px grey;
   margin: 30px;
+}
+
+a {
+  cursor: pointer;
 }
