@@ -1,7 +1,10 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from "@angular/router";
-
+import { FormsModule } from '@angular/forms';
+import {ToasterModule} from 'angular5-toaster';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 import {ProfileComponent} from "./profile.component";
 import {AdminComponent} from './admin/admin.component';
 import {ParentComponent} from './parent/parent.component';
@@ -44,6 +47,10 @@ const appRoutes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
+    HttpModule,
+   HttpClientModule,
+   ToasterModule,
     RouterModule.forChild(appRoutes)
   ],
   declarations: [
@@ -53,7 +60,8 @@ const appRoutes: Routes = [
     TeacherComponent,
     ChildComponent,
     UnVerifiedArticlesComponent,
-    VerifyArticleComponent
+    VerifyArticleComponent,
+
   ]
 })
 export class ProfileModule {

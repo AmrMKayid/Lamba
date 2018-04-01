@@ -2,7 +2,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-
+import { HttpModule } from '@angular/http';
+import {ToasterModule} from 'angular5-toaster';
 
 import {routing} from './app.routing';
 
@@ -31,7 +32,10 @@ import {RegisterComponent} from './components/home/register/register.component';
     routing,
     FormsModule,
     ReactiveFormsModule,
+     HttpModule,
     HttpClientModule,
+    ToasterModule,
+
   ],
   providers: [
     AuthGuard,
