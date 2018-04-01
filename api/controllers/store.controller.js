@@ -146,16 +146,77 @@ module.exports.viewItems = function(req, res, next) {
 
 
 module.exports.editItems = function(req, res, next) {
+  var valid =  req.body.name && Validations.isString(req.body.name) &&
+     req.body.description && Validations.isString(req.body.description) &&
+     req.body.quantity && Number.isInteger(req.body.quantity) &&
+     req.body.price &&  isNumber(req.body.price) && req.body.item_type &&
+     Validations.isString(req.body.item_type) &&
+     req.body.picture_url &&   Validations.isString(req.body.picture_url);
 
-  console.log("edit\n");
-}
+  if (!valid) {
+      return res.status(422).json({
+        err: null,
+        msg: 'Updated fields must have a valid type',
+        data: null
+      });
+    }
+    req.body.updatedAt = moment().toDate();
 
+    Item.findByIdAndEdit(
+      req.params.itemId,
+      {
+        $set: req.body
+      },
+      { new: true }
+    ).exec(function (err, updatedProduct) {
+      if (err) {
+        return next(err);
+      }
+      if (!updatedProduct) {
+        return res
+          .status(404)
+          .json({ err: null, msg: 'Update Failed', data: null });
+      }
+      res.status(200).json({
+        err: null,
+        msg: 'Product was updated successfully.',
+        data: updatedProduct
+      });
+    });
+
+  // console.log("edit\n");
+};
 
 
 module.exports.deleteItems = function(req, res, next) {
 
-  console.log("delete\n");
-}
+  if (!Validations.isNumber(req.params.itemId)) {
+    return res.status(422).json({
+        err: null,
+        msg: 'ID parameter must be a valid ObjectId.',
+        data: null
+      });
+    }
+    Item.findByIdAndRemove(req.params.itemId).exec(function (
+      err,
+      deletedProduct
+    ) {
+      if (err) {
+        return next(err);
+      }
+      if (!deletedProduct) {
+        return res
+          .status(404)
+          .json({ err: null, msg: 'Delete failed', data: null });
+      }
+      res.status(200).json({
+        err: null,
+        msg: 'Scuccess',
+        data: deletedProduct
+      });
+    });
+  };
+
 
 
 module.exports.buyItems = function(req, res, next) {
