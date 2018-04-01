@@ -6,7 +6,7 @@ import { Http, Headers } from '@angular/http';
 import { HttpModule } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 
-
+import {ToasterModule} from 'angular5-toaster';
 
 import {routing} from './app.routing';
 
@@ -36,7 +36,10 @@ import {RegisterComponent} from './components/home/register/register.component';
     FormsModule,
     HttpModule,
     ReactiveFormsModule,
+     HttpModule,
     HttpClientModule,
+    ToasterModule,
+
   ],
   providers: [
     AuthGuard,

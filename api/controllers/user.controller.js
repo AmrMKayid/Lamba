@@ -74,7 +74,7 @@ var mongoose = require('mongoose'),
             });
           });
         };
-//View Certain Article 
+//View Certain Article
  module.exports.viewArticleToVerify=function(req, res, next) {
     if (!Validations.isObjectId(req.params.articleId)) {
       return res.status(422).json({
@@ -170,22 +170,21 @@ if (!Validations.isObjectId(req.params.userId)) {
 var valid =
   req.body.about &&
   Validations.isString(req.body.about) &&
-  req.body.address&&
+//  req.body.address&&
   req.body.address.city &&
-  Validations.isString(req.body.adress.city) &&
+  Validations.isString(req.body.address.city) &&
   req.body.address.street &&
-  Validations.isString(req. address.street) &&
+  Validations.isString(req.address.street) &&
   req.body.address.state &&
   Validations.isString(req.body.address.state) &&
   req.body.address.zip &&
   Validations.isNumber(req.body.address.zip) &&
-  req.body.name&&
+// req.body.name&&
   req.body.name.firstName &&
   Validations.isString(req.body.name.firstName) &&
   req.body.name.lastName &&
   Validations.isString(req.body.name.lastName) &&
-  req.body.phone&&
-  Validations.isString(req.body.phone)&&
+
   req.body.fees &&
   Validations.isNumber(req.body.fees);
 if (!valid) {
@@ -206,7 +205,7 @@ User.findByIdAndUpdate(
 ).exec(function (err, updateUser) {
   console.log(updateUser);
   if (err) {
-    // console.log(err)
+     console.log(err)
     return next(err);
   }
   if (!updateUser) {

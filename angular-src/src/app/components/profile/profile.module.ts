@@ -7,9 +7,10 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {ToasterModule} from 'angular5-toaster';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 import {ProfileComponent} from "./profile.component";
 import {AdminComponent} from './admin/admin.component';
@@ -50,8 +51,15 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [CommonModule,HttpModule,HttpClientModule, FormsModule,RouterModule.forChild(appRoutes),
-    ReactiveFormsModule,ToasterModule, Ng2SearchPipeModule, Ng2OrderModule, NgxPaginationModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    HttpModule,
+   HttpClientModule,
+   ToasterModule,
+    ReactiveFormsModule,ToasterModule, Ng2SearchPipeModule, Ng2OrderModule, NgxPaginationModule,
+    RouterModule.forChild(appRoutes)
+  ],
   declarations: [
     ProfileComponent,
     AdminComponent,
@@ -60,7 +68,7 @@ const appRoutes: Routes = [
     ChildComponent
     // ,UnVerifiedArticlesComponent,
     // VerifyArticleComponent,
-    
+
   ],
   providers: [
     HttpClient
