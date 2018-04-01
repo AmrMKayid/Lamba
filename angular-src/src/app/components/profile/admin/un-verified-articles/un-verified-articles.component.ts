@@ -12,13 +12,15 @@ export class UnVerifiedArticlesComponent implements OnInit {
   public unVerifiedArticlesList = [];
   constructor(
     private httpClient: HttpClient,
-    private http: Http,
+     private http: Http,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.httpClient.get('http://localhost:3000/api/user/viewUnverifiedArticles')
-      .subscribe((res: any) => { this.unVerifiedArticlesList = res.data; });
+    console.log("entered");
+     this.httpClient.get('http://localhost:3000/api/user/viewUnverifiedArticles')
+       .subscribe((res: any) => { this.unVerifiedArticlesList = res.data; });
+       console.log("entered");
 
   }
 

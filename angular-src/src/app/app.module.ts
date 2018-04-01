@@ -31,7 +31,7 @@ import {RegisterComponent} from './components/home/register/register.component';
     routing,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [
     AuthGuard,
