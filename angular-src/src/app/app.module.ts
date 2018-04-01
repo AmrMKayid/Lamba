@@ -21,6 +21,7 @@ import { AuthService } from './services/auth.service';
 
 import {LoginComponent} from './components/home/login/login.component';
 import {RegisterComponent} from './components/home/register/register.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
 
 
 
@@ -28,7 +29,8 @@ import {RegisterComponent} from './components/home/register/register.component';
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomepageComponent
   ],
   imports: [
     BrowserModule,
