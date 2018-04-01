@@ -1,32 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { StoreComponent } from './store.component';
-import { LoadChildren } from '@angular/router';
+import { MyitemsComponent } from './myitems.component';
 
 const routes: Routes = [
 	{
 		path: '',
-		component: StoreComponent,
+		component: MyitemsComponent,
 		children: [
-			 {
-				path: 'myitems',
-				loadChildren: './myitems/myitems.module#MyitemsModule'
-			 }
 		]
     
     }
 ];
-
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [
-  StoreComponent
-  ],
+  declarations: [MyitemsComponent],
   exports: [RouterModule]
 })
-export class StoreModule { }
+export class MyitemsModule { }
