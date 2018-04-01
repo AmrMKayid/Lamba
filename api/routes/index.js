@@ -12,5 +12,6 @@ router.post('/auth/child', mw.isAuthenticated, mw.isNotChild, authCtrl.addChild)
 //----------------------------------------------------------------------------------//
 router.get('/articles', mw.isAuthenticated, articleCtrl.getArticles);
 router.post('/articles', mw.isAuthenticated, mw.isNotChild, articleCtrl.createArticle);
+router.post('/articles/feedback', mw.isAuthenticated, articleCtrl.feedbackArticle);
 
 module.exports = router;
