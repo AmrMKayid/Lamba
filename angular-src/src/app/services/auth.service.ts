@@ -17,6 +17,7 @@ export class AuthService {
         if (user && user.data) {
           let currentUser = JSON.stringify(this.getUserDetails(user.data).user);
           localStorage.setItem('currentUser', currentUser);
+          localStorage.setItem('authorization', user.data);
         }
         return user;
       });

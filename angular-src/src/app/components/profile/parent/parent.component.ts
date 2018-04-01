@@ -29,7 +29,7 @@ export class ParentComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    console.log(localStorage.getItem('authorization'))
     this.newChildBtn = false;
   }
 
@@ -46,7 +46,9 @@ export class ParentComponent implements OnInit {
       gender: this.childGender,
     };
 
-    this.http.post(appConfig.apiUrl + '/auth/child', newChild).subscribe(
+    let autorization =  { Authorization: localStorage.getItem('authorization') }
+
+    this.http.post(appConfig.apiUrl + '/auth/child', newChild, {headers: autorization}).subscribe(
       data => {
         this.toaster.pop({
           type: 'success',
@@ -56,6 +58,7 @@ export class ParentComponent implements OnInit {
         });
       },
       error => {
+        console.log(error)
         this.toaster.pop({
           type: 'error',
           title: "Error!",
