@@ -50,6 +50,9 @@ export class LoginComponent implements OnInit {
     this.authService.login(value)
       .subscribe(
         data => {
+
+          console.log((localStorage.getItem('currentUser')));
+          console.log(data);
           this.router.navigate([this.returnUrl]);
         },
         error => {

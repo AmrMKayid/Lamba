@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Http, Headers } from '@angular/http';
+// import { Http, Headers } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -12,7 +12,7 @@ export class VerifyArticleComponent implements OnInit {
 
   constructor(
     private httpClient: HttpClient,
-    private http: Http,
+    // private http: Http,
     private router: Router
   ) { }
 

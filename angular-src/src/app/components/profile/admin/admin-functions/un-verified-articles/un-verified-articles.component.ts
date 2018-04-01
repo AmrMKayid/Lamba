@@ -12,7 +12,7 @@ export class UnVerifiedArticlesComponent implements OnInit {
   public unVerifiedArticlesList = [];
   constructor(
     private httpClient: HttpClient,
-    private http: Http,
+    // private http: Http,
     private router: Router
   ) { }
 
