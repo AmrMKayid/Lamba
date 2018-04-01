@@ -18,7 +18,7 @@
 					<input class="form-control" placeholder="Tags">
 				</div>
 			</div>
-			<quill-editor [placeholder]="'Enter post content here...'" name="editorContent" id="detailEditTxt" [(ngModel)]="editorContent">
+			<quill-editor [modules]="toolbarOptions" [placeholder]="'Enter post content here...'" name="editorContent" id="detailEditTxt" [(ngModel)]="editorContent">
 			</quill-editor>
 			<br>
 			<button type="button" (click)="onSubmit()" class="btn btn-block btn-success">Post</button>

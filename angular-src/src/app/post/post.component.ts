@@ -14,7 +14,25 @@ export class PostComponent implements OnInit {
   public title: String;
   public articleContainer: String;
   public editorContent: String;
-
+  public toolbarOptions = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],
+      ['blockquote', 'code-block'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ script: 'sub' }, { script: 'super' }],
+      [{ indent: '-1' }, { indent: '+1' }], 
+      [{ size: ['small', false, 'large', 'huge'] }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [
+        { color: [].slice() },
+        { background: [].slice() }
+      ],
+      [{ font: [].slice() }],
+      [{ align: [].slice() }],
+      ['clean'],
+      ['video']
+    ]
+  };
   //TODO: Export it into a service.
   httpOptions = {
     headers: new HttpHeaders({
@@ -30,7 +48,7 @@ export class PostComponent implements OnInit {
   }
 
   reloadArticles() {
-    
+
     this.articleContainer = "";
     this.http.get('http://localhost:3000/api/articles', this.httpOptions)
       .pipe().subscribe((res: any) => {
@@ -39,11 +57,11 @@ export class PostComponent implements OnInit {
           this.articleContainer += `<h1 class="text-primary text-center">Article#${i + 1} ${element.title} </h1><hr>
           <div class="container jumbotron">${element.content}</div><br><br>`
         });
-      },err =>{
+      }, err => {
         let msg = err.error.msg;
         alert(`Articles not retrieved: ${msg}`);
       });
-      
+
   }
 
   onSubmit() {
