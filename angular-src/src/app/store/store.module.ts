@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { StoreComponent } from './store.component';
 import { LoadChildren } from '@angular/router';
 import { StoreService } from '../services/store.service';
+import { BuyComponent } from './buy/buy.component';
 
 const routes: Routes = [
 	{
@@ -13,6 +14,10 @@ const routes: Routes = [
 			 {
 				path: 'myitems',
 				loadChildren: './myitems/myitems.module#MyitemsModule'
+			 },
+			 {
+				path: 'buy',
+				component: BuyComponent
 			 }
 		]
     
