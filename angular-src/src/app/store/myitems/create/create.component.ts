@@ -94,8 +94,8 @@ export class CreateComponent implements OnInit {
   	{
   		this.toaster.pop({
           type: 'error',
-          title: "You need to upload a photo",
-          body: "you have to provide an Item Name",
+          title: "could not upload photo",
+          body: response.err,
           timeout: 10000
         });  
   		console.log(status);
@@ -105,8 +105,8 @@ export class CreateComponent implements OnInit {
   	this.picture_url = response.filename;
 	this.toaster.pop({
 	      type: 'success',
-	      title: "photo uploaded successfully",
-	      body: "you have to provide an Item Name",
+	      title: "Successfull operation",
+	      body: "Your photo was uploaded to the server successfully!",
 	      timeout: 10000
 	    });  
   }
