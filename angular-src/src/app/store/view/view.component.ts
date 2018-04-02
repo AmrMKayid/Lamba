@@ -13,8 +13,8 @@ export class ViewComponent implements OnInit {
   curPage : number; // Number of the current page
 
   // TODO create item interface ?
-  items[] :any; // Current items
-  pages[] :any; // Holds the numbers of the pages available to be picked
+  items :any[]; // Current items
+  pages :any[]; // Holds the numbers of the pages available to be picked
 
 
   constructor(private StoreService : StoreService) {
