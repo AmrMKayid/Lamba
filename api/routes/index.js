@@ -30,7 +30,7 @@ router.get('/user/getUserInfo/:userId', userCtrl.getUserInfo);
 router.get('/user/viewUnverifiedArticles',mw.isAuthenticated,mw.isAdmin,userCtrl.viewUnverifiedArticles);
 router.get('/user/viewArticleToVerify/:articleId',mw.isAuthenticated,mw.isAdmin,userCtrl.viewArticleToVerify);
 router.get('/user/verifyArticle/:articleId',mw.isAuthenticated,mw.isAdmin,userCtrl.verifyArticle);
-//router.get('/user/viewUnverifiedArticles',userCtrl.viewUnverifiedArticles);
+//router.get('/user/viewUnverifiedArticles',mw.isAuthenticated,userCtrl.viewUnverifiedArticles);
 //router.get('/user/viewArticleToVerify/:articleId',userCtrl.viewArticleToVerify);
 //router.get('/user/verifyArticle/:articleId',userCtrl.verifyArticle);
 

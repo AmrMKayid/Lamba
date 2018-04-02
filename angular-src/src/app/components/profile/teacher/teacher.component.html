@@ -1,18 +1,19 @@
 <div class="card">
   <img src="" style="width:100%">
-  <h1 id="name"></h1>
-  <p id="email"></p>
-  <p id="fees"></p>
-  <p id="phone"></p>
-  <p id="address"></p>
+  <h1 id="name">{{firstName}} {{lastName}}</h1>
+  <p id="email">Email: {{email}}</p>
+  <p id="fees">Fees: {{fees}}</p>
+  <p id="phone">phone: {{phone}}</p>
+  <p id="address">Address: {{street}} {{state}} {{city}} {{zip}}</p>
 
-  <p id="About"></p>
-
+  <p id="About">About: {{about}}</p>
 
 </div>
 <button onclick="document.getElementById('editModal').style.display='block'" style="width:auto;">Edit</button>
 
 <div id="editModal" class="modal">
+  <toaster-container></toaster-container>
+
   <span onclick="document.getElementById('editModal').style.display='none'" class="close"
         title="Close Modal">&times;</span>
   <form (submit)=onEditInfo() id="editForm" class="modal-content" action="/action_page.php">
@@ -51,6 +52,9 @@
       <label for="fees"><b> Fees</b></label>
       <input type="number" placeholder=" Zip" [(ngModel)]="fees" name="fees">
 
+      <label for="phone"><b>phone</b></label>
+      <input type="number" placeholder="phone" [(ngModel)]="phone" name="phone">
+
 
       <div id="clearfix" class="clearfix">
         <button type="button" onclick="document.getElementById('editModal').style.display='none'" class="cancelbtn">
@@ -61,4 +65,3 @@
     </div>
   </form>
 </div>
-

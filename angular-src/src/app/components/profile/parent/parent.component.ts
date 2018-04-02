@@ -29,7 +29,7 @@ export class ParentComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(localStorage.getItem('authorization'))
+    // console.log(localStorage.getItem('authorization'))
     this.newChildBtn = false;
   }
 
@@ -62,7 +62,7 @@ export class ParentComponent implements OnInit {
         this.toaster.pop({
           type: 'error',
           title: "Error!",
-          body: error.msg,
+          body: error.error.msg,
           timeout: 3000
         });
       });
