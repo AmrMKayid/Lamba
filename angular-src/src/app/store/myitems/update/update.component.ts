@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { HttpClient } from '@angular/common/http';
 import {ToasterContainerComponent, ToasterService} from 'angular5-toaster';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { StoreService } from '../../../services/store.service';
@@ -12,8 +11,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./update.component.css']
 })
 export class UpdateComponent implements OnInit {
-    itemId:String;
-    name:sting;
+    myitems: any[];
+    itemId:string;
+    name:string;
     price:number;
     current:any;
     key: string = 'name';
@@ -37,14 +37,12 @@ export class UpdateComponent implements OnInit {
       private storeservice : StoreService,
     ) {}
 
-
-    selectProduct(item) {
+    editItem(item) {
       this.name = item.name;
       this.price = item.price;
       this.itemId = item._id;
-    }
 
-    editProduct() {
+
       let editedItem = {
         name: this.name,
         price: Number(this.price),
@@ -55,15 +53,6 @@ export class UpdateComponent implements OnInit {
       };
 
       this.http.patch('http://localhost:3000/api/store/edit/:itemId' + this.itemId , editedItem)
-        .catch(err => {
-          this.toaster.pop({
-            type: 'error',
-            title: "Error!",
-            body: "one or more fields are not updated correctly",
-            timeout: 3000
-          });
-          return Observable.throw(err)
-        })
         .subscribe(res => {
           this.toaster.pop({
             type: 'success',
@@ -82,7 +71,7 @@ export class UpdateComponent implements OnInit {
     }
 
 
-    deleteProduct(productID) {
+    deleteProduct(itemId) {
       this.http.delete('http://localhost:3000/api/store/delete/:itemId' + this.itemId)
         .subscribe(res => {
           this.toaster.pop({
@@ -100,10 +89,7 @@ export class UpdateComponent implements OnInit {
 
     ngOnInit() {
 
-     this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
-
-     this.getMyProducts();
-
+     this.current = JSON.parse(localStorage.getItem('currentUser'))
     };
 
 
