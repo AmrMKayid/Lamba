@@ -155,7 +155,10 @@ module.exports.login = function (req, res, next) {
     }
 
     if (user) {
+
         loginUser(req, res, next);
+        
+
     } else {
         loginChild(req, res, next);
     }
@@ -432,6 +435,7 @@ function loginUser(req, res, next) {
                     }
                 );
                 // Send the JWT to the frontend
+                
                 res.status(200).json({err: null, msg: 'Welcome', data: token});
             });
         }

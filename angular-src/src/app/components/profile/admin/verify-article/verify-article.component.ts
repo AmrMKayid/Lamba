@@ -26,7 +26,8 @@ export class VerifyArticleComponent implements OnInit {
   ngOnInit() {
     
     console.log(this.route.snapshot.params['id']);
-    this.httpClient.get('http://localhost:3000/api/user/viewArticleToVerify/'+this.route.snapshot.params['id'])
+    let autorization =  { Authorization: localStorage.getItem('authorization') };
+    this.httpClient.get('http://localhost:3000/api/user/viewArticleToVerify/'+this.route.snapshot.params['id'],{headers: autorization})
        .subscribe((res: any) => { this.article = res.data; 
         this.toast.pop({
         type: 'success',
@@ -48,7 +49,8 @@ export class VerifyArticleComponent implements OnInit {
   }
 verify(articleId){
   console.log(articleId);
-  this.httpClient.get('http://localhost:3000/api/user/verifyArticle/'+articleId)
+  let autorization =  { Authorization: localStorage.getItem('authorization') };
+  this.httpClient.get('http://localhost:3000/api/user/verifyArticle/'+articleId,{headers: autorization})
        .subscribe((res: any) => { this.noValue = res.data; 
         this.toast.pop({
           type: 'success',

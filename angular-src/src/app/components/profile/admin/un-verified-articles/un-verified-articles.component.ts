@@ -21,8 +21,10 @@ export class UnVerifiedArticlesComponent implements OnInit {
 
   ngOnInit() {
     console.log("entered");
-     this.httpClient.get('http://localhost:3000/api/user/viewUnverifiedArticles')
+    let autorization =  { Authorization: localStorage.getItem('authorization') };
+     this.httpClient.get('http://localhost:3000/api/user/viewUnverifiedArticles',{headers: autorization})
        .subscribe((res: any) => { this.unVerifiedArticlesList = res.data;
+        
         this.toast.pop({
           type: 'success',
           title: "Success",
@@ -37,7 +39,7 @@ export class UnVerifiedArticlesComponent implements OnInit {
           timeout: 3000
         });
       });    
-       console.log("entered");
+       
 
   }
   showProduct(articleId){
