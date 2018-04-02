@@ -222,7 +222,7 @@ module.exports.deleteItems = function(req, res, next) {
 module.exports.buyItems = function(req, res, next) {
   console.log("buy\n");
 
-  if (!req.file)
+   if (!req.file)
 	{
     	return res.status(422).json({
 			  err: null,
@@ -257,7 +257,7 @@ module.exports.buyItems = function(req, res, next) {
   Item.findByIdAndUpdate(
     req.params.itemId,
     {
-      $set: req.body
+      $set: {buyers_id: buyers_id.push(req.params.buyerId)}
     },
     { new: true }
   ).exec(function (err, updatedItem) {
@@ -267,7 +267,7 @@ module.exports.buyItems = function(req, res, next) {
     if (!updatedItem) {
       return res
       .status(404)
-      .json({ err: null, msg: 'Item found.', data: null });
+      .json({ err: null, msg: 'Item not found.', data: null });
     }
     res.status(200).json({
       err: null,
