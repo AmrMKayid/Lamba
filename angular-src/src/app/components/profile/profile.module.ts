@@ -18,6 +18,7 @@ import {TeacherComponent} from './teacher/teacher.component';
 import {ChildComponent} from './child/child.component';
 import {UnVerifiedArticlesComponent} from './admin/un-verified-articles/un-verified-articles.component';
 import {VerifyArticleComponent} from './admin/verify-article/verify-article.component';
+import { VerifyTeacherComponent } from './admin/verify-teacher/verify-teacher.component';
 
 const appRoutes: Routes = [
   {
@@ -51,6 +52,11 @@ const appRoutes: Routes = [
 
       },
       {
+        path: 'admin/verify-teachers',
+        component: VerifyTeacherComponent
+
+      },
+      {
         path: '',
         redirectTo: 'profile',
         pathMatch: 'full'
@@ -81,6 +87,7 @@ const appRoutes: Routes = [
     ChildComponent,
     UnVerifiedArticlesComponent,
     VerifyArticleComponent,
+    VerifyTeacherComponent,
 
   ],
   providers: [
