@@ -14,12 +14,12 @@ describe('BuyComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.buyComponent(BuyComponentt);
+    fixture = TestBed.createComponent(BuyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should buy', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

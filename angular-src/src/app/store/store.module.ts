@@ -31,7 +31,8 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [
-  StoreComponent
+  StoreComponent,
+  BuyComponent
   ],
   exports: [RouterModule],
    providers: [StoreService]
