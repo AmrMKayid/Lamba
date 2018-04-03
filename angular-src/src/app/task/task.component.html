@@ -1,6 +1,20 @@
 <form (submit)="CreateNewComment()">
 
 
+  
+  
+  
+  
+  
+  
+  <h2>New Comment</h2>
+  
+  
+  <input type="text" class="form-control" [(ngModel)]="comment" name="comment">
+  
+  <button id="mybutton" type="submit">Submit</button>
+  
+</form>
 
   <h2>New Task</h2>
 
@@ -9,20 +23,6 @@
   <input type="text" class="form-control" [(ngModel)]="description" name="description">
 
   <button (click) = "CreateNewTask()">New Task</button>
-
-
-
-
-
-
-  <h2>New Comment</h2>
-
-
-  <input type="text" class="form-control" [(ngModel)]="comment" name="comment">
-
-  <button id="mybutton" type="submit">Submit</button>
-
-</form>
 
 
 <h2>View Comments</h2>
