@@ -1,0 +1,21 @@
+<toaster-container></toaster-container>
+
+<button (click)="newChildBtn=true;">Add Child</button>
+<div *ngIf="newChildBtn">
+  <input type="text" placeholder="First Name" [(ngModel)]="childFirstName" id="childFirstName">
+  <input type="text" placeholder="Last Name" [(ngModel)]="childlastName" id="childlastName">
+
+  <input type="text" placeholder="username" [(ngModel)]="childUsername" id="childUsername">
+  <input type="password" placeholder="password" [(ngModel)]="childPassword" id="childPassword">
+  <input type="password" placeholder="password" [(ngModel)]="childConfirmPassword" id="childConfirmPassword">
+
+  <label>Gender: </label>
+  <select [(ngModel)]="childGender" name="gender" class="">
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+  </select>
+
+  <button type="submit" (click)="newChild()">Add</button>
+
+</div>
+
