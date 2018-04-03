@@ -5,14 +5,47 @@
 
 <router-outlet></router-outlet> -->
 
-<nav>
-    <a [routerLink]="['/components']">homepage</a>
-    <a [routerLink]="['/cschedule']">cschedule</a>
-    <a [routerLink]="['/post']">post</a>
-    <!-- <a [routerLink]="['/store']">cschedule</a> -->
-    <a [routerLink]="['/task']">task</a>
-    <a [routerLink]="['/tschedule']">tschedule</a>
-    
 
+<!-- <nav class="navbar navbar-dark bg-dark">
+
+  <a [routerLink]="['/components']">homepage</a>
+  <a [routerLink]="['/cschedule']">cschedule</a>
+  <a [routerLink]="['/post']">post</a> -->
+<!-- <a [routerLink]="['/store']">cschedule</a> -->
+<!-- <a [routerLink]="['/task']">task</a>
+  <a [routerLink]="['/tschedule']">tschedule</a>
+</nav> -->
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" [routerLink]="['/components']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+    true}">Lamba</a>
+
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['/cschedule']">CS_Schedule</a>
+    </li>
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['/post']">Post</a>
+    </li>
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['/task']">Tasks</a>
+    </li>
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['/tschedule']">T_Schedule</a>
+    </li>
+  </ul>
+
+  <ul class="navbar-nav mr-right">
+    <li routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['/login']">Login</a>
+    </li>
+    <li routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['/register']">Sign Up</a>
+    </li>
+  </ul>
 </nav>
-<router-outlet></router-outlet>
+<br>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

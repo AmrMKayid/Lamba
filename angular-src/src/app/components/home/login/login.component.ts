@@ -13,12 +13,7 @@ import {ToasterService} from "angular5-toaster";
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-
-  // TO GET CURRENT USER INFO
-  // JSON.parse(localStorage.getItem('currentUser'))
-
   user: FormGroup;
-
   onSubmit({value, valid}: { value: User, valid: boolean }) {
     // TODO: Edit login method
     // value.username = value.email;

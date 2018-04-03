@@ -24,7 +24,7 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('currentUser');
+    localStorage.clear();
   }
 
   // Registration

@@ -8,6 +8,7 @@ import { CscheduleComponent } from './cschedule/cschedule.component';
 import { TaskComponent } from './task/task.component';
 import { TscheduleComponent } from './tschedule/tschedule.component';
 import { PostComponent } from './post/post.component';
+import { AuthGuard } from './guards/auth.guard';
 const appRoutes: Routes = [
   {path: '', component: HomepageComponent},
   {path: 'login', component: LoginComponent},
@@ -16,7 +17,7 @@ const appRoutes: Routes = [
   { path: 'tschedule', component: TscheduleComponent },
   { path: 'task', component: TaskComponent },
   { path: 'cschedule', component: CscheduleComponent },
-  { path: 'post', component: PostComponent },
+  { path: 'post', component: PostComponent, canActivate: [AuthGuard] },
 	// {path: 'store',
   //   loadChildren: './store/store.module#StoreModule'
   // },

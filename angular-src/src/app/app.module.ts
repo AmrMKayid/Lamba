@@ -1,15 +1,14 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Http, Headers } from '@angular/http';
 import { HttpModule } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
-import {ToasterModule,ToasterService} from 'angular5-toaster';
-// import { SafeHtmlPipe } from './post/safe-html.pipe';
-import {routing} from './app.routing';
-//C1-Articles --Couldn't find ngx-quill module --SOLVED: npm install ngx-quill --save
-// import { QuillModule } from 'ngx-quill'; 
+import { ToasterModule, ToasterService } from 'angular5-toaster';
+import { SafeHtmlPipe } from './post/safe-html.pipe';
+import { routing } from './app.routing';
+import { QuillModule } from 'ngx-quill';
 
 import { AppComponent } from './app.component';
 
@@ -22,8 +21,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import {LoginComponent} from './components/home/login/login.component';
-import {RegisterComponent} from './components/home/register/register.component';
+import { LoginComponent } from './components/home/login/login.component';
+import { RegisterComponent } from './components/home/register/register.component';
 import { HomepageComponent } from './components/home/homepage/homepage.component';
 import { PostComponent } from './post/post.component';
 import { CscheduleComponent } from './cschedule/cschedule.component';
@@ -54,7 +53,7 @@ import { LoadChildren } from '@angular/router';
     // ViewComponent,
     // CreateComponent,
     // UpdateComponent,
-    // QuillModule
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,
@@ -66,6 +65,7 @@ import { LoadChildren } from '@angular/router';
     HttpClientModule,
     ToasterModule,
     NgbModule.forRoot(),
+    QuillModule
     // NbThemeModule.forRoot({ name: 'default' })
   ],
   providers: [

@@ -38,7 +38,7 @@ export class PostComponent implements OnInit {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       //GET THIS FROM POSTMAN'S LOGIN (won't work 3shan locally 3l database bta3ty)
-      'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOnsiZmlyc3ROYW1lIjoiYWJkbyIsImxhc3ROYW1lIjoiaGVzaGFtIn0sInNjaGVkdWxlIjp7IlRpbWV0YWJsZSI6W10sImNyZWF0ZWRBdCI6IjIwMTgtMDMtMzBUMDU6NTE6NDcuOTIwWiIsInVwZGF0ZWRBdCI6IjIwMTgtMDMtMzBUMDU6NTE6NDcuOTIwWiJ9LCJteUl0ZW1zIjpbXSwiY2FydCI6W10sInF1YWxpZmljYXRpb25zIjpbXSwic3R1ZGVudHMiOltdLCJfaWQiOiI1YWJkZDA3Mzc2MDk5YzRhZTI3OTNhZWUiLCJlbWFpbCI6InBhcmVudDFAZ21haWwuY29tIiwicm9sZSI6IlBhcmVudCIsIl9fdiI6MH0sImlhdCI6MTUyMjU3MjcwNCwiZXhwIjoxNTIyNjE1OTA0fQ.aFyVgpspb3JArTdx6rUO__5xf17sFB0ZBY0yxiwV9wQ"
+      'Authorization': localStorage.getItem('authorization')
     })
   };
   constructor(private http: HttpClient) { }
@@ -78,6 +78,20 @@ export class PostComponent implements OnInit {
       });
   }
 
+  // TODO: Efficiency?
+  reloadArticle(index: number){
+    this.http.get('http://localhost:3000/api/articles', this.httpOptions)
+      .pipe().subscribe((res: any) => {
+        let newArticle = res.data.reverse()[index];
+        let oldArticle = this.articles[index];
+        oldArticle.downvoters = newArticle.downvoters;
+        oldArticle.upvoters = newArticle.upvoters;        
+      }, err => {
+        let msg = err.error.msg;
+        alert(`Articles not retrieved: ${msg}`);
+      });
+  }
+
   upvote(index: number) {
 
     let body = {
@@ -87,7 +101,7 @@ export class PostComponent implements OnInit {
 
     this.http.post('http://localhost:3000/api/articles/feedback', body , this.httpOptions)
       .pipe().subscribe(res => {
-        this.reloadArticles();
+        this.reloadArticle(index)
       }, err => {
         let msg = err.error.msg;
         alert(`Article was not updated: ${msg}`);
@@ -102,7 +116,7 @@ export class PostComponent implements OnInit {
 
     this.http.post('http://localhost:3000/api/articles/feedback', body , this.httpOptions)
       .pipe().subscribe(res => {
-        this.reloadArticles();
+        this.reloadArticle(index)
       }, err => {
         let msg = err.error.msg;
         alert(`Article was not updated: ${msg}`);
