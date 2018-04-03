@@ -11,7 +11,7 @@ import {Http, Headers, HttpModule} from '@angular/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
-import {ProfileComponent} from "./profile.component";
+import {ProfileComponent} from './profile.component';
 import {AdminComponent} from './admin/admin.component';
 import {ParentComponent} from './parent/parent.component';
 import {TeacherComponent} from './teacher/teacher.component';
