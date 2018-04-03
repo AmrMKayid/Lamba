@@ -3,7 +3,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 
-import {AuthService} from '../../../services/auth.service';
+import {AuthService} from '../../services/auth.service';
 import {ToasterService} from "angular5-toaster";
 
 @Component({

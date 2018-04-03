@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 
-import {AuthService} from '../../../services/auth.service';
+import {AuthService} from '../../services/auth.service';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {User} from "../register/register.component";
 import {ToasterService} from "angular5-toaster";

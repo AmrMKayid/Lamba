@@ -43,4 +43,13 @@ export class AuthService {
     }
   }
 
+  //TODO: Add at least JWT expiration check
+  public isLoggedIn(){
+    if(localStorage.getItem('authorization')){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 }

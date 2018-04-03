@@ -1,0 +1,24 @@
+<h1 class="text-center">POSTED ARTICLES:</h1>
+<br>
+<br>
+<div class="container">
+  <div *ngFor="let element of articles; let i = index">
+    <h1 class="text-primary text-center">Article#{{i + 1}} :
+      <strong>
+        <a [routerLink]="['id',i]">{{element.title}}</a>
+      </strong>
+    </h1>
+    <hr>
+    <div class="container jumbotron">
+      <button class="btn btn-primary" (click)="upvote(i)">Upvote {{element.upvoters.length}}</button>
+      <button class="btn btn-danger" (click)="downvote(i)">Downvote {{element.downvoters.length}}</button>
+      <div align="right">
+        Created: {{element.createdAt | date}}
+      </div>
+    </div>
+    <br>
+    <br>
+  </div>
+  <a class="btn btn-success btn-block" [routerLink]="['post']">Post new article</a>
+
+</div>

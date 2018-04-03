@@ -18,7 +18,7 @@
 
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" [routerLink]="['/components']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+  <a class="navbar-brand" [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
     true}">Lamba</a>
 
   <ul class="navbar-nav mr-auto">
@@ -26,7 +26,7 @@
       <a class="nav-link" [routerLink]="['/cschedule']">CS_Schedule</a>
     </li>
     <li class="nav-item" routerLinkActive="active">
-      <a class="nav-link" [routerLink]="['/post']">Post</a>
+      <a class="nav-link" [routerLink]="['/resources']">Educational Resources</a>
     </li>
     <li class="nav-item" routerLinkActive="active">
       <a class="nav-link" [routerLink]="['/task']">Tasks</a>
@@ -36,12 +36,21 @@
     </li>
   </ul>
 
+  <!-- TODO: Ma3rafsh routings el profile ? -->
   <ul class="navbar-nav mr-right">
     <li routerLinkActive="active">
-      <a class="nav-link" [routerLink]="['/login']">Login</a>
+      <a class="nav-link" *ngIf="!this.authService.isLoggedIn()" [routerLink]="['/login']">Login</a>
     </li>
     <li routerLinkActive="active">
-      <a class="nav-link" [routerLink]="['/register']">Sign Up</a>
+      <a class="nav-link" *ngIf="this.authService.isLoggedIn()" [routerLink]="['/profile']">Profile</a>
+    </li>
+
+    <li routerLinkActive="active">
+      <a class="nav-link" *ngIf="!this.authService.isLoggedIn()" [routerLink]="['/register']">Sign Up</a>
+    </li>
+
+    <li routerLinkActive="active">
+      <a class="nav-link" *ngIf="this.authService.isLoggedIn()" (click)="this.authService.logout()" [routerLink]="['/login']">Logout</a>
     </li>
   </ul>
 </nav>

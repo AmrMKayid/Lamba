@@ -1,0 +1,10 @@
+<h1 class="text-primary text-center">
+  <strong>
+    {{article.title}}
+  </strong>
+</h1>
+<hr>
+<div class="container jumbotron">
+  <div [innerHTML]="article.content | safeHtml">
+  </div>
+</div>
