@@ -218,66 +218,6 @@ module.exports.deleteItems = function(req, res, next) {
   };
 
 
-
-module.exports.buyItems = function(req, res, next) {
-  console.log("buy\n");
-
-   if (!req.file)
-	{
-    	return res.status(422).json({
-			  err: null,
-			  msg: "Couldn't buy item",
-			  data: null
-			});
-	}
-	    var token = req.headers['authorization'];
-    if (!token) {
-    	fs.unlink(req.file.path);
-        return res.status(401).json({
-            error: null,
-            msg: 'You have to login first!',
-            data: null
-        });
-    }
-    // Verify JWT
-    jwt.verify(token, req.app.get('secret'), function (err, decodedToken) {
-        if (err) {
-
-        	fs.unlink(req.file.path);
-            return res.status(401).json({
-                error: err,
-                msg: 'Login timed out, please login again.',
-                data: null
-            });
-           }
-           return res.status(200).json({ err: null, msg: "Bought Item successfully" , filename:req.file.filename});
-
-	   });
-
-  Item.findByIdAndUpdate(
-    req.params.itemId,
-    {
-      $set: {buyers_id: buyers_id.push(req.params.buyerId)}
-    },
-    { new: true }
-  ).exec(function (err, updatedItem) {
-    if (err) {
-      return next(err);
-    }
-    if (!updatedItem) {
-      return res
-      .status(404)
-      .json({ err: null, msg: 'Item not found.', data: null });
-    }
-    res.status(200).json({
-      err: null,
-      msg: 'Item was updated/bought successfully.',
-      data: updatedItem
-    });
-  });
-}
-
-
 module.exports.likeItems = function(req, res, next) {
   let user = req.decodedToken.user._id;
 
@@ -295,18 +235,51 @@ module.exports.likeItems = function(req, res, next) {
       });
     }
     else{
-      retrievedItem.likes_user_id.push(user);}
+      retrievedItem.likes_user_id.push(user);
+      retrievedItem.likes += 1; }
 
 
       return res.status(200).json({
         err: null,
         msg: 'Item was liked successfully.',
-        data: null
+        data: retrievedItem
       });
 
   });
 
 }
+
+module.exports.unlikeItems = function(req, res, next) {
+  let user = req.decodedToken.user._id;
+
+  Item.findByID(
+    req.params.itemId,
+    (err,retrievedItem) =>{
+      if (err) {
+        return next(err);
+      }
+    if(!retrievedItem.likes_user_id.includes(user)){
+      return res.status(422).json({
+        err: null,
+        msg: "cannot unlike",
+        data: null
+      });
+    }
+    else{
+      retrievedItem.likes_user_id.pop(user);
+      retrievedItem.likes -= 1; }
+
+
+      return res.status(200).json({
+        err: null,
+        msg: 'Item was unliked.',
+        data: retrievedItem
+      });
+
+  });
+
+}
+
 
 /*****************************************************************************
  *																			 *
