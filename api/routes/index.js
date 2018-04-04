@@ -17,8 +17,7 @@ router.post('/store/upload', storeCtrl.uploadItemPhoto);
 router.get('/store/view/:tuplesPerPage/:pageNumber', mw.isAuthenticated, storeCtrl.viewItems);
 router.post('/store/edit/:itemId', mw.isAuthenticated, storeCtrl.editItems);
 router.delete('/store/delete/:itemId', mw.isAuthenticated, storeCtrl.deleteItems);
-router.patch('/store/buy/:itemId', mw.isAuthenticated, storeCtrl.buyItems);
-router.post('/store/like/:itemId', mw.isAuthenticated, storeCtrl.likeItems);
-
+router.patch('/store/like/:itemId', mw.isAuthenticated, storeCtrl.likeItems);
+router.patch('/store/like/:itemId', mw.isAuthenticated, storeCtrl.unlikeItems);
 
 module.exports = router;
