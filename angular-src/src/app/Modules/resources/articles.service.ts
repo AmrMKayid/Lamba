@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 // SERVICE IS USED JUST TO PASS DATA ACROSS COMPONENTS (INSTED OF @Input)
 @Injectable()
 export class ArticlesService {
-  public articles: any[];
+  public articles: any[] = [];
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -24,31 +24,34 @@ export class ArticlesService {
   }
 
   //TODO: Outsource the feedback in the backend to reload [EFFICIENCY]
-  upvote(index: number) {
-
+  upvote(id) {
     let body = {
-      article_id: this.articles[index]._id,
+      article_id: id,
       mode: "upvote"
     }
 
     this.http.post('http://localhost:3000/api/articles/feedback', body, this.httpOptions)
       .pipe().subscribe(res => {
-        this.reloadArticles();
+        this.reloadArticles().subscribe((retrieved: any) =>{
+          this.articles = retrieved;
+        });
       }, err => {
         let msg = err.error.msg;
         alert(`Article was not updated: ${msg}`);
       });
 
   }
-  downvote(index: number) {
+  downvote(id) {
     let body = {
-      article_id: this.articles[index]._id,
+      article_id: id,
       mode: "downvote"
     }
     
     this.http.post('http://localhost:3000/api/articles/feedback', body, this.httpOptions)
       .pipe().subscribe(res => {
-        this.reloadArticles();
+        this.reloadArticles().subscribe((retrieved: any) =>{
+          this.articles = retrieved;
+        });
       }, err => {
         let msg = err.error.msg;
         alert(`Article was not updated: ${msg}`);

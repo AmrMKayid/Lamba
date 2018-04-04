@@ -1,24 +1,45 @@
-<h1 class="text-center">POSTED ARTICLES:</h1>
-<br>
-<br>
-<div class="container">
-  <div *ngFor="let element of articles; let i = index">
-    <h1 class="text-primary text-center">Article#{{i + 1}} :
-      <strong>
-        <a [routerLink]="['id',i]">{{element.title}}</a>
-      </strong>
-    </h1>
-    <hr>
-    <div class="container jumbotron">
-      <button class="btn btn-primary" (click)="upvote(i)">Upvote {{element.upvoters.length}}</button>
-      <button class="btn btn-danger" (click)="downvote(i)">Downvote {{element.downvoters.length}}</button>
-      <div align="right">
-        Created: {{element.createdAt | date}}
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('https://trynawwar.herokuapp.com/assets/img/kit/free/landing.png')">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>Educational Resources</h1>
+          <span class="subheading">Get your learning on!</span>
+        </div>
       </div>
     </div>
-    <br>
-    <br>
   </div>
-  <a class="btn btn-success btn-block" [routerLink]="['post']">Post new article</a>
+</header>
 
+<!-- Main Content -->
+<div class="container">
+  <a class="btn btn-success btn-block" [routerLink]="['post']">Post new article</a>
+  <hr>
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+      <ng-container *ngFor="let article of articles;let i = index">
+        <div class="post-preview">
+          <a style="cursor: pointer;" [routerLink]="['id',i]">
+            <h2 class="post-title">
+              {{article.title}}
+            </h2>
+            <h3 class="post-subtitle">
+              TODO: ADD SOME SORT OF PREVIEW (Tags and ratings maybe?)
+            </h3>
+          </a>
+          <p class="post-meta">Posted by
+            <a style="cursor: pointer;" [routerLink]="['/profile',article.owner_id]">TODO: article.ownername (to be fetched in the same endpoint)</a>
+            on {{article.createdAt | date}}</p>
+        </div>
+        <hr>
+      </ng-container>
+      <!-- Pager -->
+      <div class="clearfix">
+        <!-- TODO: Something about pagination .. back& frontend :( -->
+        <a style="cursor: pointer;" class="btn btn-primary float-right">Older Posts &rarr;</a>
+      </div>
+    </div>
+  </div>
 </div>

@@ -210,6 +210,5 @@ const transformHtml = (html) => {
         wrapperDiv.appendChild(element);
     });
     let result = dom.serialize();
-    console.log(result.substring(25,result.length - 14));
     return result.substring(25,result.length - 14);
 };
