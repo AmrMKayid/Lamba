@@ -4,7 +4,7 @@
     <div class="block">
 
 
-      <div class="item"><img class="imgw100prec">
+      <!-- <div class="item"><img class="imgw100prec">
         <div class="itemBody">
           <h2 class="itemName"><b>item</b></h2>
           <div class="itemLikeCount">21 <span class="fa fa-heart"></span></div>
@@ -14,37 +14,26 @@
             with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.0</article>
           <div class="itemUnLike"><i class="fa fa-heart"></i></div>
         </div>
-      </div>
+      </div> -->
 
-      <div class="item"><img class="imgw100prec">
+      <div class='item' *ngFor='let item of items'>
+        <img src="{{item['picture_url']}}" class="imgw100prec">
         <div class="itemBody">
-          <h2 class="itemName"><b>item</b></h2>
-          <div class="itemLikeCount">21 <span class="fa fa-heart"></span></div>
-          <div class="itemPrice">Price: 21 LE</div>
-          <article class="itemDesc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-            with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.0</article>
+
+          <h2 class="itemName"><b>{{item['name']}}</b></h2>
+          <!-- For now I'm using the quantity attribute as the like counter
+              But we're going to need to change it
+          -->
+          <div class="itemLikeCount">{{item['quantity']}} <span class="fa fa-heart"></span></div>
+          <div class="itemPrice">Price: {{item['price']}} LE</div>
+          <article class="itemDesc">{{item['description']}}</article>
+
+          <!-- TODO check if user already liked this item -->
           <div class="itemUnLike"><i class="fa fa-heart"></i></div>
+
         </div>
+
       </div>
-
-
-      <div class="item"><img class="imgw100prec">
-        <div class="itemBody">
-          <h2 class="itemName"><b>item</b></h2>
-          <div class="itemLikeCount">21 <span class="fa fa-heart"></span></div>
-          <div class="itemPrice">Price: 21 LE</div>
-          <article class="itemDesc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-            with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.0</article>
-          <div class="itemUnLike"><i class="fa fa-heart"></i></div>
-        </div>
-      </div>
-
-
-
-
-
     </div>
   </div>
 </section>

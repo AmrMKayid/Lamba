@@ -18,12 +18,35 @@ export class ViewComponent implements OnInit {
   pages :any[]; // Holds the numbers of the pages available to be picked
 
 
-  constructor(private StoreService : StoreService) {
+    constructor(private StoreService : StoreService) {
+      this.limit = 20 ;
+      this.curPage = 1;
+      this.getItemCount();
+      this.pages = [1,2,3,4,5];
+    }
+
+    ngOnInit() {
+    }
+
+    getItemCount(){
+      this.StoreService.itemsCount().subscribe((data:any)=>{
+        this.itemsCount = data.data;
+        this.loadPage(this.curPage);
+      });
+    }
+
+    loadPage(page:number){
+      this.curPage = page;
+      this.loadItems();
+    }
+
+
+    loadItems(){
+        this.StoreService.viewItems(this.limit,this.curPage).subscribe((data:any)=>{
+          this.items = data.data;
+          console.log(this.items);
+        });
+    }
+
+
   }
-
-  ngOnInit() {
-
-  }
-
-
-}
