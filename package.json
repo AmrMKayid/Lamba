@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "dev": "concurrently \"mongod\" \"node ./bin/www\" \"cd angular-src && ng serve -o\"",
     "devBack": "concurrently \"mongod\" \"node ./bin/www\"",
-	"test": "mocha --timeout 10000"
+    "test": "mocha --timeout 10000"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -20,6 +20,7 @@
     "express": "^4.16.2",
     "express-fileupload": "^0.4.0",
     "helmet": "^3.12.0",
+    "jquery": "^3.3.1",
     "jsonwebtoken": "^8.2.0",
     "moment": "^2.21.0",
     "mongoose": "^5.0.9",
