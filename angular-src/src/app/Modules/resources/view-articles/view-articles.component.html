@@ -17,12 +17,12 @@
 <div class="container">
   <a class="btn btn-success btn-block" [routerLink]="['post']">Post new article</a>
   <hr>
-  <div class="row">
+  <div class="row" *ngIf="isInitialized">
     <div class="col-lg-8 col-md-10 mx-auto">
       <!--TODO: change itemsPerPage, it was just set 1 for testing. Also, we can handle it in the backend-->
-      <ng-container *ngFor="let article of articles | paginate: { itemsPerPage: 1, currentPage: p };let i = index">
+      <ng-container *ngFor="let article of articles | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
         <div class="post-preview">
-          <a style="cursor: pointer;" [routerLink]="['id',i]">
+          <a style="cursor: pointer;" [routerLink]="['id',article._id]">
             <h2 class="post-title">
               {{article.title}}
             </h2>
@@ -31,7 +31,7 @@
             </h3>
           </a>
           <p class="post-meta">Posted by
-            <a style="cursor: pointer;" [routerLink]="['/profile',article.owner_id]">TODO: article.ownername (to be fetched in the same endpoint)</a>
+            <a style="cursor: pointer;" [routerLink]="['/profile',article.owner_id._id]">{{article.owner_id.name.firstName}} {{article.owner_id.name.lastName}}</a>
             on {{article.createdAt | date}}</p>
         </div>
         <hr>

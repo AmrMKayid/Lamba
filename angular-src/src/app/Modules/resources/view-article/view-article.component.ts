@@ -8,29 +8,44 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./view-article.component.css']
 })
 export class ViewArticleComponent implements OnInit {
-  private sub: any;
   article: any = {};
-
+  isInitialized: boolean = false;
+  author: string;
   constructor(private router: Router, private route: ActivatedRoute, private articleService: ArticlesService) { }
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      if (this.articleService.articles[+params['id']]) {
-        this.article = this.articleService.articles[+params['id']];
-        window.scrollTo(0, 0);
-      } else {
+    let id: string = this.route.snapshot.params['id'];
+    this.articleService.loadArticle(id).subscribe(
+      (retrieved: any) => {
+        this.article = retrieved.data;
+        this.author = `${this.article.name.firstName} ${this.article.name.lastName}`;
+        this.isInitialized = true;
+      }, err => {
+        alert(`Article not retrieved: ${err.error.msg}`);
         this.router.navigate(['/resources']);
       }
-    });
+    );
   }
+
   //TODO: When the feedback is reworked in the backend, we shall send back the updated article only and in here we should set it to that  
-  upvote(i) {
-    this.articleService.upvote(i);
+  upvote(id) {
+    this.articleService.upvote(id).subscribe(
+      (res: any) => {
+        this.article.upvoters = res.data.upvoters;
+        this.article.downvoters = res.data.downvoters;        
+      }, err => {
+        alert(`Article was not updated: ${err.error.msg}`);
+      }
+    );
   }
-  downvote(i) {
-    this.articleService.upvote(i);
-  }
-  ngOnDestroy() {
-    this.sub.unsubscribe();
+  downvote(id) {
+    this.articleService.downvote(id).subscribe(
+      (res: any) => {
+        this.article.upvoters = res.data.upvoters;
+        this.article.downvoters = res.data.downvoters;        
+      }, err => {
+        alert(`Article was not updated: ${err.error.msg}`);
+      }
+    );
   }
 }

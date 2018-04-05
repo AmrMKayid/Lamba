@@ -3,8 +3,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { QuillModule } from 'ngx-quill';
-import {NgxPaginationModule} from 'ngx-pagination';
+
 import { ArticlesService } from './articles.service';
 import { PostArticlesComponent } from './post-articles/post-articles.component';
 import { ViewArticleComponent } from './view-article/view-article.component';

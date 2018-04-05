@@ -9,23 +9,24 @@ import { ArticlesService } from '../articles.service';
 })
 export class ViewArticlesComponent implements OnInit {
   public articles: any[] = [];
+  isInitialized: boolean = false;
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      //GET THIS FROM POSTMAN'S LOGIN (won't work 3shan locally 3l database bta3ty)
       'Authorization': localStorage.getItem('authorization')
     })
   };
   constructor(private http: HttpClient, private articlesService: ArticlesService) { }
 
   ngOnInit() {
-    this.articlesService.reloadArticles().subscribe((res: any) => {
-      this.articlesService.setArticles(res.data.reverse());
-      this.articles = this.articlesService.articles;
-    }, err => {
-      let msg = err.error.msg;
-      alert(`Articles not retrieved: ${msg}`);
-    });
+    this.articlesService.loadAllArticles().subscribe(
+      (res: any) => {
+        this.articles = res.data.reverse();
+        this.isInitialized = true;
+      }, err => {
+        alert(`Articles not retrieved: ${err.error.msg}`);
+      }
+    );
   }
 
 

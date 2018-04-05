@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 // SERVICE IS USED JUST TO PASS DATA ACROSS COMPONENTS (INSTED OF @Input)
 @Injectable()
 export class ArticlesService {
-  public articles: any[] = [];
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -11,51 +10,35 @@ export class ArticlesService {
       'Authorization': localStorage.getItem('authorization')
     })
   };
-
+  //The service now holds no data, it just provides methods to subscribe to, and every route holds its own data
   constructor(private http: HttpClient) { }
 
-  reloadArticles() {
+  loadAllArticles() {
     return this.http.get('http://localhost:3000/api/articles', this.httpOptions)
       .pipe();
   }
 
-  setArticles(newArticles){
-    this.articles = newArticles;
+  loadArticle(id: string) {
+    return this.http.get('http://localhost:3000/api/article/' + id, this.httpOptions)
+      .pipe();
   }
 
-  //TODO: Outsource the feedback in the backend to reload [EFFICIENCY]
   upvote(id) {
     let body = {
       article_id: id,
       mode: "upvote"
     }
-
-    this.http.post('http://localhost:3000/api/articles/feedback', body, this.httpOptions)
-      .pipe().subscribe(res => {
-        this.reloadArticles().subscribe((retrieved: any) =>{
-          this.articles = retrieved;
-        });
-      }, err => {
-        let msg = err.error.msg;
-        alert(`Article was not updated: ${msg}`);
-      });
+    return this.http.post('http://localhost:3000/api/articles/feedback', body, this.httpOptions)
+      .pipe();
 
   }
+
   downvote(id) {
     let body = {
       article_id: id,
       mode: "downvote"
     }
-    
-    this.http.post('http://localhost:3000/api/articles/feedback', body, this.httpOptions)
-      .pipe().subscribe(res => {
-        this.reloadArticles().subscribe((retrieved: any) =>{
-          this.articles = retrieved;
-        });
-      }, err => {
-        let msg = err.error.msg;
-        alert(`Article was not updated: ${msg}`);
-      });
+    return this.http.post('http://localhost:3000/api/articles/feedback', body, this.httpOptions)
+      .pipe();
   }
-
 }

@@ -1,5 +1,5 @@
 <!-- Page Content -->
-<div class="container">
+<div class="container" *ngIf="isInitialized">
 
   <div class="row">
 
@@ -12,7 +12,7 @@
       <!-- Author -->
       <p class="lead">
         by
-        <a style="cursor: pointer;" [routerLink]="['/profile',article.owner_id]">TODO: article.ownername bardo :D</a>
+        <a style="cursor: pointer;" [routerLink]="['/profile',article.owner_id]">{{author}}</a>
       </p>
 
       <!-- Date/Time -->
