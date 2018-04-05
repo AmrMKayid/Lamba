@@ -21,6 +21,6 @@ router.post('/store/edit/:itemId', mw.isAuthenticated, storeCtrl.editItems);
 router.delete('/store/delete/:itemId', mw.isAuthenticated, storeCtrl.deleteItems);
 router.post('/store/buy/:itemId', mw.isAuthenticated, storeCtrl.buyItems);
 router.post('/store/like/:itemId', mw.isAuthenticated, storeCtrl.likeItems);
-
+router.get('/uploads/store/:filename', storeCtrl.getImage);
 
 module.exports = router;

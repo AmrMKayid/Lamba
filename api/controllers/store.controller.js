@@ -1,11 +1,12 @@
 var mongoose = require('mongoose'),
-  moment = require('moment'),
-  Validations = require('../utils/validations'),
-  User = mongoose.model('User'),
-  Item = mongoose.model('Item');
-jwt = require('jsonwebtoken');
-mw = require('../routes/middlewares'),
-  fs = require('fs');
+  	moment = require('moment'),
+  	Validations = require('../utils/validations'),
+ 	User = mongoose.model('User'),
+ 	Item = mongoose.model('Item');
+	jwt = require('jsonwebtoken');
+	mw = require('../routes/middlewares'),
+ 	path = require('path'),
+  	fs = require('fs');
 
 
 
@@ -45,7 +46,7 @@ module.exports.createItems = async function(req, res, next) {
     buyers_id: [],
     item_type: req.body.item_type,
     item_condition: req.body.item_condition == undefined ? null : req.body.item_condition,
-    picture_url: req.body.picture_url,
+    picture_url: 'updates/store/' + req.body.picture_url,
     seller_id: user_id,
     created_at: Date.now(),
     updated_at: Date.now()
@@ -135,7 +136,6 @@ module.exports.viewItems = function(req, res, next) {
 
   query.exec(function(err, items) {
     if (err) return err;
-    console.log(items);
     return res.status(200).json({
       err: null,
       msg: "Items retrieved successfully",
@@ -172,9 +172,9 @@ module.exports.likeItems = function(req, res, next) {
 }
 
 module.exports.countItmes = function(req, res, next) {
-  console.log("Count items");
+
   Item.count({}, function(err, count) {
-    console.log("Total count = " + count);
+
     if (err) return err;
     return res.status(200).json({
       err: null,
@@ -182,6 +182,15 @@ module.exports.countItmes = function(req, res, next) {
       data: count
     });
   });
+}
+
+/**
+  * sends an image for the item
+  */
+module.exports.getImage = function(req, res, next) {
+
+	return res.sendFile(path.resolve('api/uploads/store/' + req.params.filename));
+
 }
 
 /*****************************************************************************

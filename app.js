@@ -23,7 +23,7 @@ app.set('secret', config.SECRET);
 // Middleware for uploading binary files 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/store/')
+    cb(null, 'api/uploads/store/')
   },
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now())

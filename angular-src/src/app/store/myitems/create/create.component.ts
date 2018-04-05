@@ -69,7 +69,7 @@ export class CreateComponent implements OnInit {
 		this.storeservice.createItem(item).subscribe(res => {
 			if(!res.err)
 			{
-				 this.router.navigate(["/store/myitems/view"]);
+				 this.router.navigate(["/store/view"]);
 			}
 			else
 			{
