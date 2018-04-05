@@ -5,7 +5,6 @@ import { StoreComponent } from './store.component';
 import { LoadChildren } from '@angular/router';
 import { StoreService } from '../services/store.service';
 import { ViewComponent } from './view/view.component';
-import { BuyComponent } from './buy/buy.component';
 
 
 const routes: Routes = [
@@ -20,10 +19,6 @@ const routes: Routes = [
 			{
 				path : 'view',
 				component : ViewComponent
-			},
-			{
-				path: 'buy',
-				component: BuyComponent
 			}
 		]
 
@@ -38,8 +33,7 @@ const routes: Routes = [
   ],
   declarations: [
   	StoreComponent,
-  	ViewComponent,
-  	BuyComponent
+  	ViewComponent
   ],
   
   
