@@ -21,13 +21,15 @@
     <div class="block">
 
       <div class='item' *ngFor='let item of items'>
+
         <img src="http://127.0.0.1:3000/api/uploads/store/{{item['picture_url']}}" class="imgw100prec">
+
         <div class="itemBody">
 
           <h2 class="itemName"><b>{{item['name']}}</b></h2>
           <!-- For now I'm using the quantity attribute as the like counter
-              But we're going to need to change it
-          -->
+                  But we're going to need to change it
+              -->
           <div class="itemLikeCount">{{item['quantity']}} <span class="fa fa-heart"></span></div>
           <div class="itemPrice">Price: {{item['price']}} LE</div>
           <article class="itemDesc">{{item['description']}}</article>
@@ -38,6 +40,11 @@
         </div>
 
       </div>
+
+      <div *ngIf='itemsCount==0'>
+        <h1>There are currently no items to be displayed</h1>
+      </div>
+
     </div>
   </div>
 </section>
