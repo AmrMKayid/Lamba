@@ -67,6 +67,9 @@ function CreateItemsTests()
 	describe('Create multiple Items', function(){
 		it('It should create multiple Items',createMultipleItems);
 	});
+	describe('Item with missing field', function(){
+		it('It respond with an error',createItemFail);
+	});
 }
 
 
@@ -241,6 +244,30 @@ function ViewItemsTests()
  	});
 
  }
+
+ function createItemFail(done)
+ {
+	const item = {
+		name: 'cats',
+		description: 'A cat that has 4 legs and 2 eyes',
+		quantity: 3,
+		item_type: 'pet',
+		item_condition: 'bad',
+		picture_url: 'img-123213'
+	}
+
+ 	chai.request(server).post('/api/store/create').set('authorization', auth_token).send(item)
+ 	.end((err, res) => {
+
+ 		// checks for the formate of the response
+ 		res.should.have.status(422);
+ 		res.body.should.have.property('msg').eql('One or More field(s) is missing or of incorrect type');
+ 		res.body.should.have.property('data').should.be.a('object');
+
+ 		done();
+ 	});
+ }
+
 
 /** item, item -> void
   * Asserts the expected item against the actual item
