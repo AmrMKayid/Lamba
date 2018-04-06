@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 
 import {AuthService} from '../../services/auth.service';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {User} from "../register/register.component";
-import {ToasterService} from "angular5-toaster";
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {User} from '../register/register.component';
+import {ToasterService} from 'angular5-toaster';
 
 
 @Component({
@@ -14,6 +14,7 @@ import {ToasterService} from "angular5-toaster";
 })
 export class LoginComponent implements OnInit {
   user: FormGroup;
+
   onSubmit({value, valid}: { value: User, valid: boolean }) {
     // TODO: Edit login method
     // value.username = value.email;
@@ -45,16 +46,17 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  login(value: any) {
+  login(user: any) {
+
     this.loading = true;
-    this.authService.login(value)
+    this.authService.login(user)
       .subscribe(
-        data => {
-          let userRole = JSON.parse(localStorage.getItem('currentUser')).role;
-          if (userRole == "Parent") {
+        token => {
+          const userRole = this.authService.getUserFromToken(token.data).role;
+          if (userRole === 'Parent') {
             console.log(userRole);
             this.returnUrl = 'profile/parent';
-          } else if (userRole == "Teacher") {
+          } else if (userRole === 'Teacher') {
             console.log(userRole);
             this.returnUrl = 'profile/teacher';
           } else {
@@ -66,7 +68,7 @@ export class LoginComponent implements OnInit {
         error => {
           this.toaster.pop({
             type: 'error',
-            title: "Error!",
+            title: 'Error!',
             body: error.msg,
             timeout: 3000
           });

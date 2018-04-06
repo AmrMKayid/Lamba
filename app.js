@@ -4,6 +4,7 @@ require('./api/config/mongoDB');
 var express = require('express'),
     logger = require('morgan'),
     cors = require('cors'),
+    path = require('path'),
     helmet = require('helmet'),
     passport = require('passport'),
     compression = require('compression'),
@@ -57,6 +58,9 @@ app.use(
   All requests should have /api before writing the route as a convention for api servers
 */
 app.use('/api', routes);
+
+// Static Public Folder
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware to handle any (500 Internal server error) that may occur while doing database related functions
 app.use(function (err, req, res, next) {
