@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 
+
 const UniqueUserSchema = new mongoose.Schema({});
 
 const ChildSchema = new mongoose.Schema({
@@ -14,26 +15,16 @@ const ChildSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    name: {
-        firstName: {type: String, required: true},
-        middleName: {type: String},
-        lastName: {type: String, required: true}
-    },
-    birthday: Date,
-    gender: {
-        type: String,
-        enum: ['male', 'female']
-    },
-    photo: String,
     parent_id: {
         type: String,
         required: true
     },
+
     schedule: {
         table :{
             saturday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -49,7 +40,7 @@ const ChildSchema = new mongoose.Schema({
             }],
             sunday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -65,7 +56,7 @@ const ChildSchema = new mongoose.Schema({
             }],
             monday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -81,7 +72,7 @@ const ChildSchema = new mongoose.Schema({
             }],
             tuesday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -97,7 +88,7 @@ const ChildSchema = new mongoose.Schema({
             }],
             wednesday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -113,7 +104,7 @@ const ChildSchema = new mongoose.Schema({
             }],
             thursday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -129,7 +120,7 @@ const ChildSchema = new mongoose.Schema({
             }],
             friday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -152,7 +143,19 @@ const ChildSchema = new mongoose.Schema({
     score: Number,
     //IDs :
     allowedArticles: [String],
-    enrolledActivities: [String]
+    enrolledActivities: [String],
+
+    name: {
+        firstName: { type: String, required: true },
+        middleName: { type: String },
+        lastName: { type: String, required: true } //Can be passed in the backend as his parent's name
+    },
+    birthday: Date,
+    gender: {
+        type: String,
+        enum: ['male', 'female']
+    },
+    photo: String
 });
 
 
@@ -175,9 +178,9 @@ const UserSchema = new mongoose.Schema({
         trim: true //Will be trimmed in the frontend as well while sending the request.
     },
     name: {
-        firstName: {type: String, required: true},
-        middleName: {type: String},
-        lastName: {type: String, required: true}
+        firstName: { type: String, required: true },
+        middleName: { type: String },
+        lastName: { type: String, required: true }
     },
     birthday: Date,
     gender: {
@@ -193,26 +196,15 @@ const UserSchema = new mongoose.Schema({
         zip: Number
     },
 
-    joinedAt: {
-        type: Date,
-        default: Date.now()
-    },
-
     myItems: [String],
     cart: [String],
-
-    //------ Teacher ------ //
-
-    isVerified: {
-        type: Boolean,
-        default: false
-    },
+    //////////////////////////// Teacher:
     fees: Number,
     schedule: {
         table :{
             saturday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -228,7 +220,8 @@ const UserSchema = new mongoose.Schema({
             }],
             sunday:[{
                 slot :{
-                    time : {
+
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -244,7 +237,7 @@ const UserSchema = new mongoose.Schema({
             }],
             monday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -260,7 +253,7 @@ const UserSchema = new mongoose.Schema({
             }],
             tuesday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -276,7 +269,7 @@ const UserSchema = new mongoose.Schema({
             }],
             wednesday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -292,7 +285,7 @@ const UserSchema = new mongoose.Schema({
             }],
             thursday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -308,8 +301,7 @@ const UserSchema = new mongoose.Schema({
             }],
             friday:[{
                 slot :{
-                    time : {
-                        type : String,
+                    title : {
                         default : 'time'
                     },
                     description:{
@@ -333,6 +325,8 @@ const UserSchema = new mongoose.Schema({
     students: [String]
 
 });
+
+
 
 // Override the transform function of the schema to delete the password before it returns the object
 
