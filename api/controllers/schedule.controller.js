@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     Teacher = mongoose.model('User'),
-    child = mongoose.model('Child');
+    child = mongoose.model('Child'),
+    Validations = require('../utils/validations');
 
 module.exports.getTeacherSchedule = function(req, res, next) {
     Teacher.findById(req.params.UserId).exec(function(err, user) {
@@ -94,7 +95,24 @@ module.exports.createTeacherSchedule = function(req, res, next) {
 
 
 module.exports.getChildSchedule = function(req, res, next) {
+    if (!Validations.isObjectId(req.params.ChildId)) {
+        return res.status(422).json({
+            err: null,
+            msg: 'ChildId parameter must be a valid ObjectId.',
+            data: null
+        });
+    }
+    if(!req.decodedToken.user.username) {
+        if (req.decodedToken.user.role !== 'Parent') {
+            return res.status(401).json({
+                err: null,
+                msg: 'You must be a parent to view the schedule.',
+                data: null
+            });
+        }
+    }
     child.findById(req.params.ChildId).exec(function(err, user) {
+
         if (err) {
             return next(err);
         }
@@ -103,18 +121,19 @@ module.exports.getChildSchedule = function(req, res, next) {
                 .status(404)
                 .json({ err: null, msg: 'User not found.', data: null });
         }
-        if(user.parent_id !== req.params.UserId ){
+        if(user._id != req.decodedToken.user._id) {
+            if (user.parent_id != req.decodedToken.user._id) {
 
-               return res
-                   .status(401)
-                   .json({err: null, msg: '401 Unauthorized', data: null});
+                return res
+                    .status(401)
+                    .json({err: null, msg: 'you are not authorized to view the schedule', data: null});
 
+            }
         }
-
         res.status(200).json({
             err: null,
             msg: 'Schedules retrieved successfully.',
-            data: user.schedule
+            data: user.schedule.table
         });
     });
 };

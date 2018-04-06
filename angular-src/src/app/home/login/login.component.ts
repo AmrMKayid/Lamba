@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     this.authService.logout();
 
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+   this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   login(value: any) {
@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           let userRole = JSON.parse(localStorage.getItem('currentUser')).role;
+          console.log(localStorage.getItem('authorization'));
           if (userRole == "Parent") {
             console.log(userRole);
             this.returnUrl = 'profile/parent';
@@ -61,7 +62,7 @@ export class LoginComponent implements OnInit {
             console.log(userRole);
             this.returnUrl = 'profile/admin';
           }
-          this.router.navigate([this.returnUrl]);
+         // this.router.navigate([this.returnUrl]);
         },
         error => {
           this.toaster.pop({
