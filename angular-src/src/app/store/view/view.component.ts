@@ -20,7 +20,7 @@ export class ViewComponent implements OnInit {
 
 
     constructor(private StoreService : StoreService) {
-      this.limit = 20 ;
+      this.limit = 5 ;
       this.curPage = 1;
       this.getItemCount();
     }
