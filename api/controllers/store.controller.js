@@ -46,7 +46,7 @@ module.exports.createItems = async function(req, res, next) {
     buyers_id: [],
     item_type: req.body.item_type,
     item_condition: req.body.item_condition == undefined ? null : req.body.item_condition,
-    picture_url: 'updates/store/' + req.body.picture_url,
+    picture_url: req.body.picture_url,
     seller_id: user_id,
     created_at: Date.now(),
     updated_at: Date.now()
