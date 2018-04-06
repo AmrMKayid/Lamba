@@ -24,7 +24,7 @@ const ChildSchema = new mongoose.Schema({
         table :{
             saturday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -40,7 +40,7 @@ const ChildSchema = new mongoose.Schema({
             }],
             sunday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -56,7 +56,7 @@ const ChildSchema = new mongoose.Schema({
             }],
             monday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -72,7 +72,7 @@ const ChildSchema = new mongoose.Schema({
             }],
             tuesday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -88,7 +88,7 @@ const ChildSchema = new mongoose.Schema({
             }],
             wednesday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -104,7 +104,7 @@ const ChildSchema = new mongoose.Schema({
             }],
             thursday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -120,7 +120,7 @@ const ChildSchema = new mongoose.Schema({
             }],
             friday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -204,7 +204,7 @@ const UserSchema = new mongoose.Schema({
         table :{
             saturday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -220,7 +220,7 @@ const UserSchema = new mongoose.Schema({
             }],
             sunday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -236,7 +236,7 @@ const UserSchema = new mongoose.Schema({
             }],
             monday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -252,7 +252,7 @@ const UserSchema = new mongoose.Schema({
             }],
             tuesday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -268,7 +268,7 @@ const UserSchema = new mongoose.Schema({
             }],
             wednesday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -284,7 +284,7 @@ const UserSchema = new mongoose.Schema({
             }],
             thursday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },
@@ -300,7 +300,7 @@ const UserSchema = new mongoose.Schema({
             }],
             friday:[{
                 slot :{
-                    time : {
+                    title : {
                         type : String,
                         default : 'time'
                     },

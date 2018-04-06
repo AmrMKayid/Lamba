@@ -7,7 +7,7 @@ module.exports.getTeacherSchedule = function(req, res, next) {
     if (!Validations.isObjectId(req.params.UserId)) {
         return res.status(422).json({
             err: null,
-            msg: 'teacherId parameter must be a valid ObjectId.',
+            msg: 'User parameter must be a valid ObjectId.',
             data: null
         });
     }
@@ -221,6 +221,60 @@ module.exports.createChildShcedule = function(req, res, next) {
                 err: null,
                 msg: 'schedule is created ',
                 data: user.schedule.table
+            });
+        });
+    });
+};
+
+module.exports.updateTeacherSchedule = function(req, res, next) {
+   //req.decodedToken.user._id
+    Teacher.findById(req.params.TeacherId).exec(function(err, user) {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res
+                .status(404)
+                .json({ err: null, msg: 'User not found.', data: null });
+        }
+        if(user.role != 'Teacher'){
+            return res
+                .status(401)
+                .json({ err: null, msg: 'Unauthorized action.', data: null });
+        }
+
+        var day = req.body.day;
+        if(day !== 'saturday' || day != 'sunday' || day != 'monday' || day != 'tuesday' ||
+            day !== 'wednesday' || day != 'thursday' || day != 'friday'){
+            return res
+                .status(401)
+                .json({ err: null, msg: 'Unauthorized Action.', data: null });
+
+        }
+        //not sure why day has different color
+        var slotsInweek = user.schedule.table.day;
+
+        var slot = slotsInweek.id(req.params.SlotId);
+
+        if (!slot) {
+            return res
+                .status(404)
+                .json({ err: null, msg: 'Slot not found.', data: null });
+        }
+
+        slot.url = req.body.url;
+        slot.description = req.body.description;
+        slot.title = req.body.title;
+
+
+        user.save(function(err) {
+            if (err) {
+                return next(err);
+            }
+            res.status(200).json({
+                err: null,
+                msg: ' Schedule updated successfully.',
+                data: slot
             });
         });
     });
