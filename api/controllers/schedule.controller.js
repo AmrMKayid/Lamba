@@ -138,24 +138,7 @@ module.exports.getChildSchedule = function(req, res, next) {
     });
 };
 
-module.exports.getMySchedule = function(req, res, next) {
-    child.findById(req.params.ChildId).exec(function(err, user) {
-        if (err) {
-            return next(err);
-        }
-        if (!user) {
-            return res
-                .status(404)
-                .json({ err: null, msg: 'User not found.', data: null });
-        }
 
-        res.status(200).json({
-            err: null,
-            msg: 'Schedules retrieved successfully.',
-            data: user.schedule
-        });
-    });
-};
 
 module.exports.createChildShcedule = function(req, res, next) {
 
