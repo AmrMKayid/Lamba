@@ -5,8 +5,9 @@ import {LoginComponent} from './shared/login/login.component';
 import {RegisterComponent} from './shared/register/register.component';
 import {AuthGuard} from './guards/auth.guard';
 
+
 const appRoutes: Routes = [
-  {path: '', component: HomepageComponent},
+  {path: 'home', component: HomepageComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'profile', loadChildren: './Modules/profile/profile.module#ProfileModule'},
