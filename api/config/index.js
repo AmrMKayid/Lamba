@@ -5,6 +5,8 @@ module.exports = {
   MONGO_URI:
     process.env.NODE_ENV === 'production'
       ? 'mongodb://admin:se2018@ds157818.mlab.com:57818/lamba'
+      : process.env.NODE_ENV === 'test' 
+	  ? 'mongodb://localhost:27017/lambatest' 
       : 'mongodb://localhost:27017/lamba',
   EMAIL_REGEX: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 };
