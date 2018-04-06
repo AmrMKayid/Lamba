@@ -10,18 +10,17 @@ let should = chai.should();
 
 chai.use(chaiHttp);
 
-console.log("hello");
 
 
 
 /*This will empty the items database everytime before testing*/ 
 describe('Items', () => {
     beforeEach((done) => { 
-        Book.remove({}, (err) => { 
-        	console.log('emptied the testing database');
+        Item.remove({}, (err) => { 
            done();         
         });     
     });
+});
 /*
 
  /*Call tests*/
@@ -48,9 +47,7 @@ describe('Items', () => {
  */
 function CreateItemsTests()
 {
-	describe('Create Items', function(){
-
-	});
+	
 }
 
 
