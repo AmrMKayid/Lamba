@@ -26,4 +26,6 @@ router.get('/uploads/store/:filename', storeCtrl.getImage);
 
 router.patch('/store/like/:itemId', mw.isAuthenticated, storeCtrl.unlikeItems);
 
+router.get('/store/myitems/view', mw.isAuthenticated, storeCtrl.viewMyItems);
+
 module.exports = router;

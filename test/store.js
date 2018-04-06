@@ -18,12 +18,19 @@ console.log("hello");
 describe('Items', () => {
     beforeEach((done) => { 
         Book.remove({}, (err) => { 
+        	console.log('emptied the testing database');
            done();         
         });     
     });
 /*
 
-
+ /*Call tests*/
+ CreateItemsTests();
+ ViewItemsTests();
+ EditItemsTests();
+ DeleteItemsTests();
+ LikeItemsTests();
+ ViewMyItemsTests();
 
 /*****************************************************************************************
  *																					     *
@@ -35,7 +42,9 @@ describe('Items', () => {
 
 /*
  * Tests for Items creation
- * Route: post('api/store/create')
+ *
+ * Routes: -post('api/store/create')
+ *  	   -post('api/store/upload')
  */
 function CreateItemsTests()
 {
@@ -43,5 +52,70 @@ function CreateItemsTests()
 
 	});
 }
+
+
+
+/*
+ * Tests for Items view 
+ * 
+ * Routes:  -get('api/store/countItmes')
+ *			-get('api/store/view/:tuplesPerPage/:pageNumber')
+ */
+
+function ViewItemsTests()
+{
+
+	/*TODD: Shawky*/
+}
+
+/*
+ * Tests for Items Update 
+ * 
+ * Routes:  -post('api/store/edit/:itemId') 
+ *	
+ */
+ function EditItemsTests()
+ {
+ 	/*TODO: Moghazy*/
+ }
+
+
+/*
+ * Tests for Items Deletion 
+ * 
+ * Routes:  -delete('api/store/delete/:itemId') 
+ *	
+ */
+ function DeleteItemsTests()
+ {
+ 	/*TODO: Moghazy*/
+ }
+
+
+ /*
+ * Tests for Items Likes and unlikes 
+ * 
+ * Routes:  -post('api/store/like/:itemId') 
+ *			-patch('api/store/like/:itemId')
+ */
+ function LikeItemsTests()
+ {
+ 	/*TODO: Mayar*/
+ }
+
+
+
+
+ /*
+ * Tests for my Items view
+ * 
+ * Routes:  -get('api/store/myitems/view') 
+ */
+ function ViewMyItemsTests()
+ {
+ 	/*TODO: Sohail*/
+ }
+
+
 
 

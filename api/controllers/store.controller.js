@@ -304,6 +304,20 @@ module.exports.getImage = function(req, res, next) {
 
 }
 
+
+/**
+  * sends an image for the item
+  */
+module.exports.viewMyItems = function(req, res, next) {
+
+  /*TODO: sohail*/
+
+}
+
+
+
+
+
 /*****************************************************************************
  *																			 *
  *                          private functions								 *
