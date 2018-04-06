@@ -1,6 +1,23 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <section>
   <div class="main-container">
+
+    <ul class="pagination pagination-lg">
+      <li>
+        <a (click)="loadPage(1)">
+          << </a>
+      </li>
+      <li *ngFor="let p of pages">
+        <a (click)="loadPage(p)">{{p}}</a>
+      </li>
+      <li>
+        <a (click)="loadPage(-1)">
+              >>
+          </a>
+      </li>
+    </ul>
+
+
     <div class="block">
 
       <div class='item' *ngFor='let item of items'>
