@@ -16,9 +16,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import {LoginComponent} from './home/login/login.component';
-import {RegisterComponent} from './home/register/register.component';
-import {HomepageComponent} from './home/homepage/homepage.component';
+import {LoginComponent} from './shared/login/login.component';
+import {RegisterComponent} from './shared/register/register.component';
+import {HomepageComponent} from './shared/homepage/homepage.component';
 import {ProfileModule} from './Modules/profile/profile.module';
 
 @NgModule({

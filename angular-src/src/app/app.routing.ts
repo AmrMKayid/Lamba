@@ -1,8 +1,8 @@
 import {Routes, RouterModule} from '@angular/router';
 
-import {HomepageComponent} from './home/homepage/homepage.component';
-import {LoginComponent} from './home/login/login.component';
-import {RegisterComponent} from './home/register/register.component';
+import {HomepageComponent} from './shared/homepage/homepage.component';
+import {LoginComponent} from './shared/login/login.component';
+import {RegisterComponent} from './shared/register/register.component';
 import {AuthGuard} from './guards/auth.guard';
 
 const appRoutes: Routes = [
@@ -14,7 +14,7 @@ const appRoutes: Routes = [
   {path: 'resources', loadChildren: './Modules/resources/resources.module#ResourcesModule'},
   {path: 'store', loadChildren: './Modules/store/store.module#StoreModule'},
 
-  // otherwise redirect to home
+  // otherwise redirect to shared
   {path: '**', redirectTo: '/'}
 ];
 

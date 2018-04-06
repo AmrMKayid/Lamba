@@ -4,7 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 
 import {AuthService} from '../../services/auth.service';
-import {ToasterService} from "angular5-toaster";
+import {ToasterService} from 'angular5-toaster';
 
 @Component({
   selector: 'app-register',
@@ -46,7 +46,7 @@ export class RegisterComponent implements OnInit {
   register(value: any) {
     console.log(value);
     this.loading = true;
-    this.authService.create(value)
+    this.authService.register(value)
       .subscribe(
         data => {
           this.router.navigate(['/login']);
@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
         error => {
           this.toaster.pop({
             type: 'error',
-            title: "Error!",
+            title: 'Error!',
             body: error.msg,
             timeout: 3000
           });

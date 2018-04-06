@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   // Registration
-  create(user: any) {
+  register(user: any) {
     return this.http.post(appConfig.apiUrl + '/auth/register', user);
   }
 
