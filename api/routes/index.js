@@ -32,7 +32,7 @@ router.post('/articles', mw.isAuthenticated, mw.isNotChild, articleCtrl.createAr
 router.post('/articles/feedback', mw.isAuthenticated, articleCtrl.feedbackArticle);
 //-----------------------------Schedules Routes----------------------------------------------//
 router.post('/schedule/createTeacherSchedule/:UserId', scheduleCtrl.createTeacherSchedule);
-router.get('/schedule/getTeacherSchedule/:UserId', scheduleCtrl.getTeacherSchedule);
+router.get('/schedule/getTeacherSchedule/:UserId', mw.isAuthenticated,scheduleCtrl.getTeacherSchedule);
 router.post('/schedule/createChildShcedule/:ParentId/:ChildId', scheduleCtrl.createChildShcedule);
 router.get('/schedule/getChildSchedule/:UserId/:ChildId', scheduleCtrl.getChildSchedule);
 router.get('/schedule/getMySchedule/:ChildId', scheduleCtrl.getMySchedule);
