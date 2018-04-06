@@ -230,6 +230,14 @@ module.exports.createChildShcedule = function(req, res, next) {
 
 module.exports.updateTeacherSchedule = function(req, res, next) {
    //req.decodedToken.user._id
+    if (!Validations.isObjectId(req.params.SlotId)) {
+        return res.status(422).json({
+            err: null,
+            msg: 'SlotId parameter must be a valid ObjectId.',
+            data: null
+        });
+    }
+
     Teacher.findById(req.decodedToken.user._id).exec(function(err, user) {
         if (err) {
             return next(err);
@@ -245,6 +253,98 @@ module.exports.updateTeacherSchedule = function(req, res, next) {
                 .json({ err: null, msg: 'Unauthorized action.', data: null });
         }
 
+        var day = req.body.day;
+        if(day != 'saturday' && day != 'sunday' && day != 'monday' && day != 'tuesday' &&
+            day != 'wednesday' && day != 'thursday' && day != 'friday'){
+            return res
+                .status(401)
+                .json({ err: null, msg: 'Unauthorized Action.', data: null });
+
+        }
+        //not sure why day has different color
+        var slotsInweek;
+        if(req.body.day ==  'saturday') {
+            slotsInweek = user.schedule.table.saturday;
+        }
+        if(req.body.day ==  'sunday') {
+            slotsInweek = user.schedule.table.sunday;
+        }
+        if(req.body.day ==  'monday') {
+            slotsInweek = user.schedule.table.monday;
+        }
+        if(req.body.day ==  'tuesday') {
+            slotsInweek = user.schedule.table.tuesday;
+        }
+        if(req.body.day ==  'wednesday') {
+            slotsInweek = user.schedule.table.wednesday;
+        }
+        if(req.body.day ==  'thursday') {
+            slotsInweek = user.schedule.table.thursday;
+        }
+        if(req.body.day ==  'friday') {
+            slotsInweek = user.schedule.table.friday;
+        }
+
+
+        var slot = slotsInweek.id(req.params.SlotId);
+
+        if (!slot) {
+            return res
+                .status(404)
+                .json({ err: null, msg: 'Slot not found.', data: null });
+        }
+
+        slot.slot.url = req.body.url;
+        slot.slot.description = req.body.description;
+        slot.slot.title = req.body.title;
+
+
+        user.save(function(err) {
+            if (err) {
+                return next(err);
+            }
+            res.status(200).json({
+                err: null,
+                msg: ' Schedule updated successfully.',
+                data: slot
+            });
+        });
+    });
+};
+
+
+module.exports.updateChildSchedule = function(req, res, next) {
+    //req.decodedToken.user._id
+    if (!Validations.isObjectId(req.params.SlotId)) {
+        return res.status(422).json({
+            err: null,
+            msg: 'SlotId parameter must be a valid ObjectId.',
+            data: null
+        });
+    }
+    if (!Validations.isObjectId(req.params.ChildId)) {
+        return res.status(422).json({
+            err: null,
+            msg: 'ChildId parameter must be a valid ObjectId.',
+            data: null
+        });
+    }
+    child.findById(req.params.ChildId).exec(function(err, user) {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res
+                .status(404)
+                .json({ err: null, msg: 'User not found.', data: null });
+        }
+        if (user.parent_id != req.decodedToken.user._id) {
+
+            return res
+                .status(401)
+                .json({err: null, msg: 'you are not authorized to edit the schedule', data: null});
+
+        }
         var day = req.body.day;
         if(day != 'saturday' && day != 'sunday' && day != 'monday' && day != 'tuesday' &&
             day != 'wednesday' && day != 'thursday' && day != 'friday'){
