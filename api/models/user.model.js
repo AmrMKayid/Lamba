@@ -26,7 +26,7 @@ const ChildSchema = new mongoose.Schema({
                 slot :{
                     title : {
                         type : String,
-                        default : 'time'
+                        default : 'title'
                     },
                     description:{
                         type : String ,
@@ -42,7 +42,7 @@ const ChildSchema = new mongoose.Schema({
                 slot :{
                     title : {
                         type : String,
-                        default : 'time'
+                        default : 'title'
                     },
                     description:{
                         type : String ,
@@ -58,7 +58,7 @@ const ChildSchema = new mongoose.Schema({
                 slot :{
                     title : {
                         type : String,
-                        default : 'time'
+                        default : 'title'
                     },
                     description:{
                         type : String ,
@@ -74,7 +74,7 @@ const ChildSchema = new mongoose.Schema({
                 slot :{
                     title : {
                         type : String,
-                        default : 'time'
+                        default : 'title'
                     },
                     description:{
                         type : String ,
@@ -90,7 +90,7 @@ const ChildSchema = new mongoose.Schema({
                 slot :{
                     title : {
                         type : String,
-                        default : 'time'
+                        default : 'title'
                     },
                     description:{
                         type : String ,
@@ -106,7 +106,7 @@ const ChildSchema = new mongoose.Schema({
                 slot :{
                     title : {
                         type : String,
-                        default : 'time'
+                        default : 'title'
                     },
                     description:{
                         type : String ,
@@ -122,7 +122,7 @@ const ChildSchema = new mongoose.Schema({
                 slot :{
                     title : {
                         type : String,
-                        default : 'time'
+                        default : 'title'
                     },
                     description:{
                         type : String ,
@@ -206,7 +206,7 @@ const UserSchema = new mongoose.Schema({
                 slot :{
                     title : {
                         type : String,
-                        default : 'time'
+                        default : 'title'
                     },
                     description:{
                         type : String ,
@@ -220,10 +220,9 @@ const UserSchema = new mongoose.Schema({
             }],
             sunday:[{
                 slot :{
-
                     title : {
                         type : String,
-                        default : 'time'
+                        default : 'title'
                     },
                     description:{
                         type : String ,
@@ -239,7 +238,7 @@ const UserSchema = new mongoose.Schema({
                 slot :{
                     title : {
                         type : String,
-                        default : 'time'
+                        default : 'title'
                     },
                     description:{
                         type : String ,
@@ -255,7 +254,7 @@ const UserSchema = new mongoose.Schema({
                 slot :{
                     title : {
                         type : String,
-                        default : 'time'
+                        default : 'title'
                     },
                     description:{
                         type : String ,
@@ -271,7 +270,7 @@ const UserSchema = new mongoose.Schema({
                 slot :{
                     title : {
                         type : String,
-                        default : 'time'
+                        default : 'title'
                     },
                     description:{
                         type : String ,
@@ -287,7 +286,7 @@ const UserSchema = new mongoose.Schema({
                 slot :{
                     title : {
                         type : String,
-                        default : 'time'
+                        default : 'title'
                     },
                     description:{
                         type : String ,
@@ -302,7 +301,8 @@ const UserSchema = new mongoose.Schema({
             friday:[{
                 slot :{
                     title : {
-                        default : 'time'
+                        type : String,
+                        default : 'title'
                     },
                     description:{
                         type : String ,

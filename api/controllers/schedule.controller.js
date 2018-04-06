@@ -246,15 +246,37 @@ module.exports.updateTeacherSchedule = function(req, res, next) {
         }
 
         var day = req.body.day;
-        if(day !== 'saturday' || day != 'sunday' || day != 'monday' || day != 'tuesday' ||
-            day !== 'wednesday' || day != 'thursday' || day != 'friday'){
+        if(day != 'saturday' && day != 'sunday' && day != 'monday' && day != 'tuesday' &&
+            day != 'wednesday' && day != 'thursday' && day != 'friday'){
             return res
                 .status(401)
                 .json({ err: null, msg: 'Unauthorized Action.', data: null });
 
         }
         //not sure why day has different color
-        var slotsInweek = user.schedule.table.day;
+        var slotsInweek;
+        if(req.body.day ==  'saturday') {
+            slotsInweek = user.schedule.table.saturday;
+        }
+        if(req.body.day ==  'sunday') {
+            slotsInweek = user.schedule.table.sunday;
+        }
+        if(req.body.day ==  'monday') {
+            slotsInweek = user.schedule.table.monday;
+        }
+        if(req.body.day ==  'tuesday') {
+            slotsInweek = user.schedule.table.tuesday;
+        }
+        if(req.body.day ==  'wednesday') {
+            slotsInweek = user.schedule.table.wednesday;
+        }
+        if(req.body.day ==  'thursday') {
+            slotsInweek = user.schedule.table.thursday;
+        }
+        if(req.body.day ==  'friday') {
+            slotsInweek = user.schedule.table.friday;
+        }
+
 
         var slot = slotsInweek.id(req.params.SlotId);
 
