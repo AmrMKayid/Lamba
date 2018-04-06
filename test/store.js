@@ -189,6 +189,10 @@ function ViewItemsTests()
  	});
  }
 
+  /** done -> void
+   * Sends three post request with three  item and checks if the server creates these items successfully
+   * Function done: should be called when the test is done
+   */
  function createMultipleItems()
  {
  	const item1 = {
@@ -245,6 +249,10 @@ function ViewItemsTests()
 
  }
 
+  /** done -> void
+   * Sends a post request with an item missing a field and checks if the server rejects this item
+   * Function done: should be called when the test is done
+   */
  function createItemFail(done)
  {
 	const item = {
