@@ -230,7 +230,7 @@ module.exports.createChildShcedule = function(req, res, next) {
 
 module.exports.updateTeacherSchedule = function(req, res, next) {
    //req.decodedToken.user._id
-    Teacher.findById(req.params.TeacherId).exec(function(err, user) {
+    Teacher.findById(req.decodedToken.user._id).exec(function(err, user) {
         if (err) {
             return next(err);
         }
@@ -286,9 +286,9 @@ module.exports.updateTeacherSchedule = function(req, res, next) {
                 .json({ err: null, msg: 'Slot not found.', data: null });
         }
 
-        slot.url = req.body.url;
-        slot.description = req.body.description;
-        slot.title = req.body.title;
+        slot.slot.url = req.body.url;
+        slot.slot.description = req.body.description;
+        slot.slot.title = req.body.title;
 
 
         user.save(function(err) {

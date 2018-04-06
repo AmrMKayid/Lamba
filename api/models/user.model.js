@@ -200,6 +200,7 @@ const UserSchema = new mongoose.Schema({
     cart: [String],
     //////////////////////////// Teacher:
     fees: Number,
+
     schedule: {
         table :{
             saturday:[{
