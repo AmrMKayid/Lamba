@@ -55,7 +55,7 @@ module.exports.createItems = async function(req, res, next) {
   Item.create(item, function(err, newItem) {
     if (err) {
       return res.status(422).json({
-        err: null,
+        err: err,
         msg: "Couldn't create item",
         data: null
       });
