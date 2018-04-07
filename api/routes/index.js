@@ -8,6 +8,7 @@ var express = require('express'),
   authCtrl = require('../controllers/auth.controller'),
   userCtrl = require('../controllers/user.controller'),
   articleCtrl = require('../controllers/article.controller'),
+  tagCtrl = require('../controllers/tag.controller'),
 
   mw = require('./middlewares');
 
@@ -54,5 +55,10 @@ router.post('/store/like/:itemId', mw.isAuthenticated, storeCtrl.likeItems);
 router.get('/articles', mw.isAuthenticated, articleCtrl.getArticles);
 router.get('/article/:id', mw.isAuthenticated, articleCtrl.getArticle);
 router.post('/articles', mw.isAuthenticated, mw.isNotChild, articleCtrl.createArticle);
+
+//-----------------------------TAGS ROUTES ---------------------------------------------//
+router.get('/tags', mw.isAuthenticated, tagCtrl.getTags);
+router.post('/tags', mw.isAuthenticated, mw.isAdmin, tagCtrl.addTag);
+router.delete('/tags/:id', mw.isAuthenticated, mw.isAdmin, tagCtrl.deleteTag);
 
 module.exports = router;
