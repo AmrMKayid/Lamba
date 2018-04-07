@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import {ToasterContainerComponent, ToasterService} from 'angular5-toaster';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { StoreService } from '../../../../services/store.service';
+import { StoreService } from '../../../services/store.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -34,7 +34,7 @@ export class CreateComponent implements OnInit {
 
   onSubmit()
   {
-
+  	
   	if(!this.picture_url)
   	{
 		this.toaster.pop({
@@ -42,7 +42,7 @@ export class CreateComponent implements OnInit {
 		                  title: "You need to upload a photo",
 		                  body: "you have to provide an Item Name",
 		                  timeout: 10000
-		                });
+		                });  
 	}
   	else if(!this.name || !this.description || !this.quantity || !this.price || !this.item_type || !this.item_condition)
   	{
@@ -69,7 +69,7 @@ export class CreateComponent implements OnInit {
 		this.storeservice.createItem(item).subscribe(res => {
 			if(!res.err)
 			{
-				 this.router.navigate(["/store/myitems/view"]);
+				 this.router.navigate(["/store/view"]);
 			}
 			else
 			{
@@ -94,10 +94,10 @@ export class CreateComponent implements OnInit {
   	{
   		this.toaster.pop({
           type: 'error',
-          title: "You need to upload a photo",
-          body: "you have to provide an Item Name",
+          title: "could not upload photo",
+          body: response.err,
           timeout: 10000
-        });
+        });  
   		console.log(status);
   		return;
   	}
@@ -105,9 +105,9 @@ export class CreateComponent implements OnInit {
   	this.picture_url = response.filename;
 	this.toaster.pop({
 	      type: 'success',
-	      title: "photo uploaded successfully",
-	      body: "you have to provide an Item Name",
+	      title: "Successfull operation",
+	      body: "Your photo was uploaded to the server successfully!",
 	      timeout: 10000
-	    });
+	    });  
   }
 }
