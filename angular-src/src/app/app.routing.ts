@@ -16,7 +16,8 @@ const appRoutes: Routes = [
   {path: 'store', loadChildren: './Modules/store/store.module#StoreModule'},
 
   // otherwise redirect to shared
-  {path: '**', redirectTo: '/'}
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  {path: '**', redirectTo: 'home'}
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

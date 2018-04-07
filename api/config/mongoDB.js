@@ -65,4 +65,5 @@ require('../models/article.model');
 require('../models/item.model');
 require('../models/task.model');
 require('../models/user.model');
+require('../models/tag.model');
 
