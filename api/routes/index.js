@@ -1,15 +1,16 @@
 var express = require('express'),
-  router = express.Router(),
-  jwt = require('jsonwebtoken'),
+    router = express.Router(),
+    jwt = require('jsonwebtoken'),
 
-  scheduleCtrl = require('../controllers/schedule.controller'),
-  taskCtrl = require('../controllers/task.controller'),
-  storeCtrl = require('../controllers/store.controller'),
-  authCtrl = require('../controllers/auth.controller'),
-  userCtrl = require('../controllers/user.controller'),
-  articleCtrl = require('../controllers/article.controller'),
+    scheduleCtrl = require('../controllers/schedule.controller'),
+    taskCtrl = require('../controllers/task.controller'),
+    storeCtrl = require('../controllers/store.controller'),
+    authCtrl = require('../controllers/auth.controller'),
+    userCtrl = require('../controllers/user.controller'),
+    articleCtrl = require('../controllers/article.controller'),
+    tagCtrl = require('../controllers/tag.controller'),
 
-  mw = require('./middlewares');
+    mw = require('./middlewares');
 
 //---------------------------- Authentication Routes --------------------------------//
 router.post('/auth/register', mw.isNotAuthenticated, authCtrl.register);
@@ -26,10 +27,6 @@ router.get('/user/getUserInfo/:userId', userCtrl.getUserInfo);
 router.get('/user/viewUnverifiedArticles', mw.isAuthenticated, mw.isAdmin, userCtrl.viewUnverifiedArticles);
 router.get('/user/viewArticleToVerify/:articleId', mw.isAuthenticated, mw.isAdmin, userCtrl.viewArticleToVerify);
 router.get('/user/verifyArticle/:articleId', mw.isAuthenticated, mw.isAdmin, userCtrl.verifyArticle);
-//-----------------------------Articles Routes----------------------------------------------//
-router.get('/articles', mw.isAuthenticated, articleCtrl.getArticles);
-router.post('/articles', mw.isAuthenticated, mw.isNotChild, articleCtrl.createArticle);
-router.post('/articles/feedback', mw.isAuthenticated, articleCtrl.feedbackArticle);
 //-----------------------------Schedules Routes----------------------------------------------//
 router.post('/schedule/createTeacherSchedule/:UserId', scheduleCtrl.createTeacherSchedule);
 router.get('/schedule/getTeacherSchedule/:UserId', scheduleCtrl.getTeacherSchedule);
@@ -50,8 +47,12 @@ router.post('/store/edit/:itemId', mw.isAuthenticated, storeCtrl.editItems);
 router.delete('/store/delete/:itemId', mw.isAuthenticated, storeCtrl.deleteItems);
 router.post('/store/buy/:itemId', mw.isAuthenticated, storeCtrl.buyItems);
 router.post('/store/like/:itemId', mw.isAuthenticated, storeCtrl.likeItems);
-//-----------------------------Articles Routes----------------------------------------------//
+//-----------------------------C1: Articles & TAGS Routes----------------------------------------------//
 router.get('/articles', mw.isAuthenticated, articleCtrl.getArticles);
+router.get('/article/:id', mw.isAuthenticated, articleCtrl.getArticle);
 router.post('/articles', mw.isAuthenticated, mw.isNotChild, articleCtrl.createArticle);
+router.get('/tags', mw.isAuthenticated, tagCtrl.getTags);
+router.post('/tags', mw.isAuthenticated, mw.isAdmin, tagCtrl.addTag);
+router.delete('/tags/:id', mw.isAuthenticated, mw.isAdmin, tagCtrl.deleteTag);
 
 module.exports = router;

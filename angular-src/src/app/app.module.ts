@@ -21,6 +21,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {LoginComponent} from './shared/login/login.component';
 import {RegisterComponent} from './shared/register/register.component';
 import {HomepageComponent} from './shared/homepage/homepage.component';
+import {ResourcesModule} from "./Modules/resources/resources.module";
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import {HomepageComponent} from './shared/homepage/homepage.component';
     ReactiveFormsModule,
     HttpClientModule,
     ToasterModule,
+    // ResourcesModule,
     NgbModule.forRoot(),
   ],
   providers: [

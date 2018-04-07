@@ -3,7 +3,8 @@ var mongoose = require('mongoose');
 const articleSchema = new mongoose.Schema({
     owner_id: {
         type: String,
-        required: true
+        required: true,
+        ref: 'User'
     },
     //TODO: CHANGE BACK TO FALSE DEFAULT!! True is just for testing.
     approved: {

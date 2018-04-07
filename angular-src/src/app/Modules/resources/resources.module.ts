@@ -1,43 +1,57 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {QuillModule} from 'ngx-quill';
-import {FormsModule, ReactiveFormsModule,} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
-import {PostComponent} from './post/post.component';
-import {SafeHtmlPipe} from './post/safe-html.pipe';
-import {RouterModule, Routes} from '@angular/router';
-import {ToasterModule} from 'angular5-toaster/src/toaster.module';
-import {ToasterService} from 'angular5-toaster/src/toaster.service';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { TagInputModule } from 'ngx-chips';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { QuillModule } from 'ngx-quill';
+
+import { ArticlesService } from './articles.service';
+import { PostArticlesComponent } from './post-articles/post-articles.component';
+import { SafeHtmlPipe } from './view-article/safe-html.pipe';
+import { ViewArticleComponent } from './view-article/view-article.component';
+import { ViewArticlesComponent } from './view-articles/view-articles.component';
+import { FilterByTagsPipe } from './view-articles/filter-by-tags.pipe';
 
 const appRoutes: Routes = [
   {
     path: '',
-    component: PostComponent,
-    children: [
-      {
-        path: 'post',
-        component: PostComponent,
-
-      }
-    ]
+    component: ViewArticlesComponent,
+  },
+  {
+    path: 'post',
+    component: PostArticlesComponent,
+  },
+  {
+    //TODO: Check out el custom URLs (fromt the title for instance)
+    path: 'id/:id',
+    component: ViewArticleComponent
   }
-
 ];
 
 @NgModule({
   imports: [
+    TagInputModule,
     CommonModule,
     QuillModule,
     HttpClientModule,
-    ReactiveFormsModule,
     FormsModule,
+    ReactiveFormsModule,
+    NgxPaginationModule,
     RouterModule.forChild(appRoutes)
   ],
   declarations: [
-    PostComponent,
-    SafeHtmlPipe
+    FilterByTagsPipe,
+    SafeHtmlPipe,
+    PostArticlesComponent,
+    ViewArticlesComponent,
+    ViewArticleComponent,
   ],
-  exports: [PostComponent]
+  providers: [
+    ArticlesService
+  ],
+  exports: []
 })
 export class ResourcesModule {
 }
