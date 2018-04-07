@@ -9,7 +9,8 @@ import {CscheduleComponent} from './cschedule/cschedule.component';
 import {RouterModule, Routes} from '@angular/router';
 const appRoutes: Routes = [
   {
-    path: ''
+    path: '',
+    //set default
   },
   {
     path: 'tschedule',
