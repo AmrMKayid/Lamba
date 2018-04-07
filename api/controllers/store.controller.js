@@ -43,7 +43,7 @@ module.exports.createItems = async function(req, res, next) {
     quantity: req.body.quantity,
     price: req.body.price,
     likes_user_id: [],
-    buyers_id: [],
+    likes: 0,
     item_type: req.body.item_type,
     item_condition: req.body.item_condition == undefined ? null : req.body.item_condition,
     picture_url: req.body.picture_url,
