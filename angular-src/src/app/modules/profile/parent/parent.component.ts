@@ -5,6 +5,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ToasterService} from 'angular5-toaster/src/toaster.service';
 import {appConfig} from "../../../app.config";
 import {HttpClient} from "@angular/common/http";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-parent',
@@ -12,6 +13,8 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./parent.component.css']
 })
 export class ParentComponent implements OnInit {
+
+  currentUser;
 
   childFirstName;
   childlastName;
@@ -23,10 +26,14 @@ export class ParentComponent implements OnInit {
 
   constructor(private router: Router,
               private http: HttpClient,
+              private auth: AuthService,
               private toaster: ToasterService) {
   }
 
   ngOnInit() {
+
+    this.currentUser = this.auth.getUserFromToken(localStorage.getItem('authentication'));
+    console.log(this.currentUser);
     // console.log(localStorage.getItem('authorization'))
     this.newChildBtn = false;
   }

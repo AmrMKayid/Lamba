@@ -24,12 +24,15 @@ export class RegisterComponent implements OnInit {
       email: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
       confirmPassword: new FormControl('', Validators.required),
+      // TODO: SELECT ROLE IN SIGN UP
       role: new FormControl('', Validators.required),
       gender: new FormControl('', Validators.required),
     });
   }
 
   onSubmit({value, valid}: { value: User, valid: boolean }) {
+
+    // value.role = 'Parent';
     console.log(value, valid);
     this.register(value);
   }
