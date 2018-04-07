@@ -5,7 +5,7 @@ import { StoreComponent } from './store.component';
 import { LoadChildren } from '@angular/router';
 import { StoreService } from '../../services/store.service';
 import { ViewComponent } from './view/view.component';
-
+import { HttpModule } from '@angular/http';
 
 const routes: Routes = [
 	{
@@ -29,6 +29,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+		 HttpModule,
     RouterModule.forChild(routes)
   ],
   declarations: [
