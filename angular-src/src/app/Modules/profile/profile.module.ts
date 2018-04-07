@@ -72,12 +72,9 @@ const appRoutes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    HttpModule,
-    HttpClientModule,
-    ToasterModule,
+    HttpModule, HttpClientModule,
     ReactiveFormsModule, ToasterModule, Ng2SearchPipeModule, Ng2OrderModule, NgxPaginationModule,
     RouterModule.forChild(appRoutes),
-    ToasterModule
   ],
   declarations: [
     ProfileComponent,
