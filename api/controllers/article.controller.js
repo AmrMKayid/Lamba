@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
   Validations = require('../utils/validations'),
   User = mongoose.model('User'),
   Child = mongoose.model('Child'),
+  Tag = mongoose.model('Tag'),
   Article = mongoose.model('Article');
 
 const { JSDOM } = jsdom;
@@ -110,11 +111,27 @@ module.exports.createArticle = function (req, res, next) {
       data: null
     });
   }
-
   if (req.body.tags && !Validations.isArray(req.body.tags)) {
     return res.status(422).json({
       err: null,
       msg: 'tags must be an Array type.',
+      data: null
+    });
+  }
+  if (!req.body.tags) {
+    req.body.tags = [];
+  }
+  let invalidTags = false;
+  req.body.tags.forEach(element => {
+    //Simulating a break statement.
+    if (!element.match(/^[0-9a-fA-F]{24}$/)) {
+      invalidTags = true;
+    }
+  });
+  if (invalidTags) {
+    return res.status(422).json({
+      err: null,
+      msg: 'one or more tags passed are invalid IDs',
       data: null
     });
   }
@@ -128,24 +145,40 @@ module.exports.createArticle = function (req, res, next) {
         .status(404)
         .json({ err: null, msg: 'User not found.', data: null });
     }
-
-    const content = transformHtml(req.body.content);
-    let article = {
-      owner_id: req.decodedToken.user._id,
-      title: req.body.title,
-      content,
-      tags: req.body.tags
-    };
-
-    Article.create(article, (err, newArticle) => {
+    Tag.find({
+      '_id': {
+        $in: req.body.tags
+      }
+    }, (err, retrievedTags) => {
       if (err) {
-        console.log(err)
+        console.log(err);
         return next(err);
       }
-      res.status(201).json({
-        err: null,
-        msg: 'Article created successfully.',
-        data: newArticle.toObject()
+      const content = transformHtml(req.body.content);
+      let article = {
+        owner_id: req.decodedToken.user._id,
+        title: req.body.title,
+        content,
+        tags: null
+      };
+      if (retrievedTags.length !== req.body.tags.length) {
+        return res.status(404).json({
+          err: null,
+          msg: 'Wrong tags passed. Article re-sent in response',
+          data: article
+        });
+      }
+      article.tags = retrievedTags;
+      Article.create(article, (err, newArticle) => {
+        if (err) {
+          console.log(err)
+          return next(err);
+        }
+        res.status(201).json({
+          err: null,
+          msg: 'Article created successfully.',
+          data: newArticle.toObject()
+        });
       });
     });
   });
