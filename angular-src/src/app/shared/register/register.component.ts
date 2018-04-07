@@ -56,10 +56,6 @@ export class RegisterComponent implements OnInit {
         });
   }
 
-
-  // ngOnInit() {
-  // }
-
 }
 
 export interface User {
