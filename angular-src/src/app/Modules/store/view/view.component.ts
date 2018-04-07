@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StoreService } from '../../services/store.service';
+import { StoreService } from '../../../services/store.service';
 import * as $ from 'jquery';
 
 @Component({

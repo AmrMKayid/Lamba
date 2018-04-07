@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import {ToasterContainerComponent, ToasterService} from 'angular5-toaster';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { StoreService } from '../../../services/store.service';
+import { StoreService } from '../../../../services/store.service';
 import { Router } from '@angular/router';
 
 @Component({
