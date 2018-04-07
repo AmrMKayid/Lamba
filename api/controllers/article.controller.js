@@ -75,7 +75,7 @@ module.exports.getArticles = function (req, res, next) {
   } else {
     Article.find({
       approved: true
-    }, 'title createdAt owner_id _id', (err, result) => {
+    }, 'title createdAt owner_id _id comments', (err, result) => {
       if (err) {
         return next(err);
       }
@@ -189,7 +189,7 @@ module.exports.feedbackArticle = function (req, res, next) {
       downvote(retrievedArticle, userID, res, next);
     }
   });
-}
+};
 ////////////////////////////////////////////////////////// HELPERS
 
 const upvote = function (article, id, res, next) {
@@ -261,7 +261,7 @@ const findArticleById = function (article_id, res, next) {
           data: result
         });
       });
-    });
+    }).populate('comments.commenter','name','User');
 }
 
 
@@ -285,4 +285,82 @@ const transformHtml = (html) => {
   });
   let result = dom.serialize();
   return result.substring(25, result.length - 14);
+};
+//////////////////////////////////////COMMENTS////////////////////////////////////////
+const comment = function(article, id,content, res, next){
+    let comment = {
+        comment_content: content,
+        commenter: id,
+    }
+  article.comments.push(comment);
+    article.save(function (err, updatedArticle) {
+        if (err) { return next(err) }
+        return res.status(200).json({
+            err: null,
+            msg: "Comment is added successfully.",
+            data: { comments: updatedArticle.comments}
+        });
+    });
+};
+const reply = function(article, userID,comment_id,reply ,res, next) {
+  let rep = {
+      reply_content: reply,
+      replier: userID
+  }
+    Article.update(
+        { _id: article._id},//, "comments._id":comment_id},
+        { $push: { replies: rep } },
+        done
+    );
+    article.save(function (err, updatedArticle) {
+        if (err) { return next(err) }
+        return res.status(200).json({
+            err: null,
+            msg: "Reply is added successfully.",
+            data: { comments: updatedArticle.comments}
+        });
+    });
+};
+module.exports.commentArticle = function (req, res, next){
+  let valid = req.body.article_id &&
+      Validations.isString(req.body.article_id) &&
+      req.body.comment_content && Validations.isString(req.body.comment_content);
+  let userID = req.decodedToken.user._id;
+    Article.findById(req.body.article_id, (err, retrievedArticle) => {
+        if(err) {
+            return next(err);
+        }
+        if(!retrievedArticle)
+    {
+        return res.status(404).json({
+            err: null,
+            msg: 'Article was not found.',
+            data: null
+        });
+    }
+              comment(retrievedArticle,userID,req.body.comment_content,res,next);
+})
+};
+module.exports.replyComment = function (req, res, next) {
+    let valid = req.body.article_id &&
+        Validations.isString(req.body.article_id) &&
+        req.body.comment_id &&
+        Validations.isString(req.body.comment_id) &&
+        req.body.reply &&
+        Validations.isString(req.body.reply)
+    let userID = req.decodedToken.user._id;
+    Article.findById(req.body.article_id, (err, retrievedArticle) => {
+        if(err) {
+            return next(err);
+        }
+        if(!retrievedArticle)
+    {
+        return res.status(404).json({
+            err: null,
+            msg: 'Article was not found.',
+            data: null
+        });
+    }
+    reply(retrievedArticle,userID,req.body.comment_id,req.body.reply,res,next);
+})
 };

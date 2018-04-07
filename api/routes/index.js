@@ -29,7 +29,10 @@ router.get('/user/verifyArticle/:articleId', mw.isAuthenticated, mw.isAdmin, use
 //-----------------------------Articles Routes----------------------------------------------//
 router.get('/articles', mw.isAuthenticated, articleCtrl.getArticles);
 router.post('/articles', mw.isAuthenticated, mw.isNotChild, articleCtrl.createArticle);
+router.get('/article/:id', mw.isAuthenticated, articleCtrl.getArticle);
 router.post('/articles/feedback', mw.isAuthenticated, articleCtrl.feedbackArticle);
+router.post('/articles/comment', mw.isAuthenticated,  articleCtrl.commentArticle);
+router.post('/articles/reply', mw.isAuthenticated,  articleCtrl.replyComment);
 //-----------------------------Schedules Routes----------------------------------------------//
 router.post('/schedule/createTeacherSchedule/:UserId', scheduleCtrl.createTeacherSchedule);
 router.get('/schedule/getTeacherSchedule/:UserId', scheduleCtrl.getTeacherSchedule);
@@ -50,9 +53,5 @@ router.post('/store/edit/:itemId', mw.isAuthenticated, storeCtrl.editItems);
 router.delete('/store/delete/:itemId', mw.isAuthenticated, storeCtrl.deleteItems);
 router.post('/store/buy/:itemId', mw.isAuthenticated, storeCtrl.buyItems);
 router.post('/store/like/:itemId', mw.isAuthenticated, storeCtrl.likeItems);
-//-----------------------------Articles Routes----------------------------------------------//
-router.get('/articles', mw.isAuthenticated, articleCtrl.getArticles);
-router.get('/article/:id', mw.isAuthenticated, articleCtrl.getArticle);
-router.post('/articles', mw.isAuthenticated, mw.isNotChild, articleCtrl.createArticle);
 
 module.exports = router;
