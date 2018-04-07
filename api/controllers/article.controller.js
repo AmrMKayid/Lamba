@@ -59,7 +59,7 @@ module.exports.getArticles = function (req, res, next) {
       Article.find({
         _id: { $in: articlesIDs },
         approved: { $eq: true }
-      }, 'title createdAt owner_id _id',
+      }, 'title createdAt owner_id _id tags upvoters downvoters',
         (err, result) => {
           if (err) {
             return next(err);
@@ -76,7 +76,7 @@ module.exports.getArticles = function (req, res, next) {
   } else {
     Article.find({
       approved: true
-    }, 'title createdAt owner_id _id', (err, result) => {
+    }, 'title createdAt owner_id _id tags upvoters downvoters', (err, result) => {
       if (err) {
         return next(err);
       }

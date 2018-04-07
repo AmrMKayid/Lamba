@@ -8,8 +8,13 @@ import { ArticlesService } from '../articles.service';
   styleUrls: ['./view-articles.component.css']
 })
 export class ViewArticlesComponent implements OnInit {
-  public articles: any[] = [];
-  isInitialized: boolean = false;
+  articles: any[];
+  articlesInitialized: boolean;
+  tagsInitialized: boolean;
+  allTags: { value: string, id: string }[];
+  selectedTags: any[];
+  filterTagsIDs: string[] = [];
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -19,16 +24,50 @@ export class ViewArticlesComponent implements OnInit {
   constructor(private http: HttpClient, private articlesService: ArticlesService) { }
 
   ngOnInit() {
+    this.articles = [];
+    this.articlesInitialized = false;
+    this.tagsInitialized = false;
+    this.allTags = [];
+
     this.articlesService.loadAllArticles().subscribe(
       (res: any) => {
         this.articles = res.data.reverse();
-        this.isInitialized = true;
+        this.articlesInitialized = true;
+      }, err => {
+        alert(`Articles not retrieved: ${err.error.msg}`);
+      }
+    );
+    this.articlesService.getAllTags().subscribe(
+      (res: any) => {
+        res.data.forEach(element => {
+          this.allTags.push({ value: element.name, id: element._id })
+        });
+        this.tagsInitialized = true;
+        console.dir(this.allTags);
       }, err => {
         alert(`Articles not retrieved: ${err.error.msg}`);
       }
     );
   }
 
-
-
+  //TODO: Needs some optimization in capturing the input
+  onTagsChanged() {
+    this.filterTagsIDs = [];
+    this.selectedTags.forEach(element => {
+      this.filterTagsIDs.push(element.id);
+    });
+  }
+  getTagByID(allTags: { value: string, id: string }[], tagID: string) {
+    for (let i = 0; i < allTags.length; i++) {
+      if (allTags[i].id === tagID) {
+        return allTags[i].value;
+      }
+    }
+  }
+  setTag(tag) {
+    this.filterTagsIDs = [];
+    this.filterTagsIDs.push(tag);
+    this.selectedTags = [];
+    this.selectedTags.push({ value: tag, id: tag, display: this.getTagByID(this.allTags, tag) });
+  }
 }
