@@ -6,6 +6,8 @@ import {LoadChildren} from '@angular/router';
 import {StoreService} from '../../services/store.service';
 import {ViewComponent} from './view/view.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ToasterModule} from 'angular5-toaster/src/toaster.module';
+import {ToasterService} from 'angular5-toaster/src/toaster.service';
 
 const routes: Routes = [
   {

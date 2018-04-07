@@ -8,8 +8,8 @@ import {ViewComponent} from './view/view.component';
 //STORE ERR CANT FIND MODULE
 // import { ImageUploadModule } from "angular2-image-upload";
 import {FormsModule} from '@angular/forms';
-import {ToasterModule} from 'angular5-toaster';
-
+import {ToasterModule} from 'angular5-toaster/src/toaster.module';
+import {ToasterService} from 'angular5-toaster/src/toaster.service';
 
 const routes: Routes = [
   {

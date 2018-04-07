@@ -2,7 +2,9 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
-import {ToasterModule, ToasterService} from 'angular5-toaster';
+import {ToasterModule} from 'angular5-toaster/src/toaster.module';
+import {ToasterService} from 'angular5-toaster/src/toaster.service';
+
 import {routing} from './app.routing';
 
 import {AppComponent} from './app.component';

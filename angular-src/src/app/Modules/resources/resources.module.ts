@@ -6,6 +6,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {PostComponent} from './post/post.component';
 import {SafeHtmlPipe} from './post/safe-html.pipe';
 import {RouterModule, Routes} from '@angular/router';
+import {ToasterModule} from 'angular5-toaster/src/toaster.module';
+import {ToasterService} from 'angular5-toaster/src/toaster.service';
 
 const appRoutes: Routes = [
   {
