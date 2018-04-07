@@ -9,7 +9,7 @@ import { QuillModule } from 'ngx-quill';
 import { ArticlesService } from './articles.service';
 import { PostArticlesComponent } from './post-articles/post-articles.component';
 import { ViewArticleComponent } from './view-article/view-article.component';
-import { SafeHtmlPipe } from './view-articles/safe-html.pipe';
+import { SafeHtmlPipe } from './view-article/safe-html.pipe';
 import { ViewArticlesComponent } from './view-articles/view-articles.component';
 
 const appRoutes: Routes = [

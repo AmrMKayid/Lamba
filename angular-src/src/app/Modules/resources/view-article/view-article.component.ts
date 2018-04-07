@@ -1,11 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { ArticlesService } from '../articles.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-article',
   templateUrl: './view-article.component.html',
-  styleUrls: ['./view-article.component.css']
+  styleUrls: ['./view-article.component.css'],
+  encapsulation: ViewEncapsulation.None //To allow dynamic CSS classes (from the innerHTML)
 })
 export class ViewArticleComponent implements OnInit {
   article: any = {};
@@ -32,7 +33,7 @@ export class ViewArticleComponent implements OnInit {
     this.articleService.upvote(id).subscribe(
       (res: any) => {
         this.article.upvoters = res.data.upvoters;
-        this.article.downvoters = res.data.downvoters;        
+        this.article.downvoters = res.data.downvoters;
       }, err => {
         alert(`Article was not updated: ${err.error.msg}`);
       }
@@ -42,7 +43,7 @@ export class ViewArticleComponent implements OnInit {
     this.articleService.downvote(id).subscribe(
       (res: any) => {
         this.article.upvoters = res.data.upvoters;
-        this.article.downvoters = res.data.downvoters;        
+        this.article.downvoters = res.data.downvoters;
       }, err => {
         alert(`Article was not updated: ${err.error.msg}`);
       }
