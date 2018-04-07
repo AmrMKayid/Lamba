@@ -121,7 +121,7 @@ module.exports.getTasks = function(req, res, next) {
   res.status(200).json({
       err: null,
       msg:
-        'Requests recieved successfully.',
+        'Tasks recieved successfully.',
         data: request         
         
       });
@@ -137,10 +137,8 @@ module.exports.getTeacher = function(req, res, next) {
   res.status(200).json({
       err: null,
       msg:
-        'Requests recieved successfully.',
+        'Teacher recieved successfully.',
       data: user.name
     });
   });
 };
-
-

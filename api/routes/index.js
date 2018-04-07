@@ -1,7 +1,7 @@
 var express = require('express'),
   router = express.Router(),
   jwt = require('jsonwebtoken'),
- 
+
   scheduleCtrl = require('../controllers/schedule.controller'),
   taskCtrl = require('../controllers/task.controller'),
   storeCtrl = require('../controllers/store.controller'),
