@@ -30,9 +30,124 @@ const ChildSchema = new mongoose.Schema({
         required: true
     },
     schedule: {
-        Timetable: [[String]],
-        createdAt: {type: Date, default: Date.now},
-        updatedAt: {type: Date, default: Date.now}
+        table: {
+            saturday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            sunday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            monday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            tuesday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            wednesday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            thursday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            friday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+
+            //  validate: [arrayLimit,'{PATH} exceeds the limit of 8']
+
+        },
+        updatedAt: {type: Date, default: Date.now},
     },
     score: Number,
     //IDs :
@@ -94,9 +209,124 @@ const UserSchema = new mongoose.Schema({
     },
     fees: Number,
     schedule: {
-        Timetable: [[String]],
-        createdAt: {type: Date, default: Date.now},
-        updatedAt: {type: Date, default: Date.now}
+        table: {
+            saturday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            sunday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            monday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            tuesday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            wednesday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            thursday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            friday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+
+            //  validate: [arrayLimit,'{PATH} exceeds the limit of 8']
+
+        },
+        updatedAt: {type: Date, default: Date.now},
     },
     about: String,
     qualifications: [String],
@@ -110,16 +340,17 @@ if (!UserSchema.options.toObject) {
     UserSchema.options.toObject = {};
 }
 
-UserSchema.options.toObject.transform = (document, transformedDocument) => {
+UserSchema.options.toObject.transform = function (document, transformedDocument) {
     delete transformedDocument.password;
     return transformedDocument;
-};
+}
+;
 
 if (!ChildSchema.options.toObject) {
     ChildSchema.options.toObject = {};
 }
 
-ChildSchema.options.toObject.transform = (document, transformedDocument) => {
+ChildSchema.options.toObject.transform = function (document, transformedDocument) {
     delete transformedDocument.password;
     return transformedDocument;
 };
@@ -127,5 +358,3 @@ ChildSchema.options.toObject.transform = (document, transformedDocument) => {
 mongoose.model('Child', ChildSchema);
 const User = mongoose.model('User', UserSchema);
 mongoose.model('UniqueUser', UniqueUserSchema);
-
-

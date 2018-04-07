@@ -117,6 +117,18 @@ module.exports.register = function (req, res, next) {
                     if (err) {
                         return next(err);
                     }
+                    if(newUser.role == 'Teacher'){
+                        for(var i=0; i< 8 ; i++){
+                            newUser.schedule.table.saturday.push({});
+                            newUser.schedule.table.sunday.push({});
+                            newUser.schedule.table.monday.push({});
+                            newUser.schedule.table.tuesday.push({});
+                            newUser.schedule.table.wednesday.push({});
+                            newUser.schedule.table.thursday.push({});
+                            newUser.schedule.table.friday.push({});
+                        }
+                        newUser.save();
+                    }
                     res.status(201).json({
                         err: null,
                         msg: 'Registration successful, you can now login to your account.',
@@ -157,7 +169,7 @@ module.exports.login = function (req, res, next) {
     if (user) {
 
         loginUser(req, res, next);
-        
+
 
     } else {
         loginChild(req, res, next);
@@ -258,6 +270,16 @@ module.exports.addChild = function (req, res, next) {
                     if (err) {
                         return next(err);
                     }
+                    for(var i=0; i< 8 ; i++){
+                        newUser.schedule.table.saturday.push({});
+                        newUser.schedule.table.sunday.push({});
+                        newUser.schedule.table.monday.push({});
+                        newUser.schedule.table.tuesday.push({});
+                        newUser.schedule.table.wednesday.push({});
+                        newUser.schedule.table.thursday.push({});
+                        newUser.schedule.table.friday.push({});
+                    }
+                    newUser.save();
                     res.status(201).json({
                         err: null,
                         msg: 'Registration successful, Child is now added.',
@@ -435,7 +457,7 @@ function loginUser(req, res, next) {
                     }
                 );
                 // Send the JWT to the frontend
-                
+
                 res.status(200).json({err: null, msg: 'Welcome', data: token});
             });
         }
@@ -490,4 +512,3 @@ function loginChild(req, res, next) {
         });
     });
 }
-

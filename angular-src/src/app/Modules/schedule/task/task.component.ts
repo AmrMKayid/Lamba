@@ -8,76 +8,35 @@ import { HttpClient } from '@angular/common/http';
 export class TaskComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
-  public students = {};
-
   ngOnInit() {
-    this.GetAllStudents();
+  this.getTasks("5abffe465388b43094a8c784");
   }
+  Tasks = []
+  TasksTitles = []
+  TasksDescriptions = []
+  TasksTeachers = []
+  TasksCreatedAt = []
+  TasksUpdatedAt = []
+  Teacher = []
+  getTasks(childId){
+    this.http.get("http://localhost:3000/api/task/getTasks/" + childId).subscribe((res: any) => { 
+      this.Tasks = res.data; 
+      // console.log(this.Tasks[0].Title);
+      var arrayLength = this.Tasks.length;
+      for (var i = 0; i < arrayLength; i++) {
+        this.TasksTitles[i] = this.Tasks[i].Title;
+        this.TasksDescriptions[i] = this.Tasks[i].Description;
+        this.TasksCreatedAt[i] = this.Tasks[i].createdAt;
+        this.TasksUpdatedAt[i] = this.Tasks[i].updatedAt;
+        this.http.get('http://localhost:3000/api/task/getTeacher/' + this.Tasks[i].TeacherId)
+        .subscribe((res: any) => { this.TasksTeachers[i] = res.data;
+          var arrayLength2 = this.TasksTeachers.length;
+          for (var i = 0; i < arrayLength2; i++) {
+            this.Teacher[i] = this.TasksTeachers[i].firstName + this.TasksTeachers[i].lastName ;
+          }
 
-  comment: string;
-
-  commentdata = {
-    Comment: "",
-    userId: "",
-    userType: "",
-    taskId: "",
-    name:""
-
-  };
-
-  taskname: string;
-
-  description: string;
-
-  taskdata = {
-    Title: "",
-    Description: "",
-    TeacherId: "",
-    StudentId: ""
-  };
-
-  CreateNewComment() {
-    console.log("commented");
-    this.commentdata.Comment = this.comment;
-    this.comment = "";
-    this.commentdata.userType = "Child";
-    this.commentdata.userId = "5abfe6f3750ffc19b0689a36";
-    this.commentdata.taskId = "5abffe465386b43094a8c784";
-    this.commentdata.name = "Saleh";
-
-    this.http.post('http://localhost:3000/api/task/newComment', this.commentdata).subscribe();
-  }
-
-  CreateNewTask() {
-    console.log("done");
-    this.taskdata.Title = this.taskname;
-    this.taskname = "";
-    this.taskdata.Description = this.description;
-    this.description = "";
-    this.taskdata.TeacherId = "5abfe6f3750afc19b0689a36";
-    this.taskdata.StudentId = "5abffe465388b43094a8c784";
-
-    this.http.post('http://localhost:3000/api/task/newTask', this.taskdata).subscribe();
-  }
-
-
-  GetAllStudents() {
-    this.http.get('http://localhost:3000/api/task/getStudents').subscribe((res: any) => {
-      this.students = res.data.userMap;
-      console.log(this.students)
-    });
-
-  }
-
-
-
-  mycomment = [];
-
-  getComments() {
-
-    this.http.get('http://localhost:3000/api/task/getComments/5abffe465386b43094a8c784').subscribe((res: any) => {
-      this.mycomment = res.data;
-      console.log(this.mycomment);
+        });
+      }
     });
   }
 }
