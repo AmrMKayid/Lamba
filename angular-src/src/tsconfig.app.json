@@ -16,6 +16,7 @@
     "../src/app/Modules/resources/resources.module.ts",
     "../src/app/Modules/schedule/schedule.module.ts",
     "../src/app/Modules/store/store.module.ts ",
-    "../src/app/Modules/store/myitems/myitems.module.ts"
+    "../src/app/Modules/store/myitems/myitems.module.ts",
+    "../node_modules/angular5-toaster/src/toaster.module.ts"
   ]
 }
