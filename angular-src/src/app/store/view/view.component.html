@@ -34,10 +34,8 @@
         <div class="itemBody">
 
           <h2 class="itemName"><b>{{item['name']}}</b></h2>
-          <!-- For now I'm using the quantity attribute as the like counter
-                  But we're going to need to change it
-              -->
-          <div class="itemLikeCount">{{item['quantity']}} <span class="fa fa-heart"></span></div>
+         
+          <div class="itemLikeCount">{{item['likes']}} <span class="fa fa-heart"></span></div>
           <div class="itemPrice">Price: {{item['price']}} LE</div>
           <article class="itemDesc">{{item['description']}}</article>
 

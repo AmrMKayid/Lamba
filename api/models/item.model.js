@@ -21,8 +21,8 @@ const ItemSchema = new Schema({
         type: Array,
 		required: true
     },
-    buyers_id: {
-        type: Array,
+    likes: {
+        type: Number,
 		required: true
     },
 	item_type: {
