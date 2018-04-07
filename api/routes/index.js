@@ -36,6 +36,8 @@ router.get('/schedule/getTeacherSchedule/:UserId', mw.isAuthenticated,scheduleCt
 router.post('/schedule/createChildShcedule/:ParentId/:ChildId', scheduleCtrl.createChildShcedule);
 router.get('/schedule/getChildSchedule/:ChildId',mw.isAuthenticated, scheduleCtrl.getChildSchedule);
 router.post('/task/newTask', taskCtrl.createNewTask);
+router.get('/task/getTasks/:childId', taskCtrl.getTasks);
+router.get('/task/getTeacher/:TeacherId', taskCtrl.getTeacher);
 router.post('/task/newComment', taskCtrl.createNewComment);
 router.get('/task/getComments/:taskId', taskCtrl.getComments);
 router.patch('/schedule/updateTeacherSchedule/:SlotId/',mw.isAuthenticated,scheduleCtrl.updateTeacherSchedule);

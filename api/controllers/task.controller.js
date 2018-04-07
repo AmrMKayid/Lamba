@@ -107,12 +107,38 @@ module.exports.getComments = function(req, res, next) {
         data: com
       });
     });
+  }); 
+};
 
-
-
-
-
-
+module.exports.getTasks = function(req, res, next) {
+  Task.find({StudentId: {
+    $eq: req.params.childId  
+  }  
+  }).exec(function(err, request) {
+    if (err) {
+      return next(err);
+    }
+  res.status(200).json({
+      err: null,
+      msg:
+        'Requests recieved successfully.',
+        data: request         
+        
+      });
   });
+};
 
+module.exports.getTeacher = function(req, res, next) {
+  let id = req.params.TeacherId;
+  User.findById(id).exec(function(err, user) {
+    if (err) {
+      return next(err);
+    }
+  res.status(200).json({
+      err: null,
+      msg:
+        'Requests recieved successfully.',
+      data: user.name
+    });
+  });
 };
