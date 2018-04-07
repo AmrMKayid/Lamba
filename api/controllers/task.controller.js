@@ -85,20 +85,6 @@ module.exports.getComments = function(req, res, next) {
 
 };
 
-module.exports.getStudents = function(req, res, next) {
-  User.find({}, function(err, users) {
-    var userMap = {};
-
-    users.forEach(function(user) {
-      userMap[user._id] = user;
-    });
-
-    res.send(userMap);
-  });
-}
-
-
-
 module.exports.getComments = function(req, res, next) {
   Task.findById(req.params.taskId).exec(function(err, task) {
     if (err) {

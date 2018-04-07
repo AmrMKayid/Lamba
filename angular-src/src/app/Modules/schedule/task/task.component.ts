@@ -11,7 +11,6 @@ export class TaskComponent implements OnInit {
   public students = {};
 
   ngOnInit() {
-    this.GetAllStudents();
   }
 
   comment: string;
@@ -59,17 +58,6 @@ export class TaskComponent implements OnInit {
 
     this.http.post('http://localhost:3000/api/task/newTask', this.taskdata).subscribe();
   }
-
-
-  GetAllStudents() {
-    this.http.get('http://localhost:3000/api/task/getStudents').subscribe((res: any) => {
-      this.students = res.data.userMap;
-      console.log(this.students)
-    });
-
-  }
-
-
 
   mycomment = [];
 

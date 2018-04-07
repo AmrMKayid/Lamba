@@ -38,7 +38,6 @@ router.get('/schedule/getChildSchedule/:ChildId',mw.isAuthenticated, scheduleCtr
 router.post('/task/newTask', taskCtrl.createNewTask);
 router.post('/task/newComment', taskCtrl.createNewComment);
 router.get('/task/getComments/:taskId', taskCtrl.getComments);
-router.get('/task/getStudents', taskCtrl.getStudents);
 router.patch('/schedule/updateTeacherSchedule/:SlotId/',mw.isAuthenticated,scheduleCtrl.updateTeacherSchedule);
 router.patch('/schedule/updateChildSchedule/:SlotId/:ChildId',mw.isAuthenticated,scheduleCtrl.updateChildSchedule);
 /*-----------------------------Store Routes-------------------------------------*/
