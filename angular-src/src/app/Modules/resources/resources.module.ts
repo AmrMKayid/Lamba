@@ -3,14 +3,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { TagInputModule } from 'ngx-chips';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { QuillModule } from 'ngx-quill';
 
 import { ArticlesService } from './articles.service';
 import { PostArticlesComponent } from './post-articles/post-articles.component';
-import { ViewArticleComponent } from './view-article/view-article.component';
 import { SafeHtmlPipe } from './view-article/safe-html.pipe';
+import { ViewArticleComponent } from './view-article/view-article.component';
 import { ViewArticlesComponent } from './view-articles/view-articles.component';
+import { FilterByTagsPipe } from './view-articles/filter-by-tags.pipe';
 
 const appRoutes: Routes = [
   {
@@ -30,6 +32,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [
+    TagInputModule,
     CommonModule,
     QuillModule,
     HttpClientModule,
@@ -39,10 +42,11 @@ const appRoutes: Routes = [
     RouterModule.forChild(appRoutes)
   ],
   declarations: [
+    FilterByTagsPipe,
     SafeHtmlPipe,
     PostArticlesComponent,
     ViewArticlesComponent,
-    ViewArticleComponent
+    ViewArticleComponent,
   ],
   providers: [
     ArticlesService
