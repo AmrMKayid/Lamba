@@ -23,6 +23,11 @@ export class ArticlesService {
       .pipe();
   }
 
+  getAllTags() {
+    return this.http.get('http://localhost:3000/api/tags/', this.httpOptions)
+      .pipe();
+  }
+
   upvote(id) {
     let body = {
       article_id: id,
