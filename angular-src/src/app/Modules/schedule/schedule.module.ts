@@ -7,20 +7,22 @@ import {TscheduleComponent} from './tschedule/tschedule.component';
 import {TaskComponent} from './task/task.component';
 import {CscheduleComponent} from './cschedule/cschedule.component';
 import {RouterModule, Routes} from '@angular/router';
-
 const appRoutes: Routes = [
   {
-    path: '',
-    component: TaskComponent,
-    children: [
-      {
-        path: 'Task',
-        component: TaskComponent,
-
-      }
-    ]
+    path: ''
+  },
+  {
+    path: 'tschedule',
+  component: TscheduleComponent,
+  },
+  {
+    path: 'viewtask',
+  component: TaskComponent,
+  },
+  {
+    path: 'cschedule',
+  component: CscheduleComponent,
   }
-
 ];
 
 @NgModule({
