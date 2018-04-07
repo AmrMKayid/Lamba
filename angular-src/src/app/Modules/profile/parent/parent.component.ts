@@ -2,9 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-
-import {AuthService} from '../../../services/auth.service';
-import {ToasterService} from "angular5-toaster";
+import {ToasterService} from 'angular5-toaster/src/toaster.service';
 import {appConfig} from "../../../app.config";
 import {HttpClient} from "@angular/common/http";
 

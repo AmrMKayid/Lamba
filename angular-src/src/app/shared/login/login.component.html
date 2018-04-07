@@ -1,67 +1,17 @@
-<!--<form novalidate (ngSubmit)="onSubmit(user)" [formGroup]="user">-->
-  <!--&lt;!&ndash;<h1>Login</h1>&ndash;&gt;-->
+<form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)" class="form-signin" novalidate autocomplete="off">
 
-  <!--&lt;!&ndash;<input type="text" placeholder="Email" formControlName="email">&ndash;&gt;-->
-  <!--&lt;!&ndash;<input type="password" placeholder="password" formControlName="password">&ndash;&gt;-->
-
-  <!--&lt;!&ndash;<button type="submit">Login</button>&ndash;&gt;-->
-
-<!--</form>-->
-
-
-<div class="limiter">
-  <div class="container-login100">
-    <div class="wrap-login100">
-      <div class="login100-pic js-tilt" data-tilt>
-        <img src="assets/nawwar.png" alt="IMG">
-      </div>
-
-
-      <toaster-container></toaster-container>
-
-      <form class="login100-form validate-form" novalidate (ngSubmit)="onSubmit(user)" [formGroup]="user">
-					<span class="login100-form-title">
-            Login
-					</span>
-
-        <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-          <input class="input100" type="text" name="email" placeholder="Email" formControlName="email">
-          <span class="focus-input100"></span>
-          <span class="symbol-input100">
-							<i class="fa fa-envelope" aria-hidden="true"></i>
-						</span>
-        </div>
-
-        <div class="wrap-input100 validate-input" data-validate = "Password is required">
-          <input class="input100" type="password" name="pass" placeholder="Password" formControlName="password">
-          <span class="focus-input100"></span>
-          <span class="symbol-input100">
-							<i class="fa fa-lock" aria-hidden="true"></i>
-						</span>
-        </div>
-
-        <div class="container-login100-form-btn">
-          <button class="login100-form-btn" type="submit">
-            Login
-          </button>
-        </div>
-
-        <div class="text-center p-t-12">
-						<span class="txt1">
-							Forgot
-						</span>
-          <a class="txt2" href="#">
-            Username / Password?
-          </a>
-        </div>
-
-        <div class="text-center p-t-136">
-          <a class="txt2" href="#">
-            Create your Account
-            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-          </a>
-        </div>
-      </form>
-    </div>
+  <input class="form-control" id="email" [formControl]="email" placeholder="Email/Username"><br>
+  <!-- ERROR: username -->
+  <div class="text-danger" *ngIf="loginForm.get('email').dirty && loginForm.get('email').invalid">
+    Please enter your email/username
   </div>
-</div>
+
+  <input class="form-control" type="password" id="password" [formControl]="password" placeholder="Password"><br>
+  <!-- ERROR: passsword -->
+  <div class="text-danger" *ngIf="loginForm.get('password').dirty && loginForm.get('password').invalid">
+    Please enter password
+  </div>
+
+  <button type="submit" class="btn btn-hero-success main-btn ccenter" [disabled]="loginForm.invalid">Login</button>
+
+</form>

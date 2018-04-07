@@ -2,9 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-
 import {AuthService} from '../../services/auth.service';
-import {ToasterService} from 'angular5-toaster';
+import {ToasterService} from 'angular5-toaster/src/toaster.service';
 
 @Component({
   selector: 'app-register',
@@ -31,12 +30,9 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit({value, valid}: { value: User, valid: boolean }) {
-    // console.log(value, valid);
+    console.log(value, valid);
     this.register(value);
   }
-
-  model: any = {};
-  loading = false;
 
   constructor(private router: Router,
               private toaster: ToasterService,
@@ -45,7 +41,6 @@ export class RegisterComponent implements OnInit {
 
   register(value: any) {
     console.log(value);
-    this.loading = true;
     this.authService.register(value)
       .subscribe(
         data => {
@@ -58,7 +53,6 @@ export class RegisterComponent implements OnInit {
             body: error.msg,
             timeout: 3000
           });
-          this.loading = false;
         });
   }
 
@@ -69,6 +63,7 @@ export class RegisterComponent implements OnInit {
 }
 
 export interface User {
+
   name: {
     firstName: string,
     lastName: string

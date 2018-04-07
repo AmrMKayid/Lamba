@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
-import { Http, Headers } from '@angular/http';
-import { ToasterService } from 'angular5-toaster';
-import { Router, ActivatedRoute } from '@angular/router';
-import { HttpModule, Response } from '@angular/http';
-import { FormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Http } from '@angular/http';
+import {ToasterService} from 'angular5-toaster/src/toaster.service';
+import { Router } from '@angular/router';
+
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -15,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 export class AdminComponent implements OnInit {
 
 
- 
+
 
   constructor(
     private httpClient: HttpClient,
@@ -27,15 +25,15 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit() {
-   
+
   }
- 
+
   ViewUnverifiedArticles(){
-    this.router.navigate(['/profile/admin/un-verified-articles']);        
+    this.router.navigate(['/profile/admin/un-verified-articles']);
 
   }
   ViewTeachersRequests(){
-    this.router.navigate(['/profile/admin/verify-teachers']);        
+    this.router.navigate(['/profile/admin/verify-teachers']);
 
   }
 
