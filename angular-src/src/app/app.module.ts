@@ -21,7 +21,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {LoginComponent} from './shared/login/login.component';
 import {RegisterComponent} from './shared/register/register.component';
 import {HomepageComponent} from './shared/homepage/homepage.component';
-import {ResourcesModule} from "./Modules/resources/resources.module";
+import {ResourcesModule} from "./modules/resources/resources.module";
 
 
 @NgModule({
