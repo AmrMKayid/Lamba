@@ -4,35 +4,59 @@
   <!-- Navbar brand -->
   <logo>
     <a class="navbar-brand" [routerLink]="['/']">
-             <img src="assets/logo.png" height="40" alt="">
-         </a>
+      <img src="assets/logo.png" height="40" alt="">
+    </a>
   </logo>
+
   <!-- Collapsible content -->
   <links>
 
     <!-- Links -->
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+      <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"  *ngIf="!isLoggedIn">
         <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/']">Home</a>
       </li>
+
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <!--TODO: News Feed-->
+        <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/newsFeed']" *ngIf="isLoggedIn">News Feed</a>
+      </li>
+
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <!--TODO: Resources-->
+        <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/resources']" *ngIf="isLoggedIn">Resources</a>
+      </li>
+
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <!--TODO: Resources-->
+        <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/store']" *ngIf="isLoggedIn">Store</a>
+      </li>
+
     </ul>
     <!-- Links -->
 
     <!-- Links -->
     <ul class="navbar-nav ml-auto">
 
-      <li class="nav-item" [routerLinkActive]="['active']">
+
+      <li class="nav-item" [routerLinkActive]="['active']" *ngIf="!isLoggedIn">
         <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/login']">Login</a>
       </li>
+
       <li class="nav-item" [routerLinkActive]="['active']">
-        <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/register']">Sign Up</a>
+        <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/register']" *ngIf="!isLoggedIn">Sign Up</a>
       </li>
-      <li class="nav-item">
+
+      <li class="nav-item" *ngIf="isLoggedIn">
         <a class="nav-link waves-effect waves-light">1 <i class="fa fa-envelope"></i></a>
       </li>
-      <li class="nav-item avatar dropdown" dropdown>
-        <a dropdownToggle mdbRippleRadius type="button" class="nav-link dropdown-toggle waves-light pt-0" mdbRippleRadius>
-                <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" class="img-fluid rounded-circle z-depth-0"><span class="caret"></span></a>
+
+      <li class="nav-item avatar dropdown" dropdown *ngIf="isLoggedIn">
+        <a dropdownToggle mdbRippleRadius type="button" class="nav-link dropdown-toggle waves-light pt-0"
+           mdbRippleRadius>
+          <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg"
+               class="img-fluid rounded-circle z-depth-0"><span
+          class="caret"></span></a>
         <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
           <a class="dropdown-item waves-light" mdbRippleRadius href="#">Profile</a>
           <a class="dropdown-item waves-light" mdbRippleRadius href="#">Settings</a>
@@ -43,6 +67,8 @@
     </ul>
     <!-- Links -->
   </links>
+
+
   <!-- Collapsible content -->
 </mdb-navbar>
 <!--/.Navbar-->
