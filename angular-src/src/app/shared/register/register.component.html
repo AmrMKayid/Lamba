@@ -1,149 +1,78 @@
-<!-- <form novalidate (ngSubmit)="onSubmit(user)" [formGroup]="user">
-
-  <toaster-container></toaster-container>
-
-  <h1>Sign Up</h1>
-
-  <div formGroupName="name">
-    <input type="text" placeholder="First Name" formControlName="firstName">
-    <input type="text" placeholder="Last Name" formControlName="lastName">
-  </div>
-
-  <input type="text" placeholder="Email" formControlName="email">
-  <input type="password" placeholder="password" formControlName="password">
-  <input type="password" placeholder="confirm Password" formControlName="confirmPassword">
-
-  <label>Role: </label>
-  <select formControlName="role" name="gender" placeholder="Role">
-    <option value="Parent">Parent</option>
-    <option value="Teacher">Teacher</option>
-  </select>
-
-  <label>Gender: </label>
-  <select formControlName="gender" name="gender" class="">
-    <option value="male">Male</option>
-    <option value="female">Female</option>
-  </select>
-
-  <button type="submit" [disabled]="user.invalid">Sign up</button>
-
-</form> -->
-
 <div class="center-div">
   <div class="card card-signup">
     <div class="card-body">
 
 
       <!--Register form-->
-      <!--<form>-->
-        <!--<p class="h5 text-center mb-4">Sign up</p>-->
-
-        <!--<div class="md-form">-->
-          <!--<i class="fa fa-user prefix grey-text"></i>-->
-          <!--<input type="text" id="orangeForm-name" class="form-control" mdbActive>-->
-          <!--<label for="orangeForm-name">Your name</label>-->
-        <!--</div>-->
-        <!--<div class="md-form">-->
-          <!--<i class="fa fa-envelope prefix grey-text"></i>-->
-          <!--<input type="text" id="orangeForm-email" class="form-control" mdbActive>-->
-          <!--<label for="orangeForm-email">Your email</label>-->
-        <!--</div>-->
-
-        <!--<div class="md-form">-->
-          <!--<i class="fa fa-lock prefix grey-text"></i>-->
-          <!--<input type="password" id="orangeForm-pass" class="form-control" mdbActive>-->
-          <!--<label for="orangeForm-pass">Your password</label>-->
-        <!--</div>-->
-
-        <!--<div class="text-center">-->
-          <!--<button class="btn btn-deep-orange waves-light" mdbRippleRadius>Sign up</button>-->
-        <!--</div>-->
-
-      <!--</form>-->
-
-
       <form class="form" novalidate (ngSubmit)="onSubmit(user)" [formGroup]="user">
 
-        <div class="form-group" formGroupName="name">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="material-icons">face</i></span>
-            </div>
-            <input type="text" class="form-control" placeholder="First Name" formControlName="firstName">
-            <input type="text" class="form-control" placeholder="Last Name" formControlName="lastName">
+        <p class="h5 text-center mb-4">Sign up</p>
+
+        <div class="md-form" formGroupName="name">
+
+          <div>
+            <i class="fa fa-user prefix grey-text"></i>
+            <input type="text" id="orangeForm-firstName" class="form-control" formControlName="firstName" mdbActive>
+            <label for="orangeForm-firstName">first name</label>
           </div>
-        </div>
-
-        <div class="form-group">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="material-icons">mail</i></span>
-            </div>
-            <input type="text" class="form-control" placeholder="Email" formControlName="email">
+          <div class="md-form">
+            <i class="fa fa-user prefix grey-text"></i>
+            <input type="text" id="orangeForm-lastName" class="form-control" formControlName="lastName" mdbActive>
+            <label for="orangeForm-lastName">last name</label>
           </div>
+
         </div>
 
-        <div class="form-group">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="material-icons">lock_outline</i></span>
-            </div>
-            <input type="password" placeholder="Password" class="form-control" formControlName="password"/>
+        <div class="md-form">
+          <i class="fa fa-envelope prefix grey-text"></i>
+          <input type="text" id="orangeForm-email" class="form-control" formControlName="email" mdbActive>
+          <label for="orangeForm-email">Your email</label>
+        </div>
+
+        <div class="md-form">
+          <i class="fa fa-lock prefix grey-text"></i>
+          <input type="password" id="orangeForm-pass" class="form-control" formControlName="password" mdbActive>
+          <label for="orangeForm-pass">Your password</label>
+        </div>
+
+        <div class="md-form">
+          <i class="fa fa-lock prefix grey-text"></i>
+          <input type="password" id="orangeForm-passConfirm" class="form-control" formControlName="confirmPassword"
+                 mdbActive>
+          <label for="orangeForm-passConfirm">Confirm your password</label>
+        </div>
+
+
+        <div class="md-form">
+          <i class="fa fa-intersex prefix grey-text"></i>
+
+          <div class="form-check form-check-radio form-check-inline">
+            <label class="form-check-label">
+
+              <input class="form-check-input" type="radio" id="inlineRadio1" value="male" formControlName="gender"> Male
+
+              <span class="circle"><span class="check"></span></span>
+            </label>
           </div>
-        </div>
 
-        <div class="form-group">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="material-icons">lock_outline</i></span>
-            </div>
-            <input type="password" placeholder="Confirm Password" class="form-control"
-                   formControlName="confirmPassword"/>
+          <div class="form-check form-check-radio form-check-inline">
+            <label class="form-check-label">
+
+              <input class="form-check-input" type="radio" id="inlineRadio2" value="female" formControlName="gender">
+              Female
+
+              <span class="circle"><span class="check"></span></span>
+            </label>
           </div>
+
         </div>
 
-        <div class="form-group" >
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="fa fa-intersex"></i></span>
-            </div>
 
-            <div>
-
-              <div class="form-check form-check-radio form-check-inline">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="radio"
-                         id="inlineRadio1" value="male" formControlName="gender"> Male
-                  <span class="circle"><span class="check"></span></span>
-                </label>
-              </div>
-              <div class="form-check form-check-radio form-check-inline">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="radio"
-                         id="inlineRadio2" value="female" formControlName="gender"> Female
-                  <span class="circle"><span class="check"></span></span>
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-check">
-          <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" value="" checked>
-            <span class="form-check-sign">
-            <span class="check"></span>
-            </span>
-            I agree to the
-            <a href="#something">terms and conditions</a>.
-          </label>
-        </div>
         <div class="text-center">
-          <button class="btn btn-primary btn-round" type="submit">Sign up</button>
+          <button class="btn btn-deep-orange waves-light" type="submit" mdbRippleRadius>Sign up</button>
         </div>
-      </form>
 
-      <!--/Register form-->
+      </form>
 
     </div>
   </div>
