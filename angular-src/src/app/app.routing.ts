@@ -7,7 +7,7 @@ import {AuthGuard} from './guards/auth.guard';
 
 
 const appRoutes: Routes = [
-  {path: 'home', component: HomepageComponent},
+  {path: '', component: HomepageComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'profile', loadChildren: './modules/profile/profile.module#ProfileModule'},
@@ -16,8 +16,8 @@ const appRoutes: Routes = [
   {path: 'store', loadChildren: './modules/store/store.module#StoreModule'},
 
   // otherwise redirect to shared
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  {path: '**', redirectTo: 'home'}
+  { path: '', redirectTo: '/', pathMatch: 'full' },
+  {path: '**', redirectTo: '/'}
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);
