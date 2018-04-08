@@ -45,4 +45,8 @@ export class AuthService {
     return this.getUserFromToken(localStorage.getItem('authentication'));
   }
 
+  public getUserRole() {
+    return this.getUserFromToken(localStorage.getItem('authentication')).role;
+  }
+
 }
