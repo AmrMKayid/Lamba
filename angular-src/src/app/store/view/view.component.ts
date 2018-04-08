@@ -72,14 +72,14 @@ export class ViewComponent implements OnInit {
         });
     }
 
-like(item){
-this.StoreService.like(item).subscribe((data:any)=>{
+likeItems(item){
+this.StoreService.likeItems(item).subscribe((data:any)=>{
   this.items = data.data;
    });
 }
 
-unlike(item){
-  this.StoreService.unlike(item).subscribe((data:any)=>{
+unlikeItems(item){
+  this.StoreService.unlikeItems(item).subscribe((data:any)=>{
     this.items = data.data;
      });
 }
