@@ -1,93 +1,54 @@
-<nav class="navbar navbar-color-on-scroll navbar-transparent fixed-top  navbar-expand-lg " color-on-scroll="100" id="sectionsNav">
-    <div class="container">
 
-        <div class="navbar-translate">
-            <a class="navbar-brand" href="../index.html">
-                <!-- TODO -->
-                <!--<img src="../assets/img/kit/free/favicon.png" style="width: 50px; height: 50px; border-radius: 50%;">-->
-                Nawwar
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                <span class="navbar-toggler-icon"></span>
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
+<mdb-navbar SideClass="navbar fixed-top navbar-expand-lg navbar-dark bg-red scrolling-navbar ie-nav" [containerInside]="false">
 
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ml-auto">
+  <logo>
+    <a class="logo navbar-brand" href="#"><img src="../assets/nawwar.png" style="border-radius: 50%; width: 50px; height: 50px;"></a>
+  </logo>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)" onclick="scrollToDownload()">
-                        <i class="fa fa-user-plus"></i> Sign Up
-                    </a>
-                </li>
+  <links>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active waves-light" mdbRippleRadius>
+        <a class="nav-link">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item waves-light" mdbRippleRadius>
+        <a class="nav-link">Features</a>
+      </li>
+      <li class="nav-item waves-light" mdbRippleRadius>
+        <a class="nav-link">Pricing</a>
+      </li>
+      <li class="nav-item waves-light" mdbRippleRadius>
+        <a class="nav-link">Opinions</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav nav-flex-icons">
+      <li class="nav-item waves-light" mdbRippleRadius>
+        <a class="nav-link"><i class="fa fa-facebook"></i></a>
+      </li>
+      <li class="nav-item waves-light" mdbRippleRadius>
+        <a class="nav-link"><i class="fa fa-twitter"></i></a>
+      </li>
+      <li class="nav-item waves-light" mdbRippleRadius>
+        <a class="nav-link"><i class="fa fa-instagram"></i></a>
+      </li>
+    </ul>
+  </links>
 
+</mdb-navbar>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)" onclick="scrollToDownload()">
-                        <i class="fa fa-sign-in"></i> Login
-                    </a>
-                </li>
-
-                <!-- <li class="nav-item">
-                        <a href="#pablo" class="btn btn-primary btn-round">Sign Up</a>
-                </li>
-                <li class="nav-item">
-                        <a href="#pablo" class="btn btn-primary btn-round">Login</a>
-                </li> -->
-
-                <li class="nav-item">
-                    <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://www.facebook.com/Project.Nawwar/" target="_blank" data-original-title="Like us on Facebook">
-                        <i class="fa fa-facebook-square"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://www.youtube.com/user/ProjectNawwar" target="_blank" data-original-title="Subscribe to our Channel">
-                        <i class="fa fa-youtube"></i>
-                    </a>
-                </li>
-
-            </ul>
-
-        </div>
-    </div>
-</nav>
-
-
-
-  <router-outlet>
-  </router-outlet>
-
-
-
-  <footer class="footer ">
-      <div class="container">
-          <nav class="pull-left">
-              <ul>
-                  <li>
-                      <a href="">
-                          Lamba Team
-                      </a>
-                  </li>
-                  <li>
-                      <a href="">
-                          About Us
-                      </a>
-                  </li>
-                  <li>
-                      <a href="">
-                          Blog
-                      </a>
-                  </li>
-              </ul>
-          </nav>
-          <div class="copyright pull-right">
-              &copy;
-              <script>
-                  document.write(new Date().getFullYear())
-              </script>, made with <i class="material-icons">favorite</i> by
-              <a href="" target="_blank">Lamba</a> for a better web.
-          </div>
+<!-- Main -->
+<main>
+  <div class="container" style="height:300px;">
+    <div class="row mt-5 pt-5">
+      <div class="col text-center">
+        <h2>This Navbar is fixed</h2>
+        <h5>It will always stay visible on the top, even when you scroll down</h5>
+        <br>
+        <p>Full page intro with background image will be always displayed in full screen mode, regardless of device </p>
       </div>
-  </footer>
+    </div>
+  </div>
+</main>
+<!-- /.Main -->
+
+<router-outlet>
+</router-outlet>

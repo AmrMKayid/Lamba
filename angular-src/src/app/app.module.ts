@@ -17,6 +17,8 @@ import {AuthService} from './services/auth.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+
 
 import {LoginComponent} from './shared/login/login.component';
 import {RegisterComponent} from './shared/register/register.component';
@@ -41,6 +43,7 @@ import {ResourcesModule} from "./modules/resources/resources.module";
     ToasterModule,
     // ResourcesModule,
     NgbModule.forRoot(),
+    MDBBootstrapModule.forRoot()
   ],
   providers: [
     AuthGuard,

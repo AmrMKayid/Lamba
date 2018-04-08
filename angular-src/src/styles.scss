@@ -1,6 +1,6 @@
 /* @import "~bootstrap/dist/css/bootstrap.css"; */
 /* You can add global styles to this file, and also import other style files */
-/* .toast-title {
+.toast-title {
     font-weight: bold;
 }
 .toast-message {
@@ -32,11 +32,11 @@
     text-decoration: none;
     cursor: pointer;
     opacity: 0.4;
-} */
+}
 /*Additional properties for button version
  iOS requires the button element instead of an anchor tag.
  If you want the anchor version, it requires `href="#"`.*/
-/* button.toast-close-button {
+button.toast-close-button {
     padding: 0;
     cursor: pointer;
     background: transparent;
@@ -169,10 +169,10 @@
     height: 4px;
     background-color: #000000;
     opacity: 0.4;
-} */
+}
 
 /*Responsive Design*/
-/* @media all and (max-width: 240px) {
+@media all and (max-width: 240px) {
     #toast-container > div {
         padding: 8px 8px 8px 50px;
         width: 11em;
@@ -197,4 +197,4 @@
         padding: 15px 15px 15px 50px;
         width: 25em;
     }
-} */
+}
