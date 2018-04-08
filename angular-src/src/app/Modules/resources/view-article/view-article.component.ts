@@ -62,23 +62,23 @@ export class ViewArticleComponent implements OnInit {
     );
   }
   comment(){
-    if(this.commentContent==''){
-      alert("Please write in a comment");
-    }
-    else {
+    // if(this.commentContent==''){
+    //   alert("Please write in a comment");
+    // }
+    // else {
       this.articleService.comment(this.article._id, this.commentContent).subscribe(
         (res: any) => {
           this.articleService.loadArticle(this.article._id).subscribe(
             (retrieved: any) => {
               this.comments = retrieved.data.comments;
+              this.commentContent = '';
             }
           );
-          this.commentContent = '';
         }, err => {
           alert(`Article was not updated: ${err.error.msg}`);
         }
       )
-    }
+    //}
   }
   reply(i,comment_id,content){
     this.articleService.reply(this.article._id,comment_id,content).subscribe(
@@ -86,10 +86,13 @@ export class ViewArticleComponent implements OnInit {
         this.articleService.loadArticle(this.article._id).subscribe(
           (retrieved: any) => {
             this.comments = retrieved.data.comments;
+            this.replies[i].replyContent = '';
+            this.replies[i].showReply = false;
+            this.replies.push({showReply : false,
+              replyContent :''});
           }
         );
-        this.replies[i].replyContent = '';
-        this.replies[i].showReply = false;
+
       }, err => {
         alert(`Article was not updated: ${err.error.msg}`);
       }

@@ -7,7 +7,7 @@ export class ArticlesService {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       //GET THIS FROM POSTMAN'S LOGIN (won't work 3shan locally 3l database bta3ty)
-      'Authorization':  localStorage.getItem('authorization')
+      'Authorization': localStorage.getItem('authorization')
     })
   };
   //The service now holds no data, it just provides methods to subscribe to, and every route holds its own data
