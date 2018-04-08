@@ -21,7 +21,7 @@ export class CreateComponent implements OnInit {
   item_type: string;
   item_condition: string;
   picture_url : string;
-
+  token = localStorage.getItem('authentication');
 
   constructor(private toaster: ToasterService,
   private http : Http,
