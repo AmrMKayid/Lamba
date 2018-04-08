@@ -21,8 +21,8 @@ router.post('/store/edit/:itemId', mw.isAuthenticated, storeCtrl.editItems);
 router.delete('/store/delete/:itemId', mw.isAuthenticated, storeCtrl.deleteItems);
 
 
-router.patch('/store/like/:itemId', storeCtrl.likeItems);
-router.patch('/store/unlike/:itemId' , storeCtrl.unlikeItems);
+router.patch('/store/likeItems/:itemId', storeCtrl.likeItems);
+router.patch('/store/unlikeItems/:itemId' , storeCtrl.unlikeItems);
 
 
 router.get('/uploads/store/:filename', storeCtrl.getImage);
