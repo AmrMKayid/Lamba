@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "concurrently \"mongod\" \"node ./bin/www\" \"cd angular-src && ng serve -o\"",
-    "devBack": "concurrently \"mongod\" \"node ./bin/www\""
+    "devBack": "concurrently \"mongod\" \"node ./bin/www\"",
+    "test": "mocha -- api/test/*.js"
   },
   "dependencies": {
     "angular5-toaster": "^1.0.2",
@@ -27,6 +28,9 @@
   },
   "devDependencies": {
     "@angular/cli": "^1.7.3",
-    "concurrently": "^3.5.1"
+    "chai": "^4.1.2",
+    "chai-http": "^2.0.1",
+    "concurrently": "^3.5.1",
+    "mocha": "^5.0.5"
   }
 }
