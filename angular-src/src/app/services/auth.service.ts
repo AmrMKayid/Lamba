@@ -41,4 +41,8 @@ export class AuthService {
     }
   }
 
+  public getCurrentUser() {
+    return this.getUserFromToken(localStorage.getItem('authentication'));
+  }
+
 }

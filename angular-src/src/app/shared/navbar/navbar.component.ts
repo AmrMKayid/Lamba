@@ -9,7 +9,7 @@ import {AuthService} from "../../services/auth.service";
 export class NavbarComponent implements OnInit {
 
   isLoggedIn: Boolean;
-  // role;
+  role;
 
   constructor(private auth: AuthService) {
   }
@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
 
     if (localStorage.getItem('authentication')) {
       this.isLoggedIn = true;
-      // this.role = this.auth.getUserFromToken(localStorage.getItem('authentication')).role;
+      this.role = (this.auth.getCurrentUser().role).toLowerCase();
     }
     else {
       this.isLoggedIn = false;
