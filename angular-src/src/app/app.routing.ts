@@ -10,10 +10,10 @@ const appRoutes: Routes = [
   {path: '', component: HomepageComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'profile', loadChildren: './modules/profile/profile.module#ProfileModule'},
-  {path: 'schedule', loadChildren: './modules/schedule/schedule.module#ScheduleModule'},
-  {path: 'resources', loadChildren: './modules/resources/resources.module#ResourcesModule'},
-  {path: 'store', loadChildren: './modules/store/store.module#StoreModule'},
+  {path: 'profile', canActivate: [AuthGuard], loadChildren: './modules/profile/profile.module#ProfileModule'},
+  {path: 'schedule', canActivate: [AuthGuard], loadChildren: './modules/schedule/schedule.module#ScheduleModule'},
+  {path: 'resources', canActivate: [AuthGuard], loadChildren: './modules/resources/resources.module#ResourcesModule'},
+  {path: 'store', canActivate: [AuthGuard], loadChildren: './modules/store/store.module#StoreModule'},
 
   // otherwise redirect to shared
   { path: '', redirectTo: '/', pathMatch: 'full' },
