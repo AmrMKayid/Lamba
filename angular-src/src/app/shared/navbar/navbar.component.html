@@ -58,10 +58,9 @@
                class="img-fluid rounded-circle z-depth-0"><span
           class="caret"></span></a>
         <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-          <a class="dropdown-item waves-light" mdbRippleRadius href="#">Profile</a>
-          <a class="dropdown-item waves-light" mdbRippleRadius href="#">Settings</a>
+          <a class="dropdown-item waves-light" mdbRippleRadius href="/profile/{{role}}">Profile</a>
           <div class="divider dropdown-divider"></div>
-          <a class="dropdown-item waves-light" mdbRippleRadius href="#">Log Out</a>
+          <a class="dropdown-item waves-light" mdbRippleRadius href="/" (click)="logout()">Log Out</a>
         </div>
       </li>
     </ul>

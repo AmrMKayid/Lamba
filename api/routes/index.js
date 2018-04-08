@@ -49,10 +49,11 @@ router.post('/store/buy/:itemId', mw.isAuthenticated, storeCtrl.buyItems);
 router.post('/store/like/:itemId', mw.isAuthenticated, storeCtrl.likeItems);
 //-----------------------------C1: Articles & TAGS Routes----------------------------------------------//
 router.get('/articles', mw.isAuthenticated, articleCtrl.getArticles);
-router.get('/article/:id', mw.isAuthenticated, articleCtrl.getArticle);
+router.get('/articles/:id', mw.isAuthenticated, articleCtrl.getArticle);
 router.post('/articles', mw.isAuthenticated, mw.isNotChild, articleCtrl.createArticle);
 router.get('/tags', mw.isAuthenticated, tagCtrl.getTags);
 router.post('/tags', mw.isAuthenticated, mw.isAdmin, tagCtrl.addTag);
 router.delete('/tags/:id', mw.isAuthenticated, mw.isAdmin, tagCtrl.deleteTag);
+router.post('/articles/feedback', mw.isAuthenticated, articleCtrl.feedbackArticle);
 
 module.exports = router;
