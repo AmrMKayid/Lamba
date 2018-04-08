@@ -27,7 +27,19 @@ const articleSchema = new mongoose.Schema({
     updatedAt: Date,
     //For the feedback, keeping track of the IDs so that you cannot up & down more than once, score identified by the array's length
     upvoters: [String],
-    downvoters: [String]
+    downvoters: [String],
+    comments: [{
+        comment_content:String,
+        commenter: {type:String,
+            ref: 'User'
+        },
+        replies: [
+            {
+                reply_content: String,
+                replier: String
+            }
+        ]
+    }]
 });
 
 articleSchema.pre('save', function (next) {

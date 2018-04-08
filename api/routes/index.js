@@ -55,5 +55,8 @@ router.get('/tags', mw.isAuthenticated, tagCtrl.getTags);
 router.post('/tags', mw.isAuthenticated, mw.isAdmin, tagCtrl.addTag);
 router.delete('/tags/:id', mw.isAuthenticated, mw.isAdmin, tagCtrl.deleteTag);
 router.post('/articles/feedback', mw.isAuthenticated, articleCtrl.feedbackArticle);
+router.post('/articles/comment', mw.isAuthenticated,  articleCtrl.commentArticle);
+router.post('/articles/reply', mw.isAuthenticated,  articleCtrl.replyComment);
+
 
 module.exports = router;

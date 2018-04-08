@@ -1,5 +1,5 @@
 <!-- Page Content -->
-<div class="container" *ngIf="isInitialized">
+<div  class="container" *ngIf="isInitialized">
 
   <div class="row">
 
@@ -22,70 +22,72 @@
 
       <!-- Preview Image -->
       <!-- TODO: "Featurez" Will we add a thumbnail option with a default while posting? -->
-      <img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">
+      <!--<img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">-->
 
       <hr>
 
       <!-- Post Content -->
       <div [innerHTML]="article.content | safeHtml">
       </div>
+
       <hr>
 
       <!-- Comments Form -->
       <div class="card my-4">
-        <h5 class="card-header">Leave a Comment:</h5>
+        <h5 class="card-header"><i class="fa fa-commenting-o mr-3" aria-hidden="true"></i>Leave a Comment:</h5>
         <div class="card-body">
           <form>
             <div class="form-group">
-              <textarea class="form-control" rows="3"></textarea>
+              <textarea class="form-control" [(ngModel)]="commentContent" name="comment" placeholder="Comment"  rows="3"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" (click)="comment()" class="btn btn-primary btn-sm">Submit</button>
           </form>
         </div>
       </div>
 
       <!-- Single Comment -->
-      <div class="media mb-4">
-        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-        <div class="media-body">
-          <h5 class="mt-0">Commenter Name</h5>
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-          vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis
-          in faucibus.
-        </div>
-      </div>
-
-      <!-- Comment with nested comments -->
-      <div class="media mb-4">
-        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-        <div class="media-body">
-          <h5 class="mt-0">Commenter Name</h5>
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-          vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis
-          in faucibus.
-
-          <div class="media mt-4">
-            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-            <div class="media-body">
-              <h5 class="mt-0">Commenter Name</h5>
-              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-              vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue
-              felis in faucibus.
+      <ng-container *ngFor="let comment of comments | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
+        <div class="media mb-4">
+          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+          <div class="media-body">
+            <h6>
+              <a style="cursor: pointer;" [routerLink]="['/profile',comment.commenter._id]">
+                {{comment.commenter.name.firstName}} {{comment.commenter.name.lastName}}
+              </a>
+            </h6>
+            <p>{{comment.comment_content}}</p>
+            <!--<button  style="cursor: pointer;" (click)="replies[i].showReply = true">reply</button>-->
+            <div class="button-row">
+              <a class="btn btn-primary btn-sm" style="cursor: pointer;" (click)="replies[i].showReply = true" role="button"><i class="fa fa-reply mr-1" aria-hidden="true"></i>Reply</a>
+              <!--<a mat-button >Reply</a>-->
+            </div>
+            <div class="card my-4" *ngIf="replies[i].showReply">
+              <h5 class="card-header"><i class="fa fa-reply mr-3" aria-hidden="true"></i>Leave a Reply:</h5>
+              <div class="card-body">
+                <form>
+                  <div class="form-group">
+                    <textarea class="form-control" [(ngModel)]="replies[i].replyContent" name="Reply" placeholder="Reply"  rows="3"></textarea>
+                  </div>
+                  <button type="submit" (click)="reply(i,comment._id,replies[i].replyContent)" class="btn btn-primary btn-sm">Submit</button>
+                </form>
+              </div>
+            </div>
+            <div class="media mt-4" *ngFor="let reply of comment.replies">
+              <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+              <div class="media-body">
+                <h6>
+                  <a style="cursor: pointer;" [routerLink]="['/profile',reply.replier._id]">
+                    {{reply.replier.name.firstName}} {{reply.replier.name.lastName}}  </a>
+                </h6>
+                {{reply.reply_content}}
+              </div>
             </div>
           </div>
 
-          <div class="media mt-4">
-            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-            <div class="media-body">
-              <h5 class="mt-0">Commenter Name</h5>
-              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-              vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue
-              felis in faucibus.
-            </div>
-          </div>
-
         </div>
-      </div>
+      </ng-container>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
 
     </div>
 

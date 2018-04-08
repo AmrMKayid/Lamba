@@ -46,4 +46,21 @@ export class ArticlesService {
     return this.http.post('http://localhost:3000/api/articles/feedback', body, this.httpOptions)
       .pipe();
   }
+  comment(id,content) {
+    let body = {
+      article_id: id,
+      comment_content: content
+    }
+    return this.http.post('http://localhost:3000/api/articles/comment', body, this.httpOptions)
+      .pipe();
+  }
+  reply(article_id,comment_id,content){
+    let body = {
+      article_id: article_id,
+      comment_id: comment_id,
+      reply: content
+    }
+    return this.http.post('http://localhost:3000/api/articles/reply', body, this.httpOptions)
+      .pipe();
+  }
 }
