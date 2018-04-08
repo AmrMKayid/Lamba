@@ -1,18 +1,16 @@
 process.env.NODE_ENV = 'test';
 
 
-var mongoose = require("mongoose"),
-    config = require('../config/index')
-     User = require('../models/user.model'),
+var base = process.env.PWD;
+var mongoose = require('mongoose'),
+    user = require('../models/user.model'),
+    auth = require( '../controllers/auth.controller'),
     schedule = require( '../controllers/schedule.controller'),
     chai = require('chai'),
-chaiHttp = require('chai-http'),
-    should = chai.should();
+    should = chai.should(),
+    chaiHttp = require('chai-http'),
+    testUtils = require('../test/utils');
 chai.use(chaiHttp);
-
-describe('Getting schedule',() => {
-
-
 
 /*describe('Getting schedule',() => {
 >>>>>>> d1e9702dddaa138cd2aefc18c04b5bf97db409ee
@@ -42,32 +40,46 @@ describe('Getting schedule',() => {
 });
 });*/
 describe("teacher ", () => {
-    var id;
+
+    var id, teacher, token;
+
 
 before((done) => {
-    mongoose.connect('mongodb://localhost:27017/lambatest', () => {
+    mongoose.connect('mongodb://localhost:27017/lambatest', function() {
     console.log('Connected to lambatest');
 done();
 });
 });
+teacher ={
+    'email': "mm@f.com",
+    'role': "Teacher",
+    'password': 'wwww',
+    'name':{'firstname':'Mariam',
+        'lastName':'dessouki'}
+};
+describe("register a user", () => {
+it("it should register a user", (done) => {
+    chai.request("http://localhost:3000/api").post("/auth/register").send(teacher).end((err,res) =>{
+    id = res.body.data._id;
+    done();
+
+});
+}); });
+
+describe("login a user", () => {
+    it("it should login a user", (done) => {
+    chai.request("http://localhost:3000/api").post("/auth/login").send(teacher).end((err,res)=>{
+        token = res.body.data;
+        done();
+    });
+}); });
 
 
-
+});
 
 describe("GET teacherSchedule", () => {
     it("should get schedule by its teacher's id", (done) => {
-      var  user = new User({
-            role: 'Teacher',
-            email: 'mm@f.com',
-            password: 'wwww',
-            name:{firstname:'Mariam',
-                lastName:'dessouki'}
-        });
 
-        user.save((err, user) => {
-            if (err) { console.log(err); }
-            id = user._id;
-        });
     let req = {
         params : {UserId : id}
     };
@@ -85,7 +97,7 @@ describe("GET teacherSchedule", () => {
 });
 
     schedule.getTeacherSchedule(req, res);
-});
+}); //for it
 
 it("should throw an error for invalid id", (done) => {
     let req = {
@@ -97,7 +109,7 @@ let res = testUtils.responseValidatorAsync(500, (err) => {
 });
 
 schedule.getTeacherSchedule(req, res);
+}); //for it
+
 });
-});
-});
-});
+
