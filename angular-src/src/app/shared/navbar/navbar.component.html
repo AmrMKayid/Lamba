@@ -1,5 +1,5 @@
 <!--Navbar-->
-<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark unique-color sticky-top scrolling-navbar">
+<mdb-navbar SideClass="navbar navbar-expand-md navbar-dark unique-color sticky-top scrolling-navbar">
 
   <!-- Navbar brand -->
   <logo>
@@ -47,17 +47,31 @@
         <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/register']" *ngIf="!isLoggedIn()">Sign Up</a>
       </li>
 
-      <li class="nav-item" *ngIf="isLoggedIn()">
+      <li class="nav-item d-md-none" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
+        <a class="nav-link waves-light" mdbRippleRadius>Messages</a>
+      </li>
+
+      <li class="nav-item d-md-none" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
+        <a class="nav-link waves-light" mdbRippleRadius href="/profile/{{this.auth.getUserRole().toLowerCase()}}">Profile</a>
+      </li>
+
+      <li class="nav-item d-md-none " [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
+        <a class="nav-link waves-light" mdbRippleRadius  (click)="logout()" [routerLink]="['/']">Log Out</a>
+      </li>
+
+      <li class="nav-item d-none d-lg-block d-md-block d-xl-block" *ngIf="isLoggedIn()">
         <a class="nav-link waves-effect waves-light">1 <i class="fa fa-envelope"></i></a>
       </li>
 
-      <li class="nav-item avatar dropdown" dropdown *ngIf="isLoggedIn()">
+      <li class="nav-item avatar dropdown d-none d-lg-block d-md-block d-xl-block" dropdown *ngIf="isLoggedIn()">
         <a dropdownToggle mdbRippleRadius type="button" class="nav-link dropdown-toggle waves-light pt-0"
            mdbRippleRadius>
           <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg"
                class="img-fluid rounded-circle z-depth-0"><span
           class="caret"></span></a>
-        <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+
+
+        <div *dropdownMenu class="dropdown-menu dropdown-primary pull-left" role="menu">
           <a class="dropdown-item waves-light" mdbRippleRadius href="/profile/{{this.auth.getUserRole().toLowerCase()}}">Profile</a>
           <div class="divider dropdown-divider"></div>
           <a class="dropdown-item waves-light" mdbRippleRadius  (click)="logout()" [routerLink]="['/']">Log Out</a>
