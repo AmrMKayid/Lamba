@@ -5,6 +5,7 @@ var mongoose = require("mongoose"),
     Task = require('../models/task.model'),
     Item = require('../models/item.model'),
     Article = require('../models/article.model'),
+    Tag = require('../models/tag.model'),
          route = require('../routes/index'),
     chai = require('chai'),
 chaiHttp = require('chai-http'),
@@ -13,7 +14,7 @@ chaiHttp = require('chai-http'),
 describe('Getting schedule',() => {
     it('should return the teacher schedule',(done) => {
         var user =  {
-            email: "mm@f.com",
+            'email': 'mm@f.com',
            role: "Teacher",
             password: 'wwww',
             name:{firstname:'Mariam',
