@@ -34,7 +34,7 @@ var mongoose = require('mongoose'),
 });
 });*/
 describe("teacher ", () => {
-    let id, teacher;
+    var id, teacher;
 
 before((done) => {
     mongoose.connect('mongodb://localhost:27017/lambatest', () => {
@@ -43,11 +43,11 @@ done();
 });
 
 teacher = new user({
-    email: "mm@f.com",
-    role: "Teacher",
-    password: 'wwww',
-    name:{firstname:'Mariam',
-        lastName:'dessouki'}
+    'email': "mm@f.com",
+    'role': "Teacher",
+    'password': 'wwww',
+    'name':{'firstname':'Mariam',
+        'lastName':'dessouki'}
 });
 
 teacher.save((err, user) => {
