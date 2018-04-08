@@ -11,3 +11,10 @@ footer.page-footer
 {
   padding-top:0px;
 }
+
+.fullPage
+{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  min-height: 510px;
+}
