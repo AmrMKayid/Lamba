@@ -10,10 +10,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ViewArticleComponent implements OnInit {
   article: any = {};
   isInitialized: boolean = false;
-  //notEmpty:boolean=false;
+  addReply:boolean=false;
   author: string;
   comments: any = [{}];
   commentContent: String;
+  replies: any = [{}];
   constructor(private router: Router, private route: ActivatedRoute, private articleService: ArticlesService) { }
 
   ngOnInit() {
@@ -24,11 +25,19 @@ export class ViewArticleComponent implements OnInit {
         this.author = `${this.article.name.firstName} ${this.article.name.lastName}`;
         this.isInitialized = true;
         this.comments = this.article.comments;
+        let r: { showReply: boolean, replyContent: string }[] = new Array(this.comments.length);
+        //this.replies.length = this.comments.length;
+        for(let i=0;i<this.comments.length;i++){
+          r[i]={showReply : false,
+          replyContent :''};
+        }
+        this.replies = r;
       }, err => {
         alert(`Article not retrieved: ${err.error.msg}`);
         this.router.navigate(['/resources']);
       }
     );
+
   }
 
   //TODO: When the feedback is reworked in the backend, we shall send back the updated article only and in here we should set it to that
@@ -70,5 +79,20 @@ export class ViewArticleComponent implements OnInit {
         }
       )
     }
+  }
+  reply(i,comment_id,content){
+    this.articleService.reply(this.article._id,comment_id,content).subscribe(
+      (res:any) =>{
+        this.articleService.loadArticle(this.article._id).subscribe(
+          (retrieved: any) => {
+            this.comments = retrieved.data.comments;
+          }
+        );
+        this.replies[i].replyContent = '';
+        this.replies[i].showReply = false;
+      }, err => {
+        alert(`Article was not updated: ${err.error.msg}`);
+      }
+    )
   }
 }

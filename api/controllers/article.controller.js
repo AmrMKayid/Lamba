@@ -261,7 +261,7 @@ const findArticleById = function (article_id, res, next) {
           data: result
         });
       });
-    }).populate('comments.commenter','name','User');
+    }).populate('comments.commenter','name','User').populate('comments.replies.replier','name','User');
 }
 
 
@@ -307,19 +307,34 @@ const reply = function(article, userID,comment_id,reply ,res, next) {
       reply_content: reply,
       replier: userID
   }
-    Article.update(
-        { _id: article._id},//, "comments._id":comment_id},
-        { $push: { replies: rep } },
-        done
-    );
-    article.save(function (err, updatedArticle) {
-        if (err) { return next(err) }
-        return res.status(200).json({
-            err: null,
-            msg: "Reply is added successfully.",
-            data: { comments: updatedArticle.comments}
-        });
+    console.log(rep);
+
+    // article.update(
+    //     { _id: article._id, "comments._id": comment_id},//, "comments._id":comment_id},
+    //     { $push: { "comments.replies": rep } }
+    // );
+   // article.update({'comments._id': comment_id}, {$push: {'comments.0.replies': rep}});
+    console.log(article._id);
+    //article.comments.replies.push(rep);
+    Article.updateOne(
+        { "_id": article._id, 'comments._id': comment_id },
+        {$push: {'comments.$.replies': rep}}
+    ).exec((err, result) => {
+        console.log(result);
+    res.status(200).json({
+        err: null,
+        msg: 'Articles retrieved successfully.',
+        data: result
     });
+});
+    // article.save(function (err, updatedArticle) {
+    //     if (err) { return next(err) }
+    //     return res.status(200).json({
+    //         err: null,
+    //         msg: "Reply is added successfully.",
+    //         data: { comments: updatedArticle.comments}
+    //     });
+    // });
 };
 module.exports.commentArticle = function (req, res, next){
   let valid = req.body.article_id &&
@@ -361,6 +376,7 @@ module.exports.replyComment = function (req, res, next) {
             data: null
         });
     }
+    console.log(retrievedArticle._id);
     reply(retrievedArticle,userID,req.body.comment_id,req.body.reply,res,next);
 })
 };
