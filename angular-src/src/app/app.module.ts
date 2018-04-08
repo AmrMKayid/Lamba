@@ -24,6 +24,8 @@ import {LoginComponent} from './shared/login/login.component';
 import {RegisterComponent} from './shared/register/register.component';
 import {HomepageComponent} from './shared/homepage/homepage.component';
 import {ResourcesModule} from "./modules/resources/resources.module";
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { FooterComponent } from './shared/footer/footer.component';
 
 
 @NgModule({
@@ -32,6 +34,8 @@ import {ResourcesModule} from "./modules/resources/resources.module";
     LoginComponent,
     RegisterComponent,
     HomepageComponent,
+    NavbarComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
