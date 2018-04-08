@@ -20,6 +20,9 @@ import {UnVerifiedArticlesComponent} from './admin/un-verified-articles/un-verif
 import {VerifyArticleComponent} from './admin/verify-article/verify-article.component';
 import { VerifyTeacherComponent } from './admin/verify-teacher/verify-teacher.component';
 
+
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 const appRoutes: Routes = [
   {
     path: '',
@@ -75,6 +78,7 @@ const appRoutes: Routes = [
     HttpModule, HttpClientModule,
     ReactiveFormsModule, ToasterModule, Ng2SearchPipeModule, Ng2OrderModule, NgxPaginationModule,
     RouterModule.forChild(appRoutes),
+    NgbModule.forRoot()
   ],
   declarations: [
     ProfileComponent,
