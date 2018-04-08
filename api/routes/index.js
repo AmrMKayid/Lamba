@@ -21,11 +21,11 @@ router.post('/store/edit/:itemId', mw.isAuthenticated, storeCtrl.editItems);
 router.delete('/store/delete/:itemId', mw.isAuthenticated, storeCtrl.deleteItems);
 
 
-router.patch('/store/like/:itemId', mw.isAuthenticated, storeCtrl.likeItems);
+router.patch('/store/like/:itemId', storeCtrl.likeItems);
+router.patch('/store/unlike/:itemId' , storeCtrl.unlikeItems);
+
 
 router.get('/uploads/store/:filename', storeCtrl.getImage);
-
-router.patch('/store/unlike/:itemId', mw.isAuthenticated, storeCtrl.unlikeItems);
 
 router.get('/store/myitems/view', mw.isAuthenticated, storeCtrl.viewMyItems);
 
