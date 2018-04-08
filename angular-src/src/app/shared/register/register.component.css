@@ -115,3 +115,31 @@ label.light {
   }
 
 } */
+
+
+/*.loadingImg{*/
+  /*position: fixed;*/
+  /*top: 0px;*/
+  /*left: 0px;*/
+  /*z-index: 9999999;*/
+  /*border:0;*/
+  /*!*background: url('../images/loading.gif') no-repeat center;*!*/
+  /*background-size: 50px 50px;*/
+  /*display: block;*/
+  /*margin: 0 auto;*/
+  /*-webkit-border-radius: 50px;*/
+  /*border-radius: 50px;*/
+/*}*/
+
+
+.center-div
+{
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: 50%;
+}
