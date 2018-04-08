@@ -243,18 +243,19 @@ module.exports.updateTeacherSchedule = function(req, res, next) {
                 .json({ err: null, msg: 'Unauthorized action.', data: null });
         }
 
-        var day = req.body.day;
-        if(day !== 'saturday' || day != 'sunday' || day != 'monday' || day != 'tuesday' ||
-            day !== 'wednesday' || day != 'thursday' || day != 'friday'){
+       var day = req.body.day;
+        console.log(req.body);
+        if(day !== 'saturday' && day !== 'sunday' && day !== 'monday' && day !== 'tuesday' &&
+            day !== 'wednesday' && day !== 'thursday' && day !== 'friday'){
             return res
                 .status(401)
                 .json({ err: null, msg: 'Unauthorized Action.', data: null });
 
         }
         //not sure why day has different color
-        var slotsInweek = user.schedule.table.day;
+        var slotsInweek = user.schedule.table.req.body.day;
 
-        var slot = slotsInweek.id(req.params.SlotId);
+        var slot = slotsInweek.slot.id(req.params.SlotId);
 
         if (!slot) {
             return res
