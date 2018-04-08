@@ -7,7 +7,7 @@ export class ArticlesService {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       //GET THIS FROM POSTMAN'S LOGIN (won't work 3shan locally 3l database bta3ty)
-      'Authorization': localStorage.getItem('authorization')
+      'Authorization': localStorage.getItem('authentication')
     })
   };
   //The service now holds no data, it just provides methods to subscribe to, and every route holds its own data
@@ -19,7 +19,7 @@ export class ArticlesService {
   }
 
   loadArticle(id: string) {
-    return this.http.get('http://localhost:3000/api/article/' + id, this.httpOptions)
+    return this.http.get('http://localhost:3000/api/articles/' + id, this.httpOptions)
       .pipe();
   }
 

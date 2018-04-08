@@ -37,7 +37,7 @@ export class PostArticlesComponent implements OnInit {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       //GET THIS FROM POSTMAN'S LOGIN (won't work 3shan locally 3l database bta3ty)
-      'Authorization': localStorage.getItem('authorization')
+      'Authorization': localStorage.getItem('authentication')
     })
   };
   constructor(private http: HttpClient) { }

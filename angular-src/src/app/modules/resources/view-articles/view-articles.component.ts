@@ -18,7 +18,7 @@ export class ViewArticlesComponent implements OnInit {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': localStorage.getItem('authorization')
+      'Authorization': localStorage.getItem('authentication')
     })
   };
   constructor(private http: HttpClient, private articlesService: ArticlesService) { }
