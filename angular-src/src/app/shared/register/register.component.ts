@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
 
   onSubmit({value, valid}: { value: User, valid: boolean }) {
 
-    // value.role = 'Parent';
+    value.role = 'Teacher';
     console.log(value, valid);
     this.register(value);
   }
