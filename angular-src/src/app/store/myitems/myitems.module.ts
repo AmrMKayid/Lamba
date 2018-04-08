@@ -5,7 +5,6 @@ import { MyitemsComponent } from './myitems.component';
 import { CreateComponent } from './create/create.component';
 import { UpdateComponent } from './update/update.component';
 import { ViewComponent } from './view/view.component';
-import { LikeComponent } from './like/like.component';
 import { ImageUploadModule } from "angular2-image-upload";
 import { FormsModule } from '@angular/forms';
 import {ToasterModule} from 'angular5-toaster';
@@ -29,11 +28,7 @@ const routes: Routes = [
 			{
 				path: 'view',
 				component: ViewComponent
-			},
-			{
-				path:'like',
-				component: LikeComponent
-			},
+			}
 		]
     
     }
@@ -47,7 +42,7 @@ const routes: Routes = [
    	FormsModule,
    	ToasterModule
   ],
-  declarations: [MyitemsComponent, CreateComponent, UpdateComponent, ViewComponent, LikeComponent ],
+  declarations: [MyitemsComponent, CreateComponent, UpdateComponent, ViewComponent ],
   exports: [RouterModule]
 })
 export class MyitemsModule { }
