@@ -3,9 +3,15 @@ process.env.NODE_ENV = 'test';
 var base = process.env.PWD;
 var mongoose = require('mongoose'),
     user = require('../models/user.model'),
+    auth = require( '../controllers/schedule.controller'),
     schedule = require( '../controllers/schedule.controller'),
+
     should = require('should'),
+
+     chai = require('chai'),
+    chaiHttp = require('chai-http'),
     testUtils = require('../test/utils');
+chai.use(chaiHttp);
 
 /*describe('Getting schedule',() => {
     it('should return the teacher schedule',(done) => {
@@ -34,7 +40,7 @@ var mongoose = require('mongoose'),
 });
 });*/
 describe("teacher ", () => {
-    var id, teacher;
+    var id, teacher, token;
 
 before((done) => {
     mongoose.connect('mongodb://localhost:27017/lambatest', () => {
@@ -42,18 +48,31 @@ before((done) => {
 done();
 });
 
-teacher = new user({
+teacher ={
     'email': "mm@f.com",
     'role': "Teacher",
     'password': 'wwww',
     'name':{'firstname':'Mariam',
         'lastName':'dessouki'}
+};
+describe("register a user", () => {
+it("it should register a user", (done) => {
+    chai.request("http://localhost:3000/api").post("/auth/register").send(teacher).end((err,res) =>{
+    id = res.body._id;
+    done();
 });
+}); });
 
-teacher.save((err, user) => {
-    if (err) { res.send(err); }
-    id = user._id;
-});
+describe("login a user", () => {
+    it("it should login a user", (done) => {
+    chai.request("http://localhost:3000/api").post("/auth/login").send(teacher).end((err,res)=>{
+        token = res.body.data;
+        done();
+    });
+}); });
+
+
+
 });
 describe("GET teacherSchedule", () => {
     it("should get schedule by its teacher's id", (done) => {
