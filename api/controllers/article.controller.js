@@ -294,7 +294,7 @@ const findArticleById = function (article_id, res, next) {
           data: result
         });
       });
-    }).populate('comments.commenter','name','User').populate('comments.replies.replier','name','User');
+    }).populate('comments.commenter', 'name', 'User').populate('comments.replies.replier', 'name', 'User');
 }
 
 
@@ -320,108 +320,106 @@ const transformHtml = (html) => {
   return result.substring(25, result.length - 14);
 };
 //////////////////////////////////////COMMENTS////////////////////////////////////////
-const comment = function(article, id,content, res, next){
-    let comment = {
-        comment_content: content,
-        commenter: id,
-    }
-    article.comments.push(comment);
-    article.save(function (err, updatedArticle) {
-        if (err) { return next(err) }
-        return res.status(200).json({
-            err: null,
-            msg: "Comment is added successfully.",
-            data: { comments: updatedArticle.comments}
-        });
+const comment = function (article, id, content, res, next) {
+  let comment = {
+    comment_content: content,
+    commenter: id,
+  }
+  article.comments.push(comment);
+  article.save(function (err, updatedArticle) {
+    if (err) { return next(err) }
+    return res.status(200).json({
+      err: null,
+      msg: "Comment is added successfully.",
+      data: { comments: updatedArticle.comments }
     });
+  });
 };
-const reply = function(article, userID,comment_id,reply ,res, next) {
-    let rep = {
-        reply_content: reply,
-        replier: userID
-    }
+const reply = function (article, userID, comment_id, reply, res, next) {
+  let rep = {
+    reply_content: reply,
+    replier: userID
+  }
 
-    // article.update(
-    //     { _id: article._id, "comments._id": comment_id},//, "comments._id":comment_id},
-    //     { $push: { "comments.replies": rep } }
-    // );
-    // article.update({'comments._id': comment_id}, {$push: {'comments.0.replies': rep}});
-    //article.comments.replies.push(rep);
-    Article.updateOne(
-        { "_id": article._id, 'comments._id': comment_id },
-        {$push: {'comments.$.replies': rep}}
-    ).exec((err, result) => {
-        console.log(result);
+  // article.update(
+  //     { _id: article._id, "comments._id": comment_id},//, "comments._id":comment_id},
+  //     { $push: { "comments.replies": rep } }
+  // );
+  // article.update({'comments._id': comment_id}, {$push: {'comments.0.replies': rep}});
+  //article.comments.replies.push(rep);
+  Article.updateOne(
+    { "_id": article._id, 'comments._id': comment_id },
+    { $push: { 'comments.$.replies': rep } }
+  ).exec((err, result) => {
+    console.log(result);
     res.status(200).json({
-        err: null,
-        msg: 'Articles retrieved successfully.',
-        data: result
+      err: null,
+      msg: 'Articles retrieved successfully.',
+      data: result
     });
-});
-    // article.save(function (err, updatedArticle) {
-    //     if (err) { return next(err) }
-    //     return res.status(200).json({
-    //         err: null,
-    //         msg: "Reply is added successfully.",
-    //         data: { comments: updatedArticle.comments}
-    //     });
-    // });
+  });
+  // article.save(function (err, updatedArticle) {
+  //     if (err) { return next(err) }
+  //     return res.status(200).json({
+  //         err: null,
+  //         msg: "Reply is added successfully.",
+  //         data: { comments: updatedArticle.comments}
+  //     });
+  // });
 };
-module.exports.commentArticle = function (req, res, next){
-    let valid = req.body.article_id &&
-        Validations.isString(req.body.article_id) &&
-        req.body.comment_content && Validations.isString(req.body.comment_content);
-        if (!valid) {
+module.exports.commentArticle = function (req, res, next) {
+  let valid = req.body.article_id &&
+    Validations.isString(req.body.article_id) &&
+    req.body.comment_content && Validations.isString(req.body.comment_content);
+  if (!valid) {
     return res.status(422).json({
       err: null,
       msg: 'article_id(String) and comment content(String) are required fields.',
       data: null
     });
   }
-    
-    let userID = req.decodedToken.user._id;
-    Article.findById(req.body.article_id, (err, retrievedArticle) => {
-        if(err) {
-            return next(err);
-        }
-        if(!retrievedArticle)
-    {
-        return res.status(404).json({
-            err: null,
-            msg: 'Article was not found.',
-            data: null
-        });
+
+  let userID = req.decodedToken.user._id;
+  Article.findById(req.body.article_id, (err, retrievedArticle) => {
+    if (err) {
+      return next(err);
     }
-    comment(retrievedArticle,userID,req.body.comment_content,res,next);
-})
+    if (!retrievedArticle) {
+      return res.status(404).json({
+        err: null,
+        msg: 'Article was not found.',
+        data: null
+      });
+    }
+    comment(retrievedArticle, userID, req.body.comment_content, res, next);
+  })
 };
 module.exports.replyComment = function (req, res, next) {
-    let valid = req.body.article_id &&
-        Validations.isString(req.body.article_id) &&
-        req.body.comment_id &&
-        Validations.isString(req.body.comment_id) &&
-        req.body.reply &&
-        Validations.isString(req.body.reply)
-        if (!valid) {
+  let valid = req.body.article_id &&
+    Validations.isString(req.body.article_id) &&
+    req.body.comment_id &&
+    Validations.isString(req.body.comment_id) &&
+    req.body.reply &&
+    Validations.isString(req.body.reply)
+  if (!valid) {
     return res.status(422).json({
       err: null,
       msg: 'article_id(String), and comment_id(String) and reply content(String) are required fields.',
       data: null
     });
   }
-    let userID = req.decodedToken.user._id;
-    Article.findById(req.body.article_id, (err, retrievedArticle) => {
-        if(err) {
-            return next(err);
-        }
-        if(!retrievedArticle)
-    {
-        return res.status(404).json({
-            err: null,
-            msg: 'Article was not found.',
-            data: null
-        });
+  let userID = req.decodedToken.user._id;
+  Article.findById(req.body.article_id, (err, retrievedArticle) => {
+    if (err) {
+      return next(err);
     }
-    reply(retrievedArticle,userID,req.body.comment_id,req.body.reply,res,next);
-})
+    if (!retrievedArticle) {
+      return res.status(404).json({
+        err: null,
+        msg: 'Article was not found.',
+        data: null
+      });
+    }
+    reply(retrievedArticle, userID, req.body.comment_id, req.body.reply, res, next);
+  })
 };
