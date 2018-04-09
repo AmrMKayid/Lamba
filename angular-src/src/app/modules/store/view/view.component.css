@@ -1,5 +1,5 @@
 .main-container {
-  width: 90%;
+  width: 100%;
   margin: auto;
   overflow: hidden;
 }
@@ -36,6 +36,7 @@
   -ms-transition: all 500ms linear;
   transition: all 500ms linear;
   color: rgb(255, 135, 135);
+  width:100%;
 }
 
 .item:hover {
