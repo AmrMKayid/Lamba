@@ -4,6 +4,7 @@ import {Http, Headers} from '@angular/http';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ToasterService} from 'angular5-toaster/src/toaster.service';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {AuthService} from "../../../services/auth.service";
 
 
 
@@ -45,12 +46,13 @@ export class TeacherComponent implements OnInit {
   constructor(private router: Router,
               private httpClient: HttpClient,
               private http: Http,
+              private auth: AuthService,
               private toaster: ToasterService) {
   }
 
   ngOnInit() {
-    this.currentUserID = JSON.parse(localStorage.getItem('currentUser'))._id;
-    // console.log(this.currentUser);
+    this.currentUserID = this.auth.getCurrentUser()._id;
+     console.log(this.currentUserID);
 //  this.httpClient.get('http://localhost:3000/api/user/getUserInfo/'+this.currentUserID,
     this.getTeacherSchedule();
 
