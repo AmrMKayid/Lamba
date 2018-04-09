@@ -49,11 +49,11 @@
                                   <!--Table body-->
                                   <tbody>
 
-                                    <tr>
+                                    <tr *ngFor="let Slot of sat ; let i = index">
                                       <th class="table-nawwar">
                                         <div class="row text-center">
                                           <div class="col-12">
-                                            <h3>Slot 1</h3>
+                                            <h3>Slot {{i+1}}</h3>
                                           </div>
                                         </div>
                                         <div class="row text-center">
@@ -64,11 +64,11 @@
                                         </th>                                      <td>
                                         <div class="row text-center">
                                           <div class="col-12">
-                                            <h3>Title</h3></div>
+                                            <h3>{{ Slot.slot.title }}</h3></div>
                                         </div>
                                         <div class="row text-center">
                                           <div class="col-12">
-                                            <p>Full Slot Description</p>
+                                            <p>{{ Slot.slot.description }}</p>
                                           </div>
                                         </div>
                                         <div class="row text-center">
@@ -100,11 +100,11 @@
                                   <!--Table body-->
                                   <tbody>
 
-                                    <tr>
+                                    <tr *ngFor="let Slot of sun ; let i = index">
                                       <th class="table-nawwar">
                                         <div class="row text-center">
                                           <div class="col-12">
-                                            <h3>Slot 1</h3>
+                                            <h3>Slot {{i+1}}</h3>
                                           </div>
                                         </div>
                                         <div class="row text-center">
@@ -115,11 +115,11 @@
                                         </th>                                      <td>
                                         <div class="row text-center">
                                           <div class="col-12">
-                                            <h3>Title</h3></div>
+                                            <h3>{{Slot.slot.title}}</h3></div>
                                         </div>
                                         <div class="row text-center">
                                           <div class="col-12">
-                                            <p>Full Slot Description</p>
+                                            <p>{{Slot.slot.description}}</p>
                                           </div>
                                         </div>
                                         <div class="row text-center">
@@ -151,11 +151,11 @@
                                   <!--Table body-->
                                   <tbody>
 
-                                    <tr>
+                                    <tr *ngFor="let Slot of mon ; let i = index">
                                       <th class="table-nawwar">
                                         <div class="row text-center">
                                           <div class="col-12">
-                                            <h3>Slot 1</h3>
+                                            <h3>Slot {{i+1}}</h3>
                                           </div>
                                         </div>
                                         <div class="row text-center">
@@ -166,11 +166,11 @@
                                         </th>                                      <td>
                                         <div class="row text-center">
                                           <div class="col-12">
-                                            <h3>Title</h3></div>
+                                            <h3>{{Slot.slot.title}}</h3></div>
                                         </div>
                                         <div class="row text-center">
                                           <div class="col-12">
-                                            <p>Full Slot Description</p>
+                                            <p>{{Slot.slot.description}}</p>
                                           </div>
                                         </div>
                                         <div class="row text-center">
@@ -202,11 +202,11 @@
                                   <!--Table body-->
                                   <tbody>
 
-                                    <tr>
+                                    <tr *ngFor="let Slot of tues ; let i = index">
                                       <th class="table-nawwar">
                                         <div class="row text-center">
                                           <div class="col-12">
-                                            <h3>Slot 1</h3>
+                                            <h3>Slot {{i+1}}</h3>
                                           </div>
                                         </div>
                                         <div class="row text-center">
@@ -217,11 +217,11 @@
                                         </th>                                      <td>
                                         <div class="row text-center">
                                           <div class="col-12">
-                                            <h3>Title</h3></div>
+                                            <h3>{{Slot.slot.title}}</h3></div>
                                         </div>
                                         <div class="row text-center">
                                           <div class="col-12">
-                                            <p>Full Slot Description</p>
+                                            <p>{{Slot.slot.description}}</p>
                                           </div>
                                         </div>
                                         <div class="row text-center">
@@ -253,11 +253,11 @@
                                   <!--Table body-->
                                   <tbody>
 
-                                    <tr>
+                                    <tr *ngFor="let Slot of wed ; let i = index">
                                       <th class="table-nawwar">
                                         <div class="row text-center">
                                           <div class="col-12">
-                                            <h3>Slot 1</h3>
+                                            <h3>Slot {{i+1}}</h3>
                                           </div>
                                         </div>
                                         <div class="row text-center">
@@ -268,11 +268,11 @@
                                         </th>                                      <td>
                                         <div class="row text-center">
                                           <div class="col-12">
-                                            <h3>Title</h3></div>
+                                            <h3>{{Slot.slot.title}}</h3></div>
                                         </div>
                                         <div class="row text-center">
                                           <div class="col-12">
-                                            <p>Full Slot Description</p>
+                                            <p>{{Slot.slot.description}}</p>
                                           </div>
                                         </div>
                                         <div class="row text-center">
@@ -304,11 +304,11 @@
                                   <!--Table body-->
                                   <tbody>
 
-                                    <tr>
+                                    <tr *ngFor="let Slot of thurs ; let i = index">
                                       <th class="table-nawwar">
                                         <div class="row text-center">
                                           <div class="col-12">
-                                            <h3>Slot 1</h3>
+                                            <h3>Slot {{i+1}}</h3>
                                           </div>
                                         </div>
                                         <div class="row text-center">
@@ -319,11 +319,11 @@
                                         </th>                                      <td>
                                         <div class="row text-center">
                                           <div class="col-12">
-                                            <h3>Title</h3></div>
+                                            <h3>{{Slot.slot.title}}</h3></div>
                                         </div>
                                         <div class="row text-center">
                                           <div class="col-12">
-                                            <p>Full Slot Description</p>
+                                            <p>{{Slot.slot.description}}</p>
                                           </div>
                                         </div>
                                         <div class="row text-center">
@@ -355,11 +355,11 @@
                                   <!--Table body-->
                                   <tbody>
 
-                                    <tr>
+                                    <tr *ngFor="let Slot of fri ; let i = index">
                                       <th class="table-nawwar">
                                         <div class="row text-center">
                                           <div class="col-12">
-                                            <h3>Slot 1</h3>
+                                            <h3>Slot {{i+1}}</h3>
                                           </div>
                                         </div>
                                         <div class="row text-center">
@@ -370,11 +370,11 @@
                                         </th>                                      <td>
                                         <div class="row text-center">
                                           <div class="col-12">
-                                            <h3>Title</h3></div>
+                                            <h3>{{Slot.slot.title}}</h3></div>
                                         </div>
                                         <div class="row text-center">
                                           <div class="col-12">
-                                            <p>Full Slot Description</p>
+                                            <p>{{Slot.slot.description}}</p>
                                           </div>
                                         </div>
                                         <div class="row text-center">

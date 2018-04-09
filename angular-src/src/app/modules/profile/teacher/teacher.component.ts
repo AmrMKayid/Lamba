@@ -40,9 +40,6 @@ export class TeacherComponent implements OnInit {
   };
 
   ///////////////// Schedule////////////////////////////
-
-
-  public day = [];
   public sat = [];
   public sun = [];
   public mon = [];
@@ -149,7 +146,7 @@ export class TeacherComponent implements OnInit {
       day : thisday
     }
 
-    this.httpClient.patch('http://localhost:3000/api/schedule/updateTeacherSchedule' + Slot._id , body).subscribe((res: any) =>{
+    this.httpClient.patch('http://localhost:3000/api/schedule/updateTeacherSchedule' + Slot._id , body , this.httpOptions).subscribe((res: any) =>{
       if(thisday == 'saturday') {
         var index = this.sat.indexOf(Slot);
         this.sat[index] = res.data;
@@ -187,29 +184,7 @@ export class TeacherComponent implements OnInit {
       }
     });
   }
-
-
-  fsat() {
-    this.day = this.sat;
-  }
-  fsun() {
-    this.day = this.sun;
-  }
-  fmon() {
-    this.day = this.mon;
-  }
-  ftues() {
-    this.day = this.tues;
-  }
-  fwed() {
-    this.day = this.wed;
-  }
-  fthurs() {
-    this.day = this.thurs;
-  }
-  ffri() {
-    this.day = this.fri;
-  }
+  
 
   ////////////////////////////////////////////////////////////////////////////////////////////////
 
