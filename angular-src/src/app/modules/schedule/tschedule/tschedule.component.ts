@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-tschedule',
@@ -8,6 +9,14 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./tschedule.component.css']
 })
 export class TscheduleComponent implements OnInit {
+
+  public userID;
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('authentication')
+    })
+  };
 
   public day = [];
   public sat = [];
@@ -18,24 +27,13 @@ export class TscheduleComponent implements OnInit {
   public thurs = [];
   public fri = [];
 
-  constructor(private http: HttpClient) {
-
-  }
-
-  createTeacherSchedule(){
-    //let user= JSON.parse(localStorage.getItem('currentUser')).user;
-
-    this.http.post('http://localhost:3000/api/schedule/createTeacherSchedule/5ac015ff36680295c461476e',null ).subscribe((res: any) => {
-      this.sat = res.data.saturday;
-      this.sun = res.data.sunday;
-      this.mon = res.data.monday;
-      this.tues = res.data.tuesday;
-      this.wed = res.data.wednesday;
-      this.thurs = res.data.thursday;
-      this.fri = res.data.friday;
+  constructor(private http: HttpClient,
+              private route: ActivatedRoute) {
+    this.route.queryParams.subscribe(params => {
+      this.userID = params['id'];
     });
-
   }
+
 
   getTeacherSchedule(){
     //let user= JSON.parse(localStorage.getItem('currentUser')).user;
@@ -53,6 +51,8 @@ export class TscheduleComponent implements OnInit {
 
 
   }
+
+
 
 
 
