@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 @Component({
   selector: 'app-cschedule',
   templateUrl: './cschedule.component.html',
   styleUrls: ['./cschedule.component.css']
 })
 export class CscheduleComponent implements OnInit {
-
+  public pageid;
   public timetable;
 
   public day = [];
@@ -17,30 +17,23 @@ export class CscheduleComponent implements OnInit {
   public wed = [];
   public thurs = [];
   public fri = [];
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('authentication')
+    })
+  };
 
   constructor(private http: HttpClient) {
 
   }
 
-  createChildShcedule(){
+
+
+  getchildSchedule(){
     //let user= JSON.parse(localStorage.getItem('currentUser')).user;
 
-    this.http.post('http://localhost:3000/api/schedule/createChildShcedule/5ac0c3c7adae82c5227d1c78/5ac0c42dadae82c5227d1c79',null ).subscribe((res: any) => {
-      this.sat = res.data.saturday;
-      this.sun = res.data.sunday;
-      this.mon = res.data.monday;
-      this.tues = res.data.tuesday;
-      this.wed = res.data.wednesday;
-      this.thurs = res.data.thursday;
-      this.fri = res.data.friday;
-    });
-
-  }
-
-  getTeacherSchedule(){
-    //let user= JSON.parse(localStorage.getItem('currentUser')).user;
-
-    this.http.get('http://localhost:3000/api/schedule/getMySchedule/5ac0c42dadae82c5227d1c79').subscribe((res: any) => {
+    this.http.get('http://localhost:3000/api/schedule/getChildSchedule/'+ this.pageid , this.httpOptions).subscribe((res: any) => {
       this.sat = res.data.table.saturday;
       this.sun = res.data.table.sunday;
       this.mon = res.data.table.monday;
@@ -52,6 +45,15 @@ export class CscheduleComponent implements OnInit {
     });
 
 
+  }
+  updatechildSchedule(newtitle:string ,newdescription:string , newurl:string , slotid:string ,newday:string){
+    let body={
+      title : newtitle,
+      description : newdescription,
+      url : newurl,
+      day : newday
+    }
+    this.http.patch('http://localhost:3000/api/schedule/updateChildSchedule/'+ this.pageid+'/'+slotid , body , this.httpOptions).subscribe();
   }
 
 

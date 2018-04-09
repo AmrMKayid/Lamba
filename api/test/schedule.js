@@ -1,15 +1,15 @@
 process.env.NODE_ENV = 'test';
-
+var server = require('E:/mozakra/semester6/SE/Lamba/bin/www');
 var base = process.env.PWD;
-var mongoose = require('mongoose'),
+var config= require('../config'),
+    logger= require('mocha-logger')
+    mongoose = require('mongoose'),
     user = require('../models/user.model'),
-    auth = require( '../controllers/schedule.controller'),
+    auth = require( '../controllers/auth.controller'),
     schedule = require( '../controllers/schedule.controller'),
-
-    should = require('should'),
-
-     chai = require('chai'),
+    chai = require('chai'),
     chaiHttp = require('chai-http'),
+    should = chai.should,
     testUtils = require('../test/utils');
 chai.use(chaiHttp);
 
@@ -52,6 +52,7 @@ teacher ={
     'email': "mm@f.com",
     'role': "Teacher",
     'password': 'wwww',
+    'confirmPassword':'wwww',
     'name':{'firstname':'Mariam',
         'lastName':'dessouki'}
 };
