@@ -19,9 +19,9 @@ customStyle = {
       "color": "#FFF"
     },
     clearButton: {
-      "background-color": "red",
+      "background-color": "white",
       "border-radius": "25px",
-      "color": "#000",
+      "color": "red",
       "margin-left": "10px"
     },
     layout: {
