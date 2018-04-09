@@ -26,6 +26,7 @@ export class TeacherComponent implements OnInit {
   email: string;
   about: string;
   currentUserID: string;
+  currentUser: string;
   fees: number;
   phone: number;
 
@@ -51,10 +52,11 @@ export class TeacherComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentUserID = this.auth.getCurrentUser()._id;
-     console.log(this.currentUserID);
+    this.currentUser = this.auth.getCurrentUser();
+    //this.currentUserID = this.currentUser;
+     console.log(this.currentUser);
 //  this.httpClient.get('http://localhost:3000/api/user/getUserInfo/'+this.currentUserID,
-    this.getTeacherSchedule();
+    //this.getTeacherSchedule();
 
 }
 
