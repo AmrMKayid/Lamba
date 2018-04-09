@@ -15,7 +15,11 @@
 
 <!-- Main Content -->
 <div class="container">
-  <a class="btn btn-success" [routerLink]="['post']"><i class="fa fa-bolt"></i>Post new article</a>
+  <div class="button-row" style="text-align: center;">
+    <a style="color:#3F729B; font-family: Roboto;" class="btn btn-primary rounded-circle" [routerLink]="['post']" role="button">
+    <i class="fa fa-plus mr-2" aria-hidden="true"></i>Post new article</a>
+  </div>
+
 <!--   <a class="btn btn-success btn-block" [routerLink]="['post']">Post new article</a>
  -->  <hr>
   <div class="row" *ngIf="articlesInitialized && tagsInitialized">
@@ -50,7 +54,7 @@
         <hr>
       </ng-container>
       <!-- Pager -->
-      <div class="clearfix">
+      <div style="text-align: center;">
         <pagination-controls (pageChange)="p = $event"></pagination-controls>
       </div>
     </div>
