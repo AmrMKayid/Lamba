@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-tschedule',
@@ -17,30 +18,25 @@ export class TscheduleComponent implements OnInit {
   public wed = [];
   public thurs = [];
   public fri = [];
+  public pageId = 5;// 5ac015ff36680295c461476e; //to be taken from url
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      //GET THIS FROM POSTMAN'S LOGIN (won't work 3shan locally 3l database bta3ty)
+      'Authorization': localStorage.getItem('authentication')
+    })
+  };
 
   constructor(private http: HttpClient) {
 
   }
 
-  createTeacherSchedule(){
-    //let user= JSON.parse(localStorage.getItem('currentUser')).user;
 
-    this.http.post('http://localhost:3000/api/schedule/createTeacherSchedule/5ac015ff36680295c461476e',null ).subscribe((res: any) => {
-      this.sat = res.data.saturday;
-      this.sun = res.data.sunday;
-      this.mon = res.data.monday;
-      this.tues = res.data.tuesday;
-      this.wed = res.data.wednesday;
-      this.thurs = res.data.thursday;
-      this.fri = res.data.friday;
-    });
-
-  }
 
   getTeacherSchedule(){
     //let user= JSON.parse(localStorage.getItem('currentUser')).user;
 
-    this.http.get('http://localhost:3000/api/schedule/getTeacherSchedule/5ac015ff36680295c461476e').subscribe((res: any) => {
+    this.http.get('http://localhost:3000/api/schedule/getTeacherSchedule/'+this.pageId,this.httpOptions).subscribe((res: any) => {
       this.sat = res.data.table.saturday;
       this.sun = res.data.table.sunday;
       this.mon = res.data.table.monday;
@@ -54,6 +50,23 @@ export class TscheduleComponent implements OnInit {
 
   }
 
+  updateTeacherSchedule(dayin:string,SlotId: string,titlein:string ,descriptionin: string,urlin: string ){
+    let body = {
+      title : titlein,
+      description : descriptionin,
+      url : urlin,
+      day: dayin
+    }
+    this.http.patch('http://localhost:3000/api/schedule/updateTeacherSchedule/'+SlotId,body,this.httpOptions).subscribe((res: any) => {
+
+
+    },
+      err => {
+      //to be implemented with toaster or whatever is decided
+      }
+    );
+
+  }
 
 
   ngOnInit() {
