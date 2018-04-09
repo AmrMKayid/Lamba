@@ -1,3 +1,25 @@
-<router-outlet>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<nav class="navbar sidebar" role="navigation">
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+			<div class = "row">
+				<div class = "col-md-2">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#"><span class = "glyphicon glyphicon-shopping-cart"></span> Store<span style="font-size:16px;" class="pull-right hidden-xs showopacity"></span></a></li>
+						<li ><a href="#"><span class = "glyphicon glyphicon glyphicon-tags"></span> My Items<span style="font-size:16px;" class="pull-right hidden-xs showopacity"></span></a></li>
+						<li ><a href="#"><span class = "glyphicon glyphicon-list-alt"></span> Add Item<span style="font-size:16px;" class="pull-right hidden-xs showopacity"></span></a></li>
+					</ul>
+				</div>
+				<div class = "col-md-10">
+					<router-outlet></router-outlet>
+				</div>
+			</div>
+		</div>
+</nav>
 
-</router-outlet>
+
+
+

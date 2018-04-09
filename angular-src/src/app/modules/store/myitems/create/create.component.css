@@ -14,5 +14,11 @@
 .itemform
 {
 	font-size: 23px;
-	padding-left: 30%;
+	padding-left: 5%;
+	width:100%;
+}
+
+#select
+{
+	height:5%;
 }
