@@ -94,7 +94,7 @@
 
 @media only screen and (max-width:1500px) {
   .block {
-    column-count: 5;
+    column-count: 4;
   }
 }
 
@@ -102,7 +102,7 @@
 
 @media only screen and (max-width:1050px) {
   .block {
-    column-count: 4;
+    column-count: 3;
   }
 }
 
@@ -110,7 +110,7 @@
 
 @media only screen and (max-width:800px) {
   .block {
-    column-count: 3;
+    column-count: 2;
   }
 }
 
@@ -118,7 +118,7 @@
 
 @media only screen and (max-width:450px) {
   .block {
-    column-count: 2;
+    column-count: 1;
   }
 }
 
