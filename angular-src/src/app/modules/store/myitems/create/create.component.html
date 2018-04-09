@@ -14,9 +14,9 @@ margin-left:4%;
 </style>
 <h2>Create a new Item in the store</h2>	
 <br>
-<div class = "itemform">
+<div class = "container-fluid">
 		<div class = "row">
-			<div class = "col-md-9 col-xs-9">
+			<div class = "col-md-10 col-xs-10">
 				<div class = "form-group  col-md-9 col-xs-9">
 					<input id = "comment_field" class = "form-control" type = "text"  placeholder="Product title" name = "title" autocomplete="off" [(ngModel)]="name" >
 				</div>
@@ -24,7 +24,7 @@ margin-left:4%;
 		</div>
 
 		<div class = "row">
-			<div class = "col-md-9 col-xs-9">
+			<div class = "col-md-10 col-xs-10">
 				<div class = "form-group  col-md-9 col-xs-9">
 					<input id = "comment_field" class = "form-control" type = "number"  placeholder="Quantity" name = "quantity" autocomplete="off" min="0" [(ngModel)]="quantity">
 				</div>
@@ -32,22 +32,22 @@ margin-left:4%;
 		</div>
 
 		<div class = "row">
-			<div class = "col-md-9 col-xs-9">
+			<div class = "col-md-10 col-xs-10">
 				<div class = "form-group  col-md-9 col-xs-9">
 					<input id = "comment_field" class = "form-control" type = "number"  placeholder="Price" name = "price" autocomplete="off" min="0" [(ngModel)]="price">
 				</div>
 			</div>
 		</div>
 		<div class = "row">
-			<div class = "col-md-9 col-xs-9">
+			<div class = "col-md-10 col-xs-10">
 				<div class = "form-group  col-md-9 col-xs-9">
 					<input id = "comment_field" class = "form-control" type = "text"  placeholder="Item Type. e.g: toy, supplement, pet" name = "itemtype" autocomplete="off" [(ngModel)]="item_type">
 				</div>
 			</div>
 		</div>
 		<div class = "row">
-			<div class = "col-md-9 col-xs-9">
-				<div class = "form-group  col-md-9 col-xs-9">
+			<div class = "col-md-10 col-xs-10">
+				<div class = "form-group  col-md-10 col-xs-10">
 					<select name="cars" class = "form-control" [(ngModel)]="item_condition" id = "select">
 					   <option value="" selected disabled> Item condition</option>
 					    <option value="Poor" >Poor</option>
@@ -61,8 +61,8 @@ margin-left:4%;
 
 
 			<div class = "row">
-				<div class = "col-md-9 col-xs-9">
-					<div class = "form-group  col-md-9 col-xs-9">
+				<div class = "col-md-10 col-xs-10">
+					<div class = "form-group  col-md-10 col-xs-10">
 						<textarea id = "comment_field" class = "form-control" placeholder="Describe your item"   name = "Description" autocomplete="off" rows = "10" columns = "30" [(ngModel)]="description"></textarea> 
 					</div>
 				</div>

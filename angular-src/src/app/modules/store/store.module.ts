@@ -7,6 +7,9 @@ import { StoreService } from '../../services/store.service';
 import { ViewComponent } from './view/view.component';
 import { HttpModule } from '@angular/http';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+
 const routes: Routes = [
 	{
 		path: '',
