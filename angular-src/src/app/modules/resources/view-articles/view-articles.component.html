@@ -1,77 +1,122 @@
-<!-- Page Header -->
-<header class="masthead" style="background-image: url('https://blog.commlabindia.com/wp-content/uploads/2017/10/online-training-for-classroom-training-challenges-infographic1.jpg')">
-  <div class="overlay"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <div class="site-heading">
-          <h1>Educational Resources</h1>
-          <span class="subheading">Get your learning on!</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-
-<!-- Main Content -->
-<div class="container">
-  <div class="button-row" style="text-align: center;">
+<!--/.Card-->
+<div class="container" *ngIf="articlesInitialized && tagsInitialized" >
+  <div class="row">
+    <div class="col-lg-4">
+      <!-- Categories Widget -->
+      <div  class="card my-4 text-center">
+        <h5 class="card-header">Share your experience with others</h5>
+        <div class="button-row" style="text-align: center;">
     <a style="color:#3F729B; font-family: Roboto;" class="btn btn-primary rounded-circle" [routerLink]="['post']" role="button">
     <i class="fa fa-plus mr-2" aria-hidden="true"></i>Post new article</a>
   </div>
-
-<!--   <a class="btn btn-success btn-block" [routerLink]="['post']">Post new article</a>
- -->  <hr>
-  <div class="row" *ngIf="articlesInitialized && tagsInitialized">
-
-    <div class="col-lg-8 col-md-10 mx-auto">
-      <!--TODO: change itemsPerPage, it was just set 1 for testing. Also, we can handle it in the backend-->
-      <ng-container *ngFor="let article of articles | filterByTags: filterTagsIDs | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
-        <div class="post-preview">
-          <a style="cursor: pointer;" [routerLink]="['id',article._id]">
-            <h2 class="post-title">
-              {{article.title}}
-            </h2>
-          </a>
-<!--           <br>
- -->          <i class="fa fa-thumbs-o-up mr-5" aria-hidden="true">{{article.upvoters.length}}</i>
-<!--           <br>
- -->          <i class="fa fa-thumbs-o-down mr-5" aria-hidden="true">{{article.downvoters.length}}</i>
-         <!--  <h3 class="post-subtitle" [ngClass]="{
-            'text-success': article.upvoters.length - article.downvoters.length >0 ,
-            'text-danger': (!article.upvoters.length - article.downvoters.length >0) && article.upvoters.length - article.downvoters.length !== 0 
-          }">
-            Total Rating: {{article.upvoters.length - article.downvoters.length}} {{(article.upvoters.length - article.downvoters.length>0)?
-            'upvoter(s)':'downvoter(s)'}}
-          </h3> -->
-          <!-- </a> -->
-          <h4>Tags: </h4>
-          <a *ngFor="let tag of article.tags" (click)="setTag(tag)" style="cursor: pointer;" class="badge badge-primary">{{getTagByID(allTags, tag)}}</a>
-          <p class="post-meta">Posted by
-            <a style="cursor: pointer;" [routerLink]="['/profile',article.owner_id._id]">{{article.owner_id.name.firstName}} {{article.owner_id.name.lastName}}</a>
-            on {{article.createdAt | date}}</p>
-        </div>
+      </div>
+      <!-- Side Widget -->
+      <div  class="card my-4 text-center">
+        <h5 class="card-header"><i class="fa fa-filter mr-2" aria-hidden="true"></i>Filter</h5>
+        <div class="card-body">
+          <tag-input [(ngModel)]="selectedTags" [onlyFromAutocomplete]="true" (onRemove)="onTagsChanged()" (onTextChange)="onTagsChanged()" placeholder ="Enter a tag or a keyword">
+          <tag-input-dropdown [showDropdownIfEmpty]="true" [dynamicUpdate]="false" [focusFirstElement]="true" [displayBy]="'value'"
+            [identifyBy]="'id'" [autocompleteItems]="allTags">
+            <ng-template let-item="item">
+              {{ item.value }}
+            </ng-template>
+          </tag-input-dropdown>
+        </tag-input>
         <hr>
-      </ng-container>
-      <!-- Pager -->
-      <div style="text-align: center;">
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        <p>You can filter by a keyword or a tag</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-lg-8">
+      <!-- TODO: | paginate: { itemsPerPage: 2, currentPage: p }; -->
+      <div *ngFor=" let article of articles | filterByTags: filterTagsIDs let i =index; let o = odd;">
+        <div class = "row" *ngIf="o">
+          <div class="col col-50">
+            <div class="card">
+              <!--Card image-->
+              <div class="view hm-white-slight waves-light" mdbRippleRadius>
+                <img src="https://i2.wp.com/penpaperpencil.net/wp-content/uploads/2016/01/Drawing-pencils-guide.jpg?fit=900%2C490&ssl=1" class="img-fluid" alt="Card image with a tree in a middle of a lake.">
+                <a>
+                </a>
+              </div>
+              <!--Card content-->
+              <div class="card-body">
+                <!--Title-->
+                <h4 style="text-align: center;" class="card-title">{{articles[i].title}}</h4>
+                <!--Text-->
+                <div *ngFor="let tag of articles[i].tags"></div>
+                <p class="card-text">{{tag}}</p>
+                <hr>
+                <div style="color: #3F729B; font-family: Roboto;" class="row">
+                  <div style="text-align: center;" class="col-4 col-md-4">
+                    <i class="fa fa-thumbs-o-up mr-1" aria-hidden="true">{{articles[i].upvoters.length}}</i>
+                    <i class="fa fa-thumbs-o-down mr-1" aria-hidden="true">{{articles[i].downvoters.length}}</i>
+                  </div>
+                  <div align="right" class="col-6 col-md-8">
+                    <a [routerLink]="['id',article._id]">
+                      <h5 class="waves-effect p-2" mdbRippleRadius>Read more <i class="fa fa-chevron-right"></i></h5>
+                    </a>
+                  </div>
+                </div>
+                <!-- </div> -->
+
+                <hr>
+
+                <p style="text-align: center;" class="card-text"><a style="cursor: pointer;" [routerLink]="['/profile',articles[i].owner_id._id]">
+                Posted by: {{articles[i].owner_id.name.firstName}} {{articles[i].owner_id.name.lastName}}</a>
+                <br>
+                on {{articles[i].createdAt | date}}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="i+1 < articles.length" class="col col-50">
+          <div class="card">
+            <!--Card image-->
+            <div class="view hm-white-slight waves-light" mdbRippleRadius>
+              <img src="https://i2.wp.com/penpaperpencil.net/wp-content/uploads/2016/01/Drawing-pencils-guide.jpg?fit=900%2C490&ssl=1" class="img-fluid" alt="Card image with a tree in a middle of a lake.">
+              <a>
+                <!--  <div class="mask"></div> -->
+              </a>
+            </div>
+            <!--Card content-->
+            <div class="card-body">
+              <!--Title-->
+              <h4 style="text-align: center;" class="card-title">{{articles[i+1].title}}</h4>
+              <!--Text-->
+              <p class="card-text">{{articles[i+1].tags}}</p>
+              <hr>
+              <div style="color: #3F729B; font-family: Roboto;" class="row">
+                <div style="text-align: center;" class="col-4 col-md-4">
+                  <i class="fa fa-thumbs-o-up mr-1" aria-hidden="true">{{articles[i+1].upvoters.length}}</i>
+                  <i class="fa fa-thumbs-o-down mr-1" aria-hidden="true">{{articles[i+1].downvoters.length}}</i>
+                </div>
+                <div align="right" class="col-6 col-md-8">
+                  <a [routerLink]="['id',articles[i+1]._id]">
+                    <h5 class="waves-effect p-2" mdbRippleRadius>Read more <i class="fa fa-chevron-right"></i></h5>
+                  </a>
+                </div>
+              </div>
+              <hr>
+
+              <p style="text-align: center;" class="card-text"><a style="cursor: pointer;" [routerLink]="['/profile',articles[i+1].owner_id._id]">
+              Posted by: {{articles[i+1].owner_id.name.firstName}} {{articles[i+1].owner_id.name.lastName}}</a>
+              <br>
+              on {{articles[i+1].createdAt | date}}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="col-lg-4 col-md-10 mx-auto">
-      <h1 class="text-center text-primary">Filter by tags:</h1>
-      <hr>
-      <tag-input [(ngModel)]="selectedTags" [onlyFromAutocomplete]="true" (onRemove)="onTagsChanged()" (onTextChange)="onTagsChanged()">
-        <tag-input-dropdown [showDropdownIfEmpty]="true" [dynamicUpdate]="false" [focusFirstElement]="true" [displayBy]="'value'"
-          [identifyBy]="'id'" [autocompleteItems]="allTags">
-          <ng-template let-item="item">
-            {{ item.value }}
-          </ng-template>
-        </tag-input-dropdown>
-      </tag-input>
-
-    </div>
-
+    <br>
   </div>
+<!--/Pagination -->
+
+<hr>
+<div style="text-align: center;">
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
+</div>
+</div>
+<!-- TODO Paginating -->
