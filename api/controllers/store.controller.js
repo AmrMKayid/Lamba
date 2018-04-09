@@ -300,7 +300,7 @@ module.exports.countItmes = function(req, res, next) {
   */
 module.exports.getImage = function(req, res, next) {
 
-	return res.sendFile(path.resolve('api/uploads/' + req.params.filename));
+	return res.status(200).sendFile(path.resolve('api/uploads/' + req.params.filename));
 
 }
 
