@@ -24,6 +24,11 @@
 
       <li class="nav-item" [routerLinkActive]="['active']">
         <!--TODO: Resources-->
+        <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/users']" *ngIf="isLoggedIn()">People</a>
+      </li>
+
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <!--TODO: Resources-->
         <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/resources']" *ngIf="isLoggedIn()">Resources</a>
       </li>
 

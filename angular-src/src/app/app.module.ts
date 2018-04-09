@@ -26,6 +26,7 @@ import {HomepageComponent} from './shared/homepage/homepage.component';
 import {ResourcesModule} from "./modules/resources/resources.module";
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { AllUsersComponent } from './shared/all-users/all-users.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { FooterComponent } from './shared/footer/footer.component';
     HomepageComponent,
     NavbarComponent,
     FooterComponent,
+    AllUsersComponent,
   ],
   imports: [
     BrowserModule,
