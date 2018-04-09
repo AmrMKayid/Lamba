@@ -238,7 +238,7 @@ module.exports.likeItems = function(req, res, next) {
     }
     else{
       retrievedItem.likes_user_id.push(user);
-      retrievedItem.likes += 1; }
+      retrievedItem.likes = retrievedItem.likes +1; }
 
 
       return res.status(200).json({
@@ -269,7 +269,7 @@ module.exports.unlikeItems = function(req, res, next) {
     }
     else{
       retrievedItem.likes_user_id.pop(user);
-      retrievedItem.likes -= 1; }
+      retrievedItem.likes =retrievedItem.likes- 1; }
 
 
       return res.status(200).json({
