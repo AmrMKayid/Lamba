@@ -1,11 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { ArticlesService } from '../articles.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-article',
   templateUrl: './view-article.component.html',
-  styleUrls: ['./view-article.component.css']
+  styleUrls: ['./view-article.component.css'],
+  encapsulation: ViewEncapsulation.None //To allow dynamic CSS classes (from the innerHTML)
+
 })
 export class ViewArticleComponent implements OnInit {
   article: any = {};
