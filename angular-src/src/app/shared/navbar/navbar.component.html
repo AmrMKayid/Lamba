@@ -71,7 +71,7 @@
           class="caret"></span></a>
 
 
-        <div *dropdownMenu class="dropdown-menu dropdown-primary pull-left" role="menu">
+        <div *dropdownMenu class="dropdown-menu dropdown-primary text-center" role="menu">
           <a class="dropdown-item waves-light" mdbRippleRadius [routerLink]="['/profile/', this.auth.getUserRole().toLowerCase()]">Profile</a>
           <div class="divider dropdown-divider"></div>
           <a class="dropdown-item waves-light" mdbRippleRadius  (click)="logout()" [routerLink]="['/']">Log Out</a>
