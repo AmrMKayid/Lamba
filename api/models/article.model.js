@@ -9,7 +9,7 @@ const articleSchema = new mongoose.Schema({
     //TODO: CHANGE BACK TO FALSE DEFAULT!! True is just for testing.
     approved: {
         type: Boolean,
-        default: true
+        default: false
     },
     title: {
         type: String,
