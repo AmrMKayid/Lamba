@@ -19,7 +19,6 @@ module.exports.getAllUsers = function (req, res, next) {
 };
 
 module.exports.getUserByID = function (req, res, next) {
-    console.log(req.params)
     if (!Validations.isObjectId(req.params.userID)) {
         return res.status(422).json({
             err: null,
@@ -35,6 +34,28 @@ module.exports.getUserByID = function (req, res, next) {
             err: null,
             msg: 'User retrieved successfully.',
             data: user
+        });
+    });
+};
+
+module.exports.getUserChildren = function (req, res, next) {
+    if (!Validations.isObjectId(req.params.userID)) {
+        return res.status(422).json({
+            err: null,
+            msg: 'userID parameter must be a valid ObjectId.',
+            data: null
+        });
+    }
+    Child.find({
+     parent_id: req.params.userID
+    }).exec(function (err, children) {
+        if (err) {
+            return next(err);
+        }
+        res.status(200).json({
+            err: null,
+            msg: 'children retrieved successfully.',
+            data: children
         });
     });
 };

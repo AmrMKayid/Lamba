@@ -343,8 +343,7 @@ if (!UserSchema.options.toObject) {
 UserSchema.options.toObject.transform = function (document, transformedDocument) {
     delete transformedDocument.password;
     return transformedDocument;
-}
-;
+};
 
 if (!ChildSchema.options.toObject) {
     ChildSchema.options.toObject = {};

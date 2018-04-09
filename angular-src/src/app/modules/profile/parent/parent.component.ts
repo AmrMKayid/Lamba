@@ -15,6 +15,7 @@ import {AuthService} from "../../../services/auth.service";
 export class ParentComponent implements OnInit {
 
   currentUser;
+  myChildren;
 
   childFirstName;
   childlastName;
@@ -32,10 +33,17 @@ export class ParentComponent implements OnInit {
 
   ngOnInit() {
 
-    this.currentUser = this.auth.getUserFromToken(localStorage.getItem('authentication'));
-    console.log(this.currentUser);
-    // console.log(localStorage.getItem('authorization'))
+    this.currentUser = this.auth.getCurrentUser();
+    this.getMyChildren(this.currentUser._id);
+
     this.newChildBtn = false;
+  }
+
+  getMyChildren(parentID) {
+    this.http.get(appConfig.apiUrl + '/user/getUserChildren/' + parentID)
+      .subscribe((res: any) => {
+        this.myChildren = res.data;
+      });
   }
 
   newChild() {

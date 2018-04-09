@@ -8,8 +8,8 @@
   </thead>
   <tbody>
   <tr *ngFor="let user of Users">
-    <td> Name: <strong>{{ user.name.firstName }} {{ user.name.lastName }}</strong></td>
-    <td> Role: <strong>{{ user.role }}</strong></td>
+    <td> <strong>{{ user.name.firstName }} {{ user.name.lastName }}</strong></td>
+    <td> <strong>{{ user.role }}</strong></td>
     <td>
       <button (click)="viewUser(user._id)" class="btn btn-primary">View Profile</button>
     </td>
