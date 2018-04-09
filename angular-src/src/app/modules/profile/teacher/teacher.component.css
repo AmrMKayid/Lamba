@@ -20,6 +20,8 @@ border: 5px solid #fff;
 
 
 img.card-img-top {
-    height: 170px;
-    object-fit: cover;
+  height: 120px;
+  width: 120px;
+  object-fit: cover;
+  margin: auto;
 }
