@@ -14,30 +14,145 @@ const ChildSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    parent_id: {
-        type: String,
-        required: true
-    },
-    schedule: {
-        Timetable: [[String]],
-        createdAt: { type: Date, default: Date.now },
-        updatedAt: { type: Date, default: Date.now }
-    },
-    score: Number,
-    //IDs :
-    allowedArticles: [String],
-    enrolledActivities: [String],
     name: {
-        firstName: { type: String, required: true },
-        middleName: { type: String },
-        lastName: { type: String, required: true } //Can be passed in the backend as his parent's name
+        firstName: {type: String, required: true},
+        middleName: {type: String},
+        lastName: {type: String, required: true}
     },
     birthday: Date,
     gender: {
         type: String,
         enum: ['male', 'female']
     },
-    photo: String
+    photo: String,
+    parent_id: {
+        type: String,
+        required: true
+    },
+    schedule: {
+        table: {
+            saturday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            sunday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            monday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            tuesday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            wednesday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            thursday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            friday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+
+            //  validate: [arrayLimit,'{PATH} exceeds the limit of 8']
+
+        },
+        updatedAt: {type: Date, default: Date.now},
+    },
+    score: Number,
+    //IDs :
+    allowedArticles: [String],
+    enrolledActivities: [String]
 });
 
 
@@ -60,9 +175,9 @@ const UserSchema = new mongoose.Schema({
         trim: true //Will be trimmed in the frontend as well while sending the request.
     },
     name: {
-        firstName: { type: String, required: true },
-        middleName: { type: String },
-        lastName: { type: String, required: true }
+        firstName: {type: String, required: true},
+        middleName: {type: String},
+        lastName: {type: String, required: true}
     },
     birthday: Date,
     gender: {
@@ -78,14 +193,140 @@ const UserSchema = new mongoose.Schema({
         zip: Number
     },
 
+    joinedAt: {
+        type: Date,
+        default: Date.now()
+    },
+
     myItems: [String],
     cart: [String],
-    //////////////////////////// Teacher:
+
+    //------ Teacher ------ //
+
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
     fees: Number,
     schedule: {
-        Timetable: [[String]],
-        createdAt: { type: Date, default: Date.now },
-        updatedAt: { type: Date, default: Date.now }
+        table: {
+            saturday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            sunday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            monday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            tuesday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            wednesday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            thursday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+            friday: [{
+                slot: {
+                    title: {
+                        type: String,
+                        default: 'title'
+                    },
+                    description: {
+                        type: String,
+                        default: 'description'
+                    },
+                    url: {
+                        type: String,
+                        default: 'url'
+                    }
+                }
+            }],
+
+            //  validate: [arrayLimit,'{PATH} exceeds the limit of 8']
+
+        },
+        updatedAt: {type: Date, default: Date.now},
     },
     about: String,
     qualifications: [String],
@@ -99,20 +340,22 @@ if (!UserSchema.options.toObject) {
     UserSchema.options.toObject = {};
 }
 
-UserSchema.options.toObject.transform = (document, transformedDocument) => {
+UserSchema.options.toObject.transform = function (document, transformedDocument) {
     delete transformedDocument.password;
     return transformedDocument;
-};
+}
+;
 
 if (!ChildSchema.options.toObject) {
     ChildSchema.options.toObject = {};
 }
 
-ChildSchema.options.toObject.transform = (document, transformedDocument) => {
+ChildSchema.options.toObject.transform = function (document, transformedDocument) {
     delete transformedDocument.password;
     return transformedDocument;
 };
 
 mongoose.model('Child', ChildSchema);
-mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
 mongoose.model('UniqueUser', UniqueUserSchema);
+

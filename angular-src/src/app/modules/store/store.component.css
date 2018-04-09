@@ -1,0 +1,36 @@
+.page {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#main 
+{
+    clear: both;
+    padding: 10px 10px 10px 10px;
+    background-color: #fff;
+}
+
+#sidebar
+{
+    float:left;
+    margin:200px 10px -30px 10px;
+    padding:10px -10px -10px 10px;
+    width:235px;
+    height:auto;
+    border: solid 2px black;
+    background-color:#9acbba;    
+}
+
+footer, 
+#footer {
+    background-color: #fff;
+    color: #999;
+    padding: 10px 0;
+    text-align: center;
+    line-height: normal;
+    margin: 0 0 30px 0;
+    font-size: .9em;
+    -webkit-border-radius: 0 0 4px 4px;
+    -moz-border-radius: 0 0 4px 4px;
+}

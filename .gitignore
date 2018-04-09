@@ -1,8 +1,7 @@
 # Logs
 logs
 *.log
-/api/uploads/store/*.jpg
-/api/uploads/store/*.png
+
 # Runtime data
 pids
 *.pid

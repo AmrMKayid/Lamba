@@ -1,0 +1,56 @@
+<div>
+<table class="table table-striped table-hover" id="Items">
+
+  <tr *ngFor="let item of myitems; let i = index ">
+          <td> {{ i + 1 }} </td>
+          <th>item.Name</th>
+          <th>item.Price</th>
+          <th>item.description</th>
+          <th>item.quantity</th>
+          <th>item.type</th>
+          <th>item.condition</th>
+          <td> {{ item.createdAt | date:'medium' }}</td>
+          <td> {{ item.updatedAt | date:'medium' }}</td>
+          <td>
+            <button (click)="deleteProduct(item._id)"  class="btn btn-danger">Delete</button>
+            <button (click)="editItem(item); newOrEdit = true; editPressed = true; createNew = false;"  class="btn btn-info">Edit</button>
+          </td>
+    </tr>
+</table>
+</div>
+
+
+
+<div>
+  <h3 class="page-title">Edit</h3>
+  <div class="pull-right">
+    <button (click)="newOrEdit = false; createNew = false; editPressed = false;" class="btn btn-primary">x</button>
+  </div>
+</div>
+
+<table class="table table-striped table-hover" id="Items">
+  <thead>
+
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>description</th>
+      <th>quantity</th>
+      <th>type</th>
+      <th>condition</th>
+      <th>Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><input class="form-control" id="Name" [(ngModel)]="Name" placeholder="Item Name" value="{{ Name }}"><br></td>
+      <td><input class="form-control" id="Price" [(ngModel)]="Price" placeholder="Product Price" value="{{ Price }}"><br></td>
+      <td><input class="form-control" id="description" [(ngModel)]="description" placeholder="Product description" value="{{ description }}"><br></td>
+      <td><input class="form-control" id="quantity" [(ngModel)]="quantity" placeholder="Product quantity" value="{{ quantity }}"><br></td>
+      <td><input class="form-control" id="condition" [(ngModel)]="condition" placeholder="Product condition" value="{{ condition }}"><br></td>
+      <td>
+        <button (click)="editItem(item)"  class="btn btn-hero-success" *ngIf="editPressed">Submit</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

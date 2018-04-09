@@ -21,8 +21,8 @@ const ItemSchema = new Schema({
         type: Array,
 		required: true
     },
-    likes: {
-        type: Number,
+    buyers_id: {
+        type: Array,
 		required: true
     },
 	item_type: {
@@ -53,3 +53,4 @@ const ItemSchema = new Schema({
 
 
 mongoose.model('Item', ItemSchema);
+

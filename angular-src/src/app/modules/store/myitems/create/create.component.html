@@ -1,0 +1,87 @@
+<toaster-container></toaster-container>
+
+<style>
+#file
+{
+	padding-left: 2%;
+}
+</style>
+	
+<br>
+<div class = "itemform">
+		<div class = "row">
+			<div class = "col-md-9 col-xs-9">
+				<div class = "form-group  col-md-9 col-xs-9">
+					<input id = "comment_field" class = "form-control" type = "text"  placeholder="Product title" name = "title" autocomplete="off" [(ngModel)]="name" >
+				</div>
+			</div>
+		</div>
+
+		<div class = "row">
+			<div class = "col-md-9 col-xs-9">
+				<div class = "form-group  col-md-9 col-xs-9">
+					<input id = "comment_field" class = "form-control" type = "number"  placeholder="Quantity" name = "quantity" autocomplete="off" min="0" [(ngModel)]="quantity">
+				</div>
+			</div>
+		</div>
+
+		<div class = "row">
+			<div class = "col-md-9 col-xs-9">
+				<div class = "form-group  col-md-9 col-xs-9">
+					<input id = "comment_field" class = "form-control" type = "number"  placeholder="Price" name = "price" autocomplete="off" min="0" [(ngModel)]="price">
+				</div>
+			</div>
+		</div>
+		<div class = "row">
+			<div class = "col-md-9 col-xs-9">
+				<div class = "form-group  col-md-9 col-xs-9">
+					<input id = "comment_field" class = "form-control" type = "text"  placeholder="Item Type. e.g: toy, supplement, pet" name = "itemtype" autocomplete="off" [(ngModel)]="item_type">
+				</div>
+			</div>
+		</div>
+		<div class = "row">
+			<div class = "col-md-9 col-xs-9">
+				<div class = "form-group  col-md-9 col-xs-9">
+					<select name="cars" class = "form-control" [(ngModel)]="item_condition">
+					   <option value="" selected disabled> Item condition</option>
+					    <option value="Poor" >Poor</option>
+					    <option value="Fair">Fair</option>
+					    <option value="Good">Good</option>
+					    <option value="Brand New">Brand New</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+
+			<div class = "row">
+				<div class = "col-md-9 col-xs-9">
+					<div class = "form-group  col-md-9 col-xs-9">
+						<textarea id = "comment_field" class = "form-control" placeholder="Describe your item"   name = "Description" autocomplete="off" rows = "10" columns = "30" [(ngModel)]="description"></textarea> 
+					</div>
+				</div>
+		</div>
+
+		<div class = "row">
+			<div class = "col-md-10 col-xs-10">
+				<image-upload
+ 				 [headers]="{authorization: token}"
+ 				 [max]="1"
+ 				 [url]="'http://127.0.0.1:3000/api/store/upload'"
+ 				 [dropBoxMessage]="'Drop your image here!'"
+ 				 [buttonCaption]="'Upload an Image'"
+ 				 (uploadFinished)="onUploadFinished($event)"
+ 				 >
+				</image-upload>
+			</div>
+		</div>
+		<br/>
+		<div class = "row">
+			<div class = "col-md-4 col-xs-4">
+				 <div class="form-group"> 
+			      		<button (click)="onSubmit()" type="submit" class="btn btn-default" id = "submit" >Create New Item</button>
+			  	</div>
+			</div>
+		</div>
+</div>
+
