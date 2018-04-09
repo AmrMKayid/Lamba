@@ -8,6 +8,7 @@ var config= require('../config'),
     auth = require( '../controllers/auth.controller'),
     schedule = require( '../controllers/schedule.controller'),
     chai = require('chai'),
+    expect=chai.expect,
     chaiHttp = require('chai-http'),
     should = chai.should,
     testUtils = require('../test/utils');
@@ -39,7 +40,7 @@ chai.use(chaiHttp);
 });
 });
 });*/
-describe("teacher ", () => {
+describe("schedule ", () => {
     let  teacher , parent , child, teacherToken, parentToken , childToken , teacherId , childId , parentId ;
 
 before((done) => {
@@ -48,6 +49,8 @@ before((done) => {
 done();
 });
 
+
+});
 teacher ={
     email: 'mariamm@yahoo.com',
     role: 'Teacher',
@@ -58,20 +61,20 @@ teacher ={
     gender:'female'
 };
 describe("register a teacher", () => {
-it("it should register a user", (done) => {
+    it("it should register a user", (done) => {
 
     chai.request("http://localhost:3000/api").post("/auth/register").send(teacher).end((err,res) =>{
-       teacherId = res.body._id;
+        teacherId = res.body.data._id;
     done();
 });
-}).timeout(5000); });
+}); });
 describe("login a teacher", () => {
     it("it should login a user", (done) => {
     chai.request("http://localhost:3000/api").post("/auth/login").send(teacher).end((err,res)=>{
         teacherToken = res.body.data;
-        done();
-    });
-}).timeout(5000); });
+    done();
+});
+}); });
 
 
 parent ={
@@ -88,17 +91,17 @@ describe("register a parent", () => {
     it("it should register a user", (done) => {
 
     chai.request("http://localhost:3000/api").post("/auth/register").send(parent).end((err,res) =>{
-    parentId = res.body._id;
+        parentId = res.body.data._id;
     done();
 });
-}).timeout(5000); });
+}); });
 describe("login a parent", () => {
     it("it should login a user", (done) => {
     chai.request("http://localhost:3000/api").post("/auth/login").send(parent).end((err,res)=>{
         parentToken = res.body.data;
     done();
 });
-}).timeout(5000); });
+}); });
 
 
 child ={
@@ -112,59 +115,79 @@ child ={
 
 describe("register a child", () => {
     it("it should register a child", (done) => {
-    chai.request("http://localhost:3000/api").post("/auth/child").send(child).set('authorization',parentToken).end((err,res) =>{
-    childId = res.body._id;
+    chai.request("http://localhost:3000/api").post("/auth/child").set("authorization",parentToken).send(child).end((err,res) =>{
+        childId = res.body.data._id;
     done();
 });
-}).timeout(5000); });
+}); });
 describe("login a user", () => {
     it("it should login a user", (done) => {
     chai.request("http://localhost:3000/api").post("/auth/login").send(child).end((err,res)=>{
         childToken = res.body.data;
     done();
 });
-}).timeout(5000); });
+}); });
 
-
-
-});
-
-describe("GET teacherSchedule", () => {
-    it("should get schedule by its teacher's id", (done) => {
-    let req = {
-        params : {UserId : id}
-    };
-
-    let res = testUtils.responseValidatorAsync(200, (user) => {
-    res.body.should.be.a('object');
-    res.body.should.have.property('saturday');
-    res.body.should.have.property('sunday');
-    res.body.should.have.property('monday');
-    res.body.should.have.property('tuesday');
-    res.body.should.have.property('wednesday');
-    res.body.should.have.property('thursday');
-    res.body.should.have.property('friday');
+describe("get a child schedule", () => {
+    it("it should return child schedule for his parent", (done) => {
+    chai.request("http://localhost:3000/api").get('/schedule/getChildSchedule/'+ childId).set("authorization",parentToken).end((err,res) =>{
+       expect(res).to.have.status(200);
+    expect(res.body.data).to.have.property('saturday');
+    expect(res.body.data).to.have.property('sunday');
+    expect(res.body.data).to.have.property('monday');
+    expect(res.body.data).to.have.property('tuesday');
+    expect(res.body.data).to.have.property('wednesday');
+    expect(res.body.data).to.have.property('thursday');
+    expect(res.body.data).to.have.property('friday');
     done();
+});});
+
+
+it("it should return child schedule for himself", (done) => {
+    chai.request("http://localhost:3000/api").get('/schedule/getChildSchedule/'+ childId).set("authorization",childToken).end((err,res) =>{
+    expect(res).to.have.status(200);
+
+expect(res.body.data).to.have.property('saturday');
+expect(res.body.data).to.have.property('sunday');
+expect(res.body.data).to.have.property('monday');
+expect(res.body.data).to.have.property('tuesday');
+expect(res.body.data).to.have.property('wednesday');
+expect(res.body.data).to.have.property('thursday');
+expect(res.body.data).to.have.property('friday');
+done();
+});});
+
+
+it("it should not return child schedule for unauthorized user", (done) => {
+    chai.request("http://localhost:3000/api").get('/schedule/getChildSchedule/'+ childId).set("authorization",teacherToken).end((err,res) =>{
+    expect(res).to.have.status(401);
+done();
+});});
+
+
+it("it should return 422 for unvalid object id", (done) => {
+    chai.request("http://localhost:3000/api").get('/schedule/getChildSchedule/sahjfkjahas').set("authorization",childToken).end((err,res) =>{
+    expect(res).to.have.status(422);
+done();
+});});
+
+it("it should return 404 for not finding user", (done) => {
+    chai.request("http://localhost:3000/api").get('/schedule/getChildSchedule/'+ teacherId).set("authorization",childToken).end((err,res) =>{
+    expect(res).to.have.status(404);
+done();
+});});
+
+
+it("it should return 401 for not being logged in", (done) => {
+    chai.request("http://localhost:3000/api").get('/schedule/getChildSchedule/'+ childId).end((err,res) =>{
+    expect(res).to.have.status(401);
+done();
+});});
+
+
 });
 
-    schedule.getTeacherSchedule(req, res);
-});
 
-it("should throw an error for invalid id", (done) => {
-    let req = {
-        params : {id: '23545'}
-    };
 
-let res = testUtils.responseValidatorAsync(500, (err) => {
-    done();
-});
-
-schedule.getTeacherSchedule(req, res);
-});
-});
-
-after((done) => {
-    mongoose.disconnect(done);
-});
 });
 
