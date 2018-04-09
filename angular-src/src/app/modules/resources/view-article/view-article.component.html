@@ -1,37 +1,26 @@
-<!-- Page Content -->
+<!-- Page Content  -->
 <div  class="container" *ngIf="isInitialized">
-
   <div class="row">
-
     <!-- Post Content Column -->
-    <div class="col-lg-8">
-
+    <div class="col-lg-10">
       <!-- Title -->
       <h1 class="mt-4">{{article.title}}</h1>
-
       <!-- Author -->
       <p class="lead">
         by
         <a style="cursor: pointer;" [routerLink]="['/profile',article.owner_id]">{{author}}</a>
       </p>
-
       <!-- Date/Time -->
       <p align="right">Posted on {{article.createdAt | date}}</p>
-
       <hr>
-
       <!-- Preview Image -->
       <!-- TODO: "Featurez" Will we add a thumbnail option with a default while posting? -->
       <!--<img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">-->
-
       <hr>
-
       <!-- Post Content -->
       <div [innerHTML]="article.content | safeHtml">
       </div>
-
       <hr>
-
       <!-- Comments Form -->
       <div class="card my-4">
         <h5 class="card-header"><i class="fa fa-commenting-o mr-3" aria-hidden="true"></i>Leave a Comment:</h5>
@@ -44,109 +33,69 @@
           </form>
         </div>
       </div>
-
       <!-- Single Comment -->
-      <ng-container *ngFor="let comment of comments | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
-        <div class="media mb-4">
-          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-          <div class="media-body">
-            <h6>
-              <a style="cursor: pointer;" [routerLink]="['/profile',comment.commenter._id]">
-                {{comment.commenter.name.firstName}} {{comment.commenter.name.lastName}}
-              </a>
-            </h6>
-            <p>{{comment.comment_content}}</p>
-            <!--<button  style="cursor: pointer;" (click)="replies[i].showReply = true">reply</button>-->
-            <div class="button-row">
-              <a class="btn btn-primary btn-sm" style="cursor: pointer;" (click)="replies[i].showReply = true" role="button"><i class="fa fa-reply mr-1" aria-hidden="true"></i>Reply</a>
-              <!--<a mat-button >Reply</a>-->
-            </div>
-            <div class="card my-4" *ngIf="replies[i].showReply">
-              <h5 class="card-header"><i class="fa fa-reply mr-3" aria-hidden="true"></i>Leave a Reply:</h5>
-              <div class="card-body">
-                <form>
-                  <div class="form-group">
-                    <textarea class="form-control" [(ngModel)]="replies[i].replyContent" name="Reply" placeholder="Reply"  rows="3"></textarea>
-                  </div>
-                  <button type="submit" (click)="reply(i,comment._id,replies[i].replyContent)" class="btn btn-primary btn-sm">Submit</button>
-                </form>
-              </div>
-            </div>
-            <div class="media mt-4" *ngFor="let reply of comment.replies">
-              <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-              <div class="media-body">
-                <h6>
-                  <a style="cursor: pointer;" [routerLink]="['/profile',reply.replier._id]">
-                    {{reply.replier.name.firstName}} {{reply.replier.name.lastName}}  </a>
-                </h6>
-                {{reply.reply_content}}
-              </div>
+      <div class="media mt-4" *ngFor="let comment of comments | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
+        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+        <div class="media-body">
+          <h6>
+          <a style="cursor: pointer;" [routerLink]="['/profile',comment.commenter._id]">
+            {{comment.commenter.name.firstName}} {{comment.commenter.name.lastName}}
+          </a>
+          </h6>
+          <p>{{comment.comment_content}}</p>
+          <!--<button  style="cursor: pointer;" (click)="replies[i].showReply = true">reply</button>-->
+          <div class="button-row">
+            <a class="btn btn-primary btn-sm" style="cursor: pointer;" (click)="replies[i].showReply = true" role="button"><i class="fa fa-reply mr-1" aria-hidden="true"></i>Reply</a>
+            <!--<a mat-button >Reply</a>-->
+          </div>
+          <div class="card my-4" *ngIf="replies[i].showReply">
+            <h5 class="card-header"><i class="fa fa-reply mr-3" aria-hidden="true"></i>Leave a Reply:</h5>
+            <div class="card-body">
+              <form>
+                <div class="form-group">
+                  <textarea class="form-control" [(ngModel)]="replies[i].replyContent" name="Reply" placeholder="Reply"  rows="3"></textarea>
+                </div>
+                <button type="submit" (click)="reply(i,comment._id,replies[i].replyContent)" class="btn btn-primary btn-sm">Submit</button>
+              </form>
             </div>
           </div>
-
-        </div>
-      </ng-container>
-      <pagination-controls (pageChange)="p = $event"></pagination-controls>
-
-
-    </div>
-
-    <!-- Sidebar Widgets Column -->
-    <div class="col-md-4">
-      <!-- Categories Widget -->
-      <div class="card my-4">
-        <h5 class="card-header">Tags</h5>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-lg-6">
-              <ul class="list-unstyled mb-0">
-                <li>
-                  <a href="#">Web Design</a>
-                </li>
-                <li>
-                  <a href="#">HTML</a>
-                </li>
-                <li>
-                  <a href="#">Freebies</a>
-                </li>
-              </ul>
-            </div>
-            <div class="col-lg-6">
-              <ul class="list-unstyled mb-0">
-                <li>
-                  <a href="#">JavaScript</a>
-                </li>
-                <li>
-                  <a href="#">CSS</a>
-                </li>
-                <li>
-                  <a href="#">Tutorials</a>
-                </li>
-              </ul>
+          <div class="media mt-4" *ngFor="let reply of comment.replies">
+            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+            <div class="media-body">
+              <h6>
+              <a style="cursor: pointer;" [routerLink]="['/profile',reply.replier._id]">
+              {{reply.replier.name.firstName}} {{reply.replier.name.lastName}}  </a>
+              </h6>
+              {{reply.reply_content}}
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Side Widget -->
-      <div class="card my-4">
-        <h5 class="card-header">Rating</h5>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-lg-6">
-              <button class="btn btn-primary" (click)="upvote(article._id)">Upvote ({{article.upvoters.length}})</button>
-            </div>
-            <div class="col-lg-6">
-              <button class="btn btn-danger" (click)="downvote(article._id)">Downvote ({{article.downvoters.length}})</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
+      <div style="text-align: center;"><pagination-controls (pageChange)="p = $event"></pagination-controls></div>
   </div>
-  <!-- /.row -->
-
+  
+  <!-- Sidebar Widgets Column -->
+  <div  class="col-lg-2">
+    <!-- Categories Widget -->
+    <div style="width:14rem;" class="card my-4 text-center">
+      <h5 class="card-header"><i class="fa fa-hashtag mr-1" aria-hidden="true"></i>Tags</h5>
+      <div class="card-body">
+        <a href="#">Web Design</a>
+      </div>
+    </div>
+    <!-- Side Widget -->
+    <div style="width:14rem;" class="card my-4 text-center">
+      <h5 class="card-header"><i class="fa fa-star-half-full mr-1" aria-hidden="true"></i>Rating</h5>
+      <div class="card-body">
+        <div class="button-row">
+          <a class="btn btn-primary btn-sm" (click)="upvote(article._id)" role="button">
+            <i class="fa fa-thumbs-o-up mr-1" aria-hidden="true"></i>Upvote ({{article.upvoters.length}})
+          </a>
+          <a class="btn btn-danger btn-sm"(click)="downvote(article._id)" role="button"><i class="fa fa-thumbs-o-down mr-1" aria-hidden="true"></i>Downvote ({{article.downvoters.length}})</a>
+          <!--<a mat-button >Reply</a>-->
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<!-- /.container -->
+</div>

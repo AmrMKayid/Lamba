@@ -15,8 +15,9 @@
 
 <!-- Main Content -->
 <div class="container">
-  <a class="btn btn-success btn-block" [routerLink]="['post']">Post new article</a>
-  <hr>
+  <a class="btn btn-success" [routerLink]="['post']"><i class="fa fa-bolt"></i>Post new article</a>
+<!--   <a class="btn btn-success btn-block" [routerLink]="['post']">Post new article</a>
+ -->  <hr>
   <div class="row" *ngIf="articlesInitialized && tagsInitialized">
 
     <div class="col-lg-8 col-md-10 mx-auto">
@@ -28,13 +29,17 @@
               {{article.title}}
             </h2>
           </a>
-          <h3 class="post-subtitle" [ngClass]="{
+<!--           <br>
+ -->          <i class="fa fa-thumbs-o-up mr-5" aria-hidden="true">{{article.upvoters.length}}</i>
+<!--           <br>
+ -->          <i class="fa fa-thumbs-o-down mr-5" aria-hidden="true">{{article.downvoters.length}}</i>
+         <!--  <h3 class="post-subtitle" [ngClass]="{
             'text-success': article.upvoters.length - article.downvoters.length >0 ,
             'text-danger': (!article.upvoters.length - article.downvoters.length >0) && article.upvoters.length - article.downvoters.length !== 0 
           }">
             Total Rating: {{article.upvoters.length - article.downvoters.length}} {{(article.upvoters.length - article.downvoters.length>0)?
             'upvoter(s)':'downvoter(s)'}}
-          </h3>
+          </h3> -->
           <!-- </a> -->
           <h4>Tags: </h4>
           <a *ngFor="let tag of article.tags" (click)="setTag(tag)" style="cursor: pointer;" class="badge badge-primary">{{getTagByID(allTags, tag)}}</a>
