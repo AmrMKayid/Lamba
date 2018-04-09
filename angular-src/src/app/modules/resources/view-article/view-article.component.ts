@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ViewArticleComponent implements OnInit {
   article: any = {};
   isInitialized: boolean = false;
-  addReply:boolean=false;
+  addReply: boolean = false;
   author: string;
   comments: any = [{}];
   commentContent: String;
@@ -29,9 +29,11 @@ export class ViewArticleComponent implements OnInit {
         this.comments = this.article.comments;
         let r: { showReply: boolean, replyContent: string }[] = new Array(this.comments.length);
         //this.replies.length = this.comments.length;
-        for(let i=0;i<this.comments.length;i++){
-          r[i]={showReply : false,
-            replyContent :''};
+        for (let i = 0; i < this.comments.length; i++) {
+          r[i] = {
+            showReply: false,
+            replyContent: ''
+          };
         }
         this.replies = r;
       }, err => {
@@ -63,15 +65,17 @@ export class ViewArticleComponent implements OnInit {
       }
     );
   }
-  comment(){
+  comment() {
     // if(this.commentContent==''){
     //   alert("Please write in a comment");
     // }
     // else {
     this.articleService.comment(this.article._id, this.commentContent).subscribe(
       (res: any) => {
-        this.replies.push({showReply : false,
-          replyContent :''});
+        this.replies.push({
+          showReply: false,
+          replyContent: ''
+        });
         this.articleService.loadArticle(this.article._id).subscribe(
           (retrieved: any) => {
             this.comments = retrieved.data.comments;
@@ -84,9 +88,9 @@ export class ViewArticleComponent implements OnInit {
     )
     //}
   }
-  reply(i,comment_id,content){
-    this.articleService.reply(this.article._id,comment_id,content).subscribe(
-      (res:any) =>{
+  reply(i, comment_id, content) {
+    this.articleService.reply(this.article._id, comment_id, content).subscribe(
+      (res: any) => {
         this.articleService.loadArticle(this.article._id).subscribe(
           (retrieved: any) => {
             this.comments = retrieved.data.comments;
@@ -100,5 +104,10 @@ export class ViewArticleComponent implements OnInit {
         alert(`Article was not updated: ${err.error.msg}`);
       }
     )
+  }
+
+  //TODO: Once favorites is implemented, we need to send to the backend.
+  addToFavorite(id) {
+
   }
 }

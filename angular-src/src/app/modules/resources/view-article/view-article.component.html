@@ -6,8 +6,8 @@
         <!--Featured Image-->
         <!-- TODO: ADD IMAGE THUMBNAIL -->
         <div class="card mb-4 wow fadeIn">
-          <img src="https://blog.commlabindia.com/wp-content/uploads/2017/10/online-training-for-classroom-training-challenges-infographic1.jpg"
-            class="img-fluid" alt="">
+          <img src="https://i2.wp.com/penpaperpencil.net/wp-content/uploads/2016/01/Drawing-pencils-guide.jpg?fit=900%2C490" class="img-fluid"
+            alt="">
         </div>
         <!--/.Featured Image-->
         <!--Card-->
@@ -84,7 +84,8 @@
 
                 <div class="form-group mt-4" *ngIf="replies[i].showReply">
                   <label for="quickReplyFormComment">Leave a reply</label>
-                  <textarea class="form-control" [(ngModel)]="replies[i].replyContent" name="Reply" placeholder=" Your reply goes here ..." rows="3"></textarea>
+                  <textarea class="form-control" [(ngModel)]="replies[i].replyContent" name="Reply" placeholder=" Your reply goes here ..."
+                    rows="3"></textarea>
 
                   <div class="text-center">
                     <button class="btn btn-info btn-sm" type="submit" (click)="reply(i,comment._id,replies[i].replyContent)">Reply</button>
@@ -131,7 +132,7 @@
             <p class="mb-4">
               <!-- EXTRA TEXT HERE  -->
             </p>
-            <a target="_blank" href="#" class="btn btn-outline-white btn-md">Favorite
+            <a (click)="addToFavorite(article._id)" class="btn btn-outline-white btn-md">Favorite
               <i class="fa fa-star"></i>
             </a>
 
@@ -143,17 +144,32 @@
         <!--Card : Dynamic content wrapper-->
         <div class="card mb-4 text-center wow fadeIn">
 
-          <div class="card-header">Rating</div>
+          <div class="card-header">
+            <strong>Rating</strong>
+          </div>
 
           <!--Card content-->
           <div class="card-body">
 
             <!-- Default form login -->
-            <label class="grey-text">Total score: </label>
+            <label class="text-info">Total score: </label>
+            <label class="text-success" *ngIf="article.upvoters.length > article.downvoters.length">
+              {{article.upvoters.length - article.downvoters.length}}
+              <i class="fa fa-arrow-up"></i>
+            </label>
+            <label class="text-danger" *ngIf="!article.upvoters.length > article.downvoters.length">
+              {{article.upvoters.length - article.downvoters.length}}
+              <i class="fa fa-arrow-up"></i>
+            </label>
+
             <div class="text-center mt-4">
-              <button class="btn btn-success btn-block" type="submit">Upvote</button>
+              <a class="btn btn-success btn-block" (click)="upvote(article._id)" role="button">
+                <i class="fa fa-thumbs-o-up mr-1" aria-hidden="true"></i>Upvote ({{article.upvoters.length}})
+              </a>
               <hr>
-              <button class="btn btn-danger btn-block" type="submit">Downvote</button>
+              <a class="btn btn-danger btn-block" (click)="downvote(article._id)" role="button">
+                <i class="fa fa-thumbs-o-down mr-1" aria-hidden="true"></i>Downvote ({{article.downvoters.length}})
+              </a>
 
             </div>
             <!-- Default form login -->
