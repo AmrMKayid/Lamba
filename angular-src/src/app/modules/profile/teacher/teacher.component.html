@@ -88,8 +88,10 @@
     </div>
 
     <!--Title-->
-    <h4 class="card-title"><strong>Your Name</strong></h4>
-    <h5 class="indigo-text"><strong>Teacher</strong></h5>
+    <h3 class="card-title"><strong>{{currentUser.name.firstName}} {{currentUser.name.lastName}}</strong></h3>
+    <h4 class="indigo-text"><strong>{{currentUser.role}}</strong></h4>
+    <h5 class="indigo-text" *ngIf="currentUser.address"><strong>{{currentUser.address.street}}, {{currentUser.address.city}},
+      {{currentUser.address.state}}, {{currentUser.address.zip}}</strong></h5>
 
 
 

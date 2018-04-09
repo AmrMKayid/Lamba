@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
 
 
 module.exports.getAllUsers = function (req, res, next) {
-    User.find({}).exec(function (err, users) {
+    User.find({$or: [{role: 'Parent'} , {role: 'Teacher'}]}).exec(function (err, users) {
         if (err) {
             return next(err);
         }
