@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "dev": "concurrently \"mongod\" \"node ./bin/www\" \"cd angular-src && ng serve -o\"",
     "devBack": "concurrently \"mongod\" \"node ./bin/www\"",
-    "test": "mocha -- api/test/*.js"
+    "test": "mocha -- api/test/*.js "
   },
   "dependencies": {
     "angular5-toaster": "^1.0.2",

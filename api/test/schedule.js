@@ -40,7 +40,7 @@ chai.use(chaiHttp);
 });
 });*/
 describe("teacher ", () => {
-    var id, teacher, token;
+    let  teacher , parent , child, teacherToken, parentToken , childToken , teacherId , childId , parentId ;
 
 before((done) => {
     mongoose.connect('mongodb://localhost:27017/lambatest', () => {
@@ -49,32 +49,86 @@ done();
 });
 
 teacher ={
-    'email': "mm@f.com",
-    'role': "Teacher",
-    'password': 'wwww',
-    'confirmPassword':'wwww',
-    'name':{'firstname':'Mariam',
-        'lastName':'dessouki'}
+    email: 'mariamm@yahoo.com',
+    role: 'Teacher',
+    password: 'wwwlalaw',
+    confirmPassword:'wwwlalaw',
+    name:{firstName:'Mariam',
+        lastName:'dessouki'},
+    gender:'female'
 };
-describe("register a user", () => {
+describe("register a teacher", () => {
 it("it should register a user", (done) => {
+
     chai.request("http://localhost:3000/api").post("/auth/register").send(teacher).end((err,res) =>{
-    id = res.body._id;
+       teacherId = res.body._id;
     done();
 });
-}); });
-
-describe("login a user", () => {
+}).timeout(5000); });
+describe("login a teacher", () => {
     it("it should login a user", (done) => {
     chai.request("http://localhost:3000/api").post("/auth/login").send(teacher).end((err,res)=>{
-        token = res.body.data;
+        teacherToken = res.body.data;
         done();
     });
-}); });
+}).timeout(5000); });
+
+
+parent ={
+    email: 'ali@yahoo.com',
+    role: 'Parent',
+    password: 'wwwlalaw',
+    confirmPassword:'wwwlalaw',
+    name:{firstName:'Ali',
+        lastName:'dessouki'},
+    gender:'male'
+};
+
+describe("register a parent", () => {
+    it("it should register a user", (done) => {
+
+    chai.request("http://localhost:3000/api").post("/auth/register").send(parent).end((err,res) =>{
+    parentId = res.body._id;
+    done();
+});
+}).timeout(5000); });
+describe("login a parent", () => {
+    it("it should login a user", (done) => {
+    chai.request("http://localhost:3000/api").post("/auth/login").send(parent).end((err,res)=>{
+        parentToken = res.body.data;
+    done();
+});
+}).timeout(5000); });
+
+
+child ={
+    username: 'ahmed',
+    password: 'wwwlalaw',
+    confirmPassword:'wwwlalaw',
+    name:{firstName:'Ahmed',
+        lastName:'dessouki'},
+    gender:'male'
+};
+
+describe("register a child", () => {
+    it("it should register a child", (done) => {
+    chai.request("http://localhost:3000/api").post("/auth/child").send(child).set('authorization',parentToken).end((err,res) =>{
+    childId = res.body._id;
+    done();
+});
+}).timeout(5000); });
+describe("login a user", () => {
+    it("it should login a user", (done) => {
+    chai.request("http://localhost:3000/api").post("/auth/login").send(child).end((err,res)=>{
+        childToken = res.body.data;
+    done();
+});
+}).timeout(5000); });
 
 
 
 });
+
 describe("GET teacherSchedule", () => {
     it("should get schedule by its teacher's id", (done) => {
     let req = {
@@ -107,6 +161,10 @@ let res = testUtils.responseValidatorAsync(500, (err) => {
 
 schedule.getTeacherSchedule(req, res);
 });
+});
+
+after((done) => {
+    mongoose.disconnect(done);
 });
 });
 
