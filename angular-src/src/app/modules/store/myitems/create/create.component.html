@@ -76,9 +76,12 @@ margin-left:4%;
  				 [url]="'http://127.0.0.1:3000/api/store/upload'"
  				 [dropBoxMessage]="'Drop your image here!'"
  				 [buttonCaption]="'Upload an Image'"
+				 [style]="customStyle"
  				 (uploadFinished)="onUploadFinished($event)"
+				
  				 >
 				</image-upload>
+
 			</div>
 		</div>
 		<br/>

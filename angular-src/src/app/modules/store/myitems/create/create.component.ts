@@ -13,6 +13,31 @@ import { Router } from '@angular/router';
 })
 export class CreateComponent implements OnInit {
 
+customStyle = {
+    selectButton: {
+      "background-color": "#5495ff",
+      "color": "#FFF"
+    },
+    clearButton: {
+      "background-color": "red",
+      "border-radius": "25px",
+      "color": "#000",
+      "margin-left": "10px"
+    },
+    layout: {
+      "background-color": "white",
+      "color": "gray",
+      "font-size": "15px",
+      "margin": "10px",
+      "padding-top": "5px",
+      "width": "500px"
+    },
+    previewPanel: {
+      "background-color": "white",
+      "color": "white"
+    }
+  }
+
 
   name : string;
   description : string;

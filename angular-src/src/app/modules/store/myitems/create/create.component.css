@@ -22,3 +22,14 @@
 {
 	height:5%;
 }
+
+button
+{
+	background-color:#5495ff;
+}
+
+button:hover
+{
+	background-color:#5495ff;
+	color:#5495ff;
+}
