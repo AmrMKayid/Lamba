@@ -36,14 +36,14 @@
           <h2 class="itemName"><b>{{item['name']}}</b></h2>
          
           <div class="itemLikeCount">{{item['likes']}} <span class="fa fa-heart"></span></div>
-                         <td><button type = "button" name = "Nextbtn1" (click)= "like(item)"></button></td>
+                         <td><button type = "button" name = "Nextbtn1" (click)= "likeItems(item)"></button></td>
 
           <div class="itemPrice">Price: {{item['price']}} LE</div>
           <article class="itemDesc">{{item['description']}}</article>
 
-          <!-- TODO check if user already liked this item -->
+          
           <div class="itemUnLike"><i class="fa fa-heart"></i></div>
-          <td><button type = "button" name = "Nextbtn2" (click)= "unlike()"></button></td>
+          <td><button type = "button" name = "Nextbtn2" (click)= "unlikeItems(item)"></button></td>
 
         </div>
 
