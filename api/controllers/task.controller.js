@@ -20,6 +20,8 @@ module.exports.createNewTask = function(req, res, next) {
 
 module.exports.createNewComment = function(req, res, next) {
 
+  
+
 
   const com = {
     Comment: req.body.Comment,
@@ -107,13 +109,13 @@ module.exports.getComments = function(req, res, next) {
         data: com
       });
     });
-  }); 
+  });
 };
 
 module.exports.getTasks = function(req, res, next) {
   Task.find({StudentId: {
-    $eq: req.params.childId  
-  }  
+    $eq: req.params.childId
+  }
   }).exec(function(err, request) {
     if (err) {
       return next(err);
@@ -122,8 +124,8 @@ module.exports.getTasks = function(req, res, next) {
       err: null,
       msg:
         'Requests recieved successfully.',
-        data: request         
-        
+        data: request
+
       });
   });
 };
