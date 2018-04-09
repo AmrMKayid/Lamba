@@ -25,10 +25,19 @@ export class TeacherComponent implements OnInit {
   street: string;
   email: string;
   about: string;
-  currentUserID: string;
+  currentUserID: String;
   currentUser: any;
   fees: number;
   phone: number;
+
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      //GET THIS FROM POSTMAN'S LOGIN (won't work 3shan locally 3l database bta3ty)
+      'Authorization': localStorage.getItem('authentication')
+    })
+  };
 
   ///////////////// Schedule////////////////////////////
 
@@ -43,25 +52,19 @@ export class TeacherComponent implements OnInit {
   public fri = [];
 
   ///////////////////////////////////////////////////////////
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': localStorage.getItem('authentication')
-    })
-  };
+
   constructor(private router: Router,
               private httpClient: HttpClient,
-              private http: Http,
               private auth: AuthService,
               private toaster: ToasterService) {
   }
 
   ngOnInit() {
     this.currentUser = this.auth.getCurrentUser();
-    //this.currentUserID = this.currentUser;
+    this.currentUserID = this.currentUser._id;
      console.log(this.currentUser._id);
 //  this.httpClient.get('http://localhost:3000/api/user/getUserInfo/'+this.currentUserID,
-    //this.getTeacherSchedule();
+    this.getTeacherSchedule();
 
 }
 
@@ -97,7 +100,7 @@ export class TeacherComponent implements OnInit {
 
     }
   //  console.log(user);
-    this.http.patch('http://localhost:3000/api/user/updateUser/' + this.currentUser._id , {
+    this.httpClient.patch('http://localhost:3000/api/user/updateUser/' + this.currentUserID, {
     "email":user.email,
     "name":user.name,
     "about":user.about,
@@ -124,7 +127,7 @@ export class TeacherComponent implements OnInit {
 ////////////////////////////// schedule/////////////////////////////////////////////////////
   getTeacherSchedule() {
 
-    this.http.get('http://localhost:3000/api/schedule/getTeacherSchedule/' + this.currentUser._id , this.httpOptions).subscribe((res: any) => {
+    this.httpClient.get('http://localhost:3000/api/schedule/getTeacherSchedule/' + this.currentUserID , this.httpOptions).subscribe((res: any) => {
       this.sat = res.data.table.saturday;
       this.sun = res.data.table.sunday;
       this.mon = res.data.table.monday;
@@ -146,7 +149,7 @@ export class TeacherComponent implements OnInit {
       day : thisday
     }
 
-    this.http.patch('http://localhost:3000/api/schedule/updateTeacherSchedule' + Slot._id , body , this.httpOptions).subscribe((res: any) =>{
+    this.httpClient.patch('http://localhost:3000/api/schedule/updateTeacherSchedule' + Slot._id , body).subscribe((res: any) =>{
       if(thisday == 'saturday') {
         var index = this.sat.indexOf(Slot);
         this.sat[index] = res.data;
