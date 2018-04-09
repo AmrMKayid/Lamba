@@ -1,0 +1,38 @@
+
+
+#failure
+{
+	color: red;
+	font-size: 16px;
+}
+#success
+{
+	color:green;
+	font-size: 16px;
+
+}
+.itemform
+{
+	font-size: 23px;
+	padding-left: 10%;
+	width:100%;
+}
+
+#select
+{
+	height:5%;
+}
+
+button
+{
+	background-color:#5495ff;
+}
+
+button:hover
+{
+	background-color:#5495ff;
+	color:#5495ff;
+}
+textarea {
+   resize: none;
+}

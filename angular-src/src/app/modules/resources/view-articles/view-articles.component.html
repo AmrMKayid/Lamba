@@ -1,0 +1,73 @@
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('https://blog.commlabindia.com/wp-content/uploads/2017/10/online-training-for-classroom-training-challenges-infographic1.jpg')">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>Educational Resources</h1>
+          <span class="subheading">Get your learning on!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+  <a class="btn btn-success" [routerLink]="['post']"><i class="fa fa-bolt"></i>Post new article</a>
+<!--   <a class="btn btn-success btn-block" [routerLink]="['post']">Post new article</a>
+ -->  <hr>
+  <div class="row" *ngIf="articlesInitialized && tagsInitialized">
+
+    <div class="col-lg-8 col-md-10 mx-auto">
+      <!--TODO: change itemsPerPage, it was just set 1 for testing. Also, we can handle it in the backend-->
+      <ng-container *ngFor="let article of articles | filterByTags: filterTagsIDs | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
+        <div class="post-preview">
+          <a style="cursor: pointer;" [routerLink]="['id',article._id]">
+            <h2 class="post-title">
+              {{article.title}}
+            </h2>
+          </a>
+<!--           <br>
+ -->          <i class="fa fa-thumbs-o-up mr-5" aria-hidden="true">{{article.upvoters.length}}</i>
+<!--           <br>
+ -->          <i class="fa fa-thumbs-o-down mr-5" aria-hidden="true">{{article.downvoters.length}}</i>
+         <!--  <h3 class="post-subtitle" [ngClass]="{
+            'text-success': article.upvoters.length - article.downvoters.length >0 ,
+            'text-danger': (!article.upvoters.length - article.downvoters.length >0) && article.upvoters.length - article.downvoters.length !== 0 
+          }">
+            Total Rating: {{article.upvoters.length - article.downvoters.length}} {{(article.upvoters.length - article.downvoters.length>0)?
+            'upvoter(s)':'downvoter(s)'}}
+          </h3> -->
+          <!-- </a> -->
+          <h4>Tags: </h4>
+          <a *ngFor="let tag of article.tags" (click)="setTag(tag)" style="cursor: pointer;" class="badge badge-primary">{{getTagByID(allTags, tag)}}</a>
+          <p class="post-meta">Posted by
+            <a style="cursor: pointer;" [routerLink]="['/profile',article.owner_id._id]">{{article.owner_id.name.firstName}} {{article.owner_id.name.lastName}}</a>
+            on {{article.createdAt | date}}</p>
+        </div>
+        <hr>
+      </ng-container>
+      <!-- Pager -->
+      <div class="clearfix">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-10 mx-auto">
+      <h1 class="text-center text-primary">Filter by tags:</h1>
+      <hr>
+      <tag-input [(ngModel)]="selectedTags" [onlyFromAutocomplete]="true" (onRemove)="onTagsChanged()" (onTextChange)="onTagsChanged()">
+        <tag-input-dropdown [showDropdownIfEmpty]="true" [dynamicUpdate]="false" [focusFirstElement]="true" [displayBy]="'value'"
+          [identifyBy]="'id'" [autocompleteItems]="allTags">
+          <ng-template let-item="item">
+            {{ item.value }}
+          </ng-template>
+        </tag-input-dropdown>
+      </tag-input>
+
+    </div>
+
+  </div>
+</div>

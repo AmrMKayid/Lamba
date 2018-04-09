@@ -1,6 +1,4 @@
-let express = require('express'),
-    router = express.Router(),
-    jwt = require('jsonwebtoken');
+var jwt = require('jsonwebtoken');
 
 module.exports.isAuthenticated = function (req, res, next) {
     // Check that the request has the JWT in the authorization header
@@ -51,3 +49,17 @@ module.exports.isNotChild = function (req, res, next) {
     }
     next();
 };
+
+//To check if User is an Admin (yasmeen)
+
+module.exports.isAdmin=function(req,res,next){
+    if(req.decodedToken.user.role !=="Admin"){
+        return res.status(401).json({
+            err: null,
+            msg: "You don't have permissions (Not An Admin account)",
+            data: null
+        });
+    }
+    next();
+};
+

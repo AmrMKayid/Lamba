@@ -1,0 +1,129 @@
+<!-- <div class="card">
+  <img src="" style="width:100%">
+  <h1 id="name">{{firstName}} {{lastName}}</h1>
+  <p id="email">Email: {{email}}</p>
+  <p id="fees">Fees: {{fees}}</p>
+  <p id="phone">phone: {{phone}}</p>
+  <p id="address">Address: {{street}} {{state}} {{city}} {{zip}}</p>
+
+  <p id="About">About: {{about}}</p>
+
+</div>
+<button onclick="document.getElementById('editModal').style.display='block'" style="width:auto;">Edit</button>
+
+<div id="editModal" class="modal">
+  <toaster-container></toaster-container>
+
+  <span onclick="document.getElementById('editModal').style.display='none'" class="close"
+        title="Close Modal">&times;</span>
+  <form (submit)=onEditInfo() id="editForm" class="modal-content" action="/action_page.php">
+    <div id="editContainer" class="container">
+      <h1>Edit your info</h1>
+      <hr>
+      <label for="firstName"><b> Fisrt Name</b></label>
+      <input type="text" placeholder="First Name" [(ngModel)]="firstName" name="fname" required>
+
+      <label for="middleName"><b> Middle Name</b></label>
+      <input type="text" placeholder="Middle Name" [(ngModel)]="middleName" name="Mname">
+
+      <label for="lastName"><b> Last Name</b></label>
+      <input type="text" placeholder="Last Name" [(ngModel)]="lastName" name="lname" required>
+
+      <label for="email"><b> Email</b></label>
+      <input type="text" placeholder="Email" [(ngModel)]="email" name="email" required>
+
+
+      <label for="about"><b>About</b></label>
+      <input type="text" placeholder=" About" [(ngModel)]="about" name="state">
+
+      <label for="city"><b> City</b></label>
+      <input type="text" placeholder=" City" [(ngModel)]="city" name="city">
+
+      <label for="street"><b> Street</b></label>
+      <input type="text" placeholder=" Street" [(ngModel)]="street" name="street">
+
+      <label for="state"><b> State</b></label>
+      <input type="text" placeholder=" State" [(ngModel)]="state" name="state">
+
+
+      <label for="zip"><b> Zip</b></label>
+      <input type="number" placeholder=" Zip" [(ngModel)]="zip" name="zip">
+
+      <label for="fees"><b> Fees</b></label>
+      <input type="number" placeholder=" Zip" [(ngModel)]="fees" name="fees">
+
+      <label for="phone"><b>phone</b></label>
+      <input type="number" placeholder="phone" [(ngModel)]="phone" name="phone">
+
+
+      <div id="clearfix" class="clearfix">
+        <button type="button" onclick="document.getElementById('editModal').style.display='none'" class="cancelbtn">
+          Cancel
+        </button>
+        <button id="editbutton" type="submit" class="editbtn">Edit</button>
+      </div>
+    </div>
+  </form>
+</div> -->
+
+
+
+
+<!--Card-->
+<div class="card card-cascade wider reverse my-4 myCardSize">
+
+  <!--Card image-->
+  <img src="assets/Nawwar2.png" class="img-fluid">
+  <a>
+    <div class="mask"></div>
+  </a>
+  <!--/Card image-->
+
+  <!--Card content-->
+  <div class="card-body text-center">
+    <div class="avatar">
+      <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg" class="rounded-circle">
+    </div>
+
+    <!--Title-->
+    <h4 class="card-title"><strong>Your Name</strong></h4>
+    <h5 class="indigo-text"><strong>Teacher</strong></h5>
+
+
+
+<div class="mt-5">
+
+  <ngb-tabset class="nav-justified">
+    <ngb-tab title="Schedule">
+      <ng-template ngbTabContent>
+        <div class="container">
+        <div class="row text-center">
+        I am the damn Schedule
+        </div>
+        </div>
+      </ng-template>
+    </ngb-tab>
+
+    <ngb-tab title="Students">
+      <ng-template ngbTabContent>
+        <div class="container text-center">
+        <div class="row ">
+        I am the damn Students
+        </div>
+        </div>
+      </ng-template>
+    </ngb-tab>
+
+  </ngb-tabset>
+
+
+
+
+</div>
+
+
+  </div>
+  <!--/.Card content-->
+
+</div>
+<!--/.Card-->

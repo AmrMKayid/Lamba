@@ -238,7 +238,7 @@ module.exports.likeItems = function(req, res, next) {
     }
     else{
       retrievedItem.likes_user_id.push(user);
-      retrievedItem.likes += 1; }
+      retrievedItem.likes = retrievedItem.likes +1; }
 
 
       return res.status(200).json({
@@ -269,7 +269,7 @@ module.exports.unlikeItems = function(req, res, next) {
     }
     else{
       retrievedItem.likes_user_id.pop(user);
-      retrievedItem.likes -= 1; }
+      retrievedItem.likes =retrievedItem.likes- 1; }
 
 
       return res.status(200).json({
@@ -300,7 +300,7 @@ module.exports.countItmes = function(req, res, next) {
   */
 module.exports.getImage = function(req, res, next) {
 
-	return res.sendFile(path.resolve('api/uploads/store/' + req.params.filename));
+	return res.status(200).sendFile(path.resolve('api/uploads/' + req.params.filename));
 
 }
 

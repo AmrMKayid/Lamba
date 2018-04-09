@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-to-do",
+  "name": "lamba",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -9,26 +9,29 @@
     "test": "mocha --timeout 10000 --exit"
   },
   "dependencies": {
+    "angular5-toaster": "^1.0.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
     "compression": "^1.7.2",
-    "concat-stream": "^1.6.2",
     "cors": "^2.8.4",
     "debug": "^3.1.0",
     "express": "^4.16.2",
-    "express-fileupload": "^0.4.0",
     "helmet": "^3.12.0",
-    "jquery": "^3.3.1",
+    "jsdom": "^11.6.2",
     "jsonwebtoken": "^8.2.0",
+    "mocha": "^5.0.5",
     "moment": "^2.21.0",
     "mongoose": "^5.0.9",
     "morgan": "^1.9.0",
     "multer": "^1.3.0",
-    "passport": "^0.4.0"
+    "nodemon": "^1.17.3",
+    "passport": "^0.4.0",
+    "path": "^0.12.7"
   },
   "devDependencies": {
+    "@angular/cli": "^1.7.3",
     "concurrently": "^3.5.1"
   }
 }
