@@ -33,3 +33,6 @@ button:hover
 	background-color:#5495ff;
 	color:#5495ff;
 }
+textarea {
+   resize: none;
+}

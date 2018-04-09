@@ -64,8 +64,8 @@ customStyle = {
   	{
 		this.toaster.pop({
 		                  type: 'error',
-		                  title: "You need to upload a photo",
-		                  body: "you have to provide an Item Name",
+		                  title: "No photo was uploaded",
+		                  body: "You have to upload a photo first before submitting the form",
 		                  timeout: 10000
 		                });
 	}
@@ -73,8 +73,8 @@ customStyle = {
   	{
   		this.toaster.pop({
                   type: 'error',
-                  title: "Missing the Item name!",
-                  body: "you have to provide an Item Name",
+                  title: "Missing Field",
+                  body: "One or more field is missing. Please provide all fields",
                   timeout: 10000
                 });
   	}
