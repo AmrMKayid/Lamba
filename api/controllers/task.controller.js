@@ -1,8 +1,8 @@
 var mongoose = require('mongoose'),
-User = mongoose.model('User'),
-Task = mongoose.model('Task'),
-Comment = mongoose.model('Comment');
-
+  User = mongoose.model('User'),
+  Task = mongoose.model('Task'),
+  Comment = mongoose.model('Comment'),
+  Child = mongoose.model('Child');
 
 module.exports.createNewTask = function(req, res, next) {
   Task.create(req.body, function(err, task) {
@@ -21,6 +21,8 @@ module.exports.createNewTask = function(req, res, next) {
 module.exports.createNewComment = function(req, res, next) {
 
 
+
+
   const com = {
     Comment: req.body.Comment,
     userId: req.body.userId,
@@ -28,13 +30,44 @@ module.exports.createNewComment = function(req, res, next) {
     name: req.body.name
   }
 
+  Task.findById(req.body.taskId).exec(function(err, task) {
 
-  Comment.create(com, function(err, comment) {
-    if (err) {
-      return next(err);
+    var auth = false;
+
+
+    if (req.body.userType === "Parent") {
+
+      Child.findById(task.StudentId).exec(function(err, child) {
+
+        if (err || !child) {
+          auth = false;
+        } else {
+          if (child.parent_id === req.body.userId) {
+            auth = true;
+          } else {
+            auth = false;
+          }
+        }
+      });
+
+
+    } else if (req.body.userType === "Teacher") {
+      if (req.body.userId === task.TeacherId) {
+        auth = true;
+      }
+    } else if (req.body.userType === "Child") {
+      if (req.body.userId === task.StudentId) {
+        auth = true;
+      }
     }
 
-    Task.findById(req.body.taskId).exec(function(err, task) {
+    if (auth) {
+      Comment.create(com, function(err, comment) {
+        if (err) {
+          return next(err);
+        }
+      });
+
       task.Comments.push(comment);
       task.save(function(err) {
         if (err) {
@@ -45,17 +78,24 @@ module.exports.createNewComment = function(req, res, next) {
           msg: 'Comment was created successfully.',
           data: task
         });
-
       });
+    } else {
+      res.status(401).json({
+        err: null,
+        msg: 'Not Auth.',
+        data: task
+      });
+    }
 
 
-    });
   });
+
 };
 
 
 
 module.exports.getComments = function(req, res, next) {
+  
   Task.findById(req.params.taskId).exec(function(err, task) {
     if (err) {
       return next(err);
@@ -107,24 +147,24 @@ module.exports.getComments = function(req, res, next) {
         data: com
       });
     });
-  }); 
+  });
 };
 
 module.exports.getTasks = function(req, res, next) {
-  Task.find({StudentId: {
-    $eq: req.params.childId  
-  }  
+  Task.find({
+    StudentId: {
+      $eq: req.params.childId
+    }
   }).exec(function(err, request) {
     if (err) {
       return next(err);
     }
-  res.status(200).json({
+    res.status(200).json({
       err: null,
-      msg:
-        'Requests recieved successfully.',
-        data: request         
-        
-      });
+      msg: 'Requests recieved successfully.',
+      data: request
+
+    });
   });
 };
 
@@ -134,10 +174,9 @@ module.exports.getTeacher = function(req, res, next) {
     if (err) {
       return next(err);
     }
-  res.status(200).json({
+    res.status(200).json({
       err: null,
-      msg:
-        'Requests recieved successfully.',
+      msg: 'Requests recieved successfully.',
       data: user.name
     });
   });
