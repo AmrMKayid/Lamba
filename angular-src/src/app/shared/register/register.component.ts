@@ -14,6 +14,7 @@ import {ToasterService} from 'angular5-toaster/src/toaster.service';
 export class RegisterComponent implements OnInit {
 
   user: FormGroup;
+  chosenRole;
 
   ngOnInit() {
     this.user = new FormGroup({
@@ -31,15 +32,18 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit({value, valid}: { value: User, valid: boolean }) {
-
-    value.role = 'Parent';
-    console.log(value, valid);
+    value.role = this.chosenRole;
     this.register(value);
   }
 
   constructor(private router: Router,
+              private route: ActivatedRoute,
               private toaster: ToasterService,
               private authService: AuthService) {
+
+    this.route.queryParams.subscribe(params => {
+      this.chosenRole = params['role'];
+    });
   }
 
   register(value: any) {
