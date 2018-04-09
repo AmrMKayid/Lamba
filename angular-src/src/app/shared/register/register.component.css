@@ -1,0 +1,42 @@
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  .myContainer
+  {
+width: 80%;
+margin: auto;
+  }
+ }
+
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .myContainer
+  {
+    width: 70%;
+    margin: auto;
+
+
+  }
+ }
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .myContainer
+  {
+
+    width: 60%;
+    margin: auto;
+
+  }
+ }
+
+/* // Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .myContainer
+  {
+    width: 50%;
+    margin: auto;
+
+
+  }
+ }
