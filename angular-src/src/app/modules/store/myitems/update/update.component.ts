@@ -37,6 +37,22 @@ export class UpdateComponent implements OnInit {
       private storeservice : StoreService,
     ) {}
 
+
+
+    getMyItems() {
+      this.http.get('http://localhost:3000/api/product/getItemsById')
+        .subscribe((res: any) => {
+          this.myitems = res.data;
+        });
+    }
+
+    clearInput() {
+      this.name = "";
+      this.price = 0;
+    }
+
+
+
     editItem(item) {
       this.name = item.name;
       this.price = item.price;
@@ -61,9 +77,8 @@ export class UpdateComponent implements OnInit {
             timeout: 3000
           });
 
-          //
-          //  NEEDS TO GET THE PRODUCTS AGAIN TO REFRESH BUT NOT PART OF THE USER STORY
-          //
+          this.getMyItems();
+
           this.newOrEdit = false;
           this.editPressed = false;
         });
@@ -80,9 +95,9 @@ export class UpdateComponent implements OnInit {
             body: "Deleted",
             timeout: 3000
           });
-          //
-          //  NEEDS TO GET THE PRODUCTS AGAIN TO REFRESH BUT NOT PART OF THE USER STORY
-          //
+
+          this.getMyItems();
+
        });
     }
 

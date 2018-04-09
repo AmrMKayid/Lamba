@@ -146,6 +146,22 @@ module.exports.viewItems = function(req, res, next) {
 }
 
 
+module.exports.getItemsById = function(req, res, next) {
+    console.log( decoded.user._id )
+  Item.find({seller_id: decoded.user._id}).exec(function(err, Items) {
+    if (err) {
+      console.log(err)
+    }
+    res.status(200).json({
+      err: null,
+      msg: 'finished successfully',
+      data: items
+    });
+  });
+
+  }
+
+
 
 module.exports.editItems = function(req, res, next) {
   var valid =  req.body.name && Validations.isString(req.body.name) &&
