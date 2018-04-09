@@ -27,6 +27,7 @@ import {ResourcesModule} from "./modules/resources/resources.module";
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { AllUsersComponent } from './shared/all-users/all-users.component';
+import { RegisterRoleComponent } from './shared/register-role/register-role.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { AllUsersComponent } from './shared/all-users/all-users.component';
     NavbarComponent,
     FooterComponent,
     AllUsersComponent,
+    RegisterRoleComponent,
   ],
   imports: [
     BrowserModule,
