@@ -30,7 +30,7 @@ export class TeacherComponent implements OnInit {
   currentUser: any;
   fees: number;
   phone: number;
-
+  closeResult: string;
 
   httpOptions = {
     headers: new HttpHeaders({

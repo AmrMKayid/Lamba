@@ -16,7 +16,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 export class ParentComponent implements OnInit {
 
   currentUser;
-  myChildren;
+  myChildren = [] ;
 
   newChildBtn: boolean;
   closeResult: string;
@@ -70,7 +70,10 @@ export class ParentComponent implements OnInit {
 
 
     this.http.post(appConfig.apiUrl + '/auth/child', newChild,this.httpOptions).subscribe(
-      data => {
+      (res: any) =>{
+        this.myChildren = this.myChildren.concat(res.data) ;
+      
+
         this.toaster.pop({
           type: 'success',
           title: "Success!",
