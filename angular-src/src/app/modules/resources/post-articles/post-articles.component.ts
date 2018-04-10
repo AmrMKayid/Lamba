@@ -16,7 +16,6 @@ export class PostArticlesComponent implements OnInit {
   tagsInitialized: boolean;
   allTags: { value: string, id: string }[];
   selectedTags: any[];
-  filterTagsIDs: string[] = [];
   public toolbarOptions = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'],
@@ -33,7 +32,7 @@ export class PostArticlesComponent implements OnInit {
       [{ font: [].slice() }],
       [{ align: [].slice() }],
       ['clean'],
-      ['video']
+      ['video', 'link']
     ]
   };
   //TODO: Export it into a service.
@@ -48,6 +47,7 @@ export class PostArticlesComponent implements OnInit {
 
   ngOnInit() {
     this.tagsInitialized = false;
+    this.selectedTags = [];
     this.allTags = [];
     this.articlesService.getAllTags().subscribe(
       (res: any) => {
@@ -55,7 +55,6 @@ export class PostArticlesComponent implements OnInit {
           this.allTags.push({ value: element.name, id: element._id })
         });
         this.tagsInitialized = true;
-        console.dir(this.allTags);
       }, err => {
         alert(`Articles not retrieved: ${err.error.msg}`);
       }
@@ -70,7 +69,8 @@ export class PostArticlesComponent implements OnInit {
     }
     let article = {
       title: this.title,
-      content: this.editorContent
+      content: this.editorContent,
+      tags: (this.selectedTags.map(tag => tag.id))
     };
 
     this.http.post('http://localhost:3000/api/articles', article, this.httpOptions)
@@ -83,23 +83,5 @@ export class PostArticlesComponent implements OnInit {
         alert(`Article was not posted: ${msg}`);
       });
   }
-  onTagsChanged() {
-    this.filterTagsIDs = [];
-    this.selectedTags.forEach(element => {
-      this.filterTagsIDs.push(element.id);
-    });
-  }
-  getTagByID(allTags: { value: string, id: string }[], tagID: string) {
-    for (let i = 0; i < allTags.length; i++) {
-      if (allTags[i].id === tagID) {
-        return allTags[i].value;
-      }
-    }
-  }
-  setTag(tag) {
-    this.filterTagsIDs = [];
-    this.filterTagsIDs.push(tag);
-    this.selectedTags = [];
-    this.selectedTags.push({ value: tag, id: tag, display: this.getTagByID(this.allTags, tag) });
-  }
+
 }
