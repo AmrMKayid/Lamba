@@ -1,3 +1,4 @@
+### Edited the show reply, outsourced into a method to close all other open replies
 
 Parts missing in the re-design of the article viewing page:
 
