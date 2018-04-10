@@ -18,10 +18,12 @@ import {TeacherComponent} from './teacher/teacher.component';
 import {ChildComponent} from './child/child.component';
 import {UnVerifiedArticlesComponent} from './admin/un-verified-articles/un-verified-articles.component';
 import {VerifyArticleComponent} from './admin/verify-article/verify-article.component';
-import { VerifyTeacherComponent } from './admin/verify-teacher/verify-teacher.component';
+import {VerifyTeacherComponent} from './admin/verify-teacher/verify-teacher.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { ViewUserComponent } from './view-user/view-user.component';
+import {ViewParentComponent} from './view-profile/view-parent/view-parent.component';
+import {ViewTeacherComponent} from './view-profile/view-teacher/view-teacher.component';
+import {ViewChildComponent} from './view-profile/view-child/view-child.component';
 
 const appRoutes: Routes = [
   {
@@ -29,8 +31,18 @@ const appRoutes: Routes = [
     component: ProfileComponent,
     children: [
       {
-        path: 'view',
-        component: ViewUserComponent,
+        path: 'view-child',
+        component: ViewChildComponent,
+
+      },
+      {
+        path: 'view-parent',
+        component: ViewParentComponent,
+
+      },
+      {
+        path: 'view-teacher',
+        component: ViewTeacherComponent,
 
       },
       {
@@ -94,7 +106,9 @@ const appRoutes: Routes = [
     UnVerifiedArticlesComponent,
     VerifyArticleComponent,
     VerifyTeacherComponent,
-    ViewUserComponent
+    ViewParentComponent,
+    ViewTeacherComponent,
+    ViewChildComponent
   ],
   providers: [
     HttpClient

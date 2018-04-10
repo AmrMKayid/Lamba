@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {appConfig} from "../../../app.config";
 import {HttpClient} from "@angular/common/http";
+import {appConfig} from "../../../../app.config";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
-  selector: 'app-view-user',
-  templateUrl: './view-user.component.html',
-  styleUrls: ['./view-user.component.scss']
+  selector: 'app-view-teacher',
+  templateUrl: './view-teacher.component.html',
+  styleUrls: ['./view-teacher.component.scss']
 })
-export class ViewUserComponent implements OnInit {
+export class ViewTeacherComponent implements OnInit {
 
   userID;
   user;
@@ -26,6 +26,7 @@ export class ViewUserComponent implements OnInit {
         this.user = res.data;
       });
   }
+
 
   ngOnInit() {
     this.getUserByID(this.userID);

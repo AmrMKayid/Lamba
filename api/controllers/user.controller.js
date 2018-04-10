@@ -38,6 +38,27 @@ module.exports.getUserByID = function (req, res, next) {
     });
 };
 
+module.exports.getChildByID = function (req, res, next) {
+    if (!Validations.isObjectId(req.params.childID)) {
+        return res.status(422).json({
+            err: null,
+            msg: 'childID parameter must be a valid ObjectId.',
+            data: null
+        });
+    }
+    Child.findById(req.params.childID).exec(function (err, child) {
+        if (err) {
+            return next(err);
+        }
+        res.status(200).json({
+            err: null,
+            msg: 'Child retrieved successfully.',
+            data: child
+        });
+    });
+};
+
+
 module.exports.getUserChildren = function (req, res, next) {
     if (!Validations.isObjectId(req.params.userID)) {
         return res.status(422).json({

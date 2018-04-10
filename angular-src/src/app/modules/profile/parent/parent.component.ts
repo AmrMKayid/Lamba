@@ -30,7 +30,7 @@ export class ParentComponent implements OnInit {
     })
   };
 
-  
+
   constructor(private router: Router,
     private http: HttpClient,
     private auth: AuthService,
@@ -51,6 +51,10 @@ export class ParentComponent implements OnInit {
       .subscribe((res: any) => {
         this.myChildren = res.data;
       });
+  }
+
+  viewChild(childID) {
+    this.router.navigate(['profile/view-child'], {queryParams: {id: childID}});
   }
 
   newChild(childFirstName , childlastName , childUsername , childPassword , childConfirmPassword ,childGender) {
