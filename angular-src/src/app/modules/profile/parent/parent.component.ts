@@ -27,6 +27,7 @@ export class ParentComponent implements OnInit {
     })
   };
 
+
   constructor(private router: Router,
     private http: HttpClient,
     private auth: AuthService,
@@ -47,6 +48,10 @@ export class ParentComponent implements OnInit {
       .subscribe((res: any) => {
         this.myChildren = res.data;
       });
+  }
+
+  viewChild(childID) {
+    this.router.navigate(['profile/view-child'], {queryParams: {id: childID}});
   }
 
   newChild(childFirstName , childlastName , childUsername , childPassword , childConfirmPassword ,childGender) {
@@ -72,7 +77,7 @@ export class ParentComponent implements OnInit {
     this.http.post(appConfig.apiUrl + '/auth/child', newChild,this.httpOptions).subscribe(
       (res: any) =>{
         this.myChildren = this.myChildren.concat(res.data) ;
-      
+
 
         this.toaster.pop({
           type: 'success',

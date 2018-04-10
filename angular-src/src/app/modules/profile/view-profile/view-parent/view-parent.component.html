@@ -1,0 +1,41 @@
+<!--Card-->
+<div class="card card-cascade wider reverse my-4 myCardSize">
+
+  <!--Background image-->
+  <div class="view overlay hm-white-slight waves-light" mdbRippleRadius>
+    <img src="assets/nawwarBG.png" class="img-fluid">
+    <a>
+      <div class="mask"></div>
+    </a>
+  </div>
+  <!--/Background image-->
+
+  <!--Card content-->
+  <div class="card-body text-center">
+    <div class="avatar">
+      <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg" class="rounded-circle">
+    </div>
+
+    <!--Title-->
+    <h3 class="card-title"><strong>{{user.name.firstName}} {{user.name.lastName}}</strong></h3>
+    <h4 class="indigo-text"><strong>{{user.role}}</strong></h4>
+    <h5 class="indigo-text" *ngIf="user.address"><strong>{{user.address.street}}, {{user.address.city}},
+      {{user.address.state}}, {{user.address.zip}}</strong></h5>
+
+
+    <button class="btn btn-deep-orange">Connect</button>
+
+    <div class="mt-5">
+
+      <ngb-tabset class="nav-justified">
+
+
+      </ngb-tabset>
+
+    </div>
+
+  </div>
+  <!--/.Card content-->
+
+</div>
+<!--/.Card-->
