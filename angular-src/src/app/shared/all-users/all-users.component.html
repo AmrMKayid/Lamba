@@ -1,0 +1,19 @@
+<table class="table table-striped table-hover" id="UsersTable">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Role</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of Users">
+    <td> Name: <strong>{{ user.name.firstName }} {{ user.name.lastName }}</strong></td>
+    <td> Role: <strong>{{ user.role }}</strong></td>
+    <td>
+      <button (click)="viewUser(user._id)" class="btn btn-primary">View Profile</button>
+    </td>
+  </tr>
+  </tbody>
+  <br>
+</table>

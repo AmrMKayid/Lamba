@@ -18,6 +18,9 @@ router.post('/auth/login', mw.isNotAuthenticated, authCtrl.login);
 router.post('/auth/child', mw.isAuthenticated, mw.isNotChild, authCtrl.addChild);
 router.post('/auth/admin', mw.isAuthenticated, authCtrl.addAdmin);
 //-----------------------------------User Routes-------------------------------------//
+router.get('/user/getAllUsers', userCtrl.getAllUsers);
+router.get('/user/getUser/:userID', userCtrl.getUserByID);
+
 router.get('/admin/teachers_verfication', userCtrl.getPendingTeachers);
 router.get('/admin/accept_teacher/:teacherID', userCtrl.acceptTeacher);
 
@@ -40,6 +43,8 @@ router.patch('/schedule/updateChildSchedule/:SlotId/:ChildId',mw.isAuthenticated
 /*-----------------------------Store Routes-------------------------------------*/
 router.post('/store/create', mw.isAuthenticated, storeCtrl.createItems);
 router.post('/store/upload', storeCtrl.uploadItemPhoto);
+router.get('/product/getItemsById', storeCtrl.getItemsById);
+
 // TODO add mw.isAuthenticated
 router.get('/store/countItmes', storeCtrl.countItmes);
 router.get('/store/view/:tuplesPerPage/:pageNumber', storeCtrl.viewItems);
@@ -62,4 +67,3 @@ router.post('/articles/reply', mw.isAuthenticated,  articleCtrl.replyComment);
 
 
 module.exports = router;
-

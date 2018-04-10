@@ -24,6 +24,11 @@
 
       <li class="nav-item" [routerLinkActive]="['active']">
         <!--TODO: Resources-->
+        <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/users']" *ngIf="isLoggedIn()">People</a>
+      </li>
+
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <!--TODO: Resources-->
         <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/resources']" *ngIf="isLoggedIn()">Resources</a>
       </li>
 
@@ -55,7 +60,7 @@
         <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/profile/', this.auth.getUserRole().toLowerCase()]">Profile</a>
       </li>
 
-      <li class="nav-item d-md-none " [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
+      <li class="nav-item d-md-none " *ngIf="isLoggedIn()">
         <a class="nav-link waves-light" mdbRippleRadius  (click)="logout()" [routerLink]="['/']">Log Out</a>
       </li>
 

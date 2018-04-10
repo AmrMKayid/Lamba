@@ -371,6 +371,14 @@ module.exports.commentArticle = function (req, res, next){
     let valid = req.body.article_id &&
         Validations.isString(req.body.article_id) &&
         req.body.comment_content && Validations.isString(req.body.comment_content);
+        if (!valid) {
+    return res.status(422).json({
+      err: null,
+      msg: 'article_id(String) and comment content(String) are required fields.',
+      data: null
+    });
+  }
+    
     let userID = req.decodedToken.user._id;
     Article.findById(req.body.article_id, (err, retrievedArticle) => {
         if(err) {
@@ -394,6 +402,13 @@ module.exports.replyComment = function (req, res, next) {
         Validations.isString(req.body.comment_id) &&
         req.body.reply &&
         Validations.isString(req.body.reply)
+        if (!valid) {
+    return res.status(422).json({
+      err: null,
+      msg: 'article_id(String), and comment_id(String) and reply content(String) are required fields.',
+      data: null
+    });
+  }
     let userID = req.decodedToken.user._id;
     Article.findById(req.body.article_id, (err, retrievedArticle) => {
         if(err) {

@@ -20,14 +20,19 @@ import {UnVerifiedArticlesComponent} from './admin/un-verified-articles/un-verif
 import {VerifyArticleComponent} from './admin/verify-article/verify-article.component';
 import { VerifyTeacherComponent } from './admin/verify-teacher/verify-teacher.component';
 
-
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ViewUserComponent } from './view-user/view-user.component';
 
 const appRoutes: Routes = [
   {
     path: '',
     component: ProfileComponent,
     children: [
+      {
+        path: 'view',
+        component: ViewUserComponent,
+
+      },
       {
         path: 'admin',
         component: AdminComponent,
@@ -89,7 +94,7 @@ const appRoutes: Routes = [
     UnVerifiedArticlesComponent,
     VerifyArticleComponent,
     VerifyTeacherComponent,
-
+    ViewUserComponent
   ],
   providers: [
     HttpClient
