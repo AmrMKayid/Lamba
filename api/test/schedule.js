@@ -188,6 +188,35 @@ done();
 });
 
 
+describe("getting teacher schedule",()=>{
+    it("it should return 200 ok",(done)=>{
+    chai.request("http://localhost:3000/api").get('/schedule/getTeacherSchedule/'+teacherId).set("authorization",teacherToken).end((err,res) =>{
+        expect(res).to.have.status(200);
+    expect(res.body.data.table).to.have.property('saturday');
+    expect(res.body.data.table).to.have.property('sunday');
+    expect(res.body.data.table).to.have.property('monday');
+    expect(res.body.data.table).to.have.property('tuesday');
+    expect(res.body.data.table).to.have.property('wednesday');
+    expect(res.body.data.table).to.have.property('thursday');
+    expect(res.body.data.table).to.have.property('friday');
+    done();
+});
+});
+it("it should return 422",(done)=>{
+    chai.request("http://localhost:3000/api").get('/schedule/getTeacherSchedule/123abge').set("authorization",teacherToken).end((err,res) =>{
+    expect(res).to.have.status(422);
+done();
+});
+});
+it("it should return 404",(done)=>{
+    chai.request("http://localhost:3000/api").get('/schedule/getTeacherSchedule/5acbc578a423863d2430e9c6').set("authorization",teacherToken).end((err,res) =>{
+    expect(res).to.have.status(404);
+done();
+});
+});
+
+});
+
 
 });
 
