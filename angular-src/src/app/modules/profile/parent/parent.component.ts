@@ -18,12 +18,6 @@ export class ParentComponent implements OnInit {
   currentUser;
   myChildren;
 
-  childFirstName;
-  childlastName;
-  childUsername;
-  childPassword;
-  childConfirmPassword;
-  childGender;
   newChildBtn: boolean;
   closeResult: string;
 
@@ -49,18 +43,20 @@ export class ParentComponent implements OnInit {
       });
   }
 
-  newChild() {
+  newChild(childFirstName , childlastName , childUsername , childPassword , childConfirmPassword ,childGender) {
 
     let newChild = {
       name: {
-        firstName: this.childFirstName,
-        lastName: this.childlastName
+        firstName: childFirstName,
+        lastName: childlastName
       },
-      username: this.childUsername,
-      password: this.childPassword,
-      confirmPassword: this.childConfirmPassword,
-      gender: this.childGender,
+      username: childUsername,
+      password: childPassword,
+      confirmPassword: childConfirmPassword,
+      gender: childGender,
     };
+
+    console.log(newChild);
 
     let autorization = { Authorization: localStorage.getItem('authorization') }
 
