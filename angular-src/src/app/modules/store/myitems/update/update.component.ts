@@ -103,8 +103,6 @@ export class UpdateComponent implements OnInit {
 
 
     ngOnInit() {
-
-     this.current = JSON.parse(localStorage.getItem('currentUser'))
     };
 
 
