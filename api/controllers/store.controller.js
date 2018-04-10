@@ -147,7 +147,10 @@ module.exports.viewItems = function(req, res, next) {
 
 
 module.exports.getItemsById = function(req, res, next) {
-    console.log( decoded.user._id )
+  const authorization = req.headers.authorization;
+  const secret = req.app.get('secret');
+  decoded = jwt.verify(authorization, secret);
+  console.log( decoded.user._id )
   Item.find({seller_id: decoded.user._id}).exec(function(err, Items) {
     if (err) {
       console.log(err)
@@ -155,7 +158,7 @@ module.exports.getItemsById = function(req, res, next) {
     res.status(200).json({
       err: null,
       msg: 'finished successfully',
-      data: items
+      data: Items
     });
   });
 

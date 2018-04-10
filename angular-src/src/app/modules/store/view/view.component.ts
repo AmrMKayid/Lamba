@@ -76,7 +76,7 @@ export class ViewComponent implements OnInit {
         this.items = data.data;
          });
       }
-      
+
       unlikeItems(){
         this.StoreService.unlikeItems().subscribe((data:any)=>{
           this.items = data.data;
