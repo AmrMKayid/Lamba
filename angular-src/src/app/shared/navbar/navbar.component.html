@@ -13,7 +13,8 @@
 
     <!-- Links -->
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"  *ngIf="!isLoggedIn()">
+      <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"
+          *ngIf="!isLoggedIn()">
         <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/']">Home</a>
       </li>
 
@@ -49,7 +50,8 @@
       </li>
 
       <li class="nav-item" [routerLinkActive]="['active']">
-        <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/register-role']" *ngIf="!isLoggedIn()">Sign Up</a>
+        <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/register-role']" *ngIf="!isLoggedIn()">Sign
+          Up</a>
       </li>
 
       <li class="nav-item d-md-none" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
@@ -57,11 +59,11 @@
       </li>
 
       <li class="nav-item d-md-none" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
-        <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/profile/', this.auth.getUserRole().toLowerCase()]">Profile</a>
+        <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/profile/',role]">Profile</a>
       </li>
 
       <li class="nav-item d-md-none " *ngIf="isLoggedIn()">
-        <a class="nav-link waves-light" mdbRippleRadius  (click)="logout()" [routerLink]="['/']">Log Out</a>
+        <a class="nav-link waves-light" mdbRippleRadius (click)="logout()" [routerLink]="['/']">Log Out</a>
       </li>
 
       <li class="nav-item d-none d-lg-block d-md-block d-xl-block" *ngIf="isLoggedIn()">
@@ -75,12 +77,13 @@
                class="img-fluid rounded-circle z-depth-0"><span
           class="caret"></span></a>
 
-
-        <div *dropdownMenu class="dropdown-menu dropdown-primary text-center" role="menu">
-          <a class="dropdown-item waves-light" mdbRippleRadius [routerLink]="['/profile/', this.auth.getUserRole().toLowerCase()]">Profile</a>
-          <div class="divider dropdown-divider"></div>
-          <a class="dropdown-item waves-light" mdbRippleRadius  (click)="logout()" [routerLink]="['/']">Log Out</a>
-        </div>
+          <div *dropdownMenu class="dropdown-menu dropdown-primary pull-left" role="menu">
+            <a class="dropdown-item waves-light" mdbRippleRadius *ngIf="isAdmin()"
+               [routerLink]="['/profile/admin/dashboard']">Profile</a>
+            <a class="dropdown-item waves-light" mdbRippleRadius *ngIf="!isAdmin()" [routerLink]="['/profile',role]">Profile</a>
+            <div class="divider dropdown-divider"></div>
+            <a class="dropdown-item waves-light" mdbRippleRadius (click)="logout()" [routerLink]="['/']">Log Out</a>
+          </div>
       </li>
     </ul>
     <!-- Links -->

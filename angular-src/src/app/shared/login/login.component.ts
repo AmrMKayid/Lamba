@@ -48,8 +48,8 @@ export class LoginComponent implements OnInit {
             this.returnUrl = 'profile/parent';
           } else if (userRole === 'Teacher') {
             this.returnUrl = 'profile/teacher';
-          } else if (userRole === 'Admin'){
-            this.returnUrl = 'profile/admin';
+          } else if (userRole === 'Admin') {
+            this.returnUrl = 'profile/admin/dashboard';
           }
           else {
             this.returnUrl = 'profile/child';
