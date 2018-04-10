@@ -1,11 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import {ToasterService} from 'angular5-toaster/src/toaster.service';
-import {appConfig} from "../../../app.config";
-import {HttpClient} from "@angular/common/http";
-import {AuthService} from "../../../services/auth.service";
+import { ToasterService } from 'angular5-toaster/src/toaster.service';
+import { appConfig } from "../../../app.config";
+import { HttpClient } from "@angular/common/http";
+import { AuthService } from "../../../services/auth.service";
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-parent',
@@ -24,11 +25,13 @@ export class ParentComponent implements OnInit {
   childConfirmPassword;
   childGender;
   newChildBtn: boolean;
+  closeResult: string;
 
   constructor(private router: Router,
-              private http: HttpClient,
-              private auth: AuthService,
-              private toaster: ToasterService) {
+    private http: HttpClient,
+    private auth: AuthService,
+    private toaster: ToasterService,
+    private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -59,9 +62,9 @@ export class ParentComponent implements OnInit {
       gender: this.childGender,
     };
 
-    let autorization =  { Authorization: localStorage.getItem('authorization') }
+    let autorization = { Authorization: localStorage.getItem('authorization') }
 
-    this.http.post(appConfig.apiUrl + '/auth/child', newChild, {headers: autorization}).subscribe(
+    this.http.post(appConfig.apiUrl + '/auth/child', newChild, { headers: autorization }).subscribe(
       data => {
         this.toaster.pop({
           type: 'success',
@@ -81,5 +84,24 @@ export class ParentComponent implements OnInit {
       });
 
   }
+
+  open(content) {
+    this.modalService.open(content).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
 
 }
