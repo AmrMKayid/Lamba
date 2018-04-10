@@ -52,7 +52,7 @@
       </li>
 
       <li class="nav-item d-md-none" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
-        <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/profile/', this.auth.getUserRole().toLowerCase()]">Profile</a>
+        <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/profile/',role]">Profile</a>
       </li>
 
       <li class="nav-item d-md-none " *ngIf="isLoggedIn()">
@@ -72,7 +72,8 @@
 
 
         <div *dropdownMenu class="dropdown-menu dropdown-primary pull-left" role="menu">
-          <a class="dropdown-item waves-light" mdbRippleRadius [routerLink]="['/profile/', this.auth.getUserRole().toLowerCase()]">Profile</a>
+          <a class="dropdown-item waves-light" mdbRippleRadius  *ngIf="isAdmin()" [routerLink]="['/profile/admin/dashboard']">Profile</a>
+          <a class="dropdown-item waves-light" mdbRippleRadius  *ngIf="!isAdmin()" [routerLink]="['/profile',role]">Profile</a>
           <div class="divider dropdown-divider"></div>
           <a class="dropdown-item waves-light" mdbRippleRadius  (click)="logout()" [routerLink]="['/']">Log Out</a>
         </div>

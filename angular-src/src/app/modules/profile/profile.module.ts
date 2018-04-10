@@ -51,6 +51,10 @@ const appRoutes: Routes = [
 
       },
       {
+        path: 'dashboard',
+        component: DashboardComponent
+      },
+      {
         path: 'parent',
         component: ParentComponent
       },
@@ -73,6 +77,7 @@ const appRoutes: Routes = [
         component: VerifyTeacherComponent
 
       },
+     
       {
         path: '',
         redirectTo: 'profile',

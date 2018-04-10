@@ -53,22 +53,11 @@ export class UnVerifiedArticlesComponent implements OnInit {
     let autorization =  { Authorization: localStorage.getItem('authentication') };
   this.httpClient.get('http://localhost:3000/api/user/verifyArticle/'+articleId,{headers: autorization})
        .subscribe((res: any) => { this.article = res.data; 
-       /* this.toast.pop({
-          type: 'success',
-          title: "Success",
-          body: res.msg,
-          timeout: 3000
-        });*/
+        this.ngOnInit();
       }, err => {
-        /*this.toast.pop({
-          type: 'error',
-          title: "Error!",
-          body: err.error.msg,
-          timeout: 3000
-        });*/
+       
       }); 
-      this.router.navigateByUrl('/RefrshComponent', {skipLocationChange: true}).then(()=>
-      this.router.navigate(['/profile/admin/un-verified-articles'])); 
+    
     
 
   }

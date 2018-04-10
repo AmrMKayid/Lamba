@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
           } else if (userRole === 'Teacher') {
             this.returnUrl = 'profile/teacher';
           } else {
-            this.returnUrl = 'profile/admin';
+            this.returnUrl = 'profile/admin/dashboard';
           }
           this.router.navigate([this.returnUrl]);
         },

@@ -2,6 +2,7 @@ $topnav-background-color: #222;
 :host {
     .navbar {
         background-color: $topnav-background-color;
+        height: 8%;
         .navbar-brand {
             color: #fff;
         }
@@ -35,4 +36,7 @@ $topnav-background-color: #222;
             }
         }
     }
+}
+.ddropdown-menu-rightn{
+    position:relative;
 }

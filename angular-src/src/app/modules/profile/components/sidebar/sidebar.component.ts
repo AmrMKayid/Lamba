@@ -11,6 +11,8 @@ export class SidebarComponent {
     isActive: boolean = false;
     showMenu: string = '';
     pushRightClass: string = 'push-right';
+    sidenavWidth = 4;
+
 
     constructor(private translate: TranslateService, public router: Router) {
         this.translate.addLangs(['en', 'fr', 'ur', 'es', 'it', 'fa', 'de']);
@@ -63,4 +65,12 @@ export class SidebarComponent {
     onLoggedout() {
         localStorage.removeItem('isLoggedin');
     }
+    increase(){
+        this.sidenavWidth = 15;
+        console.log("increase sidenav width");
+      }
+      decrease(){
+        this.sidenavWidth = 4;
+        console.log("decrease sidenav width");
+      }
 }

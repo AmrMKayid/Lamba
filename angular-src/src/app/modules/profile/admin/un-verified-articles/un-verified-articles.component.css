@@ -10,7 +10,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 50%;
+    left: 32%;
     width: 3px;
     margin-left: -1.5px;
     background-color: #eeeeee;
@@ -44,7 +44,7 @@
 .timeline > li > .timeline-panel {
     float: left;
     position: relative;
-    width: 46%;
+    width: 29%;
     padding: 20px;
     border: 1px solid #d4d4d4;
     border-radius: 2px;
@@ -80,7 +80,7 @@
     z-index: 100;
     position: absolute;
     top: 16px;
-    left: 50%;
+    left: 32%;
     width: 50px;
     height: 50px;
     margin-left: -25px;
@@ -93,6 +93,7 @@
 }
 
 .timeline > li.timeline-inverted > .timeline-panel {
+    width:65%;
     float: right;
 }
 
