@@ -35,7 +35,6 @@ export class TeacherComponent implements OnInit {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      //GET THIS FROM POSTMAN'S LOGIN (won't work 3shan locally 3l database bta3ty)
       'Authorization': localStorage.getItem('authentication')
     })
   };
@@ -192,7 +191,7 @@ export class TeacherComponent implements OnInit {
   }
 
 
-  
+
   open(content) {
     this.modalService.open(content).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
