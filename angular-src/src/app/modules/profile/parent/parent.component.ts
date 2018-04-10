@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ToasterService } from 'angular5-toaster/src/toaster.service';
 import { appConfig } from "../../../app.config";
-import { HttpClient } from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { AuthService } from "../../../services/auth.service";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
@@ -20,7 +20,12 @@ export class ParentComponent implements OnInit {
 
   newChildBtn: boolean;
   closeResult: string;
-
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('authentication')
+    })
+  };
   constructor(private router: Router,
     private http: HttpClient,
     private auth: AuthService,
@@ -58,9 +63,8 @@ export class ParentComponent implements OnInit {
 
     console.log(newChild);
 
-    let autorization = { Authorization: localStorage.getItem('authorization') }
 
-    this.http.post(appConfig.apiUrl + '/auth/child', newChild, { headers: autorization }).subscribe(
+    this.http.post(appConfig.apiUrl + '/auth/child', newChild, this.httpOptions).subscribe(
       data => {
         this.toaster.pop({
           type: 'success',
