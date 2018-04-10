@@ -5,7 +5,7 @@ import { ArticlesService } from '../articles.service';
 @Component({
   selector: 'app-view-articles',
   templateUrl: './view-articles.component.html',
-  styleUrls: ['./view-articles.component.css']
+  styleUrls: ['./view-articles.component.scss']
 })
 export class ViewArticlesComponent implements OnInit {
   articles: any[];
