@@ -5,6 +5,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ToasterService} from 'angular5-toaster/src/toaster.service';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -53,7 +54,8 @@ export class TeacherComponent implements OnInit {
   constructor(private router: Router,
               private httpClient: HttpClient,
               private auth: AuthService,
-              private toaster: ToasterService) {
+              private toaster: ToasterService,
+              private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -138,7 +140,7 @@ export class TeacherComponent implements OnInit {
   }
 
 
-  updateChildSchedule(Slot , newtitle , newdescription , newurl , thisday){
+  updateTeacherSchedule(Slot , newtitle , newdescription , newurl , thisday){
     var body = {
       title : newtitle,
       description : newdescription,
@@ -146,7 +148,11 @@ export class TeacherComponent implements OnInit {
       day : thisday
     }
 
-    this.httpClient.patch('http://localhost:3000/api/schedule/updateTeacherSchedule' + Slot._id , body , this.httpOptions).subscribe((res: any) =>{
+
+    console.log(body);
+    console.log(Slot._id);
+
+    this.httpClient.patch('http://localhost:3000/api/schedule/updateTeacherSchedule/' + Slot._id , body , this.httpOptions).subscribe((res: any) =>{
       if(thisday == 'saturday') {
         var index = this.sat.indexOf(Slot);
         this.sat[index] = res.data;
@@ -184,9 +190,26 @@ export class TeacherComponent implements OnInit {
       }
     });
   }
-  
 
+closeResult :String;
   ////////////////////////////////////////////////////////////////////////////////////////////////
+  open(content) {
+    this.modalService.open(content).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
 
 
 }
