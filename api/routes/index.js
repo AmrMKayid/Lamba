@@ -50,7 +50,6 @@ router.get('/store/countItmes', storeCtrl.countItmes);
 router.get('/store/view/:tuplesPerPage/:pageNumber', storeCtrl.viewItems);
 router.post('/store/edit/:itemId', mw.isAuthenticated, storeCtrl.editItems);
 router.delete('/store/delete/:itemId', mw.isAuthenticated, storeCtrl.deleteItems);
-router.get('/product/getItemsById', productCtrl.getProductsBySellerName);
 router.patch('/store/likeItems/:itemId', storeCtrl.likeItems);
 router.patch('/store/unlikeItems/:itemId' , storeCtrl.unlikeItems);
 router.get('/uploads/store/:filename', storeCtrl.getImage);
