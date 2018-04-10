@@ -5,7 +5,7 @@ import { ArticlesService } from '../articles.service';
 @Component({
   selector: 'app-view-articles',
   templateUrl: './view-articles.component.html',
-  styleUrls: ['./view-articles.component.css']
+  styleUrls: ['./view-articles.component.scss']
 })
 export class ViewArticlesComponent implements OnInit {
   articles: any[];
@@ -14,6 +14,7 @@ export class ViewArticlesComponent implements OnInit {
   allTags: { value: string, id: string }[];
   selectedTags: any[];
   filterTagsIDs: string[] = [];
+  keyword: string;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -43,7 +44,6 @@ export class ViewArticlesComponent implements OnInit {
           this.allTags.push({ value: element.name, id: element._id })
         });
         this.tagsInitialized = true;
-        console.dir(this.allTags);
       }, err => {
         alert(`Articles not retrieved: ${err.error.msg}`);
       }

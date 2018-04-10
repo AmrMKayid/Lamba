@@ -1,0 +1,34 @@
+.gradient-custom {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: url('https://blog.commlabindia.com/wp-content/uploads/2017/10/online-training-for-classroom-training-challenges-infographic1.jpg') center center no-repeat;
+  background-size: cover;
+
+  &:before {
+    content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-image: linear-gradient(to bottom right,#3d011d,#05a2fd);
+	opacity: .6; 
+  }
+}
+.card-comments img {
+  width: 4rem; 
+}
+
+.name-capitalize {
+  text-transform: capitalize;
+}
+
+[class^=col] {
+  display: flex;
+  flex-direction: column;
+}
+
+[class^=col] div {
+  flex-grow: 1
+}

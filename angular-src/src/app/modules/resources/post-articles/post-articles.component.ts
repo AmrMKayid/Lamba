@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-
+import { ArticlesService } from '../articles.service';
 
 @Component({
   selector: 'app-post-articles',
@@ -13,6 +13,9 @@ export class PostArticlesComponent implements OnInit {
 
   public title: String;
   public editorContent: String;
+  tagsInitialized: boolean;
+  allTags: { value: string, id: string }[];
+  selectedTags: any[];
   public toolbarOptions = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'],
@@ -29,7 +32,7 @@ export class PostArticlesComponent implements OnInit {
       [{ font: [].slice() }],
       [{ align: [].slice() }],
       ['clean'],
-      ['video']
+      ['video', 'link']
     ]
   };
   //TODO: Export it into a service.
@@ -40,9 +43,22 @@ export class PostArticlesComponent implements OnInit {
       'Authorization': localStorage.getItem('authentication')
     })
   };
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private articlesService: ArticlesService) { }
 
   ngOnInit() {
+    this.tagsInitialized = false;
+    this.selectedTags = [];
+    this.allTags = [];
+    this.articlesService.getAllTags().subscribe(
+      (res: any) => {
+        res.data.forEach(element => {
+          this.allTags.push({ value: element.name, id: element._id })
+        });
+        this.tagsInitialized = true;
+      }, err => {
+        alert(`Articles not retrieved: ${err.error.msg}`);
+      }
+    );
   }
 
   onSubmit() {
@@ -53,7 +69,8 @@ export class PostArticlesComponent implements OnInit {
     }
     let article = {
       title: this.title,
-      content: this.editorContent
+      content: this.editorContent,
+      tags: (this.selectedTags.map(tag => tag.id))
     };
 
     this.http.post('http://localhost:3000/api/articles', article, this.httpOptions)
@@ -66,4 +83,5 @@ export class PostArticlesComponent implements OnInit {
         alert(`Article was not posted: ${msg}`);
       });
   }
+
 }
