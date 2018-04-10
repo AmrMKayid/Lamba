@@ -59,10 +59,12 @@
         <div class="card-header font-weight-bold">{{comments.length}} comments</div>
         <div class="card-body">
           <div class="form-group mt-4">
-            <label for="quickReplyFormComment">Leave a comment</label>
+            <h4 class="text-center text-primary">
+              <strong>Leave a reply</strong>
+            </h4>
             <textarea class="form-control" [(ngModel)]="commentContent" name="comment" placeholder=" Leave your comment here ..." rows="5"></textarea>
             <div class="text-center">
-              <button type="submit" (click)="comment()" class="btn btn-success btn-sm">Post</button>
+              <button type="submit" (click)="comment()" class="btn btn-info btn-sm">Post</button>
             </div>
           </div>
           <hr>
@@ -74,14 +76,17 @@
                 <a class="name-capitalize" style="cursor: pointer;" [routerLink]="['/profile',comment.commenter._id]">
                   {{comment.commenter.name.firstName}} {{comment.commenter.name.lastName}}
                 </a>
-                <a style="cursor: pointer;" (click)="replies[i].showReply = true" role="button" class="text-primary pull-right">
+                <a style="cursor: pointer;" (click)="showReply(i)" role="button" class="text-primary pull-right">
                   <i class="fa fa-reply"></i>
                 </a>
               </h5>
               {{comment.comment_content}}
 
               <div class="form-group mt-4" *ngIf="replies[i].showReply">
-                <label for="quickReplyFormComment">Leave a reply</label>
+                <hr>
+                <h4 class="text-center text-primary">
+                  <strong>Leave a reply</strong>
+                </h4>
                 <textarea class="form-control" [(ngModel)]="replies[i].replyContent" name="Reply" placeholder=" Your reply goes here ..."
                   rows="3"></textarea>
 
@@ -100,9 +105,10 @@
                   {{reply.reply_content}}
                 </div>
               </div>
-
-
             </div>
+          </div>
+          <div style="text-align: center;">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
 
         </div>

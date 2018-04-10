@@ -110,4 +110,9 @@ export class ViewArticleComponent implements OnInit {
   addToFavorite(id) {
 
   }
+
+  showReply(i) {
+    this.replies.forEach(element => element.showReply = false);
+    this.replies[i].showReply = true;
+  }
 }
