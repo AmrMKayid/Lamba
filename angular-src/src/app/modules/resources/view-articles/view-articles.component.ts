@@ -14,6 +14,7 @@ export class ViewArticlesComponent implements OnInit {
   allTags: { value: string, id: string }[];
   selectedTags: any[];
   filterTagsIDs: string[] = [];
+  keyword: string;
 
   httpOptions = {
     headers: new HttpHeaders({
