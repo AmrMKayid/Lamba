@@ -36,12 +36,12 @@ export class StoreService {
       return this.httpc.get(this.base_address + 'countItmes' );
   }
 
- likeItems(item){
-return this.httpc.patch('http://127.0.0.1:3000/api/store/likeItems', item );
+ likeItems(){
+return this.httpc.get('http://127.0.0.1:3000/api/store/likeItems');
   }
 
-  unlikeItems(item){
-    return this.httpc.patch('http://127.0.0.1:3000/api/store/unlikeItems', item );
+  unlikeItems(){
+    return this.httpc.get('http://127.0.0.1:3000/api/store/unlikeItems' );
   }
 }
 
