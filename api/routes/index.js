@@ -16,8 +16,8 @@ router.post('/auth/admin', mw.isAuthenticated, authCtrl.addAdmin);
 router.get('/admin/teachers_verfication', userCtrl.getPendingTeachers);
 router.get('/admin/accept_teacher/:teacherID', userCtrl.acceptTeacher);
 
-router.patch('/user/updateUser/:userId', userCtrl.updateUser);
-router.get('/user/getUserInfo/:userId', userCtrl.getUserInfo);
+router.patch('/user/updateUser/:userId',mw.isAuthenticated, userCtrl.updateUser);
+router.get('/user/getUserInfo/:userId',mw.isAuthenticated, userCtrl.getUserInfo);
 // router.get('/user/getUserInfo/', (req, res, next)=> {
 //   res.status(200).json({
 //     err: null,
