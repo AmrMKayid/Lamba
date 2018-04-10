@@ -41,7 +41,7 @@ export class ViewArticleComponent implements OnInit {
         this.router.navigate(['/resources']);
       }
     );
-
+    window.scrollTo(0, 0);
   }
 
   //TODO: When the feedback is reworked in the backend, we shall send back the updated article only and in here we should set it to that
