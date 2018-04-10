@@ -65,7 +65,6 @@ module.exports.getArticles = function (req, res, next) {
             return next(err);
           }
         }).populate('owner_id', 'name', 'User').exec((err, result) => {
-          console.log(result);
           res.status(200).json({
             err: null,
             msg: 'Articles retrieved successfully.',
@@ -82,7 +81,6 @@ module.exports.getArticles = function (req, res, next) {
       }
       //TODO: name nested inside owner_id, maybe change schema later on.    
     }).populate('owner_id', 'name', 'User').exec((err, result) => {
-      console.log(result);
       res.status(200).json({
         err: null,
         msg: 'Articles retrieved successfully.',
@@ -168,7 +166,7 @@ module.exports.createArticle = function (req, res, next) {
           data: article
         });
       }
-      article.tags = retrievedTags;
+      article.tags = retrievedTags.map(tag => tag._id);
       Article.create(article, (err, newArticle) => {
         if (err) {
           console.log(err)
@@ -351,7 +349,6 @@ const reply = function (article, userID, comment_id, reply, res, next) {
     { "_id": article._id, 'comments._id': comment_id },
     { $push: { 'comments.$.replies': rep } }
   ).exec((err, result) => {
-    console.log(result);
     res.status(200).json({
       err: null,
       msg: 'Articles retrieved successfully.',

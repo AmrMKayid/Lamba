@@ -44,7 +44,6 @@ export class ViewArticlesComponent implements OnInit {
           this.allTags.push({ value: element.name, id: element._id })
         });
         this.tagsInitialized = true;
-        console.dir(this.allTags);
       }, err => {
         alert(`Articles not retrieved: ${err.error.msg}`);
       }
