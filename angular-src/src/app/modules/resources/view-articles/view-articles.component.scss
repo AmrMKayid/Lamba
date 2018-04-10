@@ -23,3 +23,12 @@
 .name-capitalize {
   text-transform: capitalize;
 }
+
+[class^=col] {
+  display: flex;
+  flex-direction: column;
+}
+
+[class^=col] div {
+  flex-grow: 1
+}
