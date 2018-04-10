@@ -43,7 +43,7 @@ router.patch('/schedule/updateChildSchedule/:SlotId/:ChildId',mw.isAuthenticated
 /*-----------------------------Store Routes-------------------------------------*/
 router.post('/store/create', mw.isAuthenticated, storeCtrl.createItems);
 router.post('/store/upload', storeCtrl.uploadItemPhoto);
-router.get('/product/getItemsById', productCtrl.getProductsBySellerName);
+router.get('/product/getItemsById', productCtrl.getItemsById);
 
 // TODO add mw.isAuthenticated
 router.get('/store/countItmes', storeCtrl.countItmes);
