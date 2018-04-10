@@ -1,5 +1,5 @@
 <link href="https://cdn.quilljs.com/1.2.2/quill.snow.css" rel="stylesheet">
-<div class="card">
+<div *ngIf="tagsInitialized" class="card">
   <div class="card-header text-center">
   <h1 class="text-center text-primary" style="color:#3F729B; font-family: Roboto;">POST ARTICLE</h1>
   </div>
@@ -14,19 +14,14 @@
             </div>
         </div>
     </div>
-    <div class="input-group">
-  <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Tags">
-  <div class="input-group-append col-sm-10">
-    <button style="color:#3F729B; font-family: Roboto;" class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-hashtag mr-1" aria-hidden="true"></i>Tags</button>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#">Action</a>
-      <a class="dropdown-item" href="#">Another action</a>
-      <a class="dropdown-item" href="#">Something else here</a>
-      <div role="separator" class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">Separated link</a>
-    </div>
-  </div>
-</div>
+<tag-input [(ngModel)]="selectedTags" [onlyFromAutocomplete]="true" (onRemove)="onTagsChanged()" (onTextChange)="onTagsChanged()">
+<tag-input-dropdown [showDropdownIfEmpty]="true" [dynamicUpdate]="false" [focusFirstElement]="true" [displayBy]="'value'"
+  [identifyBy]="'id'" [autocompleteItems]="allTags">
+  <ng-template let-item="item">
+    {{ item.value }}
+  </ng-template>
+</tag-input-dropdown>
+</tag-input>
 <br>
     <quill-editor [modules]="toolbarOptions" [placeholder]="'Enter post content here...'" name="editorContent" id="detailEditTxt"
       [(ngModel)]="editorContent">
