@@ -10,7 +10,8 @@ import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/h
 import {Http, Headers, HttpModule} from '@angular/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { HeaderComponent } from './components/header/header.component';
 import {ProfileComponent} from './profile.component';
 import {AdminComponent} from './admin/admin.component';
 import {ParentComponent} from './parent/parent.component';
@@ -19,9 +20,15 @@ import {ChildComponent} from './child/child.component';
 import {UnVerifiedArticlesComponent} from './admin/un-verified-articles/un-verified-articles.component';
 import {VerifyArticleComponent} from './admin/verify-article/verify-article.component';
 import { VerifyTeacherComponent } from './admin/verify-teacher/verify-teacher.component';
-
-
+import { TranslateModule } from '@ngx-translate/core';
+import {DashboardComponent} from './admin/dashboard/dashboard.component'
+import { StatModule } from './admin/stat/stat.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TimelineComponent,
+  NotificationComponent,
+  ChatComponent
+} from './admin/dashboard/components';
 
 const appRoutes: Routes = [
   {
@@ -31,6 +38,16 @@ const appRoutes: Routes = [
       {
         path: 'admin',
         component: AdminComponent,
+        children:[
+          {
+            path: 'dashboard',
+            component: DashboardComponent
+          },
+          {
+            path: 'un-verified-articles',
+            component: UnVerifiedArticlesComponent
+          }
+        ]
 
       },
       {
@@ -45,10 +62,7 @@ const appRoutes: Routes = [
         path: 'child',
         component: ChildComponent
       },
-      {
-        path: 'admin/un-verified-articles',
-        component: UnVerifiedArticlesComponent
-      },
+      
       {
         path: 'admin/verify-articles/:id',
         component: VerifyArticleComponent
@@ -78,7 +92,9 @@ const appRoutes: Routes = [
     HttpModule, HttpClientModule,
     ReactiveFormsModule, ToasterModule, Ng2SearchPipeModule, Ng2OrderModule, NgxPaginationModule,
     RouterModule.forChild(appRoutes),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    TranslateModule.forChild(),
+    StatModule
   ],
   declarations: [
     ProfileComponent,
@@ -89,6 +105,12 @@ const appRoutes: Routes = [
     UnVerifiedArticlesComponent,
     VerifyArticleComponent,
     VerifyTeacherComponent,
+    SidebarComponent, HeaderComponent,
+    DashboardComponent,
+    TimelineComponent,
+    NotificationComponent,
+    ChatComponent
+
 
   ],
   providers: [

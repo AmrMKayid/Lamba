@@ -26,6 +26,7 @@ import {HomepageComponent} from './shared/homepage/homepage.component';
 import {ResourcesModule} from "./modules/resources/resources.module";
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -47,13 +48,14 @@ import { FooterComponent } from './shared/footer/footer.component';
     ToasterModule,
     // ResourcesModule,
     NgbModule.forRoot(),
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    TranslateModule.forRoot()
   ],
   providers: [
     AuthGuard,
     ErrorInterceptorProvider,
     JwtInterceptorProvider,
-    AuthService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

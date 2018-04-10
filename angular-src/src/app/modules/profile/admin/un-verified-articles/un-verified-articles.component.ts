@@ -4,14 +4,17 @@ import { Http, Headers } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 //import { ToasterService } from 'angular5-toaster';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { routerTransition } from '../router.animations';
 
 @Component({
   selector: 'app-un-verified-articles',
   templateUrl: './un-verified-articles.component.html',
-  styleUrls: ['./un-verified-articles.component.css']
+  styleUrls: ['./un-verified-articles.component.css'],
+  animations: [routerTransition()]
 })
 export class UnVerifiedArticlesComponent implements OnInit {
   public unVerifiedArticlesList = [];
+  public article=[];
   constructor(
     private httpClient: HttpClient,
      private http: Http,
@@ -45,10 +48,28 @@ export class UnVerifiedArticlesComponent implements OnInit {
        
       console.log(this.unVerifiedArticlesList);
   }
-  showProduct(articleId){
-    console.log(articleId);
-    this.router.navigate(['/profile/admin/verify-articles/'+articleId]);        
-
+  verifyArticle(articleId){
+    console.log(articleId)
+    let autorization =  { Authorization: localStorage.getItem('authentication') };
+  this.httpClient.get('http://localhost:3000/api/user/verifyArticle/'+articleId,{headers: autorization})
+       .subscribe((res: any) => { this.article = res.data; 
+       /* this.toast.pop({
+          type: 'success',
+          title: "Success",
+          body: res.msg,
+          timeout: 3000
+        });*/
+      }, err => {
+        /*this.toast.pop({
+          type: 'error',
+          title: "Error!",
+          body: err.error.msg,
+          timeout: 3000
+        });*/
+      }); 
+      this.router.navigateByUrl('/RefrshComponent', {skipLocationChange: true}).then(()=>
+      this.router.navigate(['/profile/admin/un-verified-articles'])); 
+    
 
   }
 
