@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
 	jwt = require('jsonwebtoken');
 	mw = require('../routes/middlewares'),
  	path = require('path'),
+	User = mongoose.model('User');
   	fs = require('fs');
 
 
@@ -266,7 +267,7 @@ module.exports.likeItems = function(req, res, next) {
 module.exports.unlikeItems = function(req, res, next) {
   let user = req.decodedToken.user._id;
 
-  Item.findByID(
+  Item.findById(
     req.params.itemId,
     (err,retrievedItem) =>{
       if (err) {
@@ -320,9 +321,75 @@ module.exports.getImage = function(req, res, next) {
 /**
   * sends an image for the item
   */
-module.exports.viewMyItems = function(req, res, next) {
+module.exports.getItem = function(req, res, next) {
 
-  /*TODO: sohail*/
+	if(!req.params.itemId)
+	{
+		  return res.status(422).json({
+			  err: 'Empty id field',
+			  msg: 'You have to provide an Item Id',
+			  data: null
+		  });
+	}
+	
+	Item.findById(req.params.itemId, function(err,retrievedItem){
+		  if (err) {
+				 return res.status(404).json({
+				  err: 'Retrieved 0 items from the database',
+				  msg: 'Error while retrieving item from the database',
+				  data: null
+			  });
+		  }
+
+		 if(!retrievedItem)
+		 {
+			 return res.status(404).json({
+				  err: 'Retrieved 0 items from the database',
+				  msg: 'Error while retrieving item from the database',
+				  data: null
+			  });
+		 }
+			
+		  const authorization = req.headers.authorization;
+		  const secret = req.app.get('secret');
+		  decoded = jwt.verify(authorization, secret);
+		  var user_id = decoded.user._id;
+		  User.findById(retrievedItem.seller_id, function(err, retrievedUser){
+				 if (err)
+				 {
+					 return res.status(404).json({
+					  err: 'Retrieved 0 items from the database',
+					  msg: 'Error while retrieving item from the database',
+					  data: null
+				  });
+		 	 	}
+
+				 if(!retrievedUser)
+				 {
+					 return res.status(404).json({
+						  err: 'Retrieved 0 items from the database',
+						  msg: 'Error while retrieving item from the database',
+						  data: null
+					  });
+				 }
+			 var seller = {
+
+							email: retrievedUser.email,
+							name: retrievedUser.name,
+							phone: retrievedUser.phone,
+							_id: retrievedUser._id
+							};
+			 return res.status(200).json({
+				  err: null,
+				  msg: 'Retrieved 1 item',
+				  data: retrievedItem,
+				  owner: retrievedItem.seller_id == user_id,
+				  seller: seller
+			  });
+		 });
+		
+		
+	});
 
 }
 
@@ -331,9 +398,9 @@ module.exports.viewMyItems = function(req, res, next) {
 
 
 /*****************************************************************************
- *																			 *
- *                          private functions								 *
- *																			 *
+ *																			                                     *
+ *                          private functions								                 *
+ *																			                                     *
  *****************************************************************************/
 
 /**
