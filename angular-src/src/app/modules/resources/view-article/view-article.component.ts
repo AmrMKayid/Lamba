@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { ArticlesService } from '../articles.service';
-import { AuthService } from '/Users/mohamed/Desktop/SE-Project/Lamba Project/Sprint 3/Lamba/angular-src/src/app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-view-article',
@@ -18,9 +18,9 @@ export class ViewArticleComponent implements OnInit {
   comments: any = [{}];
   commentContent: String;
   replies: any = [{}];
-  currentUserId : string;
-  editPressed : boolean;
-  constructor(private router: Router, private route: ActivatedRoute, private articleService: ArticlesService , private auth: AuthService) { }
+  currentUserId: string;
+  editPressed: boolean;
+  constructor(private router: Router, private route: ActivatedRoute, private articleService: ArticlesService, private auth: AuthService) { }
 
 
   ngOnInit() {
@@ -125,19 +125,19 @@ export class ViewArticleComponent implements OnInit {
     this.replies[i].showReply = true;
   }
 
-  delete(id){
+  delete(id) {
     this.articleService.delete(id).subscribe(
       (res: 200) => {
-            this.router.navigate(['/resources']);
+        this.router.navigate(['/resources']);
       }, err => {
         alert(`Article was not deleted: ${err.error.msg}`);
       }
     );
   }
 
-  edit(id){
+  edit(id) {
     this.editPressed = true;
-    this.router.navigate(['/resources/edit/'+this.article._id]);
+    this.router.navigate(['/resources/edit/' + this.article._id]);
 
 
   }
