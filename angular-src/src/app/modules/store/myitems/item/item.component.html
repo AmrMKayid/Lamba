@@ -36,6 +36,10 @@
 					<span id = "quantity"><b>Quantity: </b>{{item["quantity"]}}</span>
 				</div>
 			</div>
+			<div class = "row" *ngIf="owner">
+				 <button (click)="deleteProduct(item._id)"  class="btn btn-danger">Delete</button>
+        	    <button (click)="editItem(item); localStorage.setItem('Delete',item) ;  newOrEdit = true; editPressed = true; 	createNew = false;"  class="btn btn-info">Edit</button>
+			</div>
 		</div>
 	</div>
 </div>
