@@ -1,0 +1,18 @@
+
+
+#failure
+{
+	color: red;
+	font-size: 16px;
+}
+#success
+{
+	color:green;
+	font-size: 16px;
+
+}
+.itemform
+{
+	font-size: 23px;
+	padding-left: 30%;
+}

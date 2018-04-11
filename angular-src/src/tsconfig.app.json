@@ -9,5 +9,15 @@
   "exclude": [
     "test.ts",
     "**/*.spec.ts"
+  ],
+  "include": [
+    "../node_modules/angular-bootstrap-md/**/*.ts",
+    "../src/**/*.ts",
+    "../src/**/*",
+    "../src/app/modules/profile/profile.module.ts",
+    "../src/app/modules/resources/resources.module.ts",
+    "../src/app/modules/schedule/schedule.module.ts",
+    "../src/app/modules/store/store.module.ts ",
+    "../src/app/modules/store/myitems/myitems.module.ts"
   ]
 }

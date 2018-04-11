@@ -1,0 +1,40 @@
+<link href="https://cdn.quilljs.com/1.2.2/quill.snow.css" rel="stylesheet">
+<div class="divider" style="padding-top:50px;"></div>
+<div class="container">
+  <div *ngIf="tagsInitialized" class="card card-cascade wider">
+    <div class="card-header text-center">
+      <h1 class="text-center" style="font-family: Roboto;">POST AN ARTICLE</h1>
+    </div>
+    <div class="card-body">
+      <form>
+        <div style="height: 80px;" class="form-group row">
+          <div class="col-sm-10">
+            <div class="md-form mt-0">
+              <input type="email" class="form-control" id="inputEmail3MD" placeholder="Enter post title" [(ngModel)]="title" name="title">
+            </div>
+          </div>
+        </div>
+        <div style="height: 80px;">
+          <tag-input [(ngModel)]="selectedTags" name="tagsInput" [onlyFromAutocomplete]="true">
+            <tag-input-dropdown [showDropdownIfEmpty]="true" [dynamicUpdate]="false" [focusFirstElement]="true" [displayBy]="'value'"
+              [identifyBy]="'id'" [autocompleteItems]="allTags">
+              <ng-template let-item="item">
+                {{ item.value }}
+              </ng-template>
+            </tag-input-dropdown>
+          </tag-input>
+        </div>
+        <br>
+        <quill-editor [modules]="toolbarOptions" [placeholder]="'Enter post content here...'" name="editorContent" id="detailEditTxt"
+          [(ngModel)]="editorContent">
+        </quill-editor>
+        <br>
+        <div class="button-row" style="text-align: right;">
+          <a style="color:#3F729B; font-family: Roboto;" class="btn btn-primary" (click)="onSubmit()" role="button">
+            <i class="fa fa-share mr-2" aria-hidden="true"></i>Post</a>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

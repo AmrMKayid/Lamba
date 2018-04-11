@@ -1,0 +1,103 @@
+<div class="divider" style="padding-top:50px;"></div>
+<div class="container">
+  <section class="card gradient-custom wow fadeIn">
+    <div class="card-body text-white text-center py-5 px-5 my-5">
+      <h1 class="mb-4">
+        <strong>Educational Resources</strong>
+      </h1>
+      <p>
+        <strong>Get your learning on!</strong>
+      </p>
+      <p class="mb-4">
+        Care to share your experience with others? it could help a ton :)
+      </p>
+      <a style="cursor: pointer;" [routerLink]="['post']" class="btn btn-outline-white btn-lg">Post a new article
+        <i class="fa fa-graduation-cap ml-2"></i>
+      </a>
+    </div>
+  </section>
+  <div class="row ">
+    <div class="col-md-6">
+      <div class="card my-4 text-center">
+        <h5 class="card-header">
+          <i class="fa fa-filter mr-2" aria-hidden="true"></i>Filter by tags</h5>
+        <div class="card-body">
+          <tag-input [(ngModel)]="selectedTags" [onlyFromAutocomplete]="true" (onRemove)="onTagsChanged()" (onTextChange)="onTagsChanged()">
+            <tag-input-dropdown [showDropdownIfEmpty]="true" [dynamicUpdate]="false" [focusFirstElement]="true" [displayBy]="'value'"
+              [identifyBy]="'id'" [autocompleteItems]="allTags">
+              <ng-template let-item="item">
+                {{ item.value }}
+              </ng-template>
+            </tag-input-dropdown>
+          </tag-input>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card my-4 text-center">
+        <h5 class="card-header">
+          <i class="fa fa-search mr-2" aria-hidden="true"></i>Filter by keywords</h5>
+        <div class="card-body">
+          <input type="text" [(ngModel)]="keyword" placeholder="Enter custom keywords">
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+
+  <section class="pt-5" *ngIf="articlesInitialized && tagsInitialized">
+    <!-- ARTICLE -->
+    <ng-container *ngFor="let article of articles | filterByTags: filterTagsIDs | filter: keyword | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
+      <div class="row mt-3 wow fadeIn">
+
+        <!--Image thumbnail-->
+        <!-- TODO: Actually retrieve the image from the database :( -->
+        <div class="col-lg-5 col-xl-4 mb-4">
+          <!--Featured image-->
+          <div class="view overlay rounded z-depth-1">
+            <img src="https://i2.wp.com/penpaperpencil.net/wp-content/uploads/2016/01/Drawing-pencils-guide.jpg?fit=900%2C490" class="img-fluid"
+              alt="Article-thumbnail">
+            <a style="cursor: pointer;" [routerLink]="['id',article._id]">
+              <div class="mask"></div>
+            </a>
+          </div>
+        </div>
+        <!--Image thumbnail-->
+
+        <!--Actual content-->
+        <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
+          <h3 class="mb-3 font-weight-bold dark-grey-text">
+            <a style="cursor: pointer;" [routerLink]="['id',article._id]">
+              <strong>{{article.title}}</strong>
+            </a>
+          </h3>
+          <p class="grey-text">Posted by
+            <a style="cursor: pointer;" [routerLink]="['/profile',article.owner_id._id]" class="name-capitalize">{{article.owner_id.name.firstName}} {{article.owner_id.name.lastName}}</a>
+          </p>
+          <h4>Rating:
+            <i class="fa fa-thumbs-up mr-2">{{article.upvoters.length}}</i>
+            <i class="fa fa-thumbs-down mr-2">{{article.downvoters.length}}</i>
+          </h4>
+          <p>
+            <strong>Tags: </strong>
+            <em *ngIf="article.tags.length ===0">No tags defined for this article</em>
+            <ng-container *ngFor="let tag of article.tags">
+              <span class="badge badge-pill light-blue" (click)="setTag(tag)" style="cursor: pointer;">{{getTagByID(allTags, tag)}}</span>
+            </ng-container>
+          </p>
+          <br>
+          <p class="pull-right">Posted on
+            <em>{{article.createdAt | date}}</em>
+          </p>
+        </div>
+        <!--Actual content-->
+      </div>
+      <hr class="mb-5">
+    </ng-container>
+    <div style="text-align: center;">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+    <!--/ARTICLE-->
+  </section>
+
+</div>

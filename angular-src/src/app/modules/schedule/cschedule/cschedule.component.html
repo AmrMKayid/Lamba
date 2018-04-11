@@ -1,0 +1,34 @@
+<div class="divider" style="padding-top:50px;">
+
+</div>
+<div class="container">
+  <h1> Parent/Child</h1>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <button class="tab" (click)="createChildShcedule()"> create</button>
+  <div class="tab">
+
+    <button class="tablinks" (click)="fsat()">Saturday</button>
+    <button class="tablinks" (click)="fsun()">Sunday</button>
+    <button class="tablinks" (click)="fmon()">Monday</button>
+    <button class="tablinks" (click)="ftues()">Tuesday</button>
+    <button class="tablinks" (click)="fwed()">Wednesday</button>
+    <button class="tablinks" (click)="fthurs()">Thursday</button>
+    <button class="tablinks" (click)="ffri()">Friday</button>
+
+  </div>
+
+
+
+
+  <table>
+
+    <tr>
+      <td *ngFor="let slot of day"> {{slot.slot.title}}
+        <br> {{slot.slot.description}}
+        <br> {{slot.slot.url}}</td>
+    </tr>
+  </table>
+
+  <!-- to be replaced with tasks assigned to the logged in child as a list and routes to the task details -->
+  <a [routerLink]="['/schedule/viewtask']">View Task</a>
+</div>

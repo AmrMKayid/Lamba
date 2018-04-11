@@ -1,0 +1,24 @@
+<div>{{title}}</div>
+<div>{{createdAt}}</div>
+<div>{{updatedAt}}</div>
+
+
+
+
+<div class="mb-5">
+  <form>
+
+    <div class="md-form">
+      <i class="material-icons prefix">comment</i>
+      <textarea type="text" id="form8" class="md-textarea" style="height: 100px" #newComment mdbActive></textarea>
+      <label for="form8">Comment</label>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-deep-orange waves-light" (click)="createNewComment(newComment.value)" mdbRippleRadius>Done</button>
+    </div>
+  </form>
+</div>
+<div *ngFor="let comment of taskComments">
+  <div>  {{comment.name}}</div>
+  <div>  {{comment.comment}}</div>
+</div>

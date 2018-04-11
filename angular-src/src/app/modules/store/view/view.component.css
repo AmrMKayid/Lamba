@@ -1,0 +1,130 @@
+.main-container {
+  width: 90%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.page-list {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pagination>li>a {
+  color: orange;
+  cursor: pointer;
+}
+
+.block {
+  display: block;
+  width: 100%;
+  margin: auto;
+  overflow: hidden;
+  column-count: 6;
+  -webkit-column-break-inside: avoid;
+}
+
+.item {
+  margin: 12px;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  box-shadow: 0 1px 8px 0 rgba(58, 58, 58, 0.2), 0 6px 20px 0 rgba(255, 255, 255, 0.19);
+  border-bottom: 2px solid #dddddd;
+  padding: 5px;
+  display: inline-block;
+  -webkit-transition: all 500ms linear;
+  -ms-transition: all 500ms linear;
+  transition: all 500ms linear;
+  color: rgb(255, 135, 135);
+}
+
+.item:hover {
+  background-color: rgb(247, 247, 247);
+  color: rgb(182, 41, 41);
+}
+
+.itemBody {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 10px;
+}
+
+.imgw100prec {
+  width: 100%;
+  float: left;
+  border-radius: 8px;
+  max-height: 400px;
+}
+
+.itemDesc {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #c09898;
+}
+
+.itemUnLike {
+  background-color: #ffc7c700;
+  text-align: center;
+  font-size: 26px;
+  color: #ccc7c7;
+  border-radius: 5px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  border: 1px solid;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+
+.itemUnLike:hover {
+  color: #ff8c8c;
+  background-color: #ffc7c7;
+}
+
+.itemLikeCount {
+  /* margin-left: 2px; */
+  font-size: 11px;
+  /* color: #ff8b8c; */
+}
+
+/* Large Laptops */
+
+@media only screen and (max-width:1500px) {
+  .block {
+    column-count: 5;
+  }
+}
+
+/* Small/Medium Laptops */
+
+@media only screen and (max-width:1050px) {
+  .block {
+    column-count: 4;
+  }
+}
+
+/* Tablets  */
+
+@media only screen and (max-width:800px) {
+  .block {
+    column-count: 3;
+  }
+}
+
+/* Large Mobiles */
+
+@media only screen and (max-width:450px) {
+  .block {
+    column-count: 2;
+  }
+}
+
+/* Small/Medium Mobiles */
+
+@media only screen and (max-width:390px) {
+  .block {
+    column-count: 1;
+  }
+}

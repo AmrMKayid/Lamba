@@ -1,0 +1,91 @@
+<div class="divider" style="padding-top:50px;"></div>
+<div class="container">
+  <div class="myContainer">
+
+    <div class="card card-signup">
+      <div class="card-body">
+
+
+        <!--Register form-->
+        <form class="form" novalidate (ngSubmit)="onSubmit(user)" [formGroup]="user">
+
+          <p class="h5 text-center mb-4">Sign up</p>
+
+          <div class="md-form mb-0" formGroupName="name">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="md-form mb-0">
+                  <i class="material-icons prefix">face</i>
+                  <input type="text" id="orangeForm-firstName" class="form-control" formControlName="firstName" mdbActive>
+                  <label for="orangeForm-firstName">first name</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form mb-0">
+                  <i class="material-icons prefix">face</i>
+                  <input type="text" id="orangeForm-lastName" class="form-control" formControlName="lastName" mdbActive>
+                  <label for="orangeForm-lastName">last name</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="md-form">
+            <i class="material-icons prefix">mail</i>
+            <input type="text" id="orangeForm-email" class="form-control" formControlName="email" mdbActive>
+            <label for="orangeForm-email">Your email</label>
+          </div>
+
+          <div class="md-form">
+            <i class="material-icons prefix">lock</i>
+            <input type="password" id="orangeForm-pass" class="form-control" formControlName="password" mdbActive>
+            <label for="orangeForm-pass">Your password</label>
+          </div>
+
+          <div class="md-form">
+            <i class="material-icons prefix">lock</i>
+            <input type="password" id="orangeForm-passConfirm" class="form-control" formControlName="confirmPassword" mdbActive>
+            <label for="orangeForm-passConfirm">Confirm your password</label>
+          </div>
+
+
+          <div class="md-form">
+
+            <div class="md-form mb-0">
+              <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-4 col-4">
+                  <i class="material-icons prefix">people</i>
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-4 col-4 pt-3 form-check form-check-radio">
+                  <div class="md-form mb-0">
+
+                    <input class="form-check-input" type="radio" value="male" formControlName="gender"> Male
+
+                  </div>
+                </div>
+
+                <div class="col-lg-8 col-md-8 col-sm-4 col-4 pt-3 form-check form-check-radio ">
+                  <div class="md-form mb-0">
+
+                    <input class="form-check-input" type="radio" value="female" formControlName="gender">Female
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <div class="text-center">
+            <button class="btn btn-deep-orange waves-light" type="submit" mdbRippleRadius>Sign up</button>
+          </div>
+
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

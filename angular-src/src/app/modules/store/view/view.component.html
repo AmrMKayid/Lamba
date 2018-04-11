@@ -1,0 +1,55 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="page-list">
+
+  <ul class="pagination pagination-lg">
+    <li>
+      <a (click)="loadPage(1)">
+        << </a>
+    </li>
+    <li *ngFor="let p of pages">
+      <a (click)="loadPage(p)">{{p}}</a>
+    </li>
+    <li>
+      <a (click)="loadPage(-1)">
+          >>
+        </a>
+    </li>
+  </ul>
+</div>
+
+<section>
+
+
+  <div class="main-container">
+
+
+
+    <div class="block">
+
+      <div class='item' *ngFor='let item of items'>
+
+        <img src="http://127.0.0.1:3000/api/uploads/store/{{item['picture_url']}}" class="imgw100prec">
+
+        <div class="itemBody">
+
+          <h2 class="itemName"><b>{{item['name']}}</b></h2>
+         
+          <div class="itemLikeCount">{{item['likes']}} <span class="fa fa-heart"></span></div>
+          <div class="itemPrice">Price: {{item['price']}} LE</div>
+          <article class="itemDesc">{{item['description']}}</article>
+
+          <!-- TODO check if user already liked this item -->
+          <div class="itemUnLike"><i class="fa fa-heart"></i></div>
+
+        </div>
+
+      </div>
+
+      <div *ngIf='itemsCount==0'>
+        <h1>There are currently no items to be displayed</h1>
+      </div>
+
+    </div>
+  </div>
+</section>

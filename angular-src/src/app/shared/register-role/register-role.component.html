@@ -1,0 +1,41 @@
+<div class="divider" style="padding-top:50px;"></div>
+<div class="container">
+
+  <div class="row text-center mb-3">
+    <div class="col-md-12">
+      <h1>Choose your role!</h1>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card" style="width: 18rem;">
+
+        <a (click)="chosenRole('Parent')">
+          <img class="card-img-top" src="assets/parentp.svg" alt="Card image cap">
+          <div class="card-body text-center">
+            <h3 class="card-title">Parent</h3>
+            <p class="card-text">Description about the Parent role.</p>
+          </div>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="col-md-6">
+      <div class="card" style="width: 18rem;">
+
+        <a (click)="chosenRole('Teacher')">
+
+          <img class="card-img-top" src="assets/teacherp.svg" alt="Card image cap">
+          <div class="card-body text-center">
+            <h3 class="card-title">Teacher</h3>
+            <p class="card-text">Description about the Teacher role.</p>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<div class="divider" style="padding-top:50px;"></div>
+<div class="container">
+  <h1> TEACHER</h1>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <button class="tab" (click)="createTeacherSchedule()"> create</button>
+  <div class="tab">
+
+    <button class="tablinks" (click)="fsat()">Saturday</button>
+    <button class="tablinks" (click)="fsun()">Sunday</button>
+    <button class="tablinks" (click)="fmon()">Monday</button>
+    <button class="tablinks" (click)="ftues()">Tuesday</button>
+    <button class="tablinks" (click)="fwed()">Wednesday</button>
+    <button class="tablinks" (click)="fthurs()">Thursday</button>
+    <button class="tablinks" (click)="ffri()">Friday</button>
+
+  </div>
+
+
+
+
+  <table>
+
+    <tr>
+      <td *ngFor="let slot of day"> {{slot.slot.title}}
+        <br> {{slot.slot.description}}
+        <br> {{slot.slot.url}}</td>
+    </tr>
+  </table>
+
+
+  <form (submit)="CreateNewComment()">
+
+
+
+
+
+
+
+
+    <h2>New Comment</h2>
+
+
+    <input type="text" class="form-control" [(ngModel)]="comment" name="comment">
+
+    <button id="mybutton" type="submit">Submit</button>
+
+  </form>
+
+  <h2>New Task</h2>
+
+
+  <input type="text" class="form-control" [(ngModel)]="taskname" name="taskname">
+  <input type="text" class="form-control" [(ngModel)]="description" name="description">
+
+  <button (click)="CreateNewTask()">New Task</button>
+
+
+  <h2>View Comments</h2>
+
+
+  <form (submit)="getComments()">
+    <button id="mybutton" type="submit">getComments</button>
+  </form>
+
+
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Comment</th>
+    </tr>
+
+    <tr *ngFor="let com of mycomment">
+      <td>{{com.name}}</td>
+      <td>{{com.Comment}}</td>
+    </tr>
+  </table>
+</div>

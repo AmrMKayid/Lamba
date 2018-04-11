@@ -1,0 +1,25 @@
+<br>
+<div class="row">
+  <div class="col-lg-4 col-md-4"  *ngFor="let teacher of Teachers">
+    <div class="card text-center">
+      <div class="card-header">
+        Name: <br>{{ teacher.name.firstName+" "+teacher.name.lastName}}
+      </div>
+      <div>
+        {{ teacher.about }} 
+        {{ teacher.qualifications +"\n"}} <br>
+        {{ teacher.fees | currency}}
+        {{ teacher.address }} 
+      </div>
+      
+      Joined At: <strong>{{ teacher.joinedAt | date}}</strong> 
+
+      <div class="card-footer text-muted">
+        <button class="btn btn-success " (click)="Accept(teacher._id)" >Verify</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<br>
+ 

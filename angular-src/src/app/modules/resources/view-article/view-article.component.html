@@ -1,0 +1,188 @@
+<div class="divider" style="padding-top:50px;"></div>
+<div class="container">
+  <section class="mt-4" *ngIf="isInitialized">
+    <div class="row">
+      <div class="col-md-8 mb-4">
+        <!--Featured Image-->
+        <!-- TODO: ADD IMAGE THUMBNAIL -->
+        <div class="card mb-4 wow fadeIn">
+          <img src="https://i2.wp.com/penpaperpencil.net/wp-content/uploads/2016/01/Drawing-pencils-guide.jpg?fit=900%2C490" class="img-fluid"
+            alt="">
+        </div>
+        <!--/.Featured Image-->
+        <!--Card-->
+        <div class="card mb-4 wow fadeIn">
+          <!--Card content-->
+          <div class="card-body">
+            <h1 class="text-center text-primary">
+              <strong>{{article.title}}</strong>
+            </h1>
+            <hr>
+            <div [innerHTML]="article.content | safeHtml"></div>
+            <hr>
+            <p align="right">Posted on:
+              <em>{{article.createdAt | date }}</em>
+            </p>
+          </div>
+        </div>
+        <!--/.Card-->
+        <!--Card-->
+        <div class="card mb-4 wow fadeIn">
+          <div class="card-header font-weight-bold">
+            <span>About author</span>
+            <span class="pull-right">
+              <a style="cursor: pointer;" [routerLink]="['/profile',article.owner_id]">
+                Open profile
+                <i class="fa fa-user-circle"></i>
+              </a>
+            </span>
+          </div>
+          <!--Card content-->
+          <div class="card-body">
+            <div class="media d-block d-md-flex mt-3">
+              <!-- TODO: ADD PROFILE PICTURE -->
+              <img class="d-flex mb-3 mx-auto z-depth-1" src="https://mdbootstrap.com/img/Photos/Avatars/img (30).jpg" alt="Generic placeholder image"
+                style="width: 100px;">
+              <div class="media-body text-center text-md-left ml-md-3 ml-0 name-capitalize">
+                <h5 class="mt-0 font-weight-bold">{{author}}
+                </h5>
+                <!-- TODO: Add about author, from the backend getArticle would populate an about as well -->
+                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti
+                quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
+                qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/.Card-->
+
+        <!--Comments-->
+        <div class="card card-comments mb-3 wow fadeIn">
+          <div class="card-header font-weight-bold">{{comments.length}} comments</div>
+          <div class="card-body">
+            <div class="form-group mt-4">
+              <h4 class="text-center text-primary">
+                <strong>Leave a reply</strong>
+              </h4>
+              <textarea class="form-control" [(ngModel)]="commentContent" name="comment" placeholder=" Leave your comment here ..." rows="5"></textarea>
+              <div class="text-center">
+                <button type="submit" (click)="comment()" class="btn btn-info btn-sm">Post</button>
+              </div>
+            </div>
+            <hr>
+            <!-- COMMENTS START HERE! -->
+            <div class="media d-block d-md-flex mt-4" *ngFor="let comment of comments | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
+              <img class="d-flex mb-3 mx-auto " src="https://mdbootstrap.com/img/Photos/Avatars/img (20).jpg" alt="Generic placeholder image">
+              <div class="media-body text-center text-md-left ml-md-3 ml-0">
+                <h5 class="mt-0 font-weight-bold">
+                  <a class="name-capitalize" style="cursor: pointer;" [routerLink]="['/profile',comment.commenter._id]">
+                    {{comment.commenter.name.firstName}} {{comment.commenter.name.lastName}}
+                  </a>
+                  <a style="cursor: pointer;" (click)="showReply(i)" role="button" class="text-primary pull-right">
+                    <i class="fa fa-reply"></i>
+                  </a>
+                </h5>
+                {{comment.comment_content}}
+
+                <div class="form-group mt-4" *ngIf="replies[i].showReply">
+                  <hr>
+                  <h4 class="text-center text-primary">
+                    <strong>Leave a reply</strong>
+                  </h4>
+                  <textarea class="form-control" [(ngModel)]="replies[i].replyContent" name="Reply" placeholder=" Your reply goes here ..."
+                    rows="3"></textarea>
+
+                  <div class="text-center">
+                    <button class="btn btn-info btn-sm" type="submit" (click)="reply(i,comment._id,replies[i].replyContent)">Reply</button>
+                  </div>
+                </div>
+
+                <div class="media d-block d-md-flex mt-3" *ngFor="let reply of comment.replies">
+                  <img class="d-flex mb-3 mx-auto " src="https://mdbootstrap.com/img/Photos/Avatars/img (27).jpg" alt="Generic placeholder image">
+                  <div class="media-body text-center text-md-left ml-md-3 ml-0">
+                    <h5 class="mt-0 font-weight-bold">
+                      <a style="cursor: pointer;" class="name-capitalize" [routerLink]="['/profile',reply.replier._id]">
+                        {{reply.replier.name.firstName}} {{reply.replier.name.lastName}} </a>
+                    </h5>
+                    {{reply.reply_content}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="text-align: center;">
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+
+          </div>
+        </div>
+        <!--/.Comments-->
+
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-4 mb-4">
+
+        <!--Card: Jumbotron-->
+        <div class="card gradient-custom mb-4 wow fadeIn">
+
+          <!-- Content -->
+          <div class="card-body text-white text-center">
+
+            <h4 class="mb-4">
+              <strong>Add to your favorites!</strong>
+            </h4>
+            <p>
+              <strong>Like this article? you can star it to save in your favorites</strong>
+            </p>
+            <p class="mb-4">
+              <!-- EXTRA TEXT HERE  -->
+            </p>
+            <a (click)="addToFavorite(article._id)" class="btn btn-outline-white btn-md">Favorite
+              <i class="fa fa-star"></i>
+            </a>
+
+          </div>
+          <!-- Content -->
+        </div>
+        <!--Card: Jumbotron-->
+
+        <!--Card : Dynamic content wrapper-->
+        <div class="card mb-4 text-center wow fadeIn">
+
+          <div class="card-header">
+            <strong>Rating</strong>
+          </div>
+
+          <!--Card content-->
+          <div class="card-body">
+
+            <!-- Default form login -->
+            <label class="text-info">Total score: </label>
+            <label class="text-success" *ngIf="article.upvoters.length > article.downvoters.length">
+              {{article.upvoters.length - article.downvoters.length}}
+              <i class="fa fa-arrow-up"></i>
+            </label>
+            <label class="text-danger" *ngIf="!article.upvoters.length > article.downvoters.length">
+              {{article.upvoters.length - article.downvoters.length}}
+              <i class="fa fa-arrow-up"></i>
+            </label>
+
+            <div class="text-center mt-4">
+              <a class="btn btn-success btn-block" (click)="upvote(article._id)" role="button">
+                <i class="fa fa-thumbs-o-up mr-1" aria-hidden="true"></i>Upvote ({{article.upvoters.length}})
+              </a>
+              <hr>
+              <a class="btn btn-danger btn-block" (click)="downvote(article._id)" role="button">
+                <i class="fa fa-thumbs-o-down mr-1" aria-hidden="true"></i>Downvote ({{article.downvoters.length}})
+              </a>
+            </div>
+          </div>
+        </div>
+        <!--/.Card : Dynamic content wrapper-->
+      </div>
+      <!--Grid column-->
+    </div>
+    <!--Grid row-->
+  </section>
+</div>

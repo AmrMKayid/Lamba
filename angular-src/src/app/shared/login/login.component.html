@@ -1,0 +1,36 @@
+<div class="divider" style="padding-top:50px;"></div>
+<div class="container">
+  <div class="myContainer">
+    <div class="card card-signup">
+      <div class="card-body">
+
+
+        <!-- Login form -->
+        <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)" class="form-signin" novalidate>
+
+          <p class="h5 text-center mb-4">Sign in</p>
+
+          <div class="md-form">
+            <i class="material-icons prefix">email</i>
+            <input class="form-control" type="text" id="defaultForm-email" [formControl]="email" mdbActive>
+            <br>
+            <label for="defaultForm-email">Your email/username</label>
+          </div>
+
+          <div class="md-form">
+            <i class="material-icons prefix">lock</i>
+            <input class="form-control" type="password" id="defaultForm-pass" [formControl]="password" mdbActive>
+            <br>
+            <label for="defaultForm-pass">Your password</label>
+          </div>
+
+          <div class="text-center">
+            <button type="submit" class="btn btn-default waves-light" mdbRippleRadius>Login</button>
+          </div>
+        </form>
+        <!-- Login form -->
+
+      </div>
+    </div>
+  </div>
+</div>
