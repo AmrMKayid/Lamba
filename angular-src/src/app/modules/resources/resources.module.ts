@@ -7,6 +7,7 @@ import { TagInputModule } from 'ngx-chips';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { QuillModule } from 'ngx-quill';
 
+import { EditArticlesComponent} from  './edit-articles/edit-articles.component';
 import { ArticlesService } from './articles.service';
 import { PostArticlesComponent } from './post-articles/post-articles.component';
 import { SafeHtmlPipe } from './view-article/safe-html.pipe';
@@ -23,6 +24,10 @@ const appRoutes: Routes = [
   {
     path: 'post',
     component: PostArticlesComponent,
+  },
+  {
+    path: 'edit/:id',
+    component: EditArticlesComponent,
   },
   {
     //TODO: Check out el custom URLs (fromt the title for instance)
@@ -49,6 +54,7 @@ const appRoutes: Routes = [
     PostArticlesComponent,
     ViewArticlesComponent,
     ViewArticleComponent,
+    EditArticlesComponent,
   ],
   providers: [
     ArticlesService

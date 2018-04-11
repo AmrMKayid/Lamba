@@ -12,7 +12,6 @@
 <button onclick="document.getElementById('editModal').style.display='block'" style="width:auto;">Edit</button>
 
 <div id="editModal" class="modal">
-  <toaster-container></toaster-container>
 
   <span onclick="document.getElementById('editModal').style.display='none'" class="close"
         title="Close Modal">&times;</span>
@@ -88,11 +87,18 @@
     </div>
 
     <!--Title-->
-    <h3 class="card-title"><strong>{{currentUser.name.firstName}} {{currentUser.name.lastName}}</strong></h3>
-    <h4 class="indigo-text"><strong>{{currentUser.role}}</strong></h4>
-    <h5 class="indigo-text"><strong>Score: </strong></h5>
-    <h5 class="indigo-text" *ngIf="currentUser.address"><strong>{{currentUser.address.street}}, {{currentUser.address.city}},
-      {{currentUser.address.state}}, {{currentUser.address.zip}}</strong></h5>
+    <h3 class="card-title">
+      <strong>{{currentUser.name.firstName}} {{currentUser.name.lastName}}</strong>
+    </h3>
+    <h4 class="indigo-text">
+      <strong>{{currentUser.role}}</strong>
+    </h4>
+    <h5 class="indigo-text">
+      <strong>Score: </strong>
+    </h5>
+    <h5 class="indigo-text" *ngIf="currentUser.address">
+      <strong>{{currentUser.address.street}}, {{currentUser.address.city}}, {{currentUser.address.state}}, {{currentUser.address.zip}}</strong>
+    </h5>
 
 
 
@@ -121,36 +127,42 @@
                                   <!--Table body-->
                                   <tbody>
 
-                                  <tr *ngFor="let Slot of sat ; let i = index">
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot {{i+1}}</h3>
+                                    <tr *ngFor="let Slot of sat ; let i = index">
+                                      <th class="table-nawwar">
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>Slot {{i+1}}</h3>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>00:00AM</p>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </th>                                      <td>
-                                    <div class="row text-center">
-                                      <div class="col-12">
-                                        <h3>{{Slot.slot.title}}</h3></div>
-                                    </div>
-                                    <div class="row text-center">
-                                      <div class="col-12">
-                                        <p>{{Slot.slot.description}}</p>
-                                      </div>
-                                    </div>
-                                    <div class="row text-center">
-                                      <div class="col-12">
-                                        <a href="#" placement="bottom" ngbTooltip="Go to URL"><i class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                      </div>
-                                    </div>
-                                  </td>
-                                  </tr>
+                                      </th>
+                                      <td>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>{{Slot.slot.title}}</h3>
+                                          </div>
+                                        </div>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>{{Slot.slot.description}}</p>
+                                          </div>
+                                        </div>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <a href="#" placement="bottom" ngbTooltip="Go to URL">
+                                              <i class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i>
+                                            </a>
+                                            <a href="#" placement="bottom" ngbTooltip="Edit Slot">
+                                              <i class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i>
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </td>
+                                    </tr>
 
 
                                   </tbody>
@@ -172,36 +184,42 @@
                                   <!--Table body-->
                                   <tbody>
 
-                                  <tr *ngFor="let Slot of sun ; let i = index">
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot {{i+1}}</h3>
+                                    <tr *ngFor="let Slot of sun ; let i = index">
+                                      <th class="table-nawwar">
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>Slot {{i+1}}</h3>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>00:00AM</p>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </th>                                      <td>
-                                    <div class="row text-center">
-                                      <div class="col-12">
-                                        <h3>{{Slot.slot.title}}</h3></div>
-                                    </div>
-                                    <div class="row text-center">
-                                      <div class="col-12">
-                                        <p>{{Slot.slot.description}}</p>
-                                      </div>
-                                    </div>
-                                    <div class="row text-center">
-                                      <div class="col-12">
-                                        <a href="#" placement="bottom" ngbTooltip="Go to URL"><i class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                      </div>
-                                    </div>
-                                  </td>
-                                  </tr>
+                                      </th>
+                                      <td>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>{{Slot.slot.title}}</h3>
+                                          </div>
+                                        </div>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>{{Slot.slot.description}}</p>
+                                          </div>
+                                        </div>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <a href="#" placement="bottom" ngbTooltip="Go to URL">
+                                              <i class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i>
+                                            </a>
+                                            <a href="#" placement="bottom" ngbTooltip="Edit Slot">
+                                              <i class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i>
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </td>
+                                    </tr>
                                   </tbody>
                                   <!--Table body-->
                                 </table>
@@ -221,36 +239,42 @@
                                   <!--Table body-->
                                   <tbody>
 
-                                  <tr *ngFor="let Slot of mon ; let i = index">
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot {{i+1}}</h3>
+                                    <tr *ngFor="let Slot of mon ; let i = index">
+                                      <th class="table-nawwar">
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>Slot {{i+1}}</h3>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>00:00AM</p>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </th>                                      <td>
-                                    <div class="row text-center">
-                                      <div class="col-12">
-                                        <h3>{{Slot.slot.title}}</h3></div>
-                                    </div>
-                                    <div class="row text-center">
-                                      <div class="col-12">
-                                        <p>{{Slot.slot.description}}</p>
-                                      </div>
-                                    </div>
-                                    <div class="row text-center">
-                                      <div class="col-12">
-                                        <a href="#" placement="bottom" ngbTooltip="Go to URL"><i class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                      </div>
-                                    </div>
-                                  </td>
-                                  </tr>
+                                      </th>
+                                      <td>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>{{Slot.slot.title}}</h3>
+                                          </div>
+                                        </div>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>{{Slot.slot.description}}</p>
+                                          </div>
+                                        </div>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <a href="#" placement="bottom" ngbTooltip="Go to URL">
+                                              <i class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i>
+                                            </a>
+                                            <a href="#" placement="bottom" ngbTooltip="Edit Slot">
+                                              <i class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i>
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </td>
+                                    </tr>
 
                                   </tbody>
                                   <!--Table body-->
@@ -271,36 +295,42 @@
                                   <!--Table body-->
                                   <tbody>
 
-                                  <tr *ngFor="let Slot of tues ; let i = index">
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot {{i+1}}</h3>
+                                    <tr *ngFor="let Slot of tues ; let i = index">
+                                      <th class="table-nawwar">
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>Slot {{i+1}}</h3>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>00:00AM</p>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </th>                                      <td>
-                                    <div class="row text-center">
-                                      <div class="col-12">
-                                        <h3>{{Slot.slot.title}}</h3></div>
-                                    </div>
-                                    <div class="row text-center">
-                                      <div class="col-12">
-                                        <p>{{Slot.slot.description}}</p>
-                                      </div>
-                                    </div>
-                                    <div class="row text-center">
-                                      <div class="col-12">
-                                        <a href="#" placement="bottom" ngbTooltip="Go to URL"><i class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                      </div>
-                                    </div>
-                                  </td>
-                                  </tr>
+                                      </th>
+                                      <td>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>{{Slot.slot.title}}</h3>
+                                          </div>
+                                        </div>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>{{Slot.slot.description}}</p>
+                                          </div>
+                                        </div>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <a href="#" placement="bottom" ngbTooltip="Go to URL">
+                                              <i class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i>
+                                            </a>
+                                            <a href="#" placement="bottom" ngbTooltip="Edit Slot">
+                                              <i class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i>
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </td>
+                                    </tr>
 
                                   </tbody>
                                   <!--Table body-->
@@ -321,36 +351,42 @@
                                   <!--Table body-->
                                   <tbody>
 
-                                  <tr *ngFor="let Slot of wed ; let i = index">
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot {{i+1}}</h3>
+                                    <tr *ngFor="let Slot of wed ; let i = index">
+                                      <th class="table-nawwar">
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>Slot {{i+1}}</h3>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>00:00AM</p>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </th>                                      <td>
-                                    <div class="row text-center">
-                                      <div class="col-12">
-                                        <h3>{{Slot.slot.title}}</h3></div>
-                                    </div>
-                                    <div class="row text-center">
-                                      <div class="col-12">
-                                        <p>{{Slot.slot.description}}</p>
-                                      </div>
-                                    </div>
-                                    <div class="row text-center">
-                                      <div class="col-12">
-                                        <a href="#" placement="bottom" ngbTooltip="Go to URL"><i class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                      </div>
-                                    </div>
-                                  </td>
-                                  </tr>
+                                      </th>
+                                      <td>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>{{Slot.slot.title}}</h3>
+                                          </div>
+                                        </div>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>{{Slot.slot.description}}</p>
+                                          </div>
+                                        </div>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <a href="#" placement="bottom" ngbTooltip="Go to URL">
+                                              <i class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i>
+                                            </a>
+                                            <a href="#" placement="bottom" ngbTooltip="Edit Slot">
+                                              <i class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i>
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </td>
+                                    </tr>
 
                                   </tbody>
                                   <!--Table body-->
@@ -371,36 +407,42 @@
                                   <!--Table body-->
                                   <tbody>
 
-                                  <tr *ngFor="let Slot of thurs ; let i = index">
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot {{i+1}}</h3>
+                                    <tr *ngFor="let Slot of thurs ; let i = index">
+                                      <th class="table-nawwar">
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>Slot {{i+1}}</h3>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>00:00AM</p>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </th>                                      <td>
-                                    <div class="row text-center">
-                                      <div class="col-12">
-                                        <h3>{{Slot.slot.title}}</h3></div>
-                                    </div>
-                                    <div class="row text-center">
-                                      <div class="col-12">
-                                        <p>{{Slot.slot.description}}</p>
-                                      </div>
-                                    </div>
-                                    <div class="row text-center">
-                                      <div class="col-12">
-                                        <a href="#" placement="bottom" ngbTooltip="Go to URL"><i class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                      </div>
-                                    </div>
-                                  </td>
-                                  </tr>
+                                      </th>
+                                      <td>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>{{Slot.slot.title}}</h3>
+                                          </div>
+                                        </div>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>{{Slot.slot.description}}</p>
+                                          </div>
+                                        </div>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <a href="#" placement="bottom" ngbTooltip="Go to URL">
+                                              <i class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i>
+                                            </a>
+                                            <a href="#" placement="bottom" ngbTooltip="Edit Slot">
+                                              <i class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i>
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </td>
+                                    </tr>
 
                                   </tbody>
                                   <!--Table body-->
@@ -421,36 +463,42 @@
                                   <!--Table body-->
                                   <tbody>
 
-                                  <tr *ngFor="let Slot of fri ; let i = index">
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot {{i+1}}</h3>
+                                    <tr *ngFor="let Slot of fri ; let i = index">
+                                      <th class="table-nawwar">
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>Slot {{i+1}}</h3>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>00:00AM</p>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </th>                                      <td>
-                                    <div class="row text-center">
-                                      <div class="col-12">
-                                        <h3>{{Slot.slot.title}}</h3></div>
-                                    </div>
-                                    <div class="row text-center">
-                                      <div class="col-12">
-                                        <p>{{Slot.slot.description}}</p>
-                                      </div>
-                                    </div>
-                                    <div class="row text-center">
-                                      <div class="col-12">
-                                        <a href="#" placement="bottom" ngbTooltip="Go to URL"><i class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                      </div>
-                                    </div>
-                                  </td>
-                                  </tr>
+                                      </th>
+                                      <td>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>{{Slot.slot.title}}</h3>
+                                          </div>
+                                        </div>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>{{Slot.slot.description}}</p>
+                                          </div>
+                                        </div>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <a href="#" placement="bottom" ngbTooltip="Go to URL">
+                                              <i class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i>
+                                            </a>
+                                            <a href="#" placement="bottom" ngbTooltip="Edit Slot">
+                                              <i class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i>
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </td>
+                                    </tr>
 
                                   </tbody>
                                   <!--Table body-->
@@ -575,8 +623,12 @@
                     </div>
                     <div class="card-footer">
                       <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task"><i class="fa fa-tasks fa-2x white-text mr-2" aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x white-text" aria-hidden="true"></i></a>
+                        <a href="#" placement="bottom" ngbTooltip="Task">
+                          <i class="fa fa-tasks fa-2x white-text mr-2" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" placement="bottom" ngbTooltip="Remove">
+                          <i class="fa fa-ban fa-2x white-text" aria-hidden="true"></i>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -593,8 +645,12 @@
                     </div>
                     <div class="card-footer">
                       <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task"><i class="fa fa-tasks fa-2x black-text  mr-2" aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x black-text" aria-hidden="true"></i></a>
+                        <a href="#" placement="bottom" ngbTooltip="Task">
+                          <i class="fa fa-tasks fa-2x black-text  mr-2" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" placement="bottom" ngbTooltip="Remove">
+                          <i class="fa fa-ban fa-2x black-text" aria-hidden="true"></i>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -611,8 +667,12 @@
                     </div>
                     <div class="card-footer">
                       <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task"><i class="fa fa-tasks fa-2x white-text mr-2" aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x white-text" aria-hidden="true"></i></a>
+                        <a href="#" placement="bottom" ngbTooltip="Task">
+                          <i class="fa fa-tasks fa-2x white-text mr-2" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" placement="bottom" ngbTooltip="Remove">
+                          <i class="fa fa-ban fa-2x white-text" aria-hidden="true"></i>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -629,8 +689,12 @@
                     </div>
                     <div class="card-footer">
                       <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task"><i class="fa fa-tasks fa-2x white-text mr-2" aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x white-text" aria-hidden="true"></i></a>
+                        <a href="#" placement="bottom" ngbTooltip="Task">
+                          <i class="fa fa-tasks fa-2x white-text mr-2" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" placement="bottom" ngbTooltip="Remove">
+                          <i class="fa fa-ban fa-2x white-text" aria-hidden="true"></i>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -647,8 +711,12 @@
                     </div>
                     <div class="card-footer">
                       <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task"><i class="fa fa-tasks fa-2x white-text mr-2" aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x white-text" aria-hidden="true"></i></a>
+                        <a href="#" placement="bottom" ngbTooltip="Task">
+                          <i class="fa fa-tasks fa-2x white-text mr-2" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" placement="bottom" ngbTooltip="Remove">
+                          <i class="fa fa-ban fa-2x white-text" aria-hidden="true"></i>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -665,8 +733,12 @@
                     </div>
                     <div class="card-footer">
                       <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task"><i class="fa fa-tasks fa-2x white-text mr-2" aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x white-text" aria-hidden="true"></i></a>
+                        <a href="#" placement="bottom" ngbTooltip="Task">
+                          <i class="fa fa-tasks fa-2x white-text mr-2" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" placement="bottom" ngbTooltip="Remove">
+                          <i class="fa fa-ban fa-2x white-text" aria-hidden="true"></i>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -683,8 +755,12 @@
                     </div>
                     <div class="card-footer">
                       <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task"><i class="fa fa-tasks fa-2x white-text mr-2" aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x white-text" aria-hidden="true"></i></a>
+                        <a href="#" placement="bottom" ngbTooltip="Task">
+                          <i class="fa fa-tasks fa-2x white-text mr-2" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" placement="bottom" ngbTooltip="Remove">
+                          <i class="fa fa-ban fa-2x white-text" aria-hidden="true"></i>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -701,8 +777,12 @@
                     </div>
                     <div class="card-footer">
                       <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task"><i class="fa fa-tasks fa-2x black-text  mr-2" aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x black-text" aria-hidden="true"></i></a>
+                        <a href="#" placement="bottom" ngbTooltip="Task">
+                          <i class="fa fa-tasks fa-2x black-text  mr-2" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" placement="bottom" ngbTooltip="Remove">
+                          <i class="fa fa-ban fa-2x black-text" aria-hidden="true"></i>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -730,9 +810,15 @@
                     </div>
                     <div class="card-footer">
                       <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Profile"><i class="fa fa-user fa-2x" aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Messages"><i class="fa fa-envelope fa-fw fa-2x" aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x" aria-hidden="true"></i></a>
+                        <a href="#" placement="bottom" ngbTooltip="Profile">
+                          <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" placement="bottom" ngbTooltip="Messages">
+                          <i class="fa fa-envelope fa-fw fa-2x" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" placement="bottom" ngbTooltip="Remove">
+                          <i class="fa fa-ban fa-2x" aria-hidden="true"></i>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -748,9 +834,15 @@
                     </div>
                     <div class="card-footer">
                       <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Profile"><i class="fa fa-user fa-2x" aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Messages"><i class="fa fa-envelope fa-fw fa-2x" aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x" aria-hidden="true"></i></a>
+                        <a href="#" placement="bottom" ngbTooltip="Profile">
+                          <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" placement="bottom" ngbTooltip="Messages">
+                          <i class="fa fa-envelope fa-fw fa-2x" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" placement="bottom" ngbTooltip="Remove">
+                          <i class="fa fa-ban fa-2x" aria-hidden="true"></i>
+                        </a>
                       </div>
                     </div>
                   </div>

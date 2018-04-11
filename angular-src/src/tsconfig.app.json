@@ -18,8 +18,7 @@
     "../src/app/modules/resources/resources.module.ts",
     "../src/app/modules/schedule/schedule.module.ts",
     "../src/app/modules/store/store.module.ts ",
-    "../src/app/modules/store/myitems/myitems.module.ts",
-    "../node_modules/angular5-toaster/src/toaster.module.ts"
+    "../src/app/modules/store/myitems/myitems.module.ts"
   ]
 }
 

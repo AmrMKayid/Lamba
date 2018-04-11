@@ -163,9 +163,9 @@
               {{article.upvoters.length - article.downvoters.length}}
               <i class="fa fa-arrow-up"></i>
             </label>
-            <label class="text-danger" *ngIf="!article.upvoters.length > article.downvoters.length">
-              {{article.upvoters.length - article.downvoters.length}}
-              <i class="fa fa-arrow-up"></i>
+            <label class="text-danger" *ngIf="!(article.upvoters.length > article.downvoters.length)">
+              {{ article.downvoters.length - article.upvoters.length }}
+              <i class="fa fa-arrow-down"></i>
             </label>
 
             <div class="text-center mt-4">
@@ -178,6 +178,22 @@
               </a>
             </div>
           </div>
+          <br>
+
+        </div>
+        <div *ngIf="currentUserId == article.owner_id" class="card mb-4 text-center wow fadeIn">
+          <div class="card-header">
+            <strong>Actions</strong>
+          </div>
+
+          <div class="card-body">
+            <a class="btn btn-danger btn-block" (click)="delete(article._id)" role="button">
+              <i aria-hidden="true"></i>Delete Article
+            </a>
+            <a class="btn btn-primary btn-block" (click)="edit(article._id)" role="button">
+              <i aria-hidden="true"></i>Edit Article
+            </a>
+          </div>
         </div>
         <!--/.Card : Dynamic content wrapper-->
       </div>
@@ -185,4 +201,5 @@
     </div>
     <!--Grid row-->
   </section>
+
 </div>

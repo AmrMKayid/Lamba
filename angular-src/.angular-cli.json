@@ -22,11 +22,13 @@
         "../node_modules/font-awesome/scss/font-awesome.scss",
         "../node_modules/angular-bootstrap-md/scss/bootstrap/bootstrap.scss",
         "../node_modules/angular-bootstrap-md/scss/mdb-free.scss",
+        "../node_modules/noty/lib/noty.css",
         "./styles.scss"
       ],
       "scripts": [
         "../node_modules/chart.js/dist/Chart.js",
-        "../node_modules/hammerjs/hammer.min.js"
+        "../node_modules/hammerjs/hammer.min.js",
+        "../node_modules/noty/lib/noty.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

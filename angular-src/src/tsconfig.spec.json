@@ -15,8 +15,6 @@
   ],
   "include": [
     "**/*.spec.ts",
-    "**/*.d.ts",
-    "../node_modules/angular5-toaster/src/toaster.module.ts"
-
+    "**/*.d.ts"
   ]
 }

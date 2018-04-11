@@ -80,15 +80,15 @@ app.use('/api', routes);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware to handle any (500 Internal server error) that may occur while doing database related functions
-// app.use(function (err, req, res, next) {
-//     if (err.statusCode === 404) return next();
-//     res.status(500).json({
-//         // Never leak the stack trace of the err if running in production mode
-//         err: process.env.NODE_ENV === 'production' ? null : err,
-//         msg: '500 Internal Server Error',
-//         data: null
-//     });
-// });
+ app.use(function (err, req, res, next) {
+     if (err.statusCode === 404) return next();
+     res.status(500).json({
+         // Never leak the stack trace of the err if running in production mode
+         err: process.env.NODE_ENV === 'production' ? null : err,
+         msg: '500 Internal Server Error',
+         data: null
+    });
+});
 
 /*
   Middleware to handle any (404 Not Found) error that may occur if the request didn't find

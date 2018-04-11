@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Http, Headers} from '@angular/http';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {ToasterService} from 'angular5-toaster/src/toaster.service';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
@@ -38,7 +37,6 @@ export class ChildComponent implements OnInit {
   constructor(private router: Router,
               private httpClient: HttpClient,
               private auth: AuthService,
-              private toaster: ToasterService,
               private modalService: NgbModal) {
   }
 
