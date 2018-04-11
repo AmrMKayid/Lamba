@@ -41,8 +41,10 @@ textarea {
   overflow: hidden;
 
 }
-.container
+.container-fluid
 {
-	 margin-right: auto;
-    margin-left: auto;
+	width:100%;
+	margin-left:5%;
+	margin-right:5%;
+    padding-left: 3%;
 }
