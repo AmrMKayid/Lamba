@@ -166,8 +166,49 @@ function ViewItemsTests() {
  * Routes:  -post('api/store/edit/:itemId')
  *
  */
-function EditItemsTests() {
-  /*TODO: Moghazy*/
+function EditItemsTests(){
+describe('Edit Items', function() {
+
+  const item = {
+    name: 'cats',
+    description: 'A cat that has 4 legs and 2 eyes',
+    quantity: 3,
+    price: 300000,
+    item_type: 'pet',
+    item_condition: 'bad',
+  }
+
+  it('It should Edit element', function(done) {
+
+  chai.request(server)
+    .get('/api/store/getItemsById').set('authorization', auth_token)
+    .end(function(err, res){
+    console.log("res = " + res) ;
+  chai.request(server).patch('/api/store/edit/' + res.body.data[0]._id ).set('authorization', auth_token).send(item).end(function(error, response){
+
+    chai.request(server)
+      .get('/api/store/getItemsById').set('authorization', auth_token)
+      .end(function(err, res){
+          response.should.have.status(200);
+          assert(res.body.data[0].name, 'cats');
+          assert(res.body.data[0].description , 'A cat that has 4 legs and 2 eyes');
+          assert(res.body.data[0].price , 300000);
+          assert(res.body.data[0].quantity , 3);
+          assert(res.body.data[0].item_type , 'pet' );
+          assert(res.body.data[0].item_condition , 'bad');
+
+        });
+
+
+          done();
+
+  });
+  })
+});
+
+
+});
+
 }
 
 
@@ -178,8 +219,38 @@ function EditItemsTests() {
  *
  */
 function DeleteItemsTests() {
-  /*TODO: Moghazy*/
+
+  describe('Delete Items', function() {
+
+  it('It should Delete one element', function(done) {
+
+    chai.request(server)
+      .get('/api/store/getItemsById').set('authorization', auth_token)
+      .end(function(err, res){
+      console.log("res =  2 2" + res) ;
+      console.log(res.body.data[0]._id) ;
+  let id = res.body.data[0]._id ;
+
+
+  chai.request(server).delete('/api/store/delete/' + res.body.data[0]._id ).end(function(error, response){
+    console.log('res.body.data[0]._id') ;
+
+    chai.request(server)
+      .get('/api/store/getItemsById').set('authorization', auth_token)
+      .end(function(err, res){
+          response.should.have.status(200);
+          assert(res.body.data[0]._id , id );
+
+        });
+
+              done();
+      });
+    });
+    });
+    });
+
 }
+
 
 
 /*
