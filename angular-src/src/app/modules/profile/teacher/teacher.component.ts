@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Http, Headers } from '@angular/http';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { AuthService } from "../../../services/auth.service";
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {Http, Headers} from '@angular/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {AuthService} from "../../../services/auth.service";
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -50,9 +49,9 @@ export class TeacherComponent implements OnInit {
   ///////////////////////////////////////////////////////////
 
   constructor(private router: Router,
-    private httpClient: HttpClient,
-    private auth: AuthService,
-    private modalService: NgbModal) {
+              private httpClient: HttpClient,
+              private auth: AuthService,
+              private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -104,8 +103,6 @@ export class TeacherComponent implements OnInit {
       "phone": user.phone
 
 
-
-
     }).subscribe(
       res => {
         console.log('sucess');
@@ -119,6 +116,7 @@ export class TeacherComponent implements OnInit {
 
 
   }
+
   ////////////////////////////// schedule/////////////////////////////////////////////////////
   getTeacherSchedule() {
 
@@ -186,7 +184,6 @@ export class TeacherComponent implements OnInit {
       }
     });
   }
-
 
 
   open(content) {

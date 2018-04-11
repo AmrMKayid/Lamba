@@ -20,7 +20,7 @@ const appRoutes: Routes = [
   {path: 'store', canActivate: [AuthGuard], loadChildren: './modules/store/store.module#StoreModule'},
 
   // otherwise redirect to shared
-  { path: '', redirectTo: '/', pathMatch: 'full' },
+  {path: '', redirectTo: '/', pathMatch: 'full'},
   {path: '**', redirectTo: '/'}
 ];
 

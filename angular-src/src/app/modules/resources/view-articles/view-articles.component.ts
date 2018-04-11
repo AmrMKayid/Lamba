@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { ArticlesService } from '../articles.service';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {HttpHeaders, HttpClient} from '@angular/common/http';
+import {ArticlesService} from '../articles.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-view-articles',
@@ -23,9 +23,11 @@ export class ViewArticlesComponent implements OnInit {
       'Authorization': localStorage.getItem('authentication')
     })
   };
+
   constructor(private http: HttpClient,
-    private articlesService: ArticlesService,
-    private router: Router) { }
+              private articlesService: ArticlesService,
+              private router: Router) {
+  }
 
   ngOnInit() {
     this.articles = [];
@@ -50,7 +52,7 @@ export class ViewArticlesComponent implements OnInit {
     this.articlesService.getAllTags().subscribe(
       (res: any) => {
         res.data.forEach(element => {
-          this.allTags.push({ value: element.name, id: element._id })
+          this.allTags.push({value: element.name, id: element._id})
         });
         this.tagsInitialized = true;
       }, err => {
@@ -72,6 +74,7 @@ export class ViewArticlesComponent implements OnInit {
       this.filterTagsIDs.push(element.id);
     });
   }
+
   getTagByID(allTags: { value: string, id: string }[], tagID: string) {
     for (let i = 0; i < allTags.length; i++) {
       if (allTags[i].id === tagID) {
@@ -79,10 +82,11 @@ export class ViewArticlesComponent implements OnInit {
       }
     }
   }
+
   setTag(tag) {
     this.filterTagsIDs = [];
     this.filterTagsIDs.push(tag);
     this.selectedTags = [];
-    this.selectedTags.push({ value: tag, id: tag, display: this.getTagByID(this.allTags, tag) });
+    this.selectedTags.push({value: tag, id: tag, display: this.getTagByID(this.allTags, tag)});
   }
 }

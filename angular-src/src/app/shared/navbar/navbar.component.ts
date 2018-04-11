@@ -15,15 +15,16 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     if (localStorage.getItem('authentication')) {
-     this.role = (this.auth.getCurrentUser().role).toLowerCase();
+      this.role = (this.auth.getCurrentUser().role).toLowerCase();
     }
   }
 
   isLoggedIn() {
     return localStorage.getItem('authentication');
   }
-  isAdmin(){
-    if((this.auth.getCurrentUser().role).toLowerCase()=='admin'){
+
+  isAdmin() {
+    if ((this.auth.getCurrentUser().role).toLowerCase() == 'admin') {
       return true;
     }
     return false;

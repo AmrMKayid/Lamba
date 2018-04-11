@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     child = mongoose.model('Child'),
     Validations = require('../utils/validations');
 
-module.exports.getTeacherSchedule = function(req, res, next) {
+module.exports.getTeacherSchedule = function (req, res, next) {
 
     if (!Validations.isObjectId(req.params.UserId)) {
         return res.status(422).json({
@@ -14,7 +14,7 @@ module.exports.getTeacherSchedule = function(req, res, next) {
     }
 
 
-    Teacher.findById(req.params.UserId).exec(function(err, user) {
+    Teacher.findById(req.params.UserId).exec(function (err, user) {
 
 
         if (err) {
@@ -23,7 +23,7 @@ module.exports.getTeacherSchedule = function(req, res, next) {
         if (!user) {
             return res
                 .status(404)
-                .json({ err: null, msg: 'User not found.', data: null });
+                .json({err: null, msg: 'User not found.', data: null});
         }
 
         res.status(200).json({
@@ -33,7 +33,7 @@ module.exports.getTeacherSchedule = function(req, res, next) {
         });
     });
 };
-module.exports.createTeacherSchedule = function(req, res, next) {
+module.exports.createTeacherSchedule = function (req, res, next) {
     /* var valid = req.params._id && Validations.isString(req.params._id);
      if (!valid) {
          return res.status(422).json({
@@ -43,55 +43,55 @@ module.exports.createTeacherSchedule = function(req, res, next) {
          });
      }*/
     //console.log(req.params.email);
-    Teacher.findById(req.params.UserId).exec(function(err, user) {
+    Teacher.findById(req.params.UserId).exec(function (err, user) {
         if (err) {
             return next(err);
         }
         if (!user) {
             return res
                 .status(404)
-                .json({ err: null, msg: 'User not found.', data: null });
+                .json({err: null, msg: 'User not found.', data: null});
         }
-        if(user.role !='Teacher'){
+        if (user.role != 'Teacher') {
             return res
                 .status(401)
-                .json({ err: null, msg: 'Unauthorized Access.', data: null });
+                .json({err: null, msg: 'Unauthorized Access.', data: null});
         }
-        if(user.schedule.table.saturday.length ==0)
-        for(var i=0; i< 8 ; i++){
+        if (user.schedule.table.saturday.length == 0)
+            for (var i = 0; i < 8; i++) {
 
-            user.schedule.table.saturday.push({});
-        }
-        if(user.schedule.table.sunday.length ==0)
-        for(var i=0; i< 8 ; i++){
+                user.schedule.table.saturday.push({});
+            }
+        if (user.schedule.table.sunday.length == 0)
+            for (var i = 0; i < 8; i++) {
 
-            user.schedule.table.sunday.push({});
-        }
-        if(user.schedule.table.monday.length ==0)
-        for(var i=0; i< 8 ; i++){
+                user.schedule.table.sunday.push({});
+            }
+        if (user.schedule.table.monday.length == 0)
+            for (var i = 0; i < 8; i++) {
 
-            user.schedule.table.monday.push({});
-        }
-        if(user.schedule.table.tuesday.length ==0)
-        for(var i=0; i< 8 ; i++){
+                user.schedule.table.monday.push({});
+            }
+        if (user.schedule.table.tuesday.length == 0)
+            for (var i = 0; i < 8; i++) {
 
-            user.schedule.table.tuesday.push({});
-        }
-        if(user.schedule.table.wednesday.length ==0)
-        for(var i=0; i< 8 ; i++){
+                user.schedule.table.tuesday.push({});
+            }
+        if (user.schedule.table.wednesday.length == 0)
+            for (var i = 0; i < 8; i++) {
 
-            user.schedule.table.wednesday.push({});
-        }
-        if(user.schedule.table.thursday.length ==0)
-        for(var i=0; i< 8 ; i++){
+                user.schedule.table.wednesday.push({});
+            }
+        if (user.schedule.table.thursday.length == 0)
+            for (var i = 0; i < 8; i++) {
 
-            user.schedule.table.thursday.push({});
-        }
-        if(user.schedule.table.friday.length ==0)
-        for(var i=0; i< 8 ; i++) {
-            user.schedule.table.friday.push({});
-        }
-        user.save(function(err) {
+                user.schedule.table.thursday.push({});
+            }
+        if (user.schedule.table.friday.length == 0)
+            for (var i = 0; i < 8; i++) {
+                user.schedule.table.friday.push({});
+            }
+        user.save(function (err) {
             if (err) {
                 return next(err);
             }
@@ -106,7 +106,7 @@ module.exports.createTeacherSchedule = function(req, res, next) {
     });
 };
 
-module.exports.getChildSchedule = function(req, res, next) {
+module.exports.getChildSchedule = function (req, res, next) {
     if (!Validations.isObjectId(req.params.ChildId)) {
         return res.status(422).json({
             err: null,
@@ -114,7 +114,7 @@ module.exports.getChildSchedule = function(req, res, next) {
             data: null
         });
     }
-    if(!req.decodedToken.user.username) {
+    if (!req.decodedToken.user.username) {
         if (req.decodedToken.user.role !== 'Parent') {
             return res.status(401).json({
                 err: null,
@@ -123,7 +123,7 @@ module.exports.getChildSchedule = function(req, res, next) {
             });
         }
     }
-    child.findById(req.params.ChildId).exec(function(err, user) {
+    child.findById(req.params.ChildId).exec(function (err, user) {
 
         if (err) {
             return next(err);
@@ -131,9 +131,9 @@ module.exports.getChildSchedule = function(req, res, next) {
         if (!user) {
             return res
                 .status(404)
-                .json({ err: null, msg: 'User not found.', data: null });
+                .json({err: null, msg: 'User not found.', data: null});
         }
-        if(user._id != req.decodedToken.user._id) {
+        if (user._id != req.decodedToken.user._id) {
             if (user.parent_id != req.decodedToken.user._id) {
 
                 return res
@@ -151,71 +151,70 @@ module.exports.getChildSchedule = function(req, res, next) {
 };
 
 
+module.exports.createChildShcedule = function (req, res, next) {
 
-module.exports.createChildShcedule = function(req, res, next) {
+    /*  var valid = req.params.ParentId && Validations.isString(req.params.ParentId);
+      if (!valid) {
+          return res.status(422).json({
+              err: null,
+              msg: 'name(String) is a required field.',
+              data: null
+          });
 
-  /*  var valid = req.params.ParentId && Validations.isString(req.params.ParentId);
-    if (!valid) {
-        return res.status(422).json({
-            err: null,
-            msg: 'name(String) is a required field.',
-            data: null
-        });
-
-    }
-    var valid = req.params.ChildId && Validations.isString(req.params.ChildId );
-    if (!valid) {
-        return res.status(422).json({
-            err: null,
-            msg: 'name(String) is a required field.',
-            data: null
-        });
-    }*/
-    child.findById(req.params.ChildId).exec(function(err, user) {
+      }
+      var valid = req.params.ChildId && Validations.isString(req.params.ChildId );
+      if (!valid) {
+          return res.status(422).json({
+              err: null,
+              msg: 'name(String) is a required field.',
+              data: null
+          });
+      }*/
+    child.findById(req.params.ChildId).exec(function (err, user) {
         if (err) {
             return next(err);
         }
         if (!user) {
             return res
                 .status(404)
-                .json({ err: null, msg: 'User not found.', data: null });
+                .json({err: null, msg: 'User not found.', data: null});
         }
-        if(user.parent_id !== req.params.ParentId ){
+        if (user.parent_id !== req.params.ParentId) {
 
             return res
                 .status(401)
-                .json({ err: null, msg: '401 Unauthorized', data: null });
+                .json({err: null, msg: '401 Unauthorized', data: null});
         }
-        if(user.schedule.table.saturday.length ==0)
-        for(var i=0; i< 8 ; i++){
-            user.schedule.table.saturday.push({});
-        }
-        if(user.schedule.table.sunday.length ==0)
-        for(var i=0; i< 8 ; i++){
-            user.schedule.table.sunday.push({});
-        }
-        if(user.schedule.table.monday.length ==0)
-        for(var i=0; i< 8 ; i++){
-            user.schedule.table.monday.push({});
-        }
-        if(user.schedule.table.tuesday.length ==0)
-        for(var i=0; i< 8 ; i++){
-            user.schedule.table.tuesday.push({});
-        }
-        if(user.schedule.table.wednesday.length ==0)
-        for(var i=0; i< 8 ; i++){
-            user.schedule.table.wednesday.push({});
-        }
-        if(user.schedule.table.thursday.length ==0)
-        for(var i=0; i< 8 ; i++){
-            user.schedule.table.thursday.push({});
-        }
-        if(user.schedule.table.friday.length ==0)
-        for(var i=0; i< 8 ; i++) {
-            user.schedule.table.friday.push({});
-        }
+        if (user.schedule.table.saturday.length == 0)
+            for (var i = 0; i < 8; i++) {
+                user.schedule.table.saturday.push({});
+            }
+        if (user.schedule.table.sunday.length == 0)
+            for (var i = 0; i < 8; i++) {
+                user.schedule.table.sunday.push({});
+            }
+        if (user.schedule.table.monday.length == 0)
+            for (var i = 0; i < 8; i++) {
+                user.schedule.table.monday.push({});
+            }
+        if (user.schedule.table.tuesday.length == 0)
+            for (var i = 0; i < 8; i++) {
+                user.schedule.table.tuesday.push({});
+            }
+        if (user.schedule.table.wednesday.length == 0)
+            for (var i = 0; i < 8; i++) {
+                user.schedule.table.wednesday.push({});
+            }
+        if (user.schedule.table.thursday.length == 0)
+            for (var i = 0; i < 8; i++) {
+                user.schedule.table.thursday.push({});
+            }
+        if (user.schedule.table.friday.length == 0)
+            for (var i = 0; i < 8; i++) {
+                user.schedule.table.friday.push({});
+            }
 
-        user.save(function(err) {
+        user.save(function (err) {
             if (err) {
                 return next(err);
             }
@@ -228,8 +227,8 @@ module.exports.createChildShcedule = function(req, res, next) {
     });
 };
 
-module.exports.updateTeacherSchedule = function(req, res, next) {
-   //req.decodedToken.user._id
+module.exports.updateTeacherSchedule = function (req, res, next) {
+    //req.decodedToken.user._id
     if (!Validations.isObjectId(req.params.SlotId)) {
         return res.status(422).json({
             err: null,
@@ -238,50 +237,50 @@ module.exports.updateTeacherSchedule = function(req, res, next) {
         });
     }
 
-    Teacher.findById(req.decodedToken.user._id).exec(function(err, user) {
+    Teacher.findById(req.decodedToken.user._id).exec(function (err, user) {
         if (err) {
             return next(err);
         }
         if (!user) {
             return res
                 .status(404)
-                .json({ err: null, msg: 'User not found.', data: null });
+                .json({err: null, msg: 'User not found.', data: null});
         }
-        if(user.role != 'Teacher'){
+        if (user.role != 'Teacher') {
             return res
                 .status(401)
-                .json({ err: null, msg: 'Unauthorized action.', data: null });
+                .json({err: null, msg: 'Unauthorized action.', data: null});
         }
 
         var day = req.body.day;
-        if(day != 'saturday' && day != 'sunday' && day != 'monday' && day != 'tuesday' &&
-            day != 'wednesday' && day != 'thursday' && day != 'friday'){
+        if (day != 'saturday' && day != 'sunday' && day != 'monday' && day != 'tuesday' &&
+            day != 'wednesday' && day != 'thursday' && day != 'friday') {
             return res
                 .status(401)
-                .json({ err: null, msg: 'Unauthorized Action.', data: null });
+                .json({err: null, msg: 'Unauthorized Action.', data: null});
 
         }
         //not sure why day has different color
         var slotsInweek;
-        if(req.body.day ==  'saturday') {
+        if (req.body.day == 'saturday') {
             slotsInweek = user.schedule.table.saturday;
         }
-        if(req.body.day ==  'sunday') {
+        if (req.body.day == 'sunday') {
             slotsInweek = user.schedule.table.sunday;
         }
-        if(req.body.day ==  'monday') {
+        if (req.body.day == 'monday') {
             slotsInweek = user.schedule.table.monday;
         }
-        if(req.body.day ==  'tuesday') {
+        if (req.body.day == 'tuesday') {
             slotsInweek = user.schedule.table.tuesday;
         }
-        if(req.body.day ==  'wednesday') {
+        if (req.body.day == 'wednesday') {
             slotsInweek = user.schedule.table.wednesday;
         }
-        if(req.body.day ==  'thursday') {
+        if (req.body.day == 'thursday') {
             slotsInweek = user.schedule.table.thursday;
         }
-        if(req.body.day ==  'friday') {
+        if (req.body.day == 'friday') {
             slotsInweek = user.schedule.table.friday;
         }
 
@@ -291,7 +290,7 @@ module.exports.updateTeacherSchedule = function(req, res, next) {
         if (!slot) {
             return res
                 .status(404)
-                .json({ err: null, msg: 'Slot not found.', data: null });
+                .json({err: null, msg: 'Slot not found.', data: null});
         }
 
         slot.slot.url = req.body.url;
@@ -299,7 +298,7 @@ module.exports.updateTeacherSchedule = function(req, res, next) {
         slot.slot.title = req.body.title;
 
 
-        user.save(function(err) {
+        user.save(function (err) {
             if (err) {
                 return next(err);
             }
@@ -313,7 +312,7 @@ module.exports.updateTeacherSchedule = function(req, res, next) {
 };
 
 
-module.exports.updateChildSchedule = function(req, res, next) {
+module.exports.updateChildSchedule = function (req, res, next) {
     //req.decodedToken.user._id
     if (!Validations.isObjectId(req.params.SlotId)) {
         return res.status(422).json({
@@ -329,14 +328,14 @@ module.exports.updateChildSchedule = function(req, res, next) {
             data: null
         });
     }
-    child.findById(req.params.ChildId).exec(function(err, user) {
+    child.findById(req.params.ChildId).exec(function (err, user) {
         if (err) {
             return next(err);
         }
         if (!user) {
             return res
                 .status(404)
-                .json({ err: null, msg: 'User not found.', data: null });
+                .json({err: null, msg: 'User not found.', data: null});
         }
         if (user.parent_id != req.decodedToken.user._id) {
 
@@ -346,34 +345,34 @@ module.exports.updateChildSchedule = function(req, res, next) {
 
         }
         var day = req.body.day;
-        if(day != 'saturday' && day != 'sunday' && day != 'monday' && day != 'tuesday' &&
-            day != 'wednesday' && day != 'thursday' && day != 'friday'){
+        if (day != 'saturday' && day != 'sunday' && day != 'monday' && day != 'tuesday' &&
+            day != 'wednesday' && day != 'thursday' && day != 'friday') {
             return res
                 .status(401)
-                .json({ err: null, msg: 'Unauthorized Action.', data: null });
+                .json({err: null, msg: 'Unauthorized Action.', data: null});
 
         }
         //not sure why day has different color
         var slotsInweek;
-        if(req.body.day ==  'saturday') {
+        if (req.body.day == 'saturday') {
             slotsInweek = user.schedule.table.saturday;
         }
-        if(req.body.day ==  'sunday') {
+        if (req.body.day == 'sunday') {
             slotsInweek = user.schedule.table.sunday;
         }
-        if(req.body.day ==  'monday') {
+        if (req.body.day == 'monday') {
             slotsInweek = user.schedule.table.monday;
         }
-        if(req.body.day ==  'tuesday') {
+        if (req.body.day == 'tuesday') {
             slotsInweek = user.schedule.table.tuesday;
         }
-        if(req.body.day ==  'wednesday') {
+        if (req.body.day == 'wednesday') {
             slotsInweek = user.schedule.table.wednesday;
         }
-        if(req.body.day ==  'thursday') {
+        if (req.body.day == 'thursday') {
             slotsInweek = user.schedule.table.thursday;
         }
-        if(req.body.day ==  'friday') {
+        if (req.body.day == 'friday') {
             slotsInweek = user.schedule.table.friday;
         }
 
@@ -383,7 +382,7 @@ module.exports.updateChildSchedule = function(req, res, next) {
         if (!slot) {
             return res
                 .status(404)
-                .json({ err: null, msg: 'Slot not found.', data: null });
+                .json({err: null, msg: 'Slot not found.', data: null});
         }
 
         slot.slot.url = req.body.url;
@@ -391,7 +390,7 @@ module.exports.updateChildSchedule = function(req, res, next) {
         slot.slot.title = req.body.title;
 
 
-        user.save(function(err) {
+        user.save(function (err) {
             if (err) {
                 return next(err);
             }

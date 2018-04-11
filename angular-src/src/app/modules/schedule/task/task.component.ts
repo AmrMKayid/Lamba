@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ActivatedRoute } from "@angular/router";
-import { AuthService } from "../../../services/auth.service";
+import {Component, OnInit} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {ActivatedRoute} from "@angular/router";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-task',
@@ -11,8 +11,9 @@ import { AuthService } from "../../../services/auth.service";
 export class TaskComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
-    private http: HttpClient,
-    private auth: AuthService) { }
+              private http: HttpClient,
+              private auth: AuthService) {
+  }
 
   taskId: String;
 
@@ -34,7 +35,8 @@ export class TaskComponent implements OnInit {
   taskComments = [];
   currentUser: any;
 
-newComment : any;
+  newComment: any;
+
   ngOnInit() {
 
     this.currentUser = this.auth.getCurrentUser();
@@ -64,7 +66,6 @@ newComment : any;
       this.taskComments = res.data;
     });
   }
-
 
 
   createNewComment(comment) {
@@ -97,10 +98,9 @@ newComment : any;
         }).show();
       });
 
-      this.newComment = "";
+    this.newComment = "";
 
   }
-
 
 
   // Tasks = []

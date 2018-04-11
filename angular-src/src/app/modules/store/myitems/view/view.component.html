@@ -1,68 +1,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
+  <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
 
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-    font-size: 1em;
-    font-weight: bold;
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+      font-size: 1em;
+      font-weight: bold;
 
+    }
 
-}
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
 
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-
-/* p {
-}
-p.thick {
-} */
-</style>
+    /* p {
+    }
+    p.thick {
+    } */
+  </style>
 </head>
-
 
 
 <toaster-container></toaster-container>
 
 
 <div>
-<table  style="width:100%">
-  <tr>
-    <th>Index</th>
-    <th>Name</th>
-    <th>Price</th>
-    <th>Quantity</th>
-    <th>Type</th>
-    <th>Condition</th>
-    <th>Created At</th>
-    <th>Updated At</th>
-    <th>Edit/Delete</th>
+  <table style="width:100%">
+    <tr>
+      <th>Index</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Type</th>
+      <th>Condition</th>
+      <th>Created At</th>
+      <th>Updated At</th>
+      <th>Edit/Delete</th>
 
-  </tr>
-  <tr *ngFor="let item of myitems; let i = index ">
-          <td> {{ i + 1 }} </td>
-          <th>{{item['name']}}</th>
-          <th>{{item['price']}}</th>
-          <th>{{item['quantity']}}</th>
-          <th>{{item['item_type']}}</th>
-          <th>{{item['item_condition']}}</th>
-          <th> {{ item['created_at'] | date:'medium' }}</th>
-          <th> {{ item['updated_at'] | date:'medium' }}</th>
-          <th>
-            <button (click)="deleteProduct(item._id)"  class="btn btn-danger">Delete</button>
-            <button (click)=" update(item)"  class="btn btn-info">Edit</button>
-          </th>
     </tr>
-</table>
+    <tr *ngFor="let item of myitems; let i = index ">
+      <td> {{ i + 1 }}</td>
+      <th>{{item['name']}}</th>
+      <th>{{item['price']}}</th>
+      <th>{{item['quantity']}}</th>
+      <th>{{item['item_type']}}</th>
+      <th>{{item['item_condition']}}</th>
+      <th> {{ item['created_at'] | date:'medium' }}</th>
+      <th> {{ item['updated_at'] | date:'medium' }}</th>
+      <th>
+        <button (click)="deleteProduct(item._id)" class="btn btn-danger">Delete</button>
+        <button (click)=" update(item)" class="btn btn-info">Edit</button>
+      </th>
+    </tr>
+  </table>
 </div>
 
 </html>

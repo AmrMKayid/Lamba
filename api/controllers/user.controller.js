@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
 
 
 module.exports.getAllUsers = function (req, res, next) {
-    User.find({$or: [{role: 'Parent'} , {role: 'Teacher'}]}).exec(function (err, users) {
+    User.find({$or: [{role: 'Parent'}, {role: 'Teacher'}]}).exec(function (err, users) {
         if (err) {
             return next(err);
         }
@@ -68,7 +68,7 @@ module.exports.getUserChildren = function (req, res, next) {
         });
     }
     Child.find({
-     parent_id: req.params.userID
+        parent_id: req.params.userID
     }).exec(function (err, children) {
         if (err) {
             return next(err);

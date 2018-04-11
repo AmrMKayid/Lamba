@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpClient } from '@angular/common/http';
-import { Http, Headers } from '@angular/http';
-import { Router, ActivatedRoute } from '@angular/router';
-import { HttpModule, Response } from '@angular/http';
-import { FormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {Component, OnInit} from '@angular/core';
+import {HttpClientModule} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
+import {Http, Headers} from '@angular/http';
+import {Router, ActivatedRoute} from '@angular/router';
+import {HttpModule, Response} from '@angular/http';
+import {FormsModule} from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'app-verify-teacher',
@@ -17,17 +17,17 @@ export class VerifyTeacherComponent implements OnInit {
   public Teachers = [];
   p: number = 1;
 
-  constructor(
-    private httpClient: HttpClient,
-    private http: Http,
-    private router: Router
-  ) {
+  constructor(private httpClient: HttpClient,
+              private http: Http,
+              private router: Router) {
 
   }
 
   ngOnInit() {
     this.httpClient.get('http://localhost:3000/api/admin/teachers_verfication')
-      .subscribe((res: any) => { this.Teachers = res.data; });
+      .subscribe((res: any) => {
+        this.Teachers = res.data;
+      });
   }
 
   Accept(teacherID) {
@@ -43,7 +43,7 @@ export class VerifyTeacherComponent implements OnInit {
     }
 
     this.httpClient.get('http://localhost:3000/api/admin/accept_teacher/' + teacherID)
-      //.catch((err: any) => console.log(err))
+    //.catch((err: any) => console.log(err))
       .subscribe(res => {
         new Noty({
           type: 'success',

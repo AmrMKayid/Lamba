@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
-import { ArticlesService } from '../articles.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../../services/auth.service';
+import {Component, OnInit, Input, ViewEncapsulation} from '@angular/core';
+import {ArticlesService} from '../articles.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-view-article',
@@ -20,7 +20,9 @@ export class ViewArticleComponent implements OnInit {
   replies: any = [{}];
   currentUserId: string;
   editPressed: boolean;
-  constructor(private router: Router, private route: ActivatedRoute, private articleService: ArticlesService, private auth: AuthService) { }
+
+  constructor(private router: Router, private route: ActivatedRoute, private articleService: ArticlesService, private auth: AuthService) {
+  }
 
 
   ngOnInit() {
@@ -72,6 +74,7 @@ export class ViewArticleComponent implements OnInit {
     );
     var data = sessionStorage.getItem('id');
   }
+
   downvote(id) {
     this.articleService.downvote(id).subscribe(
       (res: any) => {
@@ -87,6 +90,7 @@ export class ViewArticleComponent implements OnInit {
       }
     );
   }
+
   comment() {
     if (this.commentContent == '' || typeof this.commentContent == 'undefined' || this.commentContent == null) {
       new Noty({
@@ -121,6 +125,7 @@ export class ViewArticleComponent implements OnInit {
       )
     }
   }
+
   reply(i, comment_id, content) {
     if (content == '' || typeof content == 'undefined' || content == null) {
       new Noty({

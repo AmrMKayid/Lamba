@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {appConfig} from "../../../../app.config";
 import {ActivatedRoute} from "@angular/router";

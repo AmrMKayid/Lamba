@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-lg-4 col-md-4" >
+  <div class="col-lg-4 col-md-4">
     <div class="card text-center">
       <div class="card-header">
         Title: {{ article.title}}
@@ -13,12 +13,13 @@
         <div [innerHTML]="article.content">
         </div>
 
-        <button class="btn btn-primary btn-sm " id="btn"  (click)="verify(article._id)"> verify<i class="fas fa-cart-plus"></i></button>
+        <button class="btn btn-primary btn-sm " id="btn" (click)="verify(article._id)"> verify<i
+          class="fas fa-cart-plus"></i></button>
       </div>
       <div class="card-footer text-muted">
         Listed on: {{ article.createdAt | date}}
       </div>
     </div>
-  </div>  
-</div> 
+  </div>
+</div>
 

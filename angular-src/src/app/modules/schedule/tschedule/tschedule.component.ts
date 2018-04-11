@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import {Component, OnInit} from '@angular/core';
+import {Http, Headers} from '@angular/http';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ActivatedRoute} from "@angular/router";
 
@@ -35,7 +35,7 @@ export class TscheduleComponent implements OnInit {
   }
 
 
-  getTeacherSchedule(){
+  getTeacherSchedule() {
     //let user= JSON.parse(localStorage.getItem('currentUser')).user;
 
     this.http.get('http://localhost:3000/api/schedule/getTeacherSchedule/5ac015ff36680295c461476e').subscribe((res: any) => {
@@ -53,35 +53,37 @@ export class TscheduleComponent implements OnInit {
   }
 
 
-
-
-
   ngOnInit() {
     this.getTeacherSchedule();
   }
 
-   fsat() {
+  fsat() {
     this.day = this.sat;
   }
-   fsun() {
+
+  fsun() {
     this.day = this.sun;
   }
-   fmon() {
+
+  fmon() {
     this.day = this.mon;
   }
-   ftues() {
+
+  ftues() {
     this.day = this.tues;
   }
-   fwed() {
+
+  fwed() {
     this.day = this.wed;
   }
+
   fthurs() {
     this.day = this.thurs;
   }
-   ffri() {
+
+  ffri() {
     this.day = this.fri;
   }
-
 
 
   comment: string;
@@ -91,7 +93,7 @@ export class TscheduleComponent implements OnInit {
     userId: "",
     userType: "",
     taskId: "",
-    name:""
+    name: ""
 
   };
 

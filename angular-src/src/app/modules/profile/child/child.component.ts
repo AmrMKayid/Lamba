@@ -4,7 +4,7 @@ import {Http, Headers} from '@angular/http';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-child',
@@ -51,7 +51,7 @@ export class ChildComponent implements OnInit {
 
   getChildSchedule() {
 
-    this.httpClient.get('http://localhost:3000/api/schedule/getChildSchedule/' + this.currentUserID , this.httpOptions).subscribe((res: any) => {
+    this.httpClient.get('http://localhost:3000/api/schedule/getChildSchedule/' + this.currentUserID, this.httpOptions).subscribe((res: any) => {
       this.sat = res.data.saturday;
       this.sun = res.data.sunday;
       this.mon = res.data.monday;
@@ -63,9 +63,6 @@ export class ChildComponent implements OnInit {
     });
 
   }
-
-
-
 
 
 }

@@ -18,21 +18,20 @@ var express = require('express'),
 app.set('secret', config.SECRET);
 
 
-
 //---------------- Middlewares ----------------//
 
 // Middleware for uploading binary files
 var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'api/uploads/')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now())
-  }
+    destination: function (req, file, cb) {
+        cb(null, 'api/uploads/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
 });
 
 app.use(multer({
-     storage: storage
+    storage: storage
 }).single('image'));
 
 
@@ -80,13 +79,13 @@ app.use('/api', routes);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware to handle any (500 Internal server error) that may occur while doing database related functions
- app.use(function (err, req, res, next) {
-     if (err.statusCode === 404) return next();
-     res.status(500).json({
-         // Never leak the stack trace of the err if running in production mode
-         err: process.env.NODE_ENV === 'production' ? null : err,
-         msg: '500 Internal Server Error',
-         data: null
+app.use(function (err, req, res, next) {
+    if (err.statusCode === 404) return next();
+    res.status(500).json({
+        // Never leak the stack trace of the err if running in production mode
+        err: process.env.NODE_ENV === 'production' ? null : err,
+        msg: '500 Internal Server Error',
+        data: null
     });
 });
 
@@ -103,7 +102,6 @@ app.use(function (req, res) {
 });
 
 //---------------- Middlewares ----------------//
-
 
 
 module.exports = app;

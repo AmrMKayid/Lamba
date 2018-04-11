@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
-import { ArticlesService } from '../articles.service';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {HttpClient} from '@angular/common/http';
+import {HttpHeaders} from '@angular/common/http';
+import {ArticlesService} from '../articles.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-post-articles',
@@ -21,17 +21,17 @@ export class PostArticlesComponent implements OnInit {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'],
       ['blockquote', 'code-block'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      [{ script: 'sub' }, { script: 'super' }],
-      [{ indent: '-1' }, { indent: '+1' }],
-      [{ size: ['small', false, 'large', 'huge'] }],
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{list: 'ordered'}, {list: 'bullet'}],
+      [{script: 'sub'}, {script: 'super'}],
+      [{indent: '-1'}, {indent: '+1'}],
+      [{size: ['small', false, 'large', 'huge']}],
+      [{header: [1, 2, 3, 4, 5, 6, false]}],
       [
-        { color: [].slice() },
-        { background: [].slice() }
+        {color: [].slice()},
+        {background: [].slice()}
       ],
-      [{ font: [].slice() }],
-      [{ align: [].slice() }],
+      [{font: [].slice()}],
+      [{align: [].slice()}],
       ['clean'],
       ['video', 'link']
     ]
@@ -43,10 +43,11 @@ export class PostArticlesComponent implements OnInit {
       'Authorization': localStorage.getItem('authentication')
     })
   };
+
   constructor(private http: HttpClient,
-    private articlesService: ArticlesService,
-    private router: Router
-  ) { }
+              private articlesService: ArticlesService,
+              private router: Router) {
+  }
 
   ngOnInit() {
     this.tagsInitialized = false;
@@ -55,7 +56,7 @@ export class PostArticlesComponent implements OnInit {
     this.articlesService.getAllTags().subscribe(
       (res: any) => {
         res.data.forEach(element => {
-          this.allTags.push({ value: element.name, id: element._id })
+          this.allTags.push({value: element.name, id: element._id})
         });
         this.tagsInitialized = true;
       }, err => {
@@ -88,24 +89,24 @@ export class PostArticlesComponent implements OnInit {
 
     this.http.post('http://localhost:3000/api/articles', article, this.httpOptions)
       .pipe().subscribe(res => {
-        this.title = "";
-        this.editorContent = "";
-        this.router.navigate(['/resources']);
-        new Noty({
-          type: 'success',
-          text: "Your post was successfully submitted, it will now await an admin's approval",
-          timeout: 2500,
-          progressBar: true
-        }).show();
-      }, err => {
-        let msg = err.error.msg;
-        new Noty({
-          type: 'error',
-          text: "Something went wrong while submitting your post: msg",
-          timeout: 3000,
-          progressBar: true
-        }).show();
-      });
+      this.title = "";
+      this.editorContent = "";
+      this.router.navigate(['/resources']);
+      new Noty({
+        type: 'success',
+        text: "Your post was successfully submitted, it will now await an admin's approval",
+        timeout: 2500,
+        progressBar: true
+      }).show();
+    }, err => {
+      let msg = err.error.msg;
+      new Noty({
+        type: 'error',
+        text: "Something went wrong while submitting your post: msg",
+        timeout: 3000,
+        progressBar: true
+      }).show();
+    });
   }
 
 }

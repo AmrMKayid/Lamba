@@ -12,32 +12,31 @@ let assert = chai.assert;
 chai.use(chaiHttp);
 
 const user = {
-  role: "Admin",
-  email: "usertest@test.com",
-  password: "lambatest",
-  confirmPassword: "lambatest",
-  name: {
-    firstName: "user",
-    lastName: "test"
-  },
-  _id: mongoose.Types.ObjectId()
+    role: "Admin",
+    email: "usertest@test.com",
+    password: "lambatest",
+    confirmPassword: "lambatest",
+    name: {
+        firstName: "user",
+        lastName: "test"
+    },
+    _id: mongoose.Types.ObjectId()
 };
 
 
 // use this token as the authentication token
 const auth_token = jwt.sign({
-  user: user
+    user: user
 }, server.get('secret'), {
-  expiresIn: '12h'
+    expiresIn: '12h'
 });
 
 
-
 /*Deletes all the items in the data before each test*/
-before(function(done) {
-  Item.remove({}, (err) => {
-    done();
-  });
+before(function (done) {
+    Item.remove({}, (err) => {
+        done();
+    });
 });
 
 /*Call tests*/
@@ -49,11 +48,11 @@ LikeItemsTests();
 ViewMyItemsTests();
 
 /*****************************************************************************************
- *																					     *
- *																						 *
- *									store Tests											 *
- *																						 *
- *                                                  									 *
+ *                                                                                         *
+ *                                                                                         *
+ *                                    store Tests                                             *
+ *                                                                                         *
+ *                                                                                     *
  *****************************************************************************************/
 
 /*
@@ -63,18 +62,17 @@ ViewMyItemsTests();
  *  	   -post('api/store/upload')
  */
 function CreateItemsTests() {
-  describe('Create Items', function() {
-    it('It should create a new Item', createItemCat);
-  });
+    describe('Create Items', function () {
+        it('It should create a new Item', createItemCat);
+    });
 
-  describe('Create multiple Items', function() {
-    it('It should create multiple Items', createMultipleItems);
-  });
-  describe('Item with missing field', function() {
-    it('It respond with an error', createItemFail);
-  });
+    describe('Create multiple Items', function () {
+        it('It should create multiple Items', createMultipleItems);
+    });
+    describe('Item with missing field', function () {
+        it('It respond with an error', createItemFail);
+    });
 }
-
 
 
 /*
@@ -87,77 +85,74 @@ function CreateItemsTests() {
 function ViewItemsTests() {
 
 
+    describe('View first n Items', function () {
 
-  describe('View first n Items', function() {
-
-    it('It should return an array of items consisting of the first n items', function(done) {
-
+        it('It should return an array of items consisting of the first n items', function (done) {
 
 
-      chai.request(server).get('/api/store/view/2/1').set('authorization', auth_token)
-        .end(function(err, res) {
+            chai.request(server).get('/api/store/view/2/1').set('authorization', auth_token)
+                .end(function (err, res) {
 
 
-          assert.equal(res.body.data['length'], 2);
-          assert.equal(res.body.data[0]['name'], 'cats');
-          assert.equal(res.body.data[1]['name'], 'cats');
-          assert.notEqual(res.body.data[0]['_id'], res.body.data[1]['_id']);
-          done();
+                    assert.equal(res.body.data['length'], 2);
+                    assert.equal(res.body.data[0]['name'], 'cats');
+                    assert.equal(res.body.data[1]['name'], 'cats');
+                    assert.notEqual(res.body.data[0]['_id'], res.body.data[1]['_id']);
+                    done();
 
-        });
+                });
 
-    })
-  });
-
-
-
-  describe('View second n Items', function() {
-
-    it('It should return an array of items consisting of the second n items', function(done) {
-
-      chai.request(server).get('/api/store/view/3/2').set('authorization', auth_token)
-        .end(function(err, res) {
-          assert.equal(res.body.data['length'], 1);
-          assert.equal(res.body.data[0]['name'], 'dogs');
-
-          done();
-
-        });
-
-    })
-  });
+        })
+    });
 
 
-  describe('View total count of items', function() {
+    describe('View second n Items', function () {
 
-    it('It should return the number of items in the database', function(done) {
+        it('It should return an array of items consisting of the second n items', function (done) {
 
-      chai.request(server).get('/api/store/countItmes').set('authorization', auth_token)
-        .end(function(err, res) {
-          assert.equal(res.body.data, '4');
+            chai.request(server).get('/api/store/view/3/2').set('authorization', auth_token)
+                .end(function (err, res) {
+                    assert.equal(res.body.data['length'], 1);
+                    assert.equal(res.body.data[0]['name'], 'dogs');
 
-          done();
+                    done();
 
-        });
+                });
 
-    })
-  });
+        })
+    });
 
 
-  describe('Reject overloading requests', function() {
+    describe('View total count of items', function () {
 
-    it('It should not return any data', function(done) {
+        it('It should return the number of items in the database', function (done) {
 
-      chai.request(server).get('/api/store/view/200/1').set('authorization', auth_token)
-        .end(function(err, res) {
-          assert.equal(res.body.data, null);
+            chai.request(server).get('/api/store/countItmes').set('authorization', auth_token)
+                .end(function (err, res) {
+                    assert.equal(res.body.data, '4');
 
-          done();
+                    done();
 
-        });
+                });
 
-    })
-  });
+        })
+    });
+
+
+    describe('Reject overloading requests', function () {
+
+        it('It should not return any data', function (done) {
+
+            chai.request(server).get('/api/store/view/200/1').set('authorization', auth_token)
+                .end(function (err, res) {
+                    assert.equal(res.body.data, null);
+
+                    done();
+
+                });
+
+        })
+    });
 }
 
 /*
@@ -166,48 +161,48 @@ function ViewItemsTests() {
  * Routes:  -post('api/store/edit/:itemId')
  *
  */
-function EditItemsTests(){
-describe('Edit Items', function() {
+function EditItemsTests() {
+    describe('Edit Items', function () {
 
-  const item = {
-    name: 'cats',
-    description: 'A cat that has 4 legs and 2 eyes',
-    quantity: 3,
-    price: 300000,
-    item_type: 'pet',
-    item_condition: 'bad',
-  }
+        const item = {
+            name: 'cats',
+            description: 'A cat that has 4 legs and 2 eyes',
+            quantity: 3,
+            price: 300000,
+            item_type: 'pet',
+            item_condition: 'bad',
+        }
 
-  it('It should Edit element', function(done) {
+        it('It should Edit element', function (done) {
 
-  chai.request(server)
-    .get('/api/store/getItemsById').set('authorization', auth_token)
-    .end(function(err, res){
-    console.log("res = " + res) ;
-  chai.request(server).patch('/api/store/edit/' + res.body.data[0]._id ).set('authorization', auth_token).send(item).end(function(error, response){
+            chai.request(server)
+                .get('/api/store/getItemsById').set('authorization', auth_token)
+                .end(function (err, res) {
+                    console.log("res = " + res);
+                    chai.request(server).patch('/api/store/edit/' + res.body.data[0]._id).set('authorization', auth_token).send(item).end(function (error, response) {
 
-    chai.request(server)
-      .get('/api/store/getItemsById').set('authorization', auth_token)
-      .end(function(err, res){
-          response.should.have.status(200);
-          assert(res.body.data[0].name, 'cats');
-          assert(res.body.data[0].description , 'A cat that has 4 legs and 2 eyes');
-          assert(res.body.data[0].price , 300000);
-          assert(res.body.data[0].quantity , 3);
-          assert(res.body.data[0].item_type , 'pet' );
-          assert(res.body.data[0].item_condition , 'bad');
+                        chai.request(server)
+                            .get('/api/store/getItemsById').set('authorization', auth_token)
+                            .end(function (err, res) {
+                                response.should.have.status(200);
+                                assert(res.body.data[0].name, 'cats');
+                                assert(res.body.data[0].description, 'A cat that has 4 legs and 2 eyes');
+                                assert(res.body.data[0].price, 300000);
+                                assert(res.body.data[0].quantity, 3);
+                                assert(res.body.data[0].item_type, 'pet');
+                                assert(res.body.data[0].item_condition, 'bad');
 
+                            });
+
+
+                        done();
+
+                    });
+                })
         });
 
 
-          done();
-
-  });
-  })
-});
-
-
-});
+    });
 
 }
 
@@ -220,37 +215,36 @@ describe('Edit Items', function() {
  */
 function DeleteItemsTests() {
 
-  describe('Delete Items', function() {
+    describe('Delete Items', function () {
 
-  it('It should Delete one element', function(done) {
+        it('It should Delete one element', function (done) {
 
-    chai.request(server)
-      .get('/api/store/getItemsById').set('authorization', auth_token)
-      .end(function(err, res){
-      console.log("res =  2 2" + res) ;
-      console.log(res.body.data[0]._id) ;
-  let id = res.body.data[0]._id ;
+            chai.request(server)
+                .get('/api/store/getItemsById').set('authorization', auth_token)
+                .end(function (err, res) {
+                    console.log("res =  2 2" + res);
+                    console.log(res.body.data[0]._id);
+                    let id = res.body.data[0]._id;
 
 
-  chai.request(server).delete('/api/store/delete/' + res.body.data[0]._id ).end(function(error, response){
-    console.log('res.body.data[0]._id') ;
+                    chai.request(server).delete('/api/store/delete/' + res.body.data[0]._id).end(function (error, response) {
+                        console.log('res.body.data[0]._id');
 
-    chai.request(server)
-      .get('/api/store/getItemsById').set('authorization', auth_token)
-      .end(function(err, res){
-          response.should.have.status(200);
-          assert(res.body.data[0]._id , id );
+                        chai.request(server)
+                            .get('/api/store/getItemsById').set('authorization', auth_token)
+                            .end(function (err, res) {
+                                response.should.have.status(200);
+                                assert(res.body.data[0]._id, id);
 
+                            });
+
+                        done();
+                    });
+                });
         });
-
-              done();
-      });
-    });
-    });
     });
 
 }
-
 
 
 /*
@@ -260,10 +254,8 @@ function DeleteItemsTests() {
  *			-patch('api/store/like/:itemId')
  */
 function LikeItemsTests() {
-  /*TODO: Mayar*/
+    /*TODO: Mayar*/
 }
-
-
 
 
 /*
@@ -272,18 +264,16 @@ function LikeItemsTests() {
  * Routes:  -get('api/store/myitems/view')
  */
 function ViewMyItemsTests() {
-  /*TODO: Sohail*/
+    /*TODO: Sohail*/
 }
 
 
-
-
 /*****************************************************************************************
- *																					     *
- *																						 *
- *									helpers											 *
- *																						 *
- *                                                  									 *
+ *                                                                                         *
+ *                                                                                         *
+ *                                    helpers                                             *
+ *                                                                                         *
+ *                                                                                     *
  *****************************************************************************************/
 
 /** done -> void
@@ -291,38 +281,38 @@ function ViewMyItemsTests() {
  * Function done: should be called when the test is done
  */
 function createItemCat(done) {
-  const item = {
-    name: 'cats',
-    description: 'A cat that has 4 legs and 2 eyes',
-    quantity: 3,
-    price: 300000,
-    item_type: 'pet',
-    item_condition: 'bad',
-    picture_url: 'img-123213'
-  }
+    const item = {
+        name: 'cats',
+        description: 'A cat that has 4 legs and 2 eyes',
+        quantity: 3,
+        price: 300000,
+        item_type: 'pet',
+        item_condition: 'bad',
+        picture_url: 'img-123213'
+    }
 
-  chai.request(server).post('/api/store/create').set('authorization', auth_token).send(item)
-    .end((err, res) => {
+    chai.request(server).post('/api/store/create').set('authorization', auth_token).send(item)
+        .end((err, res) => {
 
-      // checks for the formate of the response
-      res.body.should.have.property('msg').eql('Created Item successfully');
-      res.body.should.have.property('data').should.be.a('object');
+            // checks for the formate of the response
+            res.body.should.have.property('msg').eql('Created Item successfully');
+            res.body.should.have.property('data').should.be.a('object');
 
-      // checks that the item was actually inserted in the database
-      Item.find({}, function(err, docs) {
+            // checks that the item was actually inserted in the database
+            Item.find({}, function (err, docs) {
 
-        docs.should.have.property('length').eql(1);
+                docs.should.have.property('length').eql(1);
 
 
-        actual_item = docs[0];
-        try {
-          assertItem(item, actual_item);
-        } catch (err) {
-          console.log(err);
-        }
-        done();
-      });
-    });
+                actual_item = docs[0];
+                try {
+                    assertItem(item, actual_item);
+                } catch (err) {
+                    console.log(err);
+                }
+                done();
+            });
+        });
 }
 
 /** done -> void
@@ -330,57 +320,57 @@ function createItemCat(done) {
  * Function done: should be called when the test is done
  */
 function createMultipleItems() {
-  const item1 = {
-    name: 'cats',
-    description: 'A cat that has 4 legs and 2 eyes',
-    quantity: 3,
-    price: 300000,
-    item_type: 'pet',
-    item_condition: 'bad',
-    picture_url: 'img-123213'
-  }
-  const item2 = {
-    name: 'dogs',
-    description: 'A dog that has 4 legs and 2 eyes',
-    quantity: 3,
-    price: 300000,
-    item_type: 'pet',
-    item_condition: 'bad',
-    picture_url: 'img-123213'
-  }
-  const item3 = {
-    name: 'bolbol',
-    description: 'A toy',
-    quantity: 3,
-    price: 300000,
-    item_type: 'toy',
-    item_condition: 'good',
-    picture_url: 'img-123213'
-  }
+    const item1 = {
+        name: 'cats',
+        description: 'A cat that has 4 legs and 2 eyes',
+        quantity: 3,
+        price: 300000,
+        item_type: 'pet',
+        item_condition: 'bad',
+        picture_url: 'img-123213'
+    }
+    const item2 = {
+        name: 'dogs',
+        description: 'A dog that has 4 legs and 2 eyes',
+        quantity: 3,
+        price: 300000,
+        item_type: 'pet',
+        item_condition: 'bad',
+        picture_url: 'img-123213'
+    }
+    const item3 = {
+        name: 'bolbol',
+        description: 'A toy',
+        quantity: 3,
+        price: 300000,
+        item_type: 'toy',
+        item_condition: 'good',
+        picture_url: 'img-123213'
+    }
 
 
-  chai.request(server).post('/api/store/create').set('authorization', auth_token).send(item1)
-    .end((err, res) => {
-      chai.request(server).post('/api/store/create').set('authorization', auth_token).send(item2)
+    chai.request(server).post('/api/store/create').set('authorization', auth_token).send(item1)
         .end((err, res) => {
-          chai.request(server).post('/api/store/create').set('authorization', auth_token).send(item)
-            .end((err, res) => {
-              Item.find({}, function(err, docs) {
-                console.log(docs.length);
-                docs.should.have.property('length').eql(3);
+            chai.request(server).post('/api/store/create').set('authorization', auth_token).send(item2)
+                .end((err, res) => {
+                    chai.request(server).post('/api/store/create').set('authorization', auth_token).send(item)
+                        .end((err, res) => {
+                            Item.find({}, function (err, docs) {
+                                console.log(docs.length);
+                                docs.should.have.property('length').eql(3);
 
 
-                actual_item = docs[0];
-                assertItem(item1, actual_item);
-                actual_item = docs[1];
-                assertItem(item2, actual_item);
-                actual_item = docs[2];
-                assertItem(item3, actual_item);
-                done();
-              });
-            });
+                                actual_item = docs[0];
+                                assertItem(item1, actual_item);
+                                actual_item = docs[1];
+                                assertItem(item2, actual_item);
+                                actual_item = docs[2];
+                                assertItem(item3, actual_item);
+                                done();
+                            });
+                        });
+                });
         });
-    });
 
 }
 
@@ -389,25 +379,25 @@ function createMultipleItems() {
  * Function done: should be called when the test is done
  */
 function createItemFail(done) {
-  const item = {
-    name: 'cats',
-    description: 'A cat that has 4 legs and 2 eyes',
-    quantity: 3,
-    item_type: 'pet',
-    item_condition: 'bad',
-    picture_url: 'img-123213'
-  }
+    const item = {
+        name: 'cats',
+        description: 'A cat that has 4 legs and 2 eyes',
+        quantity: 3,
+        item_type: 'pet',
+        item_condition: 'bad',
+        picture_url: 'img-123213'
+    }
 
-  chai.request(server).post('/api/store/create').set('authorization', auth_token).send(item)
-    .end((err, res) => {
+    chai.request(server).post('/api/store/create').set('authorization', auth_token).send(item)
+        .end((err, res) => {
 
-      // checks for the formate of the response
-      res.should.have.status(422);
-      res.body.should.have.property('msg').eql('One or More field(s) is missing or of incorrect type');
-      res.body.should.have.property('data').should.be.a('object');
+            // checks for the formate of the response
+            res.should.have.status(422);
+            res.body.should.have.property('msg').eql('One or More field(s) is missing or of incorrect type');
+            res.body.should.have.property('data').should.be.a('object');
 
-      done();
-    });
+            done();
+        });
 }
 
 
@@ -417,10 +407,10 @@ function createItemFail(done) {
  * Item actual: the actual item that was inserted to the database
  */
 function assertItem(expected, actual) {
-  // makes sure the correct fields were inserted
-  actual.should.have.property('name').eql(expected.name);
-  actual.should.have.property('description').eql(expected.description);
-  actual.should.have.property('price').eql(expected.price);
-  actual.should.have.property('item_type').eql(expected.item_type);
-  actual.should.have.property('item_condition').eql(expected.item_condition);
+    // makes sure the correct fields were inserted
+    actual.should.have.property('name').eql(expected.name);
+    actual.should.have.property('description').eql(expected.description);
+    actual.should.have.property('price').eql(expected.price);
+    actual.should.have.property('item_type').eql(expected.item_type);
+    actual.should.have.property('item_condition').eql(expected.item_condition);
 }

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Http, Headers } from '@angular/http';
-import { Router, ActivatedRoute } from '@angular/router';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { routerTransition } from '../router.animations';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Http, Headers} from '@angular/http';
+import {Router, ActivatedRoute} from '@angular/router';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {routerTransition} from '../router.animations';
 
 @Component({
   selector: 'app-un-verified-articles',
@@ -14,17 +14,17 @@ import { routerTransition } from '../router.animations';
 export class UnVerifiedArticlesComponent implements OnInit {
   public unVerifiedArticlesList = [];
   public article = [];
-  constructor(
-    private httpClient: HttpClient,
-    private http: Http,
-    private router: Router
-  ) { }
+
+  constructor(private httpClient: HttpClient,
+              private http: Http,
+              private router: Router) {
+  }
 
   ngOnInit() {
 
-    let autorization = { Authorization: localStorage.getItem('authentication') };
+    let autorization = {Authorization: localStorage.getItem('authentication')};
     console.log("ok");
-    this.httpClient.get('http://localhost:3000/api/user/viewUnverifiedArticles', { headers: autorization })
+    this.httpClient.get('http://localhost:3000/api/user/viewUnverifiedArticles', {headers: autorization})
       .subscribe((res: any) => {
         this.unVerifiedArticlesList = res.data;
         console.log(res.msg);
@@ -35,17 +35,17 @@ export class UnVerifiedArticlesComponent implements OnInit {
 
     console.log(this.unVerifiedArticlesList);
   }
+
   verifyArticle(articleId) {
     console.log(articleId)
-    let autorization = { Authorization: localStorage.getItem('authentication') };
-    this.httpClient.get('http://localhost:3000/api/user/verifyArticle/' + articleId, { headers: autorization })
+    let autorization = {Authorization: localStorage.getItem('authentication')};
+    this.httpClient.get('http://localhost:3000/api/user/verifyArticle/' + articleId, {headers: autorization})
       .subscribe((res: any) => {
         this.article = res.data;
         this.ngOnInit();
       }, err => {
 
       });
-
 
 
   }

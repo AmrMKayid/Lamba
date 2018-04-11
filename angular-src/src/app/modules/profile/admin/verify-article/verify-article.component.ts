@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Http, Headers } from '@angular/http';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Http, Headers} from '@angular/http';
+import {Router, ActivatedRoute, Params} from '@angular/router';
 
 
 @Component({
@@ -13,21 +12,19 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class VerifyArticleComponent implements OnInit {
   public article = [];
 
-  constructor(
-    private httpClient: HttpClient,
-    private http: Http,
-    private router: Router,
-    private route: ActivatedRoute
-
-  ) { }
+  constructor(private httpClient: HttpClient,
+              private http: Http,
+              private router: Router,
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
 
     console.log(this.route.snapshot.params['id']);
-    let autorization = { Authorization: localStorage.getItem('authentication') };
-    this.httpClient.get('http://localhost:3000/api/user/viewArticleToVerify/' + this.route.snapshot.params['id'], { headers: autorization })
+    let autorization = {Authorization: localStorage.getItem('authentication')};
+    this.httpClient.get('http://localhost:3000/api/user/viewArticleToVerify/' + this.route.snapshot.params['id'], {headers: autorization})
       .subscribe((res: any) => {
-      this.article = res.data;
+        this.article = res.data;
 
       }, err => {
 
@@ -36,12 +33,13 @@ export class VerifyArticleComponent implements OnInit {
 
 
   }
+
   verify(articleId) {
     console.log(articleId);
-    let autorization = { Authorization: localStorage.getItem('authorization') };
-    this.httpClient.get('http://localhost:3000/api/user/verifyArticle/' + articleId, { headers: autorization })
+    let autorization = {Authorization: localStorage.getItem('authorization')};
+    this.httpClient.get('http://localhost:3000/api/user/verifyArticle/' + articleId, {headers: autorization})
       .subscribe((res: any) => {
-      this.article = res.data;
+        this.article = res.data;
 
       }, err => {
 

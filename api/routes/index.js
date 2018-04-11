@@ -1,16 +1,16 @@
 var express = require('express'),
-  router = express.Router(),
-  jwt = require('jsonwebtoken'),
+    router = express.Router(),
+    jwt = require('jsonwebtoken'),
 
-  scheduleCtrl = require('../controllers/schedule.controller'),
-  taskCtrl = require('../controllers/task.controller'),
-  storeCtrl = require('../controllers/store.controller'),
-  authCtrl = require('../controllers/auth.controller'),
-  userCtrl = require('../controllers/user.controller'),
-  articleCtrl = require('../controllers/article.controller'),
-  tagCtrl = require('../controllers/tag.controller'),
+    scheduleCtrl = require('../controllers/schedule.controller'),
+    taskCtrl = require('../controllers/task.controller'),
+    storeCtrl = require('../controllers/store.controller'),
+    authCtrl = require('../controllers/auth.controller'),
+    userCtrl = require('../controllers/user.controller'),
+    articleCtrl = require('../controllers/article.controller'),
+    tagCtrl = require('../controllers/tag.controller'),
 
-  mw = require('./middlewares');
+    mw = require('./middlewares');
 
 //---------------------------- Authentication Routes --------------------------------//
 router.post('/auth/register', mw.isNotAuthenticated, authCtrl.register);
@@ -55,7 +55,7 @@ router.get('/store/view/:tuplesPerPage/:pageNumber', mw.isAuthenticated, storeCt
 router.patch('/store/edit/:itemId', storeCtrl.editItems);
 router.delete('/store/delete/:itemId', storeCtrl.deleteItems);
 router.patch('/store/likeItems/:itemId', mw.isAuthenticated, storeCtrl.likeItems);
-router.patch('/store/unlikeItems/:itemId' , mw.isAuthenticated, storeCtrl.unlikeItems);
+router.patch('/store/unlikeItems/:itemId', mw.isAuthenticated, storeCtrl.unlikeItems);
 router.get('/uploads/store/:filename', storeCtrl.getImage);
 router.get('/store/myitems/view/:itemId', mw.isAuthenticated, storeCtrl.getItem);
 //-----------------------------C1: Articles & TAGS Routes----------------------------------------------//
@@ -66,11 +66,10 @@ router.get('/tags', mw.isAuthenticated, tagCtrl.getTags);
 router.post('/tags', mw.isAuthenticated, mw.isAdmin, tagCtrl.addTag);
 router.delete('/tags/:id', mw.isAuthenticated, mw.isAdmin, tagCtrl.deleteTag);
 router.post('/articles/feedback', mw.isAuthenticated, articleCtrl.feedbackArticle);
-router.post('/articles/comment', mw.isAuthenticated,  articleCtrl.commentArticle);
-router.post('/articles/reply', mw.isAuthenticated,  articleCtrl.replyComment);
-router.delete('/articles/:id', mw.isAuthenticated,  articleCtrl.deleteArticle);
-router.put('/articles', mw.isAuthenticated,  articleCtrl.editArticle);
-
+router.post('/articles/comment', mw.isAuthenticated, articleCtrl.commentArticle);
+router.post('/articles/reply', mw.isAuthenticated, articleCtrl.replyComment);
+router.delete('/articles/:id', mw.isAuthenticated, articleCtrl.deleteArticle);
+router.put('/articles', mw.isAuthenticated, articleCtrl.editArticle);
 
 
 module.exports = router;

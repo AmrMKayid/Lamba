@@ -77,13 +77,13 @@
                class="img-fluid rounded-circle z-depth-0"><span
           class="caret"></span></a>
 
-          <div *dropdownMenu class="dropdown-menu dropdown-primary pull-left" role="menu">
-            <a class="dropdown-item waves-light" mdbRippleRadius *ngIf="isAdmin()"
-               [routerLink]="['/profile/admin/dashboard']">Profile</a>
-            <a class="dropdown-item waves-light" mdbRippleRadius *ngIf="!isAdmin()" [routerLink]="['/profile',role]">Profile</a>
-            <div class="divider dropdown-divider"></div>
-            <a class="dropdown-item waves-light" mdbRippleRadius (click)="logout()" [routerLink]="['/']">Log Out</a>
-          </div>
+        <div *dropdownMenu class="dropdown-menu dropdown-primary pull-left" role="menu">
+          <a class="dropdown-item waves-light" mdbRippleRadius *ngIf="isAdmin()"
+             [routerLink]="['/profile/admin/dashboard']">Profile</a>
+          <a class="dropdown-item waves-light" mdbRippleRadius *ngIf="!isAdmin()" [routerLink]="['/profile',role]">Profile</a>
+          <div class="divider dropdown-divider"></div>
+          <a class="dropdown-item waves-light" mdbRippleRadius (click)="logout()" [routerLink]="['/']">Log Out</a>
+        </div>
       </li>
     </ul>
     <!-- Links -->

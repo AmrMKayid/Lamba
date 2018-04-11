@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
-import { ArticlesService } from '../articles.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {HttpClient} from '@angular/common/http';
+import {HttpHeaders} from '@angular/common/http';
+import {ArticlesService} from '../articles.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-edit-articles',
@@ -22,17 +22,17 @@ export class EditArticlesComponent implements OnInit {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'],
       ['blockquote', 'code-block'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      [{ script: 'sub' }, { script: 'super' }],
-      [{ indent: '-1' }, { indent: '+1' }],
-      [{ size: ['small', false, 'large', 'huge'] }],
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{list: 'ordered'}, {list: 'bullet'}],
+      [{script: 'sub'}, {script: 'super'}],
+      [{indent: '-1'}, {indent: '+1'}],
+      [{size: ['small', false, 'large', 'huge']}],
+      [{header: [1, 2, 3, 4, 5, 6, false]}],
       [
-        { color: [].slice() },
-        { background: [].slice() }
+        {color: [].slice()},
+        {background: [].slice()}
       ],
-      [{ font: [].slice() }],
-      [{ align: [].slice() }],
+      [{font: [].slice()}],
+      [{align: [].slice()}],
       ['clean'],
       ['video', 'link']
     ]
@@ -44,7 +44,9 @@ export class EditArticlesComponent implements OnInit {
       'Authorization': localStorage.getItem('authentication')
     })
   };
-  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private articlesService: ArticlesService) { }
+
+  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private articlesService: ArticlesService) {
+  }
 
   ngOnInit() {
     this.tagsInitialized = false;
@@ -53,7 +55,7 @@ export class EditArticlesComponent implements OnInit {
     this.articlesService.getAllTags().subscribe(
       (res: any) => {
         res.data.forEach(element => {
-          this.allTags.push({ value: element.name, id: element._id })
+          this.allTags.push({value: element.name, id: element._id})
         });
         this.tagsInitialized = true;
       }, err => {
@@ -78,7 +80,9 @@ export class EditArticlesComponent implements OnInit {
             {
               value: tag,
               id: tag,
-              display: this.allTags.find((element => { return element.id === tag; })).value
+              display: this.allTags.find((element => {
+                return element.id === tag;
+              })).value
             }
           );
         });
@@ -114,22 +118,22 @@ export class EditArticlesComponent implements OnInit {
 
     this.http.put('http://localhost:3000/api/articles', body, this.httpOptions)
       .pipe().subscribe(res => {
-        this.router.navigate(['/resources']);
-        new Noty({
-          type: 'success',
-          text: `Your post edit has been submitted successfully, it now awaits an admin approval before it goes live again.`,
-          timeout: 3000,
-          progressBar: true
-        }).show();
-      }, err => {
-        let msg = err.error.msg;
-        new Noty({
-          type: 'error',
-          text: `Something went wrong while editing your post: ${err.error.msg}`,
-          timeout: 3000,
-          progressBar: true
-        }).show();
-      });
+      this.router.navigate(['/resources']);
+      new Noty({
+        type: 'success',
+        text: `Your post edit has been submitted successfully, it now awaits an admin approval before it goes live again.`,
+        timeout: 3000,
+        progressBar: true
+      }).show();
+    }, err => {
+      let msg = err.error.msg;
+      new Noty({
+        type: 'error',
+        text: `Something went wrong while editing your post: ${err.error.msg}`,
+        timeout: 3000,
+        progressBar: true
+      }).show();
+    });
   }
 
 }

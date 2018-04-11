@@ -1,16 +1,16 @@
 process.env.NODE_ENV = 'test';
 var server = require('../bin/www');
 var base = process.env.PWD;
-var config= require('../api/config'),
-    logger= require('mocha-logger')
-	mongoose = require('mongoose'),
+var config = require('../api/config'),
+    logger = require('mocha-logger'),
+    mongoose = require('mongoose'),
     user = require('../api/models/user.model'),
-    auth = require( '../api/controllers/auth.controller'),
-    schedule = require( '../api/controllers/schedule.controller'),
+    auth = require('../api/controllers/auth.controller'),
+    schedule = require('../api/controllers/schedule.controller'),
     chai = require('chai'),
     expect = chai.expect,
     chaiHttp = require('chai-http');
-	chai.use(chaiHttp);
+chai.use(chaiHttp);
 
 
 describe("schedule ", () => {
