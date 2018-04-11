@@ -64,7 +64,7 @@ export class ArticlesService {
       .pipe();
   }
   delete(id){
-    return this.http.delete('http://localhost:3000/api/articles/deleteArticle/'+id , this.httpOptions)
+    return this.http.delete('http://localhost:3000/api/articles/'+id , this.httpOptions)
       .pipe();
   }
 }

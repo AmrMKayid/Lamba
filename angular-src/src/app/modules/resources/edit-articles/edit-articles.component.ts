@@ -11,7 +11,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./edit-articles.component.css']
 })
 export class EditArticlesComponent implements OnInit {
-
   article: any = {};
   id: string;
   public title: String;
@@ -100,7 +99,7 @@ export class EditArticlesComponent implements OnInit {
       tags: (this.selectedTags.map(tag => tag.id))
     };
 
-    this.http.post('http://localhost:3000/api/articles/editArticle', body, this.httpOptions)
+    this.http.put('http://localhost:3000/api/articles', body, this.httpOptions)
       .pipe().subscribe(res => {
         this.router.navigate(['/resources']);
         //TODO: Add a notification
