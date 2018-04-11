@@ -1,9 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import {AuthService} from '../../services/auth.service';
-import {ToasterService} from 'angular5-toaster/src/toaster.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -14,6 +13,7 @@ import {ToasterService} from 'angular5-toaster/src/toaster.service';
 export class RegisterComponent implements OnInit {
 
   user: FormGroup;
+  chosenRole;
 
   ngOnInit() {
     this.user = new FormGroup({
@@ -30,16 +30,18 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  onSubmit({value, valid}: { value: User, valid: boolean }) {
-
-    value.role = 'Parent';
-    console.log(value, valid);
+  onSubmit({ value, valid }: { value: User, valid: boolean }) {
+    value.role = this.chosenRole;
     this.register(value);
   }
 
   constructor(private router: Router,
-              private toaster: ToasterService,
-              private authService: AuthService) {
+    private route: ActivatedRoute,
+    private authService: AuthService) {
+
+    this.route.queryParams.subscribe(params => {
+      this.chosenRole = params['role'];
+    });
   }
 
   register(value: any) {
@@ -50,12 +52,12 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['/login']);
         },
         error => {
-          this.toaster.pop({
+          new Noty({
             type: 'error',
-            title: 'Error!',
-            body: error.msg,
-            timeout: 3000
-          });
+            text: error.msg,
+            timeout: 3000,
+            progressBar: true
+          }).show();
         });
   }
 

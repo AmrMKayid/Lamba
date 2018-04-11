@@ -14,6 +14,10 @@ const ChildSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    role: {
+      type: String,
+      default: 'Child'
+    },
     name: {
         firstName: {type: String, required: true},
         middleName: {type: String},
@@ -343,8 +347,7 @@ if (!UserSchema.options.toObject) {
 UserSchema.options.toObject.transform = function (document, transformedDocument) {
     delete transformedDocument.password;
     return transformedDocument;
-}
-;
+};
 
 if (!ChildSchema.options.toObject) {
     ChildSchema.options.toObject = {};
@@ -356,5 +359,5 @@ ChildSchema.options.toObject.transform = function (document, transformedDocument
 };
 
 mongoose.model('Child', ChildSchema);
-const User = mongoose.model('User', UserSchema);
+mongoose.model('User', UserSchema);
 mongoose.model('UniqueUser', UniqueUserSchema);

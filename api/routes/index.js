@@ -18,6 +18,11 @@ router.post('/auth/login', mw.isNotAuthenticated, authCtrl.login);
 router.post('/auth/child', mw.isAuthenticated, mw.isNotChild, authCtrl.addChild);
 router.post('/auth/admin', mw.isAuthenticated, authCtrl.addAdmin);
 //-----------------------------------User Routes-------------------------------------//
+router.get('/user/getAllUsers', userCtrl.getAllUsers);
+router.get('/user/getUser/:userID', userCtrl.getUserByID);
+router.get('/user/getChild/:childID', userCtrl.getChildByID);
+router.get('/user/getUserChildren/:userID', userCtrl.getUserChildren);
+
 router.get('/admin/teachers_verfication', userCtrl.getPendingTeachers);
 router.get('/admin/accept_teacher/:teacherID', userCtrl.acceptTeacher);
 
@@ -32,9 +37,11 @@ router.get('/schedule/getTeacherSchedule/:UserId', mw.isAuthenticated,scheduleCt
 router.get('/schedule/getChildSchedule/:ChildId',mw.isAuthenticated, scheduleCtrl.getChildSchedule);
 router.post('/task/newTask', taskCtrl.createNewTask);
 router.get('/task/getTasks/:childId', taskCtrl.getTasks);
+router.get('/task/getTask/:taskId',mw.isAuthenticated,taskCtrl.getTask);
+
 router.get('/task/getTeacher/:TeacherId', taskCtrl.getTeacher);
-router.post('/task/newComment', taskCtrl.createNewComment);
-router.get('/task/getComments/:taskId', taskCtrl.getComments);
+router.post('/task/newComment', mw.isAuthenticated,taskCtrl.createNewComment);
+router.get('/task/getComments/:taskId', mw.isAuthenticated,taskCtrl.getComments);
 router.patch('/schedule/updateTeacherSchedule/:SlotId/',mw.isAuthenticated,scheduleCtrl.updateTeacherSchedule);
 router.patch('/schedule/updateChildSchedule/:SlotId/:ChildId',mw.isAuthenticated,scheduleCtrl.updateChildSchedule);
 /*-----------------------------Store Routes-------------------------------------*/

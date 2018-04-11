@@ -1,9 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
-import {AuthService} from '../../services/auth.service';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ToasterService} from 'angular5-toaster/src/toaster.service';
+import { AuthService } from '../../services/auth.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -25,10 +24,9 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
 
   constructor(private fb: FormBuilder,
-              private route: ActivatedRoute,
-              private toaster: ToasterService,
-              private router: Router,
-              private authService: AuthService) {
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -48,18 +46,21 @@ export class LoginComponent implements OnInit {
             this.returnUrl = 'profile/parent';
           } else if (userRole === 'Teacher') {
             this.returnUrl = 'profile/teacher';
-          } else {
-            this.returnUrl = 'profile/admin';
+          } else if (userRole === 'Admin') {
+            this.returnUrl = 'profile/admin/dashboard';
+          }
+          else {
+            this.returnUrl = 'profile/child';
           }
           this.router.navigate([this.returnUrl]);
         },
         error => {
-          this.toaster.pop({
+          new Noty({
             type: 'error',
-            title: 'Error!',
-            body: error.msg,
-            timeout: 3000
-          });
+            text: error.msg,
+            timeout: 3000,
+            progressBar: true
+          }).show();
           console.log(error);
         });
   }

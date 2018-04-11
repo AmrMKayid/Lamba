@@ -1,7 +1,9 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {MDBBootstrapModule} from 'angular-bootstrap-md';
 
 import {TscheduleComponent} from './tschedule/tschedule.component';
 import {TaskComponent} from './task/task.component';
@@ -30,7 +32,9 @@ const appRoutes: Routes = [
   imports: [
     CommonModule,
     FormsModule, ReactiveFormsModule,
-    RouterModule.forChild(appRoutes)
+    RouterModule.forChild(appRoutes),
+    NgbModule.forRoot(),
+    MDBBootstrapModule.forRoot()
   ],
   declarations: [
     TscheduleComponent,

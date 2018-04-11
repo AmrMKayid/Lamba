@@ -1,7 +1,8 @@
 var mongoose = require('mongoose'),
-User = mongoose.model('User'),
-Task = mongoose.model('Task'),
-Comment = mongoose.model('Comment');
+  User = mongoose.model('User'),
+  Task = mongoose.model('Task'),
+  Comment = mongoose.model('Comment'),
+  Child = mongoose.model('Child');
 
 
 module.exports.createNewTask = function(req, res, next) {
@@ -18,41 +19,91 @@ module.exports.createNewTask = function(req, res, next) {
   });
 };
 
+
 module.exports.createNewComment = function(req, res, next) {
 
+  Task.findById(req.body.taskId).exec(function(err, task) {
 
-  const com = {
-    Comment: req.body.Comment,
-    userId: req.body.userId,
-    userType: req.body.userType,
-    name: req.body.name
-  }
-
-
-  Comment.create(com, function(err, comment) {
-    if (err) {
-      return next(err);
+    const com = {
+      comment: req.body.comment,
+      userId: req.body.userId,
+      userType: req.body.userType,
+      name: req.body.name
     }
 
-    Task.findById(req.body.taskId).exec(function(err, task) {
-      task.Comments.push(comment);
-      task.save(function(err) {
+
+    if (req.body.userType === "Parent") {
+      Child.findById(task.studentId).exec(function(err, child) {
+
+        if (err || !child) {
+
+            userIsNotAuth()
+
+        } else {
+          if (child.parent_id === req.body.userId) {
+
+
+            userIsAuth();
+
+
+          } else {
+            userIsNotAuth();
+          }
+        }
+      });
+    } else if (req.body.userType === "Teacher") {
+      if (req.body.userId === task.userId) {
+        userIsAuth();
+      }
+      else{
+        userIsNotAuth();
+      }
+    } else if (req.body.userType === "Child") {
+      if (req.body.userId === task.studentId) {
+        userIsAuth();
+      }
+      else{
+        userIsNotAuth();
+      }
+    }
+
+
+
+
+    function userIsAuth() {
+      Comment.create(com, function(err, comment) {
         if (err) {
           return next(err);
         }
-        res.status(201).json({
-          err: null,
-          msg: 'Comment was created successfully.',
-          data: task
+
+        task.comments.push(comment);
+
+        task.save(function(err) {
+          if (err) {
+            return next(err);
+          }
+          res.status(201).json({
+            err: null,
+            msg: 'Comment was created successfully.',
+            data: task
+          });
         });
-
       });
+    }
 
 
-    });
+    function userIsNotAuth() {
+
+      res.status(401).json({
+        err: null,
+        msg: 'Not Auth.',
+        data: task
+      });
+    }
+
   });
-};
 
+};
 
 
 module.exports.getComments = function(req, res, next) {
@@ -61,39 +112,7 @@ module.exports.getComments = function(req, res, next) {
       return next(err);
     }
 
-    var ids = task.Comments;
-
-
-    const comarr = [];
-
-
-    for (var id of ids) {
-      Comment.findById(id).exec(function(err, com) {
-        comarr.push(com);
-      });
-    }
-
-    res.status(201).json({
-      err: null,
-      msg: 'Comment was r successfully.',
-      data: comarr
-    });
-
-
-
-  });
-
-};
-
-module.exports.getComments = function(req, res, next) {
-  Task.findById(req.params.taskId).exec(function(err, task) {
-    if (err) {
-      return next(err);
-    }
-
-    var ids = task.Comments;
-
-
+    var ids = task.comments;
 
 
     Comment.find({
@@ -107,37 +126,51 @@ module.exports.getComments = function(req, res, next) {
         data: com
       });
     });
-  }); 
+  });
 };
 
+
+module.exports.getTask = function(req, res, next) {
+  Task.findById(req.params.taskId).exec(function(err, task) {
+    if (err) {
+      return next(err);
+    }
+    res.status(200).json({
+      err: null,
+      msg: 'Requests recieved successfully.',
+      data: task
+    });
+  });
+};
+
+
 module.exports.getTasks = function(req, res, next) {
-  Task.find({StudentId: {
-    $eq: req.params.childId  
-  }  
+  Task.find({
+    StudentId: {
+      $eq: req.params.childId
+    }
   }).exec(function(err, request) {
     if (err) {
       return next(err);
     }
-  res.status(200).json({
+    res.status(200).json({
       err: null,
-      msg:
-        'Requests recieved successfully.',
-        data: request         
-        
-      });
+      msg: 'Requests recieved successfully.',
+      data: request
+
+    });
   });
 };
 
 module.exports.getTeacher = function(req, res, next) {
-  let id = req.params.TeacherId;
+  let id = req.params.userId;
   User.findById(id).exec(function(err, user) {
     if (err) {
       return next(err);
     }
-  res.status(200).json({
+    res.status(200).json({
       err: null,
-      msg:
-        'Requests recieved successfully.',
+      msg: 'Requests recieved successfully.',
       data: user.name
     });
   });
