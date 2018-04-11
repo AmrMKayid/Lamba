@@ -14,5 +14,37 @@
 .itemform
 {
 	font-size: 23px;
-	padding-left: 30%;
+	width:100%;
+}
+
+#select
+{
+	height:5%;
+}
+
+button
+{
+	background-color:#5495ff;
+}
+
+button:hover
+{
+	background-color:#5495ff;
+	color:#5495ff;
+}
+textarea {
+   resize: none;
+}
+.main {
+  width: 100%;
+  margin: auto;
+  overflow: hidden;
+
+}
+.container-fluid
+{
+	width:100%;
+	margin-left:5%;
+	margin-right:5%;
+    padding-left: 3%;
 }

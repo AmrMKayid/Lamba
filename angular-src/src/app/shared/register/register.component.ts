@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-import { AuthService } from '../../services/auth.service';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -30,14 +30,14 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  onSubmit({ value, valid }: { value: User, valid: boolean }) {
+  onSubmit({value, valid}: { value: User, valid: boolean }) {
     value.role = this.chosenRole;
     this.register(value);
   }
 
   constructor(private router: Router,
-    private route: ActivatedRoute,
-    private authService: AuthService) {
+              private route: ActivatedRoute,
+              private authService: AuthService) {
 
     this.route.queryParams.subscribe(params => {
       this.chosenRole = params['role'];

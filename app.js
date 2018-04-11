@@ -18,21 +18,20 @@ var express = require('express'),
 app.set('secret', config.SECRET);
 
 
-
 //---------------- Middlewares ----------------//
 
 // Middleware for uploading binary files
 var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'api/uploads/')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now())
-  }
+    destination: function (req, file, cb) {
+        cb(null, 'api/uploads/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
 });
 
 app.use(multer({
-     storage: storage
+    storage: storage
 }).single('image'));
 
 
@@ -103,7 +102,6 @@ app.use(function (req, res) {
 });
 
 //---------------- Middlewares ----------------//
-
 
 
 module.exports = app;

@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
-import { ArticlesService } from '../articles.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../../services/auth.service';
+import {Component, OnInit, Input, ViewEncapsulation} from '@angular/core';
+import {ArticlesService} from '../articles.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-view-article',
@@ -20,7 +20,9 @@ export class ViewArticleComponent implements OnInit {
   replies: any = [{}];
   currentUserId: string;
   editPressed: boolean;
-  constructor(private router: Router, private route: ActivatedRoute, private articleService: ArticlesService, private auth: AuthService) { }
+
+  constructor(private router: Router, private route: ActivatedRoute, private articleService: ArticlesService, private auth: AuthService) {
+  }
 
 
   ngOnInit() {
@@ -41,12 +43,16 @@ export class ViewArticleComponent implements OnInit {
         }
         this.replies = r;
       }, err => {
-        alert(`Article not retrieved: ${err.error.msg}`);
         this.router.navigate(['/resources']);
+        new Noty({
+          type: 'error',
+          text: `Article not retrieved: ${err.error.msg}`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
       }
     );
     window.scrollTo(0, 0);
-
     this.currentUserId = this.auth.getCurrentUser()._id;
 
   }
@@ -58,60 +64,99 @@ export class ViewArticleComponent implements OnInit {
         this.article.upvoters = res.data.upvoters;
         this.article.downvoters = res.data.downvoters;
       }, err => {
-        alert(`Article was not updated: ${err.error.msg}`);
+        new Noty({
+          type: 'warning',
+          text: `Article was not updated: ${err.error.msg}`,
+          timeout: 2500,
+          progressBar: true
+        }).show();
       }
     );
     var data = sessionStorage.getItem('id');
   }
+
   downvote(id) {
     this.articleService.downvote(id).subscribe(
       (res: any) => {
         this.article.upvoters = res.data.upvoters;
         this.article.downvoters = res.data.downvoters;
       }, err => {
-        alert(`Article was not updated: ${err.error.msg}`);
+        new Noty({
+          type: 'warning',
+          text: `Article was not updated: ${err.error.msg}`,
+          timeout: 2500,
+          progressBar: true
+        }).show();
       }
     );
   }
+
   comment() {
-    // if(this.commentContent==''){
-    //   alert("Please write in a comment");
-    // }
-    // else {
-    this.articleService.comment(this.article._id, this.commentContent).subscribe(
-      (res: any) => {
-        this.replies.push({
-          showReply: false,
-          replyContent: ''
-        });
-        this.articleService.loadArticle(this.article._id).subscribe(
-          (retrieved: any) => {
-            this.comments = retrieved.data.comments;
-            this.commentContent = '';
-          }
-        );
-      }, err => {
-        alert(`Article was not updated: ${err.error.msg}`);
-      }
-    )
-    //}
+    if (this.commentContent == '' || typeof this.commentContent == 'undefined' || this.commentContent == null) {
+      new Noty({
+        type: 'warning',
+        text: `Sorry, comment cannot be empty`,
+        timeout: 2500,
+        progressBar: true
+      }).show();
+      return false;
+    }
+    else {
+      this.articleService.comment(this.article._id, this.commentContent).subscribe(
+        (res: any) => {
+          this.replies.push({
+            showReply: false,
+            replyContent: ''
+          });
+          this.articleService.loadArticle(this.article._id).subscribe(
+            (retrieved: any) => {
+              this.comments = retrieved.data.comments;
+              this.commentContent = '';
+            }
+          );
+        }, err => {
+          new Noty({
+            type: 'error',
+            text: `Something went wrong while submitting the comment: ${err.error.msg}`,
+            timeout: 3000,
+            progressBar: true
+          }).show();
+        }
+      )
+    }
   }
+
   reply(i, comment_id, content) {
-    this.articleService.reply(this.article._id, comment_id, content).subscribe(
-      (res: any) => {
-        this.articleService.loadArticle(this.article._id).subscribe(
-          (retrieved: any) => {
-            this.comments = retrieved.data.comments;
-            this.replies[i].replyContent = '';
-            this.replies[i].showReply = false;
+    if (content == '' || typeof content == 'undefined' || content == null) {
+      new Noty({
+        type: 'warning',
+        text: `Sorry, your reply cannot be empty`,
+        timeout: 2500,
+        progressBar: true
+      }).show();
+      return false;
+    }
+    else {
+      this.articleService.reply(this.article._id, comment_id, content).subscribe(
+        (res: any) => {
+          this.articleService.loadArticle(this.article._id).subscribe(
+            (retrieved: any) => {
+              this.comments = retrieved.data.comments;
+              this.replies[i].replyContent = '';
+              this.replies[i].showReply = false;
 
-          }
-        );
-
-      }, err => {
-        alert(`Article was not updated: ${err.error.msg}`);
-      }
-    )
+            }
+          );
+        }, err => {
+          new Noty({
+            type: 'error',
+            text: `Something went wrong while submitting the reply: ${err.error.msg}`,
+            timeout: 3000,
+            progressBar: true
+          }).show();
+        }
+      )
+    }
   }
 
   //TODO: Once favorites is implemented, we need to send to the backend.
@@ -127,9 +172,20 @@ export class ViewArticleComponent implements OnInit {
   delete(id) {
     this.articleService.delete(id).subscribe(
       (res: 200) => {
+        new Noty({
+          type: 'success',
+          text: `Your article has been deleted successfully`,
+          timeout: 1500,
+          progressBar: true
+        }).show();
         this.router.navigate(['/resources']);
       }, err => {
-        alert(`Article was not deleted: ${err.error.msg}`);
+        new Noty({
+          type: 'error',
+          text: `Something went wrong while deleting the article: ${err.error.msg}`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
       }
     );
   }
@@ -137,7 +193,5 @@ export class ViewArticleComponent implements OnInit {
   edit(id) {
     this.editPressed = true;
     this.router.navigate(['/resources/edit/' + this.article._id]);
-
-
   }
 }

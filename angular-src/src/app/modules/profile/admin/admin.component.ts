@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Http } from '@angular/http';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Http} from '@angular/http';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -12,25 +12,22 @@ import { Router } from '@angular/router';
 export class AdminComponent implements OnInit {
 
 
-
-
-  constructor(
-    private httpClient: HttpClient,
-    private http: Http,
-    private router: Router
-  ) {
+  constructor(private httpClient: HttpClient,
+              private http: Http,
+              private router: Router) {
 
   }
 
   ngOnInit() {
-   
+
   }
 
-  ViewUnverifiedArticles(){
+  ViewUnverifiedArticles() {
     this.router.navigate(['/profile/admin/un-verified-articles']);
 
   }
-  ViewTeachersRequests(){
+
+  ViewTeachersRequests() {
     this.router.navigate(['/profile/admin/verify-teachers']);
 
   }

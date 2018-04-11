@@ -12,8 +12,8 @@
     </li>
     <li>
       <a (click)="loadPage(-1)">
-          >>
-        </a>
+        >>
+      </a>
     </li>
   </ul>
 </div>
@@ -22,7 +22,6 @@
 
 
   <div class="main-container">
-
 
 
     <div class="block">
@@ -34,13 +33,14 @@
         <div class="itemBody">
 
           <h2 class="itemName"><b>{{item['name']}}</b></h2>
-         
-          <div class="itemLikeCount">{{item['likes']}} <span class="fa fa-heart"></span></div>
+
+          <div class="itemLikeCount">{{item['likes_user_id'].length}} <span class="fa fa-heart"></span></div>
           <div class="itemPrice">Price: {{item['price']}} LE</div>
           <article class="itemDesc">{{item['description']}}</article>
 
-          <!-- TODO check if user already liked this item -->
-          <div class="itemUnLike"><i class="fa fa-heart"></i></div>
+
+          <div class="itemInfo" (click)="viewInfo(item['_id'])"><i class="fa fa-info"></i></div>
+          <div class="itemUnLike"><i class="fa fa-heart" (click)="likeItems(item)"></i></div>
 
         </div>
 

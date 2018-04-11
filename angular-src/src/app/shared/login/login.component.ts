@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
 
-import { AuthService } from '../../services/auth.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {AuthService} from '../../services/auth.service';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
@@ -24,9 +24,9 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
 
   constructor(private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private authService: AuthService) {
+              private route: ActivatedRoute,
+              private router: Router,
+              private authService: AuthService) {
   }
 
   ngOnInit() {

@@ -7,17 +7,18 @@
 
   &:before {
     content: '';
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	background-image: linear-gradient(to bottom right,#3d011d,#05a2fd);
-	opacity: .6; 
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(to bottom right, #3d011d, #05a2fd);
+    opacity: .6;
   }
 }
+
 .card-comments img {
-  width: 4rem; 
+  width: 4rem;
 }
 
 .name-capitalize {

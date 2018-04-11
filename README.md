@@ -1,2 +1,3 @@
 # Lamba
-SE-2018-MET-T20
+
+- [ ] Finish Sprint 3

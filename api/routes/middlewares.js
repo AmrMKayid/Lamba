@@ -52,8 +52,8 @@ module.exports.isNotChild = function (req, res, next) {
 
 //To check if User is an Admin (yasmeen)
 
-module.exports.isAdmin=function(req,res,next){
-    if(req.decodedToken.user.role !=="Admin"){
+module.exports.isAdmin = function (req, res, next) {
+    if (req.decodedToken.user.role !== "Admin") {
         return res.status(401).json({
             err: null,
             msg: "You don't have permissions (Not An Admin account)",
@@ -62,3 +62,4 @@ module.exports.isAdmin=function(req,res,next){
     }
     next();
 };
+

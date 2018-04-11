@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Http, Headers } from '@angular/http';
-import { trigger, state, style, animate, transition } from '@angular/animations';
-import { StoreService } from '../../../../services/store.service';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Http, Headers} from '@angular/http';
+import {ToasterContainerComponent, ToasterService} from 'angular5-toaster';
+import {trigger, state, style, animate, transition} from '@angular/animations';
+import {StoreService} from '../../../../services/store.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-update',
@@ -20,7 +21,9 @@ export class UpdateComponent implements OnInit {
   quantity: number;
   item_type: string;
   item_condition: string;
-  newOrEdit = false; createNew = false; editPressed = false;
+  newOrEdit = false;
+  createNew = false;
+  editPressed = false;
   reverse: boolean = false;
   picture_url: string;
 
@@ -29,17 +32,16 @@ export class UpdateComponent implements OnInit {
     this.reverse = !this.reverse;
   }
 
-  constructor(
-    private http: Http,
-    private router: Router,
-    private storeservice: StoreService,
-  ) { }
+  constructor(private http: Http,
+              private toaster: ToasterService,
+              private router: Router,
+              private storeservice: StoreService,) {
+  }
 
-  editItem(item) {
-    this.name = item.name;
-    this.price = item.price;
-    this.itemId = item._id;
 
+  editItem() {
+    var itemString = localStorage.getItem("Update");
+    var item = JSON.parse(itemString)._id;
 
     let editedItem = {
       name: this.name,
@@ -47,47 +49,34 @@ export class UpdateComponent implements OnInit {
       description: this.description,
       quantity: Number(this.quantity),
       item_type: this.item_type,
-      item_condition: this.item_condition
+      item_condition: this.item_condition,
+      updated_at: Date.now()
     };
 
-    this.http.patch('http://localhost:3000/api/store/edit/:itemId' + this.itemId, editedItem)
+    this.http.patch('http://localhost:3000/api/store/edit/' + item, editedItem)
       .subscribe(res => {
-        new Noty({
+        this.toaster.pop({
           type: 'success',
-          text: 'Updated',
-          timeout: 2000,
-          progressBar: true
-        }).show();
+          title: "Success!",
+          body: "Updated",
+          timeout: 3000
+        });
 
-        //
-        //  NEEDS TO GET THE PRODUCTS AGAIN TO REFRESH BUT NOT PART OF THE USER STORY
-        //
-        this.newOrEdit = false;
-        this.editPressed = false;
+        localStorage.setItem("Update", null);
+        this.router.navigate(["/store/myitems/view"]);
       });
 
   }
 
+  close() {
 
-  deleteProduct(itemId) {
-    this.http.delete('http://localhost:3000/api/store/delete/:itemId' + this.itemId)
-      .subscribe(res => {
-        new Noty({
-          type: 'warning',
-          text: 'Deleted',
-          timeout: 3000,
-          progressBar: true
-        }).show();
-        //
-        //  NEEDS TO GET THE PRODUCTS AGAIN TO REFRESH BUT NOT PART OF THE USER STORY
-        //
-      });
+    this.router.navigate(["/store/myitems/view"]);
+    localStorage.setItem("Update", 'null')
+
   }
 
 
   ngOnInit() {
-
-    this.current = JSON.parse(localStorage.getItem('currentUser'))
   };
 
 

@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ViewParentComponent } from './view-parent.component';
+import {ViewParentComponent} from './view-parent.component';
 
 describe('ViewParentComponent', () => {
   let component: ViewParentComponent;
@@ -8,9 +8,9 @@ describe('ViewParentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewParentComponent ]
+      declarations: [ViewParentComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,13 +1,13 @@
 'use strict';
 process.env.NODE_ENV = 'test';
 const apiURL = 'http://localhost:3000/api';
-var server = require('../../bin/www'),
+var server = require('../bin/www'),
     base = process.env.PWD,
-    config = require('../config'),
+    config = require('../api/config'),
     logger = require('mocha-logger'),
     mongoose = require('mongoose'),
-    user = require('../models/user.model'),
-    auth = require('../controllers/auth.controller'),
+    user = require('../api/models/user.model'),
+    auth = require('../api/controllers/auth.controller'),
     chai = require('chai'),
     expect = chai.expect,
     chaiHttp = require('chai-http');
