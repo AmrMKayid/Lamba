@@ -44,7 +44,7 @@ before(function(done) {
 CreateItemsTests();
 ViewItemsTests();
 EditItemsTests();
-DeleteItemsTests();
+//DeleteItemsTests();
 LikeItemsTests();
 ViewMyItemsTests();
 
