@@ -1,3 +1,3 @@
 # Lamba
 
-- [ ] Finish Sprint 3
+- [x] Finish Sprint 3
