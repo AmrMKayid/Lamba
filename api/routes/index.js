@@ -34,11 +34,12 @@ router.get('/user/verifyArticle/:articleId', mw.isAuthenticated, mw.isAdmin, use
 //-----------------------------Schedules Routes----------------------------------------------//
 router.get('/schedule/getTeacherSchedule/:UserId', mw.isAuthenticated,scheduleCtrl.getTeacherSchedule);
 router.get('/schedule/getChildSchedule/:ChildId',mw.isAuthenticated, scheduleCtrl.getChildSchedule);
-router.post('/task/newTask', taskCtrl.createNewTask);
+router.post('/task/newTask/:ChildId',mw.isAuthenticated, taskCtrl.createNewTask);
 router.get('/task/getTasks/:childId', taskCtrl.getTasks);
 router.get('/task/getTeacher/:TeacherId', taskCtrl.getTeacher);
 router.post('/task/newComment', mw.isAuthenticated,taskCtrl.createNewComment);
 router.get('/task/getComments/:taskId', mw.isAuthenticated,taskCtrl.getComments);
+router.get('/task/getChildTasks/:ChildId', mw.isAuthenticated,taskCtrl.getComments);
 router.patch('/schedule/updateTeacherSchedule/:SlotId/',mw.isAuthenticated,scheduleCtrl.updateTeacherSchedule);
 router.patch('/schedule/updateChildSchedule/:SlotId/:ChildId',mw.isAuthenticated,scheduleCtrl.updateChildSchedule);
 /*-----------------------------Store Routes-------------------------------------*/

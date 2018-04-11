@@ -309,7 +309,7 @@ module.exports.updateTeacherSchedule = function(req, res, next) {
                 data: slot
             });
         });
-    });
+    }[]);
 };
 
 
