@@ -43,4 +43,13 @@ return this.httpc.get('http://127.0.0.1:3000/api/store/likeItems');
   unlikeItems(){
     return this.httpc.get('http://127.0.0.1:3000/api/store/unlikeItems' );
   }
-}
+
+    getItem(id)
+ {
+ 	var headers = new Headers();
+	headers.append('Content-Type', 'application/json');
+	headers.append('authorization',  localStorage.getItem('authentication'));
+    return this.http.get('http://127.0.0.1:3000/api/store/myitems/view/' + id,{headers:headers}).map((res) => res.json());
+ }
+
+ }
