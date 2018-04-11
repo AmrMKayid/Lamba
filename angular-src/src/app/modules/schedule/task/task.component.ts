@@ -93,7 +93,7 @@ export class TaskComponent implements OnInit {
         this.toaster.pop({
           type: 'error',
           title: "Error!",
-          body: error.error.msg,
+          body: error.msg,
           timeout: 3000
         });
       });

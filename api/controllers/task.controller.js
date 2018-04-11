@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
   Comment = mongoose.model('Comment'),
   Child = mongoose.model('Child');
 
+
 module.exports.createNewTask = function(req, res, next) {
   Task.create(req.body, function(err, task) {
     if (err) {
@@ -18,83 +19,87 @@ module.exports.createNewTask = function(req, res, next) {
   });
 };
 
-module.exports.createNewComment = function(req, res, next) {
 
+module.exports.createNewComment = function(req, res, next) {
 
   Task.findById(req.body.taskId).exec(function(err, task) {
 
-
     const com = {
-        comment: req.body.comment,
-        userId: req.body.userId,
-        userType: req.body.userType,
-        name: req.body.name
-      }
+      comment: req.body.comment,
+      userId: req.body.userId,
+      userType: req.body.userType,
+      name: req.body.name
+    }
 
-
-    var auth = false;
 
     if (req.body.userType === "Parent") {
-        auth = true;
-      // Child.findById(task.studentId).exec(function(err, child) {
-      //
-      //   if (err || !child) {
-      //     auth = false;
-      //     console.log("I am here false");
-      //
-      //   } else {
-      //     if (child.parent_id === req.body.userId) {
-      //
-      //
-      //       auth = true;
-      //
-      //     } else {
-      //       auth = false;
-      //     }
-      //   }
-      // });
+      Child.findById(task.studentId).exec(function(err, child) {
+
+        if (err || !child) {
+
+            userIsNotAuth()
+
+        } else {
+          if (child.parent_id === req.body.userId) {
+
+
+            userIsAuth();
+
+
+          } else {
+            userIsNotAuth();
+          }
+        }
+      });
     } else if (req.body.userType === "Teacher") {
       if (req.body.userId === task.userId) {
-        auth = true;
+        userIsAuth();
+      }
+      else{
+        userIsNotAuth();
       }
     } else if (req.body.userType === "Child") {
       if (req.body.userId === task.studentId) {
-        auth = true;
+        userIsAuth();
+      }
+      else{
+        userIsNotAuth();
       }
     }
 
 
-    if (auth) {
 
 
+    function userIsAuth() {
       Comment.create(com, function(err, comment) {
         if (err) {
           return next(err);
         }
+
         task.comments.push(comment);
 
-
-
-
-      task.save(function(err) {
-        if (err) {
-          return next(err);
-        }
-        res.status(201).json({
-          err: null,
-          msg: 'Comment was created successfully.',
-          data: task
+        task.save(function(err) {
+          if (err) {
+            return next(err);
+          }
+          res.status(201).json({
+            err: null,
+            msg: 'Comment was created successfully.',
+            data: task
+          });
         });
       });
-        });
-    } else {
+    }
+
+
+    function userIsNotAuth() {
+
       res.status(401).json({
         err: null,
         msg: 'Not Auth.',
         data: task
       });
     }
-
 
   });
 
