@@ -1,47 +1,24 @@
+<div>{{title}}</div>
+<div>{{createdAt}}</div>
+<div>{{updatedAt}}</div>
 
-<h2>
-    Tasks:
-  </h2>
- 
-  <table style="display: inline-block;">
-    <tr>
-      <th>Title</th>
-    </tr>
-    
-    <tr *ngFor = "let Title of TasksTitles" >
-      <td > {{ Title }}</td>
-    </tr>
-   
-  </table>
-  <table style="display: inline-block;">
-      <tr>
-        <th>Description</th> 
-      </tr>
-      <tr *ngFor = "let Description of TasksDescriptions">
-          <td> {{ Description }}</td>
-      </tr>
-    </table>
-    <table style="display: inline-block;">
-        <tr>
-          <th>Created At</th> 
-        </tr>
-        <tr *ngFor = "let CreatedAt of TasksCreatedAt">
-            <td> {{ CreatedAt }}</td>
-        </tr>
-      </table>
-      <table style="display: inline-block;">
-          <tr>
-            <th>Updated At</th> 
-          </tr>
-          <tr *ngFor = "let UpdatedAt of TasksUpdatedAt">
-              <td> {{ UpdatedAt }}</td>
-          </tr>
-        </table>
-        <table style="display: inline-block;">
-          <tr>
-            <th>Teacher</th> 
-          </tr>
-          <tr *ngFor = "let T of Teacher">
-              <td> {{ T }}</td>
-          </tr>
-        </table>
+
+
+
+<div class="mb-5">
+  <form>
+
+    <div class="md-form">
+      <i class="material-icons prefix">comment</i>
+      <textarea type="text" id="form8" class="md-textarea" style="height: 100px" #newComment mdbActive></textarea>
+      <label for="form8">Comment</label>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-deep-orange waves-light" (click)="createNewComment(newComment.value)" mdbRippleRadius>Done</button>
+    </div>
+  </form>
+</div>
+<div *ngFor="let comment of taskComments">
+  <div>  {{comment.name}}</div>
+  <div>  {{comment.comment}}</div>
+</div>
