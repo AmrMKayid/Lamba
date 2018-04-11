@@ -211,13 +211,6 @@ module.exports.editItems = function(req, res, next) {
 
 module.exports.deleteItems = function(req, res, next) {
 
-  if (!Validations.isNumber(req.params.itemId)) {
-    return res.status(422).json({
-        err: null,
-        msg: 'ID parameter must be a valid ObjectId.',
-        data: null
-      });
-    }
     Item.findByIdAndRemove(req.params.itemId).exec(function (
       err,
       deletedProduct

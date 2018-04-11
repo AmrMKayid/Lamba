@@ -50,8 +50,8 @@ router.get('/store/getItemsById', storeCtrl.getItemsById);
 // TODO add mw.isAuthenticated
 router.get('/store/countItmes', storeCtrl.countItmes);
 router.get('/store/view/:tuplesPerPage/:pageNumber', storeCtrl.viewItems);
-router.post('/store/edit/:itemId', mw.isAuthenticated, storeCtrl.editItems);
-router.delete('/store/delete/:itemId', mw.isAuthenticated, storeCtrl.deleteItems);
+router.post('/store/edit/:itemId', storeCtrl.editItems);
+router.delete('/store/delete/:itemId', storeCtrl.deleteItems);
 router.get('/store/likeItems/:itemId', storeCtrl.likeItems);
 router.get('/store/unlikeItems/:itemId' , storeCtrl.unlikeItems);
 router.get('/uploads/store/:filename', storeCtrl.getImage);
