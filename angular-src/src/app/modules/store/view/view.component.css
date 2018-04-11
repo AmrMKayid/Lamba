@@ -67,6 +67,24 @@
   color: #c09898;
 }
 
+.itemInfo {
+  background-color: #ffc7c700;
+  text-align: center;
+  font-size: 26px;
+  color: #ccc7c7;
+  border-radius: 5px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  border: 1px solid;
+  transition: all 1s ease;
+  cursor: pointer;
+}
+
+.itemInfo:hover {
+  color: rgb(176, 255, 250);
+  background-color: rgb(7, 199, 226);
+}
+
 .itemUnLike {
   background-color: #ffc7c700;
   text-align: center;
@@ -76,13 +94,13 @@
   margin-top: 3px;
   margin-bottom: 3px;
   border: 1px solid;
-  transition: all 0.5s ease;
+  transition: all 1s ease;
   cursor: pointer;
 }
 
 .itemUnLike:hover {
-  color: #ff8c8c;
-  background-color: #ffc7c7;
+  color: rgb(255, 200, 200);
+  background-color: rgb(255, 116, 116);
 }
 
 .itemLikeCount {
