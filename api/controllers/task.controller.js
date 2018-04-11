@@ -251,7 +251,71 @@ module.exports.getComments = function(req, res, next) {
       return next(err);
     }
 
-    var ids = task.Comments;
+      if(!task){
+          return res
+              .status(404)
+              .json({err: null, msg: 'Task not found.', data: null});
+      }
+      User.findById(req.decodedToken.user._id).exec(function(err,user){
+          if(err){
+              return next(err);
+          }
+          if(!user){
+              Child.findById(req.decodedToken.user._id).exec(function(err,child){
+                  if(err){
+                      return next(err);
+                  }
+                  if(!child){
+                      return res
+                          .status(404)
+                          .json({err: null, msg: 'Child not found.', data: null});
+                  }
+                  if(child._id !== task.ChildId){
+                      return res
+                          .status(401)
+                          .json({err: null, msg: 'Unauthorized access.', data: null});
+                  }
+              });
+          }
+          if(user.role === 'Parent'){
+              Child.findById(task.ChildId).exec(function(err,child){
+                  if(err){
+                      return next(err);
+                  }
+                  if(!child){
+                      return res
+                          .status(401)
+                          .json({err: null, msg: 'Unauthorized access.', data: null});
+                  }
+                  if(child.parent_id !== user._id){
+                      return res
+                          .status(401)
+                          .json({err: null, msg: 'Unauthorized access.', data: null});
+                  }
+              });
+
+
+          }
+          if(user.role === 'Teacher') {
+              user.students.findById(task.StudentId).exec(function (err, child2) {
+                  if (err) {
+                      return next(err);
+                  }
+                  if (!child2) {
+                      return res
+                          .status(401)
+                          .json({err: null, msg: 'This child is not in your list of students.', data: null});
+
+                  }
+                  ;
+
+              });
+          }
+      });
+
+    
+
+      var ids = task.Comments;
 
 
 
@@ -261,7 +325,7 @@ module.exports.getComments = function(req, res, next) {
         $in: ids
       }
     }).exec(function(err, com) {
-      res.status(201).json({
+    return   res.status(201).json({
         err: null,
         msg: 'Comment was r successfully.',
         data: com
