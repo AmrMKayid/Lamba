@@ -27,6 +27,8 @@ import {TranslateModule} from '@ngx-translate/core';
 import {DashboardComponent} from './admin/dashboard/dashboard.component'
 import {StatModule} from './admin/stat/stat.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {MDBBootstrapModule} from 'angular-bootstrap-md';
+
 import {
   TimelineComponent,
   NotificationComponent,
@@ -117,6 +119,7 @@ const appRoutes: Routes = [
     RouterModule.forChild(appRoutes),
     NgbModule.forRoot(),
     TranslateModule.forChild(),
+    MDBBootstrapModule.forRoot(),
     StatModule
   ],
   declarations: [
