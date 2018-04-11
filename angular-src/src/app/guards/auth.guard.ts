@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import {ToasterService} from "angular5-toaster/src/toaster.service";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-  constructor(private router: Router, private toaster: ToasterService) {
+  constructor(private router: Router) {
   }
   //TODO: Role specific guards (and children)
   canActivate(next: ActivatedRouteSnapshot,
@@ -15,12 +14,12 @@ export class AuthGuard implements CanActivate {
     if (localStorage.getItem('authentication')) {
       return true;
     }
-    this.toaster.pop({
+    new Noty({
       type: 'error',
-      title: 'Error!',
-      body: 'You need to login first!',
-      timeout: 3000
-    });
+      text: 'You need to login first!',
+      timeout: 3000,
+      progressBar: true
+    }).show();
     this.router.navigate(['/login']);
     return false;
   }

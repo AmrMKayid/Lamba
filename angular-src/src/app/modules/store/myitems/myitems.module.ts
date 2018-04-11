@@ -8,7 +8,6 @@ import { ViewComponent } from './view/view.component';
 import { LikeComponent } from './like/like.component';
 import { ImageUploadModule } from "angular2-image-upload";
 import { FormsModule } from '@angular/forms';
-import {ToasterModule} from 'angular5-toaster';
 
 
 
@@ -19,7 +18,7 @@ const routes: Routes = [
 		component: MyitemsComponent,
 		children: [
 			{
-				path:'create',
+				path: 'create',
 				component: CreateComponent
 			},
 			{
@@ -31,23 +30,22 @@ const routes: Routes = [
 				component: ViewComponent
 			},
 			{
-				path:'like',
+				path: 'like',
 				component: LikeComponent
 			},
 		]
-    
-    }
+
+	}
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-   	ImageUploadModule.forRoot(),
-   	FormsModule,
-   	ToasterModule
-  ],
-  declarations: [MyitemsComponent, CreateComponent, UpdateComponent, ViewComponent, LikeComponent ],
-  exports: [RouterModule]
+	imports: [
+		CommonModule,
+		RouterModule.forChild(routes),
+		ImageUploadModule.forRoot(),
+		FormsModule
+	],
+	declarations: [MyitemsComponent, CreateComponent, UpdateComponent, ViewComponent, LikeComponent],
+	exports: [RouterModule]
 })
 export class MyitemsModule { }

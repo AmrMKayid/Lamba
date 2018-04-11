@@ -4,8 +4,6 @@ import {RouterModule, Routes} from "@angular/router";
 import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import {Ng2OrderModule} from 'ng2-order-pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
-import {ToasterModule} from 'angular5-toaster/src/toaster.module';
-import {ToasterService} from 'angular5-toaster/src/toaster.service';
 import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {Http, Headers, HttpModule} from '@angular/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -115,7 +113,7 @@ const appRoutes: Routes = [
     CommonModule,
     FormsModule,
     HttpModule, HttpClientModule,
-    ReactiveFormsModule, ToasterModule, Ng2SearchPipeModule, Ng2OrderModule, NgxPaginationModule,
+    ReactiveFormsModule, Ng2SearchPipeModule, Ng2OrderModule, NgxPaginationModule,
     RouterModule.forChild(appRoutes),
     NgbModule.forRoot(),
     TranslateModule.forChild(),
