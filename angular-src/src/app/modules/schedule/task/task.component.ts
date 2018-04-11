@@ -36,6 +36,7 @@ export class TaskComponent implements OnInit {
   taskComments =  [];
   currentUser: any;
 
+newComment : any;
   ngOnInit() {
 
     this.currentUser = this.auth.getCurrentUser();
@@ -98,6 +99,7 @@ export class TaskComponent implements OnInit {
         });
       });
 
+      this.newComment = "";
 
   }
 
