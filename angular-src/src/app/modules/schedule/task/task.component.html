@@ -2,46 +2,38 @@
 <h2>
     Tasks:
   </h2>
- 
+
   <table style="display: inline-block;">
     <tr>
       <th>Title</th>
     </tr>
-    
-    <tr *ngFor = "let Title of TasksTitles" >
-      <td > {{ Title }}</td>
+
+    <tr >
+      <td > {{ title }}</td>
     </tr>
-   
+
   </table>
   <table style="display: inline-block;">
       <tr>
-        <th>Description</th> 
+        <th>Description</th>
       </tr>
-      <tr *ngFor = "let Description of TasksDescriptions">
-          <td> {{ Description }}</td>
+      <tr >
+          <td> {{ description }}</td>
       </tr>
     </table>
     <table style="display: inline-block;">
         <tr>
-          <th>Created At</th> 
+          <th>Created At</th>
         </tr>
-        <tr *ngFor = "let CreatedAt of TasksCreatedAt">
-            <td> {{ CreatedAt }}</td>
+        <tr >
+            <td> {{ createdAt }}</td>
         </tr>
       </table>
       <table style="display: inline-block;">
           <tr>
-            <th>Updated At</th> 
+            <th>Updated At</th>
           </tr>
-          <tr *ngFor = "let UpdatedAt of TasksUpdatedAt">
-              <td> {{ UpdatedAt }}</td>
-          </tr>
-        </table>
-        <table style="display: inline-block;">
           <tr>
-            <th>Teacher</th> 
-          </tr>
-          <tr *ngFor = "let T of Teacher">
-              <td> {{ T }}</td>
+              <td> {{ updatedAt }}</td>
           </tr>
         </table>
