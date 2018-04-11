@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { ArticlesService } from '../articles.service';
-import { AuthService } from '/Users/mohamed/Desktop/SE-Project/Lamba Project/Sprint 3/Lamba/angular-src/src/app/services/auth.service.ts';
+import { AuthService } from '/Users/mohamed/Desktop/SE-Project/Lamba Project/Sprint 3/Lamba/angular-src/src/app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -19,6 +19,7 @@ export class ViewArticleComponent implements OnInit {
   commentContent: String;
   replies: any = [{}];
   currentUserId : string;
+  editPressed : boolean;
   constructor(private router: Router, private route: ActivatedRoute, private articleService: ArticlesService , private auth: AuthService) { }
 
 
@@ -132,5 +133,12 @@ export class ViewArticleComponent implements OnInit {
         alert(`Article was not deleted: ${err.error.msg}`);
       }
     );
+  }
+
+  edit(id){
+    this.editPressed = true;
+    this.router.navigate(['/resources/edit/'+this.article._id]);
+
+
   }
 }

@@ -429,9 +429,6 @@ module.exports.replyComment = function (req, res, next) {
 
 module.exports.deleteArticle = function (req, res, next) {
 
-//console.log(req.params.id);
-
-console.log(req.decodedToken.user._id);
   if (req.decodedToken.user._id){
 
 
@@ -446,7 +443,7 @@ console.log(req.decodedToken.user._id);
       }
 
       if(retrievedArticle.owner_id === req.decodedToken.user._id){
-        console.log(retrievedArticle.owner_id);
+
         Article.findByIdAndRemove(req.params.id, (err, result) => {
           if (err) {
             return next(err);
@@ -490,3 +487,52 @@ console.log(req.decodedToken.user._id);
 
   }
 };
+
+
+module.exports.editArticle = function (req, res, next) {
+
+
+  if (req.decodedToken.user._id){
+
+
+
+    Article.findById(req.body.id, (err, retrievedArticle) => {
+      if (err) { return next(err); }
+      if (!retrievedArticle) {
+        return res.status(404).json({
+          err: null,
+          msg: 'Article was not found.',
+          data: null
+        });
+      }
+
+
+  if(retrievedArticle.owner_id === req.decodedToken.user._id){
+
+    console.log(req.body.id);
+
+    retrievedArticle.title = req.body.title;
+    retrievedArticle.content = req.body.content;
+    retrievedArticle.tags = req.body.tags;
+    retrievedArticle.approved = false;
+
+    retrievedArticle.save(function (err, updatedArticle) {
+      if (err) { return next(err); }
+      return res.status(200).json({
+        err: null,
+        msg: "Successfully updated.",
+        data: updatedArticle
+      });
+    });
+
+
+    }else{
+      return res.status(401).json({
+        err: null,
+        msg: 'You are only allowed to edit your own articles.',
+        data: null
+      });
+    }
+  });
+}
+}

@@ -179,7 +179,7 @@
         <br>
 
       </div>
-
+<br><br><br><br>
 <div *ngIf = "currentUserId == article.owner_id" class="card mb-4 text-center wow fadeIn">
       <div class="card-header">
         <strong>Actions</strong>
@@ -188,6 +188,9 @@
         <div class="card-body">
           <a class="btn btn-danger btn-block" (click)="delete(article._id)" role="button">
                 <i  aria-hidden="true"></i>Delete Article
+          </a>
+          <a class="btn btn-primary btn-block" (click)="edit(article._id)" role="button">
+                <i  aria-hidden="true"></i>Edit Article
           </a>
         </div>
       </div>
