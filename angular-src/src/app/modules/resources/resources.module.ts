@@ -13,6 +13,7 @@ import { SafeHtmlPipe } from './view-article/safe-html.pipe';
 import { ViewArticleComponent } from './view-article/view-article.component';
 import { ViewArticlesComponent } from './view-articles/view-articles.component';
 import { FilterByTagsPipe } from './view-articles/filter-by-tags.pipe';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 const appRoutes: Routes = [
   {
@@ -39,7 +40,8 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    RouterModule.forChild(appRoutes)
+    RouterModule.forChild(appRoutes),
+    Ng2SearchPipeModule
   ],
   declarations: [
     FilterByTagsPipe,

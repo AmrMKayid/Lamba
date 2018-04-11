@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {ActivatedRoute} from "@angular/router";
 @Component({
   selector: 'app-cschedule',
   templateUrl: './cschedule.component.html',
   styleUrls: ['./cschedule.component.css']
 })
 export class CscheduleComponent implements OnInit {
-
-  public timetable;
+  public userID;
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('authentication')
+    })
+  };
 
   public day = [];
   public sat = [];
@@ -18,29 +24,18 @@ export class CscheduleComponent implements OnInit {
   public thurs = [];
   public fri = [];
 
-  constructor(private http: HttpClient) {
-
-  }
-
-  createChildShcedule(){
-    //let user= JSON.parse(localStorage.getItem('currentUser')).user;
-
-    this.http.post('http://localhost:3000/api/schedule/createChildShcedule/5ac0c3c7adae82c5227d1c78/5ac0c42dadae82c5227d1c79',null ).subscribe((res: any) => {
-      this.sat = res.data.saturday;
-      this.sun = res.data.sunday;
-      this.mon = res.data.monday;
-      this.tues = res.data.tuesday;
-      this.wed = res.data.wednesday;
-      this.thurs = res.data.thursday;
-      this.fri = res.data.friday;
+  constructor(private http: HttpClient,
+              private route: ActivatedRoute) {
+    this.route.queryParams.subscribe(params => {
+      this.userID = params['id'];
     });
-
   }
 
-  getTeacherSchedule(){
-    //let user= JSON.parse(localStorage.getItem('currentUser')).user;
 
-    this.http.get('http://localhost:3000/api/schedule/getMySchedule/5ac0c42dadae82c5227d1c79').subscribe((res: any) => {
+
+  getChildSchedule(){
+
+    this.http.get('http://localhost:3000/api/schedule/getMySchedule/'+ this.userID,this.httpOptions).subscribe((res: any) => {
       this.sat = res.data.table.saturday;
       this.sun = res.data.table.sunday;
       this.mon = res.data.table.monday;
@@ -54,10 +49,57 @@ export class CscheduleComponent implements OnInit {
 
   }
 
+  updateChildSchedule(Slot , newtitle , newdescription , newurl , thisday){
+    var body = {
+      title : newtitle,
+      description : newdescription,
+      url : newurl,
+      day : thisday
+    }
+
+    this.http.patch('http://localhost:3000/api/schedule/updateChildSchedule' + Slot._id + '/' + this.userID , body , this.httpOptions).subscribe((res: any) =>{
+       if(thisday == 'saturday') {
+         var index = this.sat.indexOf(Slot);
+         this.sat[index] = res.data;
+         console.log(this.sat[index]);
+       }
+      if(thisday == 'sunday') {
+        var index = this.sun.indexOf(Slot);
+        this.sun[index] = res.data;
+        console.log(this.sun[index]);
+      }
+      if(thisday == 'monday') {
+        var index = this.mon.indexOf(Slot);
+        this.mon[index] = res.data;
+        console.log(this.mon[index]);
+      }
+      if(thisday == 'tuesday') {
+        var index = this.tues.indexOf(Slot);
+        this.tues[index] = res.data;
+        console.log(this.tues[index]);
+      }
+      if(thisday == 'wednesday') {
+        var index = this.wed.indexOf(Slot);
+        this.wed[index] = res.data;
+        console.log(this.wed[index]);
+      }
+      if(thisday == 'thursday') {
+        var index = this.thurs.indexOf(Slot);
+        this.thurs[index] = res.data;
+        console.log(this.thurs[index]);
+      }
+      if(thisday == 'friday') {
+        var index = this.fri.indexOf(Slot);
+        this.fri[index] = res.data;
+        console.log(this.fri[index]);
+      }
+      });
+  }
+
 
 
   ngOnInit() {
-    this.getTeacherSchedule();
+    this.getChildSchedule();
   }
 
   fsat() {

@@ -25,3 +25,22 @@ img.card-img-top {
   object-fit: cover;
   margin: auto;
 }
+
+
+th
+{
+  vertical-align: middle;
+  font-weight: 500;
+}
+
+th h2
+{
+  font-weight: 400;
+}
+
+
+th.table-nawwar {
+    background-color: #33b5e5;
+    color: white;
+    border-radius: 0.25rem;
+}

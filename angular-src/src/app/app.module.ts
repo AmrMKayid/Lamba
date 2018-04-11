@@ -17,17 +17,18 @@ import {AuthService} from './services/auth.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import {MDBBootstrapModule} from 'angular-bootstrap-md';
 
 
 import {LoginComponent} from './shared/login/login.component';
 import {RegisterComponent} from './shared/register/register.component';
 import {HomepageComponent} from './shared/homepage/homepage.component';
 import {ResourcesModule} from "./modules/resources/resources.module";
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { FooterComponent } from './shared/footer/footer.component';
-import { AllUsersComponent } from './shared/all-users/all-users.component';
-import { RegisterRoleComponent } from './shared/register-role/register-role.component';
+import {NavbarComponent} from './shared/navbar/navbar.component';
+import {FooterComponent} from './shared/footer/footer.component';
+import {AllUsersComponent} from './shared/all-users/all-users.component';
+import {RegisterRoleComponent} from './shared/register-role/register-role.component';
+import {TranslateModule} from '@ngx-translate/core';
 
 
 @NgModule({
@@ -51,13 +52,14 @@ import { RegisterRoleComponent } from './shared/register-role/register-role.comp
     ToasterModule,
     // ResourcesModule,
     NgbModule.forRoot(),
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    TranslateModule.forRoot()
   ],
   providers: [
     AuthGuard,
     ErrorInterceptorProvider,
     JwtInterceptorProvider,
-    AuthService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

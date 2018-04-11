@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
 
 
 module.exports.getAllUsers = function (req, res, next) {
-    User.find({}).exec(function (err, users) {
+    User.find({$or: [{role: 'Parent'} , {role: 'Teacher'}]}).exec(function (err, users) {
         if (err) {
             return next(err);
         }
@@ -19,7 +19,6 @@ module.exports.getAllUsers = function (req, res, next) {
 };
 
 module.exports.getUserByID = function (req, res, next) {
-    console.log(req.params)
     if (!Validations.isObjectId(req.params.userID)) {
         return res.status(422).json({
             err: null,
@@ -35,6 +34,49 @@ module.exports.getUserByID = function (req, res, next) {
             err: null,
             msg: 'User retrieved successfully.',
             data: user
+        });
+    });
+};
+
+module.exports.getChildByID = function (req, res, next) {
+    if (!Validations.isObjectId(req.params.childID)) {
+        return res.status(422).json({
+            err: null,
+            msg: 'childID parameter must be a valid ObjectId.',
+            data: null
+        });
+    }
+    Child.findById(req.params.childID).exec(function (err, child) {
+        if (err) {
+            return next(err);
+        }
+        res.status(200).json({
+            err: null,
+            msg: 'Child retrieved successfully.',
+            data: child
+        });
+    });
+};
+
+
+module.exports.getUserChildren = function (req, res, next) {
+    if (!Validations.isObjectId(req.params.userID)) {
+        return res.status(422).json({
+            err: null,
+            msg: 'userID parameter must be a valid ObjectId.',
+            data: null
+        });
+    }
+    Child.find({
+     parent_id: req.params.userID
+    }).exec(function (err, children) {
+        if (err) {
+            return next(err);
+        }
+        res.status(200).json({
+            err: null,
+            msg: 'children retrieved successfully.',
+            data: children
         });
     });
 };
