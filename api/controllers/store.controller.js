@@ -224,6 +224,7 @@ module.exports.deleteItems = function(req, res, next) {
           .status(404)
           .json({ err: null, msg: 'Delete failed', data: null });
       }
+      fs.unlink(path.resolve('api/uploads/' + deletedProduct.picture_url));
       res.status(200).json({
         err: null,
         msg: 'Scuccess',
