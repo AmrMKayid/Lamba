@@ -12,7 +12,7 @@ import { Http, Headers } from '@angular/http';
   styleUrls: ['./item.component.scss']
 })
 export class ItemComponent implements OnInit {
-  
+
   id: string;
   item: Object;
   constructor(
@@ -24,7 +24,7 @@ export class ItemComponent implements OnInit {
 
   ngOnInit() {
   	   this.route.params.subscribe(params => {
-       		this.id = params['id']; 
+       		this.id = params['id'];
        		this.storeservice.getItem(this.id).subscribe(res => {
 			console.log(res);
 		});
