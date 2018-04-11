@@ -63,4 +63,8 @@ export class ArticlesService {
     return this.http.post('http://localhost:3000/api/articles/reply', body, this.httpOptions)
       .pipe();
   }
+  delete(id){
+    return this.http.delete('http://localhost:3000/api/articles/deleteArticle/'+id , this.httpOptions)
+      .pipe();
+  }
 }

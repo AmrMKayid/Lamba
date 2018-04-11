@@ -57,6 +57,7 @@ router.delete('/tags/:id', mw.isAuthenticated, mw.isAdmin, tagCtrl.deleteTag);
 router.post('/articles/feedback', mw.isAuthenticated, articleCtrl.feedbackArticle);
 router.post('/articles/comment', mw.isAuthenticated,  articleCtrl.commentArticle);
 router.post('/articles/reply', mw.isAuthenticated,  articleCtrl.replyComment);
+router.delete('/articles/deleteArticle/:id', mw.isAuthenticated,  articleCtrl.deleteArticle);
 
 
 module.exports = router;

@@ -79,7 +79,7 @@ module.exports.getArticles = function (req, res, next) {
       if (err) {
         return next(err);
       }
-      //TODO: name nested inside owner_id, maybe change schema later on.    
+      //TODO: name nested inside owner_id, maybe change schema later on.
     }).populate('owner_id', 'name', 'User').exec((err, result) => {
       res.status(200).json({
         err: null,
@@ -419,4 +419,74 @@ module.exports.replyComment = function (req, res, next) {
     }
     reply(retrievedArticle, userID, req.body.comment_id, req.body.reply, res, next);
   })
+};
+
+
+
+/////////////////
+
+
+
+module.exports.deleteArticle = function (req, res, next) {
+
+//console.log(req.params.id);
+
+console.log(req.decodedToken.user._id);
+  if (req.decodedToken.user._id){
+
+
+    Article.findById(req.params.id, (err, retrievedArticle) => {
+      if (err) { return next(err); }
+      if (!retrievedArticle) {
+        return res.status(404).json({
+          err: null,
+          msg: 'Article was not found.',
+          data: null
+        });
+      }
+
+      if(retrievedArticle.owner_id === req.decodedToken.user._id){
+        console.log(retrievedArticle.owner_id);
+        Article.findByIdAndRemove(req.params.id, (err, result) => {
+          if (err) {
+            return next(err);
+          }
+          if (!result) {
+            return res.status(404).json({
+              err: null,
+              msg: 'Article was not found.',
+              data: null
+            });
+          }
+
+          Child.update(
+            {},
+            { $pull: { allowedArticles: result._id } },
+            { multi: true },
+            (err, updatedArticles) => {
+              if (err) {
+                console.log(err);
+                return next(err);
+              }
+              return res.status(200).json({
+                err: null,
+                msg: 'Article deleted successfully.',
+                data: result
+              });
+            }
+          );
+
+      });
+
+    }else{
+      return res.status(401).json({
+        err: null,
+        msg: 'You are only allowed to delete your own articles.',
+        data: null
+      });
+    }
+
+    });
+
+  }
 };

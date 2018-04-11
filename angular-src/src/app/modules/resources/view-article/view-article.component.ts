@@ -115,4 +115,14 @@ export class ViewArticleComponent implements OnInit {
     this.replies.forEach(element => element.showReply = false);
     this.replies[i].showReply = true;
   }
+
+  delete(id){
+    this.articleService.delete(id).subscribe(
+      (res: 200) => {
+            this.router.navigate(['/resources']);
+      }, err => {
+        alert(`Article was not deleted: ${err.error.msg}`);
+      }
+    );
+  }
 }
