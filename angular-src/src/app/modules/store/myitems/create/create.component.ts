@@ -13,6 +13,31 @@ import { Router } from '@angular/router';
 })
 export class CreateComponent implements OnInit {
 
+customStyle = {
+    selectButton: {
+      "background-color": "#5495ff",
+      "color": "#FFF"
+    },
+    clearButton: {
+      "background-color": "white",
+      "border-radius": "25px",
+      "color": "red",
+      "margin-left": "10px"
+    },
+    layout: {
+      "background-color": "white",
+      "color": "gray",
+      "font-size": "15px",
+      "margin": "10px",
+      "padding-top": "5px",
+      "width": "500px"
+    },
+    previewPanel: {
+      "background-color": "white",
+      "color": "white"
+    }
+  }
+
 
   name : string;
   description : string;
@@ -39,8 +64,8 @@ export class CreateComponent implements OnInit {
   	{
 		this.toaster.pop({
 		                  type: 'error',
-		                  title: "You need to upload a photo",
-		                  body: "you have to provide an Item Name",
+		                  title: "No photo was uploaded",
+		                  body: "You have to upload a photo first before submitting the form",
 		                  timeout: 10000
 		                });
 	}
@@ -48,8 +73,8 @@ export class CreateComponent implements OnInit {
   	{
   		this.toaster.pop({
                   type: 'error',
-                  title: "Missing the Item name!",
-                  body: "you have to provide an Item Name",
+                  title: "Missing Field(s)",
+                  body: "One or more field(s) are missing. Please provide all fields",
                   timeout: 10000
                 });
   	}

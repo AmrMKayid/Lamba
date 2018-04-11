@@ -12,13 +12,13 @@
         <h5 class="card-text">Content:</h5>
         <div [innerHTML]="article.content">
         </div>
-        
+
         <button class="btn btn-primary btn-sm " id="btn"  (click)="verify(article._id)"> verify<i class="fas fa-cart-plus"></i></button>
       </div>
       <div class="card-footer text-muted">
         Listed on: {{ article.createdAt | date}}
       </div>
     </div>
-  </div>
-  
-  </div> 
+  </div>  
+</div> 
+

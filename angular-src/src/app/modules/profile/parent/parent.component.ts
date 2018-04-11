@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { ToasterService } from 'angular5-toaster/src/toaster.service';
 import { appConfig } from "../../../app.config";
 import { AuthService } from "../../../services/auth.service";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
@@ -31,7 +30,6 @@ export class ParentComponent implements OnInit {
   constructor(private router: Router,
     private http: HttpClient,
     private auth: AuthService,
-    private toaster: ToasterService,
     private modalService: NgbModal) {
   }
 
@@ -78,22 +76,21 @@ export class ParentComponent implements OnInit {
       (res: any) => {
         this.myChildren = this.myChildren.concat(res.data);
 
-
-        this.toaster.pop({
+        new Noty({
           type: 'success',
-          title: "Success!",
-          body: "You've been successfully created New Child Account!",
-          timeout: 3000
-        });
+          text: `You've been successfully created New Child Account!`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
       },
       error => {
         console.log(error)
-        this.toaster.pop({
+        new Noty({
           type: 'error',
-          title: "Error!",
-          body: error.error.msg,
-          timeout: 3000
-        });
+          text: error.error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
       });
 
   }

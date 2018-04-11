@@ -21,10 +21,6 @@ const ItemSchema = new Schema({
         type: Array,
 		required: true
     },
-    buyers_id: {
-        type: Array,
-		required: true
-    },
 	item_type: {
 		type: String,
 		required: true
@@ -53,3 +49,4 @@ const ItemSchema = new Schema({
 
 
 mongoose.model('Item', ItemSchema);
+

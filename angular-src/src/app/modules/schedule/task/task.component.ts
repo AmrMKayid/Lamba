@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute } from "@angular/router";
 import { AuthService } from "../../../services/auth.service";
-import { ToasterService } from 'angular5-toaster/src/toaster.service';
 
 @Component({
   selector: 'app-task',
@@ -13,7 +12,6 @@ export class TaskComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private http: HttpClient,
-    private toaster: ToasterService,
     private auth: AuthService) { }
 
   taskId: String;
@@ -33,7 +31,7 @@ export class TaskComponent implements OnInit {
   comments: any;
   studentId: String;
   teacherId: String;
-  taskComments =  [];
+  taskComments = [];
   currentUser: any;
 
 newComment : any;
@@ -62,7 +60,7 @@ newComment : any;
   }
 
   getComments() {
-    this.http.get('http://localhost:3000/api/task/getComments/' + this.taskId , this.httpOptions).subscribe((res: any) => {
+    this.http.get('http://localhost:3000/api/task/getComments/' + this.taskId, this.httpOptions).subscribe((res: any) => {
       this.taskComments = res.data;
     });
   }
@@ -78,25 +76,25 @@ newComment : any;
       name: this.currentUser.name.firstName + " " + this.currentUser.name.lastName
     };
     console.log(commentData);
-    this.http.post('http://localhost:3000/api/task/newComment',commentData,this.httpOptions).subscribe(
+    this.http.post('http://localhost:3000/api/task/newComment', commentData, this.httpOptions).subscribe(
       (res: any) => {
         this.taskComments = this.taskComments.concat(commentData);
 
-        this.toaster.pop({
+        new Noty({
           type: 'success',
-          title: "Success!",
-          body: "Comment Created Succ",
-          timeout: 3000
-        });
+          text: 'Comment created successfully',
+          timeout: 3000,
+          progressBar: true
+        }).show();
       },
       error => {
         console.log(error)
-        this.toaster.pop({
+        new Noty({
           type: 'error',
-          title: "Error!",
-          body: error.msg,
-          timeout: 3000
-        });
+          text: error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
       });
 
       this.newComment = "";

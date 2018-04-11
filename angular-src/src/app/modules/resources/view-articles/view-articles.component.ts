@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { ArticlesService } from '../articles.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-articles',
@@ -22,7 +23,9 @@ export class ViewArticlesComponent implements OnInit {
       'Authorization': localStorage.getItem('authentication')
     })
   };
-  constructor(private http: HttpClient, private articlesService: ArticlesService) { }
+  constructor(private http: HttpClient,
+    private articlesService: ArticlesService,
+    private router: Router) { }
 
   ngOnInit() {
     this.articles = [];
@@ -35,7 +38,13 @@ export class ViewArticlesComponent implements OnInit {
         this.articles = res.data.reverse();
         this.articlesInitialized = true;
       }, err => {
-        alert(`Articles not retrieved: ${err.error.msg}`);
+        this.router.navigate(['/']);
+        new Noty({
+          type: 'error',
+          text: `Articles could not be retrieved: ${err.error.msg}`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
       }
     );
     this.articlesService.getAllTags().subscribe(
@@ -45,7 +54,13 @@ export class ViewArticlesComponent implements OnInit {
         });
         this.tagsInitialized = true;
       }, err => {
-        alert(`Articles not retrieved: ${err.error.msg}`);
+        this.router.navigate(['/']);
+        new Noty({
+          type: 'error',
+          text: `Tags could not be retrieved: ${err.error.msg}`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
       }
     );
   }

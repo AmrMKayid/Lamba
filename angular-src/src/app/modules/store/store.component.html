@@ -1,6 +1,26 @@
-<div class="divider" style="padding-top:50px;"></div>
-<div class="container">
-  <router-outlet>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<div class = "container">
+	<!------ Include the above in your HEAD tag ---------->
+	<nav class="main main-raised" role="navigation">
+			<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class = "row">
+					<div class = "col-md-2 col-xs-1">
+						<ul class="nav navbar-nav">
+							<li class="active"><a mdbRippleRadius [routerLink]="['/store/view']" *ngIf="isLoggedIn()"><span class = "glyphicon glyphicon-shopping-cart"></span> Store<span style="font-size:16px;" class="pull-right hidden-xs showopacity"></span></a></li>
+							<li ><a mdbRippleRadius [routerLink]="['/store/myitems/view']" *ngIf="isLoggedIn()"><span class = "glyphicon glyphicon glyphicon-tags"></span> My Items<span style="font-size:16px;" class="pull-right hidden-xs showopacity"></span></a></li>
+							<li ><a mdbRippleRadius [routerLink]="['/store/myitems/create']" *ngIf="isLoggedIn()"><span class = "glyphicon glyphicon-list-alt"></span> Add Item<span style="font-size:16px;" class="pull-right hidden-xs showopacity"></span></a></li>
+						</ul>
+					</div>
 
-  </router-outlet>
+					<div class = "col-md-10 col-xs-11">
+						<router-outlet></router-outlet>
+					</div>
+			</div>
+	</nav>
 </div>
+
+
+
+

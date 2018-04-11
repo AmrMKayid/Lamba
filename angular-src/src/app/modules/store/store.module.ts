@@ -6,6 +6,11 @@ import { LoadChildren } from '@angular/router';
 import { StoreService } from '../../services/store.service';
 import { ViewComponent } from './view/view.component';
 import { HttpModule } from '@angular/http';
+import { ItemComponent } from './item/item.component';
+import {ToasterModule} from 'angular5-toaster';
+
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 const routes: Routes = [
 	{
@@ -19,6 +24,10 @@ const routes: Routes = [
 			{
 				path : 'view',
 				component : ViewComponent
+			},
+			{
+				path: 'view/:id',
+				component: ItemComponent
 			}
 		]
 
@@ -30,11 +39,13 @@ const routes: Routes = [
   imports: [
     CommonModule,
 		 HttpModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ToasterModule
   ],
   declarations: [
   	StoreComponent,
-  	ViewComponent
+  	ViewComponent,
+  	ItemComponent
   ],
 
 

@@ -1,11 +1,13 @@
 var mongoose = require('mongoose'),
-  moment = require('moment'),
-  Validations = require('../utils/validations'),
-  User = mongoose.model('User'),
-  Item = mongoose.model('Item');
-  jwt = require('jsonwebtoken');
-  mw = require('../routes/middlewares'),
-  fs = require('fs');
+  	moment = require('moment'),
+  	Validations = require('../utils/validations'),
+ 	User = mongoose.model('User'),
+ 	Item = mongoose.model('Item');
+	jwt = require('jsonwebtoken');
+	mw = require('../routes/middlewares'),
+ 	path = require('path'),
+	User = mongoose.model('User');
+  	fs = require('fs');
 
 
 
@@ -42,7 +44,7 @@ module.exports.createItems = async function(req, res, next) {
     quantity: req.body.quantity,
     price: req.body.price,
     likes_user_id: [],
-    buyers_id: [],
+    likes: 0,
     item_type: req.body.item_type,
     item_condition: req.body.item_condition == undefined ? null : req.body.item_condition,
     picture_url: req.body.picture_url,
@@ -54,7 +56,7 @@ module.exports.createItems = async function(req, res, next) {
   Item.create(item, function(err, newItem) {
     if (err) {
       return res.status(422).json({
-        err: null,
+        err: err,
         msg: "Couldn't create item",
         data: null
       });
@@ -135,7 +137,6 @@ module.exports.viewItems = function(req, res, next) {
 
   query.exec(function(err, items) {
     if (err) return err;
-    console.log(items);
     return res.status(200).json({
       err: null,
       msg: "Items retrieved successfully",
@@ -146,35 +147,152 @@ module.exports.viewItems = function(req, res, next) {
 }
 
 
+module.exports.getItemsById = function(req, res, next) {
+  const authorization = req.headers.authorization;
+  const secret = req.app.get('secret');
+  decoded = jwt.verify(authorization, secret);
+  console.log( decoded.user._id )
+  Item.find({seller_id: decoded.user._id}).exec(function(err, Items) {
+    if (err) {
+      console.log(err)
+    }
+    res.status(200).json({
+      err: null,
+      msg: 'finished successfully',
+      data: Items
+    });
+  });
+
+  }
+
+
 
 module.exports.editItems = function(req, res, next) {
 
-  console.log("edit\n");
-}
+    req.body.updatedAt = moment().toDate();
 
+    Item.findByIdAndUpdate(
+      req.params.itemId,
+      {
+        $set: req.body
+      },
+      { new: true }
+    ).exec(function (err, updatedProduct) {
+      if (err) {
+        return next(err);
+      }
+      if (!updatedProduct) {
+        return res
+          .status(404)
+          .json({ err: null, msg: 'Update Failed', data: null });
+      }
+      res.status(200).json({
+        err: null,
+        msg: 'Product was updated successfully.',
+        data: updatedProduct
+      });
+    });
+
+  // console.log("edit\n");
+};
 
 
 module.exports.deleteItems = function(req, res, next) {
 
-  console.log("delete\n");
-}
-
-
-module.exports.buyItems = function(req, res, next) {
-  console.log("buy\n");
-
-}
+    Item.findByIdAndRemove(req.params.itemId).exec(function (
+      err,
+      deletedProduct
+    ) {
+      if (err) {
+        return next(err);
+      }
+      if (!deletedProduct) {
+        return res
+          .status(404)
+          .json({ err: null, msg: 'Delete failed', data: null });
+      }
+      fs.unlink(path.resolve('api/uploads/' + deletedProduct.picture_url));
+      res.status(200).json({
+        err: null,
+        msg: 'Scuccess',
+        data: deletedProduct
+      });
+    });
+  };
 
 
 module.exports.likeItems = function(req, res, next) {
+  
 
-  console.log("like\n");
+  const authorization = req.headers.authorization;
+  const secret = req.app.get('secret');
+  decoded = jwt.verify(authorization, secret);
+  var user_id = decoded.user._id;
+
+  Item.findById(req.body._id, function(err, retrievedItem){
+
+    if(retrievedItem.likes_user_id.includes(user_id) || err)
+    {
+      return res.status(422).json({
+        err: null,
+        msg: "Item already liked",
+        data: null
+      });
+    }
+
+    retrievedItem.likes_user_id.push(user_id);
+
+    Item.findByIdAndUpdate(retrievedItem._id , retrievedItem, function(err, item){
+        console.log(item);
+         return res.status(200).json({
+          err: null,
+          msg: 'Item was liked successfully.',
+          data: item
+        }); 
+    });
+   
+
+  });
+
+}
+
+
+
+module.exports.unlikeItems = function(req, res, next) {
+  let user = req.decodedToken.user._id;
+
+  Item.findByID(
+   req.body._id,
+    (err,retrievedItem) =>{
+      if (err) {
+        return next(err);
+      }
+    if(!retrievedItem.likes_user_id.includes(user)){
+      return res.status(422).json({
+        err: null,
+        msg: "cannot unlike",
+        data: null
+      });
+    }
+    else{
+      retrievedItem.likes_user_id = req.params.likes_user_id.pop(user);
+      retrievedItem.likes =  req.params.likes -1; }
+
+
+      return res.status(200).json({
+        err: null,
+        msg: 'Item was unliked.',
+        data: retrievedItem
+      });
+
+  });
+
 }
 
 module.exports.countItmes = function(req, res, next) {
-  console.log("Count items");
+
   Item.count({}, function(err, count) {
-    console.log("Total count = " + count);
+
     if (err) return err;
     return res.status(200).json({
       err: null,
@@ -184,10 +302,99 @@ module.exports.countItmes = function(req, res, next) {
   });
 }
 
+/**
+  * sends an image for the item
+  */
+module.exports.getImage = function(req, res, next) {
+
+	return res.status(200).sendFile(path.resolve('api/uploads/' + req.params.filename));
+
+}
+
+
+/**
+  * sends an image for the item
+  */
+module.exports.getItem = function(req, res, next) {
+
+	if(!req.params.itemId)
+	{
+		  return res.status(422).json({
+			  err: 'Empty id field',
+			  msg: 'You have to provide an Item Id',
+			  data: null
+		  });
+	}
+
+	Item.findById(req.params.itemId, function(err,retrievedItem){
+		  if (err) {
+				 return res.status(404).json({
+				  err: 'Retrieved 0 items from the database',
+				  msg: 'Error while retrieving item from the database',
+				  data: null
+			  });
+		  }
+
+		 if(!retrievedItem)
+		 {
+			 return res.status(404).json({
+				  err: 'Retrieved 0 items from the database',
+				  msg: 'No record was found in the database',
+				  data: null
+			  });
+		 }
+
+		  const authorization = req.headers.authorization;
+		  const secret = req.app.get('secret');
+		  decoded = jwt.verify(authorization, secret);
+		  var user_id = decoded.user._id;
+		  User.findById(retrievedItem.seller_id, function(err, retrievedUser){
+				 if (err)
+				 {
+					 return res.status(404).json({
+					  err: 'Retrieved 0 items from the database',
+					  msg: 'Error while retrieving item from the database',
+					  data: null
+				  });
+		 	 	}
+
+				 if(!retrievedUser)
+				 {
+					 return res.status(404).json({
+						  err: 'Retrieved 0 items from the database',
+						  msg: 'Error while retrieving item from the database',
+						  data: null
+					  });
+				 }
+			 var seller = {
+
+							email: retrievedUser.email,
+							name: retrievedUser.name,
+							phone: retrievedUser.phone,
+							_id: retrievedUser._id
+							};
+			 return res.status(200).json({
+				  err: null,
+				  msg: 'Retrieved 1 item',
+				  data: retrievedItem,
+				  owner: retrievedItem.seller_id == user_id,
+				  seller: seller
+			  });
+		 });
+
+
+	});
+
+}
+
+
+
+
+
 /*****************************************************************************
- *																			 *
- *                          private functions								 *
- *																			 *
+ *																			                                     *
+ *                          private functions								                 *
+ *																			                                     *
  *****************************************************************************/
 
 /**

@@ -11,7 +11,7 @@ export class StoreService {
       {
         'Content-Type': 'application/json' ,
         // TODO Remove authorization
-        'Authorization':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOnsiZmlyc3ROYW1lIjoiQWhtZWQiLCJtaWRkbGVOYW1lIjoiU2hhd2t5IiwibGFzdE5hbWUiOiJIdXNzZWluIn0sInNjaGVkdWxlIjp7IlRpbWV0YWJsZSI6W10sImNyZWF0ZWRBdCI6IjIwMTgtMDMtMzFUMTM6Mjg6MTcuODg0WiIsInVwZGF0ZWRBdCI6IjIwMTgtMDMtMzFUMTM6Mjg6MTcuODg0WiJ9LCJteUl0ZW1zIjpbXSwiY2FydCI6W10sInF1YWxpZmljYXRpb25zIjpbXSwic3R1ZGVudHMiOltdLCJfaWQiOiI1YWJmOGNmMTcxNzRmNDFkNDAyZDIyODIiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6ImExMjNAYTEyMy5jb20iLCJfX3YiOjB9LCJpYXQiOjE1MjI1OTYwMzEsImV4cCI6MTUyMjYzOTIzMX0.7FmxSPuiTxreBKw6MIW6RnqHETHPR1qZYKdpY4zPlos'
+        'Authorization':localStorage.getItem('authentication')
       });
 
     readonly options = { headers: this.headers };
@@ -20,7 +20,7 @@ export class StoreService {
 
   createItem(item)
   {
-  	var headers = new Headers();
+  var headers = new Headers();
 	headers.append('Content-Type', 'application/json');
 	headers.append('authorization',  localStorage.getItem('authentication'));
     return this.http.post('http://127.0.0.1:3000/api/store/create', item, {headers:headers}).map((res) => res.json());
@@ -28,12 +28,31 @@ export class StoreService {
 
   viewItems(limit:number,page:number)
   {
-    return this.httpc.get(this.base_address + 'view/' + limit+ '/' + page);
+    return this.httpc.get(this.base_address + 'view/' + limit+ '/' + page , this.options);
   }
 
   itemsCount()
   {
-      return this.httpc.get(this.base_address + 'countItmes' );
+      return this.httpc.get(this.base_address + 'countItmes' , this.options );
   }
 
-}
+ likeItems(item){
+   	var headers = new Headers();
+	headers.append('Content-Type', 'application/json');
+	headers.append('authorization',  localStorage.getItem('authentication'));
+return this.http.patch('http://localhost:3000/api/store/likeItems/'+item._id , item, {headers:headers}).map((Response)=> Response.json().data);
+  }
+
+  unlikeItems(item){
+    return this.http.patch('http://localhost:3000/api/store/likeItems/'+item._id , item).map((Response)=> Response.json().data);
+  }
+
+    getItem(id)
+ {
+ 	var headers = new Headers();
+	headers.append('Content-Type', 'application/json');
+	headers.append('authorization',  localStorage.getItem('authentication'));
+    return this.http.get('http://127.0.0.1:3000/api/store/myitems/view/' + id,{headers:headers}).map((res) => res.json());
+ }
+
+ }

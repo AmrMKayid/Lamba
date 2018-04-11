@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StoreService } from '../../../services/store.service';
+import {Router} from "@angular/router";
 import * as $ from 'jquery';
 
 @Component({
@@ -19,7 +20,10 @@ export class ViewComponent implements OnInit {
   pages :any[]; // Holds the numbers of the pages available to be picked
 
 
-    constructor(private StoreService : StoreService) {
+    constructor(
+                private StoreService : StoreService,
+                private router: Router
+              ) {
       this.limit = 20 ;
       this.curPage = 1;
       this.getItemCount();
@@ -71,6 +75,30 @@ export class ViewComponent implements OnInit {
           console.log(this.items);
         });
     }
+     likeItems(item){
+      console.log(item);
+      this.StoreService.likeItems(item).subscribe((data:any)=>{
+      	console.log('what');
+      	console.log(data);
+        for(var i = 0; i < this.items.length; i++)
+        {	
+        	if(this.items[i]._id == data._id)
+        	{
+        		this.items[i].likes_user_id = data.likes_user_id;
+        	}
+        }
+         });
+      }
 
+      unlikeItems(item){
+        this.StoreService.unlikeItems(item).subscribe((data:any)=>{
+          this.items = data.data;
+           });
+      }
 
+      viewInfo(_id)
+      {
+        console.log("awfawf");
+          this.router.navigate(['/store/view/'+_id]);
+      }
   }
