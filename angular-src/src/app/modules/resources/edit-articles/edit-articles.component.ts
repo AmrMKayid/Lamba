@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class EditArticlesComponent implements OnInit {
 
   article: any = {};
-  id : string;
+  id: string;
   public title: String;
   public editorContent: String;
   tagsInitialized: boolean;
@@ -46,10 +46,12 @@ export class EditArticlesComponent implements OnInit {
       'Authorization': localStorage.getItem('authentication')
     })
   };
-  constructor(private router: Router, private route: ActivatedRoute , private http: HttpClient, private articlesService: ArticlesService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private articlesService: ArticlesService) { }
 
   ngOnInit() {
-
+    this.tagsInitialized = false;
+    this.selectedTags = [];
+    this.allTags = [];
     this.articlesService.getAllTags().subscribe(
       (res: any) => {
         res.data.forEach(element => {
@@ -83,10 +85,10 @@ export class EditArticlesComponent implements OnInit {
       return;
     }
     let body = {
-      id : this.article._id,
+      id: this.article._id,
       title: this.title,
       content: this.editorContent,
-      approved : false,
+      approved: false,
       tags: (this.selectedTags.map(tag => tag.id))
     };
 
