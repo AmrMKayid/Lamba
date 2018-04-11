@@ -79,7 +79,7 @@ module.exports.getArticles = function (req, res, next) {
       if (err) {
         return next(err);
       }
-      //TODO: name nested inside owner_id, maybe change schema later on.    
+      //TODO: name nested inside owner_id, maybe change schema later on.
     }).populate('owner_id', 'name', 'User').exec((err, result) => {
       res.status(200).json({
         err: null,
@@ -420,3 +420,127 @@ module.exports.replyComment = function (req, res, next) {
     reply(retrievedArticle, userID, req.body.comment_id, req.body.reply, res, next);
   })
 };
+
+
+
+/////////////////
+
+
+
+module.exports.deleteArticle = function (req, res, next) {
+  if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+    return res.status(422).json({
+      err: null,
+      msg: 'Invalid ID provided.',
+      data: null
+    });
+  }
+  if (req.decodedToken.user._id) {
+    Article.findById(req.params.id, (err, retrievedArticle) => {
+      if (err) { return next(err); }
+      if (!retrievedArticle) {
+        return res.status(404).json({
+          err: null,
+          msg: 'Article was not found.',
+          data: null
+        });
+      }
+
+      if (retrievedArticle.owner_id === req.decodedToken.user._id) {
+
+        Article.findByIdAndRemove(req.params.id, (err, result) => {
+          if (err) {
+            return next(err);
+          }
+          if (!result) {
+            return res.status(404).json({
+              err: null,
+              msg: 'Article was not found.',
+              data: null
+            });
+          }
+
+          Child.update(
+            {},
+            { $pull: { allowedArticles: result._id } },
+            { multi: true },
+            (err, updatedArticles) => {
+              if (err) {
+                console.log(err);
+                return next(err);
+              }
+              return res.status(200).json({
+                err: null,
+                msg: 'Article deleted successfully.',
+                data: result
+              });
+            }
+          );
+
+        });
+
+      } else {
+        return res.status(401).json({
+          err: null,
+          msg: 'You are only allowed to delete your own articles.',
+          data: null
+        });
+      }
+
+    });
+
+  }
+};
+
+
+module.exports.editArticle = function (req, res, next) {
+  let valid = req.body.id && req.body.id.match(/^[0-9a-fA-F]{24}$/)
+    && req.body.title && Validations.isString(req.body.title)
+    && req.body.content && Validations.isString(req.body.content)
+    && req.body.tags && Validations.isArray(req.body.tags)
+
+  if (!valid) {
+    return res.status(422).json({
+      err: null,
+      msg: 'id,title,content(Strings). tags(Array) are all required fields',
+      data: null
+    });
+  }
+
+  if (req.decodedToken.user._id) {
+    Article.findById(req.body.id, (err, retrievedArticle) => {
+      if (err) { return next(err); }
+      if (!retrievedArticle) {
+        return res.status(404).json({
+          err: null,
+          msg: 'Article was not found.',
+          data: null
+        });
+      }
+      if (retrievedArticle.owner_id === req.decodedToken.user._id) {
+
+        retrievedArticle.title = req.body.title;
+        retrievedArticle.content = req.body.content;
+        retrievedArticle.tags = req.body.tags;
+        retrievedArticle.approved = false;
+
+        retrievedArticle.save(function (err, updatedArticle) {
+          if (err) { return next(err); }
+          return res.status(200).json({
+            err: null,
+            msg: "Successfully updated.",
+            data: updatedArticle
+          });
+        });
+
+
+      } else {
+        return res.status(401).json({
+          err: null,
+          msg: 'You are only allowed to edit your own articles.',
+          data: null
+        });
+      }
+    });
+  }
+}
