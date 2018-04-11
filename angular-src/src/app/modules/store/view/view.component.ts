@@ -76,7 +76,7 @@ export class ViewComponent implements OnInit {
         });
     }
      likeItems(item){
-      console.log("ts");
+      console.log(item);
       this.StoreService.likeItems(item).subscribe((data:any)=>{
         this.items = data.data;
          });

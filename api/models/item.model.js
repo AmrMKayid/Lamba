@@ -21,10 +21,6 @@ const ItemSchema = new Schema({
         type: Array,
 		required: true
     },
-    likes: {
-        type: Number,
-		required: true
-    },
 	item_type: {
 		type: String,
 		required: true

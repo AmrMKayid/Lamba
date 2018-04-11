@@ -54,8 +54,8 @@ router.get('/store/countItmes', storeCtrl.countItmes);
 router.get('/store/view/:tuplesPerPage/:pageNumber', storeCtrl.viewItems);
 router.patch('/store/edit/:itemId', storeCtrl.editItems);
 router.delete('/store/delete/:itemId', storeCtrl.deleteItems);
-router.patch('/store/likeItems/:itemId', storeCtrl.likeItems);
-router.patch('/store/unlikeItems/:itemId' , storeCtrl.unlikeItems);
+router.patch('/store/likeItems/:itemId', mw.isAuthenticated, storeCtrl.likeItems);
+router.patch('/store/unlikeItems/:itemId' , mw.isAuthenticated, storeCtrl.unlikeItems);
 router.get('/uploads/store/:filename', storeCtrl.getImage);
 router.get('/store/myitems/view/:itemId', mw.isAuthenticated, storeCtrl.getItem);
 //-----------------------------C1: Articles & TAGS Routes----------------------------------------------//

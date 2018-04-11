@@ -37,8 +37,10 @@ export class StoreService {
   }
 
  likeItems(item){
-   console.log("service");
-return this.http.patch('http://localhost:3000/api/store/likeItems/'+item._id , item).map((Response)=> Response.json().data);
+   	var headers = new Headers();
+	headers.append('Content-Type', 'application/json');
+	headers.append('authorization',  localStorage.getItem('authentication'));
+return this.http.patch('http://localhost:3000/api/store/likeItems/'+item._id , item, {headers:headers}).map((Response)=> Response.json().data);
   }
 
   unlikeItems(item){

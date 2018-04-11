@@ -222,16 +222,17 @@ module.exports.deleteItems = function(req, res, next) {
 
 
 module.exports.likeItems = function(req, res, next) {
-  console.log("controller");
-  let user = req.decodedToken.user._id;
+  
 
-  Item.findByID(
-    req.params.item._id,
-    (err,retrievedItem) =>{
-      if (err) {
-        return next(err);
-      }
-    if(retrievedItem.likes_user_id.includes(user)){
+  const authorization = req.headers.authorization;
+  const secret = req.app.get('secret');
+  decoded = jwt.verify(authorization, secret);
+  var user_id = decoded.user._id;
+
+  Item.findById(req.body._id, function(err, retrievedItem){
+
+    console.log();
+    /*if(retrievedItem.likes_user_id.includes(user_id)){
       return res.status(422).json({
         err: null,
         msg: "Item already liked",
@@ -248,7 +249,7 @@ module.exports.likeItems = function(req, res, next) {
         err: null,
         msg: 'Item was liked successfully.',
         data: retrievedItem
-      });
+      });*/
 
   });
 
@@ -260,7 +261,7 @@ module.exports.unlikeItems = function(req, res, next) {
   let user = req.decodedToken.user._id;
 
   Item.findByID(
-    req.params.item._id,
+   req.body._id,
     (err,retrievedItem) =>{
       if (err) {
         return next(err);
