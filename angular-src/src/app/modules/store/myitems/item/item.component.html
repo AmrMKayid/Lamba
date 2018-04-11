@@ -1,5 +1,41 @@
-<p>
-  item works!
+<toaster-container></toaster-container>
 
-	{{id}}
-</p>
+<div class = "item" *ngIf="item&&user">
+	<div class = "row">
+		<div class = "col-md-4 col-xs-3">
+			<img id = "icon"  src = "http://127.0.0.1:3000/api/uploads/store/{{item['picture_url']}}"/>
+		</div>
+		<div class = "col-md-8 col-xs-9">
+			<div class = "row" id = "info">
+				<div class = "col-md-8 col-xs-9">
+					<div class = "row">
+						<span id = "name"><b>{{item["name"]}}</b></span>
+						<span id ="type">({{item["item_type"]}})</span>
+					</div>
+					<div class = "row">
+						<span id = "username">by <b>{{user["name"].firstName + " " + user["name"].lastName}}</b></span> 
+					</div>
+					<div class = "row">
+							<span id = "email">Email: {{user["email"]}} </span>
+							<span id = "phone" *ngIf="user.phone"> number: {{user["phone"]}}</span>
+					</div>
+				</div>
+				<div class = "col-md-4 col-xs-3">
+					<div class = "box">
+								<span id = "condition"><b>{{item["item_condition"]}}</b></span>
+								<br>
+								<span id = "price">{{item["price"]}}LE.</span>
+					</div>
+				</div>
+			</div>
+			<div class = "row">
+				<span id = "description">{{item["description"]}}</span>
+			</div>
+			<div class = "row">
+				<div class = "col-md-offset-7">
+					<span id = "quantity"><b>Quantity: </b>{{item["quantity"]}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

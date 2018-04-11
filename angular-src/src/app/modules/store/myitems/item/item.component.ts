@@ -9,12 +9,14 @@ import { Http, Headers } from '@angular/http';
 @Component({
   selector: 'app-item',
   templateUrl: './item.component.html',
-  styleUrls: ['./item.component.scss']
+  styleUrls: ['./item.component.css']
 })
 export class ItemComponent implements OnInit {
 
   id: string;
   item: Object;
+  user: Object;
+  owner: boolean
   constructor(
   private route: ActivatedRoute,
   private toaster: ToasterService,
@@ -25,10 +27,16 @@ export class ItemComponent implements OnInit {
   ngOnInit() {
   	   this.route.params.subscribe(params => {
        		this.id = params['id'];
+ 
        		this.storeservice.getItem(this.id).subscribe(res => {
-			console.log(res);
-		});
-    });
+         this.item = res.data;
+         this.user = res.seller;
+         this.owner = res.owner;
+         console.log(this.user);
+		    }, 
+        error => {return this.router.navigate(["/store/myitems/view"]);});
+          
+      });
   }
 
 

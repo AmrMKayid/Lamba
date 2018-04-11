@@ -346,7 +346,7 @@ module.exports.getItem = function(req, res, next) {
 		 {
 			 return res.status(404).json({
 				  err: 'Retrieved 0 items from the database',
-				  msg: 'Error while retrieving item from the database',
+				  msg: 'No record was found in the database',
 				  data: null
 			  });
 		 }

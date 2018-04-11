@@ -11,7 +11,7 @@ export class StoreService {
       {
         'Content-Type': 'application/json' ,
         // TODO Remove authorization
-        'Authorization':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOnsiZmlyc3ROYW1lIjoiQWhtZWQiLCJtaWRkbGVOYW1lIjoiU2hhd2t5IiwibGFzdE5hbWUiOiJIdXNzZWluIn0sInNjaGVkdWxlIjp7IlRpbWV0YWJsZSI6W10sImNyZWF0ZWRBdCI6IjIwMTgtMDMtMzFUMTM6Mjg6MTcuODg0WiIsInVwZGF0ZWRBdCI6IjIwMTgtMDMtMzFUMTM6Mjg6MTcuODg0WiJ9LCJteUl0ZW1zIjpbXSwiY2FydCI6W10sInF1YWxpZmljYXRpb25zIjpbXSwic3R1ZGVudHMiOltdLCJfaWQiOiI1YWJmOGNmMTcxNzRmNDFkNDAyZDIyODIiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6ImExMjNAYTEyMy5jb20iLCJfX3YiOjB9LCJpYXQiOjE1MjI1OTYwMzEsImV4cCI6MTUyMjYzOTIzMX0.7FmxSPuiTxreBKw6MIW6RnqHETHPR1qZYKdpY4zPlos'
+        'Authorization':''
       });
 
     readonly options = { headers: this.headers };
