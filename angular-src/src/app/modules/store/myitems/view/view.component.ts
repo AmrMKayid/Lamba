@@ -34,6 +34,23 @@ export class ViewComponent implements OnInit {
       });
   }
 
+  deleteProduct(itemId) {
+    console.log(itemId);
+    this.http.delete('http://localhost:3000/api/store/delete/' + itemId)
+      .subscribe(res => {
+        this.toaster.pop({
+          type: 'error',
+          title: "Deleted!",
+          body: "Deleted",
+          timeout: 3000
+        });
+
+        this.getMyItems();
+
+     });
+
+ }
+
 
 
   ngOnInit() {

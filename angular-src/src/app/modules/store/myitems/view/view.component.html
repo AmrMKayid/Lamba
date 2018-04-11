@@ -29,8 +29,13 @@ p.thick {
 </style>
 </head>
 
+
+
+<toaster-container></toaster-container>
+
+
 <div>
-<table style="width:100%">
+<table  style="width:100%">
   <tr>
     <th>Index</th>
     <th>Name</th>
@@ -56,7 +61,7 @@ p.thick {
           <th> {{ item['updated_at'] | date:'medium' }}</th>
           <th>
             <button (click)="deleteProduct(item._id)"  class="btn btn-danger">Delete</button>
-            <button (click)="editItem(item); newOrEdit = true; editPressed = true; createNew = false;"  class="btn btn-info">Edit</button>
+            <button (click)="editItem(item); localStorage.setItem('Delete',item) ;  newOrEdit = true; editPressed = true; createNew = false;"  class="btn btn-info">Edit</button>
           </th>
     </tr>
 </table>
