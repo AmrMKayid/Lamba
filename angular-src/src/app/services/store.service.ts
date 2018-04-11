@@ -11,7 +11,7 @@ export class StoreService {
       {
         'Content-Type': 'application/json' ,
         // TODO Remove authorization
-        'Authorization':''
+        'Authorization':localStorage.getItem('authentication')
       });
 
     readonly options = { headers: this.headers };
@@ -28,12 +28,12 @@ export class StoreService {
 
   viewItems(limit:number,page:number)
   {
-    return this.httpc.get(this.base_address + 'view/' + limit+ '/' + page);
+    return this.httpc.get(this.base_address + 'view/' + limit+ '/' + page , this.options);
   }
 
   itemsCount()
   {
-      return this.httpc.get(this.base_address + 'countItmes' );
+      return this.httpc.get(this.base_address + 'countItmes' , this.options );
   }
 
  likeItems(item){
