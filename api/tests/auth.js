@@ -47,6 +47,7 @@ describe('Registration & Login', () => {
         it("it should register the user as Parent", (done) => {
             chai.request(apiURL).post("/auth/register").send(parent).end((err, res) => {
                 pID = res.body.data._id;
+                expect(res.body.msg).to.be.eql('Registration successful, you can now login to your account.');
                 expect(res).to.have.status(201);
                 done();
             });
@@ -69,6 +70,7 @@ describe('Registration & Login', () => {
         it("it should register the user as Teacher", (done) => {
             chai.request(apiURL).post("/auth/register").send(teacher).end((err, res) => {
                 tID = res.body.data._id;
+                expect(res.body.msg).to.be.eql('Registration successful, you can now login to your account.');
                 expect(res).to.have.status(201);
                 done();
             });
@@ -79,6 +81,7 @@ describe('Registration & Login', () => {
         it("it should login the user as Parent", (done) => {
             chai.request(apiURL).post("/auth/login").send(parent).end((err, res) => {
                 parentToken = res.body.data;
+                expect(res.body.msg).to.be.eql('Welcome');
                 expect(res).to.have.status(200);
                 done();
             });
@@ -100,6 +103,7 @@ describe('Registration & Login', () => {
         it("it should register a child", (done) => {
             chai.request(apiURL).post("/auth/child").set("authorization", parentToken).send(child).end((err, res) => {
                 cID = res.body.data._id;
+                expect(res.body.msg).to.be.eql('Registration successful, Child is now added.');
                 expect(res).to.have.status(201);
                 done();
             });

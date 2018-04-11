@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "dev": "concurrently \"mongod\" \"node ./bin/www\" \"cd angular-src && ng serve -o\"",
     "devBack": "concurrently \"mongod\" \"node ./bin/www\"",
-    "test": "mocha -- api/tests/auth.js "
+    "test": "mocha -- api/tests/*.js "
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
