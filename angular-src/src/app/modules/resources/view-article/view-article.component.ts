@@ -62,7 +62,6 @@ export class ViewArticleComponent implements OnInit {
       }
     );
     var data = sessionStorage.getItem('id');
-    console.log("data");
   }
   downvote(id) {
     this.articleService.downvote(id).subscribe(

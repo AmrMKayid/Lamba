@@ -161,9 +161,9 @@
             {{article.upvoters.length - article.downvoters.length}}
             <i class="fa fa-arrow-up"></i>
           </label>
-          <label class="text-danger" *ngIf="!article.upvoters.length > article.downvoters.length">
-            {{article.upvoters.length - article.downvoters.length}}
-            <i class="fa fa-arrow-up"></i>
+          <label class="text-danger" *ngIf="!(article.upvoters.length > article.downvoters.length)">
+            {{ article.downvoters.length - article.upvoters.length }}
+            <i class="fa fa-arrow-down"></i>
           </label>
 
           <div class="text-center mt-4">
