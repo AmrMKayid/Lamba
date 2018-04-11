@@ -85,66 +85,24 @@ function CreateItemsTests() {
  */
 
 function ViewItemsTests() {
-  const item1 = {
-    name: '1',
-    description: '1st',
-    quantity: 3,
-    price: 300000,
-    item_type: 'pet',
-    item_condition: 'bad',
-    picture_url: 'img-123213'
-  }
-  const item2 = {
-    name: '2',
-    description: '2st',
-    quantity: 3,
-    price: 36500,
-    item_type: 'pet',
-    item_condition: 'bad',
-    picture_url: 'img-123213'
-  }
-  const item3 = {
-    name: '3',
-    description: '3st',
-    quantity: 3,
-    price: 9373700,
-    item_type: 'pet',
-    item_condition: 'bad',
-    picture_url: 'img-123213'
-  }
+
 
 
   describe('View first n Items', function() {
 
     it('It should return an array of items consisting of the first n items', function(done) {
 
-      chai.request(server).post('/api/store/create').set('authorization', auth_token).send(item1)
-        .end((err, res) => {
-          chai.request(server).post('/api/store/create').set('authorization', auth_token).send(item2)
-            .end((err, res) => {
-              chai.request(server).post('/api/store/create').set('authorization', auth_token).send(item3)
-                .end((err, res) => {
 
 
+      chai.request(server).get('/api/store/view/2/1').set('authorization', auth_token)
+        .end(function(err, res) {
 
-                  // assert.equal([1, 2, 3].indexOf(4), -1);
 
-                  chai.request(server).get('/api/store/view/2/1').set('authorization', auth_token)
-                    .end(function(err, res) {
-                      // checks for the formate of the response
-                      // res.body.should.have.property('msg').eql('Created Item successfully');
-                      // res.body.should.have.property('data').should.be.a('object');
-                      // res.should.have.property('length').eql(1);
-
-                      assert.equal(res.body.data['length'], 2);
-                      assert.equal(res.body.data[0]['name'], '1');
-                      assert.equal(res.body.data[1]['name'], '2');
-                      done();
-
-                    });
-                });
-
-            });
+          assert.equal(res.body.data['length'], 2);
+          assert.equal(res.body.data[0]['name'], 'cats');
+          assert.equal(res.body.data[1]['name'], 'cats');
+          assert.notEqual(res.body.data[0]['_id'], res.body.data[1]['_id']);
+          done();
 
         });
 
@@ -157,10 +115,10 @@ function ViewItemsTests() {
 
     it('It should return an array of items consisting of the second n items', function(done) {
 
-      chai.request(server).get('/api/store/view/2/2').set('authorization', auth_token)
+      chai.request(server).get('/api/store/view/3/2').set('authorization', auth_token)
         .end(function(err, res) {
           assert.equal(res.body.data['length'], 1);
-          assert.equal(res.body.data[0]['name'], '3');
+          assert.equal(res.body.data[0]['name'], 'dogs');
 
           done();
 
@@ -176,7 +134,7 @@ function ViewItemsTests() {
 
       chai.request(server).get('/api/store/countItmes').set('authorization', auth_token)
         .end(function(err, res) {
-          assert.equal(res.body.data, '3');
+          assert.equal(res.body.data, '4');
 
           done();
 
