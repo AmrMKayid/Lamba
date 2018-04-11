@@ -5,7 +5,7 @@ let chaiHttp = require('chai-http');
 let server = require('../../bin/www');
 let expect = chai.expect;
 chai.use(chaiHttp);
-const base = 'C:/Users/Mustafa Goudah/Lamba/api';
+const base = '../../api';
 const config = require(base + '/config'),
       logger = require('mocha-logger'),
       mongoose = require('mongoose'),
