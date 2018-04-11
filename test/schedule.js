@@ -1,12 +1,12 @@
 process.env.NODE_ENV = 'test';
-var server = require('../../bin/www');
+var server = require('../bin/www');
 var base = process.env.PWD;
-var config= require('../config'),
+var config= require('../api/config'),
     logger= require('mocha-logger')
 mongoose = require('mongoose'),
-    user = require('../models/user.model'),
-    auth = require( '../controllers/auth.controller'),
-    schedule = require( '../controllers/schedule.controller'),
+    user = require('../api/models/user.model'),
+    auth = require( '../api/controllers/auth.controller'),
+    schedule = require( '../api/controllers/schedule.controller'),
     chai = require('chai'),
     expect=chai.expect,
     chaiHttp = require('chai-http'),
