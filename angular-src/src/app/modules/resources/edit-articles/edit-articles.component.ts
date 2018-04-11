@@ -70,7 +70,15 @@ export class EditArticlesComponent implements OnInit {
         this.article = retrieved.data;
         this.title = this.article.title;
         this.editorContent = this.article.content;
-        this.selectedTags = this.article.tags;
+        this.article.tags.forEach(tag => {
+          this.selectedTags.push(
+            {
+              value: tag,
+              id: tag,
+              display: this.allTags.find((element => { return element.id === tag; })).value
+            }
+          );
+        });
       }, err => {
         alert(`Article not retrieved: ${err.error.msg}`);
 
