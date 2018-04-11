@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
         error => {
           new Noty({
             type: 'error',
-            text: 'error.msg',
+            text: error.msg,
             timeout: 3000,
             progressBar: true
           }).show();
