@@ -231,25 +231,26 @@ module.exports.likeItems = function(req, res, next) {
 
   Item.findById(req.body._id, function(err, retrievedItem){
 
-    console.log();
-    /*if(retrievedItem.likes_user_id.includes(user_id)){
+    if(retrievedItem.likes_user_id.includes(user_id) || err)
+    {
       return res.status(422).json({
         err: null,
         msg: "Item already liked",
         data: null
       });
     }
-    else{
-      retrievedItem.likes_user_id = req.params.likes_user_id.push(user);
-      retrievedItem.likes =  req.params.likes +1; }
 
-      
+    retrievedItem.likes_user_id.push(user_id);
 
-      return res.status(200).json({
-        err: null,
-        msg: 'Item was liked successfully.',
-        data: retrievedItem
-      });*/
+    Item.findByIdAndUpdate(retrievedItem._id , retrievedItem, function(err, item){
+        console.log(item);
+         return res.status(200).json({
+          err: null,
+          msg: 'Item was liked successfully.',
+          data: item
+        }); 
+    });
+   
 
   });
 

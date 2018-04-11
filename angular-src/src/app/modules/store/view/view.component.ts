@@ -78,7 +78,15 @@ export class ViewComponent implements OnInit {
      likeItems(item){
       console.log(item);
       this.StoreService.likeItems(item).subscribe((data:any)=>{
-        this.items = data.data;
+      	console.log('what');
+      	console.log(data);
+        for(var i = 0; i < this.items.length; i++)
+        {	
+        	if(this.items[i]._id == data._id)
+        	{
+        		this.items[i].likes_user_id = data.likes_user_id;
+        	}
+        }
          });
       }
 
