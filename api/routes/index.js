@@ -1,16 +1,16 @@
 var express = require('express'),
-    router = express.Router(),
-    jwt = require('jsonwebtoken'),
+  router = express.Router(),
+  jwt = require('jsonwebtoken'),
 
-    scheduleCtrl = require('../controllers/schedule.controller'),
-    taskCtrl = require('../controllers/task.controller'),
-    storeCtrl = require('../controllers/store.controller'),
-    authCtrl = require('../controllers/auth.controller'),
-    userCtrl = require('../controllers/user.controller'),
-    articleCtrl = require('../controllers/article.controller'),
-    tagCtrl = require('../controllers/tag.controller'),
+  scheduleCtrl = require('../controllers/schedule.controller'),
+  taskCtrl = require('../controllers/task.controller'),
+  storeCtrl = require('../controllers/store.controller'),
+  authCtrl = require('../controllers/auth.controller'),
+  userCtrl = require('../controllers/user.controller'),
+  articleCtrl = require('../controllers/article.controller'),
+  tagCtrl = require('../controllers/tag.controller'),
 
-    mw = require('./middlewares');
+  mw = require('./middlewares');
 
 //---------------------------- Authentication Routes --------------------------------//
 router.post('/auth/register', mw.isNotAuthenticated, authCtrl.register);
@@ -33,25 +33,25 @@ router.get('/user/viewUnverifiedArticles', mw.isAuthenticated, mw.isAdmin, userC
 router.get('/user/viewArticleToVerify/:articleId', mw.isAuthenticated, mw.isAdmin, userCtrl.viewArticleToVerify);
 router.get('/user/verifyArticle/:articleId', mw.isAuthenticated, mw.isAdmin, userCtrl.verifyArticle);
 //-----------------------------Schedules Routes----------------------------------------------//
-router.get('/schedule/getTeacherSchedule/:UserId', mw.isAuthenticated,scheduleCtrl.getTeacherSchedule);
-router.get('/schedule/getChildSchedule/:ChildId',mw.isAuthenticated, scheduleCtrl.getChildSchedule);
+router.get('/schedule/getTeacherSchedule/:UserId', mw.isAuthenticated, scheduleCtrl.getTeacherSchedule);
+router.get('/schedule/getChildSchedule/:ChildId', mw.isAuthenticated, scheduleCtrl.getChildSchedule);
 router.post('/task/newTask', taskCtrl.createNewTask);
 router.get('/task/getTasks/:childId', taskCtrl.getTasks);
-router.get('/task/getTask/:taskId',mw.isAuthenticated,taskCtrl.getTask);
+router.get('/task/getTask/:taskId', mw.isAuthenticated, taskCtrl.getTask);
 
 router.get('/task/getTeacher/:TeacherId', taskCtrl.getTeacher);
-router.post('/task/newComment', mw.isAuthenticated,taskCtrl.createNewComment);
-router.get('/task/getComments/:taskId', mw.isAuthenticated,taskCtrl.getComments);
-router.patch('/schedule/updateTeacherSchedule/:SlotId/',mw.isAuthenticated,scheduleCtrl.updateTeacherSchedule);
-router.patch('/schedule/updateChildSchedule/:SlotId/:ChildId',mw.isAuthenticated,scheduleCtrl.updateChildSchedule);
+router.post('/task/newComment', mw.isAuthenticated, taskCtrl.createNewComment);
+router.get('/task/getComments/:taskId', mw.isAuthenticated, taskCtrl.getComments);
+router.patch('/schedule/updateTeacherSchedule/:SlotId/', mw.isAuthenticated, scheduleCtrl.updateTeacherSchedule);
+router.patch('/schedule/updateChildSchedule/:SlotId/:ChildId', mw.isAuthenticated, scheduleCtrl.updateChildSchedule);
 /*-----------------------------Store Routes-------------------------------------*/
 router.post('/store/create', mw.isAuthenticated, storeCtrl.createItems);
 router.post('/store/upload', storeCtrl.uploadItemPhoto);
 router.get('/store/getItemsById', storeCtrl.getItemsById);
 
 // TODO add mw.isAuthenticated
-router.get('/store/countItmes', storeCtrl.countItmes);
-router.get('/store/view/:tuplesPerPage/:pageNumber', storeCtrl.viewItems);
+router.get('/store/countItmes', mw.isAuthenticated, storeCtrl.countItmes);
+router.get('/store/view/:tuplesPerPage/:pageNumber', mw.isAuthenticated, storeCtrl.viewItems);
 router.patch('/store/edit/:itemId', storeCtrl.editItems);
 router.delete('/store/delete/:itemId', storeCtrl.deleteItems);
 router.patch('/store/likeItems/:itemId', mw.isAuthenticated, storeCtrl.likeItems);
@@ -66,8 +66,8 @@ router.get('/tags', mw.isAuthenticated, tagCtrl.getTags);
 router.post('/tags', mw.isAuthenticated, mw.isAdmin, tagCtrl.addTag);
 router.delete('/tags/:id', mw.isAuthenticated, mw.isAdmin, tagCtrl.deleteTag);
 router.post('/articles/feedback', mw.isAuthenticated, articleCtrl.feedbackArticle);
-router.post('/articles/comment', mw.isAuthenticated,  articleCtrl.commentArticle);
-router.post('/articles/reply', mw.isAuthenticated,  articleCtrl.replyComment);
+router.post('/articles/comment', mw.isAuthenticated, articleCtrl.commentArticle);
+router.post('/articles/reply', mw.isAuthenticated, articleCtrl.replyComment);
 
 
 module.exports = router;
