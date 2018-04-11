@@ -168,23 +168,10 @@ module.exports.getItemsById = function(req, res, next) {
 
 
 module.exports.editItems = function(req, res, next) {
-  var valid =  req.body.name && Validations.isString(req.body.name) &&
-     req.body.description && Validations.isString(req.body.description) &&
-     req.body.quantity && Number.isInteger(req.body.quantity) &&
-     req.body.price &&  isNumber(req.body.price) && req.body.item_type &&
-     Validations.isString(req.body.item_type) &&
-     req.body.picture_url &&   Validations.isString(req.body.picture_url);
 
-  if (!valid) {
-      return res.status(422).json({
-        err: null,
-        msg: 'Updated fields must have a valid type',
-        data: null
-      });
-    }
     req.body.updatedAt = moment().toDate();
 
-    Item.findByIdAndEdit(
+    Item.findByIdAndUpdate(
       req.params.itemId,
       {
         $set: req.body
@@ -336,7 +323,7 @@ module.exports.getItem = function(req, res, next) {
 			  data: null
 		  });
 	}
-	
+
 	Item.findById(req.params.itemId, function(err,retrievedItem){
 		  if (err) {
 				 return res.status(404).json({
@@ -354,7 +341,7 @@ module.exports.getItem = function(req, res, next) {
 				  data: null
 			  });
 		 }
-			
+
 		  const authorization = req.headers.authorization;
 		  const secret = req.app.get('secret');
 		  decoded = jwt.verify(authorization, secret);
@@ -392,8 +379,8 @@ module.exports.getItem = function(req, res, next) {
 				  seller: seller
 			  });
 		 });
-		
-		
+
+
 	});
 
 }

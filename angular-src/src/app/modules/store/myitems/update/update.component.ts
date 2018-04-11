@@ -39,25 +39,10 @@ export class UpdateComponent implements OnInit {
 
 
 
-    getMyItems() {
-      this.http.get('http://localhost:3000/api/product/getItemsById')
-        .subscribe((res: any) => {
-          this.myitems = res.data;
-        });
-    }
 
-    clearInput() {
-      this.name = "";
-      this.price = 0;
-    }
-
-
-
-    editItem(item) {
-      this.name = item.name;
-      this.price = item.price;
-      this.itemId = item._id;
-
+    editItem() {
+      var itemString = localStorage.getItem("Update");
+      var item = JSON.parse(itemString)._id;
 
       let editedItem = {
         name: this.name,
@@ -65,10 +50,11 @@ export class UpdateComponent implements OnInit {
         description: this.description,
         quantity: Number(this.quantity),
         item_type: this.item_type,
-        item_condition : this.item_condition
+        item_condition : this.item_condition,
+        updated_at:  Date.now()
       };
 
-      this.http.patch('http://localhost:3000/api/store/edit/:itemId' + this.itemId , editedItem)
+      this.http.patch('http://localhost:3000/api/store/edit/' + item , editedItem)
         .subscribe(res => {
           this.toaster.pop({
             type: 'success',
@@ -77,29 +63,21 @@ export class UpdateComponent implements OnInit {
             timeout: 3000
           });
 
-          this.getMyItems();
-
-          this.newOrEdit = false;
-          this.editPressed = false;
+          localStorage.setItem("Update",null);
+          this.router.navigate(["/store/myitems/view"]);
         });
 
     }
 
+    close () {
 
-    deleteProduct(itemId) {
-      this.http.delete('http://localhost:3000/api/store/delete/:itemId' + this.itemId)
-        .subscribe(res => {
-          this.toaster.pop({
-            type: 'error',
-            title: "Deleted!",
-            body: "Deleted",
-            timeout: 3000
-          });
+      this.router.navigate(["/store/myitems/view"]);
+      localStorage.setItem("Update",'null')
 
-          this.getMyItems();
-
-       });
     }
+
+
+
 
 
     ngOnInit() {

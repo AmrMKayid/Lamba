@@ -51,6 +51,13 @@ export class ViewComponent implements OnInit {
 
  }
 
+ update(item){
+
+   localStorage.setItem("Update", JSON.stringify(item));
+   this.router.navigate(["/store/myitems/update"]);
+   console.log(item);
+ }
+
 
 
   ngOnInit() {

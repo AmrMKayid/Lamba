@@ -61,7 +61,7 @@ p.thick {
           <th> {{ item['updated_at'] | date:'medium' }}</th>
           <th>
             <button (click)="deleteProduct(item._id)"  class="btn btn-danger">Delete</button>
-            <button (click)="editItem(item); localStorage.setItem('Delete',item) ;  newOrEdit = true; editPressed = true; createNew = false;"  class="btn btn-info">Edit</button>
+            <button (click)=" update(item)"  class="btn btn-info">Edit</button>
           </th>
     </tr>
 </table>
