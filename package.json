@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "dev": "concurrently \"mongod\" \"node ./bin/www\" \"cd angular-src && ng serve -o\"",
     "devBack": "concurrently \"mongod\" \"node ./bin/www\"",
-    "test": "mocha -- api/tests/*.js "
+    "test": "mocha -- api/tests/auth.js "
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -32,6 +32,7 @@
     "chai-http": "^4.0.0",
     "concurrently": "^3.5.1",
     "mocha": "^5.0.5",
-    "mocha-logger": "^1.0.5"
+    "mocha-logger": "^1.0.5",
+    "should": "^13.2.1"
   }
 }
