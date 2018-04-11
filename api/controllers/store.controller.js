@@ -235,10 +235,11 @@ module.exports.deleteItems = function(req, res, next) {
 
 
 module.exports.likeItems = function(req, res, next) {
+  console.log("controller");
   let user = req.decodedToken.user._id;
 
   Item.findByID(
-    req.params.itemId,
+    req.params.item._id,
     (err,retrievedItem) =>{
       if (err) {
         return next(err);
@@ -251,9 +252,10 @@ module.exports.likeItems = function(req, res, next) {
       });
     }
     else{
-      retrievedItem.likes_user_id.push(user);
-      retrievedItem.likes = retrievedItem.likes +1; }
+      retrievedItem.likes_user_id = req.params.likes_user_id.push(user);
+      retrievedItem.likes =  req.params.likes +1; }
 
+      
 
       return res.status(200).json({
         err: null,
@@ -265,11 +267,13 @@ module.exports.likeItems = function(req, res, next) {
 
 }
 
+
+
 module.exports.unlikeItems = function(req, res, next) {
   let user = req.decodedToken.user._id;
 
-  Item.findById(
-    req.params.itemId,
+  Item.findByID(
+    req.params.item._id,
     (err,retrievedItem) =>{
       if (err) {
         return next(err);
@@ -282,8 +286,8 @@ module.exports.unlikeItems = function(req, res, next) {
       });
     }
     else{
-      retrievedItem.likes_user_id.pop(user);
-      retrievedItem.likes =retrievedItem.likes- 1; }
+      retrievedItem.likes_user_id = req.params.likes_user_id.pop(user);
+      retrievedItem.likes =  req.params.likes -1; }
 
 
       return res.status(200).json({
