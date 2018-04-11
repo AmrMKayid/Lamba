@@ -355,10 +355,16 @@ module.exports.getItem = function(req, res, next) {
 				  data: null
 			  });
 		 }
+			
+		  const authorization = req.headers.authorization;
+		  const secret = req.app.get('secret');
+		  decoded = jwt.verify(authorization, secret);
+		  var user_id = decoded.user._id;
 		 return res.status(200).json({
 				  err: null,
 				  msg: 'Retrieved 1 item',
-				  data: retrievedItem
+				  data: retrievedItem,
+				  owner: retrievedItem.seller_id == user_id
 			  });
 		
 	});
