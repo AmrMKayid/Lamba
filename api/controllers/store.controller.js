@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
 	jwt = require('jsonwebtoken');
 	mw = require('../routes/middlewares'),
  	path = require('path'),
+	User = mongoose.model('User');
   	fs = require('fs');
 
 
@@ -360,12 +361,40 @@ module.exports.getItem = function(req, res, next) {
 		  const secret = req.app.get('secret');
 		  decoded = jwt.verify(authorization, secret);
 		  var user_id = decoded.user._id;
-		 return res.status(200).json({
+		  User.findById(retrievedItem.seller_id, function(err, retrievedUser){
+				 if (err)
+				 {
+					 return res.status(422).json({
+					  err: 'Retrieved 0 items from the database',
+					  msg: 'Error while retrieving item from the database',
+					  data: null
+				  });
+		 	 	}
+
+				 if(!retrievedUser)
+				 {
+					 return res.status(422).json({
+						  err: 'Retrieved 0 items from the database',
+						  msg: 'Error while retrieving item from the database',
+						  data: null
+					  });
+				 }
+			 var seller = {
+
+							email: retrievedUser.email,
+							name: retrievedUser.name,
+							phone: retrievedUser.phone,
+							_id: retrievedUser._id
+							};
+			 return res.status(200).json({
 				  err: null,
 				  msg: 'Retrieved 1 item',
 				  data: retrievedItem,
-				  owner: retrievedItem.seller_id == user_id
+				  owner: retrievedItem.seller_id == user_id,
+				  seller: seller
 			  });
+		 });
+		
 		
 	});
 
