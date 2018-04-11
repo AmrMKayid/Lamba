@@ -341,7 +341,7 @@ module.exports.getItem = function(req, res, next) {
 	
 	Item.findById(req.params.itemId, function(err,retrievedItem){
 		  if (err) {
-				 return res.status(422).json({
+				 return res.status(404).json({
 				  err: 'Retrieved 0 items from the database',
 				  msg: 'Error while retrieving item from the database',
 				  data: null
@@ -350,7 +350,7 @@ module.exports.getItem = function(req, res, next) {
 
 		 if(!retrievedItem)
 		 {
-			 return res.status(422).json({
+			 return res.status(404).json({
 				  err: 'Retrieved 0 items from the database',
 				  msg: 'Error while retrieving item from the database',
 				  data: null
@@ -364,7 +364,7 @@ module.exports.getItem = function(req, res, next) {
 		  User.findById(retrievedItem.seller_id, function(err, retrievedUser){
 				 if (err)
 				 {
-					 return res.status(422).json({
+					 return res.status(404).json({
 					  err: 'Retrieved 0 items from the database',
 					  msg: 'Error while retrieving item from the database',
 					  data: null
@@ -373,7 +373,7 @@ module.exports.getItem = function(req, res, next) {
 
 				 if(!retrievedUser)
 				 {
-					 return res.status(422).json({
+					 return res.status(404).json({
 						  err: 'Retrieved 0 items from the database',
 						  msg: 'Error while retrieving item from the database',
 						  data: null
@@ -405,9 +405,9 @@ module.exports.getItem = function(req, res, next) {
 
 
 /*****************************************************************************
- *																			 *
- *                          private functions								 *
- *																			 *
+ *																			                                     *
+ *                          private functions								                 *
+ *																			                                     *
  *****************************************************************************/
 
 /**
