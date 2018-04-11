@@ -11,7 +11,7 @@
 }
 
 .pagination>li>a {
-  color: orange;
+  color: #3F719B;
   cursor: pointer;
 }
 
@@ -20,12 +20,13 @@
   width: 100%;
   margin: auto;
   overflow: hidden;
-  column-count: 6;
+  column-count: 4;
   -webkit-column-break-inside: avoid;
+  padding-right: 3%;
 }
 
 .item {
-  margin: 12px;
+  margin: 5px;
   margin-bottom: 30px;
   border-radius: 8px;
   box-shadow: 0 1px 8px 0 rgba(58, 58, 58, 0.2), 0 6px 20px 0 rgba(255, 255, 255, 0.19);
@@ -35,13 +36,13 @@
   -webkit-transition: all 500ms linear;
   -ms-transition: all 500ms linear;
   transition: all 500ms linear;
-  color: rgb(255, 135, 135);
-  width:100%;
+  color: #3F719B;
+  width: 100%;
 }
 
 .item:hover {
   background-color: rgb(247, 247, 247);
-  color: rgb(182, 41, 41);
+  color: #4F4DA8;
 }
 
 .itemBody {
