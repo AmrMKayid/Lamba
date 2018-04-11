@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { ArticlesService } from '../articles.service';
+import { AuthService } from '/Users/mohamed/Desktop/SE-Project/Lamba Project/Sprint 3/Lamba/angular-src/src/app/services/auth.service.ts';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -17,7 +18,9 @@ export class ViewArticleComponent implements OnInit {
   comments: any = [{}];
   commentContent: String;
   replies: any = [{}];
-  constructor(private router: Router, private route: ActivatedRoute, private articleService: ArticlesService) { }
+  currentUserId : string;
+  constructor(private router: Router, private route: ActivatedRoute, private articleService: ArticlesService , private auth: AuthService) { }
+
 
   ngOnInit() {
     let id: string = this.route.snapshot.params['id'];
@@ -42,6 +45,9 @@ export class ViewArticleComponent implements OnInit {
       }
     );
     window.scrollTo(0, 0);
+
+    this.currentUserId = this.auth.getCurrentUser()._id;
+
   }
 
   //TODO: When the feedback is reworked in the backend, we shall send back the updated article only and in here we should set it to that
@@ -54,6 +60,8 @@ export class ViewArticleComponent implements OnInit {
         alert(`Article was not updated: ${err.error.msg}`);
       }
     );
+    var data = sessionStorage.getItem('id');
+    console.log("data");
   }
   downvote(id) {
     this.articleService.downvote(id).subscribe(

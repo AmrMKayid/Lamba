@@ -171,7 +171,7 @@
               <i class="fa fa-thumbs-o-up mr-1" aria-hidden="true"></i>Upvote ({{article.upvoters.length}})
             </a>
             <hr>
-            <a class="btn btn-danger btn-block" (click)="downvote(article._id)" role="button">
+            <a class="btn btn-info btn-block" (click)="downvote(article._id)" role="button">
               <i class="fa fa-thumbs-o-down mr-1" aria-hidden="true"></i>Downvote ({{article.downvoters.length}})
             </a>
           </div>
@@ -180,13 +180,13 @@
 
       </div>
 
-<div class="card mb-4 text-center wow fadeIn">
+<div *ngIf = "currentUserId == article.owner_id" class="card mb-4 text-center wow fadeIn">
       <div class="card-header">
         <strong>Actions</strong>
       </div>
 
         <div class="card-body">
-          <a class="btn btn-info btn-block" (click)="delete(article._id)" role="button">
+          <a class="btn btn-danger btn-block" (click)="delete(article._id)" role="button">
                 <i  aria-hidden="true"></i>Delete Article
           </a>
         </div>
