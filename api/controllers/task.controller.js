@@ -21,54 +21,61 @@ module.exports.createNewTask = function(req, res, next) {
 module.exports.createNewComment = function(req, res, next) {
 
 
-
-
-  const com = {
-    Comment: req.body.Comment,
-    userId: req.body.userId,
-    userType: req.body.userType,
-    name: req.body.name
-  }
-
   Task.findById(req.body.taskId).exec(function(err, task) {
+
+
+    const com = {
+        comment: req.body.comment,
+        userId: req.body.userId,
+        userType: req.body.userType,
+        name: req.body.name
+      }
+
 
     var auth = false;
 
-
     if (req.body.userType === "Parent") {
-
-      Child.findById(task.StudentId).exec(function(err, child) {
-
-        if (err || !child) {
-          auth = false;
-        } else {
-          if (child.parent_id === req.body.userId) {
-            auth = true;
-          } else {
-            auth = false;
-          }
-        }
-      });
-
-
+        auth = true;
+      // Child.findById(task.studentId).exec(function(err, child) {
+      //
+      //   if (err || !child) {
+      //     auth = false;
+      //     console.log("I am here false");
+      //
+      //   } else {
+      //     if (child.parent_id === req.body.userId) {
+      //
+      //
+      //       auth = true;
+      //
+      //     } else {
+      //       auth = false;
+      //     }
+      //   }
+      // });
     } else if (req.body.userType === "Teacher") {
-      if (req.body.userId === task.TeacherId) {
+      if (req.body.userId === task.userId) {
         auth = true;
       }
     } else if (req.body.userType === "Child") {
-      if (req.body.userId === task.StudentId) {
+      if (req.body.userId === task.studentId) {
         auth = true;
       }
     }
 
+
     if (auth) {
+
+
       Comment.create(com, function(err, comment) {
         if (err) {
           return next(err);
         }
-      });
+        task.comments.push(comment);
 
-      task.Comments.push(comment);
+
+
+
       task.save(function(err) {
         if (err) {
           return next(err);
@@ -79,6 +86,7 @@ module.exports.createNewComment = function(req, res, next) {
           data: task
         });
       });
+        });
     } else {
       res.status(401).json({
         err: null,
@@ -99,7 +107,7 @@ module.exports.getComments = function(req, res, next) {
       return next(err);
     }
 
-    var ids = task.Comments;
+    var ids = task.comments;
 
 
     Comment.find({
@@ -150,7 +158,7 @@ module.exports.getTasks = function(req, res, next) {
 };
 
 module.exports.getTeacher = function(req, res, next) {
-  let id = req.params.TeacherId;
+  let id = req.params.userId;
   User.findById(id).exec(function(err, user) {
     if (err) {
       return next(err);

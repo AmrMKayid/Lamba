@@ -6,7 +6,7 @@ import { ToasterService } from 'angular5-toaster/src/toaster.service';
 import { appConfig } from "../../../app.config";
 import { AuthService } from "../../../services/auth.service";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-parent',
@@ -16,7 +16,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 export class ParentComponent implements OnInit {
 
   currentUser;
-  myChildren = [] ;
+  myChildren = [];
 
   newChildBtn: boolean;
   closeResult: string;
@@ -51,10 +51,10 @@ export class ParentComponent implements OnInit {
   }
 
   viewChild(childID) {
-    this.router.navigate(['profile/view-child'], {queryParams: {id: childID}});
+    this.router.navigate(['profile/view-child'], { queryParams: { id: childID } });
   }
 
-  newChild(childFirstName , childlastName , childUsername , childPassword , childConfirmPassword ,childGender) {
+  newChild(childFirstName, childlastName, childUsername, childPassword, childConfirmPassword, childGender) {
 
     let newChild = {
       name: {
@@ -74,9 +74,9 @@ export class ParentComponent implements OnInit {
 
 
 
-    this.http.post(appConfig.apiUrl + '/auth/child', newChild,this.httpOptions).subscribe(
-      (res: any) =>{
-        this.myChildren = this.myChildren.concat(res.data) ;
+    this.http.post(appConfig.apiUrl + '/auth/child', newChild, this.httpOptions).subscribe(
+      (res: any) => {
+        this.myChildren = this.myChildren.concat(res.data);
 
 
         this.toaster.pop({
@@ -115,6 +115,28 @@ export class ParentComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+
+
+
+
+  createNewTask(taskName, tasksDescription, studentId) {
+
+    var taskdata = {
+      title: taskName,
+      description: tasksDescription,
+      userId: this.currentUser._id,
+      studentId: studentId
+    };
+
+    console.log(taskdata);
+
+    this.http.post('http://localhost:3000/api/task/newTask', taskdata).subscribe();
+  }
+
+
+
+
+
 
 
 }

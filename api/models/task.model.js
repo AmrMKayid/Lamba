@@ -1,11 +1,11 @@
 var mongoose = require('mongoose');
 
 const TaskSchema = new mongoose.Schema({
-  Title: {
+  title: {
     type: String,
     required: true
   },
-  Description: {
+  description: {
     type: String,
     required: true
   },
@@ -17,15 +17,15 @@ const TaskSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  TeacherId: {
+  userId: {
     type: String,
     required: true,
   },
-  StudentId: {
+  studentId: {
     type: String,
     required: true,
   },
-  Comments: [{
+  comments: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Comment',
   }]
@@ -45,7 +45,7 @@ const CommentSchema = new mongoose.Schema({
     required: true,
     enum: ['Child', 'Parent', 'Teacher']
   },
-  Comment: {
+  comment: {
     type: String
   },
   createdAt: {

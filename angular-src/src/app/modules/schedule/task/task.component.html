@@ -1,40 +1,24 @@
-<div class="divider" style="padding-top:50px;"></div>
-<div class="container">
-  <h2>
-    Tasks:
-  </h2>
+<div>{{title}}</div>
+<div>{{createdAt}}</div>
+<div>{{updatedAt}}</div>
 
-  <table style="display: inline-block;">
-    <tr>
-      <th>Title</th>
-    </tr>
 
-    <tr >
-      <td > {{ title }}</td>
-    </tr>
 
-  </table>
-  <table style="display: inline-block;">
-      <tr>
-        <th>Description</th>
-      </tr>
-      <tr >
-          <td> {{ description }}</td>
-      </tr>
-    </table>
-    <table style="display: inline-block;">
-        <tr>
-          <th>Created At</th>
-        </tr>
-        <tr >
-            <td> {{ createdAt }}</td>
-        </tr>
-      </table>
-      <table style="display: inline-block;">
-          <tr>
-            <th>Updated At</th>
-          </tr>
-          <tr>
-              <td> {{ updatedAt }}</td>
-          </tr>
-        </table>
+
+<div class="mb-5">
+  <form>
+
+    <div class="md-form">
+      <i class="material-icons prefix">comment</i>
+      <textarea type="text" id="form8" class="md-textarea" style="height: 100px" #newComment mdbActive></textarea>
+      <label for="form8">Comment</label>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-deep-orange waves-light" (click)="createNewComment(newComment.value)" mdbRippleRadius>Done</button>
+    </div>
+  </form>
+</div>
+<div *ngFor="let comment of taskComments">
+  <div>  {{comment.name}}</div>
+  <div>  {{comment.comment}}</div>
+</div>

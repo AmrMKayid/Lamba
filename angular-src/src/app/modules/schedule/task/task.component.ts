@@ -42,25 +42,27 @@ export class TaskComponent implements OnInit {
     });
 
     this.getTask();
+    this.getComments();
   }
 
 
   getTask() {
     this.http.get('http://localhost:3000/api/task/getTask/' + this.taskId, this.httpOptions).subscribe((res: any) => {
-      this.title = res.title;
-      this.description = res.description;
-      this.createdAt = res.createdAt;
-      this.updatedAt = res.updatedAt;
-      this.comments = res.comments;
-      this.studentId = res.studentId;
-      this.teacherId = res.teacherId;
-      console.log(res);
+      this.title = res.data.title;
+      this.description = res.data.description;
+      this.createdAt = res.data.createdAt;
+      this.updatedAt = res.data.updatedAt;
+      this.comments = res.data.comments;
+      this.studentId = res.data.studentId;
+      this.teacherId = res.data.userId;
     });
   }
 
   getComments() {
-    this.http.get('http://localhost:3000/api/task/getComments/' + this.taskId).subscribe((res: any) => {
+    this.http.get('http://localhost:3000/api/task/getComments/' + this.taskId , this.httpOptions).subscribe((res: any) => {
       this.taskComments = res.data;
+
+      console.log(this.taskComments);
     });
   }
 
@@ -68,28 +70,17 @@ export class TaskComponent implements OnInit {
 
   createNewComment(comment) {
     var commentData = {
-      Comment: comment,
-      userId: this.currentUser.type,
-      userType: this.currentUser.id,
+      comment: comment,
+      userId: this.currentUser._id,
+      userType: this.currentUser.role,
       taskId: this.taskId,
-      name: this.currentUser.firstName +' ' + this.currentUser.lastName
+      name: this.currentUser.name.firstName + " " + this.currentUser.name.lastName
     };
+    console.log(commentData);
     this.http.post('http://localhost:3000/api/task/newComment',commentData,this.httpOptions).subscribe();
+    this.getComments();
+
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
