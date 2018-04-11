@@ -41,7 +41,6 @@ export class EditArticlesComponent implements OnInit {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      //GET THIS FROM POSTMAN'S LOGIN (won't work 3shan locally 3l database bta3ty)
       'Authorization': localStorage.getItem('authentication')
     })
   };
@@ -58,7 +57,12 @@ export class EditArticlesComponent implements OnInit {
         });
         this.tagsInitialized = true;
       }, err => {
-        alert(`Articles not retrieved: ${err.error.msg}`);
+        new Noty({
+          type: 'error',
+          text: `Tags couldn't be retrieved: ${err.error.msg}`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
       }
     );
 
@@ -79,8 +83,12 @@ export class EditArticlesComponent implements OnInit {
           );
         });
       }, err => {
-        alert(`Article not retrieved: ${err.error.msg}`);
-
+        new Noty({
+          type: 'error',
+          text: `Your article couldn't be retrieved: ${err.error.msg}`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
       }
     );
   }
@@ -88,7 +96,12 @@ export class EditArticlesComponent implements OnInit {
   onEdit() {
     //TODO: Beuatify these alerts! ,_,
     if (!this.title || !this.editorContent) {
-      alert("Please fill in both the title and the content");
+      new Noty({
+        type: 'warning',
+        text: `Please fill in both the title and the post content`,
+        timeout: 2500,
+        progressBar: true
+      }).show();
       return;
     }
     let body = {
@@ -102,10 +115,20 @@ export class EditArticlesComponent implements OnInit {
     this.http.put('http://localhost:3000/api/articles', body, this.httpOptions)
       .pipe().subscribe(res => {
         this.router.navigate(['/resources']);
-        //TODO: Add a notification
+        new Noty({
+          type: 'success',
+          text: `Your post edit has been submitted successfully, it now awaits an admin approval before it goes live again.`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
       }, err => {
         let msg = err.error.msg;
-        alert(`Article was not updated: ${msg}`);
+        new Noty({
+          type: 'error',
+          text: `Something went wrong while editing your post: ${err.error.msg}`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
       });
   }
 

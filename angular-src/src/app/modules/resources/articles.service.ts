@@ -6,7 +6,6 @@ export class ArticlesService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      //GET THIS FROM POSTMAN'S LOGIN (won't work 3shan locally 3l database bta3ty)
       'Authorization': localStorage.getItem('authentication')
     })
   };
@@ -46,7 +45,7 @@ export class ArticlesService {
     return this.http.post('http://localhost:3000/api/articles/feedback', body, this.httpOptions)
       .pipe();
   }
-  comment(id,content) {
+  comment(id, content) {
     let body = {
       article_id: id,
       comment_content: content
@@ -54,7 +53,7 @@ export class ArticlesService {
     return this.http.post('http://localhost:3000/api/articles/comment', body, this.httpOptions)
       .pipe();
   }
-  reply(article_id,comment_id,content){
+  reply(article_id, comment_id, content) {
     let body = {
       article_id: article_id,
       comment_id: comment_id,
@@ -63,8 +62,8 @@ export class ArticlesService {
     return this.http.post('http://localhost:3000/api/articles/reply', body, this.httpOptions)
       .pipe();
   }
-  delete(id){
-    return this.http.delete('http://localhost:3000/api/articles/'+id , this.httpOptions)
+  delete(id) {
+    return this.http.delete('http://localhost:3000/api/articles/' + id, this.httpOptions)
       .pipe();
   }
 }
