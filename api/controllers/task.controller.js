@@ -24,6 +24,11 @@ module.exports.createNewComment = function(req, res, next) {
 
   Task.findById(req.body.taskId).exec(function(err, task) {
 
+    if (!task) {
+          return res
+              .status(404)
+              .json({ err: null, msg: 'task not found.', data: null })
+    }
     const com = {
       comment: req.body.comment,
       userId: req.body.userId,
@@ -34,32 +39,36 @@ module.exports.createNewComment = function(req, res, next) {
 
     if (req.body.userType === "Parent") {
       Child.findById(task.studentId).exec(function(err, child) {
+        if (err) {
+          return next(err);
+          }
+        if (!child) {
+            console.log("d");
+          return res
+               .status(404)
+               .json({ err: null, msg: 'child not found.', data: null });
+        }
 
-        if (err || !child) {
-
-            userIsNotAuth()
-
-        } else {
-          if (child.parent_id === req.body.userId) {
+        if (child.parent_id === req.decodedToken.user._id) {
 
 
-            userIsAuth();
+          userIsAuth();
 
 
           } else {
             userIsNotAuth();
           }
-        }
+
       });
     } else if (req.body.userType === "Teacher") {
-      if (req.body.userId === task.userId) {
+      if (req.decodedToken.user._id === task.userId) {
         userIsAuth();
       }
       else{
         userIsNotAuth();
       }
     } else if (req.body.userType === "Child") {
-      if (req.body.userId === task.studentId) {
+      if (req.decodedToken.user._id === task.studentId) {
         userIsAuth();
       }
       else{
@@ -97,7 +106,7 @@ module.exports.createNewComment = function(req, res, next) {
       res.status(401).json({
         err: null,
         msg: 'Not Auth.',
-        data: task
+        data: null
       });
     }
 
