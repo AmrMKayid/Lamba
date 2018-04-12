@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {appConfig} from "../../../../app.config";
-import {ActivatedRoute} from "@angular/router";
+import { Component, OnInit, Input } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { appConfig } from "../../../../app.config";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-view-child',
@@ -10,20 +10,18 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class ViewChildComponent implements OnInit {
 
-  childID;
+  @Input() childID;
   child;
-
+  isInitialized = false;
   constructor(private route: ActivatedRoute,
-              private http: HttpClient) {
-    this.route.queryParams.subscribe(params => {
-      this.childID = params['id'];
-    });
+    private http: HttpClient) {
   }
 
   getChildByID(userID) {
     this.http.get(appConfig.apiUrl + '/user/getChild/' + userID)
       .subscribe((res: any) => {
         this.child = res.data;
+        this.isInitialized = true;
       });
   }
 
