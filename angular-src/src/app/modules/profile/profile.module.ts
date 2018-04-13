@@ -40,10 +40,6 @@ const appRoutes: Routes = [
     component: MyProfileComponent,
   },
   {
-    path: ':id',
-    component: ProfileComponent
-  },
-  {
     path: 'admin',
     component: AdminComponent,
     children: [
@@ -64,6 +60,10 @@ const appRoutes: Routes = [
   {
     path: 'admin/verify-teachers',
     component: VerifyTeacherComponent
+  },
+  {
+    path: ':id',
+    component: ProfileComponent
   }
 ];
 
