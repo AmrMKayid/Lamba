@@ -71,6 +71,9 @@ router.post('/articles/comment', mw.isAuthenticated, articleCtrl.commentArticle)
 router.post('/articles/reply', mw.isAuthenticated, articleCtrl.replyComment);
 router.delete('/articles/:id', mw.isAuthenticated, articleCtrl.deleteArticle);
 router.patch('/articles/:id', mw.isAuthenticated, articleCtrl.editArticle);
-
-
+//-----------------------------Teacher Session Routes----------------------------------------------//
+router.get('/user/viewSessions',mw.isAuthenticated,userCtrl.viewSessions);
+router.post('/user/addSession', mw.isAuthenticated, userCtrl.addSession);
+router.delete('/user/deleteSession/:sessionId',mw.isAuthenticated,userCtrl.deleteSession);
+router.patch('/user/updateSession/:sessionId',mw.isAuthenticated,userCtrl.updateSession);
 module.exports = router;

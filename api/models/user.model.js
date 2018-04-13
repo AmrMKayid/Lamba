@@ -155,7 +155,32 @@ const ChildSchema = new mongoose.Schema({
     enrolledActivities: [String]
 });
 
-
+const SessionSchema=new mongoose.Schema({
+    title:{
+       type:String,
+       required: true
+    },
+    grade:{
+        type:String,
+        required: true       
+    },
+    location:{
+        type:String,
+        required: true
+    },
+    startDate:{
+        type: String,
+        required:true
+    },
+    endDate:{
+        type: String,
+        required: true
+    },
+    fees:{
+        type:Number,
+        required:true
+    }
+});
 const UserSchema = new mongoose.Schema({
     role: {
         type: String,
@@ -207,7 +232,7 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    fees: Number,
+    sessions:[SessionSchema],
     schedule: {
         table: {
             saturday: [{
@@ -343,7 +368,8 @@ if (!UserSchema.options.toObject) {
 UserSchema.options.toObject.transform = function (document, transformedDocument) {
     delete transformedDocument.password;
     return transformedDocument;
-};
+}
+;
 
 if (!ChildSchema.options.toObject) {
     ChildSchema.options.toObject = {};
@@ -355,6 +381,5 @@ ChildSchema.options.toObject.transform = function (document, transformedDocument
 };
 
 mongoose.model('Child', ChildSchema);
-mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
 mongoose.model('UniqueUser', UniqueUserSchema);
-

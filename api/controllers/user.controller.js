@@ -343,3 +343,167 @@ module.exports.updateUser = function (req, res, next) {
     });
   });
 };
+//teacher view sessions
+module.exports.viewSessions= function (req, res, next) {
+
+User.findById(req.decodedToken.user._id).exec(function(err, user) {
+
+
+    if (err) {
+        return next(err);
+    }
+    if (!user) {
+        return res
+            .status(404)
+            .json({ err: null, msg: 'User not found.', data: null });
+    }
+
+    res.status(200).json({
+        err: null,
+        msg: 'Sessions retrieved successfully.',
+        data: user.sessions
+    });
+});
+};
+//teacher add session
+module.exports.addSession=function(req,res,next){
+  if (req.decodedToken.user.role === 'Child') {
+    return res.status(401).json({
+        err: null,
+        msg: "You don't have permissions to post (child account)",
+        data: null
+    });
+  }
+    var valid =
+    req.body.title && Validations.isString(req.body.title) &&
+    req.body.grade && Validations.isString(req.body.grade) &&
+    req.body.location && Validations.isString(req.body.location) &&
+    req.body.startDate &&
+    req.body.endDate
+    req.body.fees && Validations.isNumber(req.body.fees) ;
+
+    if (!valid) {
+      return res.status(422).json({
+          err: null,
+          msg: 'please provide all the fields.',
+          data: null
+      });
+  }
+  User.findById(req.decodedToken.user._id).exec(function (err, user) {
+    if (err) {
+      return next(err);
+  }
+  if (!user) {
+      return res
+          .status(404)
+          .json({ err: null, msg: 'User not found.', data: null });
+  }
+  var newSession = user.sessions.create(req.body);
+  user.sessions.push(newSession);
+  user.save(function(err) {
+    if (err) {
+      return next(err);
+    }
+    res.status(201).json({
+      err: null,
+      msg: 'Session was created successfully.',
+      data: newSession
+    });
+  });
+  });
+};
+//teacher delete session
+module.exports.deleteSession=function(req,res,next){
+  if (!Validations.isObjectId(req.params.sessionId)) {
+    return res.status(422).json({
+      err: null,
+      msg: 'sessionId parameter must be a valid ObjectId.',
+      data: null
+    });
+  }
+  User.findById(req.decodedToken.user._id).exec(function (err, user) {
+    if (err) {
+      return next(err);
+  }
+  if (!user) {
+      return res
+          .status(404)
+          .json({ err: null, msg: 'User not found.', data: null });
+  }
+  var session = user.sessions.id(req.params.sessionId);
+  if (!session) {
+    return res
+      .status(404)
+      .json({ err: null, msg: 'Session not found.', data: null });
+  }
+  session.remove();
+  user.save(function(err) {
+    if (err) {
+      return next(err);
+    }
+    res.status(200).json({
+      err: null,
+      msg: 'Session was deleted successfully.',
+      data: session
+    });
+  });
+  });
+};
+
+////teacher update session
+module.exports.updateSession=function(req,res,next){
+  if (!Validations.isObjectId(req.params.sessionId)) {
+    return res.status(422).json({
+      err: null,
+      msg: 'sessionId parameter must be a valid ObjectId.',
+      data: null
+    });
+  }
+  var valid =
+  req.body.title && Validations.isString(req.body.title) &&
+  req.body.grade && Validations.isString(req.body.grade) &&
+  req.body.location && Validations.isString(req.body.location) &&
+  req.body.startDate &&
+  req.body.endDate
+  req.body.fees && Validations.isNumber(req.body.fees) ;
+
+  if (!valid) {
+    return res.status(422).json({
+        err: null,
+        msg: 'please provide all the fields.',
+        data: null
+    });
+}
+User.findById(req.decodedToken.user._id).exec(function (err, user) {
+  if (err) {
+    return next(err);
+}
+if (!user) {
+    return res
+        .status(404)
+        .json({ err: null, msg: 'User not found.', data: null });
+}
+var session = user.sessions.id(req.params.sessionId);
+if (!session) {
+  return res
+    .status(404)
+    .json({ err: null, msg: 'Session not found.', data: null });
+}
+session.title=req.body.title;
+session.grade=req.body.grade;
+session.location=req.body.location;
+session.startDate=req.body.startDate;
+session.endDate=req.body.endDate;
+session.fees=req.body.fees;
+user.save(function(err) {
+  if (err) {
+    return next(err);
+  }
+  res.status(200).json({
+    err: null,
+    msg: 'Session was updated successfully.',
+    data: session
+  });
+});
+});
+};
