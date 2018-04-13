@@ -17,6 +17,8 @@ export class PostArticlesComponent implements OnInit {
   tagsInitialized: boolean;
   allTags: { value: string, id: string }[];
   selectedTags: any[];
+  picture_url: String;
+  token :any;
   public toolbarOptions = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'],
@@ -36,6 +38,20 @@ export class PostArticlesComponent implements OnInit {
       ['video', 'link']
     ]
   };
+  public customStyle = {
+  selectButton: {
+    "color": "white",
+    // "background-color": "purple",
+  },
+  layout: {
+    // "background-color": "black",
+    "color": "red",
+    "font-size": "10px",
+  },
+  // previewPanel: {
+  //   "background-color": "grey",
+  // }
+};
   //TODO: Export it into a service.
   httpOptions = {
     headers: new HttpHeaders({
@@ -50,6 +66,7 @@ export class PostArticlesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.token = localStorage.getItem('authentication');
     this.tagsInitialized = false;
     this.selectedTags = [];
     this.allTags = [];
@@ -81,10 +98,14 @@ export class PostArticlesComponent implements OnInit {
       }).show();
       return;
     }
+    // if(!this.picture_url){
+    //   this.picture_url = "https://i2.wp.com/penpaperpencil.net/wp-content/uploads/2016/01/Drawing-pencils-guide.jpg?fit=900%2C490";
+    // }
     let article = {
       title: this.title,
       content: this.editorContent,
-      tags: (this.selectedTags.map(tag => tag.id))
+      tags: (this.selectedTags.map(tag => tag.id)),
+      thumbnail_url: this.picture_url;
     };
 
     this.http.post('http://localhost:3000/api/articles', article, this.httpOptions)
@@ -108,5 +129,27 @@ export class PostArticlesComponent implements OnInit {
       }).show();
     });
   }
+  onUploadFinished(event) {
+    var response = JSON.parse(event.serverResponse._body);
+    var status = event.serverResponse.status;
 
+    if (status != 200) {
+      new Noty({
+        type: 'error',
+        text: "Could not upload image",
+        timeout: 2500,
+        progressBar: true
+      }).show();
+      console.log(status);
+      return;
+    }
+
+    this.picture_url = response.filename;
+    new Noty({
+      type: 'success',
+      text: "Your image has been uploaded successfully!",
+      timeout: 2500,
+      progressBar: true
+    }).show();
+  }
 }

@@ -5,7 +5,12 @@ var mongoose = require('mongoose'),
     User = mongoose.model('User'),
     Child = mongoose.model('Child'),
     Tag = mongoose.model('Tag'),
+    /////////HERE//////////
+    path = require('path'),
+    fs = require('fs');
+    /////////HERE//////////
     Article = mongoose.model('Article');
+
 
 const { JSDOM } = jsdom;
 
@@ -59,7 +64,7 @@ module.exports.getArticles = function (req, res, next) {
             Article.find({
                 _id: { $in: articlesIDs },
                 approved: { $eq: true }
-            }, 'title createdAt owner_id _id tags upvoters downvoters',
+            }, 'title createdAt owner_id _id tags upvoters downvoters thumbnail_url',
                 (err, result) => {
                     if (err) {
                         return next(err);
@@ -75,7 +80,7 @@ module.exports.getArticles = function (req, res, next) {
     } else {
         Article.find({
             approved: true
-        }, 'title createdAt owner_id _id tags upvoters downvoters', (err, result) => {
+        }, 'title createdAt owner_id _id tags upvoters downvoters thumbnail_url', (err, result) => {
             if (err) {
                 return next(err);
             }
@@ -157,7 +162,10 @@ module.exports.createArticle = function (req, res, next) {
                 owner_id: req.decodedToken.user._id,
                 title: req.body.title,
                 content,
-                tags: null
+                tags: null,
+                //////////////HERE////////////
+                thumbnail_url: req.body.thumbnail_url
+                //////////////HERE////////////
             };
             if (retrievedTags.length !== req.body.tags.length) {
                 return res.status(404).json({
@@ -562,3 +570,25 @@ module.exports.editArticle = function (req, res, next) {
         });
     }
 }
+module.exports.uploadArticleThumbnail = function (req, res, next) {
+    if (!req.file) {
+        return res.status(422).json({
+            err: null,
+            msg: "Couldn't upload image",
+            data: null
+        });
+    }
+        console.log(req.file.path);
+        return res.status(200).json({
+            err: null,
+            msg: "Image uploaded successfully",
+            filename: req.file.filename
+        });
+
+    };
+    module.exports.getImage = function (req, res, next) {
+        return res.status(200).sendFile(path.resolve('api/uploads/' + req.params.filename));
+
+    }
+
+    // Use the mv() method to place the file somewhere on your serve

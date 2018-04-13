@@ -28,6 +28,7 @@ const articleSchema = new mongoose.Schema({
     //For the feedback, keeping track of the IDs so that you cannot up & down more than once, score identified by the array's length
     upvoters: [String],
     downvoters: [String],
+    thumbnail_url: String,
     comments: [{
         comment_content: String,
         commenter: {

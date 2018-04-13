@@ -70,6 +70,6 @@ router.post('/articles/comment', mw.isAuthenticated, articleCtrl.commentArticle)
 router.post('/articles/reply', mw.isAuthenticated, articleCtrl.replyComment);
 router.delete('/articles/:id', mw.isAuthenticated, articleCtrl.deleteArticle);
 router.patch('/articles/:id', mw.isAuthenticated, articleCtrl.editArticle);
-
-
+router.post('/articles/uploadArticleThumbnail',mw.isAuthenticated,articleCtrl.uploadArticleThumbnail)
+router.get('/uploads/articlesThumbnails/:filename', articleCtrl.getImage);
 module.exports = router;

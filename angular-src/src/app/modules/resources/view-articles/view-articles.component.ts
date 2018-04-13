@@ -16,6 +16,7 @@ export class ViewArticlesComponent implements OnInit {
   selectedTags: any[];
   filterTagsIDs: string[] = [];
   keyword: string;
+  urls:[string];
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -34,10 +35,18 @@ export class ViewArticlesComponent implements OnInit {
     this.articlesInitialized = false;
     this.tagsInitialized = false;
     this.allTags = [];
-
+    this.urls = [];
     this.articlesService.loadAllArticles().subscribe(
       (res: any) => {
         this.articles = res.data.reverse();
+        for(let i=0;i<this.articles.length;i++){
+          if(!this.articles[i].thumbnail_url){
+              this.urls[i] = "https://i2.wp.com/penpaperpencil.net/wp-content/uploads/2016/01/Drawing-pencils-guide.jpg?fit=900%2C490";
+          }
+          else{
+            this.urls[i] = "http://127.0.0.1:3000/api/uploads/articlesThumbnails/"+this.articles[i].thumbnail_url;
+        }
+        console.log(this.articles);
         this.articlesInitialized = true;
       }, err => {
         this.router.navigate(['/']);

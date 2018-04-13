@@ -20,6 +20,7 @@ export class ViewArticleComponent implements OnInit {
   replies: any = [{}];
   currentUserId: string;
   editPressed: boolean;
+  pic_url: string;
 
   constructor(private router: Router, private route: ActivatedRoute, private articleService: ArticlesService, private auth: AuthService) {
   }
@@ -30,6 +31,12 @@ export class ViewArticleComponent implements OnInit {
     this.articleService.loadArticle(id).subscribe(
       (retrieved: any) => {
         this.article = retrieved.data;
+        if(!this.article.thumbnail_url){
+          this.pic_url = "https://i2.wp.com/penpaperpencil.net/wp-content/uploads/2016/01/Drawing-pencils-guide.jpg?fit=900%2C490";
+        }
+        else{
+          this.pic_url = "http://127.0.0.1:3000/api/uploads/articlesThumbnails/"+this.article.thumbnail_url;
+        }
         this.author = `${this.article.name.firstName} ${this.article.name.lastName}`;
         this.isInitialized = true;
         this.comments = this.article.comments;
