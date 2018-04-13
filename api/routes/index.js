@@ -35,7 +35,7 @@ router.get('/user/verifyArticle/:articleId', mw.isAuthenticated, mw.isAdmin, use
 //-----------------------------Schedules Routes----------------------------------------------//
 router.get('/schedule/getTeacherSchedule/:UserId', mw.isAuthenticated,scheduleCtrl.getTeacherSchedule);
 router.get('/schedule/getChildSchedule/:ChildId',mw.isAuthenticated, scheduleCtrl.getChildSchedule);
-router.post('/task/newTask/:ChildId',mw.isAuthenticated, taskCtrl.createNewTask);
+router.post('/task/newTask/',mw.isAuthenticated, taskCtrl.createNewTask);
 router.get('/task/getTasks',mw.isAuthenticated, taskCtrl.getTasks);
 router.get('/task/getTask/:taskId', mw.isAuthenticated, taskCtrl.getTask);
 router.get('/task/getTeacher/:TeacherId', taskCtrl.getTeacher);

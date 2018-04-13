@@ -78,7 +78,6 @@ export class ParentComponent implements OnInit {
         }).show();
       },
       error => {
-        console.log(error)
         new Noty({
           type: 'error',
           text: error.error.msg,
@@ -117,9 +116,8 @@ export class ParentComponent implements OnInit {
       studentId: studentId
     };
 
-    console.log(taskdata);
 
-    this.http.post('http://localhost:3000/api/task/newTask', taskdata).subscribe();
+    this.http.post('http://localhost:3000/api/task/newTask', taskdata,this.httpOptions).subscribe();
   }
 
 
