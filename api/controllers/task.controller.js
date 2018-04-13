@@ -52,21 +52,25 @@ module.exports.createNewTask = function(req, res, next) {
                             .status(401)
                             .json({err: null, msg: 'This child is not in your list of students.', data: null});
 
+                    }
 
-                        Task.create(req.body, function(err, task) {
-                            if (err) {
-                                console.log(err);
-                                return next(err);
-                            }
-                            res.status(201).json({
-                                err: null,
-                                msg: 'Task was created successfully.',
-                                data: task
-                            });
-                        });
-                    };
+
+                    });
+                }
+            Task.create(req.body, function(err, task) {
+                if (err) {
+                    console.log(err);
+                    return next(err);
+                }
+                res.status(201).json({
+                    err: null,
+                    msg: 'Task was created successfully.',
+                    data: task
                 });
-            }})})}
+            });
+            });
+    });
+}
 
 module.exports.createNewComment = function (req, res, next) {
 
