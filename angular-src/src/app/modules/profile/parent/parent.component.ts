@@ -38,6 +38,7 @@ export class ParentComponent implements OnInit {
     this.currentUser = this.auth.getCurrentUser();
     this.getMyChildren(this.currentUser._id);
     this.newChildBtn = false;
+    this.getTasks();
 
   }
 
@@ -50,6 +51,11 @@ export class ParentComponent implements OnInit {
 
   viewChild(childID) {
     this.router.navigate(['profile', childID]);
+  }
+
+  viewTask(taskId) {
+    console.log(taskId);
+    this.router.navigate(['schedule/viewtask/', taskId]);
   }
 
   newChild(childFirstName, childlastName, childUsername, childPassword, childConfirmPassword, childGender) {
@@ -107,6 +113,9 @@ export class ParentComponent implements OnInit {
   }
 
 
+  tasks = [];
+
+
   createNewTask(taskName, tasksDescription, studentId) {
 
     var taskdata = {
@@ -117,8 +126,38 @@ export class ParentComponent implements OnInit {
     };
 
 
-    this.http.post('http://localhost:3000/api/task/newTask', taskdata,this.httpOptions).subscribe();
+    this.http.post('http://localhost:3000/api/task/newTask', taskdata,this.httpOptions).subscribe(
+      (res: any) => {
+        this.tasks = this.tasks.concat(res.data);
+
+        new Noty({
+          type: 'success',
+          text: `You've been successfully created New tasks!`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      },
+      error => {
+        new Noty({
+          type: 'error',
+          text: error.error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      });
+
   }
+
+
+  getTasks() {
+    this.http.get(appConfig.apiUrl + '/task/getTasks/' , this.httpOptions)
+      .subscribe((res: any) => {
+        this.tasks = res.data;
+        console.log(res.data);
+      });
+
+}
+
 
 
 }

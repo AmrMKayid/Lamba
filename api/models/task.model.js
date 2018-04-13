@@ -34,10 +34,15 @@ const TaskSchema = new mongoose.Schema({
 const CommentSchema = new mongoose.Schema({
     userId: {
         type: String,
-        required: true,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
     },
     comment: {
-        type: String
+        type: String,
+        required: true
     },
     createdAt: {
         type: Date,

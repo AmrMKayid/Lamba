@@ -40,9 +40,8 @@ export class TaskComponent implements OnInit {
   ngOnInit() {
 
     this.currentUser = this.auth.getCurrentUser();
-    this.route.queryParams.subscribe(params => {
-      this.taskId = params['id'];
-    });
+
+    this.taskId = this.route.snapshot.params.id
 
     this.getTask();
     this.getComments();
@@ -72,6 +71,7 @@ export class TaskComponent implements OnInit {
   createNewComment(comment) {
     var commentData = {
       comment: comment,
+      name: this.currentUser.name.firstName +" "+ this.currentUser.name.lastName,
       taskId: this.taskId
     };
     console.log(commentData);

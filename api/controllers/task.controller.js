@@ -184,6 +184,7 @@ module.exports.createNewComment = function(req, res, next) {
     const com = {
       comment: req.body.comment,
       userId: req.decodedToken.user._id,
+      name :req.body.name
     }
 
     Comment.create(com, function(err, comment) {
