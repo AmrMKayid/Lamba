@@ -1,20 +1,35 @@
 
 
-Parts missing in the re-design of the article viewing page:
+## Other components work:
 
 * Accessing the profile images of the author, commenters and repliers 
-* Accessing the about information of the author
-* Adding to the favorites once it's implemnted.
+* Accessing the about information of the author 
 
 =======
 
-TODO:
+## C1 component independent : 
 
-- Beautify input tags (dropdown).
-- Work on the design of the post component, and fix it's tags.
-- Do some proper notifications (noty hopefully).
+* Add image thumbnails to articles 
+* Add images within an article 
 
-=======
-Notes: 
+=======================================
+## Shared :
 
-* Edited the show reply, outsourced into a method to close all other open replies (in the single article component).
+### Favorite items (resources/store_items/activites)
+Each user would have a fav object:
+  {
+    activities: [IDs],
+    resources: [IDs],
+    items: [IDs]
+  }
+  
+Then retrieve all in one backend point, sort by date for example, and render all in one page.
+
+##### Deleting articles:
+  * Delete from favorites
+  
+### Articles approval (Pending admin response (msg = null)/ Pending user response (msg = SOMETHING) / Approved)
+##### Editing articles:
+  * Change flag approved.status => pending admin
+  * Reset approved.message => ''
+
