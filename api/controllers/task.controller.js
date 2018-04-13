@@ -216,7 +216,20 @@ module.exports.getComments = function(req, res, next) {
             }
         });
 
+        var ids = task.comments;
 
+        Comment.find({
+            _id: {
+                $in: ids
+            }
+        }).exec(function(err, com) {
+            return   res.status(201).json({
+                err: null,
+                msg: 'Comment was r successfully.',
+                data: com
+            });
+        });
+        
     });
 };
 
