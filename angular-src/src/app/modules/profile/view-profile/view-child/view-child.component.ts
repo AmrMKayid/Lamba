@@ -10,23 +10,13 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class ViewChildComponent implements OnInit {
 
-  @Input() childID;
-  child;
+  @Input() child;
   isInitialized = false;
   constructor(private route: ActivatedRoute,
     private http: HttpClient) {
   }
 
-  getChildByID(userID) {
-    this.http.get(appConfig.apiUrl + '/user/getChild/' + userID)
-      .subscribe((res: any) => {
-        this.child = res.data;
-        this.isInitialized = true;
-      });
-  }
-
   ngOnInit() {
-    this.getChildByID(this.childID);
   }
 
 }

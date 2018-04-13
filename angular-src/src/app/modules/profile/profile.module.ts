@@ -79,17 +79,13 @@ const appRoutes: Routes = [
         path: 'admin/verify-teachers',
         component: VerifyTeacherComponent
 
-      },
-
-      {
-        path: ':id',
-        component: ProfileComponent
       }
-
-
     ]
+  },
+  {
+    path: ':id',
+    component: ProfileComponent
   }
-
 ];
 
 @NgModule({

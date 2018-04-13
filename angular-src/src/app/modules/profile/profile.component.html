@@ -2,7 +2,7 @@
 <div class="container">
   <app-view-teacher [user]="currentUser" *ngIf="isTeacher"></app-view-teacher>
   <app-view-parent [user]="currentUser" *ngIf="isParent"></app-view-parent>
-  <app-view-child [childID]="id" *ngIf="isChild"></app-view-child>
+  <app-view-child [child]="currentUser" *ngIf="isChild"></app-view-child>
 
   <router-outlet>
   </router-outlet>
