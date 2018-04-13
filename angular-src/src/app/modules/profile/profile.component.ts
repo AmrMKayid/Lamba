@@ -29,7 +29,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.id = params['id'];
       //A hopeless try to optimize the worst possible solution :D trying to send along the user instead of just the ID
       //In case the user is not a child only.
-      this.http.get(appConfig.apiUrl + '/user/' + this.id, this.httpOptions)
+      this.http.get(appConfig.apiUrl + '/user/getUserByID' + this.id, this.httpOptions)
         .subscribe(
           (res: any) => {
             if (!res.data.role) {

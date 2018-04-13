@@ -26,7 +26,7 @@ router.get('/admin/accept_teacher/:teacherID', userCtrl.acceptTeacher);
 
 router.patch('/user/updateUser/:userId', userCtrl.updateUser);
 router.get('/user/getUserInfo/:userId', userCtrl.getUserInfo);
-router.get('/user/:id', mw.isAuthenticated, userCtrl.getUser);
+router.get('/user/getUserByID/:id', mw.isAuthenticated, userCtrl.getUser);
 
 //------------------------------Admin Routes---------------------------------//
 router.get('/user/viewUnverifiedArticles', mw.isAuthenticated, mw.isAdmin, userCtrl.viewUnverifiedArticles);

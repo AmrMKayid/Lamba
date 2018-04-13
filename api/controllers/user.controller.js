@@ -58,8 +58,6 @@ module.exports.getUser = function (req, res, next) {
         data: user
       });
     }
-
-
   });
 }
 
