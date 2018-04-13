@@ -1,27 +1,18 @@
-<div class="divider" style="padding-top:50px;"></div>
-<div class="container">
-
-  <table class="table table-striped table-hover" id="UsersTable">
-    <thead>
-    <tr>
-      <th>Name</th>
-      <th>Role</th>
-      <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let user of Users">
-      <td>
-        <strong>{{ user.name.firstName }} {{ user.name.lastName }}</strong>
-      </td>
-      <td>
-        <strong>{{ user.role }}</strong>
-      </td>
-      <td>
-        <button (click)="viewUser(user)" class="btn btn-primary">View Profile</button>
-      </td>
-    </tr>
-    </tbody>
-    <br>
-  </table>
+<div class="box" *ngFor="let user of Users">
+  <div *ngIf="user._id != this.auth.getCurrentUser()._id">
+  <div class='card card-profile text-center'>
+    <!--<img alt='' class='card-img-top' src='https://unsplash.it/340/160?image=354'>-->
+    <div class='card-block'>
+      <img alt='' class='card-img-profile' src='https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg'>
+      <h4 class='card-title'>
+        {{ user.name.firstName }} {{ user.name.lastName }}
+        <small>{{ user.role }}</small>
+      </h4>
+      <div class='card-links'>
+        <a (click)="viewUser(user)"><i class="material-icons">info</i></a>
+      </div>
+    </div>
+  </div>
+  </div>
 </div>
+

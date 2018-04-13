@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { appConfig } from "../../app.config";
-import { Router } from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {appConfig} from "../../app.config";
+import {Router} from "@angular/router";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-all-users',
@@ -13,7 +14,8 @@ export class AllUsersComponent implements OnInit {
   Users: any;
 
   constructor(private router: Router,
-    private http: HttpClient) {
+              private auth: AuthService,
+              private http: HttpClient) {
   }
 
   getAllUsers() {

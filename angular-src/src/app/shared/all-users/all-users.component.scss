@@ -1,0 +1,28 @@
+.card-profile {
+  width: 250px;
+  margin: 50px auto;
+  background-color: #9ad6cc;
+  border-radius: 25%;
+  box-shadow: 1em 1em 2em rgba(0, 0, 0, .2);
+
+  .card-img-profile {
+    margin-top: 10px;
+    border-radius: 50%;
+    border: 5px solid #e6e5e1;
+  }
+
+  .card-title {
+    margin-bottom: 10px;
+
+    small {
+      display: block;
+      font-size: .6em;
+      margin-top: .2em;
+    }
+  }
+
+  .card-links {
+    margin-bottom: 25px;
+  }
+}
+
