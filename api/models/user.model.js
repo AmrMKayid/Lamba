@@ -14,10 +14,6 @@ const ChildSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    role: {
-        type: String,
-        default: 'Child'
-    },
     name: {
         firstName: {type: String, required: true},
         middleName: {type: String},

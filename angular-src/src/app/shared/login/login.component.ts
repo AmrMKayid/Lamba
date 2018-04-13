@@ -41,18 +41,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(user)
       .subscribe(
         token => {
-          const userRole = this.authService.getUserFromToken(token.data).role;
-          if (userRole === 'Parent') {
-            this.returnUrl = 'profile/parent';
-          } else if (userRole === 'Teacher') {
-            this.returnUrl = 'profile/teacher';
-          } else if (userRole === 'Admin') {
-            this.returnUrl = 'profile/admin/dashboard';
-          }
-          else {
-            this.returnUrl = 'profile/child';
-          }
-          this.router.navigate([this.returnUrl]);
+          this.router.navigate(['profile', 'me']);
         },
         error => {
           new Noty({
@@ -61,7 +50,6 @@ export class LoginComponent implements OnInit {
             timeout: 3000,
             progressBar: true
           }).show();
-          console.log(error);
         });
   }
 

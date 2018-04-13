@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import {appConfig} from "../../../app.config";
-import {AuthService} from "../../../services/auth.service";
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { appConfig } from "../../../app.config";
+import { AuthService } from "../../../services/auth.service";
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-parent',
@@ -28,17 +28,17 @@ export class ParentComponent implements OnInit {
 
 
   constructor(private router: Router,
-              private http: HttpClient,
-              private auth: AuthService,
-              private modalService: NgbModal) {
+    private http: HttpClient,
+    private auth: AuthService,
+    private modalService: NgbModal) {
   }
 
   ngOnInit() {
 
     this.currentUser = this.auth.getCurrentUser();
     this.getMyChildren(this.currentUser._id);
-
     this.newChildBtn = false;
+
   }
 
   getMyChildren(parentID) {
@@ -49,7 +49,7 @@ export class ParentComponent implements OnInit {
   }
 
   viewChild(childID) {
-    this.router.navigate(['profile/view-child'], {queryParams: {id: childID}});
+    this.router.navigate(['profile', childID]);
   }
 
   newChild(childFirstName, childlastName, childUsername, childPassword, childConfirmPassword, childGender) {
@@ -64,8 +64,6 @@ export class ParentComponent implements OnInit {
       confirmPassword: childConfirmPassword,
       gender: childGender,
     };
-
-    console.log(newChild);
 
 
     this.http.post(appConfig.apiUrl + '/auth/child', newChild, this.httpOptions).subscribe(

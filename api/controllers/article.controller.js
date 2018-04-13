@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
     Tag = mongoose.model('Tag'),
     Article = mongoose.model('Article');
 
-const {JSDOM} = jsdom;
+const { JSDOM } = jsdom;
 
 module.exports.getArticle = function (req, res, next) {
     let article_id = req.params.id;
@@ -57,20 +57,20 @@ module.exports.getArticles = function (req, res, next) {
             //Find all articles with the IDs in the child's profile, and only return back the ones approved
             let articlesIDs = child.allowedArticles;
             Article.find({
-                    _id: {$in: articlesIDs},
-                    approved: {$eq: true}
-                }, 'title createdAt owner_id _id tags upvoters downvoters',
+                _id: { $in: articlesIDs },
+                approved: { $eq: true }
+            }, 'title createdAt owner_id _id tags upvoters downvoters',
                 (err, result) => {
                     if (err) {
                         return next(err);
                     }
                 }).populate('owner_id', 'name', 'User').exec((err, result) => {
-                res.status(200).json({
-                    err: null,
-                    msg: 'Articles retrieved successfully.',
-                    data: result
+                    res.status(200).json({
+                        err: null,
+                        msg: 'Articles retrieved successfully.',
+                        data: result
+                    });
                 });
-            });
         });
     } else {
         Article.find({
@@ -141,7 +141,7 @@ module.exports.createArticle = function (req, res, next) {
         if (!user) {
             return res
                 .status(404)
-                .json({err: null, msg: 'User not found.', data: null});
+                .json({ err: null, msg: 'User not found.', data: null });
         }
         Tag.find({
             '_id': {
@@ -230,7 +230,7 @@ const upvote = function (article, id, res, next) {
         return res.status(200).json({
             err: null,
             msg: "Already upvoted",
-            data: {upvoters: article.upvoters, downvoters: article.downvoters}
+            data: { upvoters: article.upvoters, downvoters: article.downvoters }
         });
     } else if (article.downvoters.includes(id)) {
         article.downvoters.splice(article.downvoters.indexOf(id), 1);
@@ -243,7 +243,7 @@ const upvote = function (article, id, res, next) {
         return res.status(200).json({
             err: null,
             msg: "Successfully upvoted.",
-            data: {upvoters: updatedArticle.upvoters, downvoters: updatedArticle.downvoters}
+            data: { upvoters: updatedArticle.upvoters, downvoters: updatedArticle.downvoters }
         });
     });
 }
@@ -253,7 +253,7 @@ const downvote = function (article, id, res, next) {
         return res.status(200).json({
             err: null,
             msg: "Already downvoted",
-            data: {upvoters: article.upvoters, downvoters: article.downvoters}
+            data: { upvoters: article.upvoters, downvoters: article.downvoters }
         });
     } else if (article.upvoters.includes(id)) {
         article.upvoters.splice(article.upvoters.indexOf(id), 1);
@@ -266,7 +266,7 @@ const downvote = function (article, id, res, next) {
         return res.status(200).json({
             err: null,
             msg: "Successfully updated.",
-            data: {upvoters: updatedArticle.upvoters, downvoters: updatedArticle.downvoters}
+            data: { upvoters: updatedArticle.upvoters, downvoters: updatedArticle.downvoters }
         });
     });
 }
@@ -336,7 +336,7 @@ const comment = function (article, id, content, res, next) {
         return res.status(200).json({
             err: null,
             msg: "Comment is added successfully.",
-            data: {comments: updatedArticle.comments}
+            data: { comments: updatedArticle.comments }
         });
     });
 };
@@ -353,8 +353,8 @@ const reply = function (article, userID, comment_id, reply, res, next) {
     // article.update({'comments._id': comment_id}, {$push: {'comments.0.replies': rep}});
     //article.comments.replies.push(rep);
     Article.updateOne(
-        {"_id": article._id, 'comments._id': comment_id},
-        {$push: {'comments.$.replies': rep}}
+        { "_id": article._id, 'comments._id': comment_id },
+        { $push: { 'comments.$.replies': rep } }
     ).exec((err, result) => {
         res.status(200).json({
             err: null,
@@ -469,8 +469,8 @@ module.exports.deleteArticle = function (req, res, next) {
 
                     Child.update(
                         {},
-                        {$pull: {allowedArticles: result._id}},
-                        {multi: true},
+                        { $pull: { allowedArticles: result._id } },
+                        { multi: true },
                         (err, updatedArticles) => {
                             if (err) {
                                 console.log(err);
@@ -501,21 +501,28 @@ module.exports.deleteArticle = function (req, res, next) {
 
 
 module.exports.editArticle = function (req, res, next) {
-    let valid = req.body.id && req.body.id.match(/^[0-9a-fA-F]{24}$/)
-        && req.body.title && Validations.isString(req.body.title)
+    if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+        return res.status(422).json({
+            err: null,
+            msg: 'Invalid ID provided.',
+            data: null
+        });
+    }
+    let valid =
+        req.body.title && Validations.isString(req.body.title)
         && req.body.content && Validations.isString(req.body.content)
         && req.body.tags && Validations.isArray(req.body.tags)
 
     if (!valid) {
         return res.status(422).json({
             err: null,
-            msg: 'id,title,content(Strings). tags(Array) are all required fields',
+            msg: 'title,content(Strings). tags(Array) are all required fields',
             data: null
         });
     }
 
     if (req.decodedToken.user._id) {
-        Article.findById(req.body.id, (err, retrievedArticle) => {
+        Article.findById(req.params.id, (err, retrievedArticle) => {
             if (err) {
                 return next(err);
             }
