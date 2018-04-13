@@ -29,7 +29,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.id = params['id'];
       //A hopeless try to optimize the worst possible solution :D trying to send along the user instead of just the ID
       //In case the user is not a child only.
-      //TODO: Add the token and check for the authentication in the backend
       this.http.get(appConfig.apiUrl + '/user/' + this.id, this.httpOptions)
         .subscribe(
           (res: any) => {

@@ -32,59 +32,38 @@ import {
   NotificationComponent,
   ChatComponent
 } from './admin/dashboard/components';
+import { MyProfileComponent } from './my-profile/my-profile.component';
 
 const appRoutes: Routes = [
   {
-    path: '',
-    component: ProfileComponent,
+    path: 'me',
+    component: MyProfileComponent,
+  },
+  {
+    path: ':id',
+    component: ProfileComponent
+  },
+  {
+    path: 'admin',
+    component: AdminComponent,
     children: [
-      {
-        path: 'admin',
-        component: AdminComponent,
-        children: [
-          {
-            path: 'dashboard',
-            component: DashboardComponent
-          },
-          {
-            path: 'un-verified-articles',
-            component: UnVerifiedArticlesComponent
-          }
-        ]
-
-      },
       {
         path: 'dashboard',
         component: DashboardComponent
       },
       {
-        path: 'parent',
-        component: ParentComponent
-      },
-      {
-        path: 'teacher',
-        component: TeacherComponent
-      },
-      {
-        path: 'child',
-        component: ChildComponent
-      },
-
-      {
-        path: 'admin/verify-articles/:id',
-        component: VerifyArticleComponent
-
-      },
-      {
-        path: 'admin/verify-teachers',
-        component: VerifyTeacherComponent
-
+        path: 'un-verified-articles',
+        component: UnVerifiedArticlesComponent
       }
     ]
   },
   {
-    path: ':id',
-    component: ProfileComponent
+    path: 'admin/verify-articles/:id',
+    component: VerifyArticleComponent
+  },
+  {
+    path: 'admin/verify-teachers',
+    component: VerifyTeacherComponent
   }
 ];
 
@@ -117,7 +96,8 @@ const appRoutes: Routes = [
     DashboardComponent,
     TimelineComponent,
     NotificationComponent,
-    ChatComponent
+    ChatComponent,
+    MyProfileComponent
   ],
   providers: [
     HttpClient

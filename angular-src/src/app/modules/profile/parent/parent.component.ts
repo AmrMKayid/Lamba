@@ -37,8 +37,8 @@ export class ParentComponent implements OnInit {
 
     this.currentUser = this.auth.getCurrentUser();
     this.getMyChildren(this.currentUser._id);
-
     this.newChildBtn = false;
+
   }
 
   getMyChildren(parentID) {
@@ -64,8 +64,6 @@ export class ParentComponent implements OnInit {
       confirmPassword: childConfirmPassword,
       gender: childGender,
     };
-
-    console.log(newChild);
 
 
     this.http.post(appConfig.apiUrl + '/auth/child', newChild, this.httpOptions).subscribe(
