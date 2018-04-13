@@ -15,7 +15,8 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     if (localStorage.getItem('authentication')) {
-      this.role = (this.auth.getCurrentUser().role).toLowerCase();
+      if (this.auth.getCurrentUser().role)
+        this.role = (this.auth.getCurrentUser().role).toLowerCase();
     }
   }
 
@@ -24,7 +25,7 @@ export class NavbarComponent implements OnInit {
   }
 
   isAdmin() {
-    if ((this.auth.getCurrentUser().role).toLowerCase() == 'admin') {
+    if (this.auth.getCurrentUser().role == 'Admin') {
       return true;
     }
     return false;

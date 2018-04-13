@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { appConfig } from '../../app.config';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {appConfig} from '../../app.config';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 
 @Component({
@@ -10,19 +10,25 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit, OnDestroy {
+
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': localStorage.getItem('authentication')
     })
   };
+
   id: string;
   private sub: any;
   isChild: boolean = false;
   isParent: boolean = false;
   isTeacher: boolean = false;
   currentUser;
-  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
+
+  constructor(private http: HttpClient,
+              private route: ActivatedRoute,
+              private router: Router) {
+  }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
