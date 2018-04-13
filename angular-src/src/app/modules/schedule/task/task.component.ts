@@ -64,6 +64,7 @@ export class TaskComponent implements OnInit {
   getComments() {
     this.http.get('http://localhost:3000/api/task/getComments/' + this.taskId, this.httpOptions).subscribe((res: any) => {
       this.taskComments = res.data;
+      console.log(this.taskComments);
     });
   }
 
@@ -71,10 +72,7 @@ export class TaskComponent implements OnInit {
   createNewComment(comment) {
     var commentData = {
       comment: comment,
-      userId: this.currentUser._id,
-      userType: this.currentUser.role,
-      taskId: this.taskId,
-      name: this.currentUser.name.firstName + " " + this.currentUser.name.lastName
+      taskId: this.taskId
     };
     console.log(commentData);
     this.http.post('http://localhost:3000/api/task/newComment', commentData, this.httpOptions).subscribe(

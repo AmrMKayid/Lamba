@@ -86,86 +86,15 @@ module.exports.createNewTask = function(req, res, next) {
 
 module.exports.createNewComment = function(req, res, next) {
 
+  if (!Validations.isObjectId(req.decodedToken.user._id)) {
+    return res.status(422).json({
+      err: null,
+      msg: 'userId parameter must be a valid ObjectId.',
+      data: null
+    });
+  };
+
   Task.findById(req.body.taskId).exec(function(err, task) {
-
-    const com = {
-      comment: req.body.comment,
-      userId: req.body.userId,
-      userType: req.body.userType,
-      name: req.body.name
-    }
-
-
-    if (req.body.userType === "Parent") {
-      Child.findById(task.studentId).exec(function(err, child) {
-
-        if (err || !child) {
-
-          userIsNotAuth()
-
-        } else {
-          if (child.parent_id === req.body.userId) {
-
-
-            userIsAuth();
-
-
-          } else {
-            userIsNotAuth();
-          }
-        }
-      });
-    } else if (req.body.userType === "Teacher") {
-      if (req.body.userId === task.userId) {
-        userIsAuth();
-      } else {
-        userIsNotAuth();
-      }
-    } else if (req.body.userType === "Child") {
-      if (req.body.userId === task.studentId) {
-        userIsAuth();
-      } else {
-        userIsNotAuth();
-      }
-    }
-
-
-    function userIsAuth() {
-      Comment.create(com, function(err, comment) {
-        if (err) {
-          return next(err);
-        }
-
-        task.comments.push(comment);
-
-        task.save(function(err) {
-          if (err) {
-            return next(err);
-          }
-          res.status(201).json({
-            err: null,
-            msg: 'Comment was created successfully.',
-            data: task
-          });
-        });
-      });
-    }
-
-
-    function userIsNotAuth() {
-
-      res.status(401).json({
-        err: null,
-        msg: 'Not Auth.',
-        data: task
-      });
-    }
-  });
-};
-
-module.exports.getComments = function(req, res, next) {
-
-  Task.findById(req.params.taskId).exec(function(err, task) {
     if (err) {
       return next(err);
     }
@@ -178,6 +107,7 @@ module.exports.getComments = function(req, res, next) {
           data: null
         });
     }
+
     User.findById(req.decodedToken.user._id).exec(function(err, user) {
       if (err) {
         return next(err);
@@ -196,63 +126,183 @@ module.exports.getComments = function(req, res, next) {
                 data: null
               });
           }
-          if (child._id !== task.ChildId) {
+          if (task.studentId !== req.decodedToken.user._id) {
             return res
               .status(401)
               .json({
                 err: null,
-                msg: 'Unauthorized access.',
+                msg: 'Unauthorized action.',
                 data: null
               });
           }
         });
+      } else {
+        if (user.role === 'Parent') {
+
+          Child.findById(task.studentId).exec(function(err, child2) {
+            if (err) {
+              return next(err);
+            }
+            if (!child2) {
+              return res
+                .status(401)
+                .json({
+                  err: null,
+                  msg: 'The child of the task not found.',
+                  data: null
+                });
+            }
+
+            if (child2.parent_id !== req.decodedToken.user._id) {
+              return res
+                .status(401)
+                .json({
+                  err: null,
+                  msg: 'Unauthorized action.',
+                  data: null
+                });
+            }
+
+
+          });
+
+        } else if (user.role === 'Teacher' && task.teacherID !== req.decodedToken.user._id) {
+          return res
+            .status(401)
+            .json({
+              err: null,
+              msg: 'This child is not in your list of students.',
+              data: null
+            });
+        }
+
       }
-      if (user.role === 'Parent') {
-        Child.findById(task.ChildId).exec(function(err, child) {
+    });
+
+
+
+    const com = {
+      comment: req.body.comment,
+      userId: req.decodedToken.user._id,
+    }
+
+    Comment.create(com, function(err, comment) {
+      if (err) {
+        return next(err);
+      }
+
+      task.comments.push(comment);
+
+      task.save(function(err) {
+        if (err) {
+          return next(err);
+        }
+        res.status(201).json({
+          err: null,
+          msg: 'Comment was created successfully.',
+          data: task
+        });
+      });
+    });
+  });
+};
+
+module.exports.getComments = function(req, res, next) {
+
+
+  if (!Validations.isObjectId(req.decodedToken.user._id)) {
+    return res.status(422).json({
+      err: null,
+      msg: 'userId parameter must be a valid ObjectId.',
+      data: null
+    });
+  };
+
+  Task.findById(req.params.taskId).exec(function(err, task) {
+    if (err) {
+      return next(err);
+    }
+    if (!task) {
+      return res
+        .status(404)
+        .json({
+          err: null,
+          msg: 'Task not found.',
+          data: null
+        });
+    }
+
+    User.findById(req.decodedToken.user._id).exec(function(err, user) {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        Child.findById(req.decodedToken.user._id).exec(function(err, child) {
           if (err) {
             return next(err);
           }
           if (!child) {
             return res
-              .status(401)
+              .status(404)
               .json({
                 err: null,
-                msg: 'Unauthorized access.',
+                msg: 'Child not found.',
                 data: null
               });
           }
-          if (child.parent_id !== user._id) {
+          if (task.studentId !== req.decodedToken.user._id) {
             return res
               .status(401)
               .json({
                 err: null,
-                msg: 'Unauthorized access.',
+                msg: 'Unauthorized action.',
                 data: null
               });
           }
         });
+      } else {
+        if (user.role === 'Parent') {
+
+          Child.findById(task.studentId).exec(function(err, child2) {
+            if (err) {
+              return next(err);
+            }
+            if (!child2) {
+              return res
+                .status(401)
+                .json({
+                  err: null,
+                  msg: 'The child of the task not found.',
+                  data: null
+                });
+            }
+
+            if (child2.parent_id !== req.decodedToken.user._id) {
+              return res
+                .status(401)
+                .json({
+                  err: null,
+                  msg: 'Unauthorized action.',
+                  data: null
+                });
+            }
 
 
-      }
-      if (user.role === 'Teacher') {
-        user.students.findById(task.StudentId).exec(function(err, child2) {
-          if (err) {
-            return next(err);
-          }
-          if (!child2) {
-            return res
-              .status(401)
-              .json({
-                err: null,
-                msg: 'This child is not in your list of students.',
-                data: null
-              });
+          });
 
-          };
+        } else if (user.role === 'Teacher' && task.teacherID !== req.decodedToken.user._id) {
+          return res
+            .status(401)
+            .json({
+              err: null,
+              msg: 'This child is not in your list of students.',
+              data: null
+            });
+        }
 
-        });
       }
     });
+
 
     var ids = task.comments;
 
@@ -270,6 +320,7 @@ module.exports.getComments = function(req, res, next) {
 
   });
 };
+
 module.exports.getTasks = function(req, res, next) {
 
   User.findById(req.decodedToken.user._id).exec(function(err, user) {
@@ -329,6 +380,7 @@ module.exports.getTasks = function(req, res, next) {
 
   });
 };
+
 module.exports.getChildTasks = function(req, res, next) {
 
   User.findById(req.decodedToken.user._id).exec(function(err, user) {
@@ -392,11 +444,6 @@ module.exports.getTask = function(req, res, next) {
     });
   });
 };
-
-
-
-
-
 
 module.exports.getTeacher = function(req, res, next) {
   let id = req.params.TeacherId;

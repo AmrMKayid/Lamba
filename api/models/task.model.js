@@ -36,15 +36,6 @@ const CommentSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    name: {
-        type: String,
-        required: true,
-    },
-    userType: {
-        type: String,
-        required: true,
-        enum: ['Child', 'Parent', 'Teacher']
-    },
     comment: {
         type: String
     },
