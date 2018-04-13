@@ -330,6 +330,25 @@ module.exports.getChildTasks = function(req, res, next) {
     });
 
 };
+
+module.exports.getTask = function(req, res, next) {
+    Task.findById(req.params.taskId).exec(function(err, task) {
+        if (err) {
+            return next(err);
+        }
+        res.status(200).json({
+            err: null,
+            msg: 'Requests recieved successfully.',
+            data: task
+        });
+    });
+};
+
+
+
+
+
+
 module.exports.getTeacher = function(req, res, next) {
     let id = req.params.TeacherId;
     User.findById(id).exec(function (err, user) {
