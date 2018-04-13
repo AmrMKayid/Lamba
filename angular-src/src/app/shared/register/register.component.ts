@@ -3,7 +3,6 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {AuthService} from '../../services/auth.service';
-import {ToasterService} from 'angular5-toaster/src/toaster.service';
 
 @Component({
   selector: 'app-register',
@@ -38,7 +37,6 @@ export class RegisterComponent implements OnInit {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private toaster: ToasterService,
               private authService: AuthService) {
 
     this.route.queryParams.subscribe(params => {
@@ -54,12 +52,12 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['/login']);
         },
         error => {
-          this.toaster.pop({
+          new Noty({
             type: 'error',
-            title: 'Error!',
-            body: error.msg,
-            timeout: 3000
-          });
+            text: error.msg,
+            timeout: 3000,
+            progressBar: true
+          }).show();
         });
   }
 

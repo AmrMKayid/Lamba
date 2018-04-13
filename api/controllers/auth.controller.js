@@ -117,8 +117,8 @@ module.exports.register = function (req, res, next) {
                     if (err) {
                         return next(err);
                     }
-                    if(newUser.role == 'Teacher'){
-                        for(var i=0; i< 8 ; i++){
+                    if (newUser.role == 'Teacher') {
+                        for (var i = 0; i < 8; i++) {
                             newUser.schedule.table.saturday.push({});
                             newUser.schedule.table.sunday.push({});
                             newUser.schedule.table.monday.push({});
@@ -270,7 +270,7 @@ module.exports.addChild = function (req, res, next) {
                     if (err) {
                         return next(err);
                     }
-                    for(var i=0; i< 8 ; i++){
+                    for (var i = 0; i < 8; i++) {
                         newUser.schedule.table.saturday.push({});
                         newUser.schedule.table.sunday.push({});
                         newUser.schedule.table.monday.push({});

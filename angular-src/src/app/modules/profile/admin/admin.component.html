@@ -1,10 +1,6 @@
-<p>
-  admin works!
-</p>
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+<section class="main-container">
 
-      
-<button class="btn btn-success" (click)="ViewUnverifiedArticles()">View Unverified Articles</button>
-<button class="btn btn-success" (click)="ViewTeachersRequests()">View Teahcers Requests</button>
-
-
-
+  <router-outlet></router-outlet>
+</section>

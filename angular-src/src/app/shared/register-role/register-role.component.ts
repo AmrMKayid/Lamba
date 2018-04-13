@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 
@@ -10,7 +10,8 @@ import {Router} from "@angular/router";
 export class RegisterRoleComponent implements OnInit {
 
   constructor(private router: Router,
-              private http: HttpClient) { }
+              private http: HttpClient) {
+  }
 
   chosenRole(role) {
     this.router.navigate(['register'], {queryParams: {role: role}});

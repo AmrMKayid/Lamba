@@ -8,7 +8,7 @@ import {AuthService} from "../../services/auth.service";
 })
 export class NavbarComponent implements OnInit {
 
-  role;
+  public role;
 
   constructor(private auth: AuthService) {
   }
@@ -21,6 +21,13 @@ export class NavbarComponent implements OnInit {
 
   isLoggedIn() {
     return localStorage.getItem('authentication');
+  }
+
+  isAdmin() {
+    if ((this.auth.getCurrentUser().role).toLowerCase() == 'admin') {
+      return true;
+    }
+    return false;
   }
 
   logout() {

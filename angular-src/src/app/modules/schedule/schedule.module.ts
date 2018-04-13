@@ -1,12 +1,15 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {MDBBootstrapModule} from 'angular-bootstrap-md';
 
 import {TscheduleComponent} from './tschedule/tschedule.component';
 import {TaskComponent} from './task/task.component';
 import {CscheduleComponent} from './cschedule/cschedule.component';
 import {RouterModule, Routes} from '@angular/router';
+
 const appRoutes: Routes = [
   {
     path: '',
@@ -14,15 +17,15 @@ const appRoutes: Routes = [
   },
   {
     path: 'tschedule',
-  component: TscheduleComponent,
+    component: TscheduleComponent,
   },
   {
     path: 'viewtask',
-  component: TaskComponent,
+    component: TaskComponent,
   },
   {
     path: 'cschedule',
-  component: CscheduleComponent,
+    component: CscheduleComponent,
   }
 ];
 
@@ -30,7 +33,9 @@ const appRoutes: Routes = [
   imports: [
     CommonModule,
     FormsModule, ReactiveFormsModule,
-    RouterModule.forChild(appRoutes)
+    RouterModule.forChild(appRoutes),
+    NgbModule.forRoot(),
+    MDBBootstrapModule.forRoot()
   ],
   declarations: [
     TscheduleComponent,
@@ -38,4 +43,5 @@ const appRoutes: Routes = [
     TaskComponent
   ]
 })
-export class ScheduleModule { }
+export class ScheduleModule {
+}

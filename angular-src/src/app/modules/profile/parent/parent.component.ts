@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-import { ToasterService } from 'angular5-toaster/src/toaster.service';
-import { appConfig } from "../../../app.config";
-import { HttpClient } from "@angular/common/http";
-import { AuthService } from "../../../services/auth.service";
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import {appConfig} from "../../../app.config";
+import {AuthService} from "../../../services/auth.service";
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Component({
   selector: 'app-parent',
@@ -16,16 +15,22 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 export class ParentComponent implements OnInit {
 
   currentUser;
-  myChildren;
+  myChildren = [];
 
   newChildBtn: boolean;
   closeResult: string;
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('authentication')
+    })
+  };
+
 
   constructor(private router: Router,
-    private http: HttpClient,
-    private auth: AuthService,
-    private toaster: ToasterService,
-    private modalService: NgbModal) {
+              private http: HttpClient,
+              private auth: AuthService,
+              private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -43,7 +48,11 @@ export class ParentComponent implements OnInit {
       });
   }
 
-  newChild(childFirstName , childlastName , childUsername , childPassword , childConfirmPassword ,childGender) {
+  viewChild(childID) {
+    this.router.navigate(['profile/view-child'], {queryParams: {id: childID}});
+  }
+
+  newChild(childFirstName, childlastName, childUsername, childPassword, childConfirmPassword, childGender) {
 
     let newChild = {
       name: {
@@ -58,25 +67,26 @@ export class ParentComponent implements OnInit {
 
     console.log(newChild);
 
-    let autorization = { Authorization: localStorage.getItem('authorization') }
 
-    this.http.post(appConfig.apiUrl + '/auth/child', newChild, { headers: autorization }).subscribe(
-      data => {
-        this.toaster.pop({
+    this.http.post(appConfig.apiUrl + '/auth/child', newChild, this.httpOptions).subscribe(
+      (res: any) => {
+        this.myChildren = this.myChildren.concat(res.data);
+
+        new Noty({
           type: 'success',
-          title: "Success!",
-          body: "You've been successfully created New Child Account!",
-          timeout: 3000
-        });
+          text: `You've been successfully created New Child Account!`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
       },
       error => {
         console.log(error)
-        this.toaster.pop({
+        new Noty({
           type: 'error',
-          title: "Error!",
-          body: error.error.msg,
-          timeout: 3000
-        });
+          text: error.error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
       });
 
   }
@@ -97,6 +107,21 @@ export class ParentComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+
+  createNewTask(taskName, tasksDescription, studentId) {
+
+    var taskdata = {
+      title: taskName,
+      description: tasksDescription,
+      userId: this.currentUser._id,
+      studentId: studentId
+    };
+
+    console.log(taskdata);
+
+    this.http.post('http://localhost:3000/api/task/newTask', taskdata).subscribe();
   }
 
 

@@ -29,8 +29,9 @@ const articleSchema = new mongoose.Schema({
     upvoters: [String],
     downvoters: [String],
     comments: [{
-        comment_content:String,
-        commenter: {type:String,
+        comment_content: String,
+        commenter: {
+            type: String,
             ref: 'User'
         },
         replies: [

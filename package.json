@@ -5,12 +5,14 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "concurrently \"mongod\" \"node ./bin/www\" \"cd angular-src && ng serve -o\"",
-    "devBack": "concurrently \"mongod\" \"node ./bin/www\""
+    "devBack": "concurrently \"mongod\" \"node ./bin/www\"",
+    "test": "mocha --timeout 10000 --exit"
   },
   "dependencies": {
-    "angular5-toaster": "^1.0.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
     "compression": "^1.7.2",
     "cors": "^2.8.4",
     "debug": "^3.1.0",
@@ -18,6 +20,7 @@
     "helmet": "^3.12.0",
     "jsdom": "^11.6.2",
     "jsonwebtoken": "^8.2.0",
+    "mocha": "^5.0.5",
     "moment": "^2.21.0",
     "mongoose": "^5.0.9",
     "morgan": "^1.9.0",
@@ -28,6 +31,11 @@
   },
   "devDependencies": {
     "@angular/cli": "^1.7.3",
-    "concurrently": "^3.5.1"
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "concurrently": "^3.5.1",
+    "mocha": "^5.0.5",
+    "mocha-logger": "^1.0.5",
+    "should": "^13.2.1"
   }
 }

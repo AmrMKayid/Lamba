@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ToasterService } from 'angular5-toaster';
+import {Component, OnInit} from '@angular/core';
 
 
 @Component({
@@ -9,10 +8,8 @@ import { ToasterService } from 'angular5-toaster';
 })
 export class ProfileComponent implements OnInit {
 
-  // TO GET CURRENT USER INFO
-  // JSON.parse(localStorage.getItem('currentUser'))
-
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

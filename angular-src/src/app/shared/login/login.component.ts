@@ -3,7 +3,6 @@ import {Router, ActivatedRoute} from '@angular/router';
 
 import {AuthService} from '../../services/auth.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ToasterService} from 'angular5-toaster/src/toaster.service';
 
 
 @Component({
@@ -26,7 +25,6 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private route: ActivatedRoute,
-              private toaster: ToasterService,
               private router: Router,
               private authService: AuthService) {
   }
@@ -48,8 +46,8 @@ export class LoginComponent implements OnInit {
             this.returnUrl = 'profile/parent';
           } else if (userRole === 'Teacher') {
             this.returnUrl = 'profile/teacher';
-          } else if (userRole === 'Admin'){
-            this.returnUrl = 'profile/admin';
+          } else if (userRole === 'Admin') {
+            this.returnUrl = 'profile/admin/dashboard';
           }
           else {
             this.returnUrl = 'profile/child';
@@ -57,12 +55,12 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.returnUrl]);
         },
         error => {
-          this.toaster.pop({
+          new Noty({
             type: 'error',
-            title: 'Error!',
-            body: error.msg,
-            timeout: 3000
-          });
+            text: error.msg,
+            timeout: 3000,
+            progressBar: true
+          }).show();
           console.log(error);
         });
   }

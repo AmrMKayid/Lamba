@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { UnVerifiedArticlesComponent } from './un-verified-articles.component';
+import {UnVerifiedArticlesComponent} from './un-verified-articles.component';
 
 describe('UnVerifiedArticlesComponent', () => {
   let component: UnVerifiedArticlesComponent;
@@ -8,9 +8,9 @@ describe('UnVerifiedArticlesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UnVerifiedArticlesComponent ]
+      declarations: [UnVerifiedArticlesComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

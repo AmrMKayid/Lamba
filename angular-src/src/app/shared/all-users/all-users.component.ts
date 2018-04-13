@@ -23,8 +23,13 @@ export class AllUsersComponent implements OnInit {
       });
   }
 
-  viewUser(userID) {
-    this.router.navigate(['profile/view'], {queryParams: {id: userID}});
+  viewUser(user) {
+    if (user.role === 'Parent') {
+      this.router.navigate(['profile/view-parent'], {queryParams: {id: user._id}});
+    }
+    else if (user.role === 'Teacher') {
+      this.router.navigate(['profile/view-teacher'], {queryParams: {id: user._id}});
+    }
   }
 
   ngOnInit() {

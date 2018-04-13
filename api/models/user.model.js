@@ -15,8 +15,8 @@ const ChildSchema = new mongoose.Schema({
         trim: true
     },
     role: {
-      type: String,
-      default: 'Child'
+        type: String,
+        default: 'Child'
     },
     name: {
         firstName: {type: String, required: true},
@@ -361,3 +361,4 @@ ChildSchema.options.toObject.transform = function (document, transformedDocument
 mongoose.model('Child', ChildSchema);
 mongoose.model('User', UserSchema);
 mongoose.model('UniqueUser', UniqueUserSchema);
+
