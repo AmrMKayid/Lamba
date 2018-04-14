@@ -11,7 +11,6 @@
       <div class="col-lg-3 col-md-4 col-sm-6 myCard"
            *ngFor="let user of Users | filter:filter | paginate: { itemsPerPage: 8, currentPage: p };">
 
-        <div *ngIf="user._id != this.auth.getCurrentUser()._id">
           <div class="card">
             <!--<img class="card-img-top rounded-circle mt-2" src="https://www.lacartedescolocs.fr/assets/fallbacks/profile_woman_medium_fallback-a7f0361efd57b6d193bef198dacdaaf2a0ac1aa17f23cd9613540c05f2c6bac6.png">-->
             <img *ngIf="user.photo" src="http://localhost:3000/api/uploads/store/{{user.photo}}" class="card-img-top rounded-circle mt-2">
@@ -29,8 +28,6 @@
               </div>
             </div>
           </div>
-        </div>
-
       </div>
     </div>
     <br>

@@ -25,6 +25,7 @@ export class AllUsersComponent implements OnInit {
     this.http.get(appConfig.apiUrl + '/user/getAllUsers/')
       .subscribe((res: any) => {
         this.Users = res.data;
+        this.Users = this.Users.filter(user => user._id != this.auth.getCurrentUser()._id)
       });
   }
 
