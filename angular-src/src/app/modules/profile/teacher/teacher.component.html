@@ -198,10 +198,66 @@
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
+                                          <a  placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
+                                          <a  placement="bottom" ngbTooltip="Edit Slot" (click)="open(content)"><i
                                             class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
+                                          <ng-template #content let-c="close" let-d="dismiss">
+                                            <div class="modal-header">
+                                              <h4 class="modal-title">Edit Slot {{i}}</h4>
+                                              <button type="button" class="close" aria-label="Close"
+                                                      (click)="d('Cross click')">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <div class="container">
+                                                <div class="row">
+                                                  <div class="col-12">
+                                                    <!--Contact Form-->
+                                                    <form>
+                                                      <div class="md-form">
+                                                        <i class="material-icons prefix">title</i>
+                                                        <input type="text" id="form5" class="form-control" #newTitle
+                                                               mdbActive>
+                                                        <label for="form3">Title</label>
+                                                      </div>
+                                                      <div class="md-form">
+                                                        <i class="material-icons prefix">description</i>
+                                                        <textarea type="text" id="form7" class="md-textarea"
+                                                                  style="height: 100px" #newDescription
+                                                                  mdbActive></textarea>
+                                                        <label for="form8">description</label>
+                                                      </div>
+                                                      <div class="md-form">
+                                                        <i class="material-icons prefix">link</i>
+                                                        <input type="text" id="form9" class="form-control" #newUrl
+                                                               mdbActive>
+                                                        <label for="form2">URL</label>
+                                                      </div>
+
+                                                      <div class="text-center">
+                                                        <div class="row">
+                                                          <div class="col-6">
+                                                            <button class="btn btn-deep-orange waves-light"
+                                                                    (click)="updateTeacherSchedule(Slot,newTitle.value,newDescription.value,newUrl.value,'sunday')"
+                                                                    mdbRippleRadius>Done
+                                                            </button>
+                                                          </div>
+                                                          <div class="col-6">
+                                                            <button type="button" class="btn btn-blue-grey waves-light"
+                                                                    (click)="c('Close click')" mdbRippleRadius> Close
+                                                            </button>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </form>
+                                                    <!--Contact Form-->
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </ng-template>
                                         </div>
                                       </div>
                                     </td>
@@ -248,10 +304,66 @@
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
+                                          <a  placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
+                                          <a  placement="bottom" ngbTooltip="Edit Slot" (click)="open(content)"><i
                                             class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
+                                          <ng-template #content let-c="close" let-d="dismiss">
+                                            <div class="modal-header">
+                                              <h4 class="modal-title">Edit Slot {{i}}</h4>
+                                              <button type="button" class="close" aria-label="Close"
+                                                      (click)="d('Cross click')">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <div class="container">
+                                                <div class="row">
+                                                  <div class="col-12">
+                                                    <!--Contact Form-->
+                                                    <form>
+                                                      <div class="md-form">
+                                                        <i class="material-icons prefix">title</i>
+                                                        <input type="text" id="form10" class="form-control" #newTitle
+                                                               mdbActive>
+                                                        <label for="form3">Title</label>
+                                                      </div>
+                                                      <div class="md-form">
+                                                        <i class="material-icons prefix">description</i>
+                                                        <textarea type="text" id="form11" class="md-textarea"
+                                                                  style="height: 100px" #newDescription
+                                                                  mdbActive></textarea>
+                                                        <label for="form8">description</label>
+                                                      </div>
+                                                      <div class="md-form">
+                                                        <i class="material-icons prefix">link</i>
+                                                        <input type="text" id="form12" class="form-control" #newUrl
+                                                               mdbActive>
+                                                        <label for="form2">URL</label>
+                                                      </div>
+
+                                                      <div class="text-center">
+                                                        <div class="row">
+                                                          <div class="col-6">
+                                                            <button class="btn btn-deep-orange waves-light"
+                                                                    (click)="updateTeacherSchedule(Slot,newTitle.value,newDescription.value,newUrl.value,'monday')"
+                                                                    mdbRippleRadius>Done
+                                                            </button>
+                                                          </div>
+                                                          <div class="col-6">
+                                                            <button type="button" class="btn btn-blue-grey waves-light"
+                                                                    (click)="c('Close click')" mdbRippleRadius> Close
+                                                            </button>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </form>
+                                                    <!--Contact Form-->
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </ng-template>
                                         </div>
                                       </div>
                                     </td>
@@ -298,10 +410,66 @@
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
+                                          <a  placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
+                                          <a  placement="bottom" ngbTooltip="Edit Slot" (click)="open(content)"><i
                                             class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
+                                          <ng-template #content let-c="close" let-d="dismiss">
+                                            <div class="modal-header">
+                                              <h4 class="modal-title">Edit Slot {{i}}</h4>
+                                              <button type="button" class="close" aria-label="Close"
+                                                      (click)="d('Cross click')">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <div class="container">
+                                                <div class="row">
+                                                  <div class="col-12">
+                                                    <!--Contact Form-->
+                                                    <form>
+                                                      <div class="md-form">
+                                                        <i class="material-icons prefix">title</i>
+                                                        <input type="text" id="form25" class="form-control" #newTitle
+                                                               mdbActive>
+                                                        <label for="form3">Title</label>
+                                                      </div>
+                                                      <div class="md-form">
+                                                        <i class="material-icons prefix">description</i>
+                                                        <textarea type="text" id="form13" class="md-textarea"
+                                                                  style="height: 100px" #newDescription
+                                                                  mdbActive></textarea>
+                                                        <label for="form8">description</label>
+                                                      </div>
+                                                      <div class="md-form">
+                                                        <i class="material-icons prefix">link</i>
+                                                        <input type="text" id="form14" class="form-control" #newUrl
+                                                               mdbActive>
+                                                        <label for="form2">URL</label>
+                                                      </div>
+
+                                                      <div class="text-center">
+                                                        <div class="row">
+                                                          <div class="col-6">
+                                                            <button class="btn btn-deep-orange waves-light"
+                                                                    (click)="updateTeacherSchedule(Slot,newTitle.value,newDescription.value,newUrl.value,'tuesday')"
+                                                                    mdbRippleRadius>Done
+                                                            </button>
+                                                          </div>
+                                                          <div class="col-6">
+                                                            <button type="button" class="btn btn-blue-grey waves-light"
+                                                                    (click)="c('Close click')" mdbRippleRadius> Close
+                                                            </button>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </form>
+                                                    <!--Contact Form-->
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </ng-template>
                                         </div>
                                       </div>
                                     </td>
@@ -348,10 +516,66 @@
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
+                                          <a  placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
+                                          <a  placement="bottom" ngbTooltip="Edit Slot" (click)="open(content)"><i
                                             class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
+                                          <ng-template #content let-c="close" let-d="dismiss">
+                                            <div class="modal-header">
+                                              <h4 class="modal-title">Edit Slot {{i}}</h4>
+                                              <button type="button" class="close" aria-label="Close"
+                                                      (click)="d('Cross click')">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <div class="container">
+                                                <div class="row">
+                                                  <div class="col-12">
+                                                    <!--Contact Form-->
+                                                    <form>
+                                                      <div class="md-form">
+                                                        <i class="material-icons prefix">title</i>
+                                                        <input type="text" id="form15" class="form-control" #newTitle
+                                                               mdbActive>
+                                                        <label for="form3">Title</label>
+                                                      </div>
+                                                      <div class="md-form">
+                                                        <i class="material-icons prefix">description</i>
+                                                        <textarea type="text" id="form16" class="md-textarea"
+                                                                  style="height: 100px" #newDescription
+                                                                  mdbActive></textarea>
+                                                        <label for="form8">description</label>
+                                                      </div>
+                                                      <div class="md-form">
+                                                        <i class="material-icons prefix">link</i>
+                                                        <input type="text" id="form17" class="form-control" #newUrl
+                                                               mdbActive>
+                                                        <label for="form2">URL</label>
+                                                      </div>
+
+                                                      <div class="text-center">
+                                                        <div class="row">
+                                                          <div class="col-6">
+                                                            <button class="btn btn-deep-orange waves-light"
+                                                                    (click)="updateTeacherSchedule(Slot,newTitle.value,newDescription.value,newUrl.value,'wednesday')"
+                                                                    mdbRippleRadius>Done
+                                                            </button>
+                                                          </div>
+                                                          <div class="col-6">
+                                                            <button type="button" class="btn btn-blue-grey waves-light"
+                                                                    (click)="c('Close click')" mdbRippleRadius> Close
+                                                            </button>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </form>
+                                                    <!--Contact Form-->
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </ng-template>
                                         </div>
                                       </div>
                                     </td>
@@ -398,10 +622,66 @@
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
+                                          <a  placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
+                                          <a  placement="bottom" ngbTooltip="Edit Slot" (click)="open(content)"><i
                                             class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
+                                          <ng-template #content let-c="close" let-d="dismiss">
+                                            <div class="modal-header">
+                                              <h4 class="modal-title">Edit Slot {{i}}</h4>
+                                              <button type="button" class="close" aria-label="Close"
+                                                      (click)="d('Cross click')">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <div class="container">
+                                                <div class="row">
+                                                  <div class="col-12">
+                                                    <!--Contact Form-->
+                                                    <form>
+                                                      <div class="md-form">
+                                                        <i class="material-icons prefix">title</i>
+                                                        <input type="text" id="form18" class="form-control" #newTitle
+                                                               mdbActive>
+                                                        <label for="form3">Title</label>
+                                                      </div>
+                                                      <div class="md-form">
+                                                        <i class="material-icons prefix">description</i>
+                                                        <textarea type="text" id="form19" class="md-textarea"
+                                                                  style="height: 100px" #newDescription
+                                                                  mdbActive></textarea>
+                                                        <label for="form8">description</label>
+                                                      </div>
+                                                      <div class="md-form">
+                                                        <i class="material-icons prefix">link</i>
+                                                        <input type="text" id="form20" class="form-control" #newUrl
+                                                               mdbActive>
+                                                        <label for="form2">URL</label>
+                                                      </div>
+
+                                                      <div class="text-center">
+                                                        <div class="row">
+                                                          <div class="col-6">
+                                                            <button class="btn btn-deep-orange waves-light"
+                                                                    (click)="updateTeacherSchedule(Slot,newTitle.value,newDescription.value,newUrl.value,'thursday')"
+                                                                    mdbRippleRadius>Done
+                                                            </button>
+                                                          </div>
+                                                          <div class="col-6">
+                                                            <button type="button" class="btn btn-blue-grey waves-light"
+                                                                    (click)="c('Close click')" mdbRippleRadius> Close
+                                                            </button>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </form>
+                                                    <!--Contact Form-->
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </ng-template>
                                         </div>
                                       </div>
                                     </td>
@@ -450,8 +730,64 @@
                                         <div class="col-12">
                                           <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
+                                          <a  placement="bottom" ngbTooltip="Edit Slot" (click)="open(content)"><i
                                             class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
+                                          <ng-template #content let-c="close" let-d="dismiss">
+                                            <div class="modal-header">
+                                              <h4 class="modal-title">Edit Slot {{i}}</h4>
+                                              <button type="button" class="close" aria-label="Close"
+                                                      (click)="d('Cross click')">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <div class="container">
+                                                <div class="row">
+                                                  <div class="col-12">
+                                                    <!--Contact Form-->
+                                                    <form>
+                                                      <div class="md-form">
+                                                        <i class="material-icons prefix">title</i>
+                                                        <input type="text" id="form21" class="form-control" #newTitle
+                                                               mdbActive>
+                                                        <label for="form3">Title</label>
+                                                      </div>
+                                                      <div class="md-form">
+                                                        <i class="material-icons prefix">description</i>
+                                                        <textarea type="text" id="form22" class="md-textarea"
+                                                                  style="height: 100px" #newDescription
+                                                                  mdbActive></textarea>
+                                                        <label for="form8">description</label>
+                                                      </div>
+                                                      <div class="md-form">
+                                                        <i class="material-icons prefix">link</i>
+                                                        <input type="text" id="form23" class="form-control" #newUrl
+                                                               mdbActive>
+                                                        <label for="form2">URL</label>
+                                                      </div>
+
+                                                      <div class="text-center">
+                                                        <div class="row">
+                                                          <div class="col-6">
+                                                            <button class="btn btn-deep-orange waves-light"
+                                                                    (click)="updateTeacherSchedule(Slot,newTitle.value,newDescription.value,newUrl.value,'friday')"
+                                                                    mdbRippleRadius>Done
+                                                            </button>
+                                                          </div>
+                                                          <div class="col-6">
+                                                            <button type="button" class="btn btn-blue-grey waves-light"
+                                                                    (click)="c('Close click')" mdbRippleRadius> Close
+                                                            </button>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </form>
+                                                    <!--Contact Form-->
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </ng-template>
                                         </div>
                                       </div>
                                     </td>

@@ -362,6 +362,8 @@ module.exports.getTasks = function(req, res, next) {
 
       });
     }
+    else
+    {
     Task.find({
       userId: { //might need changing depending on saleh's schema
         $eq: req.decodedToken.user._id
@@ -378,7 +380,7 @@ module.exports.getTasks = function(req, res, next) {
       });
     });
 
-
+}
   });
 };
 
