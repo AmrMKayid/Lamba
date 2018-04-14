@@ -46,8 +46,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
               } else {
                 this.isTeacher = true;
               }
-              this.currentUser = res.data;
             }
+            this.currentUser = res.data;
           }, (err) => {
             if (err.status === 422) {
               new Noty({
