@@ -13,6 +13,9 @@ export class AllUsersComponent implements OnInit {
 
   Users: any;
 
+  // Pagination: initializing p to one
+  p: number = 1;
+
   constructor(private router: Router,
               private auth: AuthService,
               private http: HttpClient) {

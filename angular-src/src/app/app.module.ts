@@ -21,6 +21,11 @@ import {NavbarComponent} from './shared/navbar/navbar.component';
 import {RegisterRoleComponent} from './shared/register-role/register-role.component';
 import {RegisterComponent} from './shared/register/register.component';
 
+/* Search Library */
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { Ng2OrderModule } from 'ng2-order-pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 @NgModule({
   declarations: [
@@ -40,6 +45,7 @@ import {RegisterComponent} from './shared/register/register.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    Ng2SearchPipeModule, Ng2OrderModule, NgxPaginationModule,
     NgbModule.forRoot(),
     MDBBootstrapModule.forRoot(),
     TranslateModule.forRoot()
