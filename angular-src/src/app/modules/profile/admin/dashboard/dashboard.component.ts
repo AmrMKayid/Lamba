@@ -12,6 +12,7 @@ export class DashboardComponent implements OnInit {
   public alerts: Array<any> = [];
   public sliders: Array<any> = [];
   public articles: Array<any> = [];
+  public Teachers: Array<any> = [];
 
   constructor(private httpClient: HttpClient) {
     this.sliders.push(
@@ -59,6 +60,14 @@ export class DashboardComponent implements OnInit {
     this.httpClient.get('http://localhost:3000/api/user/viewUnverifiedArticles', {headers: autorization})
       .subscribe((res: any) => {
         this.articles = res.data;
+        console.log(res.msg);
+        console.log(res.data);
+      }, err => {
+        console.log(err.error.msg);
+      });
+      this.httpClient.get('http://localhost:3000/api/admin/teachers_verfication', {headers: autorization})
+      .subscribe((res: any) => {
+        this.Teachers = res.data;
         console.log(res.msg);
         console.log(res.data);
       }, err => {

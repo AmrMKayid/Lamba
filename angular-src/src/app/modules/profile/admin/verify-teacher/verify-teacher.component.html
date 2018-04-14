@@ -1,7 +1,49 @@
-<br>
-<div class="row">
-  <div class="col-lg-4 col-md-4" *ngFor="let teacher of Teachers">
-    <div class="card text-center">
+<div [@routerTransition]>
+
+<div class="row row-eq-height">
+  <div class="col-lg-4 col-md-4" d-flex align-items-stretch *ngFor="let teacher of Teachers">
+          <!--Card-->
+      <div class="card card-cascade wider">
+  
+          <!--Card image-->
+          <div class="view overlay hm-white-slight waves-light" mdbRippleRadius>
+            <img *ngIf="currentUser.photo" src="http://localhost:3000/api/uploads/store/{{currentUser.photo}}" class="rounded-circle">
+            <img *ngIf="!currentUser.photo" src="assets/user.png" class="rounded-circle">              <a>
+                  <div class="mask"></div>
+              </a>
+          </div>
+          <!--/Card image-->
+  
+          <!--Card content-->
+          <div class="card-body text-center">
+              <!--Title-->
+              <h4 class="card-title"><strong>{{teacher.name.firstName+" "+teacher.name.lastName}}</strong></h4>
+              <h5 class="indigo-text"><strong>{{"Joined at\n"+(teacher.joinedAt | date)}}</strong></h5>
+  
+              <p class="card-text">{{teacher.qualifications}}</p>
+  
+  
+              <!--Linkedin-->
+              <a class="icons-sm li-ic"><i class="fa fa-linkedin"> </i></a>
+              <!--Twitter-->
+              <a class="icons-sm tw-ic"><i class="fa fa-twitter"> </i></a>
+              <!--Dribbble-->
+              <a class="icons-sm fb-ic"><i class="fa fa-facebook"> </i></a>
+  
+          </div>
+          <!--/.Card content-->
+  
+      </div>
+      <!--/.Card-->
+  </div>
+    
+    
+    
+    
+    
+    
+    
+    <!-- <div class="card text-center">
       <div class="card-header">
         Name: <br>{{ teacher.name.firstName+" "+teacher.name.lastName}}
       </div>
@@ -18,8 +60,7 @@
         <button class="btn btn-success " (click)="Accept(teacher._id)">Verify</button>
       </div>
 
-    </div>
+    </div> -->
   </div>
 </div>
-<br>
 
