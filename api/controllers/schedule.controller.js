@@ -328,6 +328,32 @@ module.exports.updateChildSchedule = function (req, res, next) {
             data: null
         });
     }
+    var valid =
+        req.body.title &&
+        Validations.isString(req.body.title) &&
+        req.body.description &&
+        Validations.isString(req.body.description) &&
+        req.body.url &&
+        Validations.isString(req.body.url) &&
+        req.body.day &&
+        Validations.isString(req.body.day) ;
+    if (!valid) {
+        // console.log(req.body);
+        return res.status(422).json({
+            err: null,
+            msg:
+                'title , description , url , and day  are required fields.',
+            data: null
+        });
+    }
+        var day = req.body.day;
+        if (day != 'saturday' && day != 'sunday' && day != 'monday' && day != 'tuesday' &&
+            day != 'wednesday' && day != 'thursday' && day != 'friday') {
+            return res
+                .status(422)
+                .json({err: null, msg: 'not a valid day name', data: null});
+
+    }
     child.findById(req.params.ChildId).exec(function (err, user) {
         if (err) {
             return next(err);
@@ -344,14 +370,7 @@ module.exports.updateChildSchedule = function (req, res, next) {
                 .json({err: null, msg: 'you are not authorized to edit the schedule', data: null});
 
         }
-        var day = req.body.day;
-        if (day != 'saturday' && day != 'sunday' && day != 'monday' && day != 'tuesday' &&
-            day != 'wednesday' && day != 'thursday' && day != 'friday') {
-            return res
-                .status(401)
-                .json({err: null, msg: 'Unauthorized Action.', data: null});
 
-        }
         //not sure why day has different color
         var slotsInweek;
         if (req.body.day == 'saturday') {

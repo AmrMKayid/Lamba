@@ -48,7 +48,7 @@ export class ChildComponent implements OnInit {
     this.currentUserID = this.currentUser._id;
 //  this.httpClient.get('http://localhost:3000/api/user/getUserInfo/'+this.currentUserID,
     this.getChildSchedule();
-
+    this.getTasks();
   }
 
   onUploadFinished(event) {
@@ -119,6 +119,23 @@ export class ChildComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+
+
+  viewTask(taskId) {
+    console.log(taskId);
+    this.router.navigate(['schedule/viewtask/', taskId]);
+  }
+
+tasks = [];
+  getTasks() {
+    this.http.get(appConfig.apiUrl + '/task/getTasks/', this.httpOptions)
+      .subscribe((res: any) => {
+        this.tasks = res.data;
+        console.log(res.data);
+
+      });
   }
 
 
