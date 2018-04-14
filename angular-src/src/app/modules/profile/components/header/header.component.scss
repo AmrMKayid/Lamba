@@ -2,7 +2,7 @@ $topnav-background-color: #222;
 :host {
   .navbar {
     background-color: $topnav-background-color;
-    height: 8%;
+    height: 7.5%;
     .navbar-brand {
       color: #fff;
     }
@@ -41,3 +41,12 @@ $topnav-background-color: #222;
 .ddropdown-menu-rightn {
   position: relative;
 }
+.avatar {
+  height: 40px;
+}
+
+.avatar img {
+  height: 40px;
+}
+
+

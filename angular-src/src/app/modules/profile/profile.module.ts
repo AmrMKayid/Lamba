@@ -26,6 +26,7 @@ import {DashboardComponent} from './admin/dashboard/dashboard.component'
 import {StatModule} from './admin/stat/stat.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {
   TimelineComponent,
@@ -77,6 +78,7 @@ const appRoutes: Routes = [
     NgbModule.forRoot(),
     TranslateModule.forChild(),
     MDBBootstrapModule.forRoot(),
+    NgbDropdownModule.forRoot(),
     StatModule
   ],
   declarations: [
@@ -92,7 +94,6 @@ const appRoutes: Routes = [
     ViewTeacherComponent,
     ViewChildComponent,
     SidebarComponent,
-    HeaderComponent,
     DashboardComponent,
     TimelineComponent,
     NotificationComponent,
