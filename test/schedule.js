@@ -15,7 +15,7 @@ chai.use(chaiHttp);
 
 
 describe("schedule ", () => {
-    let  teacher , parent , child , task , com , teacherToken, parentToken , childToken , teacherId , childId , parentId , taskId ;
+    let  teacher , parent , child , task , com , teacherToken, parentToken , childToken , teacherId , childId , parentId , taskId , slotId;
     before((done) => {
         mongoose.connect('mongodb://localhost:27017/lambatest', () => {
             console.log('Connected to lambatest');
@@ -137,6 +137,7 @@ describe("schedule ", () => {
                 expect(res.body.data).to.have.property('wednesday');
                 expect(res.body.data).to.have.property('thursday');
                 expect(res.body.data).to.have.property('friday');
+                slotId = res.body.data.saturday[0]._id;
                 done();
             });
         });
@@ -217,6 +218,25 @@ describe("schedule ", () => {
             });
         });
 
+    });
+
+
+    describe("update child schedule", () => {
+        it("it should make a parent update his child schedule", (done) => {
+            let body = {
+                title : "math",
+                description : "study math for 2 hours",
+                url : "session id",
+                day : "saturday"
+            }
+            chai.request("http://localhost:3000/api").patch("/schedule/updateChildSchedule/"+slotId+"/"+childId).send(body).set("authorization",parentToken).end((err,res)=>{
+                expect(res).to.have.status(200);
+                expect(res.body.data.slot.title).to.be.equal("math");
+                expect(res.body.data.slot.description).to.be.equal("study math for 2 hours");
+                expect(res.body.data.slot.url).to.be.equal("session id");
+                done();
+            });
+        });
     });
 
    /* describe("create a task", () => {
