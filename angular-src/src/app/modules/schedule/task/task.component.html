@@ -39,7 +39,7 @@
 
         <!-- Single Comment -->
         <div class="media mb-4" *ngFor="let comment of taskComments">
-          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+          <img class="d-flex mr-3 rounded-circle" width="60" src="http://localhost:3000/api/uploads/store/{{this.auth.getCurrentUser().photo}}" alt="">
           <div class="media-body">
             <h5 class="mt-0">{{comment.name}}</h5>
             <p>{{comment.comment}}</p>

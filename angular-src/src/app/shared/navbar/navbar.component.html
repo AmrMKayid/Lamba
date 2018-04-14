@@ -76,7 +76,7 @@
         <a dropdownToggle mdbRippleRadius type="button" class="nav-link dropdown-toggle waves-light pt-0"
            mdbRippleRadius>
           <!--<img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" class="img-fluid rounded-circle z-depth-0">-->
-          <img *ngIf="currentUser.photo" src="http://localhost:3000/api/uploads/store/{{currentUser.photo}}" class="img-fluid rounded-circle z-depth-0">
+          <img *ngIf="currentUser.photo" src="http://localhost:3000/api/uploads/store/{{this.auth.getCurrentUser().photo}}" class="img-fluid rounded-circle z-depth-0">
           <img *ngIf="!currentUser.photo" src="assets/user.png" class="img-fluid rounded-circle z-depth-0">
           <span class="caret"></span>
         </a>
