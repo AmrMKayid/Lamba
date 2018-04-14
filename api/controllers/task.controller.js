@@ -166,7 +166,7 @@ module.exports.createNewComment = function(req, res, next) {
 
           });
 
-        } else if (user.role === 'Teacher' && task.teacherID !== req.decodedToken.user._id) {
+        } else if (user.role === 'Teacher' && task.userId !== req.decodedToken.user._id) {
           return res
             .status(401)
             .json({
@@ -291,7 +291,7 @@ module.exports.getComments = function(req, res, next) {
 
           });
 
-        } else if (user.role === 'Teacher' && task.teacherID !== req.decodedToken.user._id) {
+        } else if (user.role === 'Teacher' && task.userId !== req.decodedToken.user._id) {
           return res
             .status(401)
             .json({
@@ -434,18 +434,116 @@ module.exports.getChildTasks = function(req, res, next) {
 };
 
 module.exports.getTask = function(req, res, next) {
+
+    if (!Validations.isObjectId(req.params.taskId)) {
+        return res.status(422).json({
+            err: null,
+            msg: 'taskId parameter must be a valid ObjectId.',
+            data: null
+        });
+    };
+
+    Task.findById(req.params.taskId).exec(function(err, task) {
+        if (err) {
+            return next(err);
+        }
+        if (!task) {
+            return res
+                .status(404)
+                .json({
+                    err: null,
+                    msg: 'Task not found.',
+                    data: null
+                });
+        }
+
+        User.findById(req.decodedToken.user._id).exec(function(err, user) {
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                Child.findById(req.decodedToken.user._id).exec(function(err, child) {
+                    if (err) {
+                        return next(err);
+                    }
+                    if (!child) {
+                        return res
+                            .status(404)
+                            .json({
+                                err: null,
+                                msg: 'Child not found.',
+                                data: null
+                            });
+                    }
+                    if (task.studentId !== req.decodedToken.user._id) {
+                        return res
+                            .status(401)
+                            .json({
+                                err: null,
+                                msg: 'Unauthorized action.',
+                                data: null
+                            });
+                    }
+                });
+            } else {
+                if (user.role === 'Parent') {
+
+                    Child.findById(task.studentId).exec(function(err, child2) {
+                        if (err) {
+                            return next(err);
+                        }
+                        if (!child2) {
+                            return res
+                                .status(401)
+                                .json({
+                                    err: null,
+                                    msg: 'The child of the task not found.',
+                                    data: null
+                                });
+                        }
+
+                        if (child2.parent_id !== req.decodedToken.user._id) {
+                            return res
+                                .status(401)
+                                .json({
+                                    err: null,
+                                    msg: 'Unauthorized action.',
+                                    data: null
+                                });
+                        }
+
+
+                    });
+
+                } else if (user.role === 'Teacher' && task.userId !== req.decodedToken.user._id) {
+                    return res
+                        .status(401)
+                        .json({
+                            err: null,
+                            msg: 'This child is not in your list of students.',
+                            data: null
+                        });
+                }
+
+            }
+        });
+
+
+
+
+
   Task.findById(req.params.taskId).exec(function(err, task) {
     if (err) {
       return next(err);
     }
     res.status(200).json({
       err: null,
-      msg: 'Requests recieved successfully.',
+      msg: 'Requests received successfully.',
       data: task
     });
   });
+});
 };
-
 module.exports.getTeacher = function(req, res, next) {
   let id = req.params.TeacherId;
   User.findById(id).exec(function(err, user) {
