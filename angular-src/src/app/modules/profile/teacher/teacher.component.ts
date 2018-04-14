@@ -4,7 +4,7 @@ import {Http, Headers} from '@angular/http';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons,NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {appConfig} from "../../../app.config";
 
 
@@ -79,6 +79,7 @@ export class TeacherComponent implements OnInit {
     this.http.patch(appConfig.apiUrl + '/user/updateImage/' + this.currentUser._id, {photo: response.filename})
       .subscribe((res: any) => {
         localStorage.setItem('authentication', res.data);
+        this.modalref.close();
         new Noty({
           type: 'success',
           text: "Your Image uploaded successfully!",
@@ -208,16 +209,23 @@ export class TeacherComponent implements OnInit {
         console.log(this.fri[index]);
       }
     });
+
+    this.modalref.close();
+
   }
 
 
-  open(content) {
-    this.modalService.open(content).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
+  modalref:NgbModalRef;
+
+    open(content) {
+      this.modalref = this.modalService.open(content)
+
+      this.modalref.result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+    }
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

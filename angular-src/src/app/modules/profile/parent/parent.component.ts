@@ -4,7 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {appConfig} from "../../../app.config";
 import {AuthService} from "../../../services/auth.service";
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons ,NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Component({
@@ -55,6 +55,7 @@ export class ParentComponent implements OnInit {
     this.http.patch(appConfig.apiUrl + '/user/updateImage/' + this.currentUser._id, {photo: response.filename})
       .subscribe((res: any) => {
         localStorage.setItem('authentication', res.data);
+        this.modalref.close();
         new Noty({
           type: 'success',
           text: "Your Image uploaded successfully!",
@@ -97,6 +98,7 @@ export class ParentComponent implements OnInit {
     this.http.post(appConfig.apiUrl + '/auth/child', newChild, this.httpOptions).subscribe(
       (res: any) => {
         this.myChildren = this.myChildren.concat(res.data);
+        this.modalref.close();
 
         new Noty({
           type: 'success',
@@ -116,8 +118,12 @@ export class ParentComponent implements OnInit {
 
   }
 
+modalref:NgbModalRef;
+
   open(content) {
-    this.modalService.open(content).result.then((result) => {
+    this.modalref = this.modalService.open(content)
+
+    this.modalref.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -158,6 +164,7 @@ export class ParentComponent implements OnInit {
           timeout: 3000,
           progressBar: true
         }).show();
+        this.modalref.close();
       },
       error => {
         new Noty({
