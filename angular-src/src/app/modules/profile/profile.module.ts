@@ -7,6 +7,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {Http, Headers, HttpModule} from '@angular/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ImageUploadModule} from "angular2-image-upload";
 
 import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {HeaderComponent} from './components/header/header.component';
@@ -73,6 +74,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule, HttpClientModule,
     ReactiveFormsModule, Ng2SearchPipeModule, Ng2OrderModule, NgxPaginationModule,
+    ImageUploadModule.forRoot(),
     RouterModule.forChild(appRoutes),
     NgbModule.forRoot(),
     TranslateModule.forChild(),

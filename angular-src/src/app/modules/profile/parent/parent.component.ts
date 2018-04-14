@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-import { appConfig } from "../../../app.config";
-import { AuthService } from "../../../services/auth.service";
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {appConfig} from "../../../app.config";
+import {AuthService} from "../../../services/auth.service";
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Component({
   selector: 'app-parent',
@@ -15,6 +15,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ParentComponent implements OnInit {
 
   currentUser;
+  token = localStorage.getItem('authentication');
   myChildren = [];
 
   newChildBtn: boolean;
@@ -28,9 +29,9 @@ export class ParentComponent implements OnInit {
 
 
   constructor(private router: Router,
-    private http: HttpClient,
-    private auth: AuthService,
-    private modalService: NgbModal) {
+              private http: HttpClient,
+              private auth: AuthService,
+              private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -39,7 +40,28 @@ export class ParentComponent implements OnInit {
     this.getMyChildren(this.currentUser._id);
     this.newChildBtn = false;
     this.getTasks();
+  }
 
+  onUploadFinished(event) {
+
+    var response = JSON.parse(event.serverResponse._body);
+    var status = event.serverResponse.status;
+
+    if (status != 200) {
+      console.log(status);
+      return;
+    }
+    this.currentUser.photo = response.filename;
+    this.http.patch(appConfig.apiUrl + '/user/updateImage/' + this.currentUser._id, {photo: response.filename})
+      .subscribe((res: any) => {
+        localStorage.setItem('authentication', res.data);
+        new Noty({
+          type: 'success',
+          text: "Your Image uploaded successfully!",
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      });
   }
 
   getMyChildren(parentID) {
@@ -126,7 +148,7 @@ export class ParentComponent implements OnInit {
     };
 
 
-    this.http.post('http://localhost:3000/api/task/newTask', taskdata,this.httpOptions).subscribe(
+    this.http.post('http://localhost:3000/api/task/newTask', taskdata, this.httpOptions).subscribe(
       (res: any) => {
         this.tasks = this.tasks.concat(res.data);
 
@@ -150,14 +172,13 @@ export class ParentComponent implements OnInit {
 
 
   getTasks() {
-    this.http.get(appConfig.apiUrl + '/task/getTasks/' , this.httpOptions)
+    this.http.get(appConfig.apiUrl + '/task/getTasks/', this.httpOptions)
       .subscribe((res: any) => {
         this.tasks = res.data;
-        console.log(res.data);
+        // console.log(res.data);
       });
 
-}
-
+  }
 
 
 }

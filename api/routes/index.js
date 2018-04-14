@@ -20,6 +20,7 @@ router.post('/auth/admin', mw.isAuthenticated, authCtrl.addAdmin);
 //-----------------------------------User Routes-------------------------------------//
 router.get('/user/getAllUsers', userCtrl.getAllUsers);
 router.get('/user/getUserChildren/:userID', userCtrl.getUserChildren);
+router.patch('/user/updateImage/:userID', userCtrl.updateImage);
 
 router.get('/admin/teachers_verfication', userCtrl.getPendingTeachers);
 router.get('/admin/accept_teacher/:teacherID', userCtrl.acceptTeacher);

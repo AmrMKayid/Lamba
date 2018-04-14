@@ -13,7 +13,35 @@
   <!--Card content-->
   <div class="card-body text-center">
     <div class="avatar">
-      <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg" class="rounded-circle">
+      <a (click)="open(img)">
+        <img *ngIf="currentUser.photo" src="http://localhost:3000/api/uploads/store/{{currentUser.photo}}" class="rounded-circle">
+        <img *ngIf="!currentUser.photo" src="assets/user.png" class="rounded-circle">
+      </a>
+      <ng-template #img let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title">Your Image</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <image-upload
+                  [headers]="{authorization: token}"
+                  [max]="1"
+                  [url]="'http://127.0.0.1:3000/api/store/upload'"
+                  [dropBoxMessage]="'Drop your image here!'"
+                  [buttonCaption]="'Upload'"
+                  [style]="customStyle"
+                  (uploadFinished)="onUploadFinished($event)">
+                </image-upload>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
     </div>
 
     <!--Title-->
