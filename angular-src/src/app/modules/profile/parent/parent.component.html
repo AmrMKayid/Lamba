@@ -157,7 +157,7 @@
                 <div class="col-lg-3 col-md-4 col-sm-6 myCard" *ngFor="let child of myChildren">
                   <div class="card">
                     <img class="card-img-top rounded-circle mt-2"
-                         src="https://www.lacartedescolocs.fr/assets/fallbacks/profile_woman_medium_fallback-a7f0361efd57b6d193bef198dacdaaf2a0ac1aa17f23cd9613540c05f2c6bac6.png">
+                         src="http://localhost:3000/api/uploads/store/{{child.photo}}">
                     <div class="card-block">
                       <h4 class="card-title mt-3 grey-text">{{ child.name.firstName }} {{ child.name.lastName }}</h4>
                     </div>
