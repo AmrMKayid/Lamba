@@ -15,7 +15,7 @@ chai.use(chaiHttp);
 
 
 describe("schedule ", () => {
-    let  teacher , parent , child , task , com , teacherToken, parentToken , childToken , teacherId , childId , parentId , taskId ;
+    let  teacher , parent , child , task , com , teacherToken, parentToken , childToken , teacherId , childId , parentId , taskId , slotId;
     before((done) => {
         mongoose.connect('mongodb://localhost:27017/lambatest', () => {
             console.log('Connected to lambatest');
@@ -137,6 +137,7 @@ describe("schedule ", () => {
                 expect(res.body.data).to.have.property('wednesday');
                 expect(res.body.data).to.have.property('thursday');
                 expect(res.body.data).to.have.property('friday');
+                slotId = res.body.data.saturday[0]._id;
                 done();
             });
         });
@@ -216,6 +217,104 @@ describe("schedule ", () => {
                 done();
             });
         });
+
+    });
+
+
+    describe("update child schedule", () => {
+        it("it should make a parent update a slot in his child schedule", (done) => {
+            let body = {
+                title : "math",
+                description : "study math for 2 hours",
+                url : "session id",
+                day : "saturday"
+            };
+            chai.request("http://localhost:3000/api").patch("/schedule/updateChildSchedule/"+slotId+"/"+childId).send(body).set("authorization",parentToken).end((err,res)=>{
+                expect(res).to.have.status(200);
+                expect(res.body.data.slot.title).to.be.equal("math");
+                expect(res.body.data.slot.description).to.be.equal("study math for 2 hours");
+                expect(res.body.data.slot.url).to.be.equal("session id");
+                done();
+            });
+        });
+
+
+        it("it should return invalid input for puting a wrong day name", (done) => {
+            let body = {
+                title : "math",
+                description : "study math for 2 hours",
+                url : "session id",
+                day : "wrong name"
+            };
+            chai.request("http://localhost:3000/api").patch("/schedule/updateChildSchedule/"+slotId+"/"+childId).send(body).set("authorization",parentToken).end((err,res)=>{
+                expect(res).to.have.status(422);
+                done();
+            });
+        });
+
+        it("it should return invalid input for not puting a string", (done) => {
+            let body = {
+                title : child,
+                description : "study math for 2 hours",
+                url : "session id",
+                day : "saturday"
+            };
+            chai.request("http://localhost:3000/api").patch("/schedule/updateChildSchedule/"+slotId+"/"+childId).send(body).set("authorization",parentToken).end((err,res)=>{
+                expect(res).to.have.status(422);
+                done();
+            });
+        });
+        it("it should return invalid input for not puting a valid object id", (done) => {
+            let body = {
+                title : "math",
+                description : "study math for 2 hours",
+                url : "session id",
+                day : "saturday"
+            };
+            chai.request("http://localhost:3000/api").patch("/schedule/updateChildSchedule/"+slotId+"/"+"asdasdkl").send(body).set("authorization",parentToken).end((err,res)=>{
+                expect(res).to.have.status(422);
+                done();
+            });
+        });
+
+        it("it should return unathorized for not being the child parent", (done) => {
+            let body = {
+                title : "math",
+                description : "study math for 2 hours",
+                url : "session id",
+                day : "saturday"
+            };
+            chai.request("http://localhost:3000/api").patch("/schedule/updateChildSchedule/"+slotId+"/"+childId).send(body).set("authorization",teacherToken).end((err,res)=>{
+                expect(res).to.have.status(401);
+                done();
+            });
+        });
+        it("it should return not found for not finding the child", (done) => {
+            let body = {
+                title : "math",
+                description : "study math for 2 hours",
+                url : "session id",
+                day : "saturday"
+            };
+            chai.request("http://localhost:3000/api").patch("/schedule/updateChildSchedule/"+slotId+"/"+slotId).send(body).set("authorization",parentToken).end((err,res)=>{
+                expect(res).to.have.status(404);
+                done();
+            });
+        });
+
+        it("it should return not found for not finding the slot", (done) => {
+            let body = {
+                title : "math",
+                description : "study math for 2 hours",
+                url : "session id",
+                day : "saturday"
+            };
+            chai.request("http://localhost:3000/api").patch("/schedule/updateChildSchedule/"+childId+"/"+childId).send(body).set("authorization",parentToken).end((err,res)=>{
+                expect(res).to.have.status(404);
+                done();
+            });
+        });
+
 
     });
 
