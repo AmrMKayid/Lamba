@@ -4,7 +4,7 @@ import {Http, Headers} from '@angular/http';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
-import {NgbModal, ModalDismissReasons,NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {appConfig} from "../../../app.config";
 
 
@@ -83,6 +83,13 @@ export class TeacherComponent implements OnInit {
         new Noty({
           type: 'success',
           text: "Your Image uploaded successfully!",
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      }, error => {
+        new Noty({
+          type: 'success',
+          text: error.msg,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -215,17 +222,17 @@ export class TeacherComponent implements OnInit {
   }
 
 
-  modalref:NgbModalRef;
+  modalref: NgbModalRef;
 
-    open(content) {
-      this.modalref = this.modalService.open(content)
+  open(content) {
+    this.modalref = this.modalService.open(content)
 
-      this.modalref.result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
-      }, (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      });
-    }
+    this.modalref.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

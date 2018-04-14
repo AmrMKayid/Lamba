@@ -62,6 +62,13 @@ export class ParentComponent implements OnInit {
           timeout: 3000,
           progressBar: true
         }).show();
+      }, error => {
+        new Noty({
+          type: 'success',
+          text: error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
       });
   }
 
