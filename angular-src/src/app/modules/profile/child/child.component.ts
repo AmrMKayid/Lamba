@@ -4,7 +4,7 @@ import {Http, Headers} from '@angular/http';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
-import {NgbModal, ModalDismissReasons,NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {appConfig} from "../../../app.config";
 
 @Component({
@@ -72,6 +72,13 @@ export class ChildComponent implements OnInit {
           timeout: 3000,
           progressBar: true
         }).show();
+      }, error => {
+        new Noty({
+          type: 'success',
+          text: error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
       });
   }
 
@@ -90,9 +97,9 @@ export class ChildComponent implements OnInit {
 
   }
 
-closeResult : string;
+  closeResult: string;
 
-modalref:NgbModalRef;
+  modalref: NgbModalRef;
 
   open(content) {
     this.modalref = this.modalService.open(content)

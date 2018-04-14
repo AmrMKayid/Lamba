@@ -145,29 +145,31 @@ module.exports.updateImage = function (req, res, next) {
             return next(err);
         }
         if (!updateUser) {
-            return res
-                .status(404)
-                .json({err: null, msg: 'User not found.', data: null});
+            Child.findByIdAndUpdate(
+                req.params.userID,
+                {
+                    $set: req.body
+                },
+                {new: true}
+            ).exec(function (err, updateChild) {
+                if (err) {
+                    return next(err);
+                }
+                if (!updateChild) {
+                    return res.status(404).json({
+                        err: null,
+                        msg: 'User not found.',
+                        data: null
+                    });
+                }
+                var token = jwt.sign({user: updateChild.toObject()}, req.app.get('secret'), {expiresIn: '12h'});
+                res.status(200).json({err: null, msg: 'Welcome', data: token});
+            });
         }
-
-        var token = jwt.sign(
-            {
-                // user.toObject transorms the document to a json object without the password as we can't leak sensitive info to the frontend
-                user: updateUser.toObject()
-            },
-            req.app.get('secret'),
-            {
-                expiresIn: '12h'
-            }
-        );
-        // Send the JWT to the frontend
-
-        res.status(200).json({err: null, msg: 'Welcome', data: token});
-        // res.status(200).json({
-        //     err: null,
-        //     msg: 'User was updated successfully.',
-        //     data: updateUser
-        // });
+        else {
+            var token = jwt.sign({user: updateUser.toObject()}, req.app.get('secret'), {expiresIn: '12h'});
+            res.status(200).json({err: null, msg: 'Welcome', data: token});
+        }
     });
 };
 
@@ -363,7 +365,6 @@ module.exports.updateUser = function (req, res, next) {
       });
     }*/
 
-    //console.log("HIIIIIII");
     User.findByIdAndUpdate(
         req.params.userId,
         {
@@ -377,7 +378,6 @@ module.exports.updateUser = function (req, res, next) {
             return next(err);
         }
         if (!updateUser) {
-            //  console.log("HIIIIIII222");
             return res
                 .status(404)
                 .json({err: null, msg: 'User not found.', data: null});
