@@ -27,7 +27,7 @@
           </tag-input>
         </div>
         <br>
-        <quill-editor [modules]="toolbarOptions" [placeholder]="'Enter post content here...'" name="editorContent"
+        <quill-editor (onEditorCreated)="editorCreated($event)" [modules]="toolbarOptions" [placeholder]="'Enter post content here...'" name="editorContent"
                       id="detailEditTxt"
                       [(ngModel)]="editorContent">
         </quill-editor>
