@@ -101,7 +101,7 @@ module.exports.getChildByID = function (req, res, next) {
         }
         if (req.decodedToken.user.role === 'Parent') {
 
-            if (user.parent_id != req.decodedToken.user._id) {
+            if (child.parent_id != req.decodedToken.user._id) {
 
                 return res
                     .status(401)

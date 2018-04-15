@@ -45,10 +45,12 @@ export class ViewChildComponent implements OnInit {
   ngOnInit() {
     this.childId = this.route.snapshot.params.id;
     this.getChildById();
+    console.log(this.child);
   }
   getChildById(){
     this.httpClient.get('http://localhost:3000/api/user/getChild/' + this.childId , this.httpOptions).subscribe((res: any) => {
       this.child= res.data;
+
 
     }
       , error => {
