@@ -377,6 +377,14 @@ module.exports.getTasks = function(req, res, next) {
           studentId: { //might need changing depending on saleh's schema
             $eq: req.decodedToken.user._id
           }
+        }).populate({
+          path: 'userId',
+          select: 'name _id',
+          model: User
+        }).populate({
+          path: 'studentId',
+          select: 'name _id',
+          model: Child
         }).exec(function(err, tasks) {
           if (err) {
             return next(err);
@@ -395,13 +403,21 @@ module.exports.getTasks = function(req, res, next) {
         userId: { //might need changing depending on saleh's schema
           $eq: req.decodedToken.user._id
         }
+      }).populate({
+        path: 'userId',
+        select: 'name _id',
+        model: User
+      }).populate({
+        path: 'studentId',
+        select: 'name _id',
+        model: Child
       }).exec(function(err, tasks) {
         if (err) {
           return next(err);
         }
         return res.status(200).json({
           err: null,
-          msg: 'Requests received successfully.',
+          msg: 'Requests received successfully.!',
           data: tasks
 
         });
