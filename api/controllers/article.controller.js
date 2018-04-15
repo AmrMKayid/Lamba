@@ -8,8 +8,8 @@ var mongoose = require('mongoose'),
     /////////HERE//////////
     path = require('path'),
     fs = require('fs');
-    /////////HERE//////////
-    Article = mongoose.model('Article');
+/////////HERE//////////
+Article = mongoose.model('Article');
 
 
 const { JSDOM } = jsdom;
@@ -578,17 +578,15 @@ module.exports.uploadArticleThumbnail = function (req, res, next) {
             data: null
         });
     }
-        console.log(req.file.path);
-        return res.status(200).json({
-            err: null,
-            msg: "Image uploaded successfully",
-            filename: req.file.filename
-        });
+    return res.status(200).json({
+        err: null,
+        msg: "Image uploaded successfully",
+        filename: req.file.filename
+    });
+};
+module.exports.getImage = function (req, res, next) {
+    return res.status(200).sendFile(path.resolve('api/uploads/' + req.params.filename));
 
-    };
-    module.exports.getImage = function (req, res, next) {
-        return res.status(200).sendFile(path.resolve('api/uploads/' + req.params.filename));
+}
 
-    }
-
-    // Use the mv() method to place the file somewhere on your serve
+// Use the mv() method to place the file somewhere on your serve

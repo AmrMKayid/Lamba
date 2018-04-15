@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpHeaders, HttpClient} from '@angular/common/http';
-import {ArticlesService} from '../articles.service';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { ArticlesService } from '../articles.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-articles',
@@ -16,8 +16,8 @@ export class ViewArticlesComponent implements OnInit {
   selectedTags: any[];
   filterTagsIDs: string[] = [];
   keyword: string;
-  urls:[string];
 
+  IMG_URL = 'http://127.0.0.1:3000/api/uploads/articlesThumbnails/';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -26,8 +26,8 @@ export class ViewArticlesComponent implements OnInit {
   };
 
   constructor(private http: HttpClient,
-              private articlesService: ArticlesService,
-              private router: Router) {
+    private articlesService: ArticlesService,
+    private router: Router) {
   }
 
   ngOnInit() {
@@ -35,18 +35,9 @@ export class ViewArticlesComponent implements OnInit {
     this.articlesInitialized = false;
     this.tagsInitialized = false;
     this.allTags = [];
-    this.urls = [];
     this.articlesService.loadAllArticles().subscribe(
       (res: any) => {
         this.articles = res.data.reverse();
-        for(let i=0;i<this.articles.length;i++){
-          if(!this.articles[i].thumbnail_url){
-              this.urls[i] = "https://i2.wp.com/penpaperpencil.net/wp-content/uploads/2016/01/Drawing-pencils-guide.jpg?fit=900%2C490";
-          }
-          else{
-            this.urls[i] = "http://127.0.0.1:3000/api/uploads/articlesThumbnails/"+this.articles[i].thumbnail_url;
-        }
-        console.log(this.articles);
         this.articlesInitialized = true;
       }, err => {
         this.router.navigate(['/']);
@@ -61,7 +52,7 @@ export class ViewArticlesComponent implements OnInit {
     this.articlesService.getAllTags().subscribe(
       (res: any) => {
         res.data.forEach(element => {
-          this.allTags.push({value: element.name, id: element._id})
+          this.allTags.push({ value: element.name, id: element._id })
         });
         this.tagsInitialized = true;
       }, err => {
@@ -96,6 +87,6 @@ export class ViewArticlesComponent implements OnInit {
     this.filterTagsIDs = [];
     this.filterTagsIDs.push(tag);
     this.selectedTags = [];
-    this.selectedTags.push({value: tag, id: tag, display: this.getTagByID(this.allTags, tag)});
+    this.selectedTags.push({ value: tag, id: tag, display: this.getTagByID(this.allTags, tag) });
   }
 }

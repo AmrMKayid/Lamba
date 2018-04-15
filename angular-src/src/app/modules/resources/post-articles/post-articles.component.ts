@@ -105,7 +105,7 @@ export class PostArticlesComponent implements OnInit {
       title: this.title,
       content: this.editorContent,
       tags: (this.selectedTags.map(tag => tag.id)),
-      thumbnail_url: this.picture_url;
+      thumbnail_url: this.picture_url
     };
 
     this.http.post('http://localhost:3000/api/articles', article, this.httpOptions)
