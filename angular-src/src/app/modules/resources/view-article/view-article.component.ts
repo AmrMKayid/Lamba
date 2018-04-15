@@ -201,4 +201,5 @@ export class ViewArticleComponent implements OnInit {
     this.editPressed = true;
     this.router.navigate(['/resources/edit/' + this.article._id]);
   }
+
 }
