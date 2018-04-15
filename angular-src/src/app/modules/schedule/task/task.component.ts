@@ -71,7 +71,7 @@ export class TaskComponent implements OnInit {
   createNewComment(comment) {
     var commentData = {
       comment: comment,
-      name: this.currentUser.name.firstName +" "+ this.currentUser.name.lastName,
+      role: this.currentUser.role,
       taskId: this.taskId
     };
     console.log(commentData);
