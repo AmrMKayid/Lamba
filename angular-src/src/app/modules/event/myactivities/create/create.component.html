@@ -1,0 +1,80 @@
+<toaster-container></toaster-container>
+
+<style>
+  #file {
+    padding-left: 2%;
+  }
+
+  h2 {
+    color: #5495ff;
+    font-weight: bold;
+    margin-left: 4%;
+  }
+</style>
+
+<div class="card card-cascade wider">
+  <div class="card-header text-center">
+    <h1 class="text-center">Add a new event</h1>
+  </div>
+  <div class="card-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-10 col-xs-10">
+          <input id="comment_field" class="form-control" type="text" placeholder="Activity title" name="title"
+                 autocomplete="off" [(ngModel)]="name">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-10 col-xs-10">
+          <input id="comment_field" class="form-control" type="text" placeholder="Place" name="place"
+                 autocomplete="off"  [(ngModel)]="place">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-10 col-xs-10">
+          <input id="comment_field" class="form-control" type="number" placeholder="Price" name="price"
+                 autocomplete="off" min="0" [(ngModel)]="price">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-10 col-xs-10">
+          <input id="comment_field" class="form-control" type="text" placeholder="Activity Type. e.g: education, art, sport"
+                 name="activity_type" autocomplete="off" [(ngModel)]="activity_type">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-10 col-xs-10">
+          <textarea id="comment_field" class="form-control" placeholder="Describe your activity" name="Description"
+                    autocomplete="off" rows="10" columns="30" [(ngModel)]="description"></textarea>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-10 col-xs-10">
+          <image-upload
+            [headers]="{authorization: token}"
+            [max]="1"
+            [url]="'http://127.0.0.1:3000/api/store/upload'"
+            [dropBoxMessage]="'Drop your image here!'"
+            [buttonCaption]="'Upload an Image'"
+            [style]="customStyle"
+            (uploadFinished)="onUploadFinished($event)"
+
+          >
+          </image-upload>
+
+        </div>
+      </div>
+      <br/>
+      <div class="row">
+        <div class="col-md-4 col-xs-4">
+          <div class="form-group">
+            <button (click)="onSubmit()" type="submit" class="btn btn-default" id="submit">Create New Activity</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

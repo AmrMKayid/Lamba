@@ -1,0 +1,55 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="page-list">
+
+  <ul class="pagination pagination-lg">
+    <li>
+      <a (click)="loadPage(1)">
+        << </a>
+    </li>
+    <li *ngFor="let p of pages">
+      <a (click)="loadPage(p)">{{p}}</a>
+    </li>
+    <li>
+      <a (click)="loadPage(-1)">
+        >>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<section>
+
+
+  <div class="main-container">
+
+
+    <div class="block">
+
+      <div class='activity' *ngFor='let activity of activities'>
+
+        <img src="http://127.0.0.1:3000/api/uploads/activity/{{activity['picture_url']}}" class="imgw100prec">
+
+        <div class="activityBody">
+
+          <h2 class="activityName"><b>{{activity['name']}}</b></h2>
+
+          <div class="activityGoingCount">{{activity['going_user_id'].length}} <span class="fa fa-heart"></span></div>
+          <div class="activityPrice">Price: {{activity['price']}} LE</div>
+          <article class="activityDesc">{{activity['description']}}</article>
+
+
+          <div class="activityInfo" (click)="viewInfo(activity['_id'])"><i class="fa fa-info"></i></div>
+          <div class="activityGoing"><i class="fa fa-heart" (click)="goingActivities(activity)"></i></div>
+
+        </div>
+
+      </div>
+
+      <div *ngIf='activitiesCount==0'>
+        <h1>There are currently no activities to be displayed</h1>
+      </div>
+
+    </div>
+  </div>
+</section>
