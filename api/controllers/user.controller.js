@@ -119,7 +119,7 @@ module.exports.getChildByID = function (req, res, next) {
                         .status(404)
                         .json({err: null, msg: 'Teacher not found.', data: null});
                 }
-                if(!user.students.contains(req.params.childId)){
+                if(user.students.indexOf(req.params.childId) === -1){
                     return res
                         .status(401)
                         .json({err: null, msg: 'you are not authorized to view this child info', data: null});

@@ -20,8 +20,9 @@ export class ViewChildComponent implements OnInit {
     })
   };
   token = localStorage.getItem('authentication');
-  childId: string;
   closeResult: string;
+  isparent:boolean;
+  isteacher:boolean;
 
 
   public sat = [];
@@ -42,28 +43,19 @@ export class ViewChildComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.child);
+    this.isparent = (this.child.parent_id === this.auth.getCurrentUser()._id);
+    this.isteacher= (this.auth.getCurrentUser().students.indexOf(this.child._id) !== -1); // could be needed in tasks
+    if (this.isparent) {
+      this.getChildSchedule();
+    }
+
   }
 
-  // getChildById(){
-  //   this.httpClient.get('http://localhost:3000/api/user/getChild/' + this.childId , this.httpOptions).subscribe((res: any) => {
-  //      this.child= res.data;
-  //
-  //
-  //   }
-  //     , error => {
-  //       new Noty({
-  //         type: 'error',
-  //         text: error.msg,
-  //         timeout: 3000,
-  //         progressBar: true
-  //       }).show();
-  //     });
-  // }
+
 
   getChildSchedule() {
 
-    this.httpClient.get('http://localhost:3000/api/schedule/getChildSchedule/' + this.childId, this.httpOptions).subscribe((res: any) => {
+    this.httpClient.get('http://localhost:3000/api/schedule/getChildSchedule/' + this.child._id, this.httpOptions).subscribe((res: any) => {
       this.sat = res.data.saturday;
       this.sun = res.data.sunday;
       this.mon = res.data.monday;
@@ -86,7 +78,7 @@ export class ViewChildComponent implements OnInit {
     console.log(body);
     console.log(Slot._id);
 
-    this.httpClient.patch('http://localhost:3000/api/schedule/updateChildSchedule/' + Slot._id+'/'+this.childId , body, this.httpOptions).subscribe((res: any) => {
+    this.httpClient.patch('http://localhost:3000/api/schedule/updateChildSchedule/' + Slot._id+'/'+ this.child._id , body, this.httpOptions).subscribe((res: any) => {
       if (thisday == 'saturday') {
         var index = this.sat.indexOf(Slot);
         this.sat[index] = res.data;
