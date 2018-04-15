@@ -43,275 +43,38 @@
                           <ng-template ngbTabContent>
                             <div class="row mt-3">
                               <div class="col-12">
-
                                 <!--Table-->
                                 <table class="table border-primary table-hover">
-
                                   <!--Table body-->
                                   <tbody>
-
-                                  <tr>
+                                  <tr *ngFor="let Slot of sat ; let i = index">
                                     <th class="table-nawwar">
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <h3>Slot 1</h3>
+                                          <h3>Slot {{i+1}}</h3>
                                         </div>
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <p>00:00AM</p>
+                                          <p>{{7+((i)*2)}}:00</p>
                                         </div>
                                       </div>
                                     </th>
                                     <td>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <h3>Title</h3></div>
+                                          <h3>{{ Slot.slot.title }}</h3>
+                                        </div>
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <p>Full Slot Description</p>
+                                          <p>{{ Slot.slot.description }}</p>
                                         </div>
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
                                           <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-
-                                  <tr>
-
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 2</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 3</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 4</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 5</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 6</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 7</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 8</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
                                         </div>
                                       </div>
                                     </td>
@@ -328,275 +91,39 @@
                           <ng-template ngbTabContent>
                             <div class="row mt-3">
                               <div class="col-12">
-
                                 <!--Table-->
                                 <table class="table border-primary table-hover">
-
                                   <!--Table body-->
                                   <tbody>
+                                  <tr *ngFor="let Slot of sun ; let i = index">
+                                    <th class="table-nawwar">
+                                      <div class="row text-center">
+                                        <div class="col-12">
+                                          <h3>Slot {{i+1}}</h3>
+                                        </div>
+                                      </div>
+                                      <div class="row text-center">
+                                        <div class="col-12">
+                                          <p>{{7+((i)*2)}}:00</p>
+                                        </div>
+                                      </div>
+                                    </th>
+                                    <td>
+                                      <div class="row text-center">
+                                        <div class="col-12">
+                                          <h3>{{Slot.slot.title}}</h3>
+                                        </div>
+                                      </div>
+                                      <div class="row text-center">
+                                        <div class="col-12">
+                                          <p>{{Slot.slot.description}}</p>
+                                        </div>
+                                      </div>
+                                      <div class="row text-center">
+                                        <div class="col-12">
+                                          <a  placement="bottom" ngbTooltip="Go to URL"><i
+                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
 
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 1</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-
-                                  <tr>
-
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 2</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 3</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 4</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 5</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 6</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 7</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 8</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
                                         </div>
                                       </div>
                                     </td>
@@ -613,275 +140,38 @@
                           <ng-template ngbTabContent>
                             <div class="row mt-3">
                               <div class="col-12">
-
                                 <!--Table-->
                                 <table class="table border-primary table-hover">
-
                                   <!--Table body-->
                                   <tbody>
-
-                                  <tr>
+                                  <tr *ngFor="let Slot of mon ; let i = index">
                                     <th class="table-nawwar">
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <h3>Slot 1</h3>
+                                          <h3>Slot {{i+1}}</h3>
                                         </div>
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <p>00:00AM</p>
+                                          <p>{{7+((i)*2)}}:00</p>
                                         </div>
                                       </div>
                                     </th>
                                     <td>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
+                                          <h3>{{Slot.slot.title}}</h3>
                                         </div>
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
+                                          <p>{{Slot.slot.description}}</p>
+                                        </div>
+                                      </div>
+                                      <div class="row text-center">
+                                        <div class="col-12">
+                                          <a  placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-
-                                  <tr>
-
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 2</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 3</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 4</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 5</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 6</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 7</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 8</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
                                         </div>
                                       </div>
                                     </td>
@@ -898,275 +188,38 @@
                           <ng-template ngbTabContent>
                             <div class="row mt-3">
                               <div class="col-12">
-
                                 <!--Table-->
                                 <table class="table border-primary table-hover">
-
                                   <!--Table body-->
                                   <tbody>
-
-                                  <tr>
+                                  <tr *ngFor="let Slot of tues ; let i = index">
                                     <th class="table-nawwar">
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <h3>Slot 1</h3>
+                                          <h3>Slot {{i+1}}</h3>
                                         </div>
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <p>00:00AM</p>
+                                          <p>{{7+((i)*2)}}:00 </p>
                                         </div>
                                       </div>
                                     </th>
                                     <td>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
+                                          <h3>{{Slot.slot.title}}</h3>
                                         </div>
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
+                                          <p>{{Slot.slot.description}}</p>
+                                        </div>
+                                      </div>
+                                      <div class="row text-center">
+                                        <div class="col-12">
+                                          <a  placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-
-                                  <tr>
-
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 2</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 3</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 4</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 5</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 6</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 7</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 8</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
                                         </div>
                                       </div>
                                     </td>
@@ -1183,275 +236,38 @@
                           <ng-template ngbTabContent>
                             <div class="row mt-3">
                               <div class="col-12">
-
                                 <!--Table-->
                                 <table class="table border-primary table-hover">
-
                                   <!--Table body-->
                                   <tbody>
-
-                                  <tr>
+                                  <tr *ngFor="let Slot of wed ; let i = index">
                                     <th class="table-nawwar">
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <h3>Slot 1</h3>
+                                          <h3>Slot {{i+1}}</h3>
                                         </div>
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <p>00:00AM</p>
+                                          <p>{{7+((i)*2)}}:00</p>
                                         </div>
                                       </div>
                                     </th>
                                     <td>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
+                                          <h3>{{Slot.slot.title}}</h3>
                                         </div>
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
+                                          <p>{{Slot.slot.description}}</p>
+                                        </div>
+                                      </div>
+                                      <div class="row text-center">
+                                        <div class="col-12">
+                                          <a  placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-
-                                  <tr>
-
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 2</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 3</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 4</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 5</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 6</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 7</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 8</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
                                         </div>
                                       </div>
                                     </td>
@@ -1468,275 +284,38 @@
                           <ng-template ngbTabContent>
                             <div class="row mt-3">
                               <div class="col-12">
-
                                 <!--Table-->
                                 <table class="table border-primary table-hover">
-
                                   <!--Table body-->
                                   <tbody>
-
-                                  <tr>
+                                  <tr *ngFor="let Slot of thurs ; let i = index">
                                     <th class="table-nawwar">
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <h3>Slot 1</h3>
+                                          <h3>Slot {{i+1}}</h3>
                                         </div>
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <p>00:00AM</p>
+                                          <p>{{7+((i)*2)}}:00</p>
                                         </div>
                                       </div>
                                     </th>
                                     <td>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
+                                          <h3>{{Slot.slot.title}}</h3>
                                         </div>
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
+                                          <p>{{Slot.slot.description}}</p>
+                                        </div>
+                                      </div>
+                                      <div class="row text-center">
+                                        <div class="col-12">
+                                          <a  placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-
-                                  <tr>
-
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 2</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 3</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 4</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 5</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 6</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 7</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 8</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
                                         </div>
                                       </div>
                                     </td>
@@ -1753,275 +332,38 @@
                           <ng-template ngbTabContent>
                             <div class="row mt-3">
                               <div class="col-12">
-
                                 <!--Table-->
                                 <table class="table border-primary table-hover">
-
                                   <!--Table body-->
                                   <tbody>
-
-                                  <tr>
+                                  <tr *ngFor="let Slot of fri ; let i = index">
                                     <th class="table-nawwar">
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <h3>Slot 1</h3>
+                                          <h3>Slot {{i+1}}</h3>
                                         </div>
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <p>00:00AM</p>
+                                          <p>{{7+((i)*2)}}:00</p>
                                         </div>
                                       </div>
                                     </th>
                                     <td>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <h3>Title</h3></div>
+                                          <h3>{{Slot.slot.title}}</h3>
+                                        </div>
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <p>Full Slot Description</p>
+                                          <p>{{Slot.slot.description}}</p>
                                         </div>
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
                                           <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-
-                                  <tr>
-
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 2</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 3</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 4</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 5</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 6</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 7</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot 8</h3>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>00:00AM</p>
-                                        </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Title</h3></div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>Full Slot Description</p>
-                                        </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
-                                            class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="#" placement="bottom" ngbTooltip="Edit Slot"><i
-                                            class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
                                         </div>
                                       </div>
                                     </td>
