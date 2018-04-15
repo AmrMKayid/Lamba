@@ -26,8 +26,9 @@ router.get('/user/getUserChildren/:userID', userCtrl.getUserChildren);
 router.get('/admin/teachers_verfication', userCtrl.getPendingTeachers);
 router.get('/admin/accept_teacher/:teacherID', userCtrl.acceptTeacher);
 
-router.patch('/user/updateUser/:userId', userCtrl.updateUser);
-router.get('/user/getUserInfo/:userId', userCtrl.getUserInfo);
+router.patch('/user/updateUser/:userId',mw.isAuthenticated, userCtrl.updateUser);
+router.get('/user/getUserInfo/:userId', mw.isAuthenticated,userCtrl.getUserInfo);
+router.patch('/user/assignArticleToChild/:childID',mw.isAuthenticated,userCtrl.assignArticleToChild);
 //------------------------------Admin Routes---------------------------------//
 router.get('/user/viewUnverifiedArticles', mw.isAuthenticated, mw.isAdmin, userCtrl.viewUnverifiedArticles);
 router.get('/user/viewArticleToVerify/:articleId', mw.isAuthenticated, mw.isAdmin, userCtrl.viewArticleToVerify);
