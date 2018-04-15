@@ -9,6 +9,7 @@ var express = require('express'),
     userCtrl = require('../controllers/user.controller'),
     articleCtrl = require('../controllers/article.controller'),
     tagCtrl = require('../controllers/tag.controller'),
+    activityCtrl = require('../controllers/activity.controller'),
 
     mw = require('./middlewares');
 
@@ -44,6 +45,7 @@ router.post('/task/newComment', mw.isAuthenticated, taskCtrl.createNewComment);
 router.get('/task/getComments/:taskId', mw.isAuthenticated, taskCtrl.getComments);
 router.patch('/schedule/updateTeacherSchedule/:SlotId/', mw.isAuthenticated, scheduleCtrl.updateTeacherSchedule);
 router.patch('/schedule/updateChildSchedule/:SlotId/:ChildId', mw.isAuthenticated, scheduleCtrl.updateChildSchedule);
+
 /*-----------------------------Store Routes-------------------------------------*/
 router.post('/store/create', mw.isAuthenticated, storeCtrl.createItems);
 router.post('/store/upload', storeCtrl.uploadItemPhoto);
@@ -58,6 +60,7 @@ router.patch('/store/likeItems/:itemId', mw.isAuthenticated, storeCtrl.likeItems
 router.patch('/store/unlikeItems/:itemId', mw.isAuthenticated, storeCtrl.unlikeItems);
 router.get('/uploads/store/:filename', storeCtrl.getImage);
 router.get('/store/myitems/view/:itemId', mw.isAuthenticated, storeCtrl.getItem);
+
 //-----------------------------C1: Articles & TAGS Routes----------------------------------------------//
 router.get('/articles', mw.isAuthenticated, articleCtrl.getArticles);
 router.get('/articles/:id', mw.isAuthenticated, articleCtrl.getArticle);
@@ -70,6 +73,20 @@ router.post('/articles/comment', mw.isAuthenticated, articleCtrl.commentArticle)
 router.post('/articles/reply', mw.isAuthenticated, articleCtrl.replyComment);
 router.delete('/articles/:id', mw.isAuthenticated, articleCtrl.deleteArticle);
 router.patch('/articles/:id', mw.isAuthenticated, articleCtrl.editArticle);
+
+/*-----------------------------Activity Routes-------------------------------------*/
+router.post('/activity/create', mw.isAuthenticated, activityCtrl.createActivities);
+router.post('/activity/upload', activityCtrl.uploadActivityPhoto);
+router.get('/activity/getActivitiesById', activityCtrl.getActivitiesById);
+//mw.isAuthenticated ??
+router.get('/activity/countActivities', mw.isAuthenticated, activityCtrl.countActivities);
+router.get('/activity/view/:tuplesPerPage/:pageNumber', mw.isAuthenticated, activityCtrl.viewActivities);
+router.patch('/activity/edit/:activityId', activityCtrl.editActivities);
+router.delete('/activity/delete/:activityId', activityCtrl.deleteActivities);
+router.patch('/activity/goingActivities/:activityId', mw.isAuthenticated, activityCtrl.goingActivities);
+router.get('/uploads/activity/:filename', activityCtrl.getImage);
+router.get('/activity/myActivities/view/:activityId', mw.isAuthenticated, activityCtrl.getActivity);
+
 
 
 module.exports = router;
