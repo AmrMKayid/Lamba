@@ -13,7 +13,6 @@ import {ModalDismissReasons, NgbModal, NgbModalRef} from "@ng-bootstrap/ng-boots
 export class ViewChildComponent implements OnInit {
 
   @Input() child;
-  //isInitialized = false;
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -43,25 +42,24 @@ export class ViewChildComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.childId = this.route.snapshot.params.id;
-    this.getChildById();
     console.log(this.child);
   }
-  getChildById(){
-    this.httpClient.get('http://localhost:3000/api/user/getChild/' + this.childId , this.httpOptions).subscribe((res: any) => {
-      this.child= res.data;
 
-
-    }
-      , error => {
-        new Noty({
-          type: 'error',
-          text: error.msg,
-          timeout: 3000,
-          progressBar: true
-        }).show();
-      });
-  }
+  // getChildById(){
+  //   this.httpClient.get('http://localhost:3000/api/user/getChild/' + this.childId , this.httpOptions).subscribe((res: any) => {
+  //      this.child= res.data;
+  //
+  //
+  //   }
+  //     , error => {
+  //       new Noty({
+  //         type: 'error',
+  //         text: error.msg,
+  //         timeout: 3000,
+  //         progressBar: true
+  //       }).show();
+  //     });
+  // }
 
   getChildSchedule() {
 
