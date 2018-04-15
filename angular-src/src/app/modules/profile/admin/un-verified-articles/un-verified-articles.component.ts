@@ -34,7 +34,12 @@ export class UnVerifiedArticlesComponent implements OnInit {
         console.log(res.msg);
         console.log(res.data);
       }, err => {
-        console.log(err.error.msg);
+        new Noty({
+          type: 'error',
+          text: err.error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
       });
 
       this.articlesService.getAllTags().subscribe(
