@@ -83,16 +83,48 @@ module.exports.getUserByID = function (req, res, next) {
 };
 
 module.exports.getChildByID = function (req, res, next) {
-    if (!Validations.isObjectId(req.params.childID)) {
+    if (!Validations.isObjectId(req.params.childId)) {
         return res.status(422).json({
             err: null,
             msg: 'childID parameter must be a valid ObjectId.',
             data: null
         });
     }
-    Child.findById(req.params.childID).exec(function (err, child) {
+    Child.findById(req.params.childId).exec(function (err, child) {
         if (err) {
             return next(err);
+        }
+        if (!child){
+            return res
+                .status(404)
+                .json({err: null, msg: 'childr not found.', data: null});
+        }
+        if (req.decodedToken.user.role === 'Parent') {
+
+            if (user.parent_id != req.decodedToken.user._id) {
+
+                return res
+                    .status(401)
+                    .json({err: null, msg: 'you are not authorized to view this child info', data: null});
+
+            }
+        }
+        else{
+            User.findById(req.decodedToken.user._id).exec(function(err, user) {
+                if (err) {
+                    return next(err);
+                }
+                if(!user){
+                    return res
+                        .status(404)
+                        .json({err: null, msg: 'Teacher not found.', data: null});
+                }
+                if(!user.students.contains(req.params.childId)){
+                    return res
+                        .status(401)
+                        .json({err: null, msg: 'you are not authorized to view this child info', data: null});
+                }
+            });
         }
         res.status(200).json({
             err: null,
