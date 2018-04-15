@@ -1,7 +1,8 @@
 <div [@routerTransition]>
 
-
+    <em *ngIf="unVerifiedArticlesList.length ===0">No Articles to verify</em>
   <div class="row">
+      
     <div class="col-12" *ngFor="let article of unVerifiedArticlesList">
       <div class="card card-default">
         <div class="card-header" style="background-color:#ffc335;">
@@ -24,7 +25,7 @@
                     <strong>Tags: </strong>
                     <em *ngIf="article.tags.length ===0">No tags defined for this article</em>
                     <ng-container *ngFor="let tag of article.tags">
-                      <span class="badge badge-pill light-blue" style="cursor: pointer;">{{tag}}</span>
+                      <span class="badge badge-pill light-blue" style="cursor: pointer;">{{getTagByID(allTags, tag)}}</span>
                     </ng-container>
                   </p>
               </div>

@@ -7,7 +7,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {Http, Headers, HttpModule} from '@angular/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
+import {MatDialogModule} from "@angular/material";
 import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {HeaderComponent} from './components/header/header.component';
 import {ProfileComponent} from './profile.component';
@@ -27,14 +27,19 @@ import {StatModule} from './admin/stat/stat.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatFormFieldModule } from '@angular/material';
+import {ArticlesService} from '../resources/articles.service';
 
 import {
   TimelineComponent,
   NotificationComponent,
-  ChatComponent
+  ChatComponent,
+ 
 } from './admin/dashboard/components';
 import {MyProfileComponent} from './my-profile/my-profile.component';
-
+import { AddTagsComponent } from './admin/add-tags/add-tags.component';
+import {MatInputModule} from '@angular/material';
+import { DeleteTagsComponent } from './admin/delete-tags/delete-tags.component';
 const appRoutes: Routes = [
   {
     path: 'me',
@@ -79,7 +84,10 @@ const appRoutes: Routes = [
     TranslateModule.forChild(),
     MDBBootstrapModule.forRoot(),
     NgbDropdownModule.forRoot(),
-    StatModule
+    StatModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   declarations: [
     ProfileComponent,
@@ -98,12 +106,16 @@ const appRoutes: Routes = [
     TimelineComponent,
     NotificationComponent,
     ChatComponent,
-    MyProfileComponent
+    MyProfileComponent,
+    AddTagsComponent,
+    DeleteTagsComponent
   ],
   providers: [
-    HttpClient
+    HttpClient,
+    ArticlesService
   ],
-  bootstrap: [ProfileComponent, AdminComponent]
+  bootstrap: [ProfileComponent, AdminComponent],
+  entryComponents: [AddTagsComponent,DeleteTagsComponent]
 
 })
 export class ProfileModule {
