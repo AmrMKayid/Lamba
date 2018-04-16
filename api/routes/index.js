@@ -77,7 +77,7 @@ router.patch('/articles/:id', mw.isAuthenticated, articleCtrl.editArticle);
 /*-----------------------------Activity Routes-------------------------------------*/
 router.post('/activity/create', mw.isAuthenticated, activityCtrl.createActivities);
 router.post('/activity/upload', activityCtrl.uploadActivityPhoto);
-router.get('/activity/getActivitiesById', activityCtrl.getActivitiesById);
+router.get('/activity/myActivities/view', activityCtrl.getActivitiesById);
 //mw.isAuthenticated ??
 router.get('/activity/countActivities', mw.isAuthenticated, activityCtrl.countActivities);
 router.get('/activity/view/:tuplesPerPage/:pageNumber', mw.isAuthenticated, activityCtrl.viewActivities);

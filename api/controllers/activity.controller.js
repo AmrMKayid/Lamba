@@ -155,18 +155,10 @@ module.exports.getActivitiesById = function (req, res, next) {
     const authorization = req.headers.authorization;
     const secret = req.app.get('secret');
     decoded = jwt.verify(authorization, secret);
-    Activity.find({seller_id: decoded.user._id}).exec(function (err, Activities) {
+    Activity.find({host_id: decoded.user._id}).exec(function (err, Activities) {
         if (err) {
             console.log(err)
         }
-		if(!Activities.isVerified)
-		{
-			return res.status(404).json({
-				err: "Item Not Found",
-				msg: "The item you are looking for was not found",
-				data: null	
-			});
-		}
         return res.status(200).json({
             err: null,
             msg: 'finished successfully',
@@ -387,8 +379,7 @@ module.exports.viewUnverifiedActivities = function(req, res, next){
         return res.status(200).json({
             err: null,
             msg: 'Retrieved unverified activities',
-            data: Activity,
-            host: host
+            data: Activity
         });
 
 
