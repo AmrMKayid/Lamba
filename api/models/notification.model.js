@@ -14,7 +14,7 @@ const NotificationSchema = new Schema({
         required: true
     },
     recieving_user_id: {
-        type: Array,
+        type: Schema.Types.ObjectId,
         required: true
     },
     created_at: {
