@@ -306,7 +306,7 @@ const findArticleById = function (article_id, res, next) {
                     data: result
                 });
             });
-        }).populate('comments.commenter', 'name', 'User').populate('comments.replies.replier', 'name', 'User');
+        }).populate('comments.commenter', 'name photo').populate('comments.replies.replier', 'name photo');
 }
 
 
@@ -335,6 +335,7 @@ const comment = function (article, id, content, res, next) {
     let comment = {
         comment_content: content,
         commenter: id,
+        kind: role
     }
     article.comments.push(comment);
     article.save(function (err, updatedArticle) {
@@ -353,13 +354,6 @@ const reply = function (article, userID, comment_id, reply, res, next) {
         reply_content: reply,
         replier: userID
     }
-
-    // article.update(
-    //     { _id: article._id, "comments._id": comment_id},//, "comments._id":comment_id},
-    //     { $push: { "comments.replies": rep } }
-    // );
-    // article.update({'comments._id': comment_id}, {$push: {'comments.0.replies': rep}});
-    //article.comments.replies.push(rep);
     Article.updateOne(
         { "_id": article._id, 'comments._id': comment_id },
         { $push: { 'comments.$.replies': rep } }
@@ -370,14 +364,6 @@ const reply = function (article, userID, comment_id, reply, res, next) {
             data: result
         });
     });
-    // article.save(function (err, updatedArticle) {
-    //     if (err) { return next(err) }
-    //     return res.status(200).json({
-    //         err: null,
-    //         msg: "Reply is added successfully.",
-    //         data: { comments: updatedArticle.comments}
-    //     });
-    // });
 };
 module.exports.commentArticle = function (req, res, next) {
     let valid = req.body.article_id &&
@@ -403,7 +389,13 @@ module.exports.commentArticle = function (req, res, next) {
                 data: null
             });
         }
-        comment(retrievedArticle, userID, req.body.comment_content, res, next);
+        //Checks the role and thus sets the reference accordingly in the model
+        if (req.decodedToken.user.email) {
+            comment(retrievedArticle, userID, 'User', req.body.comment_content, res, next);
+
+        } else {
+            comment(retrievedArticle, userID, 'Child', req.body.comment_content, res, next);
+        }
     })
 };
 module.exports.replyComment = function (req, res, next) {
