@@ -4,3 +4,14 @@
 * You can upload infinite number of images that are not referenced.
 * I can upload any sort of files (.json aw kda) 
 * No size limit whatsoever
+
+==============================================
+
+## Problems :
+The whole point is that services keep their state (thus their data, including the token).
+
+### Admin profile : 
+Will just add an extra routing in the profile component when the role doesn't match any.
+
+### Missing: 
+Child shouldn't see the post article button. 
