@@ -98,7 +98,6 @@ router.post('/activity/comment/:activityId', mw.isAuthenticated, activityCtrl.ad
 
 /*Notifications Routes*/
 router.post('/notifications/create', mw.isAuthenticated, notificationCtrl.addNotification);
-
 router.patch('/notifications/seen', mw.isAuthenticated, notificationCtrl.changeSeenStatus);
 router.get('/notifications/get', mw.isAuthenticated, notificationCtrl.getNotifications);
 

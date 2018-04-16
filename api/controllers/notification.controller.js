@@ -89,6 +89,9 @@ module.exports.changeSeenStatus = async function (req, res, next) {
 }
 
 
+/**
+  * gets all the notifications for the logged in user
+  */
 module.exports.getNotifications = function(req, res, next)
 {
 	// gets the logged in user id
