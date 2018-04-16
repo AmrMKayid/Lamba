@@ -1,4 +1,4 @@
-<table border = 1 *ngFor='let item of items'>
+<table border = 1>
 <tr>
 	<th>Title</th>
 	<th>Description</th>
@@ -6,8 +6,12 @@
 	<th>Created At</th>
 	<th>Seen At</th>
 </tr>
-<td>
-	
-</td>
+<tr *ngFor='let notification of notifications'>
+	<td>{{notification.title}}</td>
+	<td>{{notification.description}}</td>
+	<td>{{notification.url}}</td>
+	<td>{{notification.created_at}}</td>
+	<td>{{notification.seen_at}}</td>
+</tr>
 
 </table>
