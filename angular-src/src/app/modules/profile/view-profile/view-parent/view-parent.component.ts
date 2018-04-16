@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { appConfig } from "../../../../app.config";
-import { ActivatedRoute } from "@angular/router";
+import {Component, OnInit, Input} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {appConfig} from "../../../../app.config";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-view-parent',
@@ -14,7 +14,7 @@ export class ViewParentComponent implements OnInit {
   @Input() user;
 
   constructor(private route: ActivatedRoute,
-    private http: HttpClient) {
+              private http: HttpClient) {
   }
 
   ngOnInit() {

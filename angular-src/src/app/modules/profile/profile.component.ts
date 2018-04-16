@@ -40,7 +40,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
           (res: any) => {
             if (!res.data.role) {
               this.isChild = true;
-              console.log('chi')
             } else {
               if (res.data.role === 'Parent') {
                 this.isParent = true;

@@ -12,8 +12,7 @@
   <div class="card-body text-center">
     <div class="avatar">
       <a (click)="open(img)">
-        <img *ngIf="currentUser.photo" src="http://localhost:3000/api/uploads/store/{{currentUser.photo}}" class="rounded-circle">
-        <img *ngIf="!currentUser.photo" src="assets/user.png" class="rounded-circle">
+        <img src="http://localhost:3000/api/uploads/store/{{currentUser.photo}}" class="rounded-circle">
       </a>
       <ng-template #img let-c="close" let-d="dismiss">
         <div class="modal-header">
@@ -238,17 +237,15 @@
                     </div>
                     <div class="card-footer">
                       <div class="icon pull-right">
-                        <a  placement="bottom" ngbTooltip="Task" (click)="viewTask(task._id)"><i class="fa fa-tasks fa-2x white-text mr-2"
-                                                                            aria-hidden="true"></i></a>
-                        <a  placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x white-text"
-                                                                              aria-hidden="true"></i></a>
+                        <a placement="bottom" ngbTooltip="Task" (click)="viewTask(task._id)"><i
+                          class="fa fa-tasks fa-2x white-text mr-2"
+                          aria-hidden="true"></i></a>
+                        <a placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x white-text"
+                                                                     aria-hidden="true"></i></a>
                       </div>
                     </div>
                   </div>
                 </div>
-
-
-
 
 
               </div>

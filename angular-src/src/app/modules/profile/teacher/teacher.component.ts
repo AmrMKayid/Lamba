@@ -60,10 +60,7 @@ export class TeacherComponent implements OnInit {
   ngOnInit() {
     this.currentUser = this.auth.getCurrentUser();
     this.currentUserID = this.currentUser._id;
-    console.log(this.currentUser._id);
-    //  this.httpClient.get('http://localhost:3000/api/user/getUserInfo/'+this.currentUserID,
     this.getTeacherSchedule();
-
   }
 
   onUploadFinished(event) {
@@ -72,7 +69,6 @@ export class TeacherComponent implements OnInit {
     var status = event.serverResponse.status;
 
     if (status != 200) {
-      console.log(status);
       return;
     }
     this.currentUser.photo = response.filename;
@@ -126,7 +122,6 @@ export class TeacherComponent implements OnInit {
 
 
     }
-    //  console.log(user);
     this.httpClient.patch('http://localhost:3000/api/user/updateUser/' + this.currentUserID, {
       "email": user.email,
       "name": user.name,
@@ -138,11 +133,9 @@ export class TeacherComponent implements OnInit {
 
     }).subscribe(
       res => {
-        console.log('sucess');
         document.getElementById('editModal').style.display = 'none';
       },
       err => {
-        console.log(err);
         document.getElementById('editModal').style.display = 'none';
       }
     );
@@ -174,10 +167,6 @@ export class TeacherComponent implements OnInit {
       url: newurl,
       day: thisday
     }
-
-
-    console.log(body);
-    console.log(Slot._id);
 
     this.httpClient.patch('http://localhost:3000/api/schedule/updateTeacherSchedule/' + Slot._id, body, this.httpOptions).subscribe((res: any) => {
       if (thisday == 'saturday') {

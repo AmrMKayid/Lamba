@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { HttpClient,HttpHeaders } from "@angular/common/http";
-import { appConfig } from "../../../../app.config";
-import { ActivatedRoute,Router } from "@angular/router";
+import {Component, OnInit, Input} from '@angular/core';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {appConfig} from "../../../../app.config";
+import {ActivatedRoute, Router} from "@angular/router";
 
 
 @Component({
@@ -15,7 +15,7 @@ export class ViewTeacherComponent implements OnInit {
   @Input() user;
 
   //schedule
-  public sat =[];
+  public sat = [];
   public sun = [];
   public mon = [];
   public tues = [];
@@ -24,19 +24,18 @@ export class ViewTeacherComponent implements OnInit {
   public fri = [];
 
   constructor(private route: ActivatedRoute,
-    private http: HttpClient) {
+              private http: HttpClient) {
   }
-
 
 
   ngOnInit() {
     this.sat = this.user.schedule.table.saturday;
-  this.sun = this.user.schedule.table.sunday;
-  this.mon = this.user.schedule.table.monday;
-  this.tues = this.user.schedule.table.tuesday;
-  this.wed = this.user.schedule.table.wednesday;
-  this.thurs = this.user.schedule.table.thursday;
-  this.fri = this.user.schedule.table.friday;
+    this.sun = this.user.schedule.table.sunday;
+    this.mon = this.user.schedule.table.monday;
+    this.tues = this.user.schedule.table.tuesday;
+    this.wed = this.user.schedule.table.wednesday;
+    this.thurs = this.user.schedule.table.thursday;
+    this.fri = this.user.schedule.table.friday;
   }
 
 }

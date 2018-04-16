@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import { appConfig } from "../../../../app.config";
+import {appConfig} from "../../../../app.config";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../../../../services/auth.service";
 import {ModalDismissReasons, NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
@@ -21,8 +21,8 @@ export class ViewChildComponent implements OnInit {
   };
   token = localStorage.getItem('authentication');
   closeResult: string;
-  isparent:boolean;
-  isteacher:boolean;
+  isparent: boolean;
+  isteacher: boolean;
 
 
   public sat = [];
@@ -44,13 +44,12 @@ export class ViewChildComponent implements OnInit {
 
   ngOnInit() {
     this.isparent = (this.child.parent_id === this.auth.getCurrentUser()._id);
-    this.isteacher= (this.auth.getCurrentUser().students.indexOf(this.child._id) !== -1); // could be needed in tasks
+    this.isteacher = (this.auth.getCurrentUser().students.indexOf(this.child._id) !== -1); // could be needed in tasks
     if (this.isparent) {
       this.getChildSchedule();
     }
 
   }
-
 
 
   getChildSchedule() {
@@ -78,7 +77,7 @@ export class ViewChildComponent implements OnInit {
     console.log(body);
     console.log(Slot._id);
 
-    this.httpClient.patch('http://localhost:3000/api/schedule/updateChildSchedule/' + Slot._id+'/'+ this.child._id , body, this.httpOptions).subscribe((res: any) => {
+    this.httpClient.patch('http://localhost:3000/api/schedule/updateChildSchedule/' + Slot._id + '/' + this.child._id, body, this.httpOptions).subscribe((res: any) => {
       if (thisday == 'saturday') {
         var index = this.sat.indexOf(Slot);
         this.sat[index] = res.data;
@@ -119,7 +118,6 @@ export class ViewChildComponent implements OnInit {
     this.modalref.close();
 
   }
-
 
 
   modalref: NgbModalRef;
