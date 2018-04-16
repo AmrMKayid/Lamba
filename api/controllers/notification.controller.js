@@ -59,4 +59,57 @@ module.exports.addNotification = async function (req, res, next) {
 
     });
 
+
+}
+
+
+module.exports.changeSeenStatus = async function (req, res, next) {
+
+ 	// gets the logged in user id
+    const authorization = req.headers.authorization;
+    const secret = req.app.get('secret');
+    decoded = jwt.verify(authorization, secret);
+    var user_id = decoded.user._id;
+	Notification.updateMany({recieving_user_id: user_id}, {$set: {
+		seen_at: Date.now()
+	}}, function(err, newNotifications) { 
+		if (err) {
+            return res.status(422).json({
+                err: err,
+                msg: "Couldn't update items",
+                data: null
+            });
+        }
+        return res.status(200).json({
+            err: null,
+            msg: "Updated Items successfully",
+            data: newNotifications
+        });
+	});
+}
+
+
+module.exports.getNotifications = function(req, res, next)
+{
+	// gets the logged in user id
+    const authorization = req.headers.authorization;
+    const secret = req.app.get('secret');
+    decoded = jwt.verify(authorization, secret);
+    var user_id = decoded.user._id;
+
+    Notification.find({recieving_user_id: user_id}, function(err, retrievedNotifications){
+    	if (err) {
+            return res.status(422).json({
+                err: err,
+                msg: "Couldn't update items",
+                data: null
+            });
+        }
+        return res.status(200).json({
+            err: null,
+            msg: "retrieved" + retrievedNotifications.length + "Notifications",
+            data: retrievedNotifications
+        });
+    });
+
 }
