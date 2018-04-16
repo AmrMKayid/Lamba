@@ -204,7 +204,7 @@ export class PostArticlesComponent implements OnInit {
     fd.append('image', file);
 
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://127.0.0.1:3000/api/articles/uploadArticleThumbnail', true);
+    xhr.open('POST', 'http://localhost:3000/api/articles/uploadArticleThumbnail', true);
     xhr.setRequestHeader('Authorization', this.token);
     xhr.onload = () => {
       if (xhr.status === 200) {

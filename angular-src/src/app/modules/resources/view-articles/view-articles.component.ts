@@ -17,7 +17,7 @@ export class ViewArticlesComponent implements OnInit {
   filterTagsIDs: string[] = [];
   keyword: string;
 
-  IMG_URL = 'http://127.0.0.1:3000/api/uploads/articlesThumbnails/';
+  IMG_URL = 'http://localhost:3000/api/uploads/articlesThumbnails/';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
