@@ -20,7 +20,8 @@ import {LoginComponent} from './shared/login/login.component';
 import {NavbarComponent} from './shared/navbar/navbar.component';
 import {RegisterRoleComponent} from './shared/register-role/register-role.component';
 import {RegisterComponent} from './shared/register/register.component';
-
+import { NotificationsComponent } from './shared/notifications/notifications.component';
+import {NotificationService} from './services/notification.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import {RegisterComponent} from './shared/register/register.component';
     FooterComponent,
     AllUsersComponent,
     RegisterRoleComponent,
+    NotificationsComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,8 @@ import {RegisterComponent} from './shared/register/register.component';
     AuthGuard,
     ErrorInterceptorProvider,
     JwtInterceptorProvider,
-    AuthService
+    AuthService,
+    NotificationService
   ],
   bootstrap: [AppComponent]
 })
