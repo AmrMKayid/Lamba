@@ -10,6 +10,8 @@ var express = require('express'),
     articleCtrl = require('../controllers/article.controller'),
     tagCtrl = require('../controllers/tag.controller'),
     activityCtrl = require('../controllers/activity.controller'),
+    notificationCtrl = require('../controllers/notification.controller'),
+
 
     mw = require('./middlewares');
 
@@ -91,5 +93,10 @@ router.get('/activity/myActivities/view/:activityId', mw.isAuthenticated, activi
 router.get('/activity/verify', mw.isAuthenticated, mw.isAdmin, activityCtrl.viewUnverifiedActivities);
 
 router.post('/activity/comment/:activityId', mw.isAuthenticated, activityCtrl.addComment);
+
+
+
+/*Notifications Routes*/
+router.post('/notifications/create', mw.isAuthenticated, notificationCtrl.addNotification);
 
 module.exports = router;
