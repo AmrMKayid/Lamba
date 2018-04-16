@@ -33,6 +33,14 @@ const ActivitySchema = new Schema({
         type: Schema.Types.ObjectId,
         required: true
     },
+	comments:{
+		type: Array,
+		required: true
+	},
+	isVerified:{
+		type: Boolean,
+		required: true
+	},
     created_at: {
         type: Date,
         required: true
@@ -41,7 +49,6 @@ const ActivitySchema = new Schema({
         type: Date,
         required: true
     }
-
 });
 
 //missing timing

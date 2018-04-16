@@ -87,6 +87,6 @@ router.patch('/activity/goingActivities/:activityId', mw.isAuthenticated, activi
 router.get('/uploads/activity/:filename', activityCtrl.getImage);
 router.get('/activity/myActivities/view/:activityId', mw.isAuthenticated, activityCtrl.getActivity);
 
-
+router.post('/activity/comment/:activityId', mw.isAuthenticated, activityCtrl.addComment);
 
 module.exports = router;

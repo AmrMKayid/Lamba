@@ -63,3 +63,19 @@ module.exports.isAdmin = function (req, res, next) {
     next();
 };
 
+
+
+/**
+  * Makes sure the user is verified
+  */
+module.exports.isVerified = function (req, res, next) {
+    if (!req.decodedToken.user.isVerified) {
+        return res.status(401).json({
+            err: "Unverified account",
+            msg: "You have to verify your account first before completing this action",
+            data: null
+        });
+    }
+    next();
+};
+

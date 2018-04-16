@@ -34,7 +34,7 @@ module.exports.createActivities = async function (req, res, next) {
     const secret = req.app.get('secret');
     decoded = jwt.verify(authorization, secret);
     var user_id = decoded.user._id;
-
+	var isVerified = decoded.user.isVerified;
     
     activity = {
         name: req.body.name,
@@ -46,6 +46,7 @@ module.exports.createActivities = async function (req, res, next) {
         activity_type: req.body.activity_type,
         picture_url: req.body.picture_url,
         host_id: user_id,
+		isVerified: isVerified,
         created_at: Date.now(),
         updated_at: Date.now()
     };
@@ -121,12 +122,12 @@ module.exports.viewActivities = function (req, res, next) {
             data: null
         });
     }
-
+	
     var limit = parseInt(req.params.tuplesPerPage);
     var pageNumber = parseInt(req.params.pageNumber);
 
 
-    var query = Activity.find().skip((pageNumber - 1) * limit).limit(limit);
+    var query = Activity.find({isVerified: true}).skip((pageNumber - 1) * limit).limit(limit);
 
     query.exec(function (err, activities) {
         if (err) return err;
@@ -145,12 +146,19 @@ module.exports.getActivitiesById = function (req, res, next) {
     const authorization = req.headers.authorization;
     const secret = req.app.get('secret');
     decoded = jwt.verify(authorization, secret);
-    //console.log(decoded.user._id)
     Activity.find({seller_id: decoded.user._id}).exec(function (err, Activities) {
         if (err) {
             console.log(err)
         }
-        res.status(200).json({
+		if(!Activities.isVerified)
+		{
+			return res.status(404).json({
+				err: "Item Not Found",
+				msg: "The item you are looking for was not found",
+				data: null	
+			});
+		}
+        return res.status(200).json({
             err: null,
             msg: 'finished successfully',
             data: Activities
@@ -318,6 +326,14 @@ module.exports.getActivity = function (req, res, next) {
                     data: null
                 });
             }
+			if(!Activities.isVerified)
+			{
+				return res.status(404).json({
+					err: "Item Not Found",
+					msg: "The item you are looking for was not found",
+					data: null	
+				});
+			}
             var host = {
 
                 email: retrievedUser.email,
@@ -340,7 +356,26 @@ module.exports.getActivity = function (req, res, next) {
 }
 
 
+module.exports.addComment = function (req, res, next) {
+	/*TODO: Abdelkareem*/
+
+	/*Comment =  {
+		commment: "assaf",
+		user_id:  user_id,
+		created_at: timestapm
+		updated_at
+
+	};*/
+
+}
+
 async function userExists(key) {
     const user = await User.findOne(key).exec();
 
 }
+
+
+
+
+
+
