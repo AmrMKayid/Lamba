@@ -207,11 +207,26 @@
             </a>
           </div>
         </div>
+        <div *ngIf="currentUserRole == 'Parent'" class="card mb-4 text-center wow fadeIn">
+          <div class="card-header">
+            <strong>Assign Children</strong>
+          </div>
+
+          <div class="card-body">
+
+            <a class="btn btn-primary btn-block" (click)="assign()"  role="button">
+              <i aria-hidden="true"></i>Assign
+            </a>
+
+          </div>
+
+        </div>
         <!--/.Card : Dynamic content wrapper-->
       </div>
       <!--Grid column-->
     </div>
     <!--Grid row-->
   </section>
+
 
 </div>

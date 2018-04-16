@@ -2,6 +2,8 @@ import {Component, OnInit, Input, ViewEncapsulation} from '@angular/core';
 import {ArticlesService} from '../articles.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../services/auth.service';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+
 
 @Component({
   selector: 'app-view-article',
@@ -12,6 +14,7 @@ import {AuthService} from '../../../services/auth.service';
 })
 export class ViewArticleComponent implements OnInit {
   article: any = {};
+  child : any = {};
   isInitialized: boolean = false;
   addReply: boolean = false;
   author: string;
@@ -19,10 +22,19 @@ export class ViewArticleComponent implements OnInit {
   commentContent: String;
   replies: any = [{}];
   currentUserId: string;
+    public articleID: String;
+  currentUserRole: string;
   editPressed: boolean;
   pic_url: string;
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('authentication')
+    })
+  };
 
-  constructor(private router: Router, private route: ActivatedRoute, private articleService: ArticlesService, private auth: AuthService) {
+
+  constructor(private router: Router,  private httpClient: HttpClient, private route: ActivatedRoute, private articleService: ArticlesService, private auth: AuthService) {
   }
 
 
@@ -60,7 +72,12 @@ export class ViewArticleComponent implements OnInit {
       }
     );
     window.scrollTo(0, 0);
+
     this.currentUserId = this.auth.getCurrentUser()._id;
+    this.httpClient.get('http://localhost:3000/api/user/getUser/'+this.currentUserId).subscribe((res:any)=>{
+
+      this.currentUserRole = res.data.role;
+    });
 
   }
 
@@ -200,6 +217,31 @@ export class ViewArticleComponent implements OnInit {
   edit(id) {
     this.editPressed = true;
     this.router.navigate(['/resources/edit/' + this.article._id]);
+  };
+
+  assign(){
+    let body = {
+      articleID: this.article._id,
+    };
+    this.httpClient.patch('http://localhost:3000/api/user/assignArticleToChild/5ad3835c0f37ba3f1c769a86',body, this.httpOptions)
+      .subscribe((res:any) => {
+
+        new Noty({
+          type: 'success',
+          text: res.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+            this.router.navigate(['/resources']);
+      }, err => {
+        let msg = err.error.msg;
+        new Noty({
+          type: 'error',
+          text: err.error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      });
   }
 
 }
