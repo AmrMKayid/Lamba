@@ -15,7 +15,7 @@ var server = require('../bin/www'),
 chai.use(chaiHttp);
 
 describe('assign article to child' , () => {
-  let token,childID,articleID,parentID,body,parent;
+  let token,childID,articleID,parentID,body,parent,fakeToken,parent2;
 
   before((done) => {
       mongoose.connect('mongodb://localhost:27017/lamba', () => {
@@ -26,7 +26,12 @@ describe('assign article to child' , () => {
 parent = {
   "email":"m@gmail.com",
   "password":"123456789"
+},
+parent2 = {
+  "email":"a@gmail.com",
+  "password":"123456789"
 };
+
 describe("Login as a Parent", () => {
     it("it should login the user as Parent", (done) => {
         chai.request(apiURL).post("/auth/login").send(parent).end((err, res) => {
@@ -37,10 +42,20 @@ describe("Login as a Parent", () => {
         });
     });
 });
+
+describe("Login as a second Parent", () => {
+    it("it should login the user as second Parent", (done) => {
+        chai.request(apiURL).post("/auth/login").send(parent2).end((err, res) => {
+            fakeToken = res.body.data;
+            expect(res.body.msg).to.be.eql('Welcome');
+            expect(res).to.have.status(200);
+            done();
+        });
+    });
+});
 childID = "5ad3835c0f37ba3f1c769a86";
 body={
-"articleID":"5ad384490f37ba3f1c769af8",
-"parentID":"5ad376e4829f163224e2a2ed"
+"articleID":"5ad384490f37ba3f1c769af8"
 };
 describe("assign child to article", () => {
     it("it should assign child to article", (done) => {
@@ -62,11 +77,11 @@ describe("don't assign again if already assigned", () => {
     });
 });
 
+
 describe("don't allow unauthorized parents to assign", () => {
     it("it should'nt assign", (done) => {
-        chai.request(apiURL).patch("/user/assignArticleToChild/"+childID).set('Authorization',token).send({
+        chai.request(apiURL).patch("/user/assignArticleToChild/"+childID).set('Authorization',fakeToken).send({
         "articleID":"5ad384490f37ba3f1c769af8",
-        "parentID":"5ad376e4829f163224e2a2ea"
         }).end((err, res) => {
             expect(res.body.msg).to.be.eql('your are not allowed to assign articles for this child');
             expect(res).to.have.status(401);

@@ -319,7 +319,9 @@ if ( !Validations.isObjectId(req.params.childID))
                         data: null
                     });
                 }
-              if (child.parent_id === req.body.parentID){
+                console.log(child.parent_id);
+                console.log(req.decodedToken._id);
+              if (child.parent_id == req.decodedToken.user._id){
 
                 if (child.allowedArticles.includes(req.body.articleID)) {
                   console.log('done already');
