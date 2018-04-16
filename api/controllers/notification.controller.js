@@ -39,7 +39,7 @@ module.exports.addNotification = async function (req, res, next) {
         price: req.body.price,
         recieving_user_id: req.body.recieving_user_id,
         created_at: Date.now(),
-        updated_at: Date.now()
+        seen_at: null
     };
 
      // inserts the new object in the database

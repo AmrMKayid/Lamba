@@ -21,9 +21,9 @@ const NotificationSchema = new Schema({
         type: Date,
         required: true
     },
-    updated_at: {
+    seen_at: {
         type: Date,
-        required: true
+        required: false
     }
 });
 
