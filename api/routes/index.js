@@ -87,6 +87,9 @@ router.patch('/activity/goingActivities/:activityId', mw.isAuthenticated, activi
 router.get('/uploads/activity/:filename', activityCtrl.getImage);
 router.get('/activity/myActivities/view/:activityId', mw.isAuthenticated, activityCtrl.getActivity);
 
+ /*gets the unverified activities*/
+router.get('/activity/verify', mw.isAuthenticated, mw.isAdmin, activityCtrl.viewUnverifiedActivities);
+
 router.post('/activity/comment/:activityId', mw.isAuthenticated, activityCtrl.addComment);
 
 module.exports = router;

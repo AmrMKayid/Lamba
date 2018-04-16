@@ -42,7 +42,7 @@ module.exports.createActivities = async function (req, res, next) {
         place: req.body.place,
         price: req.body.price,
         going_user_id: [],
-        //going: 0,
+        comments: [],
         activity_type: req.body.activity_type,
         picture_url: req.body.picture_url,
         host_id: user_id,
@@ -122,7 +122,8 @@ module.exports.viewActivities = function (req, res, next) {
             data: null
         });
     }
-	
+
+
     var limit = parseInt(req.params.tuplesPerPage);
     var pageNumber = parseInt(req.params.pageNumber);
 
@@ -130,6 +131,14 @@ module.exports.viewActivities = function (req, res, next) {
     var query = Activity.find({isVerified: true}).skip((pageNumber - 1) * limit).limit(limit);
 
     query.exec(function (err, activities) {
+        if(!activities.isVerified)
+        {
+            return res.status(404).json({
+                err: "Item Not Found",
+                msg: "The item you are looking for was not found",
+                data: null  
+            });
+        }
         if (err) return err;
         return res.status(200).json({
             err: null,
@@ -355,6 +364,36 @@ module.exports.getActivity = function (req, res, next) {
 
 }
 
+module.exports.viewUnverifiedActivities = function(req, res, next){
+
+
+    Activity.find({isVerified:false}, function(err, Activity){
+        if (err) {
+            return res.status(404).json({
+                err: 'Retrieved 0 activity from the database',
+                msg: 'Error while retrieving activity from the database',
+                data: null
+            });
+
+        }
+
+        if (!Activity) {
+            return res.status(404).json({
+                err: 'Retrieved 0 activities from the database',
+                msg: 'Error while retrieving activity from the database',
+                data: null
+            });
+        }
+        return res.status(200).json({
+            err: null,
+            msg: 'Retrieved unverified activities',
+            data: Activity,
+            host: host
+        });
+
+
+    });
+}
 
 module.exports.addComment = function (req, res, next) {
 	/*TODO: Abdelkareem*/
