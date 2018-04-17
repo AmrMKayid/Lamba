@@ -775,45 +775,70 @@
         <ngb-tab title="Students">
           <ng-template ngbTabContent>
             <div class="container">
-              <div class="row mt-2">
-                <div class="col-12">
-                  <button type="button" class="btn btn-dark-green waves-light float-right" mdbRippleRadius>Create Task
-                  </button>
-                </div>
-              </div>
               <div class="row mt-3">
-                <div class="col-lg-3 col-md-4 col-sm-6 myCard">
+                <div class="col-lg-3 col-md-4 col-sm-6 myCard" *ngFor="let child of students">
                   <div class="card">
-                    <img class="card-img-top rounded-circle mt-2" src="https://www.lacartedescolocs.fr/assets/fallbacks/profile_woman_medium_fallback-a7f0361efd57b6d193bef198dacdaaf2a0ac1aa17f23cd9613540c05f2c6bac6.png">
+                    <img class="card-img-top rounded-circle mt-2"
+                         src="http://localhost:3000/api/uploads/store/{{child.photo}}">
                     <div class="card-block">
-                      <h4 class="card-title mt-3 grey-text">Student name</h4>
+                      <h4 class="card-title mt-3 grey-text">{{ child.name.firstName }} {{ child.name.lastName }}</h4>
                     </div>
                     <div class="card-footer">
+                      <ng-template #content let-c="close" let-d="dismiss">
+                        <div class="modal-header">
+                          <h4 class="modal-title">Add Task</h4>
+                          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="container">
+                            <div class="row">
+                              <div class="col-12">
+                                <!--Contact Form-->
+                                <form>
+                                  <div class="md-form">
+                                    <i class="material-icons prefix">title</i>
+                                    <input type="text" id="form3" class="form-control" #newTitle mdbActive>
+                                    <label for="form3">Title</label>
+                                  </div>
+                                  <div class="md-form">
+                                    <i class="material-icons prefix">description</i>
+                                    <textarea type="text" id="form8" class="md-textarea" style="height: 100px"
+                                              #newDescription mdbActive></textarea>
+                                    <label for="form8">description</label>
+                                  </div>
+
+                                  <div class="text-center">
+                                    <div class="row">
+                                      <div class="col-6">
+                                        <button class="btn btn-deep-orange waves-light"
+                                                (click)="createNewTask(newTitle.value,newDescription.value,child._id)"
+                                                mdbRippleRadius>Done
+                                        </button>
+                                      </div>
+                                      <div class="col-6">
+                                        <button type="button" class="btn btn-blue-grey waves-light"
+                                                (click)="c('Close click')" mdbRippleRadius> Close
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </form>
+                                <!--Contact Form-->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-template>
                       <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Profile"><i class="fa fa-user fa-2x"
-                                                                               aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Messages"><i class="fa fa-envelope fa-fw fa-2x"
-                                                                                aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x"
-                                                                              aria-hidden="true"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 myCard">
-                  <div class="card">
-                    <img class="card-img-top rounded-circle mt-2" src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg">
-                    <div class="card-block">
-                      <h4 class="card-title mt-3 grey-text">Student name</h4>
-                    </div>
-                    <div class="card-footer">
-                      <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Profile"><i class="fa fa-user fa-2x"
-                                                                               aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Messages"><i class="fa fa-envelope fa-fw fa-2x"
-                                                                                aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x"
-                                                                              aria-hidden="true"></i></a>
+                        <a placement="bottom" ngbTooltip="add new task" (click)="open(content)"><i
+                          class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a>
+                        <a placement="bottom" ngbTooltip="Profile" (click)="viewChild(child._id)"><i
+                          class="fa fa-user fa-2x" aria-hidden="true"></i></a>
+                        <a placement="bottom" ngbTooltip="Messages"><i class="fa fa-envelope fa-fw fa-2x"
+                                                                       aria-hidden="true"></i></a>
+                        <a placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x" aria-hidden="true"></i></a>
                       </div>
                     </div>
                   </div>

@@ -26,6 +26,10 @@ router.get('/admin/teachers_verfication', userCtrl.getPendingTeachers);
 router.get('/admin/accept_teacher/:teacherID', userCtrl.acceptTeacher);
 
 
+router.get('/user/getMyTeachers/', mw.isAuthenticated, userCtrl.getMyTeachers);
+router.get('/user/getMyStudents/', mw.isAuthenticated, userCtrl.getMyStudents);
+
+
 router.patch('/user/updateUser/:userId', userCtrl.updateUser);
 router.get('/user/getUserInfo/:userId', userCtrl.getUserInfo);
 router.get('/user/getUserByID/:id', mw.isAuthenticated, userCtrl.getUser);

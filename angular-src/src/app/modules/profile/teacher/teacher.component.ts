@@ -61,6 +61,8 @@ export class TeacherComponent implements OnInit {
     this.currentUser = this.auth.getCurrentUser();
     this.currentUserID = this.currentUser._id;
     this.getTeacherSchedule();
+    this.getStudents();
+    this.getTasks();
   }
 
   onUploadFinished(event) {
@@ -239,9 +241,66 @@ tasks = [];
     this.http.get(appConfig.apiUrl + '/task/getTasks/', this.httpOptions)
       .subscribe((res: any) => {
         this.tasks = res.data;
-        // console.log(res.data);
+        console.log(res.data);
       });
 
+  }
+
+
+students = [];
+
+  getStudents() {
+    this.http.get(appConfig.apiUrl + '/user/getMyStudents/', this.httpOptions)
+      .subscribe((res: any) => {
+        this.students = res.data
+      });
+
+  }
+
+
+  createNewTask(taskName, tasksDescription, studentId) {
+
+    var taskdata = {
+      title: taskName,
+      description: tasksDescription,
+      userId: this.currentUser._id,
+      studentId: studentId
+    };
+
+    console.log(taskdata);
+
+
+    this.http.post('http://localhost:3000/api/task/newTask', taskdata, this.httpOptions).subscribe(
+      (res: any) => {
+
+        this.getTasks();
+
+        new Noty({
+          type: 'success',
+          text: `You've been successfully created New tasks!`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+        this.modalref.close();
+      },
+      error => {
+        new Noty({
+          type: 'error',
+          text: error.error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      });
+
+  }
+
+  viewChild(childID) {
+    this.router.navigate(['profile', childID]);
+  }
+
+  viewTask(taskId) {
+    console.log(taskId);
+    this.router.navigate(['schedule/viewtask/', taskId]);
   }
 
 
