@@ -19,32 +19,34 @@ router.post('/auth/child', mw.isAuthenticated, mw.isNotChild, authCtrl.addChild)
 router.post('/auth/admin', mw.isAuthenticated, authCtrl.addAdmin);
 //-----------------------------------User Routes-------------------------------------//
 router.get('/user/getAllUsers', userCtrl.getAllUsers);
-router.get('/user/getUser/:userID', userCtrl.getUserByID);
-router.get('/user/getChild/:childID', userCtrl.getChildByID);
 router.get('/user/getUserChildren/:userID', userCtrl.getUserChildren);
-
+router.patch('/user/updateImage/:userID', userCtrl.updateImage);
+router.get('/user/getChild/:childId', mw.isAuthenticated, userCtrl.getChildByID);
 router.get('/admin/teachers_verfication', userCtrl.getPendingTeachers);
 router.get('/admin/accept_teacher/:teacherID', userCtrl.acceptTeacher);
 
-router.patch('/user/updateUser/:userId',mw.isAuthenticated, userCtrl.updateUser);
-router.get('/user/getUserInfo/:userId', mw.isAuthenticated,userCtrl.getUserInfo);
+
+router.patch('/user/updateUser/:userId', userCtrl.updateUser);
+router.get('/user/getUserInfo/:userId', userCtrl.getUserInfo);
+router.get('/user/getUserByID/:id', mw.isAuthenticated, userCtrl.getUser);
 router.patch('/user/assignArticleToChild/:childID',mw.isAuthenticated,userCtrl.assignArticleToChild);
 //------------------------------Admin Routes---------------------------------//
 router.get('/user/viewUnverifiedArticles', mw.isAuthenticated, mw.isAdmin, userCtrl.viewUnverifiedArticles);
 router.get('/user/viewArticleToVerify/:articleId', mw.isAuthenticated, mw.isAdmin, userCtrl.viewArticleToVerify);
 router.get('/user/verifyArticle/:articleId', mw.isAuthenticated, mw.isAdmin, userCtrl.verifyArticle);
 //-----------------------------Schedules Routes----------------------------------------------//
-router.get('/schedule/getTeacherSchedule/:UserId', mw.isAuthenticated, scheduleCtrl.getTeacherSchedule);
-router.get('/schedule/getChildSchedule/:ChildId', mw.isAuthenticated, scheduleCtrl.getChildSchedule);
-router.post('/task/newTask', taskCtrl.createNewTask);
-router.get('/task/getTasks/:childId', taskCtrl.getTasks);
+router.get('/schedule/getTeacherSchedule/:UserId', mw.isAuthenticated,scheduleCtrl.getTeacherSchedule);
+router.get('/schedule/getChildSchedule/:ChildId',mw.isAuthenticated, scheduleCtrl.getChildSchedule);
+router.post('/task/newTask/',mw.isAuthenticated, taskCtrl.createNewTask);
+router.get('/task/getTasks',mw.isAuthenticated, taskCtrl.getTasks);
 router.get('/task/getTask/:taskId', mw.isAuthenticated, taskCtrl.getTask);
-
 router.get('/task/getTeacher/:TeacherId', taskCtrl.getTeacher);
-router.post('/task/newComment', mw.isAuthenticated, taskCtrl.createNewComment);
-router.get('/task/getComments/:taskId', mw.isAuthenticated, taskCtrl.getComments);
-router.patch('/schedule/updateTeacherSchedule/:SlotId/', mw.isAuthenticated, scheduleCtrl.updateTeacherSchedule);
-router.patch('/schedule/updateChildSchedule/:SlotId/:ChildId', mw.isAuthenticated, scheduleCtrl.updateChildSchedule);
+router.post('/task/newComment', mw.isAuthenticated,taskCtrl.createNewComment);
+router.get('/task/getComments/:taskId', mw.isAuthenticated,taskCtrl.getComments);
+router.get('/task/getChildTasks/:ChildId', mw.isAuthenticated,taskCtrl.getChildTasks);
+router.patch('/schedule/updateTeacherSchedule/:SlotId/',mw.isAuthenticated,scheduleCtrl.updateTeacherSchedule);
+router.patch('/schedule/updateChildSchedule/:SlotId/:ChildId',mw.isAuthenticated,scheduleCtrl.updateChildSchedule);
+
 /*-----------------------------Store Routes-------------------------------------*/
 router.post('/store/create', mw.isAuthenticated, storeCtrl.createItems);
 router.post('/store/upload', storeCtrl.uploadItemPhoto);
@@ -73,4 +75,5 @@ router.delete('/articles/:id', mw.isAuthenticated, articleCtrl.deleteArticle);
 router.patch('/articles/:id', mw.isAuthenticated, articleCtrl.editArticle);
 router.post('/articles/uploadArticleThumbnail',mw.isAuthenticated,articleCtrl.uploadArticleThumbnail)
 router.get('/uploads/articlesThumbnails/:filename', articleCtrl.getImage);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 module.exports = router;

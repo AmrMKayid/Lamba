@@ -40,9 +40,8 @@ export class TaskComponent implements OnInit {
   ngOnInit() {
 
     this.currentUser = this.auth.getCurrentUser();
-    this.route.queryParams.subscribe(params => {
-      this.taskId = params['id'];
-    });
+
+    this.taskId = this.route.snapshot.params.id
 
     this.getTask();
     this.getComments();
@@ -64,6 +63,7 @@ export class TaskComponent implements OnInit {
   getComments() {
     this.http.get('http://localhost:3000/api/task/getComments/' + this.taskId, this.httpOptions).subscribe((res: any) => {
       this.taskComments = res.data;
+      console.log(this.taskComments);
     });
   }
 
@@ -71,15 +71,24 @@ export class TaskComponent implements OnInit {
   createNewComment(comment) {
     var commentData = {
       comment: comment,
-      userId: this.currentUser._id,
-      userType: this.currentUser.role,
-      taskId: this.taskId,
-      name: this.currentUser.name.firstName + " " + this.currentUser.name.lastName
+      role: this.currentUser.role,
+      taskId: this.taskId
     };
     console.log(commentData);
     this.http.post('http://localhost:3000/api/task/newComment', commentData, this.httpOptions).subscribe(
       (res: any) => {
-        this.taskComments = this.taskComments.concat(commentData);
+
+        var commentData2 = {
+          comment: comment,
+          role: this.currentUser.role,
+          userId: {
+          name: this.currentUser.name,
+          photo: this.currentUser.photo
+        }
+        };
+        console.log(commentData2);
+        this.taskComments = this.taskComments.concat(commentData2);
+        console.log(this.taskComments);
 
         new Noty({
           type: 'success',

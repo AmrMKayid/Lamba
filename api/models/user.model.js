@@ -14,10 +14,6 @@ const ChildSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    role: {
-        type: String,
-        default: 'Child'
-    },
     name: {
         firstName: {type: String, required: true},
         middleName: {type: String},
@@ -28,7 +24,10 @@ const ChildSchema = new mongoose.Schema({
         type: String,
         enum: ['male', 'female']
     },
-    photo: String,
+    photo: {
+        type: String,
+        default: 'image-1523726285660'
+    },
     parent_id: {
         type: String,
         required: true
@@ -188,7 +187,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         enum: ['male', 'female']
     },
-    photo: String,
+    photo: {
+        type: String,
+        default: 'image-1523726285660'
+    },
     phone: String,
     address: {
         street: String,

@@ -34,19 +34,15 @@ const TaskSchema = new mongoose.Schema({
 const CommentSchema = new mongoose.Schema({
     userId: {
         type: String,
-        required: true,
+        required: true
     },
-    name: {
+    role: {
         type: String,
-        required: true,
-    },
-    userType: {
-        type: String,
-        required: true,
-        enum: ['Child', 'Parent', 'Teacher']
+        required: true
     },
     comment: {
-        type: String
+        type: String,
+        required: true
     },
     createdAt: {
         type: Date,

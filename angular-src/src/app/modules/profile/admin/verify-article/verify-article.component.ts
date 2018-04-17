@@ -10,7 +10,7 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
   styleUrls: ['./verify-article.component.css']
 })
 export class VerifyArticleComponent implements OnInit {
-  public article = [];
+  public article: any;
 
   constructor(private httpClient: HttpClient,
               private http: Http,

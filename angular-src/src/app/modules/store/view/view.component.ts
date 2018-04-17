@@ -55,10 +55,6 @@ export class ViewComponent implements OnInit {
 
     this.pages = new Array<number>(max - min + 1);
 
-    console.log(this.pages);
-    console.log("min: " + min + " max: " + max);
-    console.log("lastPageNumber: " + this.lastPageNumber + " curPage: " + this.curPage);
-
     for (let i = min, j: number = 0; i <= max; i++, j++) {
       this.pages[j] = i;
     }
@@ -69,15 +65,11 @@ export class ViewComponent implements OnInit {
   loadItems() {
     this.StoreService.viewItems(this.limit, this.curPage).subscribe((data: any) => {
       this.items = data.data;
-      console.log(this.items);
     });
   }
 
   likeItems(item) {
-    console.log(item);
     this.StoreService.likeItems(item).subscribe((data: any) => {
-      console.log('what');
-      console.log(data);
       for (var i = 0; i < this.items.length; i++) {
         if (this.items[i]._id == data._id) {
           this.items[i].likes_user_id = data.likes_user_id;
@@ -93,7 +85,6 @@ export class ViewComponent implements OnInit {
   }
 
   viewInfo(_id) {
-    console.log("awfawf");
     this.router.navigate(['/store/view/' + _id]);
   }
 }

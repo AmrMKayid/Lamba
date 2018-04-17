@@ -4,7 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {appConfig} from "../../../app.config";
 import {AuthService} from "../../../services/auth.service";
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Component({
@@ -15,6 +15,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 export class ParentComponent implements OnInit {
 
   currentUser;
+  token = localStorage.getItem('authentication');
   myChildren = [];
 
   newChildBtn: boolean;
@@ -37,8 +38,38 @@ export class ParentComponent implements OnInit {
 
     this.currentUser = this.auth.getCurrentUser();
     this.getMyChildren(this.currentUser._id);
-
     this.newChildBtn = false;
+    this.getTasks();
+  }
+
+  onUploadFinished(event) {
+
+    var response = JSON.parse(event.serverResponse._body);
+    var status = event.serverResponse.status;
+
+    if (status != 200) {
+      console.log(status);
+      return;
+    }
+    this.currentUser.photo = response.filename;
+    this.http.patch(appConfig.apiUrl + '/user/updateImage/' + this.currentUser._id, {photo: response.filename})
+      .subscribe((res: any) => {
+        localStorage.setItem('authentication', res.data);
+        this.modalref.close();
+        new Noty({
+          type: 'success',
+          text: "Your Image uploaded successfully!",
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      }, error => {
+        new Noty({
+          type: 'success',
+          text: error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      });
   }
 
   getMyChildren(parentID) {
@@ -49,7 +80,12 @@ export class ParentComponent implements OnInit {
   }
 
   viewChild(childID) {
-    this.router.navigate(['profile/view-child'], {queryParams: {id: childID}});
+    this.router.navigate(['profile', childID]);
+  }
+
+  viewTask(taskId) {
+    console.log(taskId);
+    this.router.navigate(['schedule/viewtask/', taskId]);
   }
 
   newChild(childFirstName, childlastName, childUsername, childPassword, childConfirmPassword, childGender) {
@@ -65,12 +101,11 @@ export class ParentComponent implements OnInit {
       gender: childGender,
     };
 
-    console.log(newChild);
-
 
     this.http.post(appConfig.apiUrl + '/auth/child', newChild, this.httpOptions).subscribe(
       (res: any) => {
         this.myChildren = this.myChildren.concat(res.data);
+        this.modalref.close();
 
         new Noty({
           type: 'success',
@@ -80,7 +115,6 @@ export class ParentComponent implements OnInit {
         }).show();
       },
       error => {
-        console.log(error)
         new Noty({
           type: 'error',
           text: error.error.msg,
@@ -91,8 +125,12 @@ export class ParentComponent implements OnInit {
 
   }
 
+  modalref: NgbModalRef;
+
   open(content) {
-    this.modalService.open(content).result.then((result) => {
+    this.modalref = this.modalService.open(content)
+
+    this.modalref.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -110,6 +148,9 @@ export class ParentComponent implements OnInit {
   }
 
 
+  tasks = [];
+
+
   createNewTask(taskName, tasksDescription, studentId) {
 
     var taskdata = {
@@ -119,9 +160,38 @@ export class ParentComponent implements OnInit {
       studentId: studentId
     };
 
-    console.log(taskdata);
 
-    this.http.post('http://localhost:3000/api/task/newTask', taskdata).subscribe();
+    this.http.post('http://localhost:3000/api/task/newTask', taskdata, this.httpOptions).subscribe(
+      (res: any) => {
+        this.tasks = this.tasks.concat(res.data);
+
+        new Noty({
+          type: 'success',
+          text: `You've been successfully created New tasks!`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+        this.modalref.close();
+      },
+      error => {
+        new Noty({
+          type: 'error',
+          text: error.error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      });
+
+  }
+
+
+  getTasks() {
+    this.http.get(appConfig.apiUrl + '/task/getTasks/', this.httpOptions)
+      .subscribe((res: any) => {
+        this.tasks = res.data;
+        // console.log(res.data);
+      });
+
   }
 
 

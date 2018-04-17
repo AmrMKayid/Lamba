@@ -18,6 +18,49 @@ module.exports.getAllUsers = function (req, res, next) {
     });
 };
 
+module.exports.getUser = function (req, res, next) {
+    if (!req.params.id || !req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+        return res.status(422).json({
+            err: null,
+            msg: 'id parameter must be a valid ObjectId.',
+            data: null
+        });
+    }
+
+    User.findById(req.params.id).exec(function (err, user) {
+        if (err) {
+            return next(err);
+        }
+        //Not found in users, search for him in children
+        if (!user) {
+            Child.findById(req.params.id).exec(function (err, child) {
+                if (err) {
+                    return next(err);
+                }
+                user = child;
+                if (!user) {
+                    return res.status(404).json({
+                        err: null,
+                        msg: 'User not found.',
+                        data: null
+                    });
+                }
+                return res.status(200).json({
+                    err: null,
+                    msg: 'Child retrieved successfully.',
+                    data: child
+                });
+            });
+        } else {
+            return res.status(200).json({
+                err: null,
+                msg: 'User retrieved successfully.',
+                data: user
+            });
+        }
+    });
+}
+
 module.exports.getUserByID = function (req, res, next) {
     if (!Validations.isObjectId(req.params.userID)) {
         return res.status(422).json({
@@ -30,6 +73,7 @@ module.exports.getUserByID = function (req, res, next) {
         if (err) {
             return next(err);
         }
+
         res.status(200).json({
             err: null,
             msg: 'User retrieved successfully.',
@@ -39,16 +83,48 @@ module.exports.getUserByID = function (req, res, next) {
 };
 
 module.exports.getChildByID = function (req, res, next) {
-    if (!Validations.isObjectId(req.params.childID)) {
+    if (!Validations.isObjectId(req.params.childId)) {
         return res.status(422).json({
             err: null,
             msg: 'childID parameter must be a valid ObjectId.',
             data: null
         });
     }
-    Child.findById(req.params.childID).exec(function (err, child) {
+    Child.findById(req.params.childId).exec(function (err, child) {
         if (err) {
             return next(err);
+        }
+        if (!child){
+            return res
+                .status(404)
+                .json({err: null, msg: 'childr not found.', data: null});
+        }
+        if (req.decodedToken.user.role === 'Parent') {
+
+            if (child.parent_id != req.decodedToken.user._id) {
+
+                return res
+                    .status(401)
+                    .json({err: null, msg: 'you are not authorized to view this child info', data: null});
+
+            }
+        }
+        else{
+            User.findById(req.decodedToken.user._id).exec(function(err, user) {
+                if (err) {
+                    return next(err);
+                }
+                if(!user){
+                    return res
+                        .status(404)
+                        .json({err: null, msg: 'Teacher not found.', data: null});
+                }
+                if(user.students.indexOf(req.params.childId) === -1){
+                    return res
+                        .status(401)
+                        .json({err: null, msg: 'you are not authorized to view this child info', data: null});
+                }
+            });
         }
         res.status(200).json({
             err: null,
@@ -78,6 +154,54 @@ module.exports.getUserChildren = function (req, res, next) {
             msg: 'children retrieved successfully.',
             data: children
         });
+    });
+};
+
+module.exports.updateImage = function (req, res, next) {
+    if (!Validations.isObjectId(req.params.userID)) {
+        return res.status(422).json({
+            err: null,
+            msg: 'userId parameter must be a valid ObjectId.',
+            data: null
+        });
+    }
+    User.findByIdAndUpdate(
+        req.params.userID,
+        {
+            $set: req.body
+        },
+        {new: true}
+    ).exec(function (err, updateUser) {
+        if (err) {
+            console.log(err)
+            return next(err);
+        }
+        if (!updateUser) {
+            Child.findByIdAndUpdate(
+                req.params.userID,
+                {
+                    $set: req.body
+                },
+                {new: true}
+            ).exec(function (err, updateChild) {
+                if (err) {
+                    return next(err);
+                }
+                if (!updateChild) {
+                    return res.status(404).json({
+                        err: null,
+                        msg: 'User not found.',
+                        data: null
+                    });
+                }
+                var token = jwt.sign({user: updateChild.toObject()}, req.app.get('secret'), {expiresIn: '12h'});
+                res.status(200).json({err: null, msg: 'Welcome', data: token});
+            });
+        }
+        else {
+            var token = jwt.sign({user: updateUser.toObject()}, req.app.get('secret'), {expiresIn: '12h'});
+            res.status(200).json({err: null, msg: 'Welcome', data: token});
+        }
     });
 };
 
@@ -273,7 +397,6 @@ module.exports.updateUser = function (req, res, next) {
       });
     }*/
 
-//console.log("HIIIIIII");
     User.findByIdAndUpdate(
         req.params.userId,
         {
@@ -287,7 +410,6 @@ module.exports.updateUser = function (req, res, next) {
             return next(err);
         }
         if (!updateUser) {
-            //  console.log("HIIIIIII222");
             return res
                 .status(404)
                 .json({err: null, msg: 'User not found.', data: null});
