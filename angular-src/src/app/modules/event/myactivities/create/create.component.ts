@@ -7,6 +7,7 @@ import {EventService} from '../../../../services/event.service';
 import {Router} from '@angular/router';
 import {AuthService} from "../../../../services/auth.service";
 
+
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -59,6 +60,16 @@ export class CreateComponent implements OnInit {
   ngOnInit() {
     var currentUser = this.auth.getCurrentUser();
     this.isVerified = currentUser.isVerified;
+    if(!this.isVerified)
+    {
+      new Noty({
+      type: 'error',
+      text: 'Please verify your account first by applying to an interview in order to be able to post a new activity',
+      timeout: 10000
+      }).show();
+      this.router.navigate(["/profile/parent"]);
+
+    }
   }
 
   onSubmit() {
