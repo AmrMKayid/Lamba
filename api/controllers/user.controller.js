@@ -2,8 +2,8 @@ var mongoose = require('mongoose'),
   Child = mongoose.model('Child'),
   User = mongoose.model('User'),
   Validations = require('../utils/validations'),
-  Article = mongoose.model('Article');
-
+  Article = mongoose.model('Article'),
+  Verification = mongoose.model('Verification');
 
 module.exports.getAllUsers = function (req, res, next) {
   User.find({ $or: [{ role: 'Parent' }, { role: 'Teacher' }] }).exec(function (err, users) {
@@ -194,31 +194,7 @@ module.exports.viewUnverifiedArticles = function (req, res, next) {
     });
   });
 };
-//View Certain Article
-module.exports.viewArticleToVerify = function (req, res, next) {
-  if (!Validations.isObjectId(req.params.articleId)) {
-    return res.status(422).json({
-      err: null,
-      msg: 'articleId parameter must be a valid ObjectId.',
-      data: null
-    });
-  }
-  Article.findById(req.params.articleId).exec(function (err, article) {
-    if (err) {
-      return next(err);
-    }
-    if (!article) {
-      return res
-        .status(404)
-        .json({ err: null, msg: 'Article not found.', data: null });
-    }
-    res.status(200).json({
-      err: null,
-      msg: 'Article retrieved successfully.',
-      data: article
-    });
-  });
-};
+
 
 //Verfiy Articles
 module.exports.verifyArticle = function (req, res, next) {
@@ -289,35 +265,7 @@ module.exports.updateUser = function (req, res, next) {
       data: null
     });
   }
-  /*var valid =
-    req.body.about &&
-    Validations.isString(req.body.about) &&
-  //  req.body.address&&
-    req.body.address.city &&
-    Validations.isString(req.body.address.city) &&
-    req.body.address.street &&
-    Validations.isString(req.address.street) &&
-    req.body.address.state &&
-    Validations.isString(req.body.address.state) &&
-    req.body.address.zip &&
-    Validations.isNumber(req.body.address.zip) &&
-  // req.body.name&&
-    req.body.name.firstName &&
-    Validations.isString(req.body.name.firstName) &&
-    req.body.name.lastName &&
-    Validations.isString(req.body.name.lastName) &&
-
-    req.body.fees &&
-    Validations.isNumber(req.body.fees);
-  if (!valid) {
-    return res.status(422).json({
-      err: null,
-      msg: 'name(String) , fees(Number) ,address(address) and about(String) are required fields.',
-      data: null
-    });
-  }*/
-
-  //console.log("HIIIIIII");
+ 
   User.findByIdAndUpdate(
     req.params.userId,
     {
@@ -506,4 +454,94 @@ user.save(function(err) {
   });
 });
 });
+};
+//view verification forms
+module.exports.viewVerificationForms = function (req, res, next) {
+  Verification.find({ }).exec(function (err, forms) {
+    if (err) {
+      return next(err);
+    }
+    res.status(200).json({
+      err: null,
+      msg: 'Verification Forms retrieved successfully.',
+      data: forms
+    });
+  });
+};
+//delete verification form
+module.exports.deleteVerificationForm =function (req, res, next) {
+  if (!Validations.isObjectId(req.params.id)) {
+      return res.status(422).json({
+          err: null,
+          msg: 'Invalid ID provided.',
+          data: null
+      });
+  }
+  if (req.decodedToken.user._id) {
+      Verification.findById(req.params.id, (err, form) => {
+    if (err) {
+      return next(err);
+        }
+    if (!form) {
+    return res.status(404).json({
+        err: null,
+        msg: 'Verification Form was not found.',
+       data: null
+      });
+    }
+
+    Verification.findByIdAndRemove(req.params.id, (err, result) => {
+      if (err) {
+        return next(err);
+              }
+      if (!result) {
+       return res.status(404).json({
+           err: null,
+           msg: 'Verification Form was not found.',
+           data: null
+              });
+              }
+       if (err) {
+      return next(err);
+                }
+      return res.status(200).json({
+           err: null,
+          msg: 'Verification Form deleted successfully.',
+           data: result
+              });
+          });
+      });
+  }
+};
+//verify user
+module.exports.verifyUser = function (req, res, next) {
+
+  if (!Validations.isObjectId(req.params.userId)) {
+    return res.status(422).json({
+      err: null,
+      msg: 'userId parameter must be a valid ObjectId.',
+      data: null
+    });
+  }
+  User.findByIdAndUpdate(req.params.userId,
+    {
+      $set: { isVerified: true },
+    },
+    { new: true }
+  ).exec(function (err, user) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res
+        .status(404)
+        .json({ err: null, msg: 'User not found.', data: null });
+    }
+    res.status(200).json({
+      err: null,
+      msg: 'User verified successfully.',
+      data: null
+    });
+
+  });
 };

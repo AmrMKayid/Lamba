@@ -8,7 +8,7 @@ const verificationSchema = new mongoose.Schema({
     contactEmail:{
         type: String,
         required: true,
-        trim: true,
+        trim: true
     },
     contactNumber:{
         type: String

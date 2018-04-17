@@ -1,6 +1,7 @@
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+<div class="divider" style="padding-top:50px;"></div>
 <div class="container">
   <!------ Include the above in your HEAD tag ---------->
   <nav class="main main-raised" role="navigation">
@@ -8,16 +9,19 @@
     <div class="row">
       <div class="col-md-2 col-xs-1">
         <ul class="nav navbar-nav">
-          <li class="active"><a mdbRippleRadius [routerLink]="['/event/view']" *ngIf="isLoggedIn()"><span
-            class="glyphicon  glyphicon-road"></span> Activities<span style="font-size:16px;"
-                                                                         class="pull-right hidden-xs showopacity"></span></a>
+               
+          <li class="active"><a mdbRippleRadius [routerLink]="['/event/view']" *ngIf="isLoggedIn()">
+            <span><i class="material-icons">store</i></span> Activities<span style="font-size:20px;"
+                                                                        class="pull-right hidden-xs showopacity"></span></a>
           </li>
-          <li><a mdbRippleRadius [routerLink]="['/event/myactivities/view']" *ngIf="isLoggedIn()"><span
-            class="glyphicon glyphicon-home"></span> My Activities<span style="font-size:16px;"
+          <br>
+          <li><a mdbRippleRadius [routerLink]="['/event/myactivities/view']" *ngIf="isLoggedIn()">
+            <span><i class="material-icons">loyalty</i></span> My Activities<span style="font-size:20px;"
                                                                              class="pull-right hidden-xs showopacity"></span></a>
           </li>
-          <li><a mdbRippleRadius [routerLink]="['/event/myactivities/create']" *ngIf="isLoggedIn()"><span
-            class="glyphicon glyphicon-list-alt"></span> Add Activity<span style="font-size:16px;"
+          <br>
+          <li><a mdbRippleRadius [routerLink]="['/event/myactivities/create']" *ngIf="isLoggedIn()">
+            <span><i class="material-icons">playlist_add</i></span> Add Activity<span style="font-size:20px;"
                                                                        class="pull-right hidden-xs showopacity"></span></a>
           </li>
         </ul>

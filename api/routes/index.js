@@ -31,7 +31,6 @@ router.get('/user/getUserByID/:id', mw.isAuthenticated, userCtrl.getUser);
 
 //------------------------------Admin Routes---------------------------------//
 router.get('/user/viewUnverifiedArticles', mw.isAuthenticated, mw.isAdmin, userCtrl.viewUnverifiedArticles);
-router.get('/user/viewArticleToVerify/:articleId', mw.isAuthenticated, mw.isAdmin, userCtrl.viewArticleToVerify);
 router.get('/user/verifyArticle/:articleId', mw.isAuthenticated, mw.isAdmin, userCtrl.verifyArticle);
 //-----------------------------Schedules Routes----------------------------------------------//
 router.get('/schedule/getTeacherSchedule/:UserId', mw.isAuthenticated,scheduleCtrl.getTeacherSchedule);
@@ -100,5 +99,10 @@ router.get('/user/viewSessions',mw.isAuthenticated,userCtrl.viewSessions);
 router.post('/user/addSession', mw.isAuthenticated, userCtrl.addSession);
 router.delete('/user/deleteSession/:sessionId',mw.isAuthenticated,userCtrl.deleteSession);
 router.patch('/user/updateSession/:sessionId',mw.isAuthenticated,userCtrl.updateSession);
+//----------------------------User Verification Routes--------------------------------------------//
+router.get('/user/viewVerificationForms',mw.isAuthenticated,mw.isAdmin,userCtrl.viewVerificationForms);
+router.get('/user/verifyUser/:userId',mw.isAuthenticated,mw.isAdmin,userCtrl.verifyUser);
+router.delete('user/deleteVerificationForm/:id',mw.isAuthenticated,mw.isAdmin,userCtrl.deleteVerificationForm);
 module.exports = router;
+
 
