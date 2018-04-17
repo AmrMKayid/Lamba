@@ -455,6 +455,60 @@ user.save(function(err) {
 });
 });
 };
+// create verifiecation form
+module.exports.createVerificationForm=function (req, res, next) {
+
+  if (req.decodedToken.user.role === 'Child') {
+      return res.status(401).json({
+          err: null,
+          msg: "You don't have permissions to post (child account)",
+          data: null
+      });
+  }
+  var valid =
+      req.body.owner_id && Validations.isString(req.body.title) &&
+      req.body.contactEmail && Validations.isString(req.body.contactEmail)&&
+      req.body.contactNumber && Validations.isString(req.body.contactNumber)
+      req.body.firstName && Validations.isString(req.body.firstName)&&
+      req.body.lastName && Validations.isString(req.body.lastName);
+  if (!valid) {
+      return res.status(422).json({
+          err: null,
+          msg: 'contactEmail(String) and contactNumber(String) are required fields.',
+          data: null
+      });
+  }
+  User.findById(req.decodedToken.user._id).exec(function (err, user) {
+      if (err) {
+          return next(err);
+      }
+      if (!user) {
+          return res
+              .status(404)
+              .json({ err: null, msg: 'User not found.', data: null });
+      }
+          
+          let form = {
+              owner_id: req.decodedToken.user._id,
+              contactEmail:req.body.contactEmail,
+             contactNumber:req.body.contactNumber,
+              firstName:req.decodedToken.user.firstName,
+              lastName:req.decodedToken.user.lastName
+          };
+          Verification.create(form, (err, newform) => {
+              if (err) {
+                  console.log(err)
+                  return next(err);
+              }
+              res.status(201).json({
+                  err: null,
+                  msg: 'Verification Form created successfully.',
+                  data: newform.toObject()
+              });
+          });
+      });
+};
+
 //view verification forms
 module.exports.viewVerificationForms = function (req, res, next) {
   Verification.find({ }).exec(function (err, forms) {
