@@ -306,7 +306,8 @@ const findArticleById = function (article_id, res, next) {
                     data: result
                 });
             });
-        }).populate('comments.commenter', 'name photo').populate('comments.replies.replier', 'name photo');
+        }).populate('comments.commenter', 'name photo');
+        // .populate('comments.replies.replier', 'name photo');
 }
 
 

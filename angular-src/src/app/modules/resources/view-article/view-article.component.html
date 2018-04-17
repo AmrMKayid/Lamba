@@ -86,13 +86,13 @@
                   <a class="name-capitalize" style="cursor: pointer;" [routerLink]="['/profile',comment.commenter._id]">
                     {{comment.commenter.name.firstName}} {{comment.commenter.name.lastName}}
                   </a>
-                  <a style="cursor: pointer;" (click)="showReply(i)" role="button" class="text-primary pull-right">
+                  <!-- <a style="cursor: pointer;" (click)="showReply(i)" role="button" class="text-primary pull-right">
                     <i class="fa fa-reply"></i>
-                  </a>
+                  </a> -->
                 </h5>
                 {{comment.comment_content}}
 
-                <div class="form-group mt-4" *ngIf="replies[i].showReply">
+                <!-- <div class="form-group mt-4" *ngIf="replies[i].showReply">
                   <hr>
                   <h4 class="text-center text-primary">
                     <strong>Leave a reply</strong>
@@ -106,9 +106,9 @@
                             (click)="reply(i,comment._id,replies[i].replyContent)">Reply
                     </button>
                   </div>
-                </div>
+                </div> -->
 
-                <div class="media d-block d-md-flex mt-3" *ngFor="let reply of comment.replies">
+                <!-- <div class="media d-block d-md-flex mt-3" *ngFor="let reply of comment.replies">
                   <img class="d-flex mb-3 mx-auto " src="https://mdbootstrap.com/img/Photos/Avatars/img (27).jpg"
                        alt="Generic placeholder image">
                   <div class="media-body text-center text-md-left ml-md-3 ml-0">
@@ -118,7 +118,7 @@
                     </h5>
                     {{reply.reply_content}}
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
             <div style="text-align: center;">

@@ -16,11 +16,11 @@ export class ViewArticleComponent implements OnInit {
   article: any = {};
   child : any = {};
   isInitialized: boolean = false;
-  addReply: boolean = false;
+  // addReply: boolean = false;
   author: string;
   comments: any = [{}];
   commentContent: String;
-  replies: any = [{}];
+  // replies: any = [{}];
   currentUserId: string;
     public articleID: String;
   currentUserRole: string;
@@ -52,15 +52,14 @@ export class ViewArticleComponent implements OnInit {
         this.author = `${this.article.name.firstName} ${this.article.name.lastName}`;
         this.isInitialized = true;
         this.comments = this.article.comments;
-        let r: { showReply: boolean, replyContent: string }[] = new Array(this.comments.length);
-        //this.replies.length = this.comments.length;
-        for (let i = 0; i < this.comments.length; i++) {
-          r[i] = {
-            showReply: false,
-            replyContent: ''
-          };
-        }
-        this.replies = r;
+        // let r: { showReply: boolean, replyContent: string }[] = new Array(this.comments.length);
+        // for (let i = 0; i < this.comments.length; i++) {
+        //   r[i] = {
+        //     showReply: false,
+        //     replyContent: ''
+        //   };
+        // }
+        // this.replies = r;
       }, err => {
         this.router.navigate(['/resources']);
         new Noty({
@@ -128,10 +127,10 @@ export class ViewArticleComponent implements OnInit {
     else {
       this.articleService.comment(this.article._id, this.commentContent).subscribe(
         (res: any) => {
-          this.replies.push({
-            showReply: false,
-            replyContent: ''
-          });
+          // this.replies.push({
+          //   showReply: false,
+          //   replyContent: ''
+          // });
           this.articleService.loadArticle(this.article._id).subscribe(
             (retrieved: any) => {
               this.comments = retrieved.data.comments;
@@ -150,48 +149,48 @@ export class ViewArticleComponent implements OnInit {
     }
   }
 
-  reply(i, comment_id, content) {
-    if (content == '' || typeof content == 'undefined' || content == null) {
-      new Noty({
-        type: 'warning',
-        text: `Sorry, your reply cannot be empty`,
-        timeout: 2500,
-        progressBar: true
-      }).show();
-      return false;
-    }
-    else {
-      this.articleService.reply(this.article._id, comment_id, content).subscribe(
-        (res: any) => {
-          this.articleService.loadArticle(this.article._id).subscribe(
-            (retrieved: any) => {
-              this.comments = retrieved.data.comments;
-              this.replies[i].replyContent = '';
-              this.replies[i].showReply = false;
+  // reply(i, comment_id, content) {
+  //   if (content == '' || typeof content == 'undefined' || content == null) {
+  //     new Noty({
+  //       type: 'warning',
+  //       text: `Sorry, your reply cannot be empty`,
+  //       timeout: 2500,
+  //       progressBar: true
+  //     }).show();
+  //     return false;
+  //   }
+  //   else {
+  //     this.articleService.reply(this.article._id, comment_id, content).subscribe(
+  //       (res: any) => {
+  //         this.articleService.loadArticle(this.article._id).subscribe(
+  //           (retrieved: any) => {
+  //             this.comments = retrieved.data.comments;
+  //             this.replies[i].replyContent = '';
+  //             this.replies[i].showReply = false;
 
-            }
-          );
-        }, err => {
-          new Noty({
-            type: 'error',
-            text: `Something went wrong while submitting the reply: ${err.error.msg}`,
-            timeout: 3000,
-            progressBar: true
-          }).show();
-        }
-      )
-    }
-  }
+  //           }
+  //         );
+  //       }, err => {
+  //         new Noty({
+  //           type: 'error',
+  //           text: `Something went wrong while submitting the reply: ${err.error.msg}`,
+  //           timeout: 3000,
+  //           progressBar: true
+  //         }).show();
+  //       }
+  //     )
+  //   }
+  // }
 
   //TODO: Once favorites is implemented, we need to send to the backend.
   addToFavorite(id) {
 
   }
 
-  showReply(i) {
-    this.replies.forEach(element => element.showReply = false);
-    this.replies[i].showReply = true;
-  }
+  // showReply(i) {
+  //   this.replies.forEach(element => element.showReply = false);
+  //   this.replies[i].showReply = true;
+  // }
 
   delete(id) {
     this.articleService.delete(id).subscribe(
