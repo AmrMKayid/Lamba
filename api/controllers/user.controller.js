@@ -421,3 +421,60 @@ module.exports.updateUser = function (req, res, next) {
         });
     });
 };
+module.exports.assignArticleToChild = function (req, res, next){
+if ( !Validations.isObjectId(req.params.childID))
+  {
+      return res.status(422).json({
+          err: null,
+          msg: 'chidId parameter and article_id parameter must be a valid ObjectId.',
+          data: null
+      });
+  }
+  Child.findById(req.params.childID , (err,child) => {
+            if (err) {
+                    return next(err);
+                }
+                if (!child) {
+                    return res.status(404).json({
+                        err: null,
+                        msg: 'Child was not found.',
+                        data: null
+                    });
+                }
+                console.log(child.parent_id);
+                console.log(req.decodedToken._id);
+              if (child.parent_id == req.decodedToken.user._id){
+
+                if (child.allowedArticles.includes(req.body.articleID)) {
+                  console.log('done already');
+                    return res.status(200).json({
+                        err: null,
+                        msg: "The child is already assigned",
+                        data:child.allowedArticles
+                    });
+                }
+
+                 child.allowedArticles.push(req.body.articleID);
+                 child.save(function (err, updatedChild) {
+                     if (err) {
+                         return next(err)
+                     }
+                     return res.status(200).json({
+                         err: null,
+                         msg: "Successfully assigned.",
+                         data: updatedChild.allowedArticles
+                     });
+                 });
+
+              }
+else{
+              return res.status(401).json({
+                  err: null,
+                  msg: 'your are not allowed to assign articles for this child',
+                  data: null
+              });
+            }
+
+  });
+
+};

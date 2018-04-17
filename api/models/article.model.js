@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
 const articleSchema = new mongoose.Schema({
     owner_id: {
@@ -28,18 +29,21 @@ const articleSchema = new mongoose.Schema({
     //For the feedback, keeping track of the IDs so that you cannot up & down more than once, score identified by the array's length
     upvoters: [String],
     downvoters: [String],
+    thumbnail_url: String,
     comments: [{
+        kind: String,
         comment_content: String,
         commenter: {
-            type: String,
-            ref: 'User'
+            type: ObjectId,
+            refPath: 'comments.kind'
         },
-        replies: [
-            {
-                reply_content: String,
-                replier: String
+        replies: [{
+            reply_content: String,
+            replier: {
+                type: ObjectId,
+                ref: 'User'
             }
-        ]
+        }]
     }]
 });
 

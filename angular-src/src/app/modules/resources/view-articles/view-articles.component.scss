@@ -17,19 +17,17 @@
   }
 }
 
-.card-comments img {
-  width: 4rem;
-}
-
 .name-capitalize {
   text-transform: capitalize;
 }
 
-[class^=col] {
-  display: flex;
-  flex-direction: column;
-}
-
-[class^=col] div {
-  flex-grow: 1
+.search-container{
+  [class^=col] {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  [class^=col] div {
+    flex-grow: 1
+  }
 }
