@@ -5,7 +5,12 @@ var mongoose = require('mongoose'),
     User = mongoose.model('User'),
     Child = mongoose.model('Child'),
     Tag = mongoose.model('Tag'),
-    Article = mongoose.model('Article');
+    /////////HERE//////////
+    path = require('path'),
+    fs = require('fs');
+/////////HERE//////////
+Article = mongoose.model('Article');
+
 
 const { JSDOM } = jsdom;
 
@@ -59,7 +64,7 @@ module.exports.getArticles = function (req, res, next) {
             Article.find({
                 _id: { $in: articlesIDs },
                 approved: { $eq: true }
-            }, 'title createdAt owner_id _id tags upvoters downvoters',
+            }, 'title createdAt owner_id _id tags upvoters downvoters thumbnail_url',
                 (err, result) => {
                     if (err) {
                         return next(err);
@@ -75,7 +80,7 @@ module.exports.getArticles = function (req, res, next) {
     } else {
         Article.find({
             approved: true
-        }, 'title createdAt owner_id _id tags upvoters downvoters', (err, result) => {
+        }, 'title createdAt owner_id _id tags upvoters downvoters thumbnail_url', (err, result) => {
             if (err) {
                 return next(err);
             }
@@ -157,7 +162,10 @@ module.exports.createArticle = function (req, res, next) {
                 owner_id: req.decodedToken.user._id,
                 title: req.body.title,
                 content,
-                tags: null
+                tags: null,
+                //////////////HERE////////////
+                thumbnail_url: req.body.thumbnail_url
+                //////////////HERE////////////
             };
             if (retrievedTags.length !== req.body.tags.length) {
                 return res.status(404).json({
@@ -298,7 +306,8 @@ const findArticleById = function (article_id, res, next) {
                     data: result
                 });
             });
-        }).populate('comments.commenter', 'name', 'User').populate('comments.replies.replier', 'name', 'User');
+        }).populate('comments.commenter', 'name photo');
+        // .populate('comments.replies.replier', 'name photo');
 }
 
 
@@ -323,10 +332,11 @@ const transformHtml = (html) => {
     return result.substring(25, result.length - 14);
 };
 //////////////////////////////////////COMMENTS////////////////////////////////////////
-const comment = function (article, id, content, res, next) {
+const comment = function (article, id, role, content, res, next) {
     let comment = {
         comment_content: content,
         commenter: id,
+        kind: role
     }
     article.comments.push(comment);
     article.save(function (err, updatedArticle) {
@@ -345,13 +355,6 @@ const reply = function (article, userID, comment_id, reply, res, next) {
         reply_content: reply,
         replier: userID
     }
-
-    // article.update(
-    //     { _id: article._id, "comments._id": comment_id},//, "comments._id":comment_id},
-    //     { $push: { "comments.replies": rep } }
-    // );
-    // article.update({'comments._id': comment_id}, {$push: {'comments.0.replies': rep}});
-    //article.comments.replies.push(rep);
     Article.updateOne(
         { "_id": article._id, 'comments._id': comment_id },
         { $push: { 'comments.$.replies': rep } }
@@ -362,14 +365,6 @@ const reply = function (article, userID, comment_id, reply, res, next) {
             data: result
         });
     });
-    // article.save(function (err, updatedArticle) {
-    //     if (err) { return next(err) }
-    //     return res.status(200).json({
-    //         err: null,
-    //         msg: "Reply is added successfully.",
-    //         data: { comments: updatedArticle.comments}
-    //     });
-    // });
 };
 module.exports.commentArticle = function (req, res, next) {
     let valid = req.body.article_id &&
@@ -395,7 +390,13 @@ module.exports.commentArticle = function (req, res, next) {
                 data: null
             });
         }
-        comment(retrievedArticle, userID, req.body.comment_content, res, next);
+        //Checks the role and thus sets the reference accordingly in the model
+        if (req.decodedToken.user.email) {
+            comment(retrievedArticle, userID, 'User', req.body.comment_content, res, next);
+
+        } else {
+            comment(retrievedArticle, userID, 'Child', req.body.comment_content, res, next);
+        }
     })
 };
 module.exports.replyComment = function (req, res, next) {
@@ -562,3 +563,23 @@ module.exports.editArticle = function (req, res, next) {
         });
     }
 }
+module.exports.uploadArticleThumbnail = function (req, res, next) {
+    if (!req.file) {
+        return res.status(422).json({
+            err: null,
+            msg: "Couldn't upload image",
+            data: null
+        });
+    }
+    return res.status(200).json({
+        err: null,
+        msg: "Image uploaded successfully",
+        filename: req.file.filename
+    });
+};
+module.exports.getImage = function (req, res, next) {
+    return res.status(200).sendFile(path.resolve('api/uploads/' + req.params.filename));
+
+}
+
+// Use the mv() method to place the file somewhere on your serve

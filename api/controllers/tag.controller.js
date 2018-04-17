@@ -19,7 +19,7 @@ module.exports.addTag = function (req, res, next) {
 
     Tag.create({name: req.body.name}, (err, newTag) => {
         if (err) {
-            if (err.code(11000)) {
+            if (err.code == 11000) {
                 return res.status(422).json({
                     err: null,
                     msg: `Tag already exists`,

@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpHeaders, HttpClient} from '@angular/common/http';
-import {ArticlesService} from '../articles.service';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { ArticlesService } from '../articles.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-articles',
@@ -17,6 +17,7 @@ export class ViewArticlesComponent implements OnInit {
   filterTagsIDs: string[] = [];
   keyword: string;
 
+  IMG_URL = 'http://localhost:3000/api/uploads/articlesThumbnails/';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -25,8 +26,8 @@ export class ViewArticlesComponent implements OnInit {
   };
 
   constructor(private http: HttpClient,
-              private articlesService: ArticlesService,
-              private router: Router) {
+    private articlesService: ArticlesService,
+    private router: Router) {
   }
 
   ngOnInit() {
@@ -34,7 +35,6 @@ export class ViewArticlesComponent implements OnInit {
     this.articlesInitialized = false;
     this.tagsInitialized = false;
     this.allTags = [];
-
     this.articlesService.loadAllArticles().subscribe(
       (res: any) => {
         this.articles = res.data.reverse();
@@ -52,7 +52,7 @@ export class ViewArticlesComponent implements OnInit {
     this.articlesService.getAllTags().subscribe(
       (res: any) => {
         res.data.forEach(element => {
-          this.allTags.push({value: element.name, id: element._id})
+          this.allTags.push({ value: element.name, id: element._id })
         });
         this.tagsInitialized = true;
       }, err => {
@@ -87,6 +87,6 @@ export class ViewArticlesComponent implements OnInit {
     this.filterTagsIDs = [];
     this.filterTagsIDs.push(tag);
     this.selectedTags = [];
-    this.selectedTags.push({value: tag, id: tag, display: this.getTagByID(this.allTags, tag)});
+    this.selectedTags.push({ value: tag, id: tag, display: this.getTagByID(this.allTags, tag) });
   }
 }

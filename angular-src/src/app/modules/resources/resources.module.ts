@@ -6,7 +6,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {TagInputModule} from 'ngx-chips';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {QuillModule} from 'ngx-quill';
-
+import {ImageUploadModule} from "angular2-image-upload";
 import {EditArticlesComponent} from './edit-articles/edit-articles.component';
 import {ArticlesService} from './articles.service';
 import {PostArticlesComponent} from './post-articles/post-articles.component';
@@ -46,7 +46,8 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     NgxPaginationModule,
     RouterModule.forChild(appRoutes),
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    ImageUploadModule.forRoot()
   ],
   declarations: [
     FilterByTagsPipe,
