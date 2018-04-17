@@ -3,6 +3,7 @@ import {ArticlesService} from '../articles.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../services/auth.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class ViewArticleComponent implements OnInit {
   };
 
 
-  constructor(private router: Router,  private httpClient: HttpClient, private route: ActivatedRoute, private articleService: ArticlesService, private auth: AuthService) {
+  constructor(private router: Router,private modalService: NgbModal,  private httpClient: HttpClient, private route: ActivatedRoute, private articleService: ArticlesService, private auth: AuthService) {
   }
 
 
@@ -79,6 +80,8 @@ export class ViewArticleComponent implements OnInit {
       this.currentUserRole = res.data.role;
     });
 
+    //if(this.currentUserRole == 'Parent')
+    this.getMyChildren(this.currentUserId);
   }
 
   //TODO: When the feedback is reworked in the backend, we shall send back the updated article only and in here we should set it to that
@@ -219,11 +222,11 @@ export class ViewArticleComponent implements OnInit {
     this.router.navigate(['/resources/edit/' + this.article._id]);
   };
 
-  assign(){
+  assign(id){
     let body = {
       articleID: this.article._id,
     };
-    this.httpClient.patch('http://localhost:3000/api/user/assignArticleToChild/5ad3835c0f37ba3f1c769a86',body, this.httpOptions)
+    this.httpClient.patch('http://localhost:3000/api/user/assignArticleToChild/'+id,body, this.httpOptions)
       .subscribe((res:any) => {
 
         new Noty({
@@ -242,6 +245,35 @@ export class ViewArticleComponent implements OnInit {
           progressBar: true
         }).show();
       });
+  }
+
+
+closeResult : String;
+  open(content) {
+    this.modalService.open(content).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+  myChildren = [];
+  getMyChildren(parentID) {
+    this.httpClient.get('http://localhost:3000/api/user/getUserChildren/' + parentID)
+      .subscribe((res: any) => {
+        this.myChildren = res.data;
+        console.log(this.myChildren);
+      });
+
   }
 
 }
