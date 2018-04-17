@@ -30,9 +30,17 @@ const ActivitySchema = new Schema({
         required: true
     },
     host_id: {
-        type: Schema.Types.ObjectId,
+        type: String,
         required: true
     },
+   host_firstName:{
+    type: String,
+    required: true
+   },
+   host_lastName:{
+    type: String,
+    required: true
+   },
 	comments:{
 		type: Array,
 		required: true

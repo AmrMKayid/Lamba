@@ -91,7 +91,7 @@ router.get('/uploads/activity/:filename', activityCtrl.getImage);
 router.get('/activity/myActivities/view/:activityId', mw.isAuthenticated, activityCtrl.getActivity);
 
  /*gets the unverified activities*/
-router.get('/activity/verify', mw.isAuthenticated, mw.isAdmin, activityCtrl.viewUnverifiedActivities);
+router.get('/activity/viewUnverifiedActivities', mw.isAuthenticated, mw.isAdmin, activityCtrl.viewUnverifiedActivities);
 
 router.post('/activity/comment/:activityId', mw.isAuthenticated, activityCtrl.addComment);
 

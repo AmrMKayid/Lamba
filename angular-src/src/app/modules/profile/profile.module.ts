@@ -39,6 +39,7 @@ import {MyProfileComponent} from './my-profile/my-profile.component';
 import { AddTagsComponent } from './admin/add-tags/add-tags.component';
 import {MatInputModule} from '@angular/material';
 import { DeleteTagsComponent } from './admin/delete-tags/delete-tags.component';
+import { UnVerifiedActivitiesComponent } from './admin/un-verified-activities/un-verified-activities.component';
 const appRoutes: Routes = [
   {
     path: 'me',
@@ -55,12 +56,16 @@ const appRoutes: Routes = [
       {
         path: 'un-verified-articles',
         component: UnVerifiedArticlesComponent
+      },
+      {
+        path: 'un-verified-activities',
+        component:UnVerifiedActivitiesComponent
+      },
+      {
+        path: 'verify-teachers',
+        component: VerifyTeacherComponent
       }
     ]
-  },
-  {
-    path: 'admin/verify-teachers',
-    component: VerifyTeacherComponent
   },
   {
     path: ':id',
@@ -102,7 +107,8 @@ const appRoutes: Routes = [
     ChatComponent,
     MyProfileComponent,
     AddTagsComponent,
-    DeleteTagsComponent
+    DeleteTagsComponent,
+    UnVerifiedActivitiesComponent
   ],
   providers: [
     HttpClient,

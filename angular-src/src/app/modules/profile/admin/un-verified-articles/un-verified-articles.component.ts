@@ -8,7 +8,7 @@ import {ArticlesService} from '../../../resources/articles.service';
 @Component({
   selector: 'app-un-verified-articles',
   templateUrl: './un-verified-articles.component.html',
-  styleUrls: ['./un-verified-articles.component.css'],
+  styleUrls: ['./un-verified-articles.component.scss'],
   animations: [routerTransition()]
 })
 export class UnVerifiedArticlesComponent implements OnInit {

@@ -30,12 +30,7 @@ module.exports.createActivities = async function (req, res, next) {
 
 
     // gets the logged in user id
-    const authorization = req.headers.authorization;
-    const secret = req.app.get('secret');
-    decoded = jwt.verify(authorization, secret);
-    var user_id = decoded.user._id;
-	var isVerified = decoded.user.isVerified;
-    
+    const authorization = req.headers.authorization; 
     activity = {
         name: req.body.name,
         description: req.body.description,
@@ -45,8 +40,10 @@ module.exports.createActivities = async function (req, res, next) {
         comments: [],
         activity_type: req.body.activity_type,
         picture_url: req.body.picture_url,
-        host_id: user_id,
-		isVerified: isVerified,
+        host_id: req.decodedToken.user._id,
+        isVerified: false,
+        host_firstName:req.decodedToken.user.name.firstName,
+        host_lastName:req.decodedToken.user.name.lastName,
         created_at: Date.now(),
         updated_at: Date.now()
     };
@@ -62,7 +59,7 @@ module.exports.createActivities = async function (req, res, next) {
         return res.status(200).json({
             err: null,
             msg: "Created activity successfully",
-            data: newActivity
+            data: newActivity.toObject()
         });
 
     });

@@ -7,30 +7,10 @@
             </span>
 
     </a>
-    <a [routerLink]="['/charts']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp; <span *ngIf="sidenavWidth > 6" class="sidenav-item">
-                    {{ 'Charts'  }}
-            </span>
-    </a>
-    <a [routerLink]="['/tables']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-table"></i>&nbsp; <span *ngIf="sidenavWidth > 6" class="sidenav-item">
-                    {{ 'Tables'  }}
-            </span>
-    </a>
     <a [routerLink]="['/profile/admin/un-verified-articles']" [routerLinkActive]="['router-link-active']"
        class="list-group-item">
       <i class="fa fa-fw fa-edit"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
                     {{ 'Articles'  }}
-            </span>
-    </a>
-    <a [routerLink]="['/bs-element']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-desktop"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
-                    {{ 'Bootstrap Element'  }}
-            </span>
-    </a>
-    <a [routerLink]="['/grid']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-wrench"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
-                    {{ 'Bootstrap Grid'}}
             </span>
     </a>
     <a [routerLink]="['/components']" [routerLinkActive]="['router-link-active']" class="list-group-item">
@@ -40,7 +20,7 @@
     </a>
     <div class="nested-menu">
       <a class="list-group-item" (click)="addExpandClass('pages')">
-               <i class="fa fa-th-list"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
+        <i class="fa fa-tags" aria-hidden="true"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
                         {{ 'Tags'}}
                 </span> 
       </a>
@@ -55,9 +35,9 @@
         </ul>
       </li>
     </div>
-    <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-file-o"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
-                    {{ 'Blank Page'  }}
+    <a [routerLink]="['/profile/admin/un-verified-activities']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-bicycle"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
+                    {{ 'Activities'  }}
             </span>
     </a>
 

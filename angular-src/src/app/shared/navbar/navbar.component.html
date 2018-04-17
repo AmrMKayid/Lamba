@@ -87,7 +87,7 @@
 
         <div *dropdownMenu class="dropdown-menu dropdown-primary pull-left" role="menu">
           <a class="dropdown-item waves-light" mdbRippleRadius *ngIf="isAdmin()"
-             [routerLink]="['/profile/admin/dashboard']">Profile</a>
+             [routerLink]="['/profile/admin/dashboard']">Dashboard</a>
           <a class="dropdown-item waves-light" mdbRippleRadius *ngIf="!isAdmin()" [routerLink]="['profile','me']">Profile</a>
           <div class="divider dropdown-divider"></div>
           <a class="dropdown-item waves-light" mdbRippleRadius (click)="logout()" [routerLink]="['/']">Log Out</a>

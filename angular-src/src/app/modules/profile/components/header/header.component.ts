@@ -27,8 +27,12 @@ export class HeaderComponent implements OnInit {
   }
   hideNavbar(){
     if(this.router.url == '/profile/admin/dashboard')
-       return true;
+    return true;
     if(this.router.url == '/profile/admin/un-verified-articles')
+    return true;
+    if(this.router.url == '/profile/admin/un-verified-activities')
+    return true;
+    if(this.router.url=='/profile/admin/verify-teachers')
     return true;
     return false;
        
