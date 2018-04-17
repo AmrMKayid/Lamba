@@ -14,11 +14,13 @@ Currently it's not working for the replies, spent +3hours trying to have it impl
 
 ==============================================
 
-## Problems :
-The whole point is that services keep their state (thus their data, including the token).
 
+## ALL DONE ! :D
+
+## Problems :
+~~The whole point is that services keep their state (thus their data, including the token).~~
 ### Admin profile : 
-Will just add an extra routing in the profile component when the role doesn't match any.
+~~Will just add an extra routing in the profile component when the role doesn't match any.~~
 
 ### Missing: 
 * ~~Child shouldn't see the post article button.~~
