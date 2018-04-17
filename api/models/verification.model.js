@@ -21,6 +21,5 @@ const verificationSchema = new mongoose.Schema({
         type:String,
         required:true
     }
-
 });
 mongoose.model('Verification', verificationSchema);

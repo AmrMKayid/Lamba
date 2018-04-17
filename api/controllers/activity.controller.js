@@ -29,8 +29,23 @@ module.exports.createActivities = async function (req, res, next) {
     }
 
 
+
+
     // gets the logged in user id
-    const authorization = req.headers.authorization; 
+    const authorization = req.headers.authorization;
+    const secret = req.app.get('secret');
+    decoded = jwt.verify(authorization, secret);
+    var user_id = decoded.user._id;
+	var isVerified = decoded.user.isVerified;
+    if(!isVerified)
+    {
+        return res.status(422).json({
+            err: null,
+            msg: '',
+            data: null
+        });
+    }
+    
     activity = {
         name: req.body.name,
         description: req.body.description,
@@ -324,7 +339,7 @@ module.exports.getActivity = function (req, res, next) {
                     data: null
                 });
             }
-			if(!Activities.isVerified)
+			if(!retrievedActivity.isVerified)
 			{
 				return res.status(404).json({
 					err: "Item Not Found",
