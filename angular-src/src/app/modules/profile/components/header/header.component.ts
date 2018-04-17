@@ -33,5 +33,10 @@ export class HeaderComponent implements OnInit {
     return false;
        
   }
-
+  isAdmin() {
+    if (this.auth.getCurrentUser().role == 'Admin') {
+      return true;
+    }
+    return false;
+  }
 }
