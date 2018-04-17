@@ -25,14 +25,7 @@
           <div class="container">
             <div class="row">
               <div class="col-12">
-                <image-upload
-                  [headers]="{authorization: token}"
-                  [max]="1"
-                  [url]="'http://127.0.0.1:3000/api/store/upload'"
-                  [dropBoxMessage]="'Drop your image here!'"
-                  [buttonCaption]="'Upload'"
-                  [style]="customStyle"
-                  (uploadFinished)="onUploadFinished($event)">
+                <image-upload [headers]="{authorization: token}" [max]="1" [url]="'http://127.0.0.1:3000/api/store/upload'" [dropBoxMessage]="'Drop your image here!'" [buttonCaption]="'Upload'" [style]="customStyle" (uploadFinished)="onUploadFinished($event)">
                 </image-upload>
               </div>
             </div>
@@ -65,96 +58,88 @@
                                 <table class="table border-primary table-hover">
                                   <!--Table body-->
                                   <tbody>
-                                  <tr *ngFor="let Slot of sat ; let i = index">
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot {{i+1}}</h3>
+                                    <tr *ngFor="let Slot of sat ; let i = index">
+                                      <th class="table-nawwar">
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>Slot {{i+1}}</h3>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>{{7+((i)*2)}}:00</p>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>{{7+((i)*2)}}:00</p>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>{{ Slot.slot.title }}</h3>
+                                      </th>
+                                      <td>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>{{ Slot.slot.title }}</h3>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>{{ Slot.slot.description }}</p>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>{{ Slot.slot.description }}</p>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a placement="bottom" ngbTooltip="Edit Slot" (click)="open(content)"><i
+                                            <a placement="bottom" ngbTooltip="Edit Slot" (click)="open(content)"><i
                                             class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <ng-template #content let-c="close" let-d="dismiss">
-                                            <div class="modal-header">
-                                              <h4 class="modal-title">Edit Slot {{i}}</h4>
-                                              <button type="button" class="close" aria-label="Close"
-                                                      (click)="d('Cross click')">
+                                            <ng-template #content let-c="close" let-d="dismiss">
+                                              <div class="modal-header">
+                                                <h4 class="modal-title">Edit Slot {{i}}</h4>
+                                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
-                                            </div>
-                                            <div class="modal-body">
-                                              <div class="container">
-                                                <div class="row">
-                                                  <div class="col-12">
-                                                    <!--Contact Form-->
-                                                    <form>
-                                                      <div class="md-form">
-                                                        <i class="material-icons prefix">title</i>
-                                                        <input type="text" id="form3" class="form-control" #newTitle
-                                                               mdbActive>
-                                                        <label for="form3">Title</label>
-                                                      </div>
-                                                      <div class="md-form">
-                                                        <i class="material-icons prefix">description</i>
-                                                        <textarea type="text" id="form8" class="md-textarea"
-                                                                  style="height: 100px" #newDescription
-                                                                  mdbActive></textarea>
-                                                        <label for="form8">description</label>
-                                                      </div>
-                                                      <div class="md-form">
-                                                        <i class="material-icons prefix">link</i>
-                                                        <input type="text" id="form2" class="form-control" #newUrl
-                                                               mdbActive>
-                                                        <label for="form2">URL</label>
-                                                      </div>
+                                              </div>
+                                              <div class="modal-body">
+                                                <div class="container">
+                                                  <div class="row">
+                                                    <div class="col-12">
+                                                      <!--Contact Form-->
+                                                      <form>
+                                                        <div class="md-form">
+                                                          <i class="material-icons prefix">title</i>
+                                                          <input type="text" id="form3" class="form-control" #newTitle mdbActive>
+                                                          <label for="form3">Title</label>
+                                                        </div>
+                                                        <div class="md-form">
+                                                          <i class="material-icons prefix">description</i>
+                                                          <textarea type="text" id="form8" class="md-textarea" style="height: 100px" #newDescription mdbActive></textarea>
+                                                          <label for="form8">description</label>
+                                                        </div>
+                                                        <div class="md-form">
+                                                          <i class="material-icons prefix">link</i>
+                                                          <input type="text" id="form2" class="form-control" #newUrl mdbActive>
+                                                          <label for="form2">URL</label>
+                                                        </div>
 
-                                                      <div class="text-center">
-                                                        <div class="row">
-                                                          <div class="col-6">
-                                                            <button class="btn btn-deep-orange waves-light"
-                                                                    (click)="updateTeacherSchedule(Slot,newTitle.value,newDescription.value,newUrl.value,'saturday')"
-                                                                    mdbRippleRadius>Done
+                                                        <div class="text-center">
+                                                          <div class="row">
+                                                            <div class="col-6">
+                                                              <button class="btn btn-deep-orange waves-light" (click)="updateTeacherSchedule(Slot,newTitle.value,newDescription.value,newUrl.value,'saturday')" mdbRippleRadius>Done
                                                             </button>
-                                                          </div>
-                                                          <div class="col-6">
-                                                            <button type="button" class="btn btn-blue-grey waves-light"
-                                                                    (click)="c('Close click')" mdbRippleRadius> Close
+                                                            </div>
+                                                            <div class="col-6">
+                                                              <button type="button" class="btn btn-blue-grey waves-light" (click)="c('Close click')" mdbRippleRadius> Close
                                                             </button>
+                                                            </div>
                                                           </div>
                                                         </div>
-                                                      </div>
-                                                    </form>
-                                                    <!--Contact Form-->
+                                                      </form>
+                                                      <!--Contact Form-->
+                                                    </div>
                                                   </div>
                                                 </div>
                                               </div>
-                                            </div>
-                                          </ng-template>
+                                            </ng-template>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </td>
-                                  </tr>
+                                      </td>
+                                    </tr>
                                   </tbody>
                                   <!--Table body-->
                                 </table>
@@ -171,96 +156,88 @@
                                 <table class="table border-primary table-hover">
                                   <!--Table body-->
                                   <tbody>
-                                  <tr *ngFor="let Slot of sun ; let i = index">
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot {{i+1}}</h3>
+                                    <tr *ngFor="let Slot of sun ; let i = index">
+                                      <th class="table-nawwar">
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>Slot {{i+1}}</h3>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>{{7+((i)*2)}}:00</p>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>{{7+((i)*2)}}:00</p>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>{{Slot.slot.title}}</h3>
+                                      </th>
+                                      <td>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>{{Slot.slot.title}}</h3>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>{{Slot.slot.description}}</p>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>{{Slot.slot.description}}</p>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a placement="bottom" ngbTooltip="Go to URL"><i
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <a placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a placement="bottom" ngbTooltip="Edit Slot" (click)="open(content)"><i
+                                            <a placement="bottom" ngbTooltip="Edit Slot" (click)="open(content)"><i
                                             class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <ng-template #content let-c="close" let-d="dismiss">
-                                            <div class="modal-header">
-                                              <h4 class="modal-title">Edit Slot {{i}}</h4>
-                                              <button type="button" class="close" aria-label="Close"
-                                                      (click)="d('Cross click')">
+                                            <ng-template #content let-c="close" let-d="dismiss">
+                                              <div class="modal-header">
+                                                <h4 class="modal-title">Edit Slot {{i}}</h4>
+                                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
-                                            </div>
-                                            <div class="modal-body">
-                                              <div class="container">
-                                                <div class="row">
-                                                  <div class="col-12">
-                                                    <!--Contact Form-->
-                                                    <form>
-                                                      <div class="md-form">
-                                                        <i class="material-icons prefix">title</i>
-                                                        <input type="text" id="form5" class="form-control" #newTitle
-                                                               mdbActive>
-                                                        <label for="form3">Title</label>
-                                                      </div>
-                                                      <div class="md-form">
-                                                        <i class="material-icons prefix">description</i>
-                                                        <textarea type="text" id="form7" class="md-textarea"
-                                                                  style="height: 100px" #newDescription
-                                                                  mdbActive></textarea>
-                                                        <label for="form8">description</label>
-                                                      </div>
-                                                      <div class="md-form">
-                                                        <i class="material-icons prefix">link</i>
-                                                        <input type="text" id="form9" class="form-control" #newUrl
-                                                               mdbActive>
-                                                        <label for="form2">URL</label>
-                                                      </div>
+                                              </div>
+                                              <div class="modal-body">
+                                                <div class="container">
+                                                  <div class="row">
+                                                    <div class="col-12">
+                                                      <!--Contact Form-->
+                                                      <form>
+                                                        <div class="md-form">
+                                                          <i class="material-icons prefix">title</i>
+                                                          <input type="text" id="form5" class="form-control" #newTitle mdbActive>
+                                                          <label for="form3">Title</label>
+                                                        </div>
+                                                        <div class="md-form">
+                                                          <i class="material-icons prefix">description</i>
+                                                          <textarea type="text" id="form7" class="md-textarea" style="height: 100px" #newDescription mdbActive></textarea>
+                                                          <label for="form8">description</label>
+                                                        </div>
+                                                        <div class="md-form">
+                                                          <i class="material-icons prefix">link</i>
+                                                          <input type="text" id="form9" class="form-control" #newUrl mdbActive>
+                                                          <label for="form2">URL</label>
+                                                        </div>
 
-                                                      <div class="text-center">
-                                                        <div class="row">
-                                                          <div class="col-6">
-                                                            <button class="btn btn-deep-orange waves-light"
-                                                                    (click)="updateTeacherSchedule(Slot,newTitle.value,newDescription.value,newUrl.value,'sunday')"
-                                                                    mdbRippleRadius>Done
+                                                        <div class="text-center">
+                                                          <div class="row">
+                                                            <div class="col-6">
+                                                              <button class="btn btn-deep-orange waves-light" (click)="updateTeacherSchedule(Slot,newTitle.value,newDescription.value,newUrl.value,'sunday')" mdbRippleRadius>Done
                                                             </button>
-                                                          </div>
-                                                          <div class="col-6">
-                                                            <button type="button" class="btn btn-blue-grey waves-light"
-                                                                    (click)="c('Close click')" mdbRippleRadius> Close
+                                                            </div>
+                                                            <div class="col-6">
+                                                              <button type="button" class="btn btn-blue-grey waves-light" (click)="c('Close click')" mdbRippleRadius> Close
                                                             </button>
+                                                            </div>
                                                           </div>
                                                         </div>
-                                                      </div>
-                                                    </form>
-                                                    <!--Contact Form-->
+                                                      </form>
+                                                      <!--Contact Form-->
+                                                    </div>
                                                   </div>
                                                 </div>
                                               </div>
-                                            </div>
-                                          </ng-template>
+                                            </ng-template>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </td>
-                                  </tr>
+                                      </td>
+                                    </tr>
                                   </tbody>
                                   <!--Table body-->
                                 </table>
@@ -277,96 +254,88 @@
                                 <table class="table border-primary table-hover">
                                   <!--Table body-->
                                   <tbody>
-                                  <tr *ngFor="let Slot of mon ; let i = index">
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot {{i+1}}</h3>
+                                    <tr *ngFor="let Slot of mon ; let i = index">
+                                      <th class="table-nawwar">
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>Slot {{i+1}}</h3>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>{{7+((i)*2)}}:00</p>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>{{7+((i)*2)}}:00</p>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>{{Slot.slot.title}}</h3>
+                                      </th>
+                                      <td>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>{{Slot.slot.title}}</h3>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>{{Slot.slot.description}}</p>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>{{Slot.slot.description}}</p>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a placement="bottom" ngbTooltip="Go to URL"><i
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <a placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a placement="bottom" ngbTooltip="Edit Slot" (click)="open(content)"><i
+                                            <a placement="bottom" ngbTooltip="Edit Slot" (click)="open(content)"><i
                                             class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <ng-template #content let-c="close" let-d="dismiss">
-                                            <div class="modal-header">
-                                              <h4 class="modal-title">Edit Slot {{i}}</h4>
-                                              <button type="button" class="close" aria-label="Close"
-                                                      (click)="d('Cross click')">
+                                            <ng-template #content let-c="close" let-d="dismiss">
+                                              <div class="modal-header">
+                                                <h4 class="modal-title">Edit Slot {{i}}</h4>
+                                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
-                                            </div>
-                                            <div class="modal-body">
-                                              <div class="container">
-                                                <div class="row">
-                                                  <div class="col-12">
-                                                    <!--Contact Form-->
-                                                    <form>
-                                                      <div class="md-form">
-                                                        <i class="material-icons prefix">title</i>
-                                                        <input type="text" id="form10" class="form-control" #newTitle
-                                                               mdbActive>
-                                                        <label for="form3">Title</label>
-                                                      </div>
-                                                      <div class="md-form">
-                                                        <i class="material-icons prefix">description</i>
-                                                        <textarea type="text" id="form11" class="md-textarea"
-                                                                  style="height: 100px" #newDescription
-                                                                  mdbActive></textarea>
-                                                        <label for="form8">description</label>
-                                                      </div>
-                                                      <div class="md-form">
-                                                        <i class="material-icons prefix">link</i>
-                                                        <input type="text" id="form12" class="form-control" #newUrl
-                                                               mdbActive>
-                                                        <label for="form2">URL</label>
-                                                      </div>
+                                              </div>
+                                              <div class="modal-body">
+                                                <div class="container">
+                                                  <div class="row">
+                                                    <div class="col-12">
+                                                      <!--Contact Form-->
+                                                      <form>
+                                                        <div class="md-form">
+                                                          <i class="material-icons prefix">title</i>
+                                                          <input type="text" id="form10" class="form-control" #newTitle mdbActive>
+                                                          <label for="form3">Title</label>
+                                                        </div>
+                                                        <div class="md-form">
+                                                          <i class="material-icons prefix">description</i>
+                                                          <textarea type="text" id="form11" class="md-textarea" style="height: 100px" #newDescription mdbActive></textarea>
+                                                          <label for="form8">description</label>
+                                                        </div>
+                                                        <div class="md-form">
+                                                          <i class="material-icons prefix">link</i>
+                                                          <input type="text" id="form12" class="form-control" #newUrl mdbActive>
+                                                          <label for="form2">URL</label>
+                                                        </div>
 
-                                                      <div class="text-center">
-                                                        <div class="row">
-                                                          <div class="col-6">
-                                                            <button class="btn btn-deep-orange waves-light"
-                                                                    (click)="updateTeacherSchedule(Slot,newTitle.value,newDescription.value,newUrl.value,'monday')"
-                                                                    mdbRippleRadius>Done
+                                                        <div class="text-center">
+                                                          <div class="row">
+                                                            <div class="col-6">
+                                                              <button class="btn btn-deep-orange waves-light" (click)="updateTeacherSchedule(Slot,newTitle.value,newDescription.value,newUrl.value,'monday')" mdbRippleRadius>Done
                                                             </button>
-                                                          </div>
-                                                          <div class="col-6">
-                                                            <button type="button" class="btn btn-blue-grey waves-light"
-                                                                    (click)="c('Close click')" mdbRippleRadius> Close
+                                                            </div>
+                                                            <div class="col-6">
+                                                              <button type="button" class="btn btn-blue-grey waves-light" (click)="c('Close click')" mdbRippleRadius> Close
                                                             </button>
+                                                            </div>
                                                           </div>
                                                         </div>
-                                                      </div>
-                                                    </form>
-                                                    <!--Contact Form-->
+                                                      </form>
+                                                      <!--Contact Form-->
+                                                    </div>
                                                   </div>
                                                 </div>
                                               </div>
-                                            </div>
-                                          </ng-template>
+                                            </ng-template>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </td>
-                                  </tr>
+                                      </td>
+                                    </tr>
                                   </tbody>
                                   <!--Table body-->
                                 </table>
@@ -383,96 +352,88 @@
                                 <table class="table border-primary table-hover">
                                   <!--Table body-->
                                   <tbody>
-                                  <tr *ngFor="let Slot of tues ; let i = index">
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot {{i+1}}</h3>
+                                    <tr *ngFor="let Slot of tues ; let i = index">
+                                      <th class="table-nawwar">
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>Slot {{i+1}}</h3>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>{{7+((i)*2)}}:00 </p>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>{{7+((i)*2)}}:00 </p>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>{{Slot.slot.title}}</h3>
+                                      </th>
+                                      <td>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>{{Slot.slot.title}}</h3>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>{{Slot.slot.description}}</p>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>{{Slot.slot.description}}</p>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a placement="bottom" ngbTooltip="Go to URL"><i
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <a placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a placement="bottom" ngbTooltip="Edit Slot" (click)="open(content)"><i
+                                            <a placement="bottom" ngbTooltip="Edit Slot" (click)="open(content)"><i
                                             class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <ng-template #content let-c="close" let-d="dismiss">
-                                            <div class="modal-header">
-                                              <h4 class="modal-title">Edit Slot {{i}}</h4>
-                                              <button type="button" class="close" aria-label="Close"
-                                                      (click)="d('Cross click')">
+                                            <ng-template #content let-c="close" let-d="dismiss">
+                                              <div class="modal-header">
+                                                <h4 class="modal-title">Edit Slot {{i}}</h4>
+                                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
-                                            </div>
-                                            <div class="modal-body">
-                                              <div class="container">
-                                                <div class="row">
-                                                  <div class="col-12">
-                                                    <!--Contact Form-->
-                                                    <form>
-                                                      <div class="md-form">
-                                                        <i class="material-icons prefix">title</i>
-                                                        <input type="text" id="form25" class="form-control" #newTitle
-                                                               mdbActive>
-                                                        <label for="form3">Title</label>
-                                                      </div>
-                                                      <div class="md-form">
-                                                        <i class="material-icons prefix">description</i>
-                                                        <textarea type="text" id="form13" class="md-textarea"
-                                                                  style="height: 100px" #newDescription
-                                                                  mdbActive></textarea>
-                                                        <label for="form8">description</label>
-                                                      </div>
-                                                      <div class="md-form">
-                                                        <i class="material-icons prefix">link</i>
-                                                        <input type="text" id="form14" class="form-control" #newUrl
-                                                               mdbActive>
-                                                        <label for="form2">URL</label>
-                                                      </div>
+                                              </div>
+                                              <div class="modal-body">
+                                                <div class="container">
+                                                  <div class="row">
+                                                    <div class="col-12">
+                                                      <!--Contact Form-->
+                                                      <form>
+                                                        <div class="md-form">
+                                                          <i class="material-icons prefix">title</i>
+                                                          <input type="text" id="form25" class="form-control" #newTitle mdbActive>
+                                                          <label for="form3">Title</label>
+                                                        </div>
+                                                        <div class="md-form">
+                                                          <i class="material-icons prefix">description</i>
+                                                          <textarea type="text" id="form13" class="md-textarea" style="height: 100px" #newDescription mdbActive></textarea>
+                                                          <label for="form8">description</label>
+                                                        </div>
+                                                        <div class="md-form">
+                                                          <i class="material-icons prefix">link</i>
+                                                          <input type="text" id="form14" class="form-control" #newUrl mdbActive>
+                                                          <label for="form2">URL</label>
+                                                        </div>
 
-                                                      <div class="text-center">
-                                                        <div class="row">
-                                                          <div class="col-6">
-                                                            <button class="btn btn-deep-orange waves-light"
-                                                                    (click)="updateTeacherSchedule(Slot,newTitle.value,newDescription.value,newUrl.value,'tuesday')"
-                                                                    mdbRippleRadius>Done
+                                                        <div class="text-center">
+                                                          <div class="row">
+                                                            <div class="col-6">
+                                                              <button class="btn btn-deep-orange waves-light" (click)="updateTeacherSchedule(Slot,newTitle.value,newDescription.value,newUrl.value,'tuesday')" mdbRippleRadius>Done
                                                             </button>
-                                                          </div>
-                                                          <div class="col-6">
-                                                            <button type="button" class="btn btn-blue-grey waves-light"
-                                                                    (click)="c('Close click')" mdbRippleRadius> Close
+                                                            </div>
+                                                            <div class="col-6">
+                                                              <button type="button" class="btn btn-blue-grey waves-light" (click)="c('Close click')" mdbRippleRadius> Close
                                                             </button>
+                                                            </div>
                                                           </div>
                                                         </div>
-                                                      </div>
-                                                    </form>
-                                                    <!--Contact Form-->
+                                                      </form>
+                                                      <!--Contact Form-->
+                                                    </div>
                                                   </div>
                                                 </div>
                                               </div>
-                                            </div>
-                                          </ng-template>
+                                            </ng-template>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </td>
-                                  </tr>
+                                      </td>
+                                    </tr>
                                   </tbody>
                                   <!--Table body-->
                                 </table>
@@ -489,96 +450,88 @@
                                 <table class="table border-primary table-hover">
                                   <!--Table body-->
                                   <tbody>
-                                  <tr *ngFor="let Slot of wed ; let i = index">
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot {{i+1}}</h3>
+                                    <tr *ngFor="let Slot of wed ; let i = index">
+                                      <th class="table-nawwar">
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>Slot {{i+1}}</h3>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>{{7+((i)*2)}}:00</p>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>{{7+((i)*2)}}:00</p>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>{{Slot.slot.title}}</h3>
+                                      </th>
+                                      <td>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>{{Slot.slot.title}}</h3>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>{{Slot.slot.description}}</p>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>{{Slot.slot.description}}</p>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a placement="bottom" ngbTooltip="Go to URL"><i
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <a placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a placement="bottom" ngbTooltip="Edit Slot" (click)="open(content)"><i
+                                            <a placement="bottom" ngbTooltip="Edit Slot" (click)="open(content)"><i
                                             class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <ng-template #content let-c="close" let-d="dismiss">
-                                            <div class="modal-header">
-                                              <h4 class="modal-title">Edit Slot {{i}}</h4>
-                                              <button type="button" class="close" aria-label="Close"
-                                                      (click)="d('Cross click')">
+                                            <ng-template #content let-c="close" let-d="dismiss">
+                                              <div class="modal-header">
+                                                <h4 class="modal-title">Edit Slot {{i}}</h4>
+                                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
-                                            </div>
-                                            <div class="modal-body">
-                                              <div class="container">
-                                                <div class="row">
-                                                  <div class="col-12">
-                                                    <!--Contact Form-->
-                                                    <form>
-                                                      <div class="md-form">
-                                                        <i class="material-icons prefix">title</i>
-                                                        <input type="text" id="form15" class="form-control" #newTitle
-                                                               mdbActive>
-                                                        <label for="form3">Title</label>
-                                                      </div>
-                                                      <div class="md-form">
-                                                        <i class="material-icons prefix">description</i>
-                                                        <textarea type="text" id="form16" class="md-textarea"
-                                                                  style="height: 100px" #newDescription
-                                                                  mdbActive></textarea>
-                                                        <label for="form8">description</label>
-                                                      </div>
-                                                      <div class="md-form">
-                                                        <i class="material-icons prefix">link</i>
-                                                        <input type="text" id="form17" class="form-control" #newUrl
-                                                               mdbActive>
-                                                        <label for="form2">URL</label>
-                                                      </div>
+                                              </div>
+                                              <div class="modal-body">
+                                                <div class="container">
+                                                  <div class="row">
+                                                    <div class="col-12">
+                                                      <!--Contact Form-->
+                                                      <form>
+                                                        <div class="md-form">
+                                                          <i class="material-icons prefix">title</i>
+                                                          <input type="text" id="form15" class="form-control" #newTitle mdbActive>
+                                                          <label for="form3">Title</label>
+                                                        </div>
+                                                        <div class="md-form">
+                                                          <i class="material-icons prefix">description</i>
+                                                          <textarea type="text" id="form16" class="md-textarea" style="height: 100px" #newDescription mdbActive></textarea>
+                                                          <label for="form8">description</label>
+                                                        </div>
+                                                        <div class="md-form">
+                                                          <i class="material-icons prefix">link</i>
+                                                          <input type="text" id="form17" class="form-control" #newUrl mdbActive>
+                                                          <label for="form2">URL</label>
+                                                        </div>
 
-                                                      <div class="text-center">
-                                                        <div class="row">
-                                                          <div class="col-6">
-                                                            <button class="btn btn-deep-orange waves-light"
-                                                                    (click)="updateTeacherSchedule(Slot,newTitle.value,newDescription.value,newUrl.value,'wednesday')"
-                                                                    mdbRippleRadius>Done
+                                                        <div class="text-center">
+                                                          <div class="row">
+                                                            <div class="col-6">
+                                                              <button class="btn btn-deep-orange waves-light" (click)="updateTeacherSchedule(Slot,newTitle.value,newDescription.value,newUrl.value,'wednesday')" mdbRippleRadius>Done
                                                             </button>
-                                                          </div>
-                                                          <div class="col-6">
-                                                            <button type="button" class="btn btn-blue-grey waves-light"
-                                                                    (click)="c('Close click')" mdbRippleRadius> Close
+                                                            </div>
+                                                            <div class="col-6">
+                                                              <button type="button" class="btn btn-blue-grey waves-light" (click)="c('Close click')" mdbRippleRadius> Close
                                                             </button>
+                                                            </div>
                                                           </div>
                                                         </div>
-                                                      </div>
-                                                    </form>
-                                                    <!--Contact Form-->
+                                                      </form>
+                                                      <!--Contact Form-->
+                                                    </div>
                                                   </div>
                                                 </div>
                                               </div>
-                                            </div>
-                                          </ng-template>
+                                            </ng-template>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </td>
-                                  </tr>
+                                      </td>
+                                    </tr>
                                   </tbody>
                                   <!--Table body-->
                                 </table>
@@ -595,96 +548,88 @@
                                 <table class="table border-primary table-hover">
                                   <!--Table body-->
                                   <tbody>
-                                  <tr *ngFor="let Slot of thurs ; let i = index">
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot {{i+1}}</h3>
+                                    <tr *ngFor="let Slot of thurs ; let i = index">
+                                      <th class="table-nawwar">
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>Slot {{i+1}}</h3>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>{{7+((i)*2)}}:00</p>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>{{7+((i)*2)}}:00</p>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>{{Slot.slot.title}}</h3>
+                                      </th>
+                                      <td>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>{{Slot.slot.title}}</h3>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>{{Slot.slot.description}}</p>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>{{Slot.slot.description}}</p>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a placement="bottom" ngbTooltip="Go to URL"><i
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <a placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a placement="bottom" ngbTooltip="Edit Slot" (click)="open(content)"><i
+                                            <a placement="bottom" ngbTooltip="Edit Slot" (click)="open(content)"><i
                                             class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <ng-template #content let-c="close" let-d="dismiss">
-                                            <div class="modal-header">
-                                              <h4 class="modal-title">Edit Slot {{i}}</h4>
-                                              <button type="button" class="close" aria-label="Close"
-                                                      (click)="d('Cross click')">
+                                            <ng-template #content let-c="close" let-d="dismiss">
+                                              <div class="modal-header">
+                                                <h4 class="modal-title">Edit Slot {{i}}</h4>
+                                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
-                                            </div>
-                                            <div class="modal-body">
-                                              <div class="container">
-                                                <div class="row">
-                                                  <div class="col-12">
-                                                    <!--Contact Form-->
-                                                    <form>
-                                                      <div class="md-form">
-                                                        <i class="material-icons prefix">title</i>
-                                                        <input type="text" id="form18" class="form-control" #newTitle
-                                                               mdbActive>
-                                                        <label for="form3">Title</label>
-                                                      </div>
-                                                      <div class="md-form">
-                                                        <i class="material-icons prefix">description</i>
-                                                        <textarea type="text" id="form19" class="md-textarea"
-                                                                  style="height: 100px" #newDescription
-                                                                  mdbActive></textarea>
-                                                        <label for="form8">description</label>
-                                                      </div>
-                                                      <div class="md-form">
-                                                        <i class="material-icons prefix">link</i>
-                                                        <input type="text" id="form20" class="form-control" #newUrl
-                                                               mdbActive>
-                                                        <label for="form2">URL</label>
-                                                      </div>
+                                              </div>
+                                              <div class="modal-body">
+                                                <div class="container">
+                                                  <div class="row">
+                                                    <div class="col-12">
+                                                      <!--Contact Form-->
+                                                      <form>
+                                                        <div class="md-form">
+                                                          <i class="material-icons prefix">title</i>
+                                                          <input type="text" id="form18" class="form-control" #newTitle mdbActive>
+                                                          <label for="form3">Title</label>
+                                                        </div>
+                                                        <div class="md-form">
+                                                          <i class="material-icons prefix">description</i>
+                                                          <textarea type="text" id="form19" class="md-textarea" style="height: 100px" #newDescription mdbActive></textarea>
+                                                          <label for="form8">description</label>
+                                                        </div>
+                                                        <div class="md-form">
+                                                          <i class="material-icons prefix">link</i>
+                                                          <input type="text" id="form20" class="form-control" #newUrl mdbActive>
+                                                          <label for="form2">URL</label>
+                                                        </div>
 
-                                                      <div class="text-center">
-                                                        <div class="row">
-                                                          <div class="col-6">
-                                                            <button class="btn btn-deep-orange waves-light"
-                                                                    (click)="updateTeacherSchedule(Slot,newTitle.value,newDescription.value,newUrl.value,'thursday')"
-                                                                    mdbRippleRadius>Done
+                                                        <div class="text-center">
+                                                          <div class="row">
+                                                            <div class="col-6">
+                                                              <button class="btn btn-deep-orange waves-light" (click)="updateTeacherSchedule(Slot,newTitle.value,newDescription.value,newUrl.value,'thursday')" mdbRippleRadius>Done
                                                             </button>
-                                                          </div>
-                                                          <div class="col-6">
-                                                            <button type="button" class="btn btn-blue-grey waves-light"
-                                                                    (click)="c('Close click')" mdbRippleRadius> Close
+                                                            </div>
+                                                            <div class="col-6">
+                                                              <button type="button" class="btn btn-blue-grey waves-light" (click)="c('Close click')" mdbRippleRadius> Close
                                                             </button>
+                                                            </div>
                                                           </div>
                                                         </div>
-                                                      </div>
-                                                    </form>
-                                                    <!--Contact Form-->
+                                                      </form>
+                                                      <!--Contact Form-->
+                                                    </div>
                                                   </div>
                                                 </div>
                                               </div>
-                                            </div>
-                                          </ng-template>
+                                            </ng-template>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </td>
-                                  </tr>
+                                      </td>
+                                    </tr>
                                   </tbody>
                                   <!--Table body-->
                                 </table>
@@ -701,96 +646,88 @@
                                 <table class="table border-primary table-hover">
                                   <!--Table body-->
                                   <tbody>
-                                  <tr *ngFor="let Slot of fri ; let i = index">
-                                    <th class="table-nawwar">
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>Slot {{i+1}}</h3>
+                                    <tr *ngFor="let Slot of fri ; let i = index">
+                                      <th class="table-nawwar">
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>Slot {{i+1}}</h3>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>{{7+((i)*2)}}:00</p>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>{{7+((i)*2)}}:00</p>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </th>
-                                    <td>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <h3>{{Slot.slot.title}}</h3>
+                                      </th>
+                                      <td>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <h3>{{Slot.slot.title}}</h3>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <p>{{Slot.slot.description}}</p>
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <p>{{Slot.slot.description}}</p>
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="row text-center">
-                                        <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
+                                        <div class="row text-center">
+                                          <div class="col-12">
+                                            <a href="#" placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a placement="bottom" ngbTooltip="Edit Slot" (click)="open(content)"><i
+                                            <a placement="bottom" ngbTooltip="Edit Slot" (click)="open(content)"><i
                                             class="fa fa-edit fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <ng-template #content let-c="close" let-d="dismiss">
-                                            <div class="modal-header">
-                                              <h4 class="modal-title">Edit Slot {{i}}</h4>
-                                              <button type="button" class="close" aria-label="Close"
-                                                      (click)="d('Cross click')">
+                                            <ng-template #content let-c="close" let-d="dismiss">
+                                              <div class="modal-header">
+                                                <h4 class="modal-title">Edit Slot {{i}}</h4>
+                                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
-                                            </div>
-                                            <div class="modal-body">
-                                              <div class="container">
-                                                <div class="row">
-                                                  <div class="col-12">
-                                                    <!--Contact Form-->
-                                                    <form>
-                                                      <div class="md-form">
-                                                        <i class="material-icons prefix">title</i>
-                                                        <input type="text" id="form21" class="form-control" #newTitle
-                                                               mdbActive>
-                                                        <label for="form3">Title</label>
-                                                      </div>
-                                                      <div class="md-form">
-                                                        <i class="material-icons prefix">description</i>
-                                                        <textarea type="text" id="form22" class="md-textarea"
-                                                                  style="height: 100px" #newDescription
-                                                                  mdbActive></textarea>
-                                                        <label for="form8">description</label>
-                                                      </div>
-                                                      <div class="md-form">
-                                                        <i class="material-icons prefix">link</i>
-                                                        <input type="text" id="form23" class="form-control" #newUrl
-                                                               mdbActive>
-                                                        <label for="form2">URL</label>
-                                                      </div>
+                                              </div>
+                                              <div class="modal-body">
+                                                <div class="container">
+                                                  <div class="row">
+                                                    <div class="col-12">
+                                                      <!--Contact Form-->
+                                                      <form>
+                                                        <div class="md-form">
+                                                          <i class="material-icons prefix">title</i>
+                                                          <input type="text" id="form21" class="form-control" #newTitle mdbActive>
+                                                          <label for="form3">Title</label>
+                                                        </div>
+                                                        <div class="md-form">
+                                                          <i class="material-icons prefix">description</i>
+                                                          <textarea type="text" id="form22" class="md-textarea" style="height: 100px" #newDescription mdbActive></textarea>
+                                                          <label for="form8">description</label>
+                                                        </div>
+                                                        <div class="md-form">
+                                                          <i class="material-icons prefix">link</i>
+                                                          <input type="text" id="form23" class="form-control" #newUrl mdbActive>
+                                                          <label for="form2">URL</label>
+                                                        </div>
 
-                                                      <div class="text-center">
-                                                        <div class="row">
-                                                          <div class="col-6">
-                                                            <button class="btn btn-deep-orange waves-light"
-                                                                    (click)="updateTeacherSchedule(Slot,newTitle.value,newDescription.value,newUrl.value,'friday')"
-                                                                    mdbRippleRadius>Done
+                                                        <div class="text-center">
+                                                          <div class="row">
+                                                            <div class="col-6">
+                                                              <button class="btn btn-deep-orange waves-light" (click)="updateTeacherSchedule(Slot,newTitle.value,newDescription.value,newUrl.value,'friday')" mdbRippleRadius>Done
                                                             </button>
-                                                          </div>
-                                                          <div class="col-6">
-                                                            <button type="button" class="btn btn-blue-grey waves-light"
-                                                                    (click)="c('Close click')" mdbRippleRadius> Close
+                                                            </div>
+                                                            <div class="col-6">
+                                                              <button type="button" class="btn btn-blue-grey waves-light" (click)="c('Close click')" mdbRippleRadius> Close
                                                             </button>
+                                                            </div>
                                                           </div>
                                                         </div>
-                                                      </div>
-                                                    </form>
-                                                    <!--Contact Form-->
+                                                      </form>
+                                                      <!--Contact Form-->
+                                                    </div>
                                                   </div>
                                                 </div>
                                               </div>
-                                            </div>
-                                          </ng-template>
+                                            </ng-template>
+                                          </div>
                                         </div>
-                                      </div>
-                                    </td>
-                                  </tr>
+                                      </td>
+                                    </tr>
                                   </tbody>
                                   <!--Table body-->
                                 </table>
@@ -811,142 +748,26 @@
           <ng-template ngbTabContent>
             <div class="container">
               <div class="row mt-3">
-                <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let task of tasks">
                   <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                    <div class="card-header">task assigned to</div>
+                    <div class="card-header">{{task.title}}</div>
                     <div class="card-body">
-                      <h5 class="card-title">Task title</h5>
-                      <p class="card-text white-text">Task short description.</p>
+                      <h5 class="card-title">{{(task.description | slice:0:50)}} ...</h5>
+                      <p class="card-text white-text">Assigned to <a (click)="viewChild(task.studentId._id)"><strong>{{task.studentId.name.firstName}} {{task.studentId.name.firstName}}</strong></a></p>
                     </div>
                     <div class="card-footer">
                       <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task"><i class="fa fa-tasks fa-2x white-text mr-2"
-                                                                            aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x white-text"
-                                                                              aria-hidden="true"></i></a>
+                        <a placement="bottom" ngbTooltip="Task" (click)="viewTask(task._id)"><i
+                          class="fa fa-tasks fa-2x white-text mr-2"
+                          aria-hidden="true"></i></a>
+                        <a placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x white-text"
+                                                                     aria-hidden="true"></i></a>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                  <div class="card text-white bg-secondry black-text mb-3" style="max-width: 18rem;">
-                    <div class="card-header">task assigned to</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Task title</h5>
-                      <p class="card-text ">Task short description.</p>
-                    </div>
-                    <div class="card-footer">
-                      <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task"><i class="fa fa-tasks fa-2x black-text  mr-2"
-                                                                            aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x black-text"
-                                                                              aria-hidden="true"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                  <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-                    <div class="card-header">task assigned to</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Task title</h5>
-                      <p class="card-text white-text">Task short description.</p>
-                    </div>
-                    <div class="card-footer">
-                      <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task"><i class="fa fa-tasks fa-2x white-text mr-2"
-                                                                            aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x white-text"
-                                                                              aria-hidden="true"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                  <div class="card text-white bg-danger  mb-3" style="max-width: 18rem;">
-                    <div class="card-header">task assigned to</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Task title</h5>
-                      <p class="card-text white-text">Task short description.</p>
-                    </div>
-                    <div class="card-footer">
-                      <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task"><i class="fa fa-tasks fa-2x white-text mr-2"
-                                                                            aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x white-text"
-                                                                              aria-hidden="true"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                  <div class="card text-white bg-warning  mb-3" style="max-width: 18rem;">
-                    <div class="card-header">task assigned to</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Task title</h5>
-                      <p class="card-text white-text">Task short description.</p>
-                    </div>
-                    <div class="card-footer">
-                      <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task"><i class="fa fa-tasks fa-2x white-text mr-2"
-                                                                            aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x white-text"
-                                                                              aria-hidden="true"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                  <div class="card text-white bg-info  mb-3" style="max-width: 18rem;">
-                    <div class="card-header">task assigned to</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Task title</h5>
-                      <p class="card-text white-text">Task short description.</p>
-                    </div>
-                    <div class="card-footer">
-                      <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task"><i class="fa fa-tasks fa-2x white-text mr-2"
-                                                                            aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x white-text"
-                                                                              aria-hidden="true"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                  <div class="card text-white bg-dark  mb-3" style="max-width: 18rem;">
-                    <div class="card-header">task assigned to</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Task title</h5>
-                      <p class="card-text white-text">Task short description.</p>
-                    </div>
-                    <div class="card-footer">
-                      <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task"><i class="fa fa-tasks fa-2x white-text mr-2"
-                                                                            aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x white-text"
-                                                                              aria-hidden="true"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                  <div class="card text-white bg-light black-text mb-3" style="max-width: 18rem;">
-                    <div class="card-header">task assigned to</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Task title</h5>
-                      <p class="card-text">Task short description.</p>
-                    </div>
-                    <div class="card-footer">
-                      <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task"><i class="fa fa-tasks fa-2x black-text  mr-2"
-                                                                            aria-hidden="true"></i></a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x black-text"
-                                                                              aria-hidden="true"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
+
               </div>
             </div>
           </ng-template>
@@ -963,8 +784,7 @@
               <div class="row mt-3">
                 <div class="col-lg-3 col-md-4 col-sm-6 myCard">
                   <div class="card">
-                    <img class="card-img-top rounded-circle mt-2"
-                         src="https://www.lacartedescolocs.fr/assets/fallbacks/profile_woman_medium_fallback-a7f0361efd57b6d193bef198dacdaaf2a0ac1aa17f23cd9613540c05f2c6bac6.png">
+                    <img class="card-img-top rounded-circle mt-2" src="https://www.lacartedescolocs.fr/assets/fallbacks/profile_woman_medium_fallback-a7f0361efd57b6d193bef198dacdaaf2a0ac1aa17f23cd9613540c05f2c6bac6.png">
                     <div class="card-block">
                       <h4 class="card-title mt-3 grey-text">Student name</h4>
                     </div>
@@ -982,8 +802,7 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 myCard">
                   <div class="card">
-                    <img class="card-img-top rounded-circle mt-2"
-                         src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg">
+                    <img class="card-img-top rounded-circle mt-2" src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg">
                     <div class="card-block">
                       <h4 class="card-title mt-3 grey-text">Student name</h4>
                     </div>

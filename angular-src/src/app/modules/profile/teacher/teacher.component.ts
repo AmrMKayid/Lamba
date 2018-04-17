@@ -234,4 +234,15 @@ export class TeacherComponent implements OnInit {
   }
 
 
+tasks = [];
+  getTasks() {
+    this.http.get(appConfig.apiUrl + '/task/getTasks/', this.httpOptions)
+      .subscribe((res: any) => {
+        this.tasks = res.data;
+        // console.log(res.data);
+      });
+
+  }
+
+
 }
