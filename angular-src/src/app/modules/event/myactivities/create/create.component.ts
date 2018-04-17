@@ -5,6 +5,7 @@ import {ToasterContainerComponent, ToasterService} from 'angular5-toaster';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 import {EventService} from '../../../../services/event.service';
 import {Router} from '@angular/router';
+import {AuthService} from "../../../../services/auth.service";
 
 @Component({
   selector: 'app-create',
@@ -46,14 +47,18 @@ export class CreateComponent implements OnInit {
   activity_type: string;
   picture_url: string;
   token = localStorage.getItem('authentication');
+  isVerified: boolean;
 
   constructor(private toaster: ToasterService,
               private http: Http,
               private eventservice: EventService,
-              private router: Router) {
+              private router: Router,
+              private auth: AuthService) {
   }
 
   ngOnInit() {
+    var currentUser = this.auth.getCurrentUser();
+    this.isVerified = currentUser.isVerified;
   }
 
   onSubmit() {
