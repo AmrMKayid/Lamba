@@ -43,7 +43,6 @@ export class ChildComponent implements OnInit {
   ngOnInit() {
     this.currentUser = this.auth.getCurrentUser();
     this.currentUserID = this.currentUser._id;
-    console.log(this.currentUser._id);
 //  this.httpClient.get('http://localhost:3000/api/user/getUserInfo/'+this.currentUserID,
     this.getChildSchedule();
 

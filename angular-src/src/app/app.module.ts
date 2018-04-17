@@ -20,6 +20,8 @@ import {LoginComponent} from './shared/login/login.component';
 import {NavbarComponent} from './shared/navbar/navbar.component';
 import {RegisterRoleComponent} from './shared/register-role/register-role.component';
 import {RegisterComponent} from './shared/register/register.component';
+import {HeaderComponent} from './modules/profile/components/header/header.component';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -32,6 +34,7 @@ import {RegisterComponent} from './shared/register/register.component';
     FooterComponent,
     AllUsersComponent,
     RegisterRoleComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +45,7 @@ import {RegisterComponent} from './shared/register/register.component';
     HttpClientModule,
     NgbModule.forRoot(),
     MDBBootstrapModule.forRoot(),
+    NgbDropdownModule.forRoot(),
     TranslateModule.forRoot()
   ],
   providers: [
@@ -50,7 +54,7 @@ import {RegisterComponent} from './shared/register/register.component';
     JwtInterceptorProvider,
     AuthService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent,HeaderComponent]
 })
 export class AppModule {
 }

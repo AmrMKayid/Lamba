@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -10,12 +10,14 @@ export class NavbarComponent implements OnInit {
 
   public role;
 
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService, private router: Router) {
+    
   }
-
+  
   ngOnInit() {
     if (localStorage.getItem('authentication')) {
-      this.role = (this.auth.getCurrentUser().role).toLowerCase();
+      if (this.auth.getCurrentUser().role)
+        this.role = (this.auth.getCurrentUser().role).toLowerCase();
     }
   }
 
@@ -24,7 +26,7 @@ export class NavbarComponent implements OnInit {
   }
 
   isAdmin() {
-    if ((this.auth.getCurrentUser().role).toLowerCase() == 'admin') {
+    if (this.auth.getCurrentUser().role == 'Admin') {
       return true;
     }
     return false;
@@ -33,5 +35,13 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.auth.logout();
   }
-
+  
+  hideNavbar(){
+    if(this.router.url == '/profile/admin/dashboard')
+       return false;
+    if(this.router.url == '/profile/admin/un-verified-articles')
+    return false;
+    return true;
+       
+  }
 }
