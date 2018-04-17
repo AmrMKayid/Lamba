@@ -194,7 +194,12 @@ export class PostArticlesComponent implements OnInit {
       if (/^image\//.test(file.type)) {
         this.saveToServer(file);
       } else {
-        console.warn('You could only upload images.');
+        new Noty({
+          type: 'warning',
+          text: `You can only upload images`,
+          timeout: 2000,
+          progressBar: true
+        }).show();
       }
     };
   }

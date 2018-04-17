@@ -331,7 +331,7 @@ const transformHtml = (html) => {
     return result.substring(25, result.length - 14);
 };
 //////////////////////////////////////COMMENTS////////////////////////////////////////
-const comment = function (article, id, content, res, next) {
+const comment = function (article, id, role, content, res, next) {
     let comment = {
         comment_content: content,
         commenter: id,
