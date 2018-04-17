@@ -6,10 +6,7 @@
         <!--Featured Image-->
         <!-- TODO: ADD IMAGE THUMBNAIL -->
         <div class="card mb-4 wow fadeIn">
-          <img
-            src="{{pic_url}}"
-            class="img-fluid"
-            alt="">
+          <img src="{{pic_url}}" class="img-fluid" alt="">
         </div>
         <!--/.Featured Image-->
         <!--Card-->
@@ -43,17 +40,13 @@
           <div class="card-body">
             <div class="media d-block d-md-flex mt-3">
               <!-- TODO: ADD PROFILE PICTURE -->
-              <img class="d-flex mb-3 mx-auto z-depth-1" src="https://mdbootstrap.com/img/Photos/Avatars/img (30).jpg"
-                   alt="Generic placeholder image"
-                   style="width: 100px;">
+              <img class="d-flex mb-3 mx-auto z-depth-1" [src]="IMG_URL + authorPhoto" alt="Generic placeholder image" style="width: 100px;">
               <div class="media-body text-center text-md-left ml-md-3 ml-0 name-capitalize">
                 <h5 class="mt-0 font-weight-bold">{{author}}
                 </h5>
                 <!-- TODO: Add about author, from the backend getArticle would populate an about as well -->
-                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-                deleniti atque corrupti
-                quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in
-                culpa
+                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti
+                quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
                 qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
               </div>
             </div>
@@ -69,18 +62,15 @@
               <h4 class="text-center text-primary">
                 <strong>Leave a reply</strong>
               </h4>
-              <textarea class="form-control" [(ngModel)]="commentContent" name="comment"
-                        placeholder=" Leave your comment here ..." rows="5"></textarea>
+              <textarea class="form-control" [(ngModel)]="commentContent" name="comment" placeholder=" Leave your comment here ..." rows="5"></textarea>
               <div class="text-center">
                 <button type="submit" (click)="comment()" class="btn btn-info btn-sm">Post</button>
               </div>
             </div>
             <hr>
             <!-- COMMENTS START HERE! -->
-            <div class="media d-block d-md-flex mt-4"
-                 *ngFor="let comment of comments | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
-              <img class="d-flex mb-3 mx-auto " src="https://mdbootstrap.com/img/Photos/Avatars/img (20).jpg"
-                   alt="Generic placeholder image">
+            <div class="media d-block d-md-flex mt-4" *ngFor="let comment of comments | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
+              <img class="d-flex mb-3 mx-auto " [src]="IMG_URL + comment.commenter.photo" alt="Generic placeholder image">
               <div class="media-body text-center text-md-left ml-md-3 ml-0">
                 <h5 class="mt-0 font-weight-bold">
                   <a class="name-capitalize" style="cursor: pointer;" [routerLink]="['/profile',comment.commenter._id]">
@@ -214,7 +204,7 @@
 
           <div class="card-body">
 
-            <a class="btn btn-primary btn-block" (click)="assign()"  role="button">
+            <a class="btn btn-primary btn-block" (click)="assign()" role="button">
               <i aria-hidden="true"></i>Assign
             </a>
 

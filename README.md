@@ -21,6 +21,6 @@ The whole point is that services keep their state (thus their data, including th
 Will just add an extra routing in the profile component when the role doesn't match any.
 
 ### Missing: 
-* Child shouldn't see the post article button. 
-* Images are not linked to the frontend yet.
+* ~~Child shouldn't see the post article button.~~
+* ~~Images are not linked to the frontend yet.~~
 

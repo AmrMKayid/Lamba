@@ -17,6 +17,7 @@ export class ViewArticleComponent implements OnInit {
   isInitialized: boolean = false;
   // addReply: boolean = false;
   author: string;
+  authorPhoto: string;  
   comments: any = [{}];
   commentContent: String;
   // replies: any = [{}];
@@ -25,6 +26,7 @@ export class ViewArticleComponent implements OnInit {
   currentUserRole: string;
   editPressed: boolean;
   pic_url: string;
+  IMG_URL = 'http://localhost:3000/api/uploads/articlesThumbnails/';  
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -48,7 +50,9 @@ export class ViewArticleComponent implements OnInit {
         else {
           this.pic_url = "http://localhost:3000/api/uploads/articlesThumbnails/" + this.article.thumbnail_url;
         }
-        this.author = `${this.article.name.firstName} ${this.article.name.lastName}`;
+        console.dir(this.article);
+        this.author = `${this.article.author.name.firstName} ${this.article.author.name.lastName}`;
+        this.authorPhoto = this.article.author.photo;  
         this.isInitialized = true;
         this.comments = this.article.comments;
         // let r: { showReply: boolean, replyContent: string }[] = new Array(this.comments.length);
@@ -72,8 +76,7 @@ export class ViewArticleComponent implements OnInit {
     window.scrollTo(0, 0);
 
     this.currentUserId = this.auth.getCurrentUser()._id;
-    this.httpClient.get('http://localhost:3000/api/user/getUser/' + this.currentUserId).subscribe((res: any) => {
-
+    this.httpClient.get('http://localhost:3000/api/user/getUserByID/' + this.currentUserId, this.httpOptions).subscribe((res: any) => {
       this.currentUserRole = res.data.role;
     });
 

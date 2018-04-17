@@ -8,12 +8,14 @@
       <p>
         <strong>Get your learning on!</strong>
       </p>
-      <p class="mb-4">
-        Care to share your experience with others? it could help a ton :)
-      </p>
-      <a style="cursor: pointer;" [routerLink]="['post']" class="btn btn-outline-white btn-lg">Post a new article
-        <i class="fa fa-graduation-cap ml-2"></i>
-      </a>
+      <ng-container *ngIf="!isChild">
+        <p class="mb-4">
+          Care to share your experience with others? it could help a ton :)
+        </p>
+        <a style="cursor: pointer;" [routerLink]="['post']" class="btn btn-outline-white btn-lg">Post a new article
+          <i class="fa fa-graduation-cap ml-2"></i>
+        </a>
+      </ng-container>
     </div>
   </section>
   <div class="row search-container">
@@ -55,7 +57,7 @@
         <div class="col-lg-5 col-xl-4 mb-4">
           <!--Featured image-->
           <div class="view overlay rounded z-depth-1">
-            <img [src]="(article.thumbnail_url)? IMG_URL + article.thumbnail_url : 'https://i2.wp.com/penpaperpencil.net/wp-content/uploads/2016/01/Drawing-pencils-guide.jpg?fit=900%2C490'"
+            <img [src]="(article.thumbnail_url)? IMG_URL + article.thumbnail_url : IMG_URL+ 'articleThumbnail'"
               class="img-fluid" alt="Article-thumbnail" />
             <a style="cursor: pointer;" [routerLink]="['id',article._id]">
               <div class="mask"></div>

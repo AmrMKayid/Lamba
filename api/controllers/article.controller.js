@@ -298,8 +298,10 @@ const findArticleById = function (article_id, res, next) {
                 if (err) {
                     return next(err);
                 }
-
-                result._doc.name = ownerUser.name;
+                console.log(ownerUser);
+                result._doc.author = {};
+                result._doc.author.name = ownerUser.name;
+                result._doc.author.photo = ownerUser.photo;                  
                 res.status(200).json({
                     err: null,
                     msg: 'Article retrieved successfully.',

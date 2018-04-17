@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { ArticlesService } from '../articles.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-view-articles',
@@ -16,7 +17,7 @@ export class ViewArticlesComponent implements OnInit {
   selectedTags: any[];
   filterTagsIDs: string[] = [];
   keyword: string;
-
+  isChild: boolean;
   IMG_URL = 'http://localhost:3000/api/uploads/articlesThumbnails/';
   httpOptions = {
     headers: new HttpHeaders({
@@ -27,10 +28,12 @@ export class ViewArticlesComponent implements OnInit {
 
   constructor(private http: HttpClient,
     private articlesService: ArticlesService,
-    private router: Router) {
+    private router: Router,
+    private authService: AuthService) {
   }
 
   ngOnInit() {
+    this.isChild = this.authService.getCurrentUser().username;
     this.articles = [];
     this.articlesInitialized = false;
     this.tagsInitialized = false;
