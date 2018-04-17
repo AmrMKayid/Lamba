@@ -41,7 +41,7 @@ module.exports.createActivities = async function (req, res, next) {
     {
         return res.status(422).json({
             err: null,
-            msg: 'One or More field(s) is missing or of incorrect type',
+            msg: '',
             data: null
         });
     }
@@ -337,7 +337,7 @@ module.exports.getActivity = function (req, res, next) {
                     data: null
                 });
             }
-			if(!Activities.isVerified)
+			if(!retrievedActivity.isVerified)
 			{
 				return res.status(404).json({
 					err: "Item Not Found",
