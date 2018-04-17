@@ -29,12 +29,22 @@ module.exports.createActivities = async function (req, res, next) {
     }
 
 
+
+
     // gets the logged in user id
     const authorization = req.headers.authorization;
     const secret = req.app.get('secret');
     decoded = jwt.verify(authorization, secret);
     var user_id = decoded.user._id;
 	var isVerified = decoded.user.isVerified;
+    if(!isVerified)
+    {
+        return res.status(422).json({
+            err: null,
+            msg: 'One or More field(s) is missing or of incorrect type',
+            data: null
+        });
+    }
     
     activity = {
         name: req.body.name,
@@ -46,7 +56,7 @@ module.exports.createActivities = async function (req, res, next) {
         activity_type: req.body.activity_type,
         picture_url: req.body.picture_url,
         host_id: user_id,
-		isVerified: isVerified,
+		isVerified: false,
         created_at: Date.now(),
         updated_at: Date.now()
     };
