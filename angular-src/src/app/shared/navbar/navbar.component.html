@@ -38,6 +38,12 @@
         <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/store/view']" *ngIf="isLoggedIn()">Store</a>
       </li>
 
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <!--TODO: Resources-->
+        <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/event/view']" *ngIf="isLoggedIn()">Activities</a>
+      </li>
+      
+
     </ul>
     <!-- Links -->
 

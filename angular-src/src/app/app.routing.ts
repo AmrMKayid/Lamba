@@ -18,7 +18,8 @@ const appRoutes: Routes = [
   {path: 'schedule', canActivate: [AuthGuard], loadChildren: './modules/schedule/schedule.module#ScheduleModule'},
   {path: 'resources', canActivate: [AuthGuard], loadChildren: './modules/resources/resources.module#ResourcesModule'},
   {path: 'store', canActivate: [AuthGuard], loadChildren: './modules/store/store.module#StoreModule'},
-
+  {path: 'event', canActivate: [AuthGuard], loadChildren: './modules/event/event.module#EventModule'},
+  
   // otherwise redirect to shared
   {path: '', redirectTo: '/', pathMatch: 'full'},
   {path: '**', redirectTo: '/'}
