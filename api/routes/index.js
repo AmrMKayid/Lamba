@@ -100,9 +100,10 @@ router.post('/user/addSession', mw.isAuthenticated, userCtrl.addSession);
 router.delete('/user/deleteSession/:sessionId',mw.isAuthenticated,userCtrl.deleteSession);
 router.patch('/user/updateSession/:sessionId',mw.isAuthenticated,userCtrl.updateSession);
 //----------------------------User Verification Routes--------------------------------------------//
+router.post('/user/requestVerification',mw.isAuthenticated,userCtrl.createVerificationForm);
 router.get('/user/viewVerificationForms',mw.isAuthenticated,mw.isAdmin,userCtrl.viewVerificationForms);
 router.get('/user/verifyUser/:userId',mw.isAuthenticated,mw.isAdmin,userCtrl.verifyUser);
-router.delete('user/deleteVerificationForm/:id',mw.isAuthenticated,mw.isAdmin,userCtrl.deleteVerificationForm);
+router.delete('/user/deleteVerificationForm/:id',mw.isAuthenticated,mw.isAdmin,userCtrl.deleteVerificationForm);
 module.exports = router;
 
 

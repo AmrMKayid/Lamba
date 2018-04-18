@@ -465,8 +465,15 @@ module.exports.createVerificationForm=function (req, res, next) {
           data: null
       });
   }
+  if (req.decodedToken.user.isVerified== true){
+    return res.status(403).json({
+           err:null,
+           msg: "You are already a verified user",
+           data:null
+    });
+  }
   var valid =
-      req.body.owner_id && Validations.isString(req.body.title) &&
+      req.body.owner_id && Validations.isString(req.body.owner_id) &&
       req.body.contactEmail && Validations.isString(req.body.contactEmail)&&
       req.body.contactNumber && Validations.isString(req.body.contactNumber)
       req.body.firstName && Validations.isString(req.body.firstName)&&
@@ -486,14 +493,18 @@ module.exports.createVerificationForm=function (req, res, next) {
           return res
               .status(404)
               .json({ err: null, msg: 'User not found.', data: null });
-      }
-          
+      }     
+        Verification.find({owner_id:req.decodedToken.user._id}).exec(function(err,checkForm){
+    if (err) {
+      return next(err);
+  }
+  if (checkForm.length==0) {
           let form = {
               owner_id: req.decodedToken.user._id,
               contactEmail:req.body.contactEmail,
              contactNumber:req.body.contactNumber,
-              firstName:req.decodedToken.user.firstName,
-              lastName:req.decodedToken.user.lastName
+              firstName:req.decodedToken.user.name.firstName,
+              lastName:req.decodedToken.user.name.lastName
           };
           Verification.create(form, (err, newform) => {
               if (err) {
@@ -506,6 +517,13 @@ module.exports.createVerificationForm=function (req, res, next) {
                   data: newform.toObject()
               });
           });
+        }else{
+          console.log(checkForm);
+          return res
+          .status(422)
+          .json({ err: null, msg: 'You already applied for verification (still in reviewing process)', data: null }); 
+        }
+      });
       });
 };
 
