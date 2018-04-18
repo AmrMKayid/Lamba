@@ -26,6 +26,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 
+import { NotificationsComponent } from './shared/notifications/notifications.component';
+import {NotificationService} from './services/notification.service';
+
 
 @NgModule({
   declarations: [
@@ -37,6 +40,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FooterComponent,
     AllUsersComponent,
     RegisterRoleComponent,
+    NotificationsComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,10 +58,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AuthGuard,
     ErrorInterceptorProvider,
     JwtInterceptorProvider,
-    AuthService
+    AuthService,
+    NotificationService
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
 }
-
