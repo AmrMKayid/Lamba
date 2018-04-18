@@ -81,11 +81,11 @@ router.post('/articles/comment', mw.isAuthenticated, articleCtrl.commentArticle)
 router.post('/articles/reply', mw.isAuthenticated, articleCtrl.replyComment);
 router.delete('/articles/:id', mw.isAuthenticated, articleCtrl.deleteArticle);
 router.patch('/articles/:id', mw.isAuthenticated, articleCtrl.editArticle);
-<<<<<<< HEAD
+
 router.post('/articles/uploadArticleThumbnail',mw.isAuthenticated,articleCtrl.uploadArticleThumbnail)
 router.get('/uploads/articlesThumbnails/:filename', articleCtrl.getImage);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-=======
+
 
 /*-----------------------------Activity Routes-------------------------------------*/
 router.post('/activity/create', mw.isAuthenticated, activityCtrl.createActivities);
@@ -112,5 +112,4 @@ router.post('/notifications/create', mw.isAuthenticated, notificationCtrl.addNot
 router.patch('/notifications/seen', mw.isAuthenticated, notificationCtrl.changeSeenStatus);
 router.get('/notifications/get', mw.isAuthenticated, notificationCtrl.getNotifications);
 
->>>>>>> notifications
 module.exports = router;
