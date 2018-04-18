@@ -213,6 +213,10 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    isReviewed: {
+        type: Boolean,
+        default: false
+    },
     fees: Number,
     schedule: {
         table: {
