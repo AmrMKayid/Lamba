@@ -54,22 +54,24 @@ module.exports.createNewTask = function(req, res, next) {
           });
 
       } else if (user.role === 'Teacher') {
-        user.students.findById(req.body.studentId).exec(function(err, child2) {
-          if (err) {
-            return next(err);
-          }
-          if (!child2) {
-            return res
-              .status(401)
-              .json({
-                err: null,
-                msg: 'This child is not in your list of students.',
-                data: null
-              });
 
-          }
-        });
+        var arraycontainsturtles = (user.students.indexOf(req.body.studentId) > -1);
+
+
+        if(!arraycontainsturtles)
+        {
+              return res
+                .status(401)
+                .json({
+                  err: null,
+                  msg: 'This child is not in your list of students.',
+                  data: null
+                });
+        }
+
       }
+
+      console.log(req.body);
       Task.create(req.body, function(err, task) {
         if (err) {
           return next(err);

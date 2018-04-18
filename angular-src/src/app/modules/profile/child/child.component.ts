@@ -138,5 +138,9 @@ tasks = [];
       });
   }
 
+  viewUser(userId) {
+    this.router.navigate(['profile', userId]);
+  }
+
 
 }

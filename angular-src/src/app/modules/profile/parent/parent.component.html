@@ -163,7 +163,7 @@
                     <div class="card-footer">
                       <ng-template #content let-c="close" let-d="dismiss">
                         <div class="modal-header">
-                          <h4 class="modal-title">Edit Slot {{i}}</h4>
+                          <h4 class="modal-title">Add Task</h4>
                           <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -230,10 +230,10 @@
               <div class="row mt-3">
                 <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let task of tasks">
                   <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                    <div class="card-header">task assigned to</div>
+                    <div class="card-header">{{task.title}}</div>
                     <div class="card-body">
-                      <h5 class="card-title">{{task.title}}</h5>
-                      <p class="card-text white-text">{{task.description}}</p>
+                      <h5 class="card-title">{{(task.description | slice:0:50)}} ...</h5>
+                      <p class="card-text white-text">Assigned to <a (click)="viewChild(task.studentId._id)"><strong>{{task.studentId.name.firstName}} {{task.studentId.name.firstName}}</strong></a></p>
                     </div>
                     <div class="card-footer">
                       <div class="icon pull-right">
