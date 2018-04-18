@@ -25,6 +25,9 @@ import {RegisterComponent} from './shared/register/register.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
+import {ChatService} from "./services/chat.service";
+import {WebsocketService} from "./services/websocket.service";
+import { ChatComponent } from './shared/chat/chat.component';
 
 
 @NgModule({
@@ -37,6 +40,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FooterComponent,
     AllUsersComponent,
     RegisterRoleComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +58,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AuthGuard,
     ErrorInterceptorProvider,
     JwtInterceptorProvider,
-    AuthService
+    AuthService,
+    WebsocketService,
+    ChatService
   ],
   bootstrap: [AppComponent]
 })

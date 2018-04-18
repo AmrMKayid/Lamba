@@ -6,6 +6,7 @@ import {RegisterComponent} from './shared/register/register.component';
 import {AuthGuard} from './guards/auth.guard';
 import {AllUsersComponent} from "./shared/all-users/all-users.component";
 import {RegisterRoleComponent} from './shared/register-role/register-role.component';
+import {ChatComponent} from "./shared/chat/chat.component";
 
 
 const appRoutes: Routes = [
@@ -14,6 +15,7 @@ const appRoutes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'register-role', component: RegisterRoleComponent},
   {path: 'users', component: AllUsersComponent},
+  {path: 'chat', component: ChatComponent},
   {path: 'profile', canActivate: [AuthGuard], loadChildren: './modules/profile/profile.module#ProfileModule'},
   {path: 'schedule', canActivate: [AuthGuard], loadChildren: './modules/schedule/schedule.module#ScheduleModule'},
   {path: 'resources', canActivate: [AuthGuard], loadChildren: './modules/resources/resources.module#ResourcesModule'},

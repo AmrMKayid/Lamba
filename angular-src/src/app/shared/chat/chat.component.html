@@ -1,0 +1,8 @@
+<div class="divider" style="padding-top:50px;"></div>
+<div class="container">
+  <input type="text" class="txt" placeholder="Type here..." [(ngModel)]="msgToServer">
+  <!--<h1>{{msgToServer}}</h1>-->
+  <button class="btn btn-default waves-light" mdbRippleRadius (click)="sendMessage(msgToServer)">Send To Server</button>
+  <br><br>
+  <h1>Message From Server: <br> {{serverMsg | json}}</h1>
+</div>
