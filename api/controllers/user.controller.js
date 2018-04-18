@@ -348,9 +348,6 @@ module.exports.viewArticleToVerify = function(req, res, next) {
     });
   });
 };
-=======
-
->>>>>>> yasmeen
 
 //Verfiy Articles
 module.exports.verifyArticle = function(req, res, next) {
