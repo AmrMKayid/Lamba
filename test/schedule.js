@@ -15,7 +15,7 @@ chai.use(chaiHttp);
 
 
 describe("schedule ", () => {
-    let  teacher , parent , child , task , com , teacherToken, parentToken , childToken , teacherId , childId , parentId , taskId , slotId;
+    let  teacher , parent , child , task , com , teacherToken, parentToken , childToken , teacherId , childId , parentId , taskId , slotId,slotIdTeacher;
     before((done) => {
         mongoose.connect('mongodb://localhost:27017/lambatest', () => {
             console.log('Connected to lambatest');
@@ -202,6 +202,7 @@ describe("schedule ", () => {
                 expect(res.body.data.table).to.have.property('wednesday');
                 expect(res.body.data.table).to.have.property('thursday');
                 expect(res.body.data.table).to.have.property('friday');
+                slotIdTeacher = res.body.data.table.thursday[3]._id;
                 done();
             });
         });
@@ -219,6 +220,77 @@ describe("schedule ", () => {
         });
 
     });
+describe("update teacher schedule test", () => {
+    it("it should update the teacher's schedule with status 200 ok", (done) => {
+    let body = {
+        title : "se",
+        description : "blabeezo",
+        url : "activity",
+        day : "thursday"
+    };
+    chai.request("http://localhost:3000/api").patch("/schedule/updateTeacherSchedule/"+slotIdTeacher+"/").send(body).set("authorization",teacherToken).end((err,res)=>{
+        expect(res).to.have.status(200);
+    expect(res.body.data.slot.title).to.be.equal("se");
+    expect(res.body.data.slot.description).to.be.equal("blabeezo");
+    expect(res.body.data.slot.url).to.be.equal("activity");
+    done();
+});
+});
+
+
+it("it should return invalid input for putting a wrong day for the slot", (done) => {
+    let body = {
+        title : "se",
+        description : "blabeezo",
+        url : "activity",
+        day : "blabeezo"
+    };
+chai.request("http://localhost:3000/api").patch("/schedule/updateTeacherSchedule/"+slotIdTeacher+"/").send(body).set("authorization",teacherToken).end((err,res)=>{
+    expect(res).to.have.status(422);
+done();
+});
+});
+
+
+it("it should return invalid input for not putting a valid object id for slot", (done) => {
+    let body = {
+        title : "math",
+        description : "study math for 2 hours",
+        url : "session id",
+        day : "saturday"
+    };
+chai.request("http://localhost:3000/api").patch("/schedule/updateTeacherSchedule/123abc/").send(body).set("authorization",teacherToken).end((err,res)=>{
+    expect(res).to.have.status(422);
+done();
+});
+});
+
+it("it should return unauthorized action for not trying to update a schedule that isnt the teacher's", (done) => {
+    let body = {
+        title : "math",
+        description : "study math for 2 hours",
+        url : "session id",
+        day : "saturday"
+    };
+chai.request("http://localhost:3000/api").patch("/schedule/updateTeacherSchedule/"+slotIdTeacher+"/").send(body).set("authorization",parentToken).end((err,res)=>{
+    expect(res).to.have.status(401);
+done();
+});
+});
+it("it should return not found for not finding the slot", (done) => {
+    let body = {
+        title : "math",
+        description : "study math for 2 hours",
+        url : "session id",
+        day : "saturday"
+    };
+chai.request("http://localhost:3000/api").patch("/schedule/updateTeacherSchedule/"+slotId+"/").send(body).set("authorization",teacherToken).end((err,res)=>{
+    expect(res).to.have.status(404);
+done();
+});
+});
+
+});
 
 
     describe("update child schedule", () => {

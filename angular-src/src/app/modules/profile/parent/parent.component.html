@@ -12,8 +12,7 @@
   <div class="card-body text-center">
     <div class="avatar">
       <a (click)="open(img)">
-        <img *ngIf="currentUser.photo" src="http://localhost:3000/api/uploads/store/{{currentUser.photo}}" class="rounded-circle">
-        <img *ngIf="!currentUser.photo" src="assets/user.png" class="rounded-circle">
+        <img src="http://localhost:3000/api/uploads/store/{{currentUser.photo}}" class="rounded-circle">
       </a>
       <ng-template #img let-c="close" let-d="dismiss">
         <div class="modal-header">
@@ -164,7 +163,7 @@
                     <div class="card-footer">
                       <ng-template #content let-c="close" let-d="dismiss">
                         <div class="modal-header">
-                          <h4 class="modal-title">Edit Slot {{i}}</h4>
+                          <h4 class="modal-title">Add Task</h4>
                           <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -231,24 +230,22 @@
               <div class="row mt-3">
                 <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let task of tasks">
                   <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                    <div class="card-header">task assigned to</div>
+                    <div class="card-header">{{task.title}}</div>
                     <div class="card-body">
-                      <h5 class="card-title">{{task.title}}</h5>
-                      <p class="card-text white-text">{{task.description}}</p>
+                      <h5 class="card-title">{{(task.description | slice:0:50)}} ...</h5>
+                      <p class="card-text white-text">Assigned to <a (click)="viewChild(task.studentId._id)"><strong>{{task.studentId.name.firstName}} {{task.studentId.name.firstName}}</strong></a></p>
                     </div>
                     <div class="card-footer">
                       <div class="icon pull-right">
-                        <a  placement="bottom" ngbTooltip="Task" (click)="viewTask(task._id)"><i class="fa fa-tasks fa-2x white-text mr-2"
-                                                                            aria-hidden="true"></i></a>
-                        <a  placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x white-text"
-                                                                              aria-hidden="true"></i></a>
+                        <a placement="bottom" ngbTooltip="Task" (click)="viewTask(task._id)"><i
+                          class="fa fa-tasks fa-2x white-text mr-2"
+                          aria-hidden="true"></i></a>
+                        <a placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x white-text"
+                                                                     aria-hidden="true"></i></a>
                       </div>
                     </div>
                   </div>
                 </div>
-
-
-
 
 
               </div>

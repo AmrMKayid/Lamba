@@ -28,11 +28,11 @@ import {StatModule} from './admin/stat/stat.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
 
-import {
-  TimelineComponent,
-  NotificationComponent,
-  ChatComponent
-} from './admin/dashboard/components';
+// import {
+//   TimelineComponent,
+//   NotificationComponent,
+//   ChatComponent
+// } from './admin/dashboard/components';
 import {MyProfileComponent} from './my-profile/my-profile.component';
 
 const appRoutes: Routes = [
@@ -96,9 +96,9 @@ const appRoutes: Routes = [
     SidebarComponent,
     HeaderComponent,
     DashboardComponent,
-    TimelineComponent,
-    NotificationComponent,
-    ChatComponent,
+    // TimelineComponent,
+    // NotificationComponent,
+    // ChatComponent,
     MyProfileComponent
   ],
   providers: [

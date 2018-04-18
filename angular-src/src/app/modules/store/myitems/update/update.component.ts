@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Http, Headers} from '@angular/http';
-import {ToasterContainerComponent, ToasterService} from 'angular5-toaster';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 import {StoreService} from '../../../../services/store.service';
 import {Router} from '@angular/router';
@@ -26,6 +25,7 @@ export class UpdateComponent implements OnInit {
   editPressed = false;
   reverse: boolean = false;
   picture_url: string;
+  Name;
 
   sort(key) {
     this.key = key;
@@ -33,7 +33,6 @@ export class UpdateComponent implements OnInit {
   }
 
   constructor(private http: Http,
-              private toaster: ToasterService,
               private router: Router,
               private storeservice: StoreService,) {
   }
@@ -55,12 +54,12 @@ export class UpdateComponent implements OnInit {
 
     this.http.patch('http://localhost:3000/api/store/edit/' + item, editedItem)
       .subscribe(res => {
-        this.toaster.pop({
+        new Noty({
           type: 'success',
-          title: "Success!",
-          body: "Updated",
-          timeout: 3000
-        });
+          text: 'Updated!',
+          timeout: 3000,
+          progressBar: true
+        }).show();
 
         localStorage.setItem("Update", null);
         this.router.navigate(["/store/myitems/view"]);

@@ -36,7 +36,7 @@ const CommentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    name: {
+    role: {
         type: String,
         required: true
     },

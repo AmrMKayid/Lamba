@@ -228,6 +228,7 @@ module.exports.updateTeacherSchedule = function (req, res, next) {
             data: null
         });
     }
+
     var valid =
         req.body.title &&
         Validations.isString(req.body.title) &&
@@ -238,6 +239,7 @@ module.exports.updateTeacherSchedule = function (req, res, next) {
         req.body.day &&
         Validations.isString(req.body.day) ;
     if (!valid) {
+        // console.log(req.body);
         return res.status(422).json({
             err: null,
             msg:

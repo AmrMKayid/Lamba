@@ -21,14 +21,19 @@ router.post('/auth/admin', mw.isAuthenticated, authCtrl.addAdmin);
 router.get('/user/getAllUsers', userCtrl.getAllUsers);
 router.get('/user/getUserChildren/:userID', userCtrl.getUserChildren);
 router.patch('/user/updateImage/:userID', userCtrl.updateImage);
-
+router.get('/user/getChild/:childId', mw.isAuthenticated, userCtrl.getChildByID);
 router.get('/admin/teachers_verfication', userCtrl.getPendingTeachers);
 router.get('/admin/accept_teacher/:teacherID', userCtrl.acceptTeacher);
+
+
+router.get('/user/getMyTeachers/', mw.isAuthenticated, userCtrl.getMyTeachers);
+router.get('/user/getMyStudents/', mw.isAuthenticated, userCtrl.getMyStudents);
+
 
 router.patch('/user/updateUser/:userId', userCtrl.updateUser);
 router.get('/user/getUserInfo/:userId', userCtrl.getUserInfo);
 router.get('/user/getUserByID/:id', mw.isAuthenticated, userCtrl.getUser);
-
+router.patch('/user/assignArticleToChild/:childID',mw.isAuthenticated,userCtrl.assignArticleToChild);
 //------------------------------Admin Routes---------------------------------//
 router.get('/user/viewUnverifiedArticles', mw.isAuthenticated, mw.isAdmin, userCtrl.viewUnverifiedArticles);
 router.get('/user/viewArticleToVerify/:articleId', mw.isAuthenticated, mw.isAdmin, userCtrl.viewArticleToVerify);
@@ -72,6 +77,7 @@ router.post('/articles/comment', mw.isAuthenticated, articleCtrl.commentArticle)
 router.post('/articles/reply', mw.isAuthenticated, articleCtrl.replyComment);
 router.delete('/articles/:id', mw.isAuthenticated, articleCtrl.deleteArticle);
 router.patch('/articles/:id', mw.isAuthenticated, articleCtrl.editArticle);
-
-
+router.post('/articles/uploadArticleThumbnail',mw.isAuthenticated,articleCtrl.uploadArticleThumbnail)
+router.get('/uploads/articlesThumbnails/:filename', articleCtrl.getImage);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 module.exports = router;

@@ -39,9 +39,12 @@
 
         <!-- Single Comment -->
         <div class="media mb-4" *ngFor="let comment of taskComments">
-          <img class="d-flex mr-3 rounded-circle" width="60" src="http://localhost:3000/api/uploads/store/{{this.auth.getCurrentUser().photo}}" alt="">
+          <img class="d-flex mr-3 rounded-circle" width="60" src="http://localhost:3000/api/uploads/store/{{comment.userId.photo}}" alt="">
           <div class="media-body">
-            <h5 class="mt-0">{{comment.name}}</h5>
+            <div class="row">
+              <div class="col-6"><h5 class="mt-0">{{comment.userId.name.firstName}} {{comment.userId.name.lastName}}</h5></div>
+              <div class="col-6 text-right">{{comment.createdAt | date}}</div>
+            </div>
             <p>{{comment.comment}}</p>
           </div>
         </div>

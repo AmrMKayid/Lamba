@@ -4,7 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {appConfig} from "../../../app.config";
 import {AuthService} from "../../../services/auth.service";
-import {NgbModal, ModalDismissReasons ,NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Component({
@@ -125,7 +125,7 @@ export class ParentComponent implements OnInit {
 
   }
 
-modalref:NgbModalRef;
+  modalref: NgbModalRef;
 
   open(content) {
     this.modalref = this.modalService.open(content)
