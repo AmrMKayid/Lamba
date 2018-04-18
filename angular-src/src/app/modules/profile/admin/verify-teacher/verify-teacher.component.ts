@@ -16,7 +16,8 @@ import { routerTransition } from '../router.animations';
 
 })
 export class VerifyTeacherComponent implements OnInit {
-
+  currentUser;
+  token = localStorage.getItem('authentication');
   public Teachers = [];
   p: number = 1;
 
