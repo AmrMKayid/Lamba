@@ -22,11 +22,66 @@
     <h5 class="indigo-text" *ngIf="user.address"><strong>{{user.address.street}}, {{user.address.city}},
       {{user.address.state}}, {{user.address.zip}}</strong></h5>
 
-    <button class="btn btn-deep-orange">Connect</button>
+    <button class="btn btn-deep-orange" *ngIf="isParent" (click)="open(content)"><i aria-hidden="true"></i>Connect</button>
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Choose a child</h4>
+        <button type="button" class="close" aria-label="Close"
+                (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <!--Contact Form-->
+              <form>
+                <div class="md-form">
+                  <i class="material-icons prefix">title</i>
+                  <input type="text" id="form12" class="form-control" #newTitle
+                         mdbActive>
+                  <label >Title</label>
+                </div>
+                <div class="md-form">
+                  <i class="material-icons prefix">description</i>
+                  <textarea type="text" id="form42" class="md-textarea"
+                            style="height: 100px" #newDescription
+                            mdbActive></textarea>
+                  <label >description</label>
+                </div>
+                <div class="md-form">
+                  <i class="material-icons prefix">link</i>
+                  <input type="text" id="form62" class="form-control" #newUrl
+                         mdbActive>
+                  <label>URL</label>
+                </div>
+
+                <div class="text-center">
+                  <div class="row">
+                    <div class="col-6">
+                      <button class="btn btn-deep-orange waves-light"
+                              mdbRippleRadius>Submit Request
+                      </button>
+                    </div>
+                    <div class="col-6">
+                      <button type="button" class="btn btn-blue-grey waves-light"
+                              (click)="c('Close click')" mdbRippleRadius> Close
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <!--Contact Form-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
 
     <div class="mt-5">
 
-      <ngb-tabset class="nav-justified">
+      <ngb-tabset class="nav-justified" >
         <ngb-tab title="Schedule">
           <ng-template ngbTabContent>
             <div class="container">
