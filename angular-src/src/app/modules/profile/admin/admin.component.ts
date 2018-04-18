@@ -36,5 +36,6 @@ export class AdminComponent implements OnInit {
     this.router.navigate(['/profile/admin/verify-teachers']);
 
   }
+  
 
 }

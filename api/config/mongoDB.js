@@ -66,4 +66,6 @@ require('../models/item.model');
 require('../models/task.model');
 require('../models/user.model');
 require('../models/tag.model');
-
+require('../models/activity.model');
+require('../models/notification.model');
+require('../models/verification.model');

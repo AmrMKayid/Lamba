@@ -1,0 +1,58 @@
+<div [@routerTransition]>
+  <h2  style="text-align:center;font-weight:bold;">Activities</h2>
+  <em *ngIf="unVerifiedActivitiesList.length ===0">No Activities to verify</em>
+  <div class="row">
+      
+    <div class="col-12" *ngFor="let activity of unVerifiedActivitiesList">
+      <div class="card card-default">
+        <div class="card-header" style="background-color:#ffc335;">
+          <a class="btn-floating peach-gradient waves-light"><i class="fa fa-leaf"></i></a>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <ul class="timeline">
+            <li>
+              <div class="timeline-badge"><i class="fa fa-check"></i>
+              </div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h4 class="timeline-title">{{activity.name}}</h4>
+                  <p>
+                    <small class="text-muted"><i class="fa fa-clock-o"></i> {{ activity.created_at | date}}</small>
+                  </p>
+                  <p class="grey-text">Posted by
+                    <a style="cursor: pointer;" [routerLink]="['/profile',activity.host_id]" class="name-capitalize">{{activity.host_firstName}}
+                      {{activity.host_lastName}}</a>
+                  </p>
+                  <img id="icon" src="http://127.0.0.1:3000/api/uploads/store/{{activity['picture_url']}}"/>
+                </div>
+              </div>
+            </li>
+            <li class="timeline-inverted">
+              <div class="timeline-badge warning"><i class="fa fa-credit-card"></i>
+              </div>
+              <div class="timeline-panel">
+                <div class="timeline-body">
+                  <div class="timeline-subtitle">Location: <span class="timeline-text"> {{activity.place}}</span></div>
+                  <div class="timeline-subtitle">Type: <span class="timeline-text"> {{activity.activity_type}}</span></div>
+                  <div class="timeline-subtitle">Price: <span class="timeline-text"> {{activity.price}}</span></div>
+                  <div class="timeline-subtitle">Description:</div>
+                  <div>{{activity.description}}</div>
+                  <button class="badge badge-pill btn-success" (click)="verifyactivity(activity._id)" style="cursor: pointer;">VERIFY</button>
+                  <!--to do reject-->
+                  <span><button class="badge badge-pill btn-danger" style="cursor: pointer;" >REJECT</button></span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <ul class="timeline">
+
+    </ul>
+  </div>
+
+</div>

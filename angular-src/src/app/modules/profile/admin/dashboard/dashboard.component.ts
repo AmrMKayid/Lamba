@@ -9,11 +9,13 @@ import {HttpClient} from '@angular/common/http';
   animations: [routerTransition()]
 })
 export class DashboardComponent implements OnInit {
-  public alerts: Array<any> = [];
   public sliders: Array<any> = [];
   public articles: Array<any> = [];
   public Teachers: Array<any> = [];
 
+  public activities: Array<any> = [];
+  public teacherForms: Array<any> = [];
+  public forms;
   constructor(private httpClient: HttpClient) {
     this.sliders.push(
       {
@@ -35,24 +37,6 @@ export class DashboardComponent implements OnInit {
       }
     );
 
-    this.alerts.push(
-      {
-        id: 1,
-        type: 'success',
-        message: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptates est animi quibusdam praesentium quam, et perspiciatis,
-                consectetur velit culpa molestias dignissimos
-                voluptatum veritatis quod aliquam! Rerum placeat necessitatibus, vitae dolorum`
-      },
-      {
-        id: 2,
-        type: 'warning',
-        message: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptates est animi quibusdam praesentium quam, et perspiciatis,
-                consectetur velit culpa molestias dignissimos
-                voluptatum veritatis quod aliquam! Rerum placeat necessitatibus, vitae dolorum`
-      }
-    );
   }
 
   ngOnInit() {
@@ -61,10 +45,10 @@ export class DashboardComponent implements OnInit {
       .subscribe((res: any) => {
         this.articles = res.data;
         console.log(res.msg);
-        console.log(res.data);
       }, err => {
         console.log(err.error.msg);
       });
+<<<<<<< HEAD
       this.httpClient.get('http://localhost:3000/api/admin/teachers_verfication', {headers: autorization})
       .subscribe((res: any) => {
         this.Teachers = res.data;
@@ -74,10 +58,33 @@ export class DashboardComponent implements OnInit {
         console.log(err.error.msg);
       });
 
+=======
+      this.httpClient.get('http://localhost:3000/api/activity/viewUnverifiedActivities', {headers: autorization})
+      .subscribe((res: any) => {
+        this.activities = res.data;
+        console.log(res.msg);
+      }, err => {
+        new Noty({
+          type: 'error',
+          text: err.error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      });
+      this.httpClient.get('http://localhost:3000/api/admin/teachers_verfication', {headers: autorization})
+      .subscribe((res: any) => {
+        this.teacherForms = res.data;
+        console.log(res.msg);
+      }, err => {
+        new Noty({
+          type: 'error',
+          text: err.error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      });
+this.forms=this.teacherForms.length;
+>>>>>>> 8297e78022b4965eaca17576526d62b4d83a7f10
   }
 
-  public closeAlert(alert: any) {
-    const index: number = this.alerts.indexOf(alert);
-    this.alerts.splice(index, 1);
-  }
 }

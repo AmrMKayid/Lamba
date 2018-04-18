@@ -158,14 +158,15 @@ module.exports.createArticle = function (req, res, next) {
                 return next(err);
             }
             const content = transformHtml(req.body.content);
+            if (!req.body.thumbnail_url) {
+                req.body.thumbnail_url = "articleDefault";
+            }
             let article = {
                 owner_id: req.decodedToken.user._id,
                 title: req.body.title,
                 content,
                 tags: null,
-                //////////////HERE////////////
                 thumbnail_url: req.body.thumbnail_url
-                //////////////HERE////////////
             };
             if (retrievedTags.length !== req.body.tags.length) {
                 return res.status(404).json({
@@ -298,8 +299,9 @@ const findArticleById = function (article_id, res, next) {
                 if (err) {
                     return next(err);
                 }
-
-                result._doc.name = ownerUser.name;
+                result._doc.owner = {};
+                result._doc.owner.name = ownerUser.name;
+                result._doc.owner.photo = ownerUser.photo;
                 res.status(200).json({
                     err: null,
                     msg: 'Article retrieved successfully.',
@@ -307,7 +309,7 @@ const findArticleById = function (article_id, res, next) {
                 });
             });
         }).populate('comments.commenter', 'name photo');
-        // .populate('comments.replies.replier', 'name photo');
+    // .populate('comments.replies.replier', 'name photo');
 }
 
 

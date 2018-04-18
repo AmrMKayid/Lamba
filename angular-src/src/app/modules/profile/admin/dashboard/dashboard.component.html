@@ -16,7 +16,7 @@
   <hr>
   <div class="row">
     <div class="col-xl-3 col-lg-6">
-      <app-stat [bgClass]="'primary'" [icon]="'fa fa-file-text-o'" [count]="articles.length" [label]="'New Articles!'"
+      <app-stat [bgClass]="'primary'" [icon]="'fa fa-fw fa-edit'" [count]="articles.length" [label]="'New Articles!'"
                 [routerLink]="['/profile/admin/un-verified-articles']"
                 [routerLinkActive]="['router-link-active']"></app-stat>
     </div>
@@ -25,8 +25,11 @@
       [routerLink]="['/profile/admin/verify-teachers']"
       [routerLinkActive]="['router-link-active']"></app-stat>
     </div>
+    
     <div class="col-xl-3 col-lg-6">
-      <app-stat [bgClass]="'warning'" [icon]="'fa-shopping-cart'" [count]="124" [label]="'New Orders!'"></app-stat>
+      <app-stat [bgClass]="'success'" [icon]="'fa fa-bicycle'" [count]="activities.length" [label]="'New Activities!'"
+               [routerLink]="['/profile/admin/un-verified-activities']"
+               [routerLinkActive]="['router-link-active']"></app-stat>
     </div>
     <div class="col-xl-3 col-lg-6">
       <app-stat [bgClass]="'danger'" [icon]="'fa-support'" [count]="13" [label]="'New Tickets!'"></app-stat>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+      font-size: 1em;
+      font-weight: bold;
+
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+
+  </style>
+</head>
+
+
+<toaster-container></toaster-container>
+
+
+<div>
+  <table style="width:100%">
+    <tr>
+      <th>Index</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Place</th>
+      <th>Type</th>
+      <th>Created At</th>
+      <th>Updated At</th>
+      <th>Edit/Delete</th>
+
+    </tr>
+    <tr *ngFor="let activity of myactivities; let i = index ">
+      <td> {{ i + 1 }}</td>
+      <th>{{activity['name']}}</th>
+      <th>{{activity['price']}}</th>
+      <th>{{activity['place']}}</th>
+      <th>{{activity['activity_type']}}</th>
+      <th> {{ activity['created_at'] | date:'medium' }}</th>
+      <th> {{ activity['updated_at'] | date:'medium' }}</th>
+      <th>
+        <button (click)="deleteActivity(activity._id)" class="btn btn-danger">Delete</button>
+        <button (click)=" updateActivity(activity)" class="btn btn-info">Edit</button>
+      </th>
+    </tr>
+  </table>
+</div>
+
+</html>

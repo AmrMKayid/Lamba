@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -11,9 +11,10 @@ export class NavbarComponent implements OnInit {
   currentUser;
   public role;
 
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService, private router: Router) {
+    
   }
-
+  
   ngOnInit() {
     if (this.isLoggedIn()) {
       this.currentUser = this.auth.getCurrentUser();
@@ -36,5 +37,17 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.auth.logout();
   }
-
+  
+  hideNavbar(){
+    if(this.router.url == '/profile/admin/dashboard')
+       return false;
+    if(this.router.url == '/profile/admin/un-verified-articles')
+    return false;
+    if(this.router.url == '/profile/admin/un-verified-activities')
+    return false;
+    if(this.router.url=='/profile/admin/verify-teachers')
+    return false;
+    return true;
+       
+  }
 }
