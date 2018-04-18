@@ -317,7 +317,8 @@ module.exports.viewUnverifiedArticles = function(req, res, next) {
     });
   });
 };
-<<<<<<< HEAD
+
+
 //View Certain Article
 module.exports.viewArticleToVerify = function(req, res, next) {
   if (!Validations.isObjectId(req.params.articleId)) {
