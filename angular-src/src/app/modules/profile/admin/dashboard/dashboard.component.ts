@@ -48,7 +48,6 @@ export class DashboardComponent implements OnInit {
       }, err => {
         console.log(err.error.msg);
       });
-<<<<<<< HEAD
       this.httpClient.get('http://localhost:3000/api/admin/teachers_verfication', {headers: autorization})
       .subscribe((res: any) => {
         this.Teachers = res.data;
@@ -58,7 +57,6 @@ export class DashboardComponent implements OnInit {
         console.log(err.error.msg);
       });
 
-=======
       this.httpClient.get('http://localhost:3000/api/activity/viewUnverifiedActivities', {headers: autorization})
       .subscribe((res: any) => {
         this.activities = res.data;
@@ -84,7 +82,6 @@ export class DashboardComponent implements OnInit {
         }).show();
       });
 this.forms=this.teacherForms.length;
->>>>>>> 8297e78022b4965eaca17576526d62b4d83a7f10
   }
 
 }
