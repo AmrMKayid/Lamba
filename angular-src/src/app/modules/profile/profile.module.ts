@@ -8,7 +8,7 @@ import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/h
 import {Http, Headers, HttpModule} from '@angular/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ImageUploadModule} from "angular2-image-upload";
-
+import {MatDialogModule} from "@angular/material";
 import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {HeaderComponent} from './components/header/header.component';
 import {ProfileComponent} from './profile.component';
@@ -17,7 +17,6 @@ import {ParentComponent} from './parent/parent.component';
 import {TeacherComponent} from './teacher/teacher.component';
 import {ChildComponent} from './child/child.component';
 import {UnVerifiedArticlesComponent} from './admin/un-verified-articles/un-verified-articles.component';
-import {VerifyArticleComponent} from './admin/verify-article/verify-article.component';
 import {ViewParentComponent} from './view-profile/view-parent/view-parent.component';
 import {ViewTeacherComponent} from './view-profile/view-teacher/view-teacher.component';
 import {ViewChildComponent} from './view-profile/view-child/view-child.component';
@@ -27,14 +26,22 @@ import {DashboardComponent} from './admin/dashboard/dashboard.component'
 import {StatModule} from './admin/stat/stat.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatFormFieldModule } from '@angular/material';
+import {ArticlesService} from '../resources/articles.service';
+
 
 // import {
 //   TimelineComponent,
 //   NotificationComponent,
 //   ChatComponent
 // } from './admin/dashboard/components';
-import {MyProfileComponent} from './my-profile/my-profile.component';
 
+import {MyProfileComponent} from './my-profile/my-profile.component';
+import { AddTagsComponent } from './admin/add-tags/add-tags.component';
+import {MatInputModule} from '@angular/material';
+import { DeleteTagsComponent } from './admin/delete-tags/delete-tags.component';
+import { UnVerifiedActivitiesComponent } from './admin/un-verified-activities/un-verified-activities.component';
 const appRoutes: Routes = [
   {
     path: 'me',
@@ -51,16 +58,16 @@ const appRoutes: Routes = [
       {
         path: 'un-verified-articles',
         component: UnVerifiedArticlesComponent
+      },
+      {
+        path: 'un-verified-activities',
+        component:UnVerifiedActivitiesComponent
+      },
+      {
+        path: 'verify-teachers',
+        component: VerifyTeacherComponent
       }
     ]
-  },
-  {
-    path: 'admin/verify-articles/:id',
-    component: VerifyArticleComponent
-  },
-  {
-    path: 'admin/verify-teachers',
-    component: VerifyTeacherComponent
   },
   {
     path: ':id',
@@ -79,7 +86,11 @@ const appRoutes: Routes = [
     NgbModule.forRoot(),
     TranslateModule.forChild(),
     MDBBootstrapModule.forRoot(),
-    StatModule
+    NgbDropdownModule.forRoot(),
+    StatModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   declarations: [
     ProfileComponent,
@@ -88,23 +99,26 @@ const appRoutes: Routes = [
     TeacherComponent,
     ChildComponent,
     UnVerifiedArticlesComponent,
-    VerifyArticleComponent,
     VerifyTeacherComponent,
     ViewParentComponent,
     ViewTeacherComponent,
     ViewChildComponent,
     SidebarComponent,
-    HeaderComponent,
     DashboardComponent,
     // TimelineComponent,
     // NotificationComponent,
     // ChatComponent,
-    MyProfileComponent
+    MyProfileComponent,
+    AddTagsComponent,
+    DeleteTagsComponent,
+    UnVerifiedActivitiesComponent
   ],
   providers: [
-    HttpClient
+    HttpClient,
+    ArticlesService
   ],
-  bootstrap: [ProfileComponent, AdminComponent]
+  bootstrap: [ProfileComponent, AdminComponent],
+  entryComponents: [AddTagsComponent,DeleteTagsComponent]
 
 })
 export class ProfileModule {

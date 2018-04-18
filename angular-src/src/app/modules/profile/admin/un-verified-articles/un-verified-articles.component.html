@@ -1,10 +1,11 @@
 <div [@routerTransition]>
-
-
+    <h2  style="text-align:center;font-weight:bold;">Articles</h2>
+    <em *ngIf="unVerifiedArticlesList.length ===0">No Articles to verify</em>
   <div class="row">
+      
     <div class="col-12" *ngFor="let article of unVerifiedArticlesList">
       <div class="card card-default">
-        <div class="card-header">
+        <div class="card-header" style="background-color:#ffc335;">
           <a class="btn-floating peach-gradient waves-light"><i class="fa fa-leaf"></i></a>
         </div>
         <!-- /.card-header -->
@@ -20,10 +21,13 @@
                     <small class="text-muted"><i class="fa fa-clock-o"></i> {{ article.createdAt | date}}</small>
                   </p>
                 </div>
-                <div class="timeline-body" *ngFor="let tag of article.tags">
-                  <button type="button" class="btn btn-default btn-block">{{tag}}</button>
-
-                </div>
+                <p>
+                    <strong>Tags: </strong>
+                    <em *ngIf="article.tags.length ===0">No tags defined for this article</em>
+                    <ng-container *ngFor="let tag of article.tags">
+                      <span class="badge badge-pill light-blue" style="cursor: pointer;">{{getTagByID(allTags, tag)}}</span>
+                    </ng-container>
+                  </p>
               </div>
             </li>
             <li class="timeline-inverted">
@@ -37,9 +41,9 @@
 
                   <div [innerHTML]="article.content">
                   </div>
-                  <button class="btn btn-secondary btn-sm" (click)="verifyArticle(article._id)">VERIFY</button>
+                  <button class="badge badge-pill btn-success" (click)="verifyArticle(article._id)" style="cursor: pointer;">VERIFY</button>
                   <!--to do reject-->
-                  <span><button class="btn btn-danger btn-sm ">REJECT</button></span>
+                  <span><button class="badge badge-pill btn-danger" style="cursor: pointer;" >REJECT</button></span>
                 </div>
               </div>
             </li>

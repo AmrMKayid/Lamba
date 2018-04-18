@@ -3,65 +3,41 @@
   <div class="list-group">
     <a routerLink="/profile/admin/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
-                    {{ 'Dashboard' | translate }}
+                    {{ 'Dashboard'  }}
             </span>
 
-    </a>
-    <a [routerLink]="['/charts']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp; <span *ngIf="sidenavWidth > 6" class="sidenav-item">
-                    {{ 'Charts' | translate }}
-            </span>
-    </a>
-    <a [routerLink]="['/tables']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-table"></i>&nbsp; <span *ngIf="sidenavWidth > 6" class="sidenav-item">
-                    {{ 'Tables' | translate }}
-            </span>
     </a>
     <a [routerLink]="['/profile/admin/un-verified-articles']" [routerLinkActive]="['router-link-active']"
        class="list-group-item">
       <i class="fa fa-fw fa-edit"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
-                    {{ 'Articles' | translate }}
-            </span>
-    </a>
-    <a [routerLink]="['/bs-element']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-desktop"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
-                    {{ 'Bootstrap Element' | translate }}
-            </span>
-    </a>
-    <a [routerLink]="['/grid']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-wrench"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
-                    {{ 'Bootstrap Grid' | translate }}
+                    {{ 'Articles'  }}
             </span>
     </a>
     <a [routerLink]="['/components']" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fa fa-th-list"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
-                    {{ 'Component' | translate }}
+                    {{ 'Component'}}
             </span>
     </a>
     <div class="nested-menu">
       <a class="list-group-item" (click)="addExpandClass('pages')">
-                <span><i class="fa fa-plus"></i>&nbsp; <i class="fa fa-th-list"></i>&nbsp;<span *ngIf="sidenavWidth > 6"
-                                                                                                class="sidenav-item">
-                        {{ 'Menu' | translate }}
-                </span> </span>
+        <i class="fa fa-tags" aria-hidden="true"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
+                        {{ 'Tags'}}
+                </span> 
       </a>
-      <li class="nested" [class.expand]="showMenu === 'pages'">
+      <li *ngIf="sidenavWidth > 6" class="nested" [class.expand]="showMenu === 'pages'">
         <ul class="submenu">
           <li>
-            <a href="javascript:void(0)"><span>{{ 'Submenu' | translate }}</span></a>
+            <a href="javascript:void(0)"(click)="openAddTagDialog()"><span><i class="fa fa-plus"></i>&nbsp;{{ 'Add Tags'}}</span></a>
           </li>
           <li>
-            <a href="javascript:void(0)"><span>{{ 'Submenu' | translate }}</span></a>
-          </li>
-          <li>
-            <a href="javascript:void(0)"><span>{{ 'Submenu' | translate }}</span></a>
+            <a href="javascript:void(0)" (click)="openDeleteTagDialog()"><span><i class="fa fa-minus"></i>&nbsp;{{ 'Delete Tags'  }}</span></a>
           </li>
         </ul>
       </li>
     </div>
-    <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-file-o"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
-                    {{ 'Blank Page' | translate }}
+    <a [routerLink]="['/profile/admin/un-verified-activities']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-bicycle"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
+                    {{ 'Activities'  }}
             </span>
     </a>
 
@@ -71,43 +47,43 @@
       </a>
       <div class="nested-menu">
         <a class="list-group-item" (click)="addExpandClass('languages')">
-          <span><i class="fa fa-language"></i>&nbsp; {{ 'Language' | translate }} <b class="caret"></b></span>
+          <span><i class="fa fa-language"></i>&nbsp; {{ 'Language'  }} <b class="caret"></b></span>
         </a>
         <li class="nested" [class.expand]="showMenu === 'languages'">
           <ul class="submenu">
             <li>
               <a href="javascript:void(0)" (click)="changeLang('en')">
-                {{ 'English' | translate }}
+                {{ 'English'  }}
               </a>
             </li>
             <li>
               <a href="javascript:void(0)" (click)="changeLang('fr')">
-                {{ 'French' | translate }}
+                {{ 'French'  }}
               </a>
             </li>
             <li>
               <a href="javascript:void(0)" (click)="changeLang('ur')">
-                {{ 'Urdu' | translate }}
+                {{ 'Urdu'  }}
               </a>
             </li>
             <li>
               <a href="javascript:void(0)" (click)="changeLang('es')">
-                {{ 'Spanish' | translate }}
+                {{ 'Spanish'  }}
               </a>
             </li>
             <li>
               <a href="javascript:void(0)" (click)="changeLang('it')">
-                {{ 'Italian' | translate }}
+                {{ 'Italian'  }}
               </a>
             </li>
             <li>
               <a href="javascript:void(0)" (click)="changeLang('fa')">
-                {{ 'Farsi' | translate }}
+                {{ 'Farsi'  }}
               </a>
             </li>
             <li>
               <a href="javascript:void(0)" (click)="changeLang('de')">
-                {{ 'German' | translate }}
+                {{ 'German'  }}
               </a>
             </li>
           </ul>
@@ -121,22 +97,22 @@
           <ul class="submenu">
             <li>
               <a href="javascript:void(0)">
-                <span><i class="fa fa-fw fa-user"></i> {{ 'Profile' | translate }}</span>
+                <span><i class="fa fa-fw fa-user"></i> {{ 'Profile'  }}</span>
               </a>
             </li>
             <li>
               <a href="javascript:void(0)">
-                <span><i class="fa fa-fw fa-envelope"></i> {{ 'Inbox' | translate }}</span>
+                <span><i class="fa fa-fw fa-envelope"></i> {{ 'Inbox'  }}</span>
               </a>
             </li>
             <li>
               <a href="javascript:void(0)">
-                <span><i class="fa fa-fw fa-gear"></i> {{ 'Settings' | translate }}</span>
+                <span><i class="fa fa-fw fa-gear"></i> {{ 'Settings'  }}</span>
               </a>
             </li>
             <li>
               <a [routerLink]="['/login']" (click)="onLoggedout()">
-                <span><i class="fa fa-fw fa-power-off"></i> {{ 'Log Out' | translate }}</span>
+                <span><i class="fa fa-fw fa-power-off"></i> {{ 'Log Out'  }}</span>
               </a>
             </li>
           </ul>

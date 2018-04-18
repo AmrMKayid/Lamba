@@ -1,6 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, NavigationEnd} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
+import {MatDialog, MatDialogConfig} from "@angular/material";
+import {AddTagsComponent} from '../../admin/add-tags/add-tags.component';
+import {DeleteTagsComponent} from '../../admin/delete-tags/delete-tags.component';
+import {HttpClient} from '@angular/common/http';
+import {Http, Headers} from '@angular/http';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,21 +19,9 @@ export class SidebarComponent {
   sidenavWidth = 4;
 
 
-  constructor(private translate: TranslateService, public router: Router) {
-    this.translate.addLangs(['en', 'fr', 'ur', 'es', 'it', 'fa', 'de']);
-    this.translate.setDefaultLang('en');
-    const browserLang = this.translate.getBrowserLang();
-    this.translate.use(browserLang.match(/en|fr|ur|es|it|fa|de/) ? browserLang : 'en');
-
-    this.router.events.subscribe(val => {
-      if (
-        val instanceof NavigationEnd &&
-        window.innerWidth <= 992 &&
-        this.isToggled()
-      ) {
-        this.toggleSidebar();
-      }
-    });
+  constructor(private translate: TranslateService, public router: Router,private dialog: MatDialog,private httpClient: HttpClient,
+    private http: Http) {
+ 
   }
 
   eventCalled() {
@@ -43,28 +36,7 @@ export class SidebarComponent {
     }
   }
 
-  isToggled(): boolean {
-    const dom: Element = document.querySelector('body');
-    return dom.classList.contains(this.pushRightClass);
-  }
-
-  toggleSidebar() {
-    const dom: any = document.querySelector('body');
-    dom.classList.toggle(this.pushRightClass);
-  }
-
-  rltAndLtr() {
-    const dom: any = document.querySelector('body');
-    dom.classList.toggle('rtl');
-  }
-
-  changeLang(language: string) {
-    this.translate.use(language);
-  }
-
-  onLoggedout() {
-    localStorage.removeItem('isLoggedin');
-  }
+ 
 
   increase() {
     this.sidenavWidth = 15;
@@ -75,4 +47,60 @@ export class SidebarComponent {
     this.sidenavWidth = 4;
     console.log("decrease sidenav width");
   }
+  openAddTagDialog() {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    
+      
+    const dialogRef = this.dialog.open(AddTagsComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      val =>  this.addTag(val)
+  );
+}
+openDeleteTagDialog() {
+
+  const dialogConfig = new MatDialogConfig();
+
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+  
+    
+  const dialogRef = this.dialog.open(DeleteTagsComponent, dialogConfig);
+
+}
+ addTag(val){
+   if(val){
+   
+   let autorization = {Authorization: localStorage.getItem('authentication')};
+   let postedTag={
+     name:val.tag
+   }
+   this.httpClient.post('http://localhost:3000/api/tags',postedTag,{headers: autorization} ).subscribe(
+      (res: any) => {
+
+        new Noty({
+          type: 'success',
+          text: res.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      },
+      err=> {
+        console.log(err)
+        new Noty({
+          type: 'error',
+          text: err.error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      });
+
+ }
+ }
+deleteTag(){
+
+}
 }

@@ -20,7 +20,7 @@ module.exports.addTag = function (req, res, next) {
     Tag.create({name: req.body.name}, (err, newTag) => {
         if (err) {
             if (err.code == 11000) {
-                return res.status(422).json({
+               return res.status(422).json({
                     err: null,
                     msg: `Tag already exists`,
                     data: null
@@ -29,11 +29,13 @@ module.exports.addTag = function (req, res, next) {
                 return next(err);
             }
         }
+        else{
         return res.status(200).json({
             err: null,
             msg: 'Tag created successfully.',
             data: newTag
         });
+    }
     });
 };
 
