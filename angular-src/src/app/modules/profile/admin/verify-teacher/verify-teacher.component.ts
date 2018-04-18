@@ -6,11 +6,14 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {HttpModule, Response} from '@angular/http';
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {routerTransition} from '../router.animations';
 
 @Component({
   selector: 'app-verify-teacher',
   templateUrl: './verify-teacher.component.html',
-  styleUrls: ['./verify-teacher.component.css']
+  styleUrls: ['./verify-teacher.component.css'],
+  animations: [routerTransition()]
+
 })
 export class VerifyTeacherComponent implements OnInit {
 
