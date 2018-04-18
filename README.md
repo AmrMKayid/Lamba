@@ -1,3 +1,6 @@
+# IMPORTANT 
+### Please drop any entries for the articles in the database as their controller has been updated, and it would give errors for older schemas
+
 # Current state: 
 
 Now the fetching of commenter's info works fine for both users/children. 
