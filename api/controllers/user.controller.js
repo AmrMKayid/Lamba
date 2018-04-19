@@ -1,27 +1,28 @@
 var mongoose = require('mongoose'),
-  Child = mongoose.model('Child'),
-  User = mongoose.model('User'),
-  Validations = require('../utils/validations'),
-  Article = mongoose.model('Article'),
-  Request = mongoose.model('Request'),
-  Verification = mongoose.model('Verification');
+    Child = mongoose.model('Child'),
+    User = mongoose.model('User'),
+    Validations = require('../utils/validations'),
+    Article = mongoose.model('Article'),
+    Request = mongoose.model('Request'),
+    Verification = mongoose.model('Verification');
 
-module.exports.getAllUsers = function(req, res, next) {
-  User.find({
-    $or: [{
-      role: 'Parent'
-    }, {
-      role: 'Teacher'
-    }]
-  }).exec(function(err, users) {
-    if (err) {
-      return next(err);
-    }
-    res.status(200).json({
-      err: null,
-      msg: 'Users retrieved successfully.',
-      data: users
-    });
+module.exports.getAllUsers = function (req, res, next) {
+    User.find({
+        $or: [{
+            role: 'Parent'
+        }, {
+            role: 'Teacher'
+        }]
+    }).exec(function (err, users) {
+        if (err) {
+            return next(err);
+        }
+        res.status(200).json({
+            err: null,
+            msg: 'Users retrieved successfully.',
+            data: users
+        });
+    })
 };
 
 module.exports.getUser = function (req, res, next) {
@@ -596,9 +597,8 @@ module.exports.assignArticleToChild = function (req, res, next) {
 };
 
 
-
 //returns all the child's teachers
-module.exports.getMyTeachers = function(req, res, next) {
+module.exports.getMyTeachers = function (req, res, next) {
     if (!Validations.isObjectId(req.params.ChildId)) {
         return res.status(422).json({
             err: null,
@@ -630,7 +630,7 @@ module.exports.getMyTeachers = function(req, res, next) {
             students: {
                 $eq: req.params.ChildId
             }
-        }).exec(function(err, teachers) {
+        }).exec(function (err, teachers) {
             if (err) {
                 return next(err);
             }
@@ -649,33 +649,35 @@ module.exports.getMyTeachers = function(req, res, next) {
 
 
 //returns all the teacher's students
-module.exports.getMyStudents = function(req, res, next) {
-  if(req.decodedToken.user.role !== 'Teacher'){
-      return res.status(401).json({
-          err: null,
-          msg: 'You must be a teacher to perform this action.',
-          data: null
-      });
-  }
+module.exports.getMyStudents = function (req, res, next) {
+    if (req.decodedToken.user.role !== 'Teacher') {
+        return res.status(401).json({
+            err: null,
+            msg: 'You must be a teacher to perform this action.',
+            data: null
+        });
+    }
 
-  User.findById(req.decodedToken.user._id).populate({
-    path: 'students',
-    select: 'name photo _id',
-    model: Child
-  }).exec((err, result) => {
-      if (err) {
-          return next(err);
-      };
-    res.status(200).json({
-      err: null,
-      msg: 'Children successfully retrieved.',
-      data: result.students
-    });
+    User.findById(req.decodedToken.user._id).populate({
+        path: 'students',
+        select: 'name photo _id',
+        model: Child
+    }).exec((err, result) => {
+        if (err) {
+            return next(err);
+        }
+        ;
+        res.status(200).json({
+            err: null,
+            msg: 'Children successfully retrieved.',
+            data: result.students
+        });
 
 
+    })
 };
 
-module.exports.addStudent = function(req, res, next) {
+module.exports.addStudent = function (req, res, next) {
     if (!Validations.isObjectId(req.params.childId)) {
         return res.status(422).json({
             err: null,
@@ -694,11 +696,14 @@ module.exports.addStudent = function(req, res, next) {
                 .json({err: null, msg: 'child not found.', data: null});
         }
 
-        Request.findOne({recievingTeacherId: req.decodedToken.user._id , childId: req.params.childId}, function(err, retrievedRequests){
+        Request.findOne({
+            recievingTeacherId: req.decodedToken.user._id,
+            childId: req.params.childId
+        }, function (err, retrievedRequests) {
             if (err) {
                 return next(err);
             }
-            if(!retrievedRequests){
+            if (!retrievedRequests) {
                 return res.status(422).json({
                     err: null,
                     msg:
