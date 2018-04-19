@@ -25,8 +25,9 @@ router.get('/user/getAllUsers', userCtrl.getAllUsers);
 router.get('/user/getUserChildren/:userID', userCtrl.getUserChildren);
 router.patch('/user/updateImage/:userID', userCtrl.updateImage);
 router.get('/user/getChild/:childId', mw.isAuthenticated, userCtrl.getChildByID);
-router.get('/admin/teachers_verfication', userCtrl.getPendingTeachers);
-router.get('/admin/accept_teacher/:teacherID', userCtrl.acceptTeacher);
+router.get('/admin/teachers_verfication',mw.isAuthenticated, mw.isAdmin, userCtrl.getPendingTeachers);
+router.get('/admin/accept_teacher/:teacherID',mw.isAuthenticated, mw.isAdmin,  userCtrl.acceptTeacher);
+router.get('/admin/decline_teacher/:teacherID',mw.isAuthenticated, mw.isAdmin,  userCtrl.declineTeacher);
 
 
 router.get('/user/getMyTeachers/', mw.isAuthenticated, userCtrl.getMyTeachers);

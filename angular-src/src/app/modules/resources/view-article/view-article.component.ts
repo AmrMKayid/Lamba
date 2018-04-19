@@ -25,6 +25,7 @@ export class ViewArticleComponent implements OnInit {
   currentUserRole: string;
   editPressed: boolean;
   pic_url: string;
+  IMG = "http://localhost:3000/api/uploads/articlesThumbnails/";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -43,12 +44,12 @@ export class ViewArticleComponent implements OnInit {
       (retrieved: any) => {
         this.article = retrieved.data;
         if (!this.article.thumbnail_url) {
-          this.pic_url = "https://i2.wp.com/penpaperpencil.net/wp-content/uploads/2016/01/Drawing-pencils-guide.jpg?fit=900%2C490";
+          this.pic_url = "http://localhost:3000/api/uploads/articlesThumbnails/articleDefault";
         }
         else {
           this.pic_url = "http://localhost:3000/api/uploads/articlesThumbnails/" + this.article.thumbnail_url;
         }
-        this.author = `${this.article.name.firstName} ${this.article.name.lastName}`;
+        this.author = this.article.owner;
         this.isInitialized = true;
         this.comments = this.article.comments;
         // let r: { showReply: boolean, replyContent: string }[] = new Array(this.comments.length);
@@ -70,12 +71,8 @@ export class ViewArticleComponent implements OnInit {
       }
     );
     window.scrollTo(0, 0);
-
     this.currentUserId = this.auth.getCurrentUser()._id;
-    this.httpClient.get('http://localhost:3000/api/user/getUser/' + this.currentUserId).subscribe((res: any) => {
-
-      this.currentUserRole = res.data.role;
-    });
+    this.currentUserRole = this.auth.getCurrentUser().role;
 
   }
 

@@ -11,6 +11,8 @@ import {HttpClient} from '@angular/common/http';
 export class DashboardComponent implements OnInit {
   public sliders: Array<any> = [];
   public articles: Array<any> = [];
+  public Teachers: Array<any> = [];
+
   public activities: Array<any> = [];
   public teacherForms: Array<any> = [];
   public forms;
@@ -46,6 +48,15 @@ export class DashboardComponent implements OnInit {
       }, err => {
         console.log(err.error.msg);
       });
+      this.httpClient.get('http://localhost:3000/api/admin/teachers_verfication', {headers: autorization})
+      .subscribe((res: any) => {
+        this.Teachers = res.data;
+        console.log(res.msg);
+        console.log(res.data);
+      }, err => {
+        console.log(err.error.msg);
+      });
+
       this.httpClient.get('http://localhost:3000/api/activity/viewUnverifiedActivities', {headers: autorization})
       .subscribe((res: any) => {
         this.activities = res.data;

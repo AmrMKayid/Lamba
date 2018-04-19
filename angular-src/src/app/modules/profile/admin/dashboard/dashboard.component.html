@@ -21,10 +21,11 @@
                 [routerLinkActive]="['router-link-active']"></app-stat>
     </div>
     <div class="col-xl-3 col-lg-6">
-      <app-stat [bgClass]="'warning'" [icon]="'fa-tasks'" [count]="teacherForms.length+2" [label]="'New Forms!'" 
-               [routerLink]="['/profile/admin/verify-teachers']"
-               [routerLinkActive]="['router-link-active']">></app-stat>
+      <app-stat [bgClass]="'success'" [icon]="'fas fa-user'" [count]="Teachers.length" [label]="'New Teachers!'"
+      [routerLink]="['/profile/admin/verify-teachers']"
+      [routerLinkActive]="['router-link-active']"></app-stat>
     </div>
+    
     <div class="col-xl-3 col-lg-6">
       <app-stat [bgClass]="'success'" [icon]="'fa fa-bicycle'" [count]="activities.length" [label]="'New Activities!'"
                [routerLink]="['/profile/admin/un-verified-activities']"
