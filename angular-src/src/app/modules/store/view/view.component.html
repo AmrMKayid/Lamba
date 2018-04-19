@@ -23,10 +23,10 @@
 
 <div class="col-lg-4 col-md-6 mb-3" *ngFor='let item of items'>
   <div class="card h-100">
-    <a href="#"><img class="card-img-top myImg"  src="http://127.0.0.1:3000/api/uploads/store/{{item['picture_url']}}" alt=""></a>
+    <img class="card-img-top myImg"  src="http://127.0.0.1:3000/api/uploads/store/{{item['picture_url']}}" alt="">
     <div class="card-body">
       <h4 class="card-title">
-        <a href="#">{{item['name']}}</a>
+        {{item['name']}}
       </h4>
       <h5>{{item['price'] | currency}}</h5>
       <p class="card-text">{{item['description'] | slice:0:50 }} ...</p>
