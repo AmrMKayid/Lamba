@@ -3,7 +3,6 @@ var jwt = require('jsonwebtoken');
 module.exports.isAuthenticated = function (req, res, next) {
     // Check that the request has the JWT in the authorization header
     var token = req.headers['authorization'];
-    console.log(token);
 
     if (!token) {
         return res.status(401).json({

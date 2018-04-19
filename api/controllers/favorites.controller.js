@@ -227,7 +227,7 @@ module.exports.removeFavArticle = function (req, res, next) {
 module.exports.getFavActivities = function (req, res, next) {
   let userID = req.decodedToken.user._id;
   if (req.decodedToken.user.username) {
-    Child.findById(id, (err, child) => {
+    Child.findById(userID, (err, child) => {
       if (err) {
         return next(err);
       }
@@ -255,7 +255,7 @@ module.exports.getFavActivities = function (req, res, next) {
         });
     });
   } else {
-    User.findById(id, (err, user) => {
+    User.findById(userID, (err, user) => {
       let activitiesIDs = user.favorites.activities;
       Activity.find({
         _id: { $in: activitiesIDs }
