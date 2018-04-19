@@ -24,12 +24,12 @@ module.exports.getFavArticles = function (req, res, next) {
       Article.find({
         _id: { $in: articlesIDs },
         approved: { $eq: true }
-      }, 'title createdAt owner_id _id tags upvoters downvoters thumbnail_url',
+      }, 'title createdAt _id tags thumbnail_url',
         (err, result) => {
           if (err) {
             return next(err);
           }
-        }).populate('owner_id', 'name', 'User').exec((err, result) => {
+        }).exec((err, result) => {
           res.status(200).json({
             err: null,
             msg: 'Articles retrieved successfully.',
@@ -48,7 +48,7 @@ module.exports.getFavArticles = function (req, res, next) {
           if (err) {
             return next(err);
           }
-        }).populate('owner_id', 'name', 'User').exec((err, result) => {
+        }).exec((err, result) => {
           res.status(200).json({
             err: null,
             msg: 'Articles retrieved successfully.',
@@ -241,12 +241,12 @@ module.exports.getFavActivities = function (req, res, next) {
       let activitiesIDs = child.favorites.activities;
       Activity.find({
         _id: { $in: activitiesIDs }
-      }, '_id name price picture_url activity_type host_id created_at',
+      }, '_id name picture_url activity_type created_at',
         (err, result) => {
           if (err) {
             return next(err);
           }
-        }).populate('host_id', 'name', 'User').exec((err, result) => {
+        }).exec((err, result) => {
           res.status(200).json({
             err: null,
             msg: 'Activities retrieved successfully.',
@@ -259,12 +259,12 @@ module.exports.getFavActivities = function (req, res, next) {
       let activitiesIDs = user.favorites.activities;
       Activity.find({
         _id: { $in: activitiesIDs }
-      }, '_id name price picture_url activity_type host_id created_at',
+      }, '_id name picture_url activity_type created_at',
         (err, result) => {
           if (err) {
             return next(err);
           }
-        }).populate('host_id', 'name', 'User').exec((err, result) => {
+        }).exec((err, result) => {
           res.status(200).json({
             err: null,
             msg: 'Activities retrieved successfully.',
@@ -485,7 +485,7 @@ module.exports.getFavItems = function (req, res, next) {
 
 module.exports.addFavItem = function (req, res, next) {
   let valid = req.params.itemID &&
-              Validations.isObjectId(req.params.itemID);
+    Validations.isObjectId(req.params.itemID);
   if (!valid) {
     return res.status(422).json({
       err: null,
@@ -575,7 +575,7 @@ module.exports.addFavItem = function (req, res, next) {
 
 module.exports.removeFavItem = function (req, res, next) {
   let valid = req.params.itemID &&
-              Validations.isObjectId(req.params.itemID);
+    Validations.isObjectId(req.params.itemID);
   if (!valid) {
     return res.status(422).json({
       err: null,
