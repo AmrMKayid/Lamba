@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
   User = mongoose.model('User'),
   Validations = require('../utils/validations'),
   Article = mongoose.model('Article'),
+  Request = mongoose.model('Request'),
   Verification = mongoose.model('Verification');
 
 module.exports.getAllUsers = function (req, res, next) {
@@ -21,7 +22,7 @@ module.exports.getAllUsers = function (req, res, next) {
       msg: 'Users retrieved successfully.',
       data: users
     });
-  });
+  })
 };
 
 module.exports.getUser = function (req, res, next) {
@@ -463,7 +464,9 @@ module.exports.getUserInfo = function (req, res, next) {
     });
   });
 };
+
 module.exports.updateUser = function (req, res, next) {
+
   if (!Validations.isObjectId(req.params.userId)) {
     return res.status(422).json({
       err: null,
@@ -471,6 +474,7 @@ module.exports.updateUser = function (req, res, next) {
       data: null
     });
   }
+
   /*var valid =
     req.body.about &&
     Validations.isString(req.body.about) &&
@@ -520,13 +524,21 @@ module.exports.updateUser = function (req, res, next) {
           data: null
         });
     }
-    res.status(200).json({
-      err: null,
-      msg: 'User was updated successfully.',
-      data: updateUser
-    });
+    else {
+      var token = jwt.sign({
+        user: updateUser.toObject()
+      }, req.app.get('secret'), {
+          expiresIn: '12h'
+        });
+      res.status(200).json({
+        err: null,
+        msg: 'Welcome',
+        data: token
+      });
+    }
   });
 };
+
 
 module.exports.assignArticleToChild = function (req, res, next) {
   if (!Validations.isObjectId(req.params.childID)) {
@@ -585,35 +597,144 @@ module.exports.assignArticleToChild = function (req, res, next) {
 };
 
 
-
-
-
-
-
-
-
+//returns all the child's teachers
 module.exports.getMyTeachers = function (req, res, next) {
+  if (!Validations.isObjectId(req.params.ChildId)) {
+    return res.status(422).json({
+      err: null,
+      msg: 'ChildId parameter must be a valid ObjectId.',
+      data: null
+    });
+  }
+  Child.findById(req.params.ChildId).exec(function (err, user) {
 
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res
+        .status(404)
+        .json({ err: null, msg: 'child not found.', data: null });
+    }
+    if (user._id != req.decodedToken.user._id) {
+      if (user.parent_id != req.decodedToken.user._id) {
+
+        return res
+          .status(401)
+          .json({ err: null, msg: 'you are not authorized to view the teachers', data: null });
+
+      }
+    }
+
+    User.find({
+      students: {
+        $eq: req.params.ChildId
+      }
+    }).exec(function (err, teachers) {
+      if (err) {
+        return next(err);
+      }
+      return res.status(200).json({
+        err: null,
+        msg: 'Requests received successfully.!',
+        data: teachers
+
+      });
+    });
+
+
+  });
 
 };
 
 
-
+//returns all the teacher's students
 module.exports.getMyStudents = function (req, res, next) {
-
+  if (req.decodedToken.user.role !== 'Teacher') {
+    return res.status(401).json({
+      err: null,
+      msg: 'You must be a teacher to perform this action.',
+      data: null
+    });
+  }
 
   User.findById(req.decodedToken.user._id).populate({
     path: 'students',
     select: 'name photo _id',
     model: Child
   }).exec((err, result) => {
+    if (err) {
+      return next(err);
+    }
+    ;
     res.status(200).json({
       err: null,
       msg: 'Children successfully retrieved.',
       data: result.students
     });
-  });
 
+
+  })
+};
+
+module.exports.addStudent = function (req, res, next) {
+  if (!Validations.isObjectId(req.params.childId)) {
+    return res.status(422).json({
+      err: null,
+      msg: 'User parameter must be a valid ObjectId.',
+      data: null
+    });
+  }
+  Child.findById(req.params.childId).exec(function (err, user) {
+
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res
+        .status(404)
+        .json({ err: null, msg: 'child not found.', data: null });
+    }
+
+    Request.findOne({
+      recievingTeacherId: req.decodedToken.user._id,
+      childId: req.params.childId
+    }, function (err, retrievedRequests) {
+      if (err) {
+        return next(err);
+      }
+      if (!retrievedRequests) {
+        return res.status(422).json({
+          err: null,
+          msg:
+            'you need a request from the parent to add this child',
+          data: null
+        });
+      }
+    });
+  });
+  Teacher.findById(req.decodedToken.user._id).exec(function (err, user) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res
+        .status(404)
+        .json({ err: null, msg: 'child not found.', data: null });
+    }
+    user.students.push(req.params.childId);
+    user.save(function (err) {
+      if (err) {
+        return next(err);
+      }
+      res.status(200).json({
+        err: null,
+        msg: 'child added successfully.',
+        data: user.students
+      });
+
+    });
+  });
 
 };
 
@@ -847,7 +968,11 @@ module.exports.createVerificationForm = function (req, res, next) {
         console.log(checkForm);
         return res
           .status(422)
-          .json({ err: null, msg: 'You already applied for verification (still in reviewing process)', data: null });
+          .json({
+            err: null,
+            msg: 'You already applied for verification (still in reviewing process)',
+            data: null
+          });
       }
     });
   });
@@ -944,7 +1069,6 @@ module.exports.verifyUser = function (req, res, next) {
   });
 };
 
-
 module.exports.getMyChildren = function (req, res, next) {
   if (req.decodedToken.user.role != 'Parent') {
     return res.status(401).json({
@@ -972,5 +1096,3 @@ module.exports.getMyChildren = function (req, res, next) {
       });
     });
 };
-
-
