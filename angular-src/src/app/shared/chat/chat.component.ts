@@ -12,7 +12,6 @@ export class ChatComponent implements OnInit {
   msgToServer;
 
   chats = [];
-  messages = [];
   serverMsg;
   reciever_id : string;
   sub; 
@@ -24,23 +23,6 @@ export class ChatComponent implements OnInit {
 
    this.sub =  this.route.params.subscribe(params => {
 
-
-      this.chat.getAllChats().subscribe((res: any) => {
-          if(res.err != null)
-          {
-            /*generate error*/
-          }
-          
-          this.chats = res.data;
-        });
-         this.chat.getChat(params['id']).subscribe((res: any) => {
-          if(res.err != null)
-          {
-            /*generate error*/
-          }
-          
-          this.messages = res.data;
-        });
 
         this.chat.initSocket();
         this.reciever_id =  params['id'];
@@ -63,9 +45,49 @@ export class ChatComponent implements OnInit {
     this.chat.send(msg, this.reciever_id);
   }
 
+  /**
+    * gets all the chats from the server and their corresponding messages
+    */
+  initChats()
+  {
+     
+     this.chat.getAllChats().subscribe((res: any) => {
+          if(res.err != null)
+          {
+            /*generate error*/
+          }
+          
+          var chats = res.data;
+          for(var i = 0; i < chats.length; i++)
+          {
+              this.appendChat(chats[i])
+          }
+        });
+  }
+
+  appendChat(chat)
+  {
+    var chat = chat;
+    this.chat.getChat(chat._id).subscribe((res: any) => {
+            if(res.err != null)
+            {
+              /*generate error*/
+            }
+            
+            var chat = {
+              chat: chat,
+              messages: res.data
+            };
+            this.chats.push(chat);
+      });
+
+  }
+
+
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+
 
 }
 
