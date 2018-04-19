@@ -13,3 +13,11 @@
 	{{chat.name.lastName}} <br>
 	{{chat.email}}
 </div>
+
+<h2>Messages</h2>
+
+
+<div *ngFor='let message of messages'>
+	{{message.from}}<br>
+	{{message.text}} <br>
+</div>

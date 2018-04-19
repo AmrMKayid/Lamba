@@ -12,6 +12,7 @@ export class ChatComponent implements OnInit {
   msgToServer;
 
   chats = [];
+  messages = [];
   serverMsg;
   reciever_id : string;
   sub; 
@@ -31,6 +32,14 @@ export class ChatComponent implements OnInit {
           }
           
           this.chats = res.data;
+        });
+         this.chat.getChat(params['id']).subscribe((res: any) => {
+          if(res.err != null)
+          {
+            /*generate error*/
+          }
+          
+          this.messages = res.data;
         });
 
         this.chat.initSocket();
