@@ -2,7 +2,6 @@ import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { ArticlesService } from '../articles.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 @Component({
@@ -12,29 +11,25 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   encapsulation: ViewEncapsulation.None //To allow dynamic CSS classes (from the innerHTML)
 })
 export class ViewArticleComponent implements OnInit {
+
   article: any = {};
-  child: any = {};
   isInitialized: boolean = false;
   // addReply: boolean = false;
-  author: string;
+  author: any;
   comments: any = [{}];
   commentContent: String;
   // replies: any = [{}];
-  currentUserId: string;
   public articleID: String;
   currentUserRole: string;
   editPressed: boolean;
   pic_url: string;
   IMG = "http://localhost:3000/api/uploads/articlesThumbnails/";
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': localStorage.getItem('authentication')
-    })
-  };
 
+  isOwner: boolean;
+  children: [any];
+  selectedChild: string;
 
-  constructor(private router: Router, private httpClient: HttpClient, private route: ActivatedRoute, private articleService: ArticlesService, private auth: AuthService) {
+  constructor(private router: Router, private route: ActivatedRoute, private articleService: ArticlesService, private auth: AuthService) {
   }
 
 
@@ -50,8 +45,21 @@ export class ViewArticleComponent implements OnInit {
           this.pic_url = "http://localhost:3000/api/uploads/articlesThumbnails/" + this.article.thumbnail_url;
         }
         this.author = this.article.owner;
-        this.isInitialized = true;
         this.comments = this.article.comments;
+        this.articleService.getChildren().subscribe(
+          (res: any) => {
+            this.children = res.data;
+          },
+          (err) => {
+            new Noty({
+              type: 'error',
+              text: `Something went wrong while retrieving your children: ${err.error.msg}`,
+              timeout: 3000,
+              progressBar: true
+            }).show();
+          }
+        );
+        this.isInitialized = true;
         // let r: { showReply: boolean, replyContent: string }[] = new Array(this.comments.length);
         // for (let i = 0; i < this.comments.length; i++) {
         //   r[i] = {
@@ -70,9 +78,9 @@ export class ViewArticleComponent implements OnInit {
         }).show();
       }
     );
-    window.scrollTo(0, 0);
-    this.currentUserId = this.auth.getCurrentUser()._id;
+    this.isOwner = this.article.owner_id == this.auth.getCurrentUser()._id;
     this.currentUserRole = this.auth.getCurrentUser().role;
+    window.scrollTo(0, 0);
 
   }
 
@@ -229,13 +237,9 @@ export class ViewArticleComponent implements OnInit {
     this.router.navigate(['/resources/edit/' + this.article._id]);
   };
 
-  assign() {
-    let body = {
-      articleID: this.article._id,
-    };
-    this.httpClient.patch('http://localhost:3000/api/user/assignArticleToChild/5ad3835c0f37ba3f1c769a86', body, this.httpOptions)
-      .subscribe((res: any) => {
-
+  assignChild() {
+    this.articleService.assignChild(this.article._id, this.selectedChild).subscribe(
+      (res: any) => {
         new Noty({
           type: 'success',
           text: res.msg,
@@ -251,7 +255,8 @@ export class ViewArticleComponent implements OnInit {
           timeout: 3000,
           progressBar: true
         }).show();
-      });
+      }
+    );
   }
 
 }

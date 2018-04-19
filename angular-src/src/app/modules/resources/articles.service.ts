@@ -116,4 +116,24 @@ export class ArticlesService {
     })
       .pipe();
   }
+
+  getChildren() {
+    return this.http.get('http://localhost:3000/api/user/myChildren', {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('authentication')
+      })
+    })
+      .pipe();
+  }
+  assignChild(articleID, childID) {
+    return this.http.patch('http://localhost:3000/api/user/assignArticleToChild/' + childID, { articleID: articleID },
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('authentication')
+        })
+      })
+      .pipe();
+  }
 }
