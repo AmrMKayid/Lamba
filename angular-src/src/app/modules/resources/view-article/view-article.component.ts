@@ -14,11 +14,9 @@ export class ViewArticleComponent implements OnInit {
 
   article: any = {};
   isInitialized: boolean = false;
-  // addReply: boolean = false;
   author: any;
   comments: any = [{}];
   commentContent: String;
-  // replies: any = [{}];
   public articleID: String;
   currentUserRole: string;
   editPressed: boolean;
