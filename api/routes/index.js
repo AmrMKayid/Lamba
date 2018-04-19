@@ -127,7 +127,6 @@ router.post('/user/addSession', mw.isAuthenticated, userCtrl.addSession);
 router.delete('/user/deleteSession/:sessionId', mw.isAuthenticated, userCtrl.deleteSession);
 router.patch('/user/updateSession/:sessionId', mw.isAuthenticated, userCtrl.updateSession);
 //----------------------------User Verification Routes--------------------------------------------//
-<<<<<<< HEAD
 router.post('/user/requestVerification', mw.isAuthenticated, userCtrl.createVerificationForm);
 router.get('/user/viewVerificationForms', mw.isAuthenticated, mw.isAdmin, userCtrl.viewVerificationForms);
 router.get('/user/verifyUser/:userId', mw.isAuthenticated, mw.isAdmin, userCtrl.verifyUser);
@@ -145,16 +144,11 @@ router.delete('/user/favorites/activities/:activityID', mw.isAuthenticated, favo
 router.get('/user/favorites/items', mw.isAuthenticated, favoritesCtrl.getFavItems);
 router.post('/user/favorites/items/:itemID', mw.isAuthenticated, favoritesCtrl.addFavItem);
 router.delete('/user/favorites/items/:itemID', mw.isAuthenticated, favoritesCtrl.removeFavItem);
-=======
-router.post('/user/requestVerification',mw.isAuthenticated,userCtrl.createVerificationForm);
-router.get('/user/viewVerificationForms',mw.isAuthenticated,mw.isAdmin,userCtrl.viewVerificationForms);
-router.get('/user/verifyUser/:userId',mw.isAuthenticated,mw.isAdmin,userCtrl.verifyUser);
-router.delete('/user/deleteVerificationForm/:id',mw.isAuthenticated,mw.isAdmin,userCtrl.deleteVerificationForm);
+
 //---------------------------- Requests Routes--------------------------------------------//
 router.post('/request/create/:teacherId/:childId', mw.isAuthenticated, requestCtrl.addRequest);
 router.get('/request/get', mw.isAuthenticated, requestCtrl.getRequests);
-router.delete('/request/deleteRequest/:RequestId',mw.isAuthenticated,requestCtrl.deleteRequest);
+router.delete('/request/deleteRequest/:RequestId', mw.isAuthenticated, requestCtrl.deleteRequest);
 
->>>>>>> e6d9e77e0a8e0b5fbe0a208c945845db6eedb357
 
 module.exports = router;
