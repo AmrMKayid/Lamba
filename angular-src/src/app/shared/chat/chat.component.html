@@ -18,6 +18,5 @@
 
 
 <div *ngFor='let message of messages'>
-	{{message.from}}<br>
-	{{message.text}} <br>
+	  <button class="btn btn-default waves-light" mdbRippleRadius (click)="sendMessage(msgToServer)">Send To Server</button>
 </div>

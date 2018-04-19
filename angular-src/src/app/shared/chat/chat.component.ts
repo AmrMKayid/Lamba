@@ -12,6 +12,7 @@ export class ChatComponent implements OnInit {
   msgToServer;
 
   chats = [];
+  currentChat : Object;
   serverMsg;
   reciever_id : string;
   sub; 
@@ -23,7 +24,8 @@ export class ChatComponent implements OnInit {
 
    this.sub =  this.route.params.subscribe(params => {
 
-
+        this.initChats();
+        
         this.chat.initSocket();
         this.reciever_id =  params['id'];
         this.chat.onMessage().subscribe(msg => {
@@ -51,7 +53,7 @@ export class ChatComponent implements OnInit {
   initChats()
   {
      
-     this.chat.getAllChats().subscribe((res: any) => {
+     return this.chat.getAllChats().subscribe((res: any) => {
           if(res.err != null)
           {
             /*generate error*/
