@@ -6,6 +6,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
 import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {appConfig} from "../../../app.config";
+import {stringDistance} from "codelyzer/util/utils";
 
 
 @Component({
@@ -15,6 +16,7 @@ import {appConfig} from "../../../app.config";
   styleUrls: ['./teacher.component.css']
 })
 export class TeacherComponent implements OnInit {
+
 
   firstName: string;
   middleName: string;
