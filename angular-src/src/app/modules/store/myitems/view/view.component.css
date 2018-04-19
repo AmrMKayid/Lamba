@@ -1,23 +1,6 @@
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-  font-size: 1em;
-  font-weight: bold;
+.myImg
+{
+height: 200px;
+object-fit: cover;
 
 }
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-
-/* p {
-}
-p.thick {
-} */

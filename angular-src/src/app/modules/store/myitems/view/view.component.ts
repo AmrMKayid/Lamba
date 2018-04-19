@@ -57,4 +57,8 @@ export class ViewComponent implements OnInit {
   ngOnInit() {
   }
 
+  viewInfo(_id) {
+    this.router.navigate(['/store/view/' + _id]);
+  }
+
 }
