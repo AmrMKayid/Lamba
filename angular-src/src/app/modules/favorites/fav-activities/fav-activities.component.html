@@ -25,9 +25,8 @@
           </a>
         </h3>
         <p>
-          <em *ngIf="activity.activity_type">No type defined for this activity</em>
-          Type:
-          <strong>activity.activity_type</strong>
+          <em *ngIf="!activity.activity_type">No type defined for this activity</em>
+          <strong *ngIf="activity.activity_type">Type: {{activity.activity_type}}</strong>
         </p>
         <br>
       </div>

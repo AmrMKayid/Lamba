@@ -25,9 +25,10 @@
           </a>
         </h3>
         <p>
-          <em *ngIf="item.item_type">No type defined for this item</em>
-          Type:
-          <strong>item.item_type</strong>
+          <em *ngIf="!item.item_type">No type defined for this item</em>
+          <strong *ngIf="item.item_type">
+            Type: {{item.item_type}}
+          </strong>
         </p>
         <br>
       </div>
