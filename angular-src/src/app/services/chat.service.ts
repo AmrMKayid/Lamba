@@ -65,5 +65,10 @@ public initSocket()
   }
 
 
+  public getUserInfo(user_id)
+  {
+      return this.http.get('http://127.0.0.1:3000/api/user/getUserInfo/' + user_id);
+  }
+
 
 }

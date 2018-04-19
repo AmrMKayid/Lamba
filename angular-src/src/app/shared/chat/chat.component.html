@@ -1,22 +1,27 @@
 <div class="divider" style="padding-top:50px;"></div>
 <div class="container">
+	<div *ngIf = "currentChat">
+		<div *ngFor='let message of currentChat.messages'>
+			<div *ngIf='message.from == currentChat.chat._id'>{{currentChat.chat.name.firstName}}: {{message.text}}</div>
+			<div *ngIf='message.from != currentChat.chat._id'>Me: {{message.text}}</div>
+
+		</div>
+		<div>
+
+		</div>
+	</div>
   <input type="text" class="txt" placeholder="Type here..." [(ngModel)]="msgToServer">
   <!--<h1>{{msgToServer}}</h1>-->
   <button class="btn btn-default waves-light" mdbRippleRadius (click)="sendMessage(msgToServer)">Send To Server</button>
   <br><br>
-  <h1>Message From {{reciever_id}}: <br> {{serverMsg | json}}</h1>
+  <h1 *ngIf = "currentChat">Message From {{currentChat.chat.name.firstName}}: <br> {{serverMsg | json}}</h1>
 </div>
+
+
+
+<h2>Chats</h2>
 
 
 <div *ngFor='let chat of chats'>
-	{{chat.name.firstName}}<br>
-	{{chat.name.lastName}} <br>
-	{{chat.email}}
-</div>
-
-<h2>Messages</h2>
-
-
-<div *ngFor='let message of messages'>
-	  <button class="btn btn-default waves-light" mdbRippleRadius (click)="sendMessage(msgToServer)">Send To Server</button>
+	  <button class="btn btn-default waves-light" mdbRippleRadius (click)="changeCurrentChat(chat)">{{chat.chat.name.firstName}} {{chat.chat.name.lastName}}</button>
 </div>

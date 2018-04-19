@@ -12,7 +12,7 @@ export class ChatComponent implements OnInit {
   msgToServer;
 
   chats = [];
-  currentChat : Object;
+  currentChat;
   serverMsg;
   reciever_id : string;
   sub; 
@@ -25,15 +25,68 @@ export class ChatComponent implements OnInit {
    this.sub =  this.route.params.subscribe(params => {
 
         this.initChats();
-        
         this.chat.initSocket();
-        this.reciever_id =  params['id'];
+        if(params['id'])
+        {
+          this.chat.getUserInfo(params['id']).subscribe((res: any) => {
+            if(res.error)
+            {
+              return;
+            }
+            var found = false;
+            for(var i = 0; i < this.chats.length; i++)
+            {
+                if(this.chats[i].chat._id == res.data._id)
+                {
+                  found = true;
+                  break;
+                }
+            }
+            if(!found)
+            {
+              var chatObj = {
+                chat: res.data,
+                messages: []
+              };
+              this.chats.push(chatObj);
+              this.currentChat = chatObj;
+            }
+
+          });
+        }
+        
+
+
         this.chat.onMessage().subscribe(msg => {
            var msgObj = JSON.parse(msg);
-            console.log(msgObj);
-            if(msgObj.from == this.reciever_id)
+            var found = false;
+            for(var i = 0; i < this.chats.length; i++)
             {
-              this.serverMsg = msgObj.text;
+                if(this.chats[i].chat._id == msgObj.from)
+                {
+                  found = true;
+                  this.chats[i].messages.push(msgObj);
+                }
+            }
+
+            if(!found)
+            {
+              
+              this.chat.getUserInfo(params['id']).subscribe((res: any) => {
+
+              if(res.error)
+              {
+                return;
+              }
+
+              var chatObj = {
+                chat: res.data,
+                messages: []
+              };
+              chatObj.messages.push(msgObj)
+              this.chats.push(chatObj);
+
+               });
             }
         });
     });
@@ -44,7 +97,11 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage(msg) {
-    this.chat.send(msg, this.reciever_id);
+    if(this.currentChat)
+    {
+      this.currentChat.messages.push(msg);
+      this.chat.send(msg, this.currentChat.chat._id);
+    }
   }
 
   /**
@@ -69,23 +126,27 @@ export class ChatComponent implements OnInit {
 
   appendChat(chat)
   {
-    var chat = chat;
+
     this.chat.getChat(chat._id).subscribe((res: any) => {
             if(res.err != null)
             {
               /*generate error*/
             }
             
-            var chat = {
+            var chatObj = {
               chat: chat,
               messages: res.data
             };
-            this.chats.push(chat);
-      });
+            this.chats.push(chatObj);
+            console.log(this.chats);
 
+      });
   }
 
-
+  changeCurrentChat(chat)
+  {
+    this.currentChat = chat;
+  }
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
