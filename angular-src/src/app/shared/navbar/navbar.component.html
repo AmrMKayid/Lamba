@@ -86,6 +86,23 @@
         </div>
       </li>
 
+      <li class="nav-item dropdown btn-group" dropdown *ngIf="isTeacher()">
+
+
+        <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-effect waves-light" mdbWavesEffect>{{requests.length}}
+          <i class="fa fa-graduation-cap"></i>
+        </a>
+        <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+          <a class="dropdown-item waves-light" mdbWavesEffect *ngIf="requests.length == 0">No new
+            Requests.</a>
+          <div class="row dropdown-item" *ngFor="let request of requests">
+            <div class="col-6">{{request.title}}</div>
+            <div class="col-6">{{request.created_at}}</div>
+            <div class="divider dropdown-divider"></div>
+          </div>
+        </div>
+      </li>
+
 
       <li class="nav-item d-md-none" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
         <a class="nav-link waves-light" mdbRippleRadius>Messages</a>

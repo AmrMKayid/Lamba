@@ -22,6 +22,7 @@ module.exports.addRequest =  function (req, res, next) {
             data: null
         });
     }
+    let childFirstName,childLastName;
     Child.findById(req.params.childId).exec(function (err, user) {
 
         if (err) {
@@ -39,6 +40,8 @@ module.exports.addRequest =  function (req, res, next) {
                 .json({err: null, msg: 'you are not this child parent', data: null});
 
         }
+        childFirstName=user.name.firstName;
+        childLastName=user.name.lastName;
     });
 
     User.findById(req.params.teacherId).exec(function (err, user) {
@@ -92,7 +95,9 @@ module.exports.addRequest =  function (req, res, next) {
         requestingParentId: req.decodedToken.user._id,
         childId: req.params.childId ,
         recievingTeacherId: req.params.teacherId,
-        created_at: Date.now()
+        created_at: Date.now(),
+        description : req.decodedToken.user.name.firstName +" "+req.decodedToken.user.name.lastName+
+        " wants you to supervise his/her child "+childFirstName+" "+childLastName
     };
 
     // inserts the new object in the database
@@ -135,7 +140,7 @@ module.exports.getRequests = function(req, res, next)
 }
 
 //deletes request if teacher declines
-module.exports.rejectRequest = function(req, res, next)
+module.exports.deleteRequest = function(req, res, next)
 {
     if (!Validations.isObjectId(req.params.RequestId)) {
         return res.status(422).json({
