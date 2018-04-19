@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
   Validations = require('../utils/validations'),
   Article = mongoose.model('Article'),
   Activity = mongoose.model('Activity');
+  Item = mongoose.model('Item');
 
 
 module.exports.getFavArticles = function (req, res, next) {
@@ -470,6 +471,16 @@ module.exports.getFavItems = function (req, res, next) {
     });
   } else {
     User.findById(id, (err, user) => {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        return res.status(404).json({
+          err: null,
+          msg: 'User not found.',
+          data: null
+        });
+      }
       let itemsIDs = user.favorites.items;
       Item.find({
         _id: { $in: itemsIDs },
