@@ -155,7 +155,9 @@ const ChildSchema = new mongoose.Schema({
     score: Number,
     //IDs :
     allowedArticles: [String],
-    enrolledActivities: [String]
+    enrolledActivities: [String],
+    favoriteChildItems:[String],
+    favoriteChildArticles:[String]
 });
 
 const SessionSchema=new mongoose.Schema({
@@ -361,7 +363,9 @@ const UserSchema = new mongoose.Schema({
     },
     about: String,
     qualifications: [String],
-    students: [String]
+    students: [String],
+    favoriteItems:[String],
+    favoriteArticles:[String]
 
 });
 

@@ -901,3 +901,226 @@ module.exports.verifyUser = function (req, res, next) {
 
   });
 };
+
+module.exports.getFavoriteArticles = function (req,res,next) {
+  //TODO: req.decodedToken.user.username
+    if (req.decodedToken.user.username) {
+        let childId =req.params.id;
+        //let id = req.decodedToken.user._id;
+        Child.findById(childId, (err, child) => {
+            if (err) {
+                return next(err);
+            }
+            if (!child) {
+                return res.status(404).json({
+                    err: null,
+                    msg: 'Child not found.',
+                    data: null
+                });
+            }
+            //Find all articles with the IDs in the child's profile, and only return back the ones approved
+            let childArticlesIDs = child.favoriteChildArticles;
+            Article.find({
+                _id: { $in: childArticlesIDs },
+                approved: { $eq: true }
+            }, 'title createdAt owner_id _id tags upvoters downvoters thumbnail_url',
+                (err, result) => {
+                    if (err) {
+                        return next(err);
+                    }
+                });
+        });
+    }
+    else{
+        let id =req.params.id;// req.decodedToken.user._id;
+        User.findById(id, (err, user) => {
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                return res.status(404).json({
+                    err: null,
+                    msg: 'User not found.',
+                    data: null
+                });
+            }
+            
+
+            let userArticlesIDs = user.favoriteArticles;
+            Article.find({
+                _id: { $in: userArticlesIDs },
+                approved: { $eq: true }
+            }, 'title createdAt owner_id _id tags upvoters downvoters thumbnail_url',
+                (err, result) => {
+                    if (err) {
+                        return next(err);
+                    }
+                    return res.status(200).json({
+                    err: null,
+                    msg: 'Favorite Articles retrieved successfully.',
+                    data: result
+                });
+                });
+
+                    
+        });
+
+     }
+};
+
+module.exports.addFavArticle = function (req, res, next) {
+  //TODO: req.decodedToken.user.username
+    if (req.decodedToken.user.username) {
+        let childId =req.params.id;
+        let childarticleId =req.params.artid; 
+        //let id = req.decodedToken.user._id;
+        Child.findById(childId, (err, child) => {
+            if (err) {
+                return next(err);
+            }
+            if (!child) {
+                return res.status(404).json({
+                    err: null,
+                    msg: 'Child not found.',
+                    data: null
+                });
+            }
+            //Find all articles with the IDs in the child's profile, and only return back the ones approved
+            let childArticlesIDs = child.favoriteChildArticles;
+            Article.findById(childarticleId, (err, article) => {
+              if (err) {
+                return next(err);
+              }
+              if (!article) {
+                return res.status(404).json({
+                    err: null,
+                    msg: 'Article not found.',
+                    data: null
+                });
+              }
+            Article.update({
+             _id: { $in: childId}
+           }, 
+            { $push: { childArticlesIDs: article } },
+            done
+            );
+            });
+        });
+    }
+    else{
+            let id = req.params.id;
+            let articleId =req.params.artid; 
+
+            User.findById(id, (err, user) => {
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                return res.status(404).json({
+                    err: null,
+                    msg: 'User not found.',
+                    data: null
+                });
+            }
+            
+            let userArticlesIDs = user.favoriteArticles;
+            Article.findById(articleId, (err, article) => {
+              if (err) {
+                return next(err);
+              }
+              if (!article) {
+                return res.status(404).json({
+                    err: null,
+                    msg: 'Article not found.',
+                    data: null
+                });
+              }
+            Article.update({
+             _id: { $in: id}
+           }, 
+            { $push: { userArticlesIDs: article } },
+            done
+            );
+            });
+          });
+          }
+};
+
+module.exports.removeFavArticle = function (req, res, next) {
+  //TODO: req.decodedToken.user.username
+    if (req.decodedToken.user.username) {
+        let childId =req.params.id;
+        let childarticleId =req.params.artid; 
+        //let id = req.decodedToken.user._id;
+        Child.findById(childId, (err, child) => {
+            if (err) {
+                return next(err);
+            }
+            if (!child) {
+                return res.status(404).json({
+                    err: null,
+                    msg: 'Child not found.',
+                    data: null
+                });
+            }
+            //Find all articles with the IDs in the child's profile, and only return back the ones approved
+            let childArticlesIDs = child.favoriteChildArticles;
+            Article.findById(childarticleId, (err, article) => {
+              if (err) {
+                return next(err);
+              }
+              if (!article) {
+                return res.status(404).json({
+                    err: null,
+                    msg: 'Article not found.',
+                    data: null
+                });
+              }
+            Article.update({
+             _id: { $in: childId}
+           }, 
+            { $pullAll: { childArticlesIDs: article } },
+            done
+            );
+            });
+        });
+    }
+    else{
+            let id = req.params.id;
+            let articleId =req.params.artid; 
+
+            User.findById(id, (err, user) => {
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                return res.status(404).json({
+                    err: null,
+                    msg: 'User not found.',
+                    data: null
+                });
+            }
+            
+            let userArticlesIDs = user.favoriteArticles;
+            Article.findById(articleId, (err, article) => {
+              if (err) {
+                return next(err);
+              }
+              if (!article) {
+                return res.status(404).json({
+                    err: null,
+                    msg: 'Article not found.',
+                    data: null
+                });
+              }
+            Article.update({
+             _id: { $in: id}
+           }, 
+            { $pullAll: { userArticlesIDs: article } },
+            done
+            );
+            });
+          });
+          }
+};
+
