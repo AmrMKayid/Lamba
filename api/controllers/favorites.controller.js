@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
   Validations = require('../utils/validations'),
   Article = mongoose.model('Article'),
   Activity = mongoose.model('Activity');
-  Item = mongoose.model('Item');
+Item = mongoose.model('Item');
 
 
 module.exports.getFavArticles = function (req, res, next) {
@@ -90,7 +90,7 @@ module.exports.addFavArticle = function (req, res, next) {
           data: null
         });
       }
-      //Find all articles with the IDs in the child's profile, and only return back the ones approved
+
       let childArticlesIDs = child.favorites.resources;
       Article.findById(articleID, (err, article) => {
         if (err) {
@@ -188,7 +188,6 @@ module.exports.removeFavArticle = function (req, res, next) {
           data: null
         });
       }
-      //Find all articles with the IDs in the child's profile, and only return back the ones approved
       child.favorites.resources.splice(child.favorites.resources.indexOf(articleID), 1);
       child.save(function (err, updatedChild) {
         if (err) return next(err);
@@ -525,7 +524,6 @@ module.exports.addFavItem = function (req, res, next) {
           data: null
         });
       }
-      //Find all articles with the IDs in the child's profile, and only return back the ones approved
       let childItemIDs = child.favorites.items;
       Item.findById(itemID, (err, item) => {
         if (err) {
