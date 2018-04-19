@@ -183,17 +183,20 @@ module.exports.acceptTeacher = function (req, res, next) {
 //Start yasmeen
 //Show Articles needed to be verified
 module.exports.viewUnverifiedArticles = function (req, res, next) {
-  Article.find({ approved: false }).exec(function (err, articles) {
+  Article.find({
+    approved: false
+}, 'title createdAt owner_id _id tags upvoters downvoters', (err, result) => {
     if (err) {
-      console.log(err);
-      return next(err);
+        return next(err);
     }
+    //TODO: name nested inside owner_id, maybe change schema later on.
+}).populate('owner_id', 'name', 'User').exec((err, result) => {
     res.status(200).json({
-      err: null,
-      msg: 'Unverified Articles retrieved successfully.',
-      data: articles
+        err: null,
+        msg: 'Articles retrieved successfully.',
+        data: result
     });
-  });
+});
 };
 
 
@@ -743,7 +746,7 @@ module.exports.rejectActivity = function (req, res, next) {
 
               return res.status(200).json({
                   err: null,
-                  msg: 'Activity deleted successfully.',
+                  msg: 'Activity rejected and deleted successfully.',
                   data: result
          });
        });

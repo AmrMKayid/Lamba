@@ -1,15 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit,ViewEncapsulation} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Http, Headers} from '@angular/http';
 import {Router, ActivatedRoute} from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {routerTransition} from '../router.animations';
 import {ArticlesService} from '../../../resources/articles.service';
+import {AuthService} from "../../../../services/auth.service";
+
 @Component({
   selector: 'app-un-verified-articles',
   templateUrl: './un-verified-articles.component.html',
   styleUrls: ['./un-verified-articles.component.scss'],
+  encapsulation: ViewEncapsulation.None, //To allow dynamic CSS classes (from the innerHTML)
   animations: [routerTransition()]
+ 
 })
 export class UnVerifiedArticlesComponent implements OnInit {
   public unVerifiedArticlesList = [];
@@ -19,7 +23,8 @@ export class UnVerifiedArticlesComponent implements OnInit {
   constructor(private httpClient: HttpClient,
               private http: Http,
               private articlesService: ArticlesService,
-              private router: Router) {
+              private router: Router,
+              private auth: AuthService) {
   }
 
   ngOnInit() {
@@ -28,7 +33,7 @@ export class UnVerifiedArticlesComponent implements OnInit {
     console.log("ok");
     this.allTags = [];
     this.tagsInitialized = false;
-    this.httpClient.get('http://localhost:3000/api/user/viewUnverifiedArticles', {headers: autorization})
+    this.httpClient.get('http://localhost:3000/api/user/viewUnverifiedArticles', {headers: autorization}).pipe()
       .subscribe((res: any) => {
         this.unVerifiedArticlesList = res.data;
         
@@ -110,5 +115,11 @@ export class UnVerifiedArticlesComponent implements OnInit {
         return allTags[i].value;
       }
     }
+  }
+  isAdmin() {
+    if (this.auth.getCurrentUser().role == 'Admin') {
+      return true;
+    }
+    return false;
   }
 }

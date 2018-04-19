@@ -42,6 +42,7 @@ import { DeleteTagsComponent } from './admin/delete-tags/delete-tags.component';
 import { UnVerifiedActivitiesComponent } from './admin/un-verified-activities/un-verified-activities.component';
 import { AddAdminComponent } from './admin/add-admin/add-admin.component';
 import { AdminFormComponent } from './admin/admin-form/admin-form.component';
+import {SafeHtmlPipe} from './admin/un-verified-articles/safe-html.pipe';
 const appRoutes: Routes = [
   {
     path: 'me',
@@ -116,7 +117,9 @@ const appRoutes: Routes = [
     DeleteTagsComponent,
     UnVerifiedActivitiesComponent,
     AddAdminComponent,
-    AdminFormComponent
+    AdminFormComponent,
+    SafeHtmlPipe
+    
   ],
   providers: [
     HttpClient,

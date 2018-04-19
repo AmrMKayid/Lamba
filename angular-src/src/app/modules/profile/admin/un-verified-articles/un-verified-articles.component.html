@@ -22,6 +22,12 @@
                     <small class="text-muted"><i class="fa fa-clock-o"></i> {{ article.createdAt | date}}</small>
                   </p>
                 </div>
+                <p class="grey-text">Posted by
+                  <a style="cursor: pointer;" [routerLink]="['/profile',article.owner_id._id]" *ngIf="!isAdmin()" class="name-capitalize">{{article.owner_id.name.firstName}}
+                    {{article.owner_id.name.lastName}}</a>
+                    <a style="cursor: pointer;" *ngIf="isAdmin()"  class="name-capitalize">Admin: {{article.owner_id.name.firstName}}
+                      {{article.owner_id.name.lastName}}</a>
+                </p>
                 <p>
                     <strong>Tags: </strong>
                     <em *ngIf="article.tags.length ===0">No tags defined for this article</em>
@@ -39,9 +45,9 @@
                   <h4 class="timeline-title">{{ article.title}}</h4>
                 </div>
                 <div class="timeline-body">
-
-                  <div [innerHTML]="article.content">
-                  </div>
+                   
+                  <div [innerHTML]="article.content | safeHtml"></div>
+                  
                   <button class="badge badge-pill btn-success" (click)="verifyArticle(article._id)" style="cursor: pointer;">VERIFY</button>
                   <!--to do reject-->
                   <span><button class="badge badge-pill btn-danger" (click)="rejectArticle(article._id)"  style="cursor: pointer;" >REJECT</button></span>
