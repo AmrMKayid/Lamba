@@ -38,6 +38,7 @@ router.patch('/user/updateUser/:userId', userCtrl.updateUser);
 router.get('/user/getUserInfo/:userId', userCtrl.getUserInfo);
 router.get('/user/getUserByID/:id', mw.isAuthenticated, userCtrl.getUser);
 router.patch('/user/assignArticleToChild/:childID',mw.isAuthenticated,userCtrl.assignArticleToChild);
+router.get('/user/myChildren', mw.isAuthenticated, userCtrl.getMyChildren);
 //------------------------------Admin Routes---------------------------------//
 router.get('/user/viewUnverifiedArticles', mw.isAuthenticated, mw.isAdmin, userCtrl.viewUnverifiedArticles);
 router.get('/user/verifyArticle/:articleId', mw.isAuthenticated, mw.isAdmin, userCtrl.verifyArticle);
@@ -126,7 +127,7 @@ router.delete('/user/deleteVerificationForm/:id',mw.isAuthenticated,mw.isAdmin,u
 //---------------------------- Requests Routes--------------------------------------------//
 router.post('/request/create/:teacherId/:childId', mw.isAuthenticated, requestCtrl.addRequest);
 router.get('/request/get', mw.isAuthenticated, requestCtrl.getRequests);
-router.delete('/request/rejectRequest/:RequestId',mw.isAuthenticated,requestCtrl.rejectRequest);
+router.delete('/request/deleteRequest/:RequestId',mw.isAuthenticated,requestCtrl.deleteRequest);
 
 
 module.exports = router;

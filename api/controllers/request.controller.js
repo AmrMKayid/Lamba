@@ -134,8 +134,8 @@ module.exports.getRequests = function(req, res, next)
 
 }
 
-//deletes request if teacher declines
-module.exports.rejectRequest = function(req, res, next)
+//deletes request after teacher accepts or declines
+module.exports.deleteRequest = function(req, res, next)
 {
     if (!Validations.isObjectId(req.params.RequestId)) {
         return res.status(422).json({
@@ -189,5 +189,5 @@ module.exports.rejectRequest = function(req, res, next)
 
         }
     });
-    
+
 }

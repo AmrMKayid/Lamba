@@ -1068,3 +1068,31 @@ module.exports.verifyUser = function (req, res, next) {
 
     });
 };
+
+module.exports.getMyChildren = function (req, res, next) {
+    if (req.decodedToken.user.role != 'Parent') {
+        return res.status(401).json({
+            error: null,
+            msg: 'You have to be a parent to access your children!',
+            data: null
+        });
+    }
+
+    Child.find({
+            parent_id: { $eq: req.decodedToken.user._id }
+        }, '_id name',
+        (err, result) => {
+        if (err) {
+            return next(err);
+        }
+    }).exec(function (err, children) {
+        if (err) {
+            return next(err);
+        }
+        res.status(200).json({
+            err: null,
+            msg: 'children retrieved successfully.',
+            data: children
+        });
+    });
+};
