@@ -526,11 +526,8 @@ module.exports.createVerificationForm=function (req, res, next) {
       });
   }
   var valid =
-      req.body.owner_id && Validations.isString(req.body.owner_id) &&
       req.body.contactEmail && Validations.isString(req.body.contactEmail)&&
-      req.body.contactNumber && Validations.isString(req.body.contactNumber)
-      req.body.firstName && Validations.isString(req.body.firstName)&&
-      req.body.lastName && Validations.isString(req.body.lastName);
+      req.body.contactNumber && Validations.isString(req.body.contactNumber);
   if (!valid) {
       return res.status(422).json({
           err: null,
