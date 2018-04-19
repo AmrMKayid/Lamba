@@ -59,7 +59,7 @@ export class EventService {
       "activityID":activityID,
       "childId":childID
     };
-    return this.httpc.post(this.base_address + "activity/registerChild",param, this.options);
+    return this.httpc.post(this.base_address + "registerChild",param, this.options);
   }
 
 }

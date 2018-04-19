@@ -46,7 +46,7 @@
 
           <ng-template #content let-c="close" let-d="dismiss">
             <div class="modal-header">
-              <h4 class="modal-title">Add Child</h4>
+              <h4 class="modal-title">Register your Child</h4>
               <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -55,9 +55,14 @@
               <div class="container">
                 <div class="row">
                   <div class="col-12">
-                    <h1>Modal Worksssssss!!!</h1>
                     <div *ngFor='let child of children'>
-                      <h1>{{child['name']['firstName']}}  {{child['name']['lastName']}}</h1>
+
+                      <div class="" *ngIf="!child['registered']">
+
+                        <h1>{{child['name']['firstName']}} {{child['name']['lastName']}}</h1>
+                        <button type="button" name="button" (click)="registerChild(activity['_id'],child['_id']);d('Cross click')">Register</button>
+                      </div>
+
                     </div>
 
                   </div>

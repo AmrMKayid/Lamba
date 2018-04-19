@@ -96,9 +96,11 @@ export class ViewComponent implements OnInit {
     this.router.navigate(['/event/view/' + _id]);
   }
 
-  getChildren(activityID)
+  registerChild(activityID,childId)
   {
-
+    this.EventService.registerChild(activityID,childId).subscribe( (data) =>{
+      console.log(data);
+    });
   }
 
   open(content,activityID) {
