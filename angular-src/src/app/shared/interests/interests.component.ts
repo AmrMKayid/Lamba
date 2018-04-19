@@ -41,7 +41,27 @@ export class InterestsComponent implements OnInit {
   }
 
   newInterest(interest) {
-    this.interests.push(interest)
+    if (this.interests.includes(interest)) {
+      var index = this.interests.indexOf(interest);
+      if (index > -1) {
+        this.interests.splice(index, 1);
+      }
+      new Noty({
+        type: 'error',
+        text: interest + ' is removed',
+        timeout: 3000,
+        progressBar: true
+      }).show();
+    } else {
+      this.interests.push(interest);
+      new Noty({
+        type: 'success',
+        text: interest + ' is selected',
+        timeout: 3000,
+        progressBar: true
+      }).show();
+    }
+
   }
 
   Interests() {
