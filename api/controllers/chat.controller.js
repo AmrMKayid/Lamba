@@ -17,7 +17,7 @@ module.exports.getAllChats = function (req, res, next) {
     decoded = jwt.verify(authorization, secret);
     var user_id = decoded.user._id;
 
-	Message.find({$or:[{from: user_id, to: req.params.id},{from: req.params.id, to: user_id}]}, function(err, logs) {
+	Message.find({from: user_id}).distinct('to', function(err, logs) {
 		if(err)
 		{
 			 return res.status(404).json({
@@ -26,12 +26,40 @@ module.exports.getAllChats = function (req, res, next) {
                 data: []
             });
 		} 
+		Message.find({to: user_id}).distinct('from', function(err, logs2) {
+			if(err)
+			{
+				 return res.status(404).json({
+	                err: err,
+	                msg: "Chat Not Found",
+	                data: []
+	            });
+			} 
 
-		 return res.status(200).json({
-            err: null,
-            msg: "Retrieved Messages",
-            data: logs
-        });
+			logs = logs.concat(logs2);
+			logs = logs.filter(function(item, pos, self) {
+			    return self.indexOf(item) == pos;
+			});
+
+			User.find({_id: {$in: logs}}, function(err, logs){
+				if(err)
+				{
+					 return res.status(404).json({
+		                err: err,
+		                msg: "Chat Not Found",
+		                data: []
+		            });
+				} 
+				 return res.status(200).json({
+		            err: null,
+		            msg: "Retrieved Messages",
+		            data: logs
+	       		 });
+
+			});
+
+			
+		});
 
 	});
 }

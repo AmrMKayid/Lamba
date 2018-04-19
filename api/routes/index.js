@@ -78,6 +78,8 @@ router.patch('/articles/:id', mw.isAuthenticated, articleCtrl.editArticle);
 
 
 /*chat routes*/
-router.get('/chat/:id', mw.isAuthenticated, chatCtrl.getChats);
+router.get('/chat/:id', mw.isAuthenticated, chatCtrl.getChat);
+router.get('/chat/', mw.isAuthenticated, chatCtrl.getAllChats);
+
 
 module.exports = router;
