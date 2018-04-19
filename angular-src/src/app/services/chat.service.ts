@@ -18,7 +18,11 @@ export class ChatService {
 
   // Our simplified interface for sending
   // messages back to our socket.io server
-  sendMsg(msg) {
+  sendMsg(data) {
+    var  msg  = {
+    data:data,
+    authorization: localStorage.getItem('authentication')
+    }
     this.messages.next(msg);
   }
 
