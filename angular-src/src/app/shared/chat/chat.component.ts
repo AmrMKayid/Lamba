@@ -25,7 +25,8 @@ export class ChatComponent implements OnInit {
         this.reciever_id =  params['id'];
         this.chat.onMessage().subscribe(msg => {
            var msgObj = JSON.parse(msg);
-            if(msgObj.to == this.reciever_id)
+            console.log(msgObj);
+            if(msgObj.from == this.reciever_id)
             {
               this.serverMsg = msgObj.text;
             }
