@@ -276,7 +276,7 @@ module.exports.rejectArticle = function (req, res, next) {
                           }
                           return res.status(200).json({
                               err: null,
-                              msg: 'Article deleted successfully.',
+                              msg: 'Article rejected and deleted successfully.',
                               data: result
                           });
                       }
@@ -750,4 +750,18 @@ module.exports.rejectActivity = function (req, res, next) {
     });
 
   }
+};
+//Admin view all admins
+module.exports.viewAdmins = function (req, res, next) {
+  User.find({ role: 'Admin' }).exec(function (err, admins) {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    res.status(200).json({
+      err: null,
+      msg: 'Admins retrieved successfully.',
+      data: admins
+    });
+  });
 };

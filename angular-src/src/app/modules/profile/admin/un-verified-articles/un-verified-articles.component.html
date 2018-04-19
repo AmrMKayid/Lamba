@@ -44,7 +44,7 @@
                   </div>
                   <button class="badge badge-pill btn-success" (click)="verifyArticle(article._id)" style="cursor: pointer;">VERIFY</button>
                   <!--to do reject-->
-                  <span><button class="badge badge-pill btn-danger" style="cursor: pointer;" >REJECT</button></span>
+                  <span><button class="badge badge-pill btn-danger" (click)="rejectArticle(article._id)"  style="cursor: pointer;" >REJECT</button></span>
                 </div>
               </div>
             </li>

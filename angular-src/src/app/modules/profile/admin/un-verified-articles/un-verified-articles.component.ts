@@ -31,8 +31,7 @@ export class UnVerifiedArticlesComponent implements OnInit {
     this.httpClient.get('http://localhost:3000/api/user/viewUnverifiedArticles', {headers: autorization})
       .subscribe((res: any) => {
         this.unVerifiedArticlesList = res.data;
-        console.log(res.msg);
-        console.log(res.data);
+        
       }, err => {
         new Noty({
           type: 'error',
@@ -68,12 +67,43 @@ export class UnVerifiedArticlesComponent implements OnInit {
     this.httpClient.get('http://localhost:3000/api/user/verifyArticle/' + articleId, {headers: autorization})
       .subscribe((res: any) => {
         this.article = res.data;
+        new Noty({
+          type: 'success',
+          text: res.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
         this.ngOnInit();
       }, err => {
-
+        new Noty({
+          type: 'error',
+          text: err.error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
       });
   }
-
+  rejectArticle(articleId) {
+    let autorization = {Authorization: localStorage.getItem('authentication')};
+    this.httpClient.delete('http://localhost:3000/api/user/rejectArticle/' + articleId, {headers: autorization})
+      .subscribe((res: any) => {
+        new Noty({
+          type: 'success',
+          text: res.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+        this.ngOnInit();
+      }, err => {
+        new Noty({
+          type: 'error',
+          text: err.error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      });
+  }
+  
   getTagByID(allTags: { value: string, id: string }[], tagID: string) {
     for (let i = 0; i < allTags.length; i++) {
       if (allTags[i].id === tagID) {
