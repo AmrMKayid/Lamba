@@ -7,6 +7,7 @@ import {AuthService} from "../../../services/auth.service";
 import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
+
 @Component({
   selector: 'app-parent',
   templateUrl: './parent.component.html',
@@ -40,6 +41,54 @@ export class ParentComponent implements OnInit {
     this.getMyChildren(this.currentUser._id);
     this.newChildBtn = false;
     this.getTasks();
+  }
+
+  EditInfo(updatedFirstName, updatedMiddleName, updatedLastName,
+           updatedStreet, updatedCity, updatedState, updatedZip,
+           updatedBirthday, updatedPhone, updatedAbout) {
+
+    let updatedUser = {
+      name: {
+        firstName: updatedFirstName,
+        middleName: updatedMiddleName,
+        lastName: updatedLastName
+      },
+      address: {
+        street: updatedStreet,
+        city: updatedCity,
+        state: updatedState,
+        zip: updatedZip
+      },
+      birthday: updatedBirthday,
+      phone: updatedPhone,
+      about: updatedAbout,
+    };
+
+    this.http.patch(appConfig.apiUrl + '/user/updateUser/' + this.currentUser._id, updatedUser, this.httpOptions).subscribe(
+      (res: any) => {
+
+        localStorage.setItem('authentication', res.data);
+
+        this.modalref.close();
+
+        new Noty({
+          type: 'success',
+          text: `You've been successfully updated your info!`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      },
+      error => {
+        new Noty({
+          type: 'error',
+          text: error.error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+
+      });
+
+
   }
 
   onUploadFinished(event) {
