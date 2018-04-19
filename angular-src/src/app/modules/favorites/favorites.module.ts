@@ -9,6 +9,7 @@ import { FavActivitiesComponent } from './fav-activities/fav-activities.componen
 import { FavoritesComponent } from './favorites.component'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FavResourcesComponent } from './fav-resources/fav-resources.component';
+import { ArticlesService } from '../resources/articles.service';
 
 
 const appRoutes: Routes = [
@@ -48,6 +49,7 @@ const appRoutes: Routes = [
     FavResourcesComponent
   ],
   providers: [
+    ArticlesService
   ],
   exports: []
 })
