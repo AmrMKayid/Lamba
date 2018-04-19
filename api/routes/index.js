@@ -1,17 +1,17 @@
 var express = require('express'),
-    router = express.Router(),
-    jwt = require('jsonwebtoken'),
+  router = express.Router(),
+  jwt = require('jsonwebtoken'),
 
-    scheduleCtrl = require('../controllers/schedule.controller'),
-    taskCtrl = require('../controllers/task.controller'),
-    storeCtrl = require('../controllers/store.controller'),
-    authCtrl = require('../controllers/auth.controller'),
-    userCtrl = require('../controllers/user.controller'),
-    articleCtrl = require('../controllers/article.controller'),
-    tagCtrl = require('../controllers/tag.controller'),
-    activityCtrl = require('../controllers/activity.controller'),
+  scheduleCtrl = require('../controllers/schedule.controller'),
+  taskCtrl = require('../controllers/task.controller'),
+  storeCtrl = require('../controllers/store.controller'),
+  authCtrl = require('../controllers/auth.controller'),
+  userCtrl = require('../controllers/user.controller'),
+  articleCtrl = require('../controllers/article.controller'),
+  tagCtrl = require('../controllers/tag.controller'),
+  activityCtrl = require('../controllers/activity.controller'),
 
-    mw = require('./middlewares');
+  mw = require('./middlewares');
 
 //---------------------------- Authentication Routes --------------------------------//
 router.post('/auth/register', mw.isNotAuthenticated, authCtrl.register);
@@ -87,7 +87,8 @@ router.patch('/activity/goingActivities/:activityId', mw.isAuthenticated, activi
 router.get('/uploads/activity/:filename', activityCtrl.getImage);
 router.get('/activity/myActivities/view/:activityId', mw.isAuthenticated, activityCtrl.getActivity);
 
- /*gets the unverified activities*/
+router.post('/activity/registerChild', mw.isAuthenticated, activityCtrl.registerChild);
+/*gets the unverified activities*/
 router.get('/activity/verify', mw.isAuthenticated, mw.isAdmin, activityCtrl.viewUnverifiedActivities);
 
 router.post('/activity/comment/:activityId', mw.isAuthenticated, activityCtrl.addComment);
