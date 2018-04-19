@@ -456,7 +456,7 @@ module.exports.getFavItems = function (req, res, next) {
       let itemsIDs = child.favorites.items;
       Item.find({
         _id: { $in: itemsIDs }
-      }, 'picture_url name likes price description',
+      }, 'picture_url name likes price description item_type',
         (err, result) => {
           if (err) {
             return next(err);
@@ -484,7 +484,7 @@ module.exports.getFavItems = function (req, res, next) {
       let itemsIDs = user.favorites.items;
       Item.find({
         _id: { $in: itemsIDs },
-      }, 'picture_url name likes price description',
+      }, 'picture_url name likes price description item_type',
         (err, result) => {
           if (err) {
             return next(err);
