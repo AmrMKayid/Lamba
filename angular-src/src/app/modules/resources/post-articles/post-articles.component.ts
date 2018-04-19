@@ -82,7 +82,6 @@ export class PostArticlesComponent implements OnInit {
       "font-size": "10px",
     }
   };
-  //TODO: Export it into a service.
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

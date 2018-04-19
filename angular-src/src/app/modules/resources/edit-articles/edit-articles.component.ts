@@ -37,7 +37,6 @@ export class EditArticlesComponent implements OnInit {
       ['video', 'link']
     ]
   };
-  //TODO: Export it into a service.
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -98,7 +97,6 @@ export class EditArticlesComponent implements OnInit {
   }
 
   onEdit() {
-    //TODO: Beuatify these alerts! ,_,
     if (!this.title || !this.editorContent) {
       new Noty({
         type: 'warning',
