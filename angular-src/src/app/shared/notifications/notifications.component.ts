@@ -15,6 +15,13 @@ export class NotificationsComponent implements OnInit {
 	notifications : Array<Object>;
   ngOnInit() {
   
+    var test = {
+      title: "blbl",
+      description: "blblbl",
+      url: "fgasf/sadfs",
+      recieving_user_id: "5ad5d13c04720812d763ca7a"
+    };
+    this.notificationservice.CreateNotification(test);
   	this.notificationservice.getMyNotifications().subscribe((res: any) => {
   		if(res.err != null)
   		{
