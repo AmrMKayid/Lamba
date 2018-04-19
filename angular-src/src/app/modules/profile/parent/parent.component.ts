@@ -176,6 +176,16 @@ export class ParentComponent implements OnInit {
 
   modalref: NgbModalRef;
 
+  openlg(content) {
+    this.modalref = this.modalService.open(content,{ size: 'lg' })
+
+    this.modalref.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
   open(content) {
     this.modalref = this.modalService.open(content)
 
