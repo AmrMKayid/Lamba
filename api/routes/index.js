@@ -38,14 +38,9 @@ router.post('/user/addStudent/:childId', mw.isAuthenticated, userCtrl.addStudent
 router.patch('/user/updateUser/:userId', userCtrl.updateUser);
 router.get('/user/getUserInfo/:userId', userCtrl.getUserInfo);
 router.get('/user/getUserByID/:id', mw.isAuthenticated, userCtrl.getUser);
-<<<<<<< HEAD
 router.patch('/user/assignArticleToChild/:childID', mw.isAuthenticated, userCtrl.assignArticleToChild);
 router.get('/user/myChildren', mw.isAuthenticated, userCtrl.getMyChildren);
 
-=======
-router.patch('/user/assignArticleToChild/:childID',mw.isAuthenticated,userCtrl.assignArticleToChild);
-router.get('/user/myChildren', mw.isAuthenticated, userCtrl.getMyChildren);
->>>>>>> e6d9e77e0a8e0b5fbe0a208c945845db6eedb357
 //------------------------------Admin Routes---------------------------------//
 router.get('/user/viewUnverifiedArticles', mw.isAuthenticated, mw.isAdmin, userCtrl.viewUnverifiedArticles);
 router.get('/user/verifyArticle/:articleId', mw.isAuthenticated, mw.isAdmin, userCtrl.verifyArticle);
