@@ -9,7 +9,6 @@ import { FavActivitiesComponent } from './fav-activities/fav-activities.componen
 import { FavoritesComponent } from './favorites.component'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FavResourcesComponent } from './fav-resources/fav-resources.component';
-import { ArticlesService } from '../resources/articles.service';
 
 
 const appRoutes: Routes = [
@@ -17,19 +16,6 @@ const appRoutes: Routes = [
     path: '',
     component: FavoritesComponent
   }
-  // },
-  // {
-  // path: 'post',
-  // component: PostArticlesComponent,
-  // },
-  // {
-  // path: 'edit/:id',
-  // component: EditArticlesComponent,
-  // },
-  // {
-  // path: 'id/:id',
-  // component: ViewArticleComponent
-  // }
 ];
 
 @NgModule({
@@ -49,7 +35,6 @@ const appRoutes: Routes = [
     FavResourcesComponent
   ],
   providers: [
-    ArticlesService
   ],
   exports: []
 })
