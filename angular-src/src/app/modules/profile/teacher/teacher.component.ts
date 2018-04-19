@@ -163,6 +163,17 @@ export class TeacherComponent implements OnInit {
 
 
   updateTeacherSchedule(Slot, newtitle, newdescription, newurl, thisday) {
+    console.log(newtitle +"title here");
+    if (newtitle === "") {
+      newtitle = Slot.slot.title;
+    }
+   if(newdescription === ""){
+     newdescription = Slot.slot.description;
+    }
+   if (newurl === ""){
+     newurl = Slot.slot.url;
+    }
+
     var body = {
       title: newtitle,
       description: newdescription,

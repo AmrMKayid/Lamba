@@ -141,9 +141,9 @@ module.exports.getChildSchedule = function (req, res, next) {
         });
     });
 };
-
+//updates teacher schedule
 module.exports.updateTeacherSchedule = function (req, res, next) {
-    //req.decodedToken.user._id
+
     if (!Validations.isObjectId(req.params.SlotId)) {
         return res.status(422).json({
             err: null,
@@ -162,7 +162,6 @@ module.exports.updateTeacherSchedule = function (req, res, next) {
         req.body.day &&
         Validations.isString(req.body.day) ;
     if (!valid) {
-        // console.log(req.body);
         return res.status(422).json({
             err: null,
             msg:
@@ -202,7 +201,7 @@ module.exports.updateTeacherSchedule = function (req, res, next) {
                 .json({err: null, msg: 'Unauthorized Action.', data: null});
 
         }
-        //not sure why day has different color
+
         var slotsInweek;
         if (req.body.day == 'saturday') {
             slotsInweek = user.schedule.table.saturday;
@@ -255,7 +254,7 @@ module.exports.updateTeacherSchedule = function (req, res, next) {
 
 
 module.exports.updateChildSchedule = function (req, res, next) {
-    //req.decodedToken.user._id
+
     if (!Validations.isObjectId(req.params.SlotId)) {
         return res.status(422).json({
             err: null,
@@ -280,7 +279,7 @@ module.exports.updateChildSchedule = function (req, res, next) {
         req.body.day &&
         Validations.isString(req.body.day) ;
     if (!valid) {
-        // console.log(req.body);
+
         return res.status(422).json({
             err: null,
             msg:
@@ -313,7 +312,7 @@ module.exports.updateChildSchedule = function (req, res, next) {
 
         }
 
-        //not sure why day has different color
+
         var slotsInweek;
         if (req.body.day == 'saturday') {
             slotsInweek = user.schedule.table.saturday;
