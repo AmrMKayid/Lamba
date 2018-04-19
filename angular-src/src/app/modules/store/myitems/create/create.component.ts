@@ -4,6 +4,9 @@ import {Component, OnInit} from '@angular/core';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 import {StoreService} from '../../../../services/store.service';
 import {Router} from '@angular/router';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {MDBBootstrapModule} from 'angular-bootstrap-md';
 
 @Component({
   selector: 'app-create',
@@ -18,9 +21,8 @@ export class CreateComponent implements OnInit {
       "color": "#FFF"
     },
     clearButton: {
-      "background-color": "white",
-      "border-radius": "25px",
-      "color": "red",
+      "background-color": "red",
+      "color": "white",
       "margin-left": "10px"
     },
     layout: {
@@ -28,8 +30,7 @@ export class CreateComponent implements OnInit {
       "color": "gray",
       "font-size": "15px",
       "margin": "10px",
-      "padding-top": "5px",
-      "width": "500px"
+      "padding-top": "5px"
     },
     previewPanel: {
       "background-color": "white",
@@ -67,6 +68,13 @@ export class CreateComponent implements OnInit {
       }).show();
     }
     else if (!this.name || !this.description || !this.quantity || !this.price || !this.item_type || !this.item_condition) {
+      console.log(this.name);
+      console.log(this.description);
+      console.log(this.quantity);
+      console.log(this.price);
+      console.log(this.item_type);
+      console.log(this.item_condition);
+
       new Noty({
         type: 'error',
         text: 'Missing Field(s)\nOne or more field(s) are missing. Please provide all fields',
