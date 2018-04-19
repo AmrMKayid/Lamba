@@ -1,6 +1,9 @@
-<nav class="sidebar" [ngStyle]="{ 'width.em': sidenavWidth }" opened="true" (mouseenter)="increase()"
-     (mouseleave)="decrease()" [ngClass]="{sidebarPushRight: isActive}">
+<nav  class="sidebar" [ngStyle]="{ 'width.em': sidenavWidth}" opened="true" (mouseenter)="increase()"
+     (mouseleave)="decrease()" >
   <div class="list-group">
+      <br>
+      
+      
     <a routerLink="/profile/admin/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
                     {{ 'Dashboard'  }}
@@ -13,111 +16,39 @@
                     {{ 'Articles'  }}
             </span>
     </a>
-    <a [routerLink]="['/components']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-th-list"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
-                    {{ 'Component'}}
-            </span>
-    </a>
     <div class="nested-menu">
       <a class="list-group-item" (click)="addExpandClass('pages')">
-        <i class="fa fa-tags" aria-hidden="true"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
+        <i class="fa fa-fw fa-tags" aria-hidden="true"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
                         {{ 'Tags'}}
                 </span> 
       </a>
       <li *ngIf="sidenavWidth > 6" class="nested" [class.expand]="showMenu === 'pages'">
         <ul class="submenu">
           <li>
-            <a href="javascript:void(0)"(click)="openAddTagDialog()"><span><i class="fa fa-plus"></i>&nbsp;{{ 'Add Tags'}}</span></a>
+            <a href="javascript:void(0)"(click)="openAddTagDialog()"><span><i class="fa fa-fw fa-plus"></i>&nbsp;{{ 'Add Tags'}}</span></a>
           </li>
           <li>
-            <a href="javascript:void(0)" (click)="openDeleteTagDialog()"><span><i class="fa fa-minus"></i>&nbsp;{{ 'Delete Tags'  }}</span></a>
+            <a href="javascript:void(0)" (click)="openDeleteTagDialog()"><span><i class="fa fa-fw fa-minus"></i>&nbsp;{{ 'Delete Tags'  }}</span></a>
           </li>
         </ul>
       </li>
     </div>
     <a [routerLink]="['/profile/admin/un-verified-activities']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-bicycle"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
+      <i class="fa fa-fw fa-bicycle"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
                     {{ 'Activities'  }}
             </span>
     </a>
+    <a routerLink="/profile/admin/verification-requests" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-question-circle-o"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
+                    {{ 'Interviews'  }}
+            </span>
 
-    <div class="header-fields">
-      <a (click)="rltAndLtr()" class="list-group-item">
-        <span><i class="fa fa-arrows-h"></i>&nbsp; RTL/LTR</span>
-      </a>
-      <div class="nested-menu">
-        <a class="list-group-item" (click)="addExpandClass('languages')">
-          <span><i class="fa fa-language"></i>&nbsp; {{ 'Language'  }} <b class="caret"></b></span>
-        </a>
-        <li class="nested" [class.expand]="showMenu === 'languages'">
-          <ul class="submenu">
-            <li>
-              <a href="javascript:void(0)" (click)="changeLang('en')">
-                {{ 'English'  }}
-              </a>
-            </li>
-            <li>
-              <a href="javascript:void(0)" (click)="changeLang('fr')">
-                {{ 'French'  }}
-              </a>
-            </li>
-            <li>
-              <a href="javascript:void(0)" (click)="changeLang('ur')">
-                {{ 'Urdu'  }}
-              </a>
-            </li>
-            <li>
-              <a href="javascript:void(0)" (click)="changeLang('es')">
-                {{ 'Spanish'  }}
-              </a>
-            </li>
-            <li>
-              <a href="javascript:void(0)" (click)="changeLang('it')">
-                {{ 'Italian'  }}
-              </a>
-            </li>
-            <li>
-              <a href="javascript:void(0)" (click)="changeLang('fa')">
-                {{ 'Farsi'  }}
-              </a>
-            </li>
-            <li>
-              <a href="javascript:void(0)" (click)="changeLang('de')">
-                {{ 'German'  }}
-              </a>
-            </li>
-          </ul>
-        </li>
-      </div>
-      <div class="nested-menu">
-        <a class="list-group-item" (click)="addExpandClass('profile')">
-          <span><i class="fa fa-user"></i>&nbsp; John Smith</span>
-        </a>
-        <li class="nested" [class.expand]="showMenu === 'profile'">
-          <ul class="submenu">
-            <li>
-              <a href="javascript:void(0)">
-                <span><i class="fa fa-fw fa-user"></i> {{ 'Profile'  }}</span>
-              </a>
-            </li>
-            <li>
-              <a href="javascript:void(0)">
-                <span><i class="fa fa-fw fa-envelope"></i> {{ 'Inbox'  }}</span>
-              </a>
-            </li>
-            <li>
-              <a href="javascript:void(0)">
-                <span><i class="fa fa-fw fa-gear"></i> {{ 'Settings'  }}</span>
-              </a>
-            </li>
-            <li>
-              <a [routerLink]="['/login']" (click)="onLoggedout()">
-                <span><i class="fa fa-fw fa-power-off"></i> {{ 'Log Out'  }}</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-      </div>
-    </div>
+    </a>
+
+    <a [routerLink]="['/profile/admin/add-admin']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-users" aria-hidden="true"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
+                    {{ 'Admins'  }}
+            </span>
+    </a>
   </div>
 </nav>

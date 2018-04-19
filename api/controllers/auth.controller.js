@@ -383,7 +383,7 @@ module.exports.addAdmin = function (req, res, next) {
             }
 
             req.body.password = hash;
-
+            req.body.isVerified=true;
             req.body.role = 'Admin';
 
             UniqueUser.create({}, function (err, newUniqueUser) {

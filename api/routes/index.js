@@ -20,6 +20,7 @@ var express = require('express'),
 router.post('/auth/register', mw.isNotAuthenticated, authCtrl.register);
 router.post('/auth/login', mw.isNotAuthenticated, authCtrl.login);
 router.post('/auth/child', mw.isAuthenticated, mw.isNotChild, authCtrl.addChild);
+router.get('/user/viewAdmins',mw.isAuthenticated,userCtrl.viewAdmins);
 router.post('/auth/admin', mw.isAuthenticated, authCtrl.addAdmin);
 //-----------------------------------User Routes-------------------------------------//
 router.get('/user/getAllUsers', userCtrl.getAllUsers);
@@ -44,6 +45,7 @@ router.get('/user/myChildren', mw.isAuthenticated, userCtrl.getMyChildren);
 //------------------------------Admin Routes---------------------------------//
 router.get('/user/viewUnverifiedArticles', mw.isAuthenticated, mw.isAdmin, userCtrl.viewUnverifiedArticles);
 router.get('/user/verifyArticle/:articleId', mw.isAuthenticated, mw.isAdmin, userCtrl.verifyArticle);
+router.delete('/user/rejectArticle/:articleId',mw.isAuthenticated,mw.isAdmin,userCtrl.rejectArticle);
 //-----------------------------Schedules Routes----------------------------------------------//
 router.get('/schedule/getTeacherSchedule/:UserId', mw.isAuthenticated, scheduleCtrl.getTeacherSchedule);
 router.get('/schedule/getChildSchedule/:ChildId', mw.isAuthenticated, scheduleCtrl.getChildSchedule);
@@ -138,6 +140,9 @@ router.delete('/user/favorites/activities/:activityID', mw.isAuthenticated, favo
 router.get('/user/favorites/items', mw.isAuthenticated, favoritesCtrl.getFavItems);
 router.post('/user/favorites/items/:itemID', mw.isAuthenticated, favoritesCtrl.addFavItem);
 router.delete('/user/favorites/items/:itemID', mw.isAuthenticated, favoritesCtrl.removeFavItem);
+//----------------------------verify activity routes---------------------------------------------//
+router.get('/user/verifyActivity/:activityId',mw.isAuthenticated,mw.isAdmin,userCtrl.verifyActivity);
+router.delete('/user/rejectActivity/:activityId',mw.isAuthenticated,mw.isAdmin,userCtrl.rejectActivity);
 
 //---------------------------- Requests Routes--------------------------------------------//
 router.post('/request/create/:teacherId/:childId', mw.isAuthenticated, requestCtrl.addRequest);

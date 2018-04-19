@@ -1,5 +1,5 @@
 .main-container {
-  margin-top: 7%;
+  margin-top: 5%;
   margin-left: 11.5%;
   margin-right: 0px;
   padding: 0px;
@@ -11,7 +11,7 @@
   width: 100%;
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 762px) {
   .main-container {
     margin-left: 0px !important;
   }

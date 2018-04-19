@@ -1,10 +1,11 @@
 var mongoose = require('mongoose'),
-    Child = mongoose.model('Child'),
-    User = mongoose.model('User'),
-    Validations = require('../utils/validations'),
-    Article = mongoose.model('Article'),
-    Request = mongoose.model('Request'),
-    Verification = mongoose.model('Verification');
+  Child = mongoose.model('Child'),
+  User = mongoose.model('User'),
+  Validations = require('../utils/validations'),
+  Article = mongoose.model('Article'),
+  Request = mongoose.model('Request'),
+  Verification = mongoose.model('Verification'),
+  Activity = mongoose.model('Activity');
 
 module.exports.getAllUsers = function (req, res, next) {
     User.find({
@@ -346,19 +347,20 @@ module.exports.declineTeacher = function (req, res, next) {
 //Start yasmeen
 //Show Articles needed to be verified
 module.exports.viewUnverifiedArticles = function (req, res, next) {
-    Article.find({
-        approved: false
-    }).exec(function (err, articles) {
-        if (err) {
-            console.log(err);
-            return next(err);
-        }
-        res.status(200).json({
-            err: null,
-            msg: 'Unverified Articles retrieved successfully.',
-            data: articles
-        });
+  Article.find({
+    approved: false
+}, 'title createdAt owner_id _id tags content', (err, result) => {
+    if (err) {
+        return next(err);
+    }
+    //TODO: name nested inside owner_id, maybe change schema later on.
+}).populate('owner_id', 'name', 'User').exec((err, result) => {
+    res.status(200).json({
+        err: null,
+        msg: 'Articles retrieved successfully.',
+        data: result
     });
+});
 };
 
 
@@ -434,7 +436,62 @@ module.exports.verifyArticle = function (req, res, next) {
     });
 };
 
-//To Do (IF Admin doesn't like article and doesn't want to verify it)
+//delete article upon admin rejection
+module.exports.rejectArticle = function (req, res, next) {
+  if (!Validations.isObjectId(req.params.articleId)) {
+    return res.status(422).json({
+      err: null,
+      msg: 'Article id must be a valid object id',
+      data: null
+    });
+  }
+  if (req.decodedToken.user._id) {
+      Article.findById(req.params.articleId, (err, retrievedArticle) => {
+          if (err) {
+              return next(err);
+          }
+          if (!retrievedArticle) {
+              return res.status(404).json({
+                  err: null,
+                  msg: 'Article was not found.',
+                  data: null
+              });
+          }
+              Article.findByIdAndRemove(req.params.articleId, (err, result) => {
+                  if (err) {
+                      return next(err);
+                  }
+                  if (!result) {
+                      return res.status(404).json({
+                          err: null,
+                          msg: 'Article was not found.',
+                          data: null
+                      });
+                  }
+
+                  Child.update(
+                      {},
+                      { $pull: { allowedArticles: result._id } },
+                      { multi: true },
+                      (err, updatedArticles) => {
+                          if (err) {
+                              console.log(err);
+                              return next(err);
+                          }
+                          return res.status(200).json({
+                              err: null,
+                              msg: 'Article rejected and deleted successfully.',
+                              data: result
+                          });
+                      }
+                  );
+
+              });
+        });
+
+  }
+};
+//end yamsmeen
 module.exports.getUserInfo = function (req, res, next) {
     console.log(req.body)
     if (!Validations.isObjectId(req.params.userId)) {
@@ -738,6 +795,7 @@ module.exports.addStudent = function (req, res, next) {
 
 };
 
+//start yasmeen
 //teacher view sessions
 module.exports.viewSessions = function (req, res, next) {
 
@@ -905,75 +963,67 @@ module.exports.updateSession = function (req, res, next) {
 // create verifiecation form
 module.exports.createVerificationForm = function (req, res, next) {
 
-    if (req.decodedToken.user.role === 'Child') {
-        return res.status(401).json({
-            err: null,
-            msg: "You don't have permissions to post (child account)",
-            data: null
-        });
-    }
-    if (req.decodedToken.user.isVerified == true) {
+  if (req.decodedToken.user.role === 'Child') {
+      return res.status(401).json({
+          err: null,
+          msg: "You don't have permissions to post (child account)",
+          data: null
+      });
+  }
+  var valid =
+      req.body.contactEmail && Validations.isString(req.body.contactEmail)&&
+      req.body.contactNumber && Validations.isString(req.body.contactNumber);
+  if (!valid) {
+      return res.status(422).json({
+          err: null,
+          msg: 'contactEmail(String) and contactNumber(String) are required fields.',
+          data: null
+      });
+  }
+  User.findById(req.decodedToken.user._id).exec(function (err, user) {
+      if (err) {
+          return next(err);
+      }
+      if (!user) {
+          return res
+              .status(404)
+              .json({ err: null, msg: 'User not found.', data: null });
+      }      if (user.isVerified== true){
         return res.status(403).json({
-            err: null,
-            msg: "You are already a verified user",
-            data: null
+               err:null,
+               msg: "You are already a verified user",
+               data:null
         });
-    }
-    var valid =
-        req.body.owner_id && Validations.isString(req.body.owner_id) &&
-        req.body.contactEmail && Validations.isString(req.body.contactEmail) &&
-        req.body.contactNumber && Validations.isString(req.body.contactNumber)
-    req.body.firstName && Validations.isString(req.body.firstName) &&
-    req.body.lastName && Validations.isString(req.body.lastName);
-    if (!valid) {
-        return res.status(422).json({
-            err: null,
-            msg: 'contactEmail(String) and contactNumber(String) are required fields.',
-            data: null
-        });
-    }
-    User.findById(req.decodedToken.user._id).exec(function (err, user) {
-        if (err) {
-            return next(err);
+      }
+        Verification.find({owner_id:req.decodedToken.user._id}).exec(function(err,checkForm){
+    if (err) {
+      return next(err);
+  }
+  if (checkForm.length==0) {
+          let form = {
+              owner_id: req.decodedToken.user._id,
+              contactEmail:req.body.contactEmail,
+             contactNumber:req.body.contactNumber,
+              firstName:req.decodedToken.user.name.firstName,
+              lastName:req.decodedToken.user.name.lastName
+          };
+          Verification.create(form, (err, newform) => {
+              if (err) {
+                  console.log(err)
+                  return next(err);
+              }
+              res.status(201).json({
+                  err: null,
+                  msg: 'Verification Form created successfully.',
+                  data: newform.toObject()
+              });
+          });
+        }else{
+          console.log(checkForm);
+          return res
+          .status(422)
+          .json({ err: null, msg: 'You already applied for verification (still in reviewing process)', data: null });
         }
-        if (!user) {
-            return res
-                .status(404)
-                .json({err: null, msg: 'User not found.', data: null});
-        }
-        Verification.find({owner_id: req.decodedToken.user._id}).exec(function (err, checkForm) {
-            if (err) {
-                return next(err);
-            }
-            if (checkForm.length == 0) {
-                let form = {
-                    owner_id: req.decodedToken.user._id,
-                    contactEmail: req.body.contactEmail,
-                    contactNumber: req.body.contactNumber,
-                    firstName: req.decodedToken.user.name.firstName,
-                    lastName: req.decodedToken.user.name.lastName
-                };
-                Verification.create(form, (err, newform) => {
-                    if (err) {
-                        console.log(err)
-                        return next(err);
-                    }
-                    res.status(201).json({
-                        err: null,
-                        msg: 'Verification Form created successfully.',
-                        data: newform.toObject()
-                    });
-                });
-            } else {
-                console.log(checkForm);
-                return res
-                    .status(422)
-                    .json({
-                        err: null,
-                        msg: 'You already applied for verification (still in reviewing process)',
-                        data: null
-                    });
-            }
         });
     });
 };
@@ -1095,4 +1145,96 @@ module.exports.getMyChildren = function (req, res, next) {
             data: children
         });
     });
+  });
+};
+//verify activity
+module.exports.verifyActivity = function (req, res, next) {
+
+
+  if (!Validations.isObjectId(req.params.activityId)) {
+    return res.status(422).json({
+      err: null,
+      msg: 'activityId parameter must be a valid ObjectId.',
+      data: null
+    });
+  }
+  Activity.findByIdAndUpdate(req.params.activityId,
+    {
+      $set: { isVerified: true },
+      $currentDate: { updated_at: true }
+    },
+    { new: true }
+  ).exec(function (err, activity) {
+    if (err) {
+      return next(err);
+    }
+    if (!activity) {
+      return res
+        .status(404)
+        .json({ err: null, msg: 'Activity not found.', data: null });
+    }
+    res.status(200).json({
+      err: null,
+      msg: 'Activity verified successfully.',
+      data: null
+    });
+
+  });
+};
+//delete activity upon admin rejection
+module.exports.rejectActivity = function (req, res, next) {
+  if (!Validations.isObjectId(req.params.activityId)) {
+    return res.status(422).json({
+      err: null,
+      msg: 'Activity id must be a valid object id',
+      data: null
+    });
+  }
+  if (req.decodedToken.user._id) {
+      Activity.findById(req.params.activityId, (err, retrievedActivity) => {
+          if (err) {
+              return next(err);
+          }
+          if (!retrievedActivity) {
+              return res.status(404).json({
+                  err: null,
+                  msg: 'Activity was not found.',
+                  data: null
+              });
+          }
+              Activity.findByIdAndRemove(req.params.activityId, (err, result) => {
+                  if (err) {
+                      return next(err);
+                  }
+                  if (!result) {
+                      return res.status(404).json({
+                          err: null,
+                          msg: 'Activity was not found.',
+                          data: null
+                      });
+                  }
+
+              return res.status(200).json({
+                  err: null,
+                  msg: 'Activity rejected and deleted successfully.',
+                  data: result
+         });
+       });
+    });
+
+  }
+};
+//Admin view all admins
+module.exports.viewAdmins = function (req, res, next) {
+  User.find({ role: 'Admin' }).exec(function (err, admins) {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    res.status(200).json({
+      err: null,
+      msg: 'Admins retrieved successfully.',
+      data: admins
+    });
+  });
 };

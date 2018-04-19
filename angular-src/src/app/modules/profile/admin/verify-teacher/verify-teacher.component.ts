@@ -6,7 +6,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {HttpModule, Response} from '@angular/http';
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { routerTransition } from '../router.animations';
+import {routerTransition} from '../router.animations';
 
 @Component({
   selector: 'app-verify-teacher',

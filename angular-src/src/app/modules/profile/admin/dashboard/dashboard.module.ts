@@ -3,11 +3,7 @@ import {CommonModule} from '@angular/common';
 import {NgbCarouselModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {DashboardRoutingModule} from './dashboard-routing.module';
-import {
-  TimelineComponent,
-  NotificationComponent,
-  ChatComponent
-} from './components';
+
 import {StatModule} from '../stat/stat.module';
 import {DashboardComponent} from "./dashboard.component";
 
@@ -20,10 +16,7 @@ import {DashboardComponent} from "./dashboard.component";
     StatModule
   ],
   declarations: [
-    // DashboardComponent,
-    TimelineComponent,
-    NotificationComponent,
-    ChatComponent
+    DashboardComponent
   ]
 })
 export class DashboardModule {

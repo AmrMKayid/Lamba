@@ -42,15 +42,19 @@ export class NavbarComponent implements OnInit {
     this.auth.logout();
   }
 
-  hideNavbar() {
-    if (this.router.url == '/profile/admin/dashboard')
-      return false;
-    if (this.router.url == '/profile/admin/un-verified-articles')
-      return false;
-    if (this.router.url == '/profile/admin/un-verified-activities')
-      return false;
-    if (this.router.url == '/profile/admin/verify-teachers')
-      return false;
+  hideNavbar(){
+    if(this.router.url == '/profile/admin/dashboard')
+       return false;
+    if(this.router.url == '/profile/admin/un-verified-articles')
+    return false;
+    if(this.router.url == '/profile/admin/un-verified-activities')
+    return false;
+    if(this.router.url=='/profile/admin/verify-teachers')
+    return false;
+    if(this.router.url=='/profile/admin/add-admin')
+    return false;
+    if(this.router.url=='/profile/admin/verification-requests')
+    return false;
     return true;
 
   }
