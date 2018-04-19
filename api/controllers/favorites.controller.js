@@ -39,6 +39,9 @@ module.exports.getFavArticles = function (req, res, next) {
     });
   } else {
     User.findById(id, (err, user) => {
+      if (err) {
+        return next(err);
+      }
       let articlesIDs = user.favorites.resources;
       Article.find({
         _id: { $in: articlesIDs },
@@ -256,6 +259,9 @@ module.exports.getFavActivities = function (req, res, next) {
     });
   } else {
     User.findById(userID, (err, user) => {
+      if (err) {
+        return next(err);
+      }
       let activitiesIDs = user.favorites.activities;
       Activity.find({
         _id: { $in: activitiesIDs }
