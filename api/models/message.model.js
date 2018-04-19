@@ -19,7 +19,11 @@ const MessageSchema = mongoose.Schema({
     }
 });
 
+const Message = mongoose.model('Message', MessageSchema);
+
+
 MessageSchema.statics.addMessage = (message, callback) => {
+    var message = new Message(message);
     message.save(callback);
 };
 
@@ -32,5 +36,4 @@ MessageSchema.statics.getMessagesFromUser = (user, callback) => {
 };
 
 
-const Message = mongoose.model('Message', MessageSchema);
 module.exports = Message;

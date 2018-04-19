@@ -79,6 +79,7 @@ function onNewConnection(socket)
   */
 function onMessage(data)
 {
+    var msg; 
     try
     {
         msg = JSON.parse(data)
@@ -95,11 +96,8 @@ function onMessage(data)
     // Received Message From Angular Client
     console.log("Message Received: " + data);
 
-    // Sending the message back to the client
-    socketio.emit('message', data);
+    sendMessage(msg);
 
-    let message = new Message(data.message);
-    Message.addMessage(message, (err, newMsg) => {});
 }
 
 /** string -> void
@@ -128,7 +126,19 @@ function sendMessage(msg)
     var user_id = decoded.user._id;
     message = 
     {
-        data: msg.data,
-        sender_id: user_id
+        from: user_id,
+        to: msg.reciever_id,
+        text: msg.data,
+        created: Date.now()
     };
+
+    for(var i = 0; i < clients.length; i++)
+    {
+        if(clients[i].id == message.to)
+        {
+            console.log("forwarding message");
+            messagestr  = JSON.stringify(message);
+            clients[i].socket.emit("message", messagestr);
+        }
+    }
 }
