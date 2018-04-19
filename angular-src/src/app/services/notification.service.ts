@@ -36,7 +36,7 @@ export class NotificationService {
   	var headers = new Headers();
 	headers.append('Content-Type', 'application/json');
 	headers.append('authorization', localStorage.getItem('authentication'));
-	return this.http.post('http://127.0.0.1:3000/api/notifications/create', notification, this.httpOptions);
+	return this.http.post('http://127.0.0.1:3000/api/notifications/create', notification, this.httpOptions).subscribe((res:any)   => {console.log(res);});
   }
 
   /**
