@@ -24,7 +24,11 @@ export class ChatComponent implements OnInit {
         this.chat.initSocket();
         this.reciever_id =  params['id'];
         this.chat.onMessage().subscribe(msg => {
-            this.serverMsg = msg;
+           var msgObj = JSON.parse(msg);
+            if(msgObj.sender_id == this.reciever_id)
+            {
+              this.serverMsg = msg;
+            }
         });
     });
   
@@ -41,3 +45,6 @@ export class ChatComponent implements OnInit {
   }
 
 }
+
+
+//5ad5d1f704720812d763ca7b

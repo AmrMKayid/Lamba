@@ -61,6 +61,7 @@ function onNewConnection(socket)
             if(c.socket.id == socket.id)
             {
                 clients.splice(i,1);
+                console.log('client disconnected');
                 break;
             }
         }
@@ -87,7 +88,7 @@ function onMessage(data)
         return;
     }
 
-    if(!msg.authorization)
+    if(!msg.authorization || !msg.reciever_id)
     {
         return;
     }
@@ -117,4 +118,17 @@ function getClient(user_id)
         }
     }
     return null;
+}
+
+
+function sendMessage(msg)
+{  
+    const secret = config.SECRET;
+    decoded = jwt.verify(msg.authorization, secret);
+    var user_id = decoded.user._id;
+    message = 
+    {
+        data: msg.data,
+        sender_id: user_id
+    };
 }
