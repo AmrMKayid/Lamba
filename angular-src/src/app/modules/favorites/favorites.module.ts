@@ -4,10 +4,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FavArticlesComponent } from './fav-articles/fav-articles.component';
 import { FavItemsComponent } from './fav-items/fav-items.component';
 import { FavActivitiesComponent } from './fav-activities/fav-activities.component';
 import { FavoritesComponent } from './favorites.component'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FavResourcesComponent } from './fav-resources/fav-resources.component';
+
+
 const appRoutes: Routes = [
   {
     path: '',
@@ -35,13 +38,14 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
+    NgbModule,
     RouterModule.forChild(appRoutes)
   ],
   declarations: [
-    FavArticlesComponent,
     FavItemsComponent,
     FavActivitiesComponent,
-    FavoritesComponent
+    FavoritesComponent,
+    FavResourcesComponent
   ],
   providers: [
   ],
