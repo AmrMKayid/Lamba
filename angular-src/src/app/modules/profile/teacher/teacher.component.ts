@@ -6,6 +6,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
 import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {appConfig} from "../../../app.config";
+import {stringDistance} from "codelyzer/util/utils";
 
 
 @Component({
@@ -15,6 +16,7 @@ import {appConfig} from "../../../app.config";
   styleUrls: ['./teacher.component.css']
 })
 export class TeacherComponent implements OnInit {
+
 
   firstName: string;
   middleName: string;
@@ -64,6 +66,55 @@ export class TeacherComponent implements OnInit {
     this.getStudents();
     this.getTasks();
   }
+
+  EditInfo(updatedFirstName, updatedMiddleName, updatedLastName,
+           updatedStreet, updatedCity, updatedState, updatedZip,
+           updatedBirthday, updatedPhone, updatedAbout) {
+
+    let updatedUser = {
+      name: {
+        firstName: updatedFirstName,
+        middleName: updatedMiddleName,
+        lastName: updatedLastName
+      },
+      address: {
+        street: updatedStreet,
+        city: updatedCity,
+        state: updatedState,
+        zip: updatedZip
+      },
+      birthday: updatedBirthday,
+      phone: updatedPhone,
+      about: updatedAbout,
+    };
+
+    this.http.patch(appConfig.apiUrl + '/user/updateUser/' + this.currentUser._id, updatedUser, this.httpOptions).subscribe(
+      (res: any) => {
+
+        localStorage.setItem('authentication', res.data);
+
+        this.modalref.close();
+
+        new Noty({
+          type: 'success',
+          text: `You've been successfully updated your info!`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      },
+      error => {
+        new Noty({
+          type: 'error',
+          text: error.error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+
+      });
+
+
+  }
+
 
   onUploadFinished(event) {
 
