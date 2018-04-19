@@ -5,14 +5,14 @@ var mongoose = require('mongoose'),
   Article = mongoose.model('Article'),
   Verification = mongoose.model('Verification');
 
-module.exports.getAllUsers = function(req, res, next) {
+module.exports.getAllUsers = function (req, res, next) {
   User.find({
     $or: [{
       role: 'Parent'
     }, {
       role: 'Teacher'
     }]
-  }).exec(function(err, users) {
+  }).exec(function (err, users) {
     if (err) {
       return next(err);
     }
@@ -24,7 +24,7 @@ module.exports.getAllUsers = function(req, res, next) {
   });
 };
 
-module.exports.getUser = function(req, res, next) {
+module.exports.getUser = function (req, res, next) {
   if (!req.params.id || !req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     return res.status(422).json({
       err: null,
@@ -33,13 +33,13 @@ module.exports.getUser = function(req, res, next) {
     });
   }
 
-  User.findById(req.params.id).exec(function(err, user) {
+  User.findById(req.params.id).exec(function (err, user) {
     if (err) {
       return next(err);
     }
     //Not found in users, search for him in children
     if (!user) {
-      Child.findById(req.params.id).exec(function(err, child) {
+      Child.findById(req.params.id).exec(function (err, child) {
         if (err) {
           return next(err);
         }
@@ -67,7 +67,7 @@ module.exports.getUser = function(req, res, next) {
   });
 }
 
-module.exports.getUserByID = function(req, res, next) {
+module.exports.getUserByID = function (req, res, next) {
   if (!Validations.isObjectId(req.params.userID)) {
     return res.status(422).json({
       err: null,
@@ -75,7 +75,7 @@ module.exports.getUserByID = function(req, res, next) {
       data: null
     });
   }
-  User.findById(req.params.userID).exec(function(err, user) {
+  User.findById(req.params.userID).exec(function (err, user) {
     if (err) {
       return next(err);
     }
@@ -88,7 +88,7 @@ module.exports.getUserByID = function(req, res, next) {
   });
 };
 
-module.exports.getChildByID = function(req, res, next) {
+module.exports.getChildByID = function (req, res, next) {
   if (!Validations.isObjectId(req.params.childId)) {
     return res.status(422).json({
       err: null,
@@ -96,7 +96,7 @@ module.exports.getChildByID = function(req, res, next) {
       data: null
     });
   }
-  Child.findById(req.params.childId).exec(function(err, child) {
+  Child.findById(req.params.childId).exec(function (err, child) {
     if (err) {
       return next(err);
     }
@@ -123,7 +123,7 @@ module.exports.getChildByID = function(req, res, next) {
 
       }
     } else {
-      User.findById(req.decodedToken.user._id).exec(function(err, user) {
+      User.findById(req.decodedToken.user._id).exec(function (err, user) {
         if (err) {
           return next(err);
         }
@@ -156,7 +156,7 @@ module.exports.getChildByID = function(req, res, next) {
 };
 
 
-module.exports.getUserChildren = function(req, res, next) {
+module.exports.getUserChildren = function (req, res, next) {
   if (!Validations.isObjectId(req.params.userID)) {
     return res.status(422).json({
       err: null,
@@ -166,7 +166,7 @@ module.exports.getUserChildren = function(req, res, next) {
   }
   Child.find({
     parent_id: req.params.userID
-  }).exec(function(err, children) {
+  }).exec(function (err, children) {
     if (err) {
       return next(err);
     }
@@ -178,7 +178,7 @@ module.exports.getUserChildren = function(req, res, next) {
   });
 };
 
-module.exports.updateImage = function(req, res, next) {
+module.exports.updateImage = function (req, res, next) {
   if (!Validations.isObjectId(req.params.userID)) {
     return res.status(422).json({
       err: null,
@@ -192,7 +192,7 @@ module.exports.updateImage = function(req, res, next) {
     }, {
       new: true
     }
-  ).exec(function(err, updateUser) {
+  ).exec(function (err, updateUser) {
     if (err) {
       console.log(err)
       return next(err);
@@ -204,7 +204,7 @@ module.exports.updateImage = function(req, res, next) {
         }, {
           new: true
         }
-      ).exec(function(err, updateChild) {
+      ).exec(function (err, updateChild) {
         if (err) {
           return next(err);
         }
@@ -218,8 +218,8 @@ module.exports.updateImage = function(req, res, next) {
         var token = jwt.sign({
           user: updateChild.toObject()
         }, req.app.get('secret'), {
-          expiresIn: '12h'
-        });
+            expiresIn: '12h'
+          });
         res.status(200).json({
           err: null,
           msg: 'Welcome',
@@ -230,8 +230,8 @@ module.exports.updateImage = function(req, res, next) {
       var token = jwt.sign({
         user: updateUser.toObject()
       }, req.app.get('secret'), {
-        expiresIn: '12h'
-      });
+          expiresIn: '12h'
+        });
       res.status(200).json({
         err: null,
         msg: 'Welcome',
@@ -242,7 +242,7 @@ module.exports.updateImage = function(req, res, next) {
 };
 
 
-module.exports.getPendingTeachers = function(req, res, next) {
+module.exports.getPendingTeachers = function (req, res, next) {
   User.find({
     role: {
       $eq: "Teacher"
@@ -251,8 +251,8 @@ module.exports.getPendingTeachers = function(req, res, next) {
     isReviewed: {
       $eq: false
     }
-   
-  }).exec(function(err, requests) {
+
+  }).exec(function (err, requests) {
     if (err) {
       return next(err);
     }
@@ -264,7 +264,7 @@ module.exports.getPendingTeachers = function(req, res, next) {
   });
 };
 
-module.exports.acceptTeacher = function(req, res, next) {
+module.exports.acceptTeacher = function (req, res, next) {
   if (!Validations.isObjectId(req.params.teacherID)) {
     return res.status(422).json({
       err: null,
@@ -277,12 +277,12 @@ module.exports.acceptTeacher = function(req, res, next) {
     req.params.teacherID, {
       $set: {
         isVerified: true,
-        isReviewed :true
+        isReviewed: true
       }
     }, {
       new: true
     }
-  ).exec(function(err, teacher) {
+  ).exec(function (err, teacher) {
     if (err) {
       return next(err);
     }
@@ -303,7 +303,7 @@ module.exports.acceptTeacher = function(req, res, next) {
   });
 };
 
-module.exports.declineTeacher = function(req, res, next) {
+module.exports.declineTeacher = function (req, res, next) {
   if (!Validations.isObjectId(req.params.teacherID)) {
     return res.status(422).json({
       err: null,
@@ -316,12 +316,12 @@ module.exports.declineTeacher = function(req, res, next) {
     req.params.teacherID, {
       $set: {
         isVerified: false,
-        isReviewed :true
+        isReviewed: true
       }
     }, {
       new: true
     }
-  ).exec(function(err, teacher) {
+  ).exec(function (err, teacher) {
     if (err) {
       return next(err);
     }
@@ -344,10 +344,10 @@ module.exports.declineTeacher = function(req, res, next) {
 
 //Start yasmeen
 //Show Articles needed to be verified
-module.exports.viewUnverifiedArticles = function(req, res, next) {
+module.exports.viewUnverifiedArticles = function (req, res, next) {
   Article.find({
     approved: false
-  }).exec(function(err, articles) {
+  }).exec(function (err, articles) {
     if (err) {
       console.log(err);
       return next(err);
@@ -362,7 +362,7 @@ module.exports.viewUnverifiedArticles = function(req, res, next) {
 
 
 //View Certain Article
-module.exports.viewArticleToVerify = function(req, res, next) {
+module.exports.viewArticleToVerify = function (req, res, next) {
   if (!Validations.isObjectId(req.params.articleId)) {
     return res.status(422).json({
       err: null,
@@ -370,7 +370,7 @@ module.exports.viewArticleToVerify = function(req, res, next) {
       data: null
     });
   }
-  Article.findById(req.params.articleId).exec(function(err, article) {
+  Article.findById(req.params.articleId).exec(function (err, article) {
     if (err) {
       return next(err);
     }
@@ -392,7 +392,7 @@ module.exports.viewArticleToVerify = function(req, res, next) {
 };
 
 //Verfiy Articles
-module.exports.verifyArticle = function(req, res, next) {
+module.exports.verifyArticle = function (req, res, next) {
 
 
   if (!Validations.isObjectId(req.params.articleId)) {
@@ -410,31 +410,31 @@ module.exports.verifyArticle = function(req, res, next) {
       updatedAt: true
     }
   }, {
-    new: true
-  }).exec(function(err, article) {
-    if (err) {
-      return next(err);
-    }
-    if (!article) {
-      return res
-        .status(404)
-        .json({
-          err: null,
-          msg: 'Article not found.',
-          data: null
-        });
-    }
-    res.status(200).json({
-      err: null,
-      msg: 'Article verified successfully.',
-      data: null
-    });
+      new: true
+    }).exec(function (err, article) {
+      if (err) {
+        return next(err);
+      }
+      if (!article) {
+        return res
+          .status(404)
+          .json({
+            err: null,
+            msg: 'Article not found.',
+            data: null
+          });
+      }
+      res.status(200).json({
+        err: null,
+        msg: 'Article verified successfully.',
+        data: null
+      });
 
-  });
+    });
 };
 
 //To Do (IF Admin doesn't like article and doesn't want to verify it)
-module.exports.getUserInfo = function(req, res, next) {
+module.exports.getUserInfo = function (req, res, next) {
   console.log(req.body)
   if (!Validations.isObjectId(req.params.userId)) {
     return res.status(422).json({
@@ -443,7 +443,7 @@ module.exports.getUserInfo = function(req, res, next) {
       data: null
     });
   }
-  User.findById(req.params.userId).exec(function(err, user) {
+  User.findById(req.params.userId).exec(function (err, user) {
     if (err) {
       return next(err);
     }
@@ -463,7 +463,7 @@ module.exports.getUserInfo = function(req, res, next) {
     });
   });
 };
-module.exports.updateUser = function(req, res, next) {
+module.exports.updateUser = function (req, res, next) {
   if (!Validations.isObjectId(req.params.userId)) {
     return res.status(422).json({
       err: null,
@@ -505,7 +505,7 @@ module.exports.updateUser = function(req, res, next) {
     }, {
       new: true
     }
-  ).exec(function(err, updateUser) {
+  ).exec(function (err, updateUser) {
     console.log(updateUser);
     if (err) {
       console.log(err)
@@ -528,7 +528,7 @@ module.exports.updateUser = function(req, res, next) {
   });
 };
 
-module.exports.assignArticleToChild = function(req, res, next) {
+module.exports.assignArticleToChild = function (req, res, next) {
   if (!Validations.isObjectId(req.params.childID)) {
     return res.status(422).json({
       err: null,
@@ -561,7 +561,7 @@ module.exports.assignArticleToChild = function(req, res, next) {
       }
 
       child.allowedArticles.push(req.body.articleID);
-      child.save(function(err, updatedChild) {
+      child.save(function (err, updatedChild) {
         if (err) {
           return next(err)
         }
@@ -592,14 +592,14 @@ module.exports.assignArticleToChild = function(req, res, next) {
 
 
 
-module.exports.getMyTeachers = function(req, res, next) {
+module.exports.getMyTeachers = function (req, res, next) {
 
 
 };
 
 
 
-module.exports.getMyStudents = function(req, res, next) {
+module.exports.getMyStudents = function (req, res, next) {
 
 
   User.findById(req.decodedToken.user._id).populate({
@@ -618,76 +618,76 @@ module.exports.getMyStudents = function(req, res, next) {
 };
 
 //teacher view sessions
-module.exports.viewSessions= function (req, res, next) {
+module.exports.viewSessions = function (req, res, next) {
 
-User.findById(req.decodedToken.user._id).exec(function(err, user) {
+  User.findById(req.decodedToken.user._id).exec(function (err, user) {
 
 
     if (err) {
-        return next(err);
+      return next(err);
     }
     if (!user) {
-        return res
-            .status(404)
-            .json({ err: null, msg: 'User not found.', data: null });
+      return res
+        .status(404)
+        .json({ err: null, msg: 'User not found.', data: null });
     }
 
     res.status(200).json({
-        err: null,
-        msg: 'Sessions retrieved successfully.',
-        data: user.sessions
+      err: null,
+      msg: 'Sessions retrieved successfully.',
+      data: user.sessions
     });
-});
+  });
 };
 //teacher add session
-module.exports.addSession=function(req,res,next){
+module.exports.addSession = function (req, res, next) {
   if (req.decodedToken.user.role === 'Child') {
     return res.status(401).json({
-        err: null,
-        msg: "You don't have permissions to post (child account)",
-        data: null
+      err: null,
+      msg: "You don't have permissions to post (child account)",
+      data: null
     });
   }
-    var valid =
+  var valid =
     req.body.title && Validations.isString(req.body.title) &&
     req.body.grade && Validations.isString(req.body.grade) &&
     req.body.location && Validations.isString(req.body.location) &&
     req.body.startDate &&
     req.body.endDate
-    req.body.fees && Validations.isNumber(req.body.fees) ;
+  req.body.fees && Validations.isNumber(req.body.fees);
 
-    if (!valid) {
-      return res.status(422).json({
-          err: null,
-          msg: 'please provide all the fields.',
-          data: null
-      });
+  if (!valid) {
+    return res.status(422).json({
+      err: null,
+      msg: 'please provide all the fields.',
+      data: null
+    });
   }
   User.findById(req.decodedToken.user._id).exec(function (err, user) {
     if (err) {
       return next(err);
-  }
-  if (!user) {
-      return res
-          .status(404)
-          .json({ err: null, msg: 'User not found.', data: null });
-  }
-  var newSession = user.sessions.create(req.body);
-  user.sessions.push(newSession);
-  user.save(function(err) {
-    if (err) {
-      return next(err);
     }
-    res.status(201).json({
-      err: null,
-      msg: 'Session was created successfully.',
-      data: newSession
+    if (!user) {
+      return res
+        .status(404)
+        .json({ err: null, msg: 'User not found.', data: null });
+    }
+    var newSession = user.sessions.create(req.body);
+    user.sessions.push(newSession);
+    user.save(function (err) {
+      if (err) {
+        return next(err);
+      }
+      res.status(201).json({
+        err: null,
+        msg: 'Session was created successfully.',
+        data: newSession
+      });
     });
-  });
   });
 };
 //teacher delete session
-module.exports.deleteSession=function(req,res,next){
+module.exports.deleteSession = function (req, res, next) {
   if (!Validations.isObjectId(req.params.sessionId)) {
     return res.status(422).json({
       err: null,
@@ -698,34 +698,34 @@ module.exports.deleteSession=function(req,res,next){
   User.findById(req.decodedToken.user._id).exec(function (err, user) {
     if (err) {
       return next(err);
-  }
-  if (!user) {
-      return res
-          .status(404)
-          .json({ err: null, msg: 'User not found.', data: null });
-  }
-  var session = user.sessions.id(req.params.sessionId);
-  if (!session) {
-    return res
-      .status(404)
-      .json({ err: null, msg: 'Session not found.', data: null });
-  }
-  session.remove();
-  user.save(function(err) {
-    if (err) {
-      return next(err);
     }
-    res.status(200).json({
-      err: null,
-      msg: 'Session was deleted successfully.',
-      data: session
+    if (!user) {
+      return res
+        .status(404)
+        .json({ err: null, msg: 'User not found.', data: null });
+    }
+    var session = user.sessions.id(req.params.sessionId);
+    if (!session) {
+      return res
+        .status(404)
+        .json({ err: null, msg: 'Session not found.', data: null });
+    }
+    session.remove();
+    user.save(function (err) {
+      if (err) {
+        return next(err);
+      }
+      res.status(200).json({
+        err: null,
+        msg: 'Session was deleted successfully.',
+        data: session
+      });
     });
-  });
   });
 };
 
 ////teacher update session
-module.exports.updateSession=function(req,res,next){
+module.exports.updateSession = function (req, res, next) {
   if (!Validations.isObjectId(req.params.sessionId)) {
     return res.status(422).json({
       err: null,
@@ -734,128 +734,128 @@ module.exports.updateSession=function(req,res,next){
     });
   }
   var valid =
-  req.body.title && Validations.isString(req.body.title) &&
-  req.body.grade && Validations.isString(req.body.grade) &&
-  req.body.location && Validations.isString(req.body.location) &&
-  req.body.startDate &&
-  req.body.endDate
-  req.body.fees && Validations.isNumber(req.body.fees) ;
+    req.body.title && Validations.isString(req.body.title) &&
+    req.body.grade && Validations.isString(req.body.grade) &&
+    req.body.location && Validations.isString(req.body.location) &&
+    req.body.startDate &&
+    req.body.endDate
+  req.body.fees && Validations.isNumber(req.body.fees);
 
   if (!valid) {
     return res.status(422).json({
-        err: null,
-        msg: 'please provide all the fields.',
-        data: null
+      err: null,
+      msg: 'please provide all the fields.',
+      data: null
     });
-}
-User.findById(req.decodedToken.user._id).exec(function (err, user) {
-  if (err) {
-    return next(err);
-}
-if (!user) {
-    return res
+  }
+  User.findById(req.decodedToken.user._id).exec(function (err, user) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res
         .status(404)
         .json({ err: null, msg: 'User not found.', data: null });
-}
-var session = user.sessions.id(req.params.sessionId);
-if (!session) {
-  return res
-    .status(404)
-    .json({ err: null, msg: 'Session not found.', data: null });
-}
-session.title=req.body.title;
-session.grade=req.body.grade;
-session.location=req.body.location;
-session.startDate=req.body.startDate;
-session.endDate=req.body.endDate;
-session.fees=req.body.fees;
-user.save(function(err) {
-  if (err) {
-    return next(err);
-  }
-  res.status(200).json({
-    err: null,
-    msg: 'Session was updated successfully.',
-    data: session
+    }
+    var session = user.sessions.id(req.params.sessionId);
+    if (!session) {
+      return res
+        .status(404)
+        .json({ err: null, msg: 'Session not found.', data: null });
+    }
+    session.title = req.body.title;
+    session.grade = req.body.grade;
+    session.location = req.body.location;
+    session.startDate = req.body.startDate;
+    session.endDate = req.body.endDate;
+    session.fees = req.body.fees;
+    user.save(function (err) {
+      if (err) {
+        return next(err);
+      }
+      res.status(200).json({
+        err: null,
+        msg: 'Session was updated successfully.',
+        data: session
+      });
+    });
   });
-});
-});
 };
 // create verifiecation form
-module.exports.createVerificationForm=function (req, res, next) {
+module.exports.createVerificationForm = function (req, res, next) {
 
   if (req.decodedToken.user.role === 'Child') {
-      return res.status(401).json({
-          err: null,
-          msg: "You don't have permissions to post (child account)",
-          data: null
-      });
+    return res.status(401).json({
+      err: null,
+      msg: "You don't have permissions to post (child account)",
+      data: null
+    });
   }
-  if (req.decodedToken.user.isVerified== true){
+  if (req.decodedToken.user.isVerified == true) {
     return res.status(403).json({
-           err:null,
-           msg: "You are already a verified user",
-           data:null
+      err: null,
+      msg: "You are already a verified user",
+      data: null
     });
   }
   var valid =
-      req.body.owner_id && Validations.isString(req.body.owner_id) &&
-      req.body.contactEmail && Validations.isString(req.body.contactEmail)&&
-      req.body.contactNumber && Validations.isString(req.body.contactNumber)
-      req.body.firstName && Validations.isString(req.body.firstName)&&
-      req.body.lastName && Validations.isString(req.body.lastName);
+    req.body.owner_id && Validations.isString(req.body.owner_id) &&
+    req.body.contactEmail && Validations.isString(req.body.contactEmail) &&
+    req.body.contactNumber && Validations.isString(req.body.contactNumber)
+  req.body.firstName && Validations.isString(req.body.firstName) &&
+    req.body.lastName && Validations.isString(req.body.lastName);
   if (!valid) {
-      return res.status(422).json({
-          err: null,
-          msg: 'contactEmail(String) and contactNumber(String) are required fields.',
-          data: null
-      });
+    return res.status(422).json({
+      err: null,
+      msg: 'contactEmail(String) and contactNumber(String) are required fields.',
+      data: null
+    });
   }
   User.findById(req.decodedToken.user._id).exec(function (err, user) {
-      if (err) {
-          return next(err);
-      }
-      if (!user) {
-          return res
-              .status(404)
-              .json({ err: null, msg: 'User not found.', data: null });
-      }
-        Verification.find({owner_id:req.decodedToken.user._id}).exec(function(err,checkForm){
     if (err) {
       return next(err);
-  }
-  if (checkForm.length==0) {
-          let form = {
-              owner_id: req.decodedToken.user._id,
-              contactEmail:req.body.contactEmail,
-             contactNumber:req.body.contactNumber,
-              firstName:req.decodedToken.user.name.firstName,
-              lastName:req.decodedToken.user.name.lastName
-          };
-          Verification.create(form, (err, newform) => {
-              if (err) {
-                  console.log(err)
-                  return next(err);
-              }
-              res.status(201).json({
-                  err: null,
-                  msg: 'Verification Form created successfully.',
-                  data: newform.toObject()
-              });
+    }
+    if (!user) {
+      return res
+        .status(404)
+        .json({ err: null, msg: 'User not found.', data: null });
+    }
+    Verification.find({ owner_id: req.decodedToken.user._id }).exec(function (err, checkForm) {
+      if (err) {
+        return next(err);
+      }
+      if (checkForm.length == 0) {
+        let form = {
+          owner_id: req.decodedToken.user._id,
+          contactEmail: req.body.contactEmail,
+          contactNumber: req.body.contactNumber,
+          firstName: req.decodedToken.user.name.firstName,
+          lastName: req.decodedToken.user.name.lastName
+        };
+        Verification.create(form, (err, newform) => {
+          if (err) {
+            console.log(err)
+            return next(err);
+          }
+          res.status(201).json({
+            err: null,
+            msg: 'Verification Form created successfully.',
+            data: newform.toObject()
           });
-        }else{
-          console.log(checkForm);
-          return res
+        });
+      } else {
+        console.log(checkForm);
+        return res
           .status(422)
           .json({ err: null, msg: 'You already applied for verification (still in reviewing process)', data: null });
-        }
-      });
-      });
+      }
+    });
+  });
 };
 
 //view verification forms
 module.exports.viewVerificationForms = function (req, res, next) {
-  Verification.find({ }).exec(function (err, forms) {
+  Verification.find({}).exec(function (err, forms) {
     if (err) {
       return next(err);
     }
@@ -867,48 +867,48 @@ module.exports.viewVerificationForms = function (req, res, next) {
   });
 };
 //delete verification form
-module.exports.deleteVerificationForm =function (req, res, next) {
+module.exports.deleteVerificationForm = function (req, res, next) {
   if (!Validations.isObjectId(req.params.id)) {
-      return res.status(422).json({
-          err: null,
-          msg: 'Invalid ID provided.',
-          data: null
-      });
+    return res.status(422).json({
+      err: null,
+      msg: 'Invalid ID provided.',
+      data: null
+    });
   }
   if (req.decodedToken.user._id) {
-      Verification.findById(req.params.id, (err, form) => {
-    if (err) {
-      return next(err);
-        }
-    if (!form) {
-    return res.status(404).json({
-        err: null,
-        msg: 'Verification Form was not found.',
-       data: null
-      });
-    }
-
-    Verification.findByIdAndRemove(req.params.id, (err, result) => {
+    Verification.findById(req.params.id, (err, form) => {
       if (err) {
         return next(err);
-              }
-      if (!result) {
-       return res.status(404).json({
-           err: null,
-           msg: 'Verification Form was not found.',
-           data: null
-              });
-              }
-       if (err) {
-      return next(err);
-                }
-      return res.status(200).json({
-           err: null,
-          msg: 'Verification Form deleted successfully.',
-           data: result
-              });
+      }
+      if (!form) {
+        return res.status(404).json({
+          err: null,
+          msg: 'Verification Form was not found.',
+          data: null
+        });
+      }
+
+      Verification.findByIdAndRemove(req.params.id, (err, result) => {
+        if (err) {
+          return next(err);
+        }
+        if (!result) {
+          return res.status(404).json({
+            err: null,
+            msg: 'Verification Form was not found.',
+            data: null
           });
+        }
+        if (err) {
+          return next(err);
+        }
+        return res.status(200).json({
+          err: null,
+          msg: 'Verification Form deleted successfully.',
+          data: result
+        });
       });
+    });
   }
 };
 //verify user
@@ -942,227 +942,5 @@ module.exports.verifyUser = function (req, res, next) {
     });
 
   });
-};
-
-module.exports.getFavoriteArticles = function (req,res,next) {
-  //TODO: req.decodedToken.user.username
-    if (req.decodedToken.user.username) {
-        let childId =req.params.id;
-        //let id = req.decodedToken.user._id;
-        Child.findById(childId, (err, child) => {
-            if (err) {
-                return next(err);
-            }
-            if (!child) {
-                return res.status(404).json({
-                    err: null,
-                    msg: 'Child not found.',
-                    data: null
-                });
-            }
-            //Find all articles with the IDs in the child's profile, and only return back the ones approved
-            let childArticlesIDs = child.favoriteChildArticles;
-            Article.find({
-                _id: { $in: childArticlesIDs },
-                approved: { $eq: true }
-            }, 'title createdAt owner_id _id tags upvoters downvoters thumbnail_url',
-                (err, result) => {
-                    if (err) {
-                        return next(err);
-                    }
-                });
-        });
-    }
-    else{
-        let id =req.params.id;// req.decodedToken.user._id;
-        User.findById(id, (err, user) => {
-            if (err) {
-                return next(err);
-            }
-            if (!user) {
-                return res.status(404).json({
-                    err: null,
-                    msg: 'User not found.',
-                    data: null
-                });
-            }
-            
-
-            let userArticlesIDs = user.favoriteArticles;
-            Article.find({
-                _id: { $in: userArticlesIDs },
-                approved: { $eq: true }
-            }, 'title createdAt owner_id _id tags upvoters downvoters thumbnail_url',
-                (err, result) => {
-                    if (err) {
-                        return next(err);
-                    }
-                    return res.status(200).json({
-                    err: null,
-                    msg: 'Favorite Articles retrieved successfully.',
-                    data: result
-                });
-                });
-
-                    
-        });
-
-     }
-};
-
-module.exports.addFavArticle = function (req, res, next) {
-  //TODO: req.decodedToken.user.username
-    if (req.decodedToken.user.username) {
-        let childId =req.params.id;
-        let childarticleId =req.params.artid; 
-        //let id = req.decodedToken.user._id;
-        Child.findById(childId, (err, child) => {
-            if (err) {
-                return next(err);
-            }
-            if (!child) {
-                return res.status(404).json({
-                    err: null,
-                    msg: 'Child not found.',
-                    data: null
-                });
-            }
-            //Find all articles with the IDs in the child's profile, and only return back the ones approved
-            let childArticlesIDs = child.favoriteChildArticles;
-            Article.findById(childarticleId, (err, article) => {
-              if (err) {
-                return next(err);
-              }
-              if (!article) {
-                return res.status(404).json({
-                    err: null,
-                    msg: 'Article not found.',
-                    data: null
-                });
-              }
-            Article.update({
-             _id: { $in: childId}
-           }, 
-            { $push: { childArticlesIDs: article } },
-            done
-            );
-            });
-        });
-    }
-    else{
-            let id = req.params.id;
-            let articleId =req.params.artid; 
-
-            User.findById(id, (err, user) => {
-            if (err) {
-                return next(err);
-            }
-            if (!user) {
-                return res.status(404).json({
-                    err: null,
-                    msg: 'User not found.',
-                    data: null
-                });
-            }
-            
-            let userArticlesIDs = user.favoriteArticles;
-            Article.findById(articleId, (err, article) => {
-              if (err) {
-                return next(err);
-              }
-              if (!article) {
-                return res.status(404).json({
-                    err: null,
-                    msg: 'Article not found.',
-                    data: null
-                });
-              }
-            Article.update({
-             _id: { $in: id}
-           }, 
-            { $push: { userArticlesIDs: article } },
-            done
-            );
-            });
-          });
-          }
-};
-
-module.exports.removeFavArticle = function (req, res, next) {
-  //TODO: req.decodedToken.user.username
-    if (req.decodedToken.user.username) {
-        let childId =req.params.id;
-        let childarticleId =req.params.artid; 
-        //let id = req.decodedToken.user._id;
-        Child.findById(childId, (err, child) => {
-            if (err) {
-                return next(err);
-            }
-            if (!child) {
-                return res.status(404).json({
-                    err: null,
-                    msg: 'Child not found.',
-                    data: null
-                });
-            }
-            //Find all articles with the IDs in the child's profile, and only return back the ones approved
-            let childArticlesIDs = child.favoriteChildArticles;
-            Article.findById(childarticleId, (err, article) => {
-              if (err) {
-                return next(err);
-              }
-              if (!article) {
-                return res.status(404).json({
-                    err: null,
-                    msg: 'Article not found.',
-                    data: null
-                });
-              }
-            Article.update({
-             _id: { $in: childId}
-           }, 
-            { $pullAll: { childArticlesIDs: article } },
-            done
-            );
-            });
-        });
-    }
-    else{
-            let id = req.params.id;
-            let articleId =req.params.artid; 
-
-            User.findById(id, (err, user) => {
-            if (err) {
-                return next(err);
-            }
-            if (!user) {
-                return res.status(404).json({
-                    err: null,
-                    msg: 'User not found.',
-                    data: null
-                });
-            }
-            
-            let userArticlesIDs = user.favoriteArticles;
-            Article.findById(articleId, (err, article) => {
-              if (err) {
-                return next(err);
-              }
-              if (!article) {
-                return res.status(404).json({
-                    err: null,
-                    msg: 'Article not found.',
-                    data: null
-                });
-              }
-            Article.update({
-             _id: { $in: id}
-           }, 
-            { $pullAll: { userArticlesIDs: article } },
-            done
-            );
-            });
-          });
-          }
 };
 

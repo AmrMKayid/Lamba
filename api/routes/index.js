@@ -11,7 +11,7 @@ var express = require('express'),
     tagCtrl = require('../controllers/tag.controller'),
     activityCtrl = require('../controllers/activity.controller'),
     notificationCtrl = require('../controllers/notification.controller'),
-
+    favoritesCtrl = require('../controllers/favorites.controller'),
 
     mw = require('./middlewares');
 
@@ -25,9 +25,9 @@ router.get('/user/getAllUsers', userCtrl.getAllUsers);
 router.get('/user/getUserChildren/:userID', userCtrl.getUserChildren);
 router.patch('/user/updateImage/:userID', userCtrl.updateImage);
 router.get('/user/getChild/:childId', mw.isAuthenticated, userCtrl.getChildByID);
-router.get('/admin/teachers_verfication',mw.isAuthenticated, mw.isAdmin, userCtrl.getPendingTeachers);
-router.get('/admin/accept_teacher/:teacherID',mw.isAuthenticated, mw.isAdmin,  userCtrl.acceptTeacher);
-router.get('/admin/decline_teacher/:teacherID',mw.isAuthenticated, mw.isAdmin,  userCtrl.declineTeacher);
+router.get('/admin/teachers_verfication', mw.isAuthenticated, mw.isAdmin, userCtrl.getPendingTeachers);
+router.get('/admin/accept_teacher/:teacherID', mw.isAuthenticated, mw.isAdmin, userCtrl.acceptTeacher);
+router.get('/admin/decline_teacher/:teacherID', mw.isAuthenticated, mw.isAdmin, userCtrl.declineTeacher);
 
 
 router.get('/user/getMyTeachers/', mw.isAuthenticated, userCtrl.getMyTeachers);
@@ -37,27 +37,24 @@ router.get('/user/getMyStudents/', mw.isAuthenticated, userCtrl.getMyStudents);
 router.patch('/user/updateUser/:userId', userCtrl.updateUser);
 router.get('/user/getUserInfo/:userId', userCtrl.getUserInfo);
 router.get('/user/getUserByID/:id', mw.isAuthenticated, userCtrl.getUser);
-router.patch('/user/assignArticleToChild/:childID',mw.isAuthenticated,userCtrl.assignArticleToChild);
+router.patch('/user/assignArticleToChild/:childID', mw.isAuthenticated, userCtrl.assignArticleToChild);
 
-router.get('/user/getFavoriteArticles/:id',mw.isAuthenticated, userCtrl.getFavoriteArticles);
-router.post('/user/addFavArticle/:id/:articleId',mw.isAuthenticated, userCtrl.addFavArticle);
-router.delete('/user/removeFavArticle/:id/:articleId',mw.isAuthenticated, userCtrl.removeFavArticle);
 
 //------------------------------Admin Routes---------------------------------//
 router.get('/user/viewUnverifiedArticles', mw.isAuthenticated, mw.isAdmin, userCtrl.viewUnverifiedArticles);
 router.get('/user/verifyArticle/:articleId', mw.isAuthenticated, mw.isAdmin, userCtrl.verifyArticle);
 //-----------------------------Schedules Routes----------------------------------------------//
-router.get('/schedule/getTeacherSchedule/:UserId', mw.isAuthenticated,scheduleCtrl.getTeacherSchedule);
-router.get('/schedule/getChildSchedule/:ChildId',mw.isAuthenticated, scheduleCtrl.getChildSchedule);
-router.post('/task/newTask/',mw.isAuthenticated, taskCtrl.createNewTask);
-router.get('/task/getTasks',mw.isAuthenticated, taskCtrl.getTasks);
+router.get('/schedule/getTeacherSchedule/:UserId', mw.isAuthenticated, scheduleCtrl.getTeacherSchedule);
+router.get('/schedule/getChildSchedule/:ChildId', mw.isAuthenticated, scheduleCtrl.getChildSchedule);
+router.post('/task/newTask/', mw.isAuthenticated, taskCtrl.createNewTask);
+router.get('/task/getTasks', mw.isAuthenticated, taskCtrl.getTasks);
 router.get('/task/getTask/:taskId', mw.isAuthenticated, taskCtrl.getTask);
 router.get('/task/getTeacher/:TeacherId', taskCtrl.getTeacher);
-router.post('/task/newComment', mw.isAuthenticated,taskCtrl.createNewComment);
-router.get('/task/getComments/:taskId', mw.isAuthenticated,taskCtrl.getComments);
-router.get('/task/getChildTasks/:ChildId', mw.isAuthenticated,taskCtrl.getChildTasks);
-router.patch('/schedule/updateTeacherSchedule/:SlotId/',mw.isAuthenticated,scheduleCtrl.updateTeacherSchedule);
-router.patch('/schedule/updateChildSchedule/:SlotId/:ChildId',mw.isAuthenticated,scheduleCtrl.updateChildSchedule);
+router.post('/task/newComment', mw.isAuthenticated, taskCtrl.createNewComment);
+router.get('/task/getComments/:taskId', mw.isAuthenticated, taskCtrl.getComments);
+router.get('/task/getChildTasks/:ChildId', mw.isAuthenticated, taskCtrl.getChildTasks);
+router.patch('/schedule/updateTeacherSchedule/:SlotId/', mw.isAuthenticated, scheduleCtrl.updateTeacherSchedule);
+router.patch('/schedule/updateChildSchedule/:SlotId/:ChildId', mw.isAuthenticated, scheduleCtrl.updateChildSchedule);
 
 /*-----------------------------Store Routes-------------------------------------*/
 router.post('/store/create', mw.isAuthenticated, storeCtrl.createItems);
@@ -87,7 +84,7 @@ router.post('/articles/reply', mw.isAuthenticated, articleCtrl.replyComment);
 router.delete('/articles/:id', mw.isAuthenticated, articleCtrl.deleteArticle);
 router.patch('/articles/:id', mw.isAuthenticated, articleCtrl.editArticle);
 
-router.post('/articles/uploadArticleThumbnail',mw.isAuthenticated,articleCtrl.uploadArticleThumbnail)
+router.post('/articles/uploadArticleThumbnail', mw.isAuthenticated, articleCtrl.uploadArticleThumbnail)
 router.get('/uploads/articlesThumbnails/:filename', articleCtrl.getImage);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -105,7 +102,7 @@ router.patch('/activity/goingActivities/:activityId', mw.isAuthenticated, activi
 router.get('/uploads/activity/:filename', activityCtrl.getImage);
 router.get('/activity/myActivities/view/:activityId', mw.isAuthenticated, activityCtrl.getActivity);
 
- /*gets the unverified activities*/
+/*gets the unverified activities*/
 router.get('/activity/viewUnverifiedActivities', mw.isAuthenticated, mw.isAdmin, activityCtrl.viewUnverifiedActivities);
 
 router.post('/activity/comment/:activityId', mw.isAuthenticated, activityCtrl.addComment);
@@ -119,14 +116,20 @@ router.patch('/notifications/seen', mw.isAuthenticated, notificationCtrl.changeS
 router.get('/notifications/get', mw.isAuthenticated, notificationCtrl.getNotifications);
 
 //-----------------------------Teacher Session Routes----------------------------------------------//
-router.get('/user/viewSessions',mw.isAuthenticated,userCtrl.viewSessions);
+router.get('/user/viewSessions', mw.isAuthenticated, userCtrl.viewSessions);
 router.post('/user/addSession', mw.isAuthenticated, userCtrl.addSession);
-router.delete('/user/deleteSession/:sessionId',mw.isAuthenticated,userCtrl.deleteSession);
-router.patch('/user/updateSession/:sessionId',mw.isAuthenticated,userCtrl.updateSession);
+router.delete('/user/deleteSession/:sessionId', mw.isAuthenticated, userCtrl.deleteSession);
+router.patch('/user/updateSession/:sessionId', mw.isAuthenticated, userCtrl.updateSession);
 //----------------------------User Verification Routes--------------------------------------------//
-router.post('/user/requestVerification',mw.isAuthenticated,userCtrl.createVerificationForm);
-router.get('/user/viewVerificationForms',mw.isAuthenticated,mw.isAdmin,userCtrl.viewVerificationForms);
-router.get('/user/verifyUser/:userId',mw.isAuthenticated,mw.isAdmin,userCtrl.verifyUser);
-router.delete('/user/deleteVerificationForm/:id',mw.isAuthenticated,mw.isAdmin,userCtrl.deleteVerificationForm);
+router.post('/user/requestVerification', mw.isAuthenticated, userCtrl.createVerificationForm);
+router.get('/user/viewVerificationForms', mw.isAuthenticated, mw.isAdmin, userCtrl.viewVerificationForms);
+router.get('/user/verifyUser/:userId', mw.isAuthenticated, mw.isAdmin, userCtrl.verifyUser);
+router.delete('/user/deleteVerificationForm/:id', mw.isAuthenticated, mw.isAdmin, userCtrl.deleteVerificationForm);
+
+//----------------------------Favorites----------------------------------------------------------//
+router.get('/user/favorites/resources', mw.isAuthenticated, favoritesCtrl.getFavoriteArticles);
+router.post('/user/favorites/resources/:articleId', mw.isAuthenticated, favoritesCtrl.addFavArticle);
+router.delete('/user/favorites/resources/:articleId', mw.isAuthenticated, favoritesCtrl.removeFavArticle);
+
 
 module.exports = router;

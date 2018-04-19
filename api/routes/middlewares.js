@@ -3,6 +3,7 @@ var jwt = require('jsonwebtoken');
 module.exports.isAuthenticated = function (req, res, next) {
     // Check that the request has the JWT in the authorization header
     var token = req.headers['authorization'];
+    console.log(token);
 
     if (!token) {
         return res.status(401).json({
@@ -13,7 +14,6 @@ module.exports.isAuthenticated = function (req, res, next) {
     }
     // Verify that the JWT is created using our server secret and that it hasn't expired yet
 
-    // console.log(token);
     jwt.verify(token, req.app.get('secret'), function (err, decodedToken) {
         if (err) {
             return res.status(401).json({
