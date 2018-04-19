@@ -1,7 +1,8 @@
 var io = require('socket.io')();
 
 io.on('connection', function (socket) {
-    console.log('New User is connected');
+	socket.id = blblb;
+    console.log('New User is connected with id: ' + socket.id);
 });
 
 module.exports = io;
