@@ -11,7 +11,7 @@ var express = require('express'),
     tagCtrl = require('../controllers/tag.controller'),
     activityCtrl = require('../controllers/activity.controller'),
     notificationCtrl = require('../controllers/notification.controller'),
-
+    requestCtrl = require('../controllers/request.controller'),
 
     mw = require('./middlewares');
 
@@ -123,5 +123,10 @@ router.post('/user/requestVerification',mw.isAuthenticated,userCtrl.createVerifi
 router.get('/user/viewVerificationForms',mw.isAuthenticated,mw.isAdmin,userCtrl.viewVerificationForms);
 router.get('/user/verifyUser/:userId',mw.isAuthenticated,mw.isAdmin,userCtrl.verifyUser);
 router.delete('/user/deleteVerificationForm/:id',mw.isAuthenticated,mw.isAdmin,userCtrl.deleteVerificationForm);
+//---------------------------- Requests Routes--------------------------------------------//
+router.post('/request/create/:teacherId/:childId', mw.isAuthenticated, requestCtrl.addRequest);
+router.get('/request/get', mw.isAuthenticated, requestCtrl.getRequests);
+
+
 
 module.exports = router;
