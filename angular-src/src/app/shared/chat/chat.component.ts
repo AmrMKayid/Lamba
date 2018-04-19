@@ -72,7 +72,7 @@ export class ChatComponent implements OnInit {
             if(!found)
             {
               
-              this.chat.getUserInfo(params['id']).subscribe((res: any) => {
+              this.chat.getUserInfo(msgObj.from).subscribe((res: any) => {
 
               if(res.error)
               {
