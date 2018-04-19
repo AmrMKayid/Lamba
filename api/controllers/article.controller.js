@@ -352,22 +352,7 @@ const comment = function (article, id, role, content, res, next) {
         });
     });
 };
-const reply = function (article, userID, comment_id, reply, res, next) {
-    let rep = {
-        reply_content: reply,
-        replier: userID
-    }
-    Article.updateOne(
-        { "_id": article._id, 'comments._id': comment_id },
-        { $push: { 'comments.$.replies': rep } }
-    ).exec((err, result) => {
-        res.status(200).json({
-            err: null,
-            msg: 'Articles retrieved successfully.',
-            data: result
-        });
-    });
-};
+
 module.exports.commentArticle = function (req, res, next) {
     let valid = req.body.article_id &&
         Validations.isString(req.body.article_id) &&
@@ -401,39 +386,6 @@ module.exports.commentArticle = function (req, res, next) {
         }
     })
 };
-module.exports.replyComment = function (req, res, next) {
-    let valid = req.body.article_id &&
-        Validations.isString(req.body.article_id) &&
-        req.body.comment_id &&
-        Validations.isString(req.body.comment_id) &&
-        req.body.reply &&
-        Validations.isString(req.body.reply)
-    if (!valid) {
-        return res.status(422).json({
-            err: null,
-            msg: 'article_id(String), and comment_id(String) and reply content(String) are required fields.',
-            data: null
-        });
-    }
-    let userID = req.decodedToken.user._id;
-    Article.findById(req.body.article_id, (err, retrievedArticle) => {
-        if (err) {
-            return next(err);
-        }
-        if (!retrievedArticle) {
-            return res.status(404).json({
-                err: null,
-                msg: 'Article was not found.',
-                data: null
-            });
-        }
-        reply(retrievedArticle, userID, req.body.comment_id, req.body.reply, res, next);
-    })
-};
-
-
-/////////////////
-
 
 module.exports.deleteArticle = function (req, res, next) {
     if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
