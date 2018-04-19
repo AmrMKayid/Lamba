@@ -40,7 +40,8 @@ const routes: Routes = [
     CommonModule,
     HttpModule,
     RouterModule.forChild(routes),
-    // ToasterModule
+    NgbModule.forRoot(),
+    MDBBootstrapModule.forRoot()
   ],
   declarations: [
     StoreComponent,
