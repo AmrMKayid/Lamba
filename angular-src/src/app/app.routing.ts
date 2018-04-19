@@ -7,12 +7,14 @@ import {AuthGuard} from './guards/auth.guard';
 import {AllUsersComponent} from "./shared/all-users/all-users.component";
 import {RegisterRoleComponent} from './shared/register-role/register-role.component';
 import {NotificationsComponent} from './shared/notifications/notifications.component';
+import {InterestsComponent} from "./shared/interests/interests.component";
 
 const appRoutes: Routes = [
   {path: '', component: HomepageComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'register-role', component: RegisterRoleComponent},
+  {path: 'interests', component: InterestsComponent},
   {path: 'users', component: AllUsersComponent},
   {path: 'notifications',canActivate: [AuthGuard], component:NotificationsComponent},
   {path: 'profile', canActivate: [AuthGuard], loadChildren: './modules/profile/profile.module#ProfileModule'},

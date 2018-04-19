@@ -231,6 +231,7 @@ const UserSchema = new mongoose.Schema({
 
     myItems: [String],
     cart: [String],
+    interests: [String],
 
     //------ Teacher ------ //
 

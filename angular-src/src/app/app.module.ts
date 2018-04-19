@@ -21,15 +21,17 @@ import {NavbarComponent} from './shared/navbar/navbar.component';
 import {RegisterRoleComponent} from './shared/register-role/register-role.component';
 import {RegisterComponent} from './shared/register/register.component';
 import {HeaderComponent} from './modules/profile/components/header/header.component';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 
 /* Search Library */
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { Ng2OrderModule } from 'ng2-order-pipe';
-import { NgxPaginationModule } from 'ngx-pagination';
+import {Ng2SearchPipeModule} from 'ng2-search-filter';
+import {Ng2OrderModule} from 'ng2-order-pipe';
+import {NgxPaginationModule} from 'ngx-pagination';
 
-import { NotificationsComponent } from './shared/notifications/notifications.component';
+import {NotificationsComponent} from './shared/notifications/notifications.component';
 import {NotificationService} from './services/notification.service';
+import {InterestsComponent} from './shared/interests/interests.component';
+import {NgxCarouselModule} from "ngx-carousel";
 
 
 @NgModule({
@@ -43,7 +45,8 @@ import {NotificationService} from './services/notification.service';
     AllUsersComponent,
     RegisterRoleComponent,
     NotificationsComponent,
-    HeaderComponent
+    HeaderComponent,
+    InterestsComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +55,7 @@ import {NotificationService} from './services/notification.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxCarouselModule,
     Ng2SearchPipeModule, Ng2OrderModule, NgxPaginationModule,
     NgbModule.forRoot(),
     MDBBootstrapModule.forRoot(),
@@ -65,7 +69,7 @@ import {NotificationService} from './services/notification.service';
     AuthService,
     NotificationService
   ],
-  bootstrap: [AppComponent,HeaderComponent]
+  bootstrap: [AppComponent, HeaderComponent]
 })
 export class AppModule {
 }
