@@ -1,7 +1,8 @@
 <div [@routerTransition]>
   <div>
   <h2  style="text-align:center;font-weight:bold;">Activities</h2>
-  <em *ngIf="unVerifiedActivitiesList.length ===0">No Activities to verify</em>
+  <div class="text-center" *ngIf="unVerifiedActivitiesList.length ===0"><h1>There are currently no new activities </h1>
+    <button class="btn btn-sm" style="background-color:#f16138;font-weight:bold" routerLink="/profile/admin/dashboard" [routerLinkActive]="['router-link-active']">Back to DashbBoard</button></div>
   <div class="row">
       
     <div class="col-12" *ngFor="let activity of unVerifiedActivitiesList">

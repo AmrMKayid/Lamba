@@ -47,6 +47,8 @@ export class NavbarComponent implements OnInit {
     return false;
     if(this.router.url=='/profile/admin/add-admin')
     return false;
+    if(this.router.url=='/profile/admin/verification-requests')
+    return false;
     return true;
        
   }

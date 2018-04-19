@@ -6,13 +6,16 @@ import {AddTagsComponent} from '../../admin/add-tags/add-tags.component';
 import {AdminFormComponent} from '../../admin/admin-form/admin-form.component';
 import {HttpClient} from '@angular/common/http';
 import { Headers} from '@angular/http';
+import {routerTransition} from '../router.animations';
+
 @Component({
   selector: 'app-add-admin',
   templateUrl: './add-admin.component.html',
-  styleUrls: ['./add-admin.component.scss']
+  styleUrls: ['./add-admin.component.scss'],
+  animations: [routerTransition()]
 })
 export class AddAdminComponent implements OnInit {
-   public admins;
+   public admins=[];
   constructor(public router: Router,private dialog: MatDialog,private httpClient: HttpClient) { }
 
   ngOnInit() {
@@ -43,6 +46,7 @@ export class AddAdminComponent implements OnInit {
   );
 }
 addAdmin(val){
+  if(val){
   let autorization = {Authorization: localStorage.getItem('authentication')};
    let postedAdmin={
      name:{
@@ -74,7 +78,7 @@ addAdmin(val){
         }).show();
       });
 
- 
+    }
  
 }
 }

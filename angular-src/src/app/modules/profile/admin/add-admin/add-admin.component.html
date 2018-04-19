@@ -1,1 +1,38 @@
-<button class="badge badge-pill "  style="cursor: pointer;background-color:#f16138" (click)="openAddAdminDialog()">Add Admin</button>
+<div [@routerTransition]>
+        <h2  style="text-align:center;font-weight:bold;">Admins</h2>
+  <button class="badge badge-pill "  style="cursor: pointer;background-color:green;float:right" (click)="openAddAdminDialog()">Add Admin</button>
+  <br>
+ 
+<div class="main-container">
+<hr>
+ <div class="text-center" *ngIf='admins.length==0'>
+     <h1>There are currently no admins</h1>
+<button class="btn btn-sm"  style="background-color:#f16138;font-weight:bold" routerLink="/profile/admin/dashboard" [routerLinkActive]="['router-link-active']">Back to DashbBoard</button>
+</div>
+
+  
+   <div class="row row-eq-height">
+     <div class="col-lg-4 col-md-4" *ngFor="let admin of admins">
+       <div class="card">
+         <div class="card-header" style="background-color:#ffc335;">
+                <i class="fa fa-user-o" aria-hidden="true"></i>
+         </div>
+         <div class="card-body"> 
+                <p>Name: {{ admin.name.firstName+" "+admin.name.lastName}} </p>
+                <p>Email: {{admin.email}}</p>
+           <!-- {{ admin.about }}
+           {{ admin.qualifications +"\n"}} <br>
+           {{ admin.fees | currency}}
+           {{ admin.address }} -->
+           Joined At: <strong>{{ admin.joinedAt | date}}</strong>
+         </div>
+   
+        
+   
+       </div>
+       <br>
+     </div>     
+     </div>
+</div>
+
+</div>

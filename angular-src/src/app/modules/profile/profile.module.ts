@@ -28,13 +28,6 @@ import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatFormFieldModule } from '@angular/material';
 import {ArticlesService} from '../resources/articles.service';
-
-import {
-  TimelineComponent,
-  NotificationComponent,
-  ChatComponent,
- 
-} from './admin/dashboard/components';
 import {MyProfileComponent} from './my-profile/my-profile.component';
 import { AddTagsComponent } from './admin/add-tags/add-tags.component';
 import {MatInputModule} from '@angular/material';
@@ -43,6 +36,7 @@ import { UnVerifiedActivitiesComponent } from './admin/un-verified-activities/un
 import { AddAdminComponent } from './admin/add-admin/add-admin.component';
 import { AdminFormComponent } from './admin/admin-form/admin-form.component';
 import {SafeHtmlPipe} from './admin/un-verified-articles/safe-html.pipe';
+import { UserVerificationComponent } from './admin/user-verification/user-verification.component';
 const appRoutes: Routes = [
   {
     path: 'me',
@@ -71,6 +65,9 @@ const appRoutes: Routes = [
       {
       path: 'add-admin',
       component: AddAdminComponent
+      },{
+      path: 'verification-requests',
+      component: UserVerificationComponent
       }
     ]
   },
@@ -109,16 +106,14 @@ const appRoutes: Routes = [
     ViewChildComponent,
     SidebarComponent,
     DashboardComponent,
-    TimelineComponent,
-    NotificationComponent,
-    ChatComponent,
     MyProfileComponent,
     AddTagsComponent,
     DeleteTagsComponent,
     UnVerifiedActivitiesComponent,
     AddAdminComponent,
     AdminFormComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    UserVerificationComponent
     
   ],
   providers: [

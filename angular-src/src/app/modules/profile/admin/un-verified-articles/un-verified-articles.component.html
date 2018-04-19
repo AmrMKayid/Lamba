@@ -1,7 +1,8 @@
 <div [@routerTransition]>
   <div class="main-container">
     <h2  style="text-align:center;font-weight:bold;">Articles</h2>
-    <em *ngIf="unVerifiedArticlesList.length ===0">No Articles to verify</em>
+    <div class="text-center"  *ngIf="unVerifiedArticlesList.length ===0"><h1>There are currently no new articles </h1>
+      <button class="btn btn-sm" style="background-color:#f16138;font-weight:bold" routerLink="/profile/admin/dashboard" [routerLinkActive]="['router-link-active']">Back to DashbBoard</button></div>
   <div class="row" style="position:relative">
       
     <div class="col-12" *ngFor="let article of unVerifiedArticlesList">

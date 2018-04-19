@@ -32,7 +32,9 @@
                [routerLinkActive]="['router-link-active']"></app-stat>
     </div>
     <div class="col-xl-3 col-lg-6">
-      <app-stat [bgClass]="'danger'" [icon]="'fa-support'" [count]="13" [label]="'New Tickets!'"></app-stat>
+      <app-stat [bgClass]="'danger'" [icon]="'fa fa-question-circle-o'" [count]="interviews.length" [label]="'New Interviews!'"
+      [routerLink]="['/profile/admin/verification-requests']"
+               [routerLinkActive]="['router-link-active']"></app-stat>
     </div>
   </div>
   <hr/>

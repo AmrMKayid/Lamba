@@ -12,8 +12,8 @@ export class DashboardComponent implements OnInit {
   public sliders: Array<any> = [];
   public articles: Array<any> = [];
   public activities: Array<any> = [];
+  public interviews: Array<any> = [];
   public teacherForms: Array<any> = [];
-  public forms;
   constructor(private httpClient: HttpClient) {
     this.sliders.push(
       {
@@ -44,7 +44,12 @@ export class DashboardComponent implements OnInit {
         this.articles = res.data;
         console.log(res.msg);
       }, err => {
-        console.log(err.error.msg);
+        new Noty({
+          type: 'error',
+          text: err.error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
       });
       this.httpClient.get('http://localhost:3000/api/activity/viewUnverifiedActivities', {headers: autorization})
       .subscribe((res: any) => {
@@ -70,7 +75,17 @@ export class DashboardComponent implements OnInit {
           progressBar: true
         }).show();
       });
-this.forms=this.teacherForms.length;
+      this.httpClient.get('http://localhost:3000/api/user/viewVerificationForms', {headers: autorization})
+      .subscribe((res: any) => {
+        this.interviews= res.data;
+      }, err => {
+        new Noty({
+          type: 'error',
+          text: err.error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      });
   }
 
 }

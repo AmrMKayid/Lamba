@@ -1,0 +1,31 @@
+<div [@routerTransition]>
+    <div class="container">
+        <h2  style="text-align:center;font-weight:bold;">Interview Requests</h2>
+        <div class="text-center" *ngIf='interviewRequests.length==0'>
+            <h1>There are currently no interview requests</h1>
+            <button class="btn btn-sm"  style="background-color:#f16138;font-weight:bold" routerLink="/profile/admin/dashboard" [routerLinkActive]="['router-link-active']">Back to DashbBoard</button>
+
+          </div>
+            <br>
+    <div class="row">
+      <div class="col-lg-4 col-md-4" *ngFor="let interview of interviewRequests">
+          
+        <div class="card">
+          <div class="card-header" style="background-color:#ffc335;">
+            Name: <a>{{ interview.firstName+" "+interview.lastName}}</a>
+          </div>
+          
+    
+          <div class="card-footer text-muted text-center">
+            <button class="badge badge-pill btn-success" style="cursor: pointer;">VERIFY</button>
+            <!--to do reject-->
+            <span><button class="badge badge-pill btn-danger" style="cursor: pointer;" >REJECT</button></span>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+    <br>
+  
+</div>
+</div>
