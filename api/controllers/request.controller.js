@@ -40,6 +40,35 @@ module.exports.addRequest =  function (req, res, next) {
 
         }
     });
+
+    User.findById(req.params.teacherId).exec(function (err, user) {
+
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res
+                .status(404)
+                .json({err: null, msg: 'teacher not found.', data: null});
+        }
+
+        if (user.role !== 'Teacher') {
+            return res
+                .status(401)
+                .json({err: null, msg: 'The person you are trying to send the request to is not a teacher', data: null});
+
+        }
+        if(user.students.indexOf(req.params.childId) != -1){
+            return res
+                .status(401)
+                .json({err: null, msg: 'Your child is already this teachers student ', data: null});
+
+        }
+    });
+
+
+
+
     Request.findOne({recievingTeacherId: req.params.teacherId , childId: req.params.childId}, function(err, retrievedRequests){
         if (err) {
             return res.status(422).json({
@@ -103,4 +132,62 @@ module.exports.getRequests = function(req, res, next)
         });
     });
 
+}
+
+//deletes request if teacher declines
+module.exports.rejectRequest = function(req, res, next)
+{
+    if (!Validations.isObjectId(req.params.RequestId)) {
+        return res.status(422).json({
+            err: null,
+            msg: 'Request parameter must be a valid ObjectId.',
+            data: null
+        });
+    }
+    if(req.decodedToken.user.role !== 'Teacher'){
+        return res.status(401).json({
+            err: null,
+            msg: 'You must be a teacher to perform this action',
+            data: null
+        });
+    }
+    Request.findById(req.params.RequestId).exec(function (err, request) {
+
+        if (err) {
+            return next(err);
+        }
+        if (!request) {
+            return res
+                .status(404)
+                .json({err: null, msg: 'request not found.', data: null});
+        }
+
+        if (request.recievingTeacherId != req.decodedToken.user._id) {
+            return res
+                .status(401)
+                .json({err: null, msg: 'you are not the recipient of this request', data: null});
+
+        }
+        else {
+
+            Request.findByIdAndDelete(req.params.RequestId).exec( function(err, deletedRequest){
+                if (err) {
+                    return res.status(422).json({
+                        err: err,
+                        msg: "Couldn't delete requests",
+                        data: null
+                    });
+                }
+                return res.status(200).json({
+                    err: null,
+                    msg: "request deleted successfully",
+                    data: deletedRequest
+                });
+            });
+
+
+
+        }
+    });
+    
 }

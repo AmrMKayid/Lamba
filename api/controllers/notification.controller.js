@@ -15,7 +15,8 @@
 
 
 module.exports.addNotification = async function (req, res, next) {
- 
+
+ console.log(req.body);
 	 var valid = req.body.title && Validations.isString(req.body.title) &&
 	        req.body.description && Validations.isString(req.body.description) &&
 	        req.body.url && Validations.isString(req.body.url) &&
@@ -72,7 +73,7 @@ module.exports.changeSeenStatus = async function (req, res, next) {
     var user_id = decoded.user._id;
 	Notification.updateMany({recieving_user_id: user_id}, {$set: {
 		seen_at: Date.now()
-	}}, function(err, newNotifications) { 
+	}}, function(err, newNotifications) {
 		if (err) {
             return res.status(422).json({
                 err: err,

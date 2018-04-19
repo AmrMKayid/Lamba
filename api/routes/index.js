@@ -127,7 +127,7 @@ router.delete('/user/deleteVerificationForm/:id',mw.isAuthenticated,mw.isAdmin,u
 //---------------------------- Requests Routes--------------------------------------------//
 router.post('/request/create/:teacherId/:childId', mw.isAuthenticated, requestCtrl.addRequest);
 router.get('/request/get', mw.isAuthenticated, requestCtrl.getRequests);
-
+router.delete('/request/rejectRequest/:RequestId',mw.isAuthenticated,requestCtrl.rejectRequest);
 
 
 module.exports = router;
