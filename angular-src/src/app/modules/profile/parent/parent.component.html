@@ -429,56 +429,56 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">First Name:</th>
-                        <th scope="row">{{currentUser.name.firstName}}</th>
-                      </tr>
+                    <tr>
+                      <th scope="row">First Name:</th>
+                      <th scope="row">{{currentUser.name.firstName}}</th>
+                    </tr>
 
-                      <tr>
-                        <th scope="row">Middle Name:</th>
-                        <th scope="row">{{currentUser.name.middleName}}</th>
-                      </tr>
+                    <tr>
+                      <th scope="row">Middle Name:</th>
+                      <th scope="row" >{{currentUser.name.middleName!}}</th>
+                    </tr>
 
-                      <tr>
-                        <th scope="row">Last Name:</th>
-                        <th scope="row">{{currentUser.name.lastName}}</th>
-                      </tr>
+                    <tr>
+                      <th scope="row">Last Name:</th>
+                      <th scope="row">{{currentUser.name.lastName}}</th>
+                    </tr>
 
-                      <tr>
-                        <th scope="row">Birthday:</th>
-                        <th scope="row">{{currentUser.birthday | date}}</th>
-                      </tr>
+                    <tr>
+                      <th scope="row">Birthday:</th>
+                      <th scope="row">{{currentUser.birthday! | date}}</th>
+                    </tr>
 
-                      <tr>
-                        <th scope="row">Phone:</th>
-                        <th scope="row">{{currentUser.phone}}</th>
-                      </tr>
+                    <tr>
+                      <th scope="row">Phone:</th>
+                      <th scope="row">{{currentUser.phone!}}</th>
+                    </tr>
 
-                      <tr>
-                        <th scope="row">Street:</th>
-                        <th scope="row">{{currentUser.address.street}}</th>
-                      </tr>
+                    <tr>
+                      <th scope="row">Street:</th>
+                      <th scope="row">{{currentUser.address?.street!}}</th>
+                    </tr>
 
-                      <tr>
-                        <th scope="row">City:</th>
-                        <th scope="row">{{currentUser.address.city}}</th>
-                      </tr>
+                    <tr>
+                      <th scope="row">City:</th>
+                      <th scope="row">{{currentUser.address?.city!}}</th>
+                    </tr>
 
-                      <tr>
-                        <th scope="row">Country:</th>
-                        <th scope="row">{{currentUser.address.state}}</th>
-                      </tr>
+                    <tr>
+                      <th scope="row">Country:</th>
+                      <th scope="row">{{currentUser.address?.state!}}</th>
+                    </tr>
 
-                      <tr>
-                        <th scope="row">Zip Code:</th>
-                        <th scope="row">{{currentUser.address.zip}}</th>
-                      </tr>
+                    <tr>
+                      <th scope="row">Zip Code:</th>
+                      <th scope="row">{{currentUser.address?.zip!}}</th>
+                    </tr>
 
 
-                      <tr>
-                        <th scope="row">About:</th>
-                        <th scope="row">{{currentUser.about}}</th>
-                      </tr>
+                    <tr>
+                      <th scope="row">About:</th>
+                      <th scope="row">{{currentUser.about!}}</th>
+                    </tr>
 
                     </tbody>
                   </table>
