@@ -32,6 +32,7 @@ router.get('/user/getUserByID/:id', mw.isAuthenticated, userCtrl.getUser);
 //------------------------------Admin Routes---------------------------------//
 router.get('/user/viewUnverifiedArticles', mw.isAuthenticated, mw.isAdmin, userCtrl.viewUnverifiedArticles);
 router.get('/user/verifyArticle/:articleId', mw.isAuthenticated, mw.isAdmin, userCtrl.verifyArticle);
+router.delete('/user/rejectArticle/:articleId',mw.isAuthenticated,mw.isAdmin,userCtrl.rejectArticle);
 //-----------------------------Schedules Routes----------------------------------------------//
 router.get('/schedule/getTeacherSchedule/:UserId', mw.isAuthenticated,scheduleCtrl.getTeacherSchedule);
 router.get('/schedule/getChildSchedule/:ChildId',mw.isAuthenticated, scheduleCtrl.getChildSchedule);
@@ -104,6 +105,9 @@ router.post('/user/requestVerification',mw.isAuthenticated,userCtrl.createVerifi
 router.get('/user/viewVerificationForms',mw.isAuthenticated,mw.isAdmin,userCtrl.viewVerificationForms);
 router.get('/user/verifyUser/:userId',mw.isAuthenticated,mw.isAdmin,userCtrl.verifyUser);
 router.delete('/user/deleteVerificationForm/:id',mw.isAuthenticated,mw.isAdmin,userCtrl.deleteVerificationForm);
+//----------------------------verify activity routes---------------------------------------------//
+router.get('/user/verifyActivity/:activityId',mw.isAuthenticated,mw.isAdmin,userCtrl.verifyActivity);
+router.delete('/user/rejectActivity/:activityId',mw.isAuthenticated,mw.isAdmin,userCtrl.rejectActivity);
 module.exports = router;
 
 

@@ -3,7 +3,8 @@ var mongoose = require('mongoose'),
   User = mongoose.model('User'),
   Validations = require('../utils/validations'),
   Article = mongoose.model('Article'),
-  Verification = mongoose.model('Verification');
+  Verification = mongoose.model('Verification'),
+  Activity = mongoose.model('Activity');
 
 module.exports.getAllUsers = function (req, res, next) {
   User.find({ $or: [{ role: 'Parent' }, { role: 'Teacher' }] }).exec(function (err, users) {
@@ -231,7 +232,62 @@ module.exports.verifyArticle = function (req, res, next) {
   });
 };
 
-//To Do (IF Admin doesn't like article and doesn't want to verify it)
+//delete article upon admin rejection
+module.exports.rejectArticle = function (req, res, next) {
+  if (!Validations.isObjectId(req.params.articleId)) {
+    return res.status(422).json({
+      err: null,
+      msg: 'Article id must be a valid object id',
+      data: null
+    });
+  }
+  if (req.decodedToken.user._id) {
+      Article.findById(req.params.articleId, (err, retrievedArticle) => {
+          if (err) {
+              return next(err);
+          }
+          if (!retrievedArticle) {
+              return res.status(404).json({
+                  err: null,
+                  msg: 'Article was not found.',
+                  data: null
+              });
+          }
+              Article.findByIdAndRemove(req.params.articleId, (err, result) => {
+                  if (err) {
+                      return next(err);
+                  }
+                  if (!result) {
+                      return res.status(404).json({
+                          err: null,
+                          msg: 'Article was not found.',
+                          data: null
+                      });
+                  }
+
+                  Child.update(
+                      {},
+                      { $pull: { allowedArticles: result._id } },
+                      { multi: true },
+                      (err, updatedArticles) => {
+                          if (err) {
+                              console.log(err);
+                              return next(err);
+                          }
+                          return res.status(200).json({
+                              err: null,
+                              msg: 'Article deleted successfully.',
+                              data: result
+                          });
+                      }
+                  );
+
+              });
+        });
+
+  }
+};
+//end yamsmeen
 module.exports.getUserInfo = function (req, res, next) {
   console.log(req.body)
   if (!Validations.isObjectId(req.params.userId)) {
@@ -291,6 +347,7 @@ module.exports.updateUser = function (req, res, next) {
     });
   });
 };
+//start yasmeen
 //teacher view sessions
 module.exports.viewSessions= function (req, res, next) {
 
@@ -616,4 +673,81 @@ module.exports.verifyUser = function (req, res, next) {
     });
 
   });
+};
+//verify activity 
+module.exports.verifyActivity = function (req, res, next) {
+
+
+  if (!Validations.isObjectId(req.params.activityId)) {
+    return res.status(422).json({
+      err: null,
+      msg: 'activityId parameter must be a valid ObjectId.',
+      data: null
+    });
+  }
+  Activity.findByIdAndUpdate(req.params.activityId,
+    {
+      $set: { isVerified: true },
+      $currentDate: { updated_at: true }
+    },
+    { new: true }
+  ).exec(function (err, activity) {
+    if (err) {
+      return next(err);
+    }
+    if (!activity) {
+      return res
+        .status(404)
+        .json({ err: null, msg: 'Activity not found.', data: null });
+    }
+    res.status(200).json({
+      err: null,
+      msg: 'Activity verified successfully.',
+      data: null
+    });
+
+  });
+};
+//delete activity upon admin rejection
+module.exports.rejectActivity = function (req, res, next) {
+  if (!Validations.isObjectId(req.params.activityId)) {
+    return res.status(422).json({
+      err: null,
+      msg: 'Activity id must be a valid object id',
+      data: null
+    });
+  }
+  if (req.decodedToken.user._id) {
+      Activity.findById(req.params.activityId, (err, retrievedActivity) => {
+          if (err) {
+              return next(err);
+          }
+          if (!retrievedActivity) {
+              return res.status(404).json({
+                  err: null,
+                  msg: 'Activity was not found.',
+                  data: null
+              });
+          }
+              Activity.findByIdAndRemove(req.params.activityId, (err, result) => {
+                  if (err) {
+                      return next(err);
+                  }
+                  if (!result) {
+                      return res.status(404).json({
+                          err: null,
+                          msg: 'Activity was not found.',
+                          data: null
+                      });
+                  }
+
+              return res.status(200).json({
+                  err: null,
+                  msg: 'Activity deleted successfully.',
+                  data: result
+         });
+       });
+    });
+
+  }
 };
