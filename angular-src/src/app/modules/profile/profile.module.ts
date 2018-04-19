@@ -37,6 +37,7 @@ import { AddAdminComponent } from './admin/add-admin/add-admin.component';
 import { AdminFormComponent } from './admin/admin-form/admin-form.component';
 import {SafeHtmlPipe} from './admin/un-verified-articles/safe-html.pipe';
 import { UserVerificationComponent } from './admin/user-verification/user-verification.component';
+import { InterviewRequestComponent } from './interview-request/interview-request.component';
 const appRoutes: Routes = [
   {
     path: 'me',
@@ -70,6 +71,9 @@ const appRoutes: Routes = [
       component: UserVerificationComponent
       }
     ]
+  },{
+    path:'request-interview',
+    component:InterviewRequestComponent
   },
   {
     path: ':id',
@@ -113,7 +117,8 @@ const appRoutes: Routes = [
     AddAdminComponent,
     AdminFormComponent,
     SafeHtmlPipe,
-    UserVerificationComponent
+    UserVerificationComponent,
+    InterviewRequestComponent
     
   ],
   providers: [
