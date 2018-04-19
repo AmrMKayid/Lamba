@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {WebsocketService} from './websocket.service';
 import {Observable, Subject} from 'rxjs/Rx';
 import * as socketIo from 'socket.io-client';
-
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable()
 export class ChatService {
@@ -11,7 +11,7 @@ export class ChatService {
   private SERVER_URL = "http://127.0.0.1:3000";
 
   // Our constructor calls our wsService connect method
-  constructor() {
+  constructor(private http: HttpClient) {
     
 
   }
@@ -40,5 +40,15 @@ public initSocket()
   {
     this.socket.disconnect();
   }
+
+  public getAllChats()
+  {
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('authorization', localStorage.getItem('authentication'));
+    return this.http.get('http://127.0.0.1:3000/api/chat', headers);
+  }
+
+
 
 }
