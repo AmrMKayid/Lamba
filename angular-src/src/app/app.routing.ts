@@ -15,7 +15,7 @@ const appRoutes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'register-role', component: RegisterRoleComponent},
   {path: 'users', component: AllUsersComponent},
-  {path: 'chat', component: ChatComponent},
+  {path: 'chat/:id', component: ChatComponent},
   {path: 'profile', canActivate: [AuthGuard], loadChildren: './modules/profile/profile.module#ProfileModule'},
   {path: 'schedule', canActivate: [AuthGuard], loadChildren: './modules/schedule/schedule.module#ScheduleModule'},
   {path: 'resources', canActivate: [AuthGuard], loadChildren: './modules/resources/resources.module#ResourcesModule'},

@@ -12,15 +12,19 @@ export class ChatService {
 
   // Our constructor calls our wsService connect method
   constructor() {
-      this.socket = socketIo(this.SERVER_URL);
-      this.socket.emit('authorize', localStorage.getItem('authentication'));
+    
 
   }
+public initSocket()
+{
+    this.socket = socketIo(this.SERVER_URL);
+    this.socket.emit('authorize', localStorage.getItem('authentication'));
+}
 
-
- public send(message): void {
+ public send(message, reciever_id): void {
       var msg = {
-        data: msg,
+        reciever_id: reciever_id,
+        data: message,
         authorization:  localStorage.getItem('authentication')
       };
       this.socket.emit('message', JSON.stringify(msg));
@@ -30,6 +34,11 @@ export class ChatService {
       return new Observable<string>(observer => {
             this.socket.on('message', (data: string) => observer.next(data));
       });
+  }
+
+  public disconnect()
+  {
+    this.socket.disconnect();
   }
 
 }

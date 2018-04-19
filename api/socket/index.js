@@ -1,6 +1,8 @@
 const Message = require('../models/message.model');
 const jwt = require('jsonwebtoken');
 var socketioJwt = require('socketio-jwt');
+var config = require('../config');
+
 
 // array the will store all the connected users
 var clients = [];
@@ -12,10 +14,7 @@ module.exports = function socket(io) {
     console.log('TEST: SOCKET is connected');
 
     socketio = io;
-    io.on('connection',  socketioJwt.authorize({
-    secret: 'SECRET_KEY',
-    timeout: 7000 // 7 seconds to send the authentication message
-    })).on('authenticated',onNewConnection);
+    io.on('connection', onNewConnection);
 };
 
 
@@ -34,21 +33,24 @@ function onNewConnection(socket)
 {
 
     console.log("new user is attempting to connect");
-    // close the connection
-    if(!socket.decoded_token)
-    {
-        console.log("Unauthorized");
-        socket.disconnect(true);
-        return;
-    }
+
+    /*gets the authorization token*/
+    socket.on("authorize", function(data){
+
+        // gets the logged in user id
+        const secret = config.SECRET;
+        decoded = jwt.verify(data, secret);
+        var user_id = decoded.user._id;
+        // adds user to the clients list
+        client = {
+            id: user_id,
+            token: data,
+            socket: socket
+        };
+        clients.push(client);
+    });
 
 
-    client = 
-    {
-        id: socket.decoded_token._id,
-        socket: socket
-    };
-    console.log(client.id);
 
     // removes the client from the list on disconnection
     socket.on('disconnect', function () {
@@ -56,7 +58,7 @@ function onNewConnection(socket)
         {
             var c = clients[i];
 
-            if(c.clientId == socket.id)
+            if(c.socket.id == socket.id)
             {
                 clients.splice(i,1);
                 break;
@@ -76,7 +78,16 @@ function onNewConnection(socket)
   */
 function onMessage(data)
 {
-    if(!data.decoded_token)
+    try
+    {
+        msg = JSON.parse(data)
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    if(!msg.authorization)
     {
         return;
     }
@@ -84,8 +95,26 @@ function onMessage(data)
     console.log("Message Received: " + data);
 
     // Sending the message back to the client
-    io.emit('message', {type: 'new-message', text: data});
+    socketio.emit('message', data);
 
     let message = new Message(data.message);
     Message.addMessage(message, (err, newMsg) => {});
+}
+
+/** string -> void
+  * searches for a client by his user id in the client list
+  *
+  * return the client or null if not found
+  */
+function getClient(user_id)
+{
+
+    for(var i = 0; i < clients.length; i++)
+    {
+        if(clients[i].id == user_id)
+        {
+            return clients[i];
+        }
+    }
+    return null;
 }
