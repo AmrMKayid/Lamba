@@ -7,7 +7,6 @@ import {AuthService} from "../../../services/auth.service";
 import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-
 @Component({
   selector: 'app-parent',
   templateUrl: './parent.component.html',
@@ -27,6 +26,8 @@ export class ParentComponent implements OnInit {
       'Authorization': localStorage.getItem('authentication')
     })
   };
+
+  gender;
 
 
   constructor(private router: Router,
@@ -137,7 +138,11 @@ export class ParentComponent implements OnInit {
     this.router.navigate(['schedule/viewtask/', taskId]);
   }
 
-  newChild(childFirstName, childlastName, childUsername, childPassword, childConfirmPassword, childGender) {
+  chooseGender(gender) {
+    this.gender = gender
+  }
+
+  newChild(childFirstName, childlastName, childUsername, childPassword, childConfirmPassword) {
 
     let newChild = {
       name: {
@@ -147,9 +152,8 @@ export class ParentComponent implements OnInit {
       username: childUsername,
       password: childPassword,
       confirmPassword: childConfirmPassword,
-      gender: childGender,
+      gender: this.gender,
     };
-
 
     this.http.post(appConfig.apiUrl + '/auth/child', newChild, this.httpOptions).subscribe(
       (res: any) => {
@@ -175,6 +179,16 @@ export class ParentComponent implements OnInit {
   }
 
   modalref: NgbModalRef;
+
+  openlg(content) {
+    this.modalref = this.modalService.open(content,{ size: 'lg' })
+
+    this.modalref.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
 
   open(content) {
     this.modalref = this.modalService.open(content)

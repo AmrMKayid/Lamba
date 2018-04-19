@@ -22,58 +22,15 @@
 
     <button class="btn btn-deep-orange" *ngIf="isParent" (click)="open(content)"><i aria-hidden="true"></i>Connect</button>
     <ng-template #content let-c="close" let-d="dismiss">
-      <div class="modal-header">
-        <h4 class="modal-title">Choose a child</h4>
-        <button type="button" class="close" aria-label="Close"
-                (click)="d('Cross click')">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <!--Contact Form-->
-              <form>
-                <div class="md-form">
-                  <i class="material-icons prefix">title</i>
-                  <input type="text" id="form12" class="form-control" #newTitle
-                         mdbActive>
-                  <label >Title</label>
-                </div>
-                <div class="md-form">
-                  <i class="material-icons prefix">description</i>
-                  <textarea type="text" id="form42" class="md-textarea"
-                            style="height: 100px" #newDescription
-                            mdbActive></textarea>
-                  <label >description</label>
-                </div>
-                <div class="md-form">
-                  <i class="material-icons prefix">link</i>
-                  <input type="text" id="form62" class="form-control" #newUrl
-                         mdbActive>
-                  <label>URL</label>
-                </div>
+      <div class="card-body" >
+        <select class="custom-select" [(ngModel)]="selectedChild" name="selected-child">
+          <option *ngFor="let child of children" [value]="child._id">{{ child.name.firstName + ' ' + child.name.lastName }}</option>
+        </select>
+        <br>
+        <br>
+        <a role="button" class="btn btn-primary btn-block" (click)="sendRequest()" >Submit Request
 
-                <div class="text-center">
-                  <div class="row">
-                    <div class="col-6">
-                      <button class="btn btn-deep-orange waves-light"
-                              mdbRippleRadius>Submit Request
-                      </button>
-                    </div>
-                    <div class="col-6">
-                      <button type="button" class="btn btn-blue-grey waves-light"
-                              (click)="c('Close click')" mdbRippleRadius> Close
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </form>
-              <!--Contact Form-->
-            </div>
-          </div>
-        </div>
+        </a>
       </div>
     </ng-template>
 

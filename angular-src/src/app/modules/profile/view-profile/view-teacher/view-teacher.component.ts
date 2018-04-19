@@ -17,6 +17,7 @@ export class ViewTeacherComponent implements OnInit {
   @Input() user;
   isParent :boolean;
   closeResult: string;
+  selectedChild : string;
   //schedule
   public sat = [];
   public sun = [];
@@ -26,9 +27,19 @@ export class ViewTeacherComponent implements OnInit {
   public thurs = [];
   public fri = [];
 
+  public children = [];
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('authentication')
+    })
+  };
+
+
   constructor(private route: ActivatedRoute,
               private auth: AuthService,
-              private http: HttpClient,
+              private httpClient: HttpClient,
               private modalService: NgbModal) {
   }
 
@@ -43,8 +54,48 @@ export class ViewTeacherComponent implements OnInit {
     this.wed = this.user.schedule.table.wednesday;
     this.thurs = this.user.schedule.table.thursday;
     this.fri = this.user.schedule.table.friday;
+
+    if (this.isParent) {
+      this.getChildrenForParent();
+    }
   }
 
+
+
+  getChildrenForParent(){
+    this.httpClient.get('http://localhost:3000/api/user/myChildren', this.httpOptions).subscribe(
+      (res: any) => {
+        this.children = res.data;
+      },
+      (err) => {
+        new Noty({
+          type: 'error',
+          text: `Something went wrong while retrieving your children: ${err.error.msg}`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      }
+    );
+  }
+  sendRequest(){
+    this.httpClient.post('http://localhost:3000/api/request/create/'+this.user._id +"/"+this.selectedChild ,null, this.httpOptions).subscribe(
+      (res: any) => {
+        new Noty({
+          type: 'success',
+          text: `sent a request for the teacher `,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      }, err => {
+        new Noty({
+          type: 'warning',
+          text: `can not send request: ${err.error.msg}`,
+          timeout: 2500,
+          progressBar: true
+        }).show();
+      }
+    );
+  }
   modalref: NgbModalRef;
 
   open(content) {
