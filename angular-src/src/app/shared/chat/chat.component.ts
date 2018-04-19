@@ -99,7 +99,8 @@ export class ChatComponent implements OnInit {
   sendMessage(msg) {
     if(this.currentChat)
     {
-      this.currentChat.messages.push(msg);
+      var message = {text: msg};
+      this.currentChat.messages.push(message);
       this.chat.send(msg, this.currentChat.chat._id);
     }
   }
@@ -137,6 +138,16 @@ export class ChatComponent implements OnInit {
               chat: chat,
               messages: res.data
             };
+            for(var i = 0; i < this.chats.length; i++)
+            {
+              if(this.chats[i].chat._id == chatObj.chat._id)
+              {
+                var index = this.chats.indexOf(this.chats[i]);
+                if (index > -1) {
+                  this.chats.splice(index, 1);
+                }
+              }
+            }
             this.chats.push(chatObj);
             console.log(this.chats);
 
