@@ -1,4 +1,6 @@
 const Message = require('../models/message.model');
+var mongoose = require('mongoose');
+const User = mongoose.model('User');
 const jwt = require('jsonwebtoken');
 var socketioJwt = require('socketio-jwt');
 var config = require('../config');
@@ -93,8 +95,7 @@ function onMessage(data)
     {
         return;
     }
-    // Received Message From Angular Client
-    console.log("Message Received: " + data);
+
 
     sendMessage(msg);
 
@@ -131,14 +132,22 @@ function sendMessage(msg)
         text: msg.data,
         created: Date.now()
     };
-
+    User.findById(message.to, function(err, retrievedUser){
+        if(err || retrievedUser._id != message.to)
+        {
+            return;
+        }
+        var messagedb = new Message(message);
+        messagedb.save();
+    });
+    
     for(var i = 0; i < clients.length; i++)
     {
         if(clients[i].id == message.to)
         {
-            console.log("forwarding message");
             messagestr  = JSON.stringify(message);
             clients[i].socket.emit("message", messagestr);
         }
     }
+
 }
