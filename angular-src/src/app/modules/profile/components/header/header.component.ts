@@ -34,6 +34,8 @@ export class HeaderComponent implements OnInit {
     return true;
     if(this.router.url=='/profile/admin/verify-teachers')
     return true;
+    if(this.router.url=='/profile/admin/add-admin')
+    return true;
     return false;
        
   }

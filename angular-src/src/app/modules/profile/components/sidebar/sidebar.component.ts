@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router, NavigationEnd} from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import {Router} from '@angular/router';
 import {MatDialog, MatDialogConfig} from "@angular/material";
 import {AddTagsComponent} from '../../admin/add-tags/add-tags.component';
 import {DeleteTagsComponent} from '../../admin/delete-tags/delete-tags.component';
@@ -19,22 +18,11 @@ export class SidebarComponent {
   sidenavWidth = 4;
 
 
-  constructor(private translate: TranslateService, public router: Router,private dialog: MatDialog,private httpClient: HttpClient,
+  constructor( public router: Router,private dialog: MatDialog,private httpClient: HttpClient
     ) {
  
   }
 
-  eventCalled() {
-    this.isActive = !this.isActive;
-  }
-
-  addExpandClass(element: any) {
-    if (element === this.showMenu) {
-      this.showMenu = '0';
-    } else {
-      this.showMenu = element;
-    }
-  }
 
  
 
