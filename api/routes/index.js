@@ -38,7 +38,7 @@ router.patch('/user/updateUser/:userId', userCtrl.updateUser);
 router.get('/user/getUserInfo/:userId', userCtrl.getUserInfo);
 router.get('/user/getUserByID/:id', mw.isAuthenticated, userCtrl.getUser);
 router.patch('/user/assignArticleToChild/:childID', mw.isAuthenticated, userCtrl.assignArticleToChild);
-
+router.get('/user/myChildren', mw.isAuthenticated, userCtrl.getMyChildren);
 
 //------------------------------Admin Routes---------------------------------//
 router.get('/user/viewUnverifiedArticles', mw.isAuthenticated, mw.isAdmin, userCtrl.viewUnverifiedArticles);
