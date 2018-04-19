@@ -30,9 +30,9 @@ router.get('/admin/accept_teacher/:teacherID',mw.isAuthenticated, mw.isAdmin,  u
 router.get('/admin/decline_teacher/:teacherID',mw.isAuthenticated, mw.isAdmin,  userCtrl.declineTeacher);
 
 
-router.get('/user/getMyTeachers/', mw.isAuthenticated, userCtrl.getMyTeachers);
+router.get('/user/getMyTeachers/:ChildId', mw.isAuthenticated, userCtrl.getMyTeachers);
 router.get('/user/getMyStudents/', mw.isAuthenticated, userCtrl.getMyStudents);
-
+router.post('/user/addStudent/:childId', mw.isAuthenticated, userCtrl.addStudent);
 
 router.patch('/user/updateUser/:userId', userCtrl.updateUser);
 router.get('/user/getUserInfo/:userId', userCtrl.getUserInfo);

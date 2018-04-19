@@ -41,6 +41,52 @@ module.exports.addRequest =  function (req, res, next) {
         }
     });
 
+    User.findById(req.params.teacherId).exec(function (err, user) {
+
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res
+                .status(404)
+                .json({err: null, msg: 'teacher not found.', data: null});
+        }
+
+        if (user.role !== 'Teacher') {
+            return res
+                .status(401)
+                .json({err: null, msg: 'The person you are trying to send the request to is not a teacher', data: null});
+
+        }
+        if(user.students.indexOf(req.params.childId) != -1){
+            return res
+                .status(401)
+                .json({err: null, msg: 'Your child is already this teachers student ', data: null});
+
+        }
+    });
+
+
+
+
+    Request.findOne({recievingTeacherId: req.params.teacherId , childId: req.params.childId}, function(err, retrievedRequests){
+        if (err) {
+            return res.status(422).json({
+                err: err,
+                msg: "Couldn't retrieve requests",
+                data: null
+            });
+        }
+        if(retrievedRequests){
+            return res.status(422).json({
+                err: null,
+                msg:
+                    'you already send this request, please wait for the teacher response',
+                data: null
+            });
+        }
+    });
+
     // Creates the new item object
     request = {
         requestingParentId: req.decodedToken.user._id,
