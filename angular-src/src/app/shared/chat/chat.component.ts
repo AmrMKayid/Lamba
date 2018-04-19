@@ -11,6 +11,7 @@ export class ChatComponent implements OnInit {
 
   msgToServer;
 
+  chats = [];
   serverMsg;
   reciever_id : string;
   sub; 
@@ -21,6 +22,17 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
 
    this.sub =  this.route.params.subscribe(params => {
+
+
+      this.chat.getAllChats().subscribe((res: any) => {
+          if(res.err != null)
+          {
+            /*generate error*/
+          }
+          
+          this.chats = res.data;
+        });
+
         this.chat.initSocket();
         this.reciever_id =  params['id'];
         this.chat.onMessage().subscribe(msg => {
@@ -33,6 +45,7 @@ export class ChatComponent implements OnInit {
         });
     });
   
+
 
     // this.sendMessage("Test Message");
   }
