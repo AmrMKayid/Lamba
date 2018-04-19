@@ -12,10 +12,6 @@ const MessageSchema = mongoose.Schema({
     created: {
         type: Date,
         default: Date.now()
-    },
-    conversationId: {
-        type: String,
-        required: true
     }
 });
 
@@ -27,8 +23,8 @@ MessageSchema.statics.getMessages = (callback) => {
     Message.find({}, callback);
 };
 
-MessageSchema.statics.getMessagesByConv = (id, callback) => {
-    Message.find({conversationId: id}, callback);
+MessageSchema.statics.getMessagesFromUser = (user, callback) => {
+    Message.find({from: user}, callback);
 };
 
 
