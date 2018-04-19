@@ -94,7 +94,5 @@ openDeleteTagDialog() {
 
  }
  }
-deleteTag(){
 
-}
 }

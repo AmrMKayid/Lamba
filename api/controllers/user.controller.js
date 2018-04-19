@@ -185,7 +185,7 @@ module.exports.acceptTeacher = function (req, res, next) {
 module.exports.viewUnverifiedArticles = function (req, res, next) {
   Article.find({
     approved: false
-}, 'title createdAt owner_id _id tags upvoters downvoters', (err, result) => {
+}, 'title createdAt owner_id _id tags content', (err, result) => {
     if (err) {
         return next(err);
     }
