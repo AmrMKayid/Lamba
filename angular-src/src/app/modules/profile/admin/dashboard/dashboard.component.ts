@@ -42,7 +42,6 @@ export class DashboardComponent implements OnInit {
     this.httpClient.get('http://localhost:3000/api/user/viewUnverifiedArticles', {headers: autorization})
       .subscribe((res: any) => {
         this.articles = res.data;
-        console.log(res.msg);
       }, err => {
         new Noty({
           type: 'error',
@@ -54,7 +53,6 @@ export class DashboardComponent implements OnInit {
       this.httpClient.get('http://localhost:3000/api/activity/viewUnverifiedActivities', {headers: autorization})
       .subscribe((res: any) => {
         this.activities = res.data;
-        console.log(res.msg);
       }, err => {
         new Noty({
           type: 'error',
@@ -66,7 +64,6 @@ export class DashboardComponent implements OnInit {
       this.httpClient.get('http://localhost:3000/api/admin/teachers_verfication', {headers: autorization})
       .subscribe((res: any) => {
         this.teacherForms = res.data;
-        console.log(res.msg);
       }, err => {
         new Noty({
           type: 'error',

@@ -33,5 +33,56 @@ export class UserVerificationComponent implements OnInit {
         }).show();
       });
   }
+  verifyUser(interviewId,interviewOwner_id){
+    let autorization = {Authorization: localStorage.getItem('authentication')};
+    this.httpClient.get('http://localhost:3000/api/user/verifyUser/'+interviewOwner_id, {headers: autorization})
+      .subscribe((res: any) => {
+        new Noty({
+          type: 'success',
+          text: res.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      }, err => {
+        new Noty({
+          type: 'error',
+          text: err.error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      });
+      this.httpClient.delete('http://localhost:3000/api/user/deleteVerificationForm/'+interviewId, {headers: autorization})
+      .subscribe((res: any) => {
+        this.ngOnInit()
+      }, err => {
+        new Noty({
+          type: 'error',
+          text: err.error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      });     
+  }
+
+  rejectUser(interviewId){
+    let autorization = {Authorization: localStorage.getItem('authentication')};
+    this.httpClient.delete('http://localhost:3000/api/user/deleteVerificationForm/'+interviewId, {headers: autorization})
+    .subscribe((res: any) => {
+      new Noty({
+        type: 'success',
+        text: "Verification rejected successfully",
+        timeout: 3000,
+        progressBar: true
+      }).show();
+      this.ngOnInit();
+    }, err => {
+      new Noty({
+        type: 'error',
+        text: err.error.msg,
+        timeout: 3000,
+        progressBar: true
+      }).show();
+    });     
+  }
 
 }

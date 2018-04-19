@@ -525,13 +525,6 @@ module.exports.createVerificationForm=function (req, res, next) {
           data: null
       });
   }
-  if (req.decodedToken.user.isVerified== true){
-    return res.status(403).json({
-           err:null,
-           msg: "You are already a verified user",
-           data:null
-    });
-  }
   var valid =
       req.body.owner_id && Validations.isString(req.body.owner_id) &&
       req.body.contactEmail && Validations.isString(req.body.contactEmail)&&
@@ -553,7 +546,13 @@ module.exports.createVerificationForm=function (req, res, next) {
           return res
               .status(404)
               .json({ err: null, msg: 'User not found.', data: null });
-      }     
+      }      if (user.isVerified== true){
+        return res.status(403).json({
+               err:null,
+               msg: "You are already a verified user",
+               data:null
+        });
+      }
         Verification.find({owner_id:req.decodedToken.user._id}).exec(function(err,checkForm){
     if (err) {
       return next(err);

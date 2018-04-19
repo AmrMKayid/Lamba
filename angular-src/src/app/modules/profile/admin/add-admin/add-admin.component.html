@@ -18,13 +18,13 @@
                 <i class="fa fa-user-o" aria-hidden="true"></i>
          </div>
          <div class="card-body"> 
-                <p>Name: {{ admin.name.firstName+" "+admin.name.lastName}} </p>
-                <p>Email: {{admin.email}}</p>
+                <p><i class="fa fa-fw fa-user" aria-hidden="true"></i><strong>Name:</strong> {{ admin.name.firstName+" "+admin.name.lastName}} </p>
+                <p><i class="fa fa-fw fa-envelope" aria-hidden="true"></i><strong>Email:</strong> {{ admin.email}}</p>
            <!-- {{ admin.about }}
            {{ admin.qualifications +"\n"}} <br>
            {{ admin.fees | currency}}
            {{ admin.address }} -->
-           Joined At: <strong>{{ admin.joinedAt | date}}</strong>
+           <p><i class="fa fa-fw fa-clock-o" aria-hidden="true"></i><strong>Joined At: </strong>{{ admin.joinedAt | date}}</p>
          </div>
    
         
