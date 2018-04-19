@@ -40,6 +40,23 @@ module.exports.addRequest =  function (req, res, next) {
 
         }
     });
+    Request.findOne({recievingTeacherId: req.params.teacherId , childId: req.params.childId}, function(err, retrievedRequests){
+        if (err) {
+            return res.status(422).json({
+                err: err,
+                msg: "Couldn't retrieve requests",
+                data: null
+            });
+        }
+        if(retrievedRequests){
+            return res.status(422).json({
+                err: null,
+                msg:
+                    'you already send this request, please wait for the teacher response',
+                data: null
+            });
+        }
+    });
 
     // Creates the new item object
     request = {

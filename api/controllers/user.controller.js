@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
   User = mongoose.model('User'),
   Validations = require('../utils/validations'),
   Article = mongoose.model('Article'),
+  Request = mongoose.model('Request'),
   Verification = mongoose.model('Verification');
 
 module.exports.getAllUsers = function(req, res, next) {
@@ -614,6 +615,64 @@ module.exports.getMyStudents = function(req, res, next) {
     });
   });
 
+
+};
+
+module.exports.addStudent = function(req, res, next) {
+    if (!Validations.isObjectId(req.params.childId)) {
+        return res.status(422).json({
+            err: null,
+            msg: 'User parameter must be a valid ObjectId.',
+            data: null
+        });
+    }
+    Child.findById(req.params.childId).exec(function (err, user) {
+
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res
+                .status(404)
+                .json({err: null, msg: 'child not found.', data: null});
+        }
+
+        Request.findOne({recievingTeacherId: req.decodedToken.user._id , childId: req.params.childId}, function(err, retrievedRequests){
+            if (err) {
+                return next(err);
+            }
+            if(!retrievedRequests){
+                return res.status(422).json({
+                    err: null,
+                    msg:
+                        'you need a request from the parent to add this child',
+                    data: null
+                });
+            }
+        });
+    });
+    Teacher.findById(req.decodedToken.user._id).exec(function (err, user) {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res
+                .status(404)
+                .json({err: null, msg: 'child not found.', data: null});
+        }
+        user.students.push(req.params.childId);
+        user.save(function (err) {
+            if (err) {
+                return next(err);
+            }
+            res.status(200).json({
+                err: null,
+                msg: 'child added successfully.',
+                data: user.students
+            });
+
+        });
+    });
 
 };
 
