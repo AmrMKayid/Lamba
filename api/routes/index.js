@@ -9,6 +9,8 @@ var express = require('express'),
     userCtrl = require('../controllers/user.controller'),
     articleCtrl = require('../controllers/article.controller'),
     tagCtrl = require('../controllers/tag.controller'),
+    chatCtrl = require('../controllers/chat.controller'),
+
 
     mw = require('./middlewares');
 
@@ -73,5 +75,9 @@ router.post('/articles/reply', mw.isAuthenticated, articleCtrl.replyComment);
 router.delete('/articles/:id', mw.isAuthenticated, articleCtrl.deleteArticle);
 router.patch('/articles/:id', mw.isAuthenticated, articleCtrl.editArticle);
 
+
+
+/*chat routes*/
+router.get('/chat/:id', mw.isAuthenticated, chatCtrl.getChats);
 
 module.exports = router;
