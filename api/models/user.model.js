@@ -158,7 +158,7 @@ const ChildSchema = new mongoose.Schema({
     favorites: {
         items: [String],
         resources: [String],
-        events: [String]
+        activities: [String]
     }
 });
 
@@ -374,7 +374,7 @@ const UserSchema = new mongoose.Schema({
     favorites: {
         items: [String],
         resources: [String],
-        events: [String]
+        activities: [String]
     }
 });
 

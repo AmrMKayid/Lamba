@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
   Article = mongoose.model('Article');
 
 
-module.exports.getFavoriteArticles = function (req, res, next) {
+module.exports.getFavArticles = function (req, res, next) {
   let id = req.decodedToken.user._id;
   if (req.decodedToken.user.username) {
     Child.findById(id, (err, child) => {
@@ -221,3 +221,24 @@ module.exports.removeFavArticle = function (req, res, next) {
   }
 };
 
+////////////////////////////////////////////////////ACTIVITES//////////////////////////////////////////////////////////////////
+
+module.exports.getFavActivities = function (req, res, next) {
+};
+
+module.exports.addFavActivity = function (req, res, next) {
+};
+
+module.exports.removeFavActivity = function (req, res, next) {
+};
+
+////////////////////////////////////////////////////ITEMS//////////////////////////////////////////////////////////////////////
+
+module.exports.getFavItems = function (req, res, next) {
+};
+
+module.exports.addFavItem = function (req, res, next) {
+};
+
+module.exports.removeFavItem = function (req, res, next) {
+};
