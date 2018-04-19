@@ -225,7 +225,54 @@ module.exports.removeFavArticle = function (req, res, next) {
 ////////////////////////////////////////////////////ACTIVITES//////////////////////////////////////////////////////////////////
 
 module.exports.getFavActivities = function (req, res, next) {
-
+  let userID = req.decodedToken.user._id;
+  if (req.decodedToken.user.username) {
+    Child.findById(id, (err, child) => {
+      if (err) {
+        return next(err);
+      }
+      if (!child) {
+        return res.status(404).json({
+          err: null,
+          msg: 'Child not found.',
+          data: null
+        });
+      }
+      let activitiesIDs = child.favorites.activities;
+      Activity.find({
+        _id: { $in: activitiesIDs }
+      }, '_id name price picture_url activity_type host_id created_at',
+        (err, result) => {
+          if (err) {
+            return next(err);
+          }
+        }).populate('host_id', 'name', 'User').exec((err, result) => {
+          res.status(200).json({
+            err: null,
+            msg: 'Activities retrieved successfully.',
+            data: result
+          });
+        });
+    });
+  } else {
+    User.findById(id, (err, user) => {
+      let activitiesIDs = user.favorites.activities;
+      Activity.find({
+        _id: { $in: activitiesIDs }
+      }, '_id name price picture_url activity_type host_id created_at',
+        (err, result) => {
+          if (err) {
+            return next(err);
+          }
+        }).populate('host_id', 'name', 'User').exec((err, result) => {
+          res.status(200).json({
+            err: null,
+            msg: 'Activities retrieved successfully.',
+            data: result
+          });
+        });
+    });
+  }
 };
 
 module.exports.addFavActivity = function (req, res, next) {
