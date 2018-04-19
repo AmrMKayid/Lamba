@@ -39,13 +39,10 @@
           <div class="card-body">
             <div class="media d-block d-md-flex mt-3">
               <img class="d-flex mb-3 mx-auto z-depth-1" [src]="IMG + author.photo" alt="Generic placeholder image" style="width: 100px;">
-              <div class="media-body text-center text-md-left ml-md-3 ml-0 name-capitalize">
-                <h5 class="mt-0 font-weight-bold">{{author.name.firstName + ' ' + author.name.lastName}}
+              <div class="media-body text-center text-md-left ml-md-3 ml-0">
+                <h5 class="mt-0 font-weight-bold name-capitalize">{{author.name.firstName + ' ' + author.name.lastName}}
                 </h5>
-                <!-- TODO: Add about author, from the backend getArticle would populate an about as well -->
-                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti
-                quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
-                qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
+                {{(author.about)? author.about: "This user didn't enter any information about him/herself."}}
               </div>
             </div>
           </div>
