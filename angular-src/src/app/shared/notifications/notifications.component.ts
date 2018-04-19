@@ -14,24 +14,25 @@ export class NotificationsComponent implements OnInit {
 
 	notifications : Array<Object>;
   ngOnInit() {
-  
+
     var test = {
-      title: "blbl",
-      description: "blblbl",
+      title: "My not title",
+      description: "Reminder: You have an event coming up this weekend: Reminder: You have an event coming up this weekend: ",
       url: "fgasf/sadfs",
-      recieving_user_id: "5ad5d13c04720812d763ca7a"
+      recieving_user_id: "5ad872baea96344df83ab4f9"
     };
     this.notificationservice.CreateNotification(test);
+
   	this.notificationservice.getMyNotifications().subscribe((res: any) => {
   		if(res.err != null)
   		{
   			/*generate error*/
   		}
-  		
+
   		this.notifications = res.data;
  		console.log(this.notifications);
   	});
-  
+
   }
 
 }

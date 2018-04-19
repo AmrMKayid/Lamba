@@ -139,7 +139,11 @@ module.exports.getRequests = function(req, res, next)
 
 }
 
+<<<<<<< HEAD
 //deletes request if teacher declines
+=======
+//deletes request after teacher accepts or declines
+>>>>>>> 1fee8d92a11956a38e4650b4044d556e505030bd
 module.exports.deleteRequest = function(req, res, next)
 {
     if (!Validations.isObjectId(req.params.RequestId)) {
@@ -194,5 +198,5 @@ module.exports.deleteRequest = function(req, res, next)
 
         }
     });
-    
+
 }
