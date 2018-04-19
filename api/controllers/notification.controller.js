@@ -43,6 +43,9 @@ module.exports.addNotification = async function (req, res, next) {
         seen_at: null
     };
 
+
+    console.log(notification);
+
      // inserts the new object in the database
     Notification.create(notification, function (err, newNotification) {
         if (err) {

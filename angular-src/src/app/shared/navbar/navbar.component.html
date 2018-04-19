@@ -74,15 +74,21 @@
         <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-effect waves-light" mdbWavesEffect>{{notifications.length}}
           <i class="fa fa-bell"></i>
         </a>
-        <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+        <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary mydropdown" role="menu">
           <a class="dropdown-item waves-light" mdbWavesEffect *ngIf="notifications.length == 0">No new
             notifications.</a>
-          <div class="row dropdown-item" *ngFor="let notification of notifications">
+            <span *ngFor="let notification of notifications | slice:0:4; let i=index">
+          <div class=" dropdown-item" >
+
             <div class="col-6">{{notification.title}}</div>
-            <div class="col-6">{{notification.created_at}}</div>
-            <div class="col-12">{{notification.seen_at}}</div>
-            <div class="divider dropdown-divider"></div>
+            <div class="col-6">{{notification.created_at | date}}</div>
+            <div class="col-12" style=" white-space: pre-wrap;">{{notification.description}}</div>
           </div>
+                <div class="divider dropdown-divider"></div>
+
+          </span>
+          <a [routerLink]="['/notifications']" class="dropdown-item waves-light text-center" mdbWavesEffect *ngIf="notifications.length !== 0">See more
+            notifications.</a>
         </div>
       </li>
 
