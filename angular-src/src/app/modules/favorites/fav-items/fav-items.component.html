@@ -9,7 +9,7 @@
         <div class="view overlay rounded z-depth-1">
           <img [src]="(item.picture_url)? IMG_URL + item.picture_url : IMG_URL + 'itemDefault'" class="img-thumbnail" alt="Item-thumbnail"
           />
-          <a style="cursor: pointer;" [routerLink]="['/item','view',item._id]">
+          <a style="cursor: pointer;" [routerLink]="['/store','view',item._id]">
             <div class="mask"></div>
           </a>
         </div>
@@ -20,7 +20,7 @@
       <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
         <br>
         <h3 class="mb-3 font-weight-bold dark-grey-text">
-          <a style="cursor: pointer;" [routerLink]="['/item','view',item._id]">
+          <a style="cursor: pointer;" [routerLink]="['/store','view',item._id]">
             <strong>{{item.name}}</strong>
           </a>
         </h3>
