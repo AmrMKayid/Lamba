@@ -91,7 +91,6 @@ export class ViewArticleComponent implements OnInit {
         }).show();
       }
     );
-    var data = sessionStorage.getItem('id');
   }
 
   downvote(id) {
@@ -180,7 +179,23 @@ export class ViewArticleComponent implements OnInit {
 
   //TODO: Once favorites is implemented, we need to send to the backend.
   addToFavorite(id) {
-
+    this.articleService.addToFavorites(id).subscribe(
+      (res: 200) => {
+        new Noty({
+          type: 'success',
+          text: `Added to favorites successfully`,
+          timeout: 1500,
+          progressBar: true
+        }).show();
+      }, err => {
+        new Noty({
+          type: 'error',
+          text: `Something went wrong while adding to favorites: ${err.error.msg}`,
+          timeout: 2000,
+          progressBar: true
+        }).show();
+      }
+    );
   }
 
   // showReply(i) {

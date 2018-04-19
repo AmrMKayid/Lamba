@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 // SERVICE IS USED JUST TO PASS DATA ACROSS COMPONENTS (INSTED OF @Input)
 @Injectable()
 export class ArticlesService {
-  
+
   //The service now holds no data, it just provides methods to subscribe to, and every route holds its own data
   constructor(private http: HttpClient) {
   }
@@ -99,6 +99,16 @@ export class ArticlesService {
 
   delete(id) {
     return this.http.delete('http://localhost:3000/api/articles/' + id, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('authentication')
+      })
+    })
+      .pipe();
+  }
+
+  addToFavorites(id: string) {
+    return this.http.post('http://localhost:3000/api/user/favorites/resources/' + id, '', {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': localStorage.getItem('authentication')
