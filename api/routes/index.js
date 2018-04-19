@@ -127,9 +127,16 @@ router.get('/user/verifyUser/:userId', mw.isAuthenticated, mw.isAdmin, userCtrl.
 router.delete('/user/deleteVerificationForm/:id', mw.isAuthenticated, mw.isAdmin, userCtrl.deleteVerificationForm);
 
 //----------------------------Favorites----------------------------------------------------------//
-router.get('/user/favorites/resources', mw.isAuthenticated, favoritesCtrl.getFavoriteArticles);
+router.get('/user/favorites/resources', mw.isAuthenticated, favoritesCtrl.getFavArticles);
 router.post('/user/favorites/resources/:articleId', mw.isAuthenticated, favoritesCtrl.addFavArticle);
 router.delete('/user/favorites/resources/:articleId', mw.isAuthenticated, favoritesCtrl.removeFavArticle);
 
+router.get('/user/favorites/activities', mw.isAuthenticated, favoritesCtrl.getFavActivities);
+router.post('/user/favorites/activities/:activityID', mw.isAuthenticated, favoritesCtrl.addFavActivity);
+router.delete('/user/favorites/activities/:activityID', mw.isAuthenticated, favoritesCtrl.removeFavActivity);
+
+router.get('/user/favorites/items', mw.isAuthenticated, favoritesCtrl.getFavItems);
+router.post('/user/favorites/items/:itemID', mw.isAuthenticated, favoritesCtrl.addFavItem);
+router.delete('/user/favorites/items/:itemID', mw.isAuthenticated, favoritesCtrl.removeFavItem);
 
 module.exports = router;
