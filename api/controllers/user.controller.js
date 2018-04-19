@@ -591,22 +591,75 @@ module.exports.assignArticleToChild = function(req, res, next) {
 
 
 
-
+//returns all the child's teachers
 module.exports.getMyTeachers = function(req, res, next) {
+    if (!Validations.isObjectId(req.params.ChildId)) {
+        return res.status(422).json({
+            err: null,
+            msg: 'ChildId parameter must be a valid ObjectId.',
+            data: null
+        });
+    }
+    Child.findById(req.params.ChildId).exec(function (err, user) {
 
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res
+                .status(404)
+                .json({err: null, msg: 'child not found.', data: null});
+        }
+        if (user._id != req.decodedToken.user._id) {
+            if (user.parent_id != req.decodedToken.user._id) {
+
+                return res
+                    .status(401)
+                    .json({err: null, msg: 'you are not authorized to view the teachers', data: null});
+
+            }
+        }
+
+        User.find({
+            students: {
+                $eq: req.params.ChildId
+            }
+        }).exec(function(err, teachers) {
+            if (err) {
+                return next(err);
+            }
+            return res.status(200).json({
+                err: null,
+                msg: 'Requests received successfully.!',
+                data: teachers
+
+            });
+        });
+
+
+    });
 
 };
 
 
-
+//returns all the teacher's students
 module.exports.getMyStudents = function(req, res, next) {
-
+  if(req.decodedToken.user.role !== 'Teacher'){
+      return res.status(401).json({
+          err: null,
+          msg: 'You must be a teacher to perform this action.',
+          data: null
+      });
+  }
 
   User.findById(req.decodedToken.user._id).populate({
     path: 'students',
     select: 'name photo _id',
     model: Child
   }).exec((err, result) => {
+      if (err) {
+          return next(err);
+      };
     res.status(200).json({
       err: null,
       msg: 'Children successfully retrieved.',
