@@ -35,6 +35,8 @@ export class ViewArticleComponent implements OnInit {
 
   ngOnInit() {
     let id: string = this.route.snapshot.params['id'];
+    this.isOwner = this.article.owner_id == this.auth.getCurrentUser()._id;
+    this.currentUserRole = this.auth.getCurrentUser().role;
     this.articleService.loadArticle(id).subscribe(
       (retrieved: any) => {
         this.article = retrieved.data;
@@ -46,19 +48,21 @@ export class ViewArticleComponent implements OnInit {
         }
         this.author = this.article.owner;
         this.comments = this.article.comments;
-        this.articleService.getChildren().subscribe(
-          (res: any) => {
-            this.children = res.data;
-          },
-          (err) => {
-            new Noty({
-              type: 'error',
-              text: `Something went wrong while retrieving your children: ${err.error.msg}`,
-              timeout: 3000,
-              progressBar: true
-            }).show();
-          }
-        );
+        if (this.currentUserRole == 'Parent') {
+          this.articleService.getChildren().subscribe(
+            (res: any) => {
+              this.children = res.data;
+            },
+            (err) => {
+              new Noty({
+                type: 'error',
+                text: `Something went wrong while retrieving your children: ${err.error.msg}`,
+                timeout: 3000,
+                progressBar: true
+              }).show();
+            }
+          );
+        }
         this.isInitialized = true;
         // let r: { showReply: boolean, replyContent: string }[] = new Array(this.comments.length);
         // for (let i = 0; i < this.comments.length; i++) {
@@ -78,8 +82,7 @@ export class ViewArticleComponent implements OnInit {
         }).show();
       }
     );
-    this.isOwner = this.article.owner_id == this.auth.getCurrentUser()._id;
-    this.currentUserRole = this.auth.getCurrentUser().role;
+
     window.scrollTo(0, 0);
 
   }
