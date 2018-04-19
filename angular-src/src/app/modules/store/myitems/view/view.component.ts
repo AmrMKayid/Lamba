@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 })
 export class ViewComponent implements OnInit {
 
-  myitems: any;
+  myitems= [];
 
   constructor(private http: Http,
               private router: Router,
