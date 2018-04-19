@@ -43,10 +43,25 @@ public initSocket()
 
   public getAllChats()
   {
-    var headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('authorization', localStorage.getItem('authentication'));
-    return this.http.get('http://127.0.0.1:3000/api/chat', headers);
+    var httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('authentication')
+      })
+    };
+
+    return this.http.get('http://127.0.0.1:3000/api/chat', httpOptions);
+  }
+  public getChat(user_id)
+  {
+    var httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('authentication')
+      })
+    };
+
+    return this.http.get('http://127.0.0.1:3000/api/chat/' + user_id, httpOptions);
   }
 
 
