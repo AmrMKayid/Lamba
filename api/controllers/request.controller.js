@@ -133,3 +133,61 @@ module.exports.getRequests = function(req, res, next)
     });
 
 }
+
+//deletes request if teacher declines
+module.exports.rejectRequest = function(req, res, next)
+{
+    if (!Validations.isObjectId(req.params.RequestId)) {
+        return res.status(422).json({
+            err: null,
+            msg: 'Request parameter must be a valid ObjectId.',
+            data: null
+        });
+    }
+    if(req.decodedToken.user.role !== 'Teacher'){
+        return res.status(401).json({
+            err: null,
+            msg: 'You must be a teacher to perform this action',
+            data: null
+        });
+    }
+    Request.findById(req.params.RequestId).exec(function (err, request) {
+
+        if (err) {
+            return next(err);
+        }
+        if (!request) {
+            return res
+                .status(404)
+                .json({err: null, msg: 'request not found.', data: null});
+        }
+
+        if (request.recievingTeacherId != req.decodedToken.user._id) {
+            return res
+                .status(401)
+                .json({err: null, msg: 'you are not the recipient of this request', data: null});
+
+        }
+        else {
+
+            Request.findByIdAndDelete(req.params.RequestId).exec( function(err, deletedRequest){
+                if (err) {
+                    return res.status(422).json({
+                        err: err,
+                        msg: "Couldn't delete requests",
+                        data: null
+                    });
+                }
+                return res.status(200).json({
+                    err: null,
+                    msg: "request deleted successfully",
+                    data: deletedRequest
+                });
+            });
+
+
+
+        }
+    });
+    
+}
