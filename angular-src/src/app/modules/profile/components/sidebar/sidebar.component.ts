@@ -5,7 +5,7 @@ import {MatDialog, MatDialogConfig} from "@angular/material";
 import {AddTagsComponent} from '../../admin/add-tags/add-tags.component';
 import {DeleteTagsComponent} from '../../admin/delete-tags/delete-tags.component';
 import {HttpClient} from '@angular/common/http';
-import {Http, Headers} from '@angular/http';
+import { Headers} from '@angular/http';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,7 +20,7 @@ export class SidebarComponent {
 
 
   constructor(private translate: TranslateService, public router: Router,private dialog: MatDialog,private httpClient: HttpClient,
-    private http: Http) {
+    ) {
  
   }
 
