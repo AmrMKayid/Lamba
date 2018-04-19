@@ -40,6 +40,7 @@ router.patch('/user/assignArticleToChild/:childID',mw.isAuthenticated,userCtrl.a
 
 router.get('/user/getFavoriteArticles/:id',mw.isAuthenticated, userCtrl.getFavoriteArticles);
 router.post('/user/addFavArticle/:id/:articleId',mw.isAuthenticated, userCtrl.addFavArticle);
+router.delete('/user/removeFavArticle/:id/:articleId',mw.isAuthenticated, userCtrl.removeFavArticle);
 
 //------------------------------Admin Routes---------------------------------//
 router.get('/user/viewUnverifiedArticles', mw.isAuthenticated, mw.isAdmin, userCtrl.viewUnverifiedArticles);
