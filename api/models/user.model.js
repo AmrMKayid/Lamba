@@ -15,9 +15,9 @@ const ChildSchema = new mongoose.Schema({
         trim: true
     },
     name: {
-        firstName: {type: String, required: true},
-        middleName: {type: String},
-        lastName: {type: String, required: true}
+        firstName: { type: String, required: true },
+        middleName: { type: String },
+        lastName: { type: String, required: true }
     },
     birthday: Date,
     gender: {
@@ -150,38 +150,42 @@ const ChildSchema = new mongoose.Schema({
             //  validate: [arrayLimit,'{PATH} exceeds the limit of 8']
 
         },
-        updatedAt: {type: Date, default: Date.now},
+        updatedAt: { type: Date, default: Date.now },
     },
     score: Number,
     //IDs :
     allowedArticles: [String],
-    enrolledActivities: [String]
+    favorites: {
+        items: [String],
+        resources: [String],
+        activities: [String]
+    }
 });
 
-const SessionSchema=new mongoose.Schema({
-    title:{
-       type:String,
-       required: true
-    },
-    grade:{
-        type:String,
-        required: true       
-    },
-    location:{
-        type:String,
-        required: true
-    },
-    startDate:{
-        type: String,
-        required:true
-    },
-    endDate:{
+const SessionSchema = new mongoose.Schema({
+    title: {
         type: String,
         required: true
     },
-    fees:{
-        type:Number,
-        required:true
+    grade: {
+        type: String,
+        required: true
+    },
+    location: {
+        type: String,
+        required: true
+    },
+    startDate: {
+        type: String,
+        required: true
+    },
+    endDate: {
+        type: String,
+        required: true
+    },
+    fees: {
+        type: Number,
+        required: true
     }
 });
 const UserSchema = new mongoose.Schema({
@@ -203,9 +207,9 @@ const UserSchema = new mongoose.Schema({
         trim: true //Will be trimmed in the frontend as well while sending the request.
     },
     name: {
-        firstName: {type: String, required: true},
-        middleName: {type: String},
-        lastName: {type: String, required: true}
+        firstName: { type: String, required: true },
+        middleName: { type: String },
+        lastName: { type: String, required: true }
     },
     birthday: Date,
     gender: {
@@ -244,7 +248,7 @@ const UserSchema = new mongoose.Schema({
         default: false
     },
     fees: Number,
-    sessions:[SessionSchema],
+    sessions: [SessionSchema],
     schedule: {
         table: {
             saturday: [{
@@ -363,12 +367,16 @@ const UserSchema = new mongoose.Schema({
             //  validate: [arrayLimit,'{PATH} exceeds the limit of 8']
 
         },
-        updatedAt: {type: Date, default: Date.now},
+        updatedAt: { type: Date, default: Date.now },
     },
     about: String,
     qualifications: [String],
-    students: [String]
-
+    students: [String],
+    favorites: {
+        items: [String],
+        resources: [String],
+        activities: [String]
+    }
 });
 
 // Override the transform function of the schema to delete the password before it returns the object
@@ -381,7 +389,7 @@ UserSchema.options.toObject.transform = function (document, transformedDocument)
     delete transformedDocument.password;
     return transformedDocument;
 }
-;
+    ;
 
 if (!ChildSchema.options.toObject) {
     ChildSchema.options.toObject = {};

@@ -302,6 +302,7 @@ const findArticleById = function (article_id, res, next) {
                 result._doc.owner = {};
                 result._doc.owner.name = ownerUser.name;
                 result._doc.owner.photo = ownerUser.photo;
+                result._doc.owner.about = ownerUser.about;
                 res.status(200).json({
                     err: null,
                     msg: 'Article retrieved successfully.',
@@ -309,7 +310,6 @@ const findArticleById = function (article_id, res, next) {
                 });
             });
         }).populate('comments.commenter', 'name photo');
-    // .populate('comments.replies.replier', 'name photo');
 }
 
 

@@ -36,14 +36,7 @@ const articleSchema = new mongoose.Schema({
         commenter: {
             type: ObjectId,
             refPath: 'comments.kind'
-        },
-        replies: [{
-            reply_content: String,
-            replier: {
-                type: ObjectId,
-                ref: 'User'
-            }
-        }]
+        }
     }]
 });
 

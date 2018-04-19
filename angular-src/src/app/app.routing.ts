@@ -22,6 +22,7 @@ const appRoutes: Routes = [
   {path: 'resources', canActivate: [AuthGuard], loadChildren: './modules/resources/resources.module#ResourcesModule'},
   {path: 'store', canActivate: [AuthGuard], loadChildren: './modules/store/store.module#StoreModule'},
   {path: 'event', canActivate: [AuthGuard], loadChildren: './modules/event/event.module#EventModule'},
+  {path: 'favorites', canActivate: [AuthGuard], loadChildren: './modules/favorites/favorites.module#FavoritesModule'},
 
   // otherwise redirect to shared
   {path: '', redirectTo: '/', pathMatch: 'full'},
