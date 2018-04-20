@@ -1,0 +1,39 @@
+<div class="container" *ngIf="tagsInitialized && articlesInitialized">
+
+  <ng-container *ngFor="let article of articles | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
+    <div class="row mt-3 wow fadeIn">
+
+      <!--Image thumbnail-->
+      <div class="col-lg-5 col-xl-4 mb-4">
+        <!--Featured image-->
+        <div class="view overlay rounded z-depth-1">
+          <img [src]="(article.thumbnail_url)? IMG_URL + article.thumbnail_url : IMG_URL + 'articleDefault'" class="img-thumbnail"
+            alt="Article-thumbnail" />
+          <a style="cursor: pointer;" [routerLink]="['/resources','id',article._id]">
+            <div class="mask"></div>
+          </a>
+        </div>
+      </div>
+      <!--Image thumbnail-->
+
+      <!--Actual content-->
+      <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
+        <br>
+        <h3 class="mb-3 font-weight-bold dark-grey-text">
+          <a style="cursor: pointer;" [routerLink]="['/resources','id',article._id]">
+            <strong>{{article.title}}</strong>
+          </a>
+        </h3>
+        <p>
+          <em *ngIf="article.tags.length ===0">No tags defined for this article</em>
+          <ng-container *ngFor="let tag of article.tags">
+            <span class="badge badge-pill light-blue" (click)="setTag(tag)" style="cursor: pointer;">{{getTagByID(allTags, tag)}}</span>
+          </ng-container>
+        </p>
+        <br>
+      </div>
+      <!--Actual content-->
+    </div>
+    <hr class="mb-5">
+  </ng-container>
+</div>

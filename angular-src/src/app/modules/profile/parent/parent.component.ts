@@ -27,6 +27,8 @@ export class ParentComponent implements OnInit {
     })
   };
 
+  gender;
+
 
   constructor(private router: Router,
               private http: HttpClient,
@@ -40,6 +42,59 @@ export class ParentComponent implements OnInit {
     this.getMyChildren(this.currentUser._id);
     this.newChildBtn = false;
     this.getTasks();
+  }
+
+  EditInfo(updatedFirstName, updatedMiddleName, updatedLastName,
+           updatedStreet, updatedCity, updatedState, updatedZip,
+           updatedBirthday, updatedPhone, updatedAbout) {
+
+    let updatedUser = {
+      name: {
+        firstName: updatedFirstName,
+        middleName: updatedMiddleName,
+        lastName: updatedLastName
+      },
+      address: {
+        street: updatedStreet,
+        city: updatedCity,
+        state: updatedState,
+        zip: updatedZip
+      },
+      birthday: updatedBirthday,
+      phone: updatedPhone,
+      about: updatedAbout,
+    };
+
+    this.http.patch(appConfig.apiUrl + '/user/updateUser/' + this.currentUser._id, updatedUser, this.httpOptions).subscribe(
+      (res: any) => {
+
+        localStorage.setItem('authentication', res.data);
+
+        this.modalref.close();
+
+        new Noty({
+          type: 'success',
+          text: `You've been successfully updated your info!`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+
+        setTimeout(function() {
+          location.reload();
+        }, 3500);
+
+      },
+      error => {
+        new Noty({
+          type: 'error',
+          text: error.error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+
+      });
+
+
   }
 
   onUploadFinished(event) {
@@ -88,7 +143,11 @@ export class ParentComponent implements OnInit {
     this.router.navigate(['schedule/viewtask/', taskId]);
   }
 
-  newChild(childFirstName, childlastName, childUsername, childPassword, childConfirmPassword, childGender) {
+  chooseGender(gender) {
+    this.gender = gender
+  }
+
+  newChild(childFirstName, childlastName, childUsername, childPassword, childConfirmPassword) {
 
     let newChild = {
       name: {
@@ -98,9 +157,8 @@ export class ParentComponent implements OnInit {
       username: childUsername,
       password: childPassword,
       confirmPassword: childConfirmPassword,
-      gender: childGender,
+      gender: this.gender,
     };
-
 
     this.http.post(appConfig.apiUrl + '/auth/child', newChild, this.httpOptions).subscribe(
       (res: any) => {
@@ -126,6 +184,16 @@ export class ParentComponent implements OnInit {
   }
 
   modalref: NgbModalRef;
+
+  openlg(content) {
+    this.modalref = this.modalService.open(content,{ size: 'lg' })
+
+    this.modalref.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
 
   open(content) {
     this.modalref = this.modalService.open(content)

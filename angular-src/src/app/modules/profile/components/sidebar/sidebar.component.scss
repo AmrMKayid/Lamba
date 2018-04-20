@@ -2,8 +2,9 @@ $topnav-background-color: #222;
 .sidebar {
   border-radius: 0;
   position: fixed;
-  z-index: 1000;
-  top: 8%;
+  top:45px;
+  margin-top: 0%;
+  z-index: 90;
   left: 235px;
   width: 235px;
   margin-left: -235px;
@@ -79,7 +80,7 @@ $topnav-background-color: #222;
       background: darken($topnav-background-color, 5%);
     }
     .panel-collapse {
-      border-radious: 0;
+      border-radius: 0;
       border: none;
       .panel-body {
         .list-group-item {
@@ -127,30 +128,19 @@ $topnav-background-color: #222;
     }
   }
 }
-
 @media screen and (max-width: 992px) {
   .sidebar {
-    top: 54px;
-    left: 0px;
+      top: 55px;
+      left: 185px;
+      width: 10px;
   }
 }
-
 @media (min-width: 992px) {
   .header-fields {
     display: none;
   }
 }
-
 ::-webkit-scrollbar {
   width: 8px;
 }
 
-::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 0px rgba(255, 255, 255, 1);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 3px;
-  -webkit-box-shadow: inset 0 0 3px rgba(255, 255, 255, 1);
-}

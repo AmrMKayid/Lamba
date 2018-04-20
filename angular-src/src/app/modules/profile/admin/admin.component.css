@@ -1,5 +1,5 @@
 .main-container {
-  margin-top: 0px;
+  margin-top: 5%;
   margin-left: 11.5%;
   margin-right: 0px;
   padding: 0px;
@@ -11,8 +11,20 @@
   width: 100%;
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 762px) {
   .main-container {
     margin-left: 0px !important;
   }
+}
+
+.row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  flex-wrap: wrap;
+}
+.row > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
 }

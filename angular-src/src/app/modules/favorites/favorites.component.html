@@ -1,0 +1,47 @@
+<div class="divider" style="padding-top:50px;"></div>
+<div class="container">
+  <section class="card gradient-custom wow fadeIn">
+    <div class="card-body text-white text-center py-5 px-5 my-5">
+      <h1 class="mb-4">
+        <strong>My favorites!</strong>
+      </h1>
+      <p>
+        <strong>You can save anything you like on the website as your favorite, and browse them all in here any time</strong>
+      </p>
+    </div>
+  </section>
+
+  <div class="card-body text-center">
+    <div class="mt-5">
+      <ngb-tabset class="nav-justified">
+        <ngb-tab title="Resources">
+          <ng-template ngbTabContent>
+            <div class="container">
+              <div class="row mt-3">
+                <app-fav-resources></app-fav-resources>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Activities">
+          <ng-template ngbTabContent>
+            <div class="container">
+              <div class="row mt-3">
+                <app-fav-activities></app-fav-activities>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Items">
+          <ng-template ngbTabContent>
+            <div class="container">
+              <div class="row mt-3">
+                <app-fav-items></app-fav-items>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+    </div>
+  </div>
+</div>

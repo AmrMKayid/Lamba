@@ -75,13 +75,20 @@ export class ViewComponent implements OnInit {
           this.items[i].likes_user_id = data.likes_user_id;
         }
       }
+      this.ngOnInit();
+
+      this.loadItems();
+    
     });
   }
 
   unlikeItems(item) {
     this.StoreService.unlikeItems(item).subscribe((data: any) => {
       this.items = data.data;
+
+      this.ngOnInit();
     });
+   this.loadItems();
   }
 
   viewInfo(_id) {

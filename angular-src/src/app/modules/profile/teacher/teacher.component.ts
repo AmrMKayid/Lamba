@@ -6,6 +6,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
 import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {appConfig} from "../../../app.config";
+import {stringDistance} from "codelyzer/util/utils";
 
 
 @Component({
@@ -15,6 +16,7 @@ import {appConfig} from "../../../app.config";
   styleUrls: ['./teacher.component.css']
 })
 export class TeacherComponent implements OnInit {
+
 
   firstName: string;
   middleName: string;
@@ -53,7 +55,7 @@ export class TeacherComponent implements OnInit {
   constructor(private router: Router,
               private http: HttpClient,
               private httpClient: HttpClient,
-              private auth: AuthService,
+              public auth: AuthService,
               private modalService: NgbModal) {
   }
 
@@ -61,7 +63,62 @@ export class TeacherComponent implements OnInit {
     this.currentUser = this.auth.getCurrentUser();
     this.currentUserID = this.currentUser._id;
     this.getTeacherSchedule();
+    this.getStudents();
+    this.getTasks();
   }
+
+  EditInfo(updatedFirstName, updatedMiddleName, updatedLastName,
+           updatedStreet, updatedCity, updatedState, updatedZip,
+           updatedBirthday, updatedPhone, updatedAbout) {
+
+    let updatedUser = {
+      name: {
+        firstName: updatedFirstName,
+        middleName: updatedMiddleName,
+        lastName: updatedLastName
+      },
+      address: {
+        street: updatedStreet,
+        city: updatedCity,
+        state: updatedState,
+        zip: updatedZip
+      },
+      birthday: updatedBirthday,
+      phone: updatedPhone,
+      about: updatedAbout,
+    };
+
+    this.http.patch(appConfig.apiUrl + '/user/updateUser/' + this.currentUser._id, updatedUser, this.httpOptions).subscribe(
+      (res: any) => {
+
+        localStorage.setItem('authentication', res.data);
+
+        this.modalref.close();
+
+        new Noty({
+          type: 'success',
+          text: `You've been successfully updated your info!`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+
+        setTimeout(function() {
+          location.reload();
+        }, 3500);
+      },
+      error => {
+        new Noty({
+          type: 'error',
+          text: error.error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+
+      });
+
+
+  }
+
 
   onUploadFinished(event) {
 
@@ -161,6 +218,17 @@ export class TeacherComponent implements OnInit {
 
 
   updateTeacherSchedule(Slot, newtitle, newdescription, newurl, thisday) {
+    console.log(newtitle +"title here");
+    if (newtitle === "") {
+      newtitle = Slot.slot.title;
+    }
+   if(newdescription === ""){
+     newdescription = Slot.slot.description;
+    }
+   if (newurl === ""){
+     newurl = Slot.slot.url;
+    }
+
     var body = {
       title: newtitle,
       description: newdescription,
@@ -231,6 +299,74 @@ export class TeacherComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+
+tasks = [];
+  getTasks() {
+    this.http.get(appConfig.apiUrl + '/task/getTasks/', this.httpOptions)
+      .subscribe((res: any) => {
+        this.tasks = res.data;
+        console.log(res.data);
+      });
+
+  }
+
+
+students = [];
+
+  getStudents() {
+    this.http.get(appConfig.apiUrl + '/user/getMyStudents/', this.httpOptions)
+      .subscribe((res: any) => {
+        this.students = res.data
+      });
+
+  }
+
+
+  createNewTask(taskName, tasksDescription, studentId) {
+
+    var taskdata = {
+      title: taskName,
+      description: tasksDescription,
+      userId: this.currentUser._id,
+      studentId: studentId
+    };
+
+    console.log(taskdata);
+
+
+    this.http.post('http://localhost:3000/api/task/newTask', taskdata, this.httpOptions).subscribe(
+      (res: any) => {
+
+        this.getTasks();
+
+        new Noty({
+          type: 'success',
+          text: `You've been successfully created New tasks!`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+        this.modalref.close();
+      },
+      error => {
+        new Noty({
+          type: 'error',
+          text: error.error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      });
+
+  }
+
+  viewChild(childID) {
+    this.router.navigate(['profile', childID]);
+  }
+
+  viewTask(taskId) {
+    console.log(taskId);
+    this.router.navigate(['schedule/viewtask/', taskId]);
   }
 
 

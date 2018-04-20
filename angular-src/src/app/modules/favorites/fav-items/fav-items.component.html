@@ -1,0 +1,39 @@
+<div class="container" *ngIf="itemsInitialized">
+
+  <ng-container *ngFor="let item of items | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
+    <div class="row mt-3 wow fadeIn">
+
+      <!--Image thumbnail-->
+      <div class="col-lg-5 col-xl-4 mb-4">
+        <!--Featured image-->
+        <div class="view overlay rounded z-depth-1">
+          <img [src]="(item.picture_url)? IMG_URL + item.picture_url : IMG_URL + 'itemDefault'" class="img-thumbnail" alt="Item-thumbnail"
+          />
+          <a style="cursor: pointer;" [routerLink]="['/store','view',item._id]">
+            <div class="mask"></div>
+          </a>
+        </div>
+      </div>
+      <!--Image thumbnail-->
+
+      <!--Actual content-->
+      <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
+        <br>
+        <h3 class="mb-3 font-weight-bold dark-grey-text">
+          <a style="cursor: pointer;" [routerLink]="['/store','view',item._id]">
+            <strong>{{item.name}}</strong>
+          </a>
+        </h3>
+        <p>
+          <em *ngIf="!item.item_type">No type defined for this item</em>
+          <strong *ngIf="item.item_type">
+            Type: {{item.item_type}}
+          </strong>
+        </p>
+        <br>
+      </div>
+      <!--Actual content-->
+    </div>
+    <hr class="mb-5">
+  </ng-container>
+</div>

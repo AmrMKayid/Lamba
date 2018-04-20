@@ -13,40 +13,39 @@ export class HeaderComponent implements OnInit {
   currentUser;
 
   constructor(private translate: TranslateService, public router: Router, private auth: AuthService) {
-    this.currentUser = this.auth.getCurrentUser();
-    this.translate.addLangs(['en', 'fr', 'ur', 'es', 'it', 'fa', 'de', 'zh-CHS']);
-    this.translate.setDefaultLang('en');
-    const browserLang = this.translate.getBrowserLang();
-    this.translate.use(browserLang.match(/en|fr|ur|es|it|fa|de|zh-CHS/) ? browserLang : 'en');
-
-    this.router.events.subscribe(val => {
-      if (
-        val instanceof NavigationEnd &&
-        window.innerWidth <= 992 &&
-        this.isToggled()
-      ) {
-        this.toggleSidebar();
-      }
-    });
+    this.currentUser = this.auth.getCurrentUser(); 
   }
 
   ngOnInit() {
   }
 
-  isToggled(): boolean {
-    const dom: Element = document.querySelector('body');
-    return dom.classList.contains(this.pushRightClass);
+  logout() {
+    this.auth.logout();
   }
-
-  toggleSidebar() {
-    const dom: any = document.querySelector('body');
-    dom.classList.toggle(this.pushRightClass);
+  isLoggedIn() {
+    return localStorage.getItem('authentication');
   }
-
-
-  onLoggedout() {
-    localStorage.removeItem('isLoggedin');
+  hideNavbar(){
+    if(this.router.url == '/profile/admin/dashboard')
+    return true;
+    if(this.router.url == '/profile/admin/un-verified-articles')
+    return true;
+    if(this.router.url == '/profile/admin/un-verified-activities')
+    return true;
+    if(this.router.url=='/profile/admin/verify-teachers')
+    return true;
+    if(this.router.url=='/profile/admin/add-admin')
+    return true;
+    if(this.router.url=='/profile/admin/verification-requests')
+    return true;
+    return false;
+       
   }
-
-
+  isAdmin() {
+    if (this.auth.getCurrentUser().role == 'Admin') {
+      return true;
+    }
+    return false;
+  }
+  
 }

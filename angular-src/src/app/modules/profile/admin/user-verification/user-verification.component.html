@@ -1,0 +1,37 @@
+<div [@routerTransition]>
+    <div class="container">
+        <h2  style="text-align:center;font-weight:bold;">Interview Requests</h2>
+        <div class="text-center" *ngIf='interviewRequests.length==0'>
+            <h1>There are currently no interview requests</h1>
+            <button class="btn btn-sm"  style="background-color:#f16138;font-weight:bold" routerLink="/profile/admin/dashboard" [routerLinkActive]="['router-link-active']">Back to DashbBoard</button>
+
+          </div>
+            <br>
+    <div class="row">
+      <div class="col-lg-4 col-md-4" *ngFor="let interview of interviewRequests">
+          
+        <div class="card">
+          <div class="card-header" style="background-color:#ffc335;">
+              <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+          </div>
+          <div class="card-body">
+            <p><i class="fa fa-fw fa-user" aria-hidden="true"></i><strong>Name: </strong><a style="cursor: pointer;" [routerLink]="['/profile',interview.owner_id]">{{ interview.firstName+" "+interview.lastName}}</a></p>
+            <p><i class="fa fa-fw fa-envelope" aria-hidden="true"></i><strong>Contact Email: </strong><a style="cursor: pointer;" >{{ interview.contactEmail}}</a></p>
+            <p><i class="fa fa-fw fa-phone" aria-hidden="true"></i><strong>Contact Number: </strong><a style="cursor: pointer;">{{ interview.contactNumber}}</a></p>
+
+          </div>
+    
+          <div class="text-muted text-center">
+            <button class="badge badge-pill btn-success" (click)="verifyUser(interview._id,interview.owner_id)" style="cursor: pointer;">VERIFY</button>
+            <span><button class="badge badge-pill btn-danger" (click)="rejectUser(interview._id)" style="cursor: pointer;" >REJECT</button></span>  
+          </div>
+          <br>
+        </div>
+        <br>
+      </div>
+      
+    </div>
+    <br>
+  
+</div>
+</div>

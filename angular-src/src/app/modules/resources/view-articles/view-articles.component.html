@@ -16,17 +16,15 @@
       </a>
     </div>
   </section>
-  <div class="row ">
+  <div class="row search-container">
     <div class="col-md-6">
       <div class="card my-4 text-center">
         <h5 class="card-header">
           <i class="fa fa-filter mr-2" aria-hidden="true"></i>Filter by tags</h5>
         <div class="card-body">
-          <tag-input [(ngModel)]="selectedTags" [onlyFromAutocomplete]="true" (onRemove)="onTagsChanged()"
-                     (onTextChange)="onTagsChanged()">
-            <tag-input-dropdown [showDropdownIfEmpty]="true" [dynamicUpdate]="false" [focusFirstElement]="true"
-                                [displayBy]="'value'"
-                                [identifyBy]="'id'" [autocompleteItems]="allTags">
+          <tag-input [(ngModel)]="selectedTags" [onlyFromAutocomplete]="true" (onRemove)="onTagsChanged()" (onTextChange)="onTagsChanged()">
+            <tag-input-dropdown [showDropdownIfEmpty]="true" [dynamicUpdate]="false" [focusFirstElement]="true" [displayBy]="'value'"
+              [identifyBy]="'id'" [autocompleteItems]="allTags">
               <ng-template let-item="item">
                 {{ item.value }}
               </ng-template>
@@ -49,19 +47,15 @@
 
   <section class="pt-5" *ngIf="articlesInitialized && tagsInitialized">
     <!-- ARTICLE -->
-    <ng-container
-      *ngFor="let article of articles | filterByTags: filterTagsIDs | filter: keyword | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
+    <ng-container *ngFor="let article of articles | filterByTags: filterTagsIDs | filter: keyword | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
       <div class="row mt-3 wow fadeIn">
 
         <!--Image thumbnail-->
-        <!-- TODO: Actually retrieve the image from the database :( -->
         <div class="col-lg-5 col-xl-4 mb-4">
           <!--Featured image-->
           <div class="view overlay rounded z-depth-1">
-            <img
-              src="https://i2.wp.com/penpaperpencil.net/wp-content/uploads/2016/01/Drawing-pencils-guide.jpg?fit=900%2C490"
-              class="img-fluid"
-              alt="Article-thumbnail">
+            <img [src]="(article.thumbnail_url)? IMG_URL + article.thumbnail_url : IMG_URL + 'articleDefault'"
+              class="img-fluid" alt="Article-thumbnail" />
             <a style="cursor: pointer;" [routerLink]="['id',article._id]">
               <div class="mask"></div>
             </a>
@@ -77,8 +71,8 @@
             </a>
           </h3>
           <p class="grey-text">Posted by
-            <a style="cursor: pointer;" [routerLink]="['/profile',article.owner_id._id]" class="name-capitalize">{{article.owner_id.name.firstName}}
-              {{article.owner_id.name.lastName}}</a>
+            <a style="cursor: pointer;" [routerLink]="['/profile',article.owner_id._id]" class="name-capitalize">{{article.owner_id.name.firstName}} {{article.owner_id.name.lastName}}
+            </a>
           </p>
           <h4>Rating:
             <i class="fa fa-thumbs-up mr-2">{{article.upvoters.length}}</i>

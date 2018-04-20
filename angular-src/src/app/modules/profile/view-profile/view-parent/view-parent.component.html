@@ -19,15 +19,87 @@
     <!--Title-->
     <h3 class="card-title"><strong>{{user.name.firstName}} {{user.name.lastName}}</strong></h3>
     <h4 class="indigo-text"><strong>{{user.role}}</strong></h4>
-    <h5 class="indigo-text" *ngIf="user.address"><strong>{{user.address.street}}, {{user.address.city}},
-      {{user.address.state}}, {{user.address.zip}}</strong></h5>
 
-
-    <button class="btn btn-deep-orange">Connect</button>
 
     <div class="mt-5">
 
       <ngb-tabset class="nav-justified">
+
+        <ngb-tab title="Info">
+          <ng-template ngbTabContent>
+
+            <div class="container">
+
+              <div class="row mt-3">
+
+                <table class="table table-striped table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Info</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <th scope="row">First Name:</th>
+                    <th scope="row">{{user.name.firstName}}</th>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Middle Name:</th>
+                    <th scope="row" >{{user.name.middleName!}}</th>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Last Name:</th>
+                    <th scope="row">{{user.name.lastName}}</th>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Birthday:</th>
+                    <th scope="row">{{user.birthday! | date}}</th>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Phone:</th>
+                    <th scope="row">{{user.phone!}}</th>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Street:</th>
+                    <th scope="row">{{user.address?.street!}}</th>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">City:</th>
+                    <th scope="row">{{user.address?.city!}}</th>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Country:</th>
+                    <th scope="row">{{user.address?.state!}}</th>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Zip Code:</th>
+                    <th scope="row">{{user.address?.zip!}}</th>
+                  </tr>
+
+
+                  <tr>
+                    <th scope="row">About:</th>
+                    <th scope="row">{{user.about!}}</th>
+                  </tr>
+
+                  </tbody>
+                </table>
+
+              </div>
+
+            </div>
+
+          </ng-template>
+        </ngb-tab>
 
 
       </ngb-tabset>
