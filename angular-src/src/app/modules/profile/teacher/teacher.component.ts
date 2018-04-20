@@ -55,7 +55,7 @@ export class TeacherComponent implements OnInit {
   constructor(private router: Router,
               private http: HttpClient,
               private httpClient: HttpClient,
-              private auth: AuthService,
+              public auth: AuthService,
               private modalService: NgbModal) {
   }
 
