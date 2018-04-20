@@ -7,6 +7,9 @@ import {Router} from '@angular/router';
 import {AuthService} from "../../../../services/auth.service";
 import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 
+
+import {ActivatedRoute} from "@angular/router";
+
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
@@ -14,7 +17,7 @@ import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-boots
 })
 export class ViewComponent implements OnInit {
 
-  myitems= [];
+  myitems: any[];
   itemId: string;
   name: string;
   price: number;
@@ -31,11 +34,11 @@ export class ViewComponent implements OnInit {
     private router: Router,
     private storeservice: StoreService,
     private auth: AuthService,
-    private modalService: NgbModal) {
+    private modalService: NgbModal,
+    private route: ActivatedRoute) {
 
-
-
-      this.getMyItems()
+            this.route.data = this.item;
+            this.getMyItems()
 }
 
 editItem(item) {
@@ -110,11 +113,6 @@ editItem(item) {
 
   }
 
-  update(item) {
-
-    localStorage.setItem("Update", JSON.stringify(item));
-   // this.router.navigate(["/store/myitems/update"]);
-  }
 
 
   ngOnInit() {
