@@ -33,7 +33,7 @@ export class VerifyTeacherComponent implements OnInit {
         this.Teachers = res.data;
       }, err => {
         new Noty({
-          type: 'success',
+          type: 'error',
           text: err.error.msg,
           timeout: 2000,
           progressBar: true
@@ -54,7 +54,7 @@ export class VerifyTeacherComponent implements OnInit {
       },
         err => {
           new Noty({
-            type: 'success',
+            type: 'error',
             text: err.error.msg,
             timeout: 2000,
             progressBar: true
@@ -76,7 +76,7 @@ export class VerifyTeacherComponent implements OnInit {
     },
       err => {
         new Noty({
-          type: 'success',
+          type: 'error',
           text: err.error.msg,
           timeout: 2000,
           progressBar: true
