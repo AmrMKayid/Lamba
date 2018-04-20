@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+const Message = require('./message.model');
 
 const UniqueUserSchema = new mongoose.Schema({});
 
@@ -233,6 +234,8 @@ const UserSchema = new mongoose.Schema({
         default: Date.now()
     },
 
+    messages: [{type: mongoose.Schema.Types.ObjectId, ref: 'Message'}],
+
     myItems: [String],
     cart: [String],
     interests: [String],
@@ -378,6 +381,7 @@ const UserSchema = new mongoose.Schema({
         activities: [String]
     }
 });
+
 
 // Override the transform function of the schema to delete the password before it returns the object
 

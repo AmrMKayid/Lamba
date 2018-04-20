@@ -28,7 +28,8 @@
       "scripts": [
         "../node_modules/chart.js/dist/Chart.js",
         "../node_modules/hammerjs/hammer.min.js",
-        "../node_modules/noty/lib/noty.min.js"
+        "../node_modules/noty/lib/noty.min.js",
+		"../node_modules/jquery/dist/jquery.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

@@ -16,6 +16,7 @@ export class TaskComponent implements OnInit {
   }
 
   taskId: String;
+  p: any;
 
   httpOptions = {
     headers: new HttpHeaders({
