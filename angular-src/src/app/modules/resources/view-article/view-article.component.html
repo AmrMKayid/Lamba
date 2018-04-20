@@ -4,7 +4,6 @@
     <div class="row">
       <div class="col-md-8 mb-4">
         <!--Featured Image-->
-        <!-- TODO: ADD IMAGE THUMBNAIL -->
         <div class="card mb-4 wow fadeIn">
           <img src="{{pic_url}}" class="img-fluid" alt="">
         </div>
@@ -39,15 +38,11 @@
           <!--Card content-->
           <div class="card-body">
             <div class="media d-block d-md-flex mt-3">
-              <!-- TODO: ADD PROFILE PICTURE -->
               <img class="d-flex mb-3 mx-auto z-depth-1" [src]="IMG + author.photo" alt="Generic placeholder image" style="width: 100px;">
-              <div class="media-body text-center text-md-left ml-md-3 ml-0 name-capitalize">
-                <h5 class="mt-0 font-weight-bold">{{author.name.firstName + ' ' + author.name.lastName}}
+              <div class="media-body text-center text-md-left ml-md-3 ml-0">
+                <h5 class="mt-0 font-weight-bold name-capitalize">{{author.name.firstName + ' ' + author.name.lastName}}
                 </h5>
-                <!-- TODO: Add about author, from the backend getArticle would populate an about as well -->
-                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti
-                quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
-                qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
+                {{(author.about)? author.about: "This user didn't enter any information about him/herself."}}
               </div>
             </div>
           </div>
@@ -76,39 +71,8 @@
                   <a class="name-capitalize" style="cursor: pointer;" [routerLink]="['/profile',comment.commenter._id]">
                     {{comment.commenter.name.firstName}} {{comment.commenter.name.lastName}}
                   </a>
-                  <!-- <a style="cursor: pointer;" (click)="showReply(i)" role="button" class="text-primary pull-right">
-                    <i class="fa fa-reply"></i>
-                  </a> -->
                 </h5>
                 {{comment.comment_content}}
-
-                <!-- <div class="form-group mt-4" *ngIf="replies[i].showReply">
-                  <hr>
-                  <h4 class="text-center text-primary">
-                    <strong>Leave a reply</strong>
-                  </h4>
-                  <textarea class="form-control" [(ngModel)]="replies[i].replyContent" name="Reply"
-                            placeholder=" Your reply goes here ..."
-                            rows="3"></textarea>
-
-                  <div class="text-center">
-                    <button class="btn btn-info btn-sm" type="submit"
-                            (click)="reply(i,comment._id,replies[i].replyContent)">Reply
-                    </button>
-                  </div>
-                </div> -->
-
-                <!-- <div class="media d-block d-md-flex mt-3" *ngFor="let reply of comment.replies">
-                  <img class="d-flex mb-3 mx-auto " src="https://mdbootstrap.com/img/Photos/Avatars/img (27).jpg"
-                       alt="Generic placeholder image">
-                  <div class="media-body text-center text-md-left ml-md-3 ml-0">
-                    <h5 class="mt-0 font-weight-bold">
-                      <a style="cursor: pointer;" class="name-capitalize" [routerLink]="['/profile',reply.replier._id]">
-                        {{reply.replier.name.firstName}} {{reply.replier.name.lastName}} </a>
-                    </h5>
-                    {{reply.reply_content}}
-                  </div>
-                </div> -->
               </div>
             </div>
             <div style="text-align: center;">
@@ -183,7 +147,7 @@
           <br>
 
         </div>
-        <div *ngIf="currentUserId == article.owner_id" class="card mb-4 text-center wow fadeIn">
+        <div *ngIf="isOwner" class="card mb-4 text-center wow fadeIn">
           <div class="card-header">
             <strong>Actions</strong>
           </div>
@@ -199,15 +163,17 @@
         </div>
         <div *ngIf="currentUserRole == 'Parent'" class="card mb-4 text-center wow fadeIn">
           <div class="card-header">
-            <strong>Assign Children</strong>
+            <strong>Assign to one of your children</strong>
           </div>
-
           <div class="card-body">
-
-            <a class="btn btn-primary btn-block" (click)="assign()" role="button">
-              <i aria-hidden="true"></i>Assign
+            <select class="custom-select" [(ngModel)]="selectedChild" name="selected-child">
+              <option *ngFor="let child of children" [value]="child._id">{{ child.name.firstName + ' ' + child.name.lastName }}</option>
+            </select>
+            <br>
+            <br>
+            <a role="button" class="btn btn-primary btn-block" (click)="assignChild()">Assign
+              <i class="fa fa-check"></i>
             </a>
-
           </div>
 
         </div>

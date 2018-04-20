@@ -8,12 +8,15 @@ import {AllUsersComponent} from "./shared/all-users/all-users.component";
 import {RegisterRoleComponent} from './shared/register-role/register-role.component';
 import {NotificationsComponent} from './shared/notifications/notifications.component';
 import {RequestsComponent} from './shared/requests/requests.component';
+import {InterestsComponent} from "./shared/interests/interests.component";
+
 
 const appRoutes: Routes = [
   {path: '', component: HomepageComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'register-role', component: RegisterRoleComponent},
+  {path: 'interests', component: InterestsComponent},
   {path: 'users', component: AllUsersComponent},
   {path: 'notifications',canActivate: [AuthGuard], component:NotificationsComponent},
   {path: 'requests',canActivate: [AuthGuard], component:RequestsComponent},
@@ -22,6 +25,7 @@ const appRoutes: Routes = [
   {path: 'resources', canActivate: [AuthGuard], loadChildren: './modules/resources/resources.module#ResourcesModule'},
   {path: 'store', canActivate: [AuthGuard], loadChildren: './modules/store/store.module#StoreModule'},
   {path: 'event', canActivate: [AuthGuard], loadChildren: './modules/event/event.module#EventModule'},
+  {path: 'favorites', canActivate: [AuthGuard], loadChildren: './modules/favorites/favorites.module#FavoritesModule'},
 
   // otherwise redirect to shared
   {path: '', redirectTo: '/', pathMatch: 'full'},

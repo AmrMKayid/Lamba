@@ -14,7 +14,7 @@ export class RegisterRoleComponent implements OnInit {
   }
 
   chosenRole(role) {
-    this.router.navigate(['register'], {queryParams: {role: role}});
+    this.router.navigate(['interests'], {queryParams: {role: role}});
   }
 
   ngOnInit() {

@@ -29,19 +29,16 @@ import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatFormFieldModule } from '@angular/material';
 import {ArticlesService} from '../resources/articles.service';
-
-
-// import {
-//   TimelineComponent,
-//   NotificationComponent,
-//   ChatComponent
-// } from './admin/dashboard/components';
-
 import {MyProfileComponent} from './my-profile/my-profile.component';
 import { AddTagsComponent } from './admin/add-tags/add-tags.component';
 import {MatInputModule} from '@angular/material';
 import { DeleteTagsComponent } from './admin/delete-tags/delete-tags.component';
 import { UnVerifiedActivitiesComponent } from './admin/un-verified-activities/un-verified-activities.component';
+import { AddAdminComponent } from './admin/add-admin/add-admin.component';
+import { AdminFormComponent } from './admin/admin-form/admin-form.component';
+import {SafeHtmlPipe} from './admin/un-verified-articles/safe-html.pipe';
+import { UserVerificationComponent } from './admin/user-verification/user-verification.component';
+import { InterviewRequestComponent } from './interview-request/interview-request.component';
 const appRoutes: Routes = [
   {
     path: 'me',
@@ -66,8 +63,18 @@ const appRoutes: Routes = [
       {
         path: 'verify-teachers',
         component: VerifyTeacherComponent
+      },
+      {
+      path: 'add-admin',
+      component: AddAdminComponent
+      },{
+      path: 'verification-requests',
+      component: UserVerificationComponent
       }
     ]
+  },{
+    path:'request-interview',
+    component:InterviewRequestComponent
   },
   {
     path: ':id',
@@ -105,20 +112,23 @@ const appRoutes: Routes = [
     ViewChildComponent,
     SidebarComponent,
     DashboardComponent,
-    // TimelineComponent,
-    // NotificationComponent,
-    // ChatComponent,
     MyProfileComponent,
     AddTagsComponent,
     DeleteTagsComponent,
-    UnVerifiedActivitiesComponent
+    UnVerifiedActivitiesComponent,
+    AddAdminComponent,
+    AdminFormComponent,
+    SafeHtmlPipe,
+    UserVerificationComponent,
+    InterviewRequestComponent
+
   ],
   providers: [
     HttpClient,
     ArticlesService
   ],
   bootstrap: [ProfileComponent, AdminComponent],
-  entryComponents: [AddTagsComponent,DeleteTagsComponent]
+  entryComponents: [AddTagsComponent,DeleteTagsComponent,AdminFormComponent]
 
 })
 export class ProfileModule {
