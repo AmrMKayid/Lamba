@@ -20,27 +20,27 @@ export class UpdateComponent implements OnInit {
   quantity: number;
   item_type: string;
   item_condition: string;
-  newOrEdit = false;
-  createNew = false;
-  editPressed = false;
-  reverse: boolean = false;
   picture_url: string;
-  Name;
-
-  sort(key) {
-    this.key = key;
-    this.reverse = !this.reverse;
-  }
+  itemString: any;
+  item: any;
 
   constructor(private http: Http,
               private router: Router,
               private storeservice: StoreService,) {
+
+                this.itemString = localStorage.getItem("Update");
+                this.item = JSON.parse(this.itemString);
+                this.name= this.item.name;
+                this.price = this.item.price;
+                this.description = this.item.description;
+                this.quantity = this.item.quantity;
+                this.item_type = this.item.item_type ;
+                this.item_condition = this.item.item_condition ;
   }
 
 
   editItem() {
-    var itemString = localStorage.getItem("Update");
-    var item = JSON.parse(itemString)._id;
+    var itemId = this.item._id;
 
     let editedItem = {
       name: this.name,
@@ -52,7 +52,7 @@ export class UpdateComponent implements OnInit {
       updated_at: Date.now()
     };
 
-    this.http.patch('http://localhost:3000/api/store/edit/' + item, editedItem)
+    this.http.patch('http://localhost:3000/api/store/edit/' + itemId, editedItem)
       .subscribe(res => {
         new Noty({
           type: 'success',
