@@ -42,6 +42,38 @@
           <div class="activityInfo" (click)="viewInfo(activity['_id'])"><i class="fa fa-info"></i></div>
           <div class="activityGoing"><i class="fa fa-heart" (click)="goingActivities(activity)"></i></div>
 
+
+
+          <ng-template #content let-c="close" let-d="dismiss">
+            <div class="modal-header">
+              <h4 class="modal-title">Register your Child</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                  <div class="col-12">
+                    <div *ngFor='let child of children'>
+
+                      <div class="" *ngIf="!child['registered']">
+
+                        <h1>{{child['name']['firstName']}} {{child['name']['lastName']}}</h1>
+                        <button type="button" name="button" (click)="registerChild(activity['_id'],child['_id']);d('Cross click')">Register</button>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+
+
+          <button class="btn btn-unique waves-light float-right" (click)="open(content,activity['_id'])">Register Child</button>
+
         </div>
 
       </div>
