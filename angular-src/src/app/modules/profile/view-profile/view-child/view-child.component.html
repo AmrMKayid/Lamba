@@ -13,7 +13,7 @@
   <!--Card content-->
   <div class="card-body text-center">
     <div class="avatar">
-      <img src="http://localhost:3000/api/uploads/store/{{child.photo}}" class="rounded-circle">
+      <img src="{{apiConfig.apiUrl}}/uploads/store/{{child.photo}}" class="rounded-circle">
     </div>
 
     <!--Title-->
@@ -949,7 +949,7 @@
                 <div class="col-lg-3 col-md-4 col-sm-6 myCard" *ngFor="let user of teachers">
 
                       <div class="card">
-                        <img src="http://localhost:3000/api/uploads/store/{{user.photo}}" class="card-img-top rounded-circle mt-2">
+                        <img src="{{apiConfig.apiUrl}}/uploads/store/{{user.photo}}" class="card-img-top rounded-circle mt-2">
                         <div class="card-block">
                           <h4 class="card-title mt-3 grey-text">{{ user.name.firstName }} {{ user.name.lastName }}</h4>
                         </div>

@@ -28,7 +28,7 @@
 
       <div class='activity' *ngFor='let activity of activities'>
 
-        <img src="http://127.0.0.1:3000/api/uploads/activity/{{activity['picture_url']}}" class="imgw100prec">
+        <img src="{{apiConfig.apiUrl}}/uploads/activity/{{activity['picture_url']}}" class="imgw100prec">
 
         <div class="activityBody">
 

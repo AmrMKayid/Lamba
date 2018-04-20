@@ -12,7 +12,7 @@
   <div class="card-body text-center">
     <div class="avatar">
       <a (click)="open(img)">
-        <img src="http://localhost:3000/api/uploads/store/{{currentUser?.photo}}" class="rounded-circle">
+        <img src="{{apiConfig.apiUrl}}/uploads/store/{{currentUser?.photo}}" class="rounded-circle">
       </a>
       <ng-template #img let-c="close" let-d="dismiss">
         <div class="modal-header">
@@ -843,7 +843,7 @@
                   <div class="col-lg-3 col-md-4 col-sm-6 myCard" *ngFor="let child of students">
                     <div class="card">
                       <img class="card-img-top rounded-circle mt-2"
-                           src="http://localhost:3000/api/uploads/store/{{child.photo}}">
+                           src="{{apiConfig.apiUrl}}/uploads/store/{{child.photo}}">
                       <div class="card-block">
                         <h4 class="card-title mt-3 grey-text">{{ child.name.firstName }} {{ child.name.lastName }}</h4>
                       </div>
@@ -927,7 +927,7 @@
           <div class="card-body text-center">
             <div class="avatar">
               <a (click)="open(img)">
-                <img src="http://localhost:3000/api/uploads/store/{{currentUser?.photo}}" class="rounded-circle">
+                <img src="{{apiConfig.apiUrl}}/uploads/store/{{currentUser?.photo}}" class="rounded-circle">
               </a>
               <ng-template #img let-c="close" let-d="dismiss">
                 <div class="modal-header">
@@ -1758,7 +1758,7 @@
                           <div class="col-lg-3 col-md-4 col-sm-6 myCard" *ngFor="let child of students">
                             <div class="card">
                               <img class="card-img-top rounded-circle mt-2"
-                                   src="http://localhost:3000/api/uploads/store/{{child.photo}}">
+                                   src="{{apiConfig.apiUrl}}/uploads/store/{{child.photo}}">
                               <div class="card-block">
                                 <h4 class="card-title mt-3 grey-text">{{ child.name.firstName }} {{ child.name.lastName }}</h4>
                               </div>

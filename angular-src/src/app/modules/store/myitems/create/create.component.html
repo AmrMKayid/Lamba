@@ -38,7 +38,7 @@
 
     <div class="row">
       <div class="col">
-        <image-upload [headers]="{authorization: token}" [max]="1" [url]="'http://127.0.0.1:3000/api/store/upload'" [dropBoxMessage]="'Drop your image here!'" [buttonCaption]="'Upload an Image'" [style]="customStyle" (uploadFinished)="onUploadFinished($event)"
+        <image-upload [headers]="{authorization: token}" [max]="1" [url]="'{{apiConfig.apiUrl}}/store/upload'" [dropBoxMessage]="'Drop your image here!'" [buttonCaption]="'Upload an Image'" [style]="customStyle" (uploadFinished)="onUploadFinished($event)"
           mdbInputDirective>
         </image-upload>
       </div>
