@@ -30,7 +30,6 @@
     "socketio-jwt-auth": "0.0.6",
     "prompt-sync": "^4.1.6",
     "watson-developer-cloud": "^3.3.0"
-
   },
   "devDependencies": {
     "@angular/cli": "^1.7.3",
