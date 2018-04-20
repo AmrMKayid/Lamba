@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
 import {Http, Headers} from '@angular/http';
-import {ToasterContainerComponent, ToasterService} from 'angular5-toaster';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 import {EventService} from '../../../../services/event.service';
 import {Router} from '@angular/router';
@@ -16,7 +15,6 @@ export class ViewComponent implements OnInit {
   myactivities: any;
 
   constructor(private http: Http,
-              private toaster: ToasterService,
               private router: Router,
               private eventservice: EventService,) {
     this.getMyActivities()
@@ -37,12 +35,12 @@ export class ViewComponent implements OnInit {
   deleteActivity(activityId) {
     this.http.delete('http://localhost:3000/api/activity/delete/' + activityId)
       .subscribe(res => {
-        this.toaster.pop({
+        new Noty({
           type: 'error',
-          title: "Deleted!",
-          body: "Deleted",
-          timeout: 3000
-        });
+          text: "Deleted!",
+          timeout: 3000,
+          progressBar: true
+        }).show();
 
         this.getMyActivities();
 
