@@ -50,4 +50,16 @@ export class EventService {
     return this.http.get('http://127.0.0.1:3000/api/activity/myactivities/view/' + id, {headers: headers}).map((res) => res.json());
   }
 
+  getChildren(user){
+    return this.httpc.get("http://127.0.0.1:3000/api/user/getUserChildren/"+user['_id'], this.options);
+  }
+
+  registerChild(activityID,childID){
+    let param = {
+      "activityID":activityID,
+      "childId":childID
+    };
+    return this.httpc.post(this.base_address + "registerChild",param, this.options);
+  }
+
 }
