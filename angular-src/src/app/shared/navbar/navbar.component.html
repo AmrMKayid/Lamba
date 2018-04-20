@@ -67,7 +67,7 @@
       </li>
 
       <li class="nav-item d-none d-lg-block d-md-block d-xl-block" *ngIf="isLoggedIn()">
-        <a class="nav-link waves-effect waves-light">1
+        <a class="nav-link waves-effect waves-light" [routerLink]="['/chat']">{{chatCount}}
           <i class="fa fa-envelope"></i>
         </a>
       </li>

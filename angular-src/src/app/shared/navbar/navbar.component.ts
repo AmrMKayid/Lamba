@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
+import {ChatService} from "../../services/chat.service";
+
 
 @Component({
   selector: 'app-navbar',
@@ -10,8 +12,9 @@ export class NavbarComponent implements OnInit {
 
   currentUser;
   public role;
-
-  constructor(private auth: AuthService) {
+  chatCount;
+  constructor(private auth: AuthService,
+              private chat: ChatService) {
   }
 
   ngOnInit() {
@@ -19,6 +22,9 @@ export class NavbarComponent implements OnInit {
       this.currentUser = this.auth.getCurrentUser();
       if (this.auth.getCurrentUser().role)
         this.role = (this.auth.getCurrentUser().role).toLowerCase();
+        this.chat.getAllChats().subscribe((res:any)=>{
+          this.chatCount = res.data.length;
+        })
     }
   }
 
