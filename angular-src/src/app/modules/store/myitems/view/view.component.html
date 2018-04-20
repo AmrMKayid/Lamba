@@ -1,38 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <style>
-    table {
-      font-family: arial, sans-serif;
-      border-collapse: collapse;
-      width: 100%;
-    }
-
-    td, th {
-      border: 1px solid #dddddd;
-      text-align: left;
-      padding: 8px;
-      font-size: 1em;
-      font-weight: bold;
-
-    }
-
-    tr:nth-child(even) {
-      background-color: #dddddd;
-    }
-
-    /* p {
-    }
-    p.thick {
-    } */
-  </style>
-</head>
-
-
-<toaster-container></toaster-container>
-
-
-<div>
+<!-- <div>
   <table style="width:100%">
     <tr>
       <th>Index</th>
@@ -61,6 +27,133 @@
       </th>
     </tr>
   </table>
+</div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+
+<div class="col-lg-4 col-md-6 mb-3" *ngFor='let item of myitems'>
+  <div class="card h-100">
+    <img class="card-img-top myImg"  src="http://127.0.0.1:3000/api/uploads/store/{{item['picture_url']}}" alt="">
+    <div class="card-body">
+      <h4 class="card-title">
+        {{item['name']}}
+      </h4>
+      <h5>{{item['price'] | currency}}</h5>
+      <p class="card-text">{{item['description'] | slice:0:50 }} ...</p>
+    </div>
+    <div class="card-footer">
+      <div class="icon pull-right">
+        <a (click)="viewInfo(item['_id'])" placement="bottom" ngbTooltip="Info">
+          <i class="fa fa-info fa-2x mr-2" aria-hidden="true"></i>
+        </a>
+        <a (click)="deleteProduct(item._id)"  placement="bottom" ngbTooltip="Delete">
+          <i class="fa fa-trash fa-2x mr-2" aria-hidden="true"></i>
+        </a>
+        <a  (click)="open(content)" placement="bottom" ngbTooltip="Edit">
+          <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
+        </a>
+      </div>
+
+
+
+
+      <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+      <form>
+        <div class="md-form mb-0">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="md-form mb-0">
+                <input type="text" id="orangeForm-name" value ="{{item['name']}}" [(ngModel)]="item['name']" [ngModelOptions]="{standalone: true}" class="form-control" #name
+                       mdbActive>
+                <label for="orangeForm-name">name </label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form mb-0">
+                <input type="text" id="orangeForm-price" value ="{{item['price']}}" [(ngModel)]="item['price']" [ngModelOptions]="{standalone: true}"class="form-control" #price
+                       mdbActive>
+                <label for="orangeForm-price">price</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="md-form">
+          <input type="text" id="orangeForm-description" value ="{{item['description']}}" [(ngModel)]="item['description']" [ngModelOptions]="{standalone: true}"class="form-control" #description mdbActive>
+          <label for="orangeForm-description">description</label>
+        </div>
+        <div class="md-form">
+          <i class="material-icons prefix">quantity</i>
+          <input type="text" id="orangeForm-quantity" value ="{{item['quantity']}}" [(ngModel)]="item['quantity']" [ngModelOptions]="{standalone: true}"class="form-control" #quantity mdbActive>
+          <label for="orangeForm-quantity">quantity</label>
+        </div>
+        <div class="md-form">
+          <i class="material-icons prefix">item_type</i>
+          <input type="text" id="orangeForm-item_type" value ="{{item['item_type']}}" [(ngModel)]="item['item_type']" [ngModelOptions]="{standalone: true}" class="form-control" #item_type
+                 mdbActive>
+          <label for="orangeForm-item_type">item_type</label>
+        </div>
+        <div class="md-form">
+          <i class="material-icons prefix">item_condition</i>
+          <input type="text" id="orangeForm-item_condition" value ="{{item['item_condition']}}" [(ngModel)]="item['item_condition']" [ngModelOptions]="{standalone: true}"class="form-control" #item_condition
+                 mdbActive>
+          <label for="orangeForm-item_condition">item_condition</label>
+        </div>
+        <div class="text-center">
+          <div class="row">
+            <div class="col-6">
+              <button class="btn btn-deep-orange waves-light"
+                      (click)="update(item)"
+                      mdbRippleRadius>Update
+              </button>
+            </div>
+            <div class="col-6">
+              <button type="button" class="btn btn-blue-grey waves-light"
+                      (click)="c('Close click')" mdbRippleRadius> Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+</ng-template>
+
+
+
+
+
+
+
+      <div class="icon pull-left" style="line-height: 2.1em;">
+
+          <span>{{item['likes_user_id'].length}}</span> <i class="fa fa-heart fa-fw mr-2" style="color:red;" aria-hidden="true"></i>
+
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 
-</html>
+<div *ngIf='myitems.length==0' class="row">
+  <h5  class="m-auto pt-5">There are currently no items to be displayed</h5>
+</div>

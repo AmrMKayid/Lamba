@@ -1,95 +1,57 @@
-<toaster-container></toaster-container>
+<div class="card myCardSize">
 
-<style>
-  #file {
-    padding-left: 2%;
-  }
 
-  h2 {
-    color: #5495ff;
-    font-weight: bold;
-    margin-left: 4%;
-  }
-</style>
-
-<div class="card card-cascade wider">
-  <div class="card-header text-center">
-    <h1 class="text-center">Sell a new item</h1>
-  </div>
-  <div class="card-body">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-10 col-xs-10">
-          <input id="comment_field" class="form-control" type="text" placeholder="Product title" name="title"
-                 autocomplete="off" [(ngModel)]="name">
-        </div>
+  <form>
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Title" name="name" [(ngModel)]="name">
       </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Item type" name="item_type" [(ngModel)]="item_type">
+      </div>
+    </div>
 
-      <div class="row">
-        <div class="col-md-10 col-xs-10">
-          <input id="comment_field" class="form-control" type="number" placeholder="Quantity" name="quantity"
-                 autocomplete="off" min="0" [(ngModel)]="quantity">
-        </div>
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Price" name="quantity" type="number" [(ngModel)]="quantity">
       </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Quantity" name="price" type="number" [(ngModel)]="price">
+      </div>
+    </div>
 
-      <div class="row">
-        <div class="col-md-10 col-xs-10">
-          <input id="comment_field" class="form-control" type="number" placeholder="Price" name="price"
-                 autocomplete="off" min="0" [(ngModel)]="price">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-10 col-xs-10">
-          <input id="comment_field" class="form-control" type="text" placeholder="Item Type. e.g: toy, supplement, pet"
-                 name="itemtype" autocomplete="off" [(ngModel)]="item_type">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-10 col-xs-10">
-          <div class="form-group">
-            <select name="cars" class="form-control" [(ngModel)]="item_condition" id="select">
-              <option value="" selected disabled> Item condition</option>
+    <div class="form-group">
+      <textarea type="text" class="form-control" placeholder="Description" style="height: 100px; padding: 5px;" name="description" [(ngModel)]="description"></textarea>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <label>Item condition:</label>
+        <select multiple class="form-control" name="item_condition" [(ngModel)]="item_condition" id="select">
               <option value="Poor">Poor</option>
               <option value="Fair">Fair</option>
               <option value="Good">Good</option>
               <option value="Brand New">Brand New</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="row">
-        <div class="col-md-10 col-xs-10">
-          <textarea id="comment_field" class="form-control" placeholder="Describe your item" name="Description"
-                    autocomplete="off" rows="10" columns="30" [(ngModel)]="description"></textarea>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-10 col-xs-10">
-          <image-upload
-            [headers]="{authorization: token}"
-            [max]="1"
-            [url]="'http://127.0.0.1:3000/api/store/upload'"
-            [dropBoxMessage]="'Drop your image here!'"
-            [buttonCaption]="'Upload an Image'"
-            [style]="customStyle"
-            (uploadFinished)="onUploadFinished($event)"
-
-          >
-          </image-upload>
-
-        </div>
-      </div>
-      <br/>
-      <div class="row">
-        <div class="col-md-4 col-xs-4">
-          <div class="form-group">
-            <button (click)="onSubmit()" type="submit" class="btn btn-default" id="submit">Create New Item</button>
-          </div>
-        </div>
+      </select>
       </div>
     </div>
-  </div>
+
+    <div class="row">
+      <div class="col">
+        <image-upload [headers]="{authorization: token}" [max]="1" [url]="'http://127.0.0.1:3000/api/store/upload'" [dropBoxMessage]="'Drop your image here!'" [buttonCaption]="'Upload an Image'" [style]="customStyle" (uploadFinished)="onUploadFinished($event)"
+          mdbInputDirective>
+        </image-upload>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <button class="btn btn-unique waves-light" (click)="onSubmit()" mdbWavesEffect>Create</button>
+    </div>
+
+
+
+
+  </form>
+
+
 </div>

@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
 
   user: FormGroup;
   chosenRole;
+  interests;
 
   ngOnInit() {
     this.user = new FormGroup({
@@ -26,12 +27,14 @@ export class RegisterComponent implements OnInit {
       confirmPassword: new FormControl('', Validators.required),
       // TODO: SELECT ROLE IN SIGN UP
       role: new FormControl('', Validators.required),
+      interests: new FormControl('', Validators.required),
       gender: new FormControl('', Validators.required),
     });
   }
 
   onSubmit({value, valid}: { value: User, valid: boolean }) {
     value.role = this.chosenRole;
+    value.interests = this.interests;
     this.register(value);
   }
 
@@ -41,11 +44,11 @@ export class RegisterComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
       this.chosenRole = params['role'];
+      this.interests = params['interests'];
     });
   }
 
   register(value: any) {
-    console.log(value);
     this.authService.register(value)
       .subscribe(
         data => {
@@ -73,5 +76,6 @@ export interface User {
   password: string;
   confirmPassword: string;
   role: string;
+  interests: Array<string>;
   gender: string;
 };

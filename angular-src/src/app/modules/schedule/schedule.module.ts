@@ -20,7 +20,7 @@ const appRoutes: Routes = [
     component: TscheduleComponent,
   },
   {
-    path: 'viewtask',
+    path: 'viewtask/:id',
     component: TaskComponent,
   },
   {

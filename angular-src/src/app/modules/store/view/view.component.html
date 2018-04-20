@@ -1,6 +1,5 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<div class="page-list">
+<!-- <div class="page-list">
 
   <ul class="pagination pagination-lg">
     <li>
@@ -16,40 +15,45 @@
       </a>
     </li>
   </ul>
-</div>
-
-<section>
+</div> -->
 
 
-  <div class="main-container">
 
+<div class="row">
 
-    <div class="block">
-
-      <div class='item' *ngFor='let item of items'>
-
-        <img src="http://127.0.0.1:3000/api/uploads/store/{{item['picture_url']}}" class="imgw100prec">
-
-        <div class="itemBody">
-
-          <h2 class="itemName"><b>{{item['name']}}</b></h2>
-
-          <div class="itemLikeCount">{{item['likes_user_id'].length}} <span class="fa fa-heart"></span></div>
-          <div class="itemPrice">Price: {{item['price']}} LE</div>
-          <article class="itemDesc">{{item['description']}}</article>
-
-
-          <div class="itemInfo" (click)="viewInfo(item['_id'])"><i class="fa fa-info"></i></div>
-          <div class="itemUnLike"><i class="fa fa-heart" (click)="likeItems(item)"></i></div>
-
-        </div>
-
+<div class="col-lg-4 col-md-6 mb-3" *ngFor='let item of items'>
+  <div class="card h-100">
+    <img class="card-img-top myImg"  src="http://127.0.0.1:3000/api/uploads/store/{{item['picture_url']}}" alt="">
+    <div class="card-body">
+      <h4 class="card-title">
+        {{item['name']}}
+      </h4>
+      <h5>{{item['price'] | currency}}</h5>
+      <p class="card-text">{{item['description'] | slice:0:50 }} ...</p>
+    </div>
+    <div class="card-footer">
+      <div class="icon pull-right">
+        <a (click)="viewInfo(item['_id'])" placement="bottom" ngbTooltip="Info">
+          <i class="fa fa-info fa-2x mr-2" aria-hidden="true"></i>
+        </a>
+        <a (click)="likeItems(item)" placement="bottom" ngbTooltip="Love">
+          <i class="fa fa-heart fa-fw fa-2x mr-2" aria-hidden="true"></i>
+        </a>
+        <a  placement="bottom" ngbTooltip="Favorite">
+          <i class="fa fa-star fa-2x" aria-hidden="true"></i>
+        </a>
       </div>
 
-      <div *ngIf='itemsCount==0'>
-        <h1>There are currently no items to be displayed</h1>
-      </div>
+      <div class="icon pull-left" style="line-height: 2.1em;">
 
+          <span>{{item['likes_user_id'].length}}</span> <i class="fa fa-heart fa-fw mr-2" style="color:red;" aria-hidden="true"></i>
+
+      </div>
     </div>
   </div>
-</section>
+</div>
+</div>
+
+<div *ngIf='itemsCount==0' class="row">
+  <h5  class="m-auto pt-5">There are currently no items to be displayed</h5>
+</div>

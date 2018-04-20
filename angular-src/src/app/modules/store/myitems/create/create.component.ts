@@ -1,10 +1,12 @@
 import {Http, Headers} from '@angular/http';
 import {HttpClient} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-import {ToasterContainerComponent, ToasterService} from 'angular5-toaster';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 import {StoreService} from '../../../../services/store.service';
 import {Router} from '@angular/router';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {MDBBootstrapModule} from 'angular-bootstrap-md';
 
 @Component({
   selector: 'app-create',
@@ -19,9 +21,8 @@ export class CreateComponent implements OnInit {
       "color": "#FFF"
     },
     clearButton: {
-      "background-color": "white",
-      "border-radius": "25px",
-      "color": "red",
+      "background-color": "red",
+      "color": "white",
       "margin-left": "10px"
     },
     layout: {
@@ -29,8 +30,7 @@ export class CreateComponent implements OnInit {
       "color": "gray",
       "font-size": "15px",
       "margin": "10px",
-      "padding-top": "5px",
-      "width": "500px"
+      "padding-top": "5px"
     },
     previewPanel: {
       "background-color": "white",
@@ -48,8 +48,7 @@ export class CreateComponent implements OnInit {
   picture_url: string;
   token = localStorage.getItem('authentication');
 
-  constructor(private toaster: ToasterService,
-              private http: Http,
+  constructor(private http: Http,
               private storeservice: StoreService,
               private router: Router) {
   }
@@ -61,20 +60,27 @@ export class CreateComponent implements OnInit {
   onSubmit() {
 
     if (!this.picture_url) {
-      this.toaster.pop({
+      new Noty({
         type: 'error',
-        title: "No photo was uploaded",
-        body: "You have to upload a photo first before submitting the form",
-        timeout: 10000
-      });
+        text: 'No photo was uploaded\nYou have to upload a photo first before submitting the form',
+        timeout: 10000,
+        progressBar: true
+      }).show();
     }
     else if (!this.name || !this.description || !this.quantity || !this.price || !this.item_type || !this.item_condition) {
-      this.toaster.pop({
+      console.log(this.name);
+      console.log(this.description);
+      console.log(this.quantity);
+      console.log(this.price);
+      console.log(this.item_type);
+      console.log(this.item_condition);
+
+      new Noty({
         type: 'error',
-        title: "Missing Field(s)",
-        body: "One or more field(s) are missing. Please provide all fields",
-        timeout: 10000
-      });
+        text: 'Missing Field(s)\nOne or more field(s) are missing. Please provide all fields',
+        timeout: 10000,
+        progressBar: true
+      }).show();
     }
     else {
       const item = {
@@ -87,18 +93,17 @@ export class CreateComponent implements OnInit {
         picture_url: this.picture_url
       }
 
-      console.log(item);
       this.storeservice.createItem(item).subscribe(res => {
         if (!res.err) {
           this.router.navigate(["/store/view"]);
         }
         else {
-          this.toaster.pop({
-            type: 'res.err',
-            title: "You need to upload a photo",
-            body: "you have to provide an Item Name",
-            timeout: 10000
-          });
+          new Noty({
+            type: 'error',
+            text: 'You need to upload a photo\nyou have to provide an Item Name',
+            timeout: 10000,
+            progressBar: true
+          }).show();
         }
       });
     }
@@ -111,22 +116,21 @@ export class CreateComponent implements OnInit {
     var status = event.serverResponse.status;
 
     if (status != 200) {
-      this.toaster.pop({
+      new Noty({
         type: 'error',
-        title: "could not upload photo",
-        body: response.err,
-        timeout: 10000
-      });
-      console.log(status);
+        text: 'could not upload photo\n' + response.err,
+        timeout: 10000,
+        progressBar: true
+      }).show();
       return;
     }
 
     this.picture_url = response.filename;
-    this.toaster.pop({
+    new Noty({
       type: 'success',
-      title: "Successfull operation",
-      body: "Your photo was uploaded to the server successfully!",
-      timeout: 10000
-    });
+      text: 'Your photo was uploaded to the server successfully',
+      timeout: 10000,
+      progressBar: true
+    }).show();
   }
 }

@@ -25,6 +25,9 @@ export class CscheduleComponent implements OnInit {
   public thurs = [];
   public fri = [];
 
+  createTeacherSchedule;
+  createChildShcedule;
+
   constructor(private http: HttpClient,
               private route: ActivatedRoute) {
     this.route.queryParams.subscribe(params => {

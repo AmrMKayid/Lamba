@@ -3,6 +3,7 @@ var jwt = require('jsonwebtoken');
 module.exports.isAuthenticated = function (req, res, next) {
     // Check that the request has the JWT in the authorization header
     var token = req.headers['authorization'];
+
     if (!token) {
         return res.status(401).json({
             error: null,
@@ -11,6 +12,7 @@ module.exports.isAuthenticated = function (req, res, next) {
         });
     }
     // Verify that the JWT is created using our server secret and that it hasn't expired yet
+
     jwt.verify(token, req.app.get('secret'), function (err, decodedToken) {
         if (err) {
             return res.status(401).json({
@@ -19,6 +21,7 @@ module.exports.isAuthenticated = function (req, res, next) {
                 data: null
             });
         }
+
         req.decodedToken = decodedToken;
         next();
     });
@@ -63,3 +66,18 @@ module.exports.isAdmin = function (req, res, next) {
     next();
 };
 
+
+
+/**
+  * Makes sure the user is verified
+  */
+module.exports.isVerified = function (req, res, next) {
+    if (!req.decodedToken.user.isVerified) {
+        return res.status(401).json({
+            err: "Unverified account",
+            msg: "You have to verify your account first before completing this action",
+            data: null
+        });
+    }
+    next();
+};

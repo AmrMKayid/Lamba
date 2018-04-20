@@ -14,21 +14,20 @@ const ChildSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    role: {
-        type: String,
-        default: 'Child'
-    },
     name: {
-        firstName: {type: String, required: true},
-        middleName: {type: String},
-        lastName: {type: String, required: true}
+        firstName: { type: String, required: true },
+        middleName: { type: String },
+        lastName: { type: String, required: true }
     },
     birthday: Date,
     gender: {
         type: String,
         enum: ['male', 'female']
     },
-    photo: String,
+    photo: {
+        type: String,
+        default: 'image-1523726285660'
+    },
     parent_id: {
         type: String,
         required: true
@@ -151,15 +150,44 @@ const ChildSchema = new mongoose.Schema({
             //  validate: [arrayLimit,'{PATH} exceeds the limit of 8']
 
         },
-        updatedAt: {type: Date, default: Date.now},
+        updatedAt: { type: Date, default: Date.now },
     },
     score: Number,
     //IDs :
     allowedArticles: [String],
-    enrolledActivities: [String]
+    favorites: {
+        items: [String],
+        resources: [String],
+        activities: [String]
+    }
 });
 
-
+const SessionSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    grade: {
+        type: String,
+        required: true
+    },
+    location: {
+        type: String,
+        required: true
+    },
+    startDate: {
+        type: String,
+        required: true
+    },
+    endDate: {
+        type: String,
+        required: true
+    },
+    fees: {
+        type: Number,
+        required: true
+    }
+});
 const UserSchema = new mongoose.Schema({
     role: {
         type: String,
@@ -179,16 +207,19 @@ const UserSchema = new mongoose.Schema({
         trim: true //Will be trimmed in the frontend as well while sending the request.
     },
     name: {
-        firstName: {type: String, required: true},
-        middleName: {type: String},
-        lastName: {type: String, required: true}
+        firstName: { type: String, required: true },
+        middleName: { type: String },
+        lastName: { type: String, required: true }
     },
     birthday: Date,
     gender: {
         type: String,
         enum: ['male', 'female']
     },
-    photo: String,
+    photo: {
+        type: String,
+        default: 'image-1523726285660'
+    },
     phone: String,
     address: {
         street: String,
@@ -204,6 +235,7 @@ const UserSchema = new mongoose.Schema({
 
     myItems: [String],
     cart: [String],
+    interests: [String],
 
     //------ Teacher ------ //
 
@@ -211,7 +243,12 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    isReviewed: {
+        type: Boolean,
+        default: false
+    },
     fees: Number,
+    sessions: [SessionSchema],
     schedule: {
         table: {
             saturday: [{
@@ -330,12 +367,16 @@ const UserSchema = new mongoose.Schema({
             //  validate: [arrayLimit,'{PATH} exceeds the limit of 8']
 
         },
-        updatedAt: {type: Date, default: Date.now},
+        updatedAt: { type: Date, default: Date.now },
     },
     about: String,
     qualifications: [String],
-    students: [String]
-
+    students: [String],
+    favorites: {
+        items: [String],
+        resources: [String],
+        activities: [String]
+    }
 });
 
 // Override the transform function of the schema to delete the password before it returns the object
@@ -347,7 +388,8 @@ if (!UserSchema.options.toObject) {
 UserSchema.options.toObject.transform = function (document, transformedDocument) {
     delete transformedDocument.password;
     return transformedDocument;
-};
+}
+    ;
 
 if (!ChildSchema.options.toObject) {
     ChildSchema.options.toObject = {};
@@ -359,6 +401,5 @@ ChildSchema.options.toObject.transform = function (document, transformedDocument
 };
 
 mongoose.model('Child', ChildSchema);
-mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
 mongoose.model('UniqueUser', UniqueUserSchema);
-

@@ -6,9 +6,9 @@ import {CreateComponent} from './create/create.component';
 import {UpdateComponent} from './update/update.component';
 import {ViewComponent} from './view/view.component';
 import {ImageUploadModule} from "angular2-image-upload";
-import {FormsModule} from '@angular/forms';
-import {ToasterModule} from 'angular5-toaster';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {MDBBootstrapModule} from 'angular-bootstrap-md';
 
 const routes: Routes = [
   {
@@ -38,7 +38,10 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ImageUploadModule.forRoot(),
     FormsModule,
-    ToasterModule
+    ReactiveFormsModule,
+    MDBBootstrapModule.forRoot(),
+    NgbModule.forRoot()
+    // ToasterModule
   ],
   declarations: [MyitemsComponent, CreateComponent, UpdateComponent, ViewComponent],
   exports: [RouterModule]
