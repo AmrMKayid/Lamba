@@ -18,7 +18,7 @@ import {appConfig} from "../../../../app.config";
 })
 export class ViewComponent implements OnInit {
 
-  myitems: any[];
+  myitems = [];
   itemId: string;
   name: string;
   price: number;

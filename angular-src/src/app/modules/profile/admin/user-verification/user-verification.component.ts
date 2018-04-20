@@ -17,7 +17,7 @@ import {appConfig} from "../../../../app.config";
 })
 export class UserVerificationComponent implements OnInit {
   public interviewRequests = [];
-
+  public List=[1];
   constructor(private httpClient: HttpClient,
               private http: Http,
               private router: Router) {
@@ -27,7 +27,8 @@ export class UserVerificationComponent implements OnInit {
     let autorization = {Authorization: localStorage.getItem('authentication')};
     this.httpClient.get(appConfig.apiUrl + '/user/viewVerificationForms', {headers: autorization})
       .subscribe((res: any) => {
-        this.interviewRequests = res.data;
+        this.interviewRequests= res.data;
+        this.List=res.data;
       }, err => {
         new Noty({
           type: 'error',
