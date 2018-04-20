@@ -6,7 +6,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {HttpModule, Response} from '@angular/http';
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {routerTransition} from '../router.animations';
+import { routerTransition } from '../router.animations';
 
 @Component({
   selector: 'app-verify-teacher',
@@ -40,14 +40,13 @@ export class VerifyTeacherComponent implements OnInit {
     this.httpClient.get('http://localhost:3000/api/admin/accept_teacher/' + teacherID, {headers: this.authorization})
     //.catch((err: any) => console.log(err))
       .subscribe(res => {
-        this.router.navigate(['/profile/admin/verify-teacher']);
         new Noty({
           type: 'success',
           text: 'Teacher Verified Successfully',
           timeout: 2000,
           progressBar: true
         }).show();
-        this.router.navigate(['/profile/admin/verify-teacher']);
+        this.ngOnInit();
       },
         err => {
           console.log(err.error.msg);
@@ -55,28 +54,16 @@ export class VerifyTeacherComponent implements OnInit {
 
 
   }
-
-
-  viewProfile(teacherID) {
-    this.router.navigate(['profile', teacherID]);
-  }
-
-  Dashboard(){
-    this.router.navigate(['/profile/admin/dashboard']);
-
-  }
-
   Decline(teacherID) {
     this.httpClient.get('http://localhost:3000/api/admin/decline_teacher/' +  teacherID, {headers: this.authorization})
     .subscribe(res => {
-      this.router.navigate(['/profile/admin/verify-teacher']);
-      new Noty({
+       new Noty({
         type: 'success',
         text: 'Teacher Rejected Successfully',
         timeout: 2000,
         progressBar: true
       }).show();
-      this.router.navigate(['/profile/admin/verify-teacher']);
+      this.ngOnInit();
     },
       err => {
         console.log(err.error.msg);

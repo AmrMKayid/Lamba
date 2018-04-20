@@ -44,6 +44,12 @@
             </span>
 
     </a>
+    <a routerLink="/profile/admin/verify-teachers" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-user-plus"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
+                    {{ 'Teachers'  }}
+            </span>
+
+    </a>
 
     <a [routerLink]="['/profile/admin/add-admin']" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fa fa-fw fa-users" aria-hidden="true"></i>&nbsp;<span *ngIf="sidenavWidth > 6" class="sidenav-item">
