@@ -53,7 +53,7 @@
             <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/register-role']" *ngIf="!isLoggedIn()">Sign Up
             </a>
          </li>
-         <li class="nav-item dropdown btn-group" dropdown *ngIf="isLoggedIn()">
+         <li class="nav-item dropdown btn-group d-none d-lg-block d-md-block d-xl-block" dropdown *ngIf="isLoggedIn()">
             <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-effect waves-light" mdbWavesEffect>{{notifications.length}}
             <i class="fa fa-bell"></i>
             </a>
@@ -76,11 +76,11 @@
             </div>
          </li>
 
-        <li class="nav-item dropdown btn-group" dropdown *ngIf="isTeacher()">
+        <li class="nav-item dropdown btn-group d-none d-lg-block d-md-block d-xl-block" dropdown *ngIf="isTeacher()">
           <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-effect waves-light" mdbWavesEffect>{{requests.length}}
             <i class="fa fa-user-plus"></i>
           </a>
-          <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary mydropdown" role="menu">
+          <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary mydropdown " role="menu">
             <a class="dropdown-item waves-light" mdbWavesEffect *ngIf="requests.length == 0">No new
               Requests.</a>
             <span *ngFor="let request of requests | slice:0:4; let i=index">
@@ -100,6 +100,12 @@
           </div>
         </li>
 
+        <li class="nav-item d-md-none" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
+        <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['notifications']">Notifications</a>
+        </li>
+        <li class="nav-item d-md-none" [routerLinkActive]="['active']" *ngIf="isTeacher()">
+        <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['requests']">Requests</a>
+        </li>
          <li class="nav-item d-md-none" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
          <a class="nav-link waves-light" mdbRippleRadius>Messages</a>
          </li>

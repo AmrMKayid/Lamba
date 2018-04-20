@@ -33,11 +33,11 @@ export class ViewArticleComponent implements OnInit {
 
   ngOnInit() {
     let id: string = this.route.snapshot.params['id'];
-    this.isOwner = this.article.owner_id == this.auth.getCurrentUser()._id;
     this.currentUserRole = this.auth.getCurrentUser().role;
     this.articleService.loadArticle(id).subscribe(
       (retrieved: any) => {
         this.article = retrieved.data;
+        this.isOwner = this.article.owner_id == this.auth.getCurrentUser()._id;
         if (!this.article.thumbnail_url) {
           this.pic_url = "http://localhost:3000/api/uploads/articlesThumbnails/articleDefault";
         }

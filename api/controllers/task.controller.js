@@ -463,6 +463,14 @@ module.exports.getChildTasks = function(req, res, next) {
       studentId: { //might need changing depending on saleh's schema
         $eq: req.params.ChildId
       }
+    }).populate({
+      path: 'userId',
+      select: 'name _id',
+      model: User
+    }).populate({
+      path: 'studentId',
+      select: 'name _id',
+      model: Child
     }).exec(function(err, tasks) {
       if (err) {
         return next(err);

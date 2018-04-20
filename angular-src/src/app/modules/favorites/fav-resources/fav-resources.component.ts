@@ -71,4 +71,31 @@ export class FavResourcesComponent implements OnInit {
       }
     }
   }
+  removeByKey(array, params) {
+    array.some(function (item, index) {
+      if (array[index][params.key] === params.value) {
+        array.splice(index, 1);
+        return true;
+      }
+      return false;
+    });
+    return array;
+  };
+
+  remove(id) {
+    this.http.delete('http://localhost:3000/api/user/favorites/resources/' + id, this.httpOptions)
+      .pipe().subscribe(
+        (res: any) => {
+          this.articles = this.removeByKey(this.articles, { key: '_id', value: id });
+        }, err => {
+          this.router.navigate(['/']);
+          new Noty({
+            type: 'error',
+            text: `Item couldn't be removed from favorites : ${err.error.msg}`,
+            timeout: 3000,
+            progressBar: true
+          }).show();
+        }
+      );
+  }
 }
