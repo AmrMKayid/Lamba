@@ -30,8 +30,10 @@ import {NgxPaginationModule} from 'ngx-pagination';
 
 import {NotificationsComponent} from './shared/notifications/notifications.component';
 import {NotificationService} from './services/notification.service';
+import { RequestsComponent } from './shared/requests/requests.component';
 import {InterestsComponent} from './shared/interests/interests.component';
 import {NgxCarouselModule} from "ngx-carousel";
+
 
 
 @NgModule({
@@ -46,6 +48,7 @@ import {NgxCarouselModule} from "ngx-carousel";
     RegisterRoleComponent,
     NotificationsComponent,
     HeaderComponent,
+    RequestsComponent,
     InterestsComponent
   ],
   imports: [

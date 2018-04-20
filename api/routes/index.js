@@ -147,7 +147,8 @@ router.delete('/user/rejectActivity/:activityId',mw.isAuthenticated,mw.isAdmin,u
 //---------------------------- Requests Routes--------------------------------------------//
 router.post('/request/create/:teacherId/:childId', mw.isAuthenticated, requestCtrl.addRequest);
 router.get('/request/get', mw.isAuthenticated, requestCtrl.getRequests);
-router.delete('/request/deleteRequest/:RequestId', mw.isAuthenticated, requestCtrl.deleteRequest);
+router.delete('/request/deleteRequest/:requestId',mw.isAuthenticated,requestCtrl.deleteRequest);
+
 
 
 module.exports = router;

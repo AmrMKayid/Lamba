@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { Router } from '@angular/router';
 import { NotificationService } from '../../services/notification.service';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Component({
   selector: 'app-navbar',
@@ -12,8 +13,15 @@ export class NavbarComponent implements OnInit {
 
   currentUser;
   public role;
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('authentication')
+    })
+  };
 
-  constructor(private auth: AuthService, private router: Router, private notificationservice: NotificationService) {
+  constructor(private auth: AuthService, private router: Router, private notificationservice: NotificationService
+              ,private httpClient: HttpClient) {
 
   }
 
@@ -24,6 +32,7 @@ export class NavbarComponent implements OnInit {
         this.role = (this.auth.getCurrentUser().role).toLowerCase();
 
         this.getMyNotifications();
+        this.getMyRequests();
     }
   }
 
@@ -34,6 +43,15 @@ export class NavbarComponent implements OnInit {
   isAdmin() {
     if (this.auth.getCurrentUser().role == 'Admin') {
       return true;
+    }
+    return false;
+  }
+
+  isTeacher() {
+    if (localStorage.getItem('authentication')) {
+      if (this.auth.getCurrentUser().role == 'Teacher') {
+        return true;
+      }
     }
     return false;
   }
@@ -64,5 +82,22 @@ export class NavbarComponent implements OnInit {
     this.notificationservice.getMyNotifications().subscribe((res: any) => {
       this.notifications = res.data;
     });
+  }
+
+  requests = [];
+  getMyRequests() {
+    this.httpClient.get('http://localhost:3000/api/request/get', this.httpOptions).subscribe(
+      (res: any) => {
+        this.requests = res.data;
+      },
+      (err) => {
+        new Noty({
+          type: 'error',
+          text: `Something went wrong while retrieving your requests: ${err.error.msg}`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      }
+    );
   }
 }

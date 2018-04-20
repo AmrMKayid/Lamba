@@ -7,7 +7,9 @@ import {AuthGuard} from './guards/auth.guard';
 import {AllUsersComponent} from "./shared/all-users/all-users.component";
 import {RegisterRoleComponent} from './shared/register-role/register-role.component';
 import {NotificationsComponent} from './shared/notifications/notifications.component';
+import {RequestsComponent} from './shared/requests/requests.component';
 import {InterestsComponent} from "./shared/interests/interests.component";
+
 
 const appRoutes: Routes = [
   {path: '', component: HomepageComponent},
@@ -17,6 +19,7 @@ const appRoutes: Routes = [
   {path: 'interests', component: InterestsComponent},
   {path: 'users', component: AllUsersComponent},
   {path: 'notifications',canActivate: [AuthGuard], component:NotificationsComponent},
+  {path: 'requests',canActivate: [AuthGuard], component:RequestsComponent},
   {path: 'profile', canActivate: [AuthGuard], loadChildren: './modules/profile/profile.module#ProfileModule'},
   {path: 'schedule', canActivate: [AuthGuard], loadChildren: './modules/schedule/schedule.module#ScheduleModule'},
   {path: 'resources', canActivate: [AuthGuard], loadChildren: './modules/resources/resources.module#ResourcesModule'},

@@ -45,7 +45,7 @@ export class ViewTeacherComponent implements OnInit {
 
 
   ngOnInit() {
-    this.isParent = (this.auth.getCurrentUser().role === 'Parent');
+    this.isParent = (this.auth.getCurrentUser().role === 'Parent' && this.user.isVerified);
     //schedule
     this.sat = this.user.schedule.table.saturday;
     this.sun = this.user.schedule.table.sunday;
@@ -78,7 +78,10 @@ export class ViewTeacherComponent implements OnInit {
     );
   }
   sendRequest(){
-    this.httpClient.post('http://localhost:3000/api/request/create/'+this.user._id +"/"+this.selectedChild ,null, this.httpOptions).subscribe(
+    let dummy={
+      title : "dsfkjsdfsd"
+    };
+    this.httpClient.post('http://localhost:3000/api/request/create/'+this.user._id +"/"+this.selectedChild ,dummy, this.httpOptions).subscribe(
       (res: any) => {
         new Noty({
           type: 'success',
@@ -90,7 +93,7 @@ export class ViewTeacherComponent implements OnInit {
         new Noty({
           type: 'warning',
           text: `can not send request: ${err.error.msg}`,
-          timeout: 2500,
+          timeout: 5000,
           progressBar: true
         }).show();
       }
