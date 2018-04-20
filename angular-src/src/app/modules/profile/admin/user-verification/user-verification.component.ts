@@ -15,6 +15,7 @@ import {routerTransition} from '../router.animations';
 })
 export class UserVerificationComponent implements OnInit {
   public interviewRequests = [];
+  public List=[1];
   constructor(private httpClient: HttpClient,
     private http: Http,
     private router: Router) { }
@@ -24,6 +25,7 @@ export class UserVerificationComponent implements OnInit {
     this.httpClient.get('http://localhost:3000/api/user/viewVerificationForms', {headers: autorization})
       .subscribe((res: any) => {
         this.interviewRequests= res.data;
+        this.List=res.data;
       }, err => {
         new Noty({
           type: 'error',
