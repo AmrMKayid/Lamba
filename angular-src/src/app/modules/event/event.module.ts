@@ -7,7 +7,6 @@ import {EventService} from '../../services/event.service';
 import {ViewComponent} from './view/view.component';
 import {HttpModule} from '@angular/http';
 import {ActivityComponent} from './activity/activity.component';
-import {ToasterModule} from 'angular5-toaster';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
@@ -39,8 +38,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     HttpModule,
-    RouterModule.forChild(routes),
-    ToasterModule
+    RouterModule.forChild(routes)
   ],
   declarations: [
     EventComponent,

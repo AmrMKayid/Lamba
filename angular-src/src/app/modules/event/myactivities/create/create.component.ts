@@ -1,7 +1,6 @@
 import {Http, Headers} from '@angular/http';
 import {HttpClient} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-import {ToasterContainerComponent, ToasterService} from 'angular5-toaster';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 import {EventService} from '../../../../services/event.service';
 import {Router} from '@angular/router';
@@ -50,8 +49,7 @@ export class CreateComponent implements OnInit {
   token = localStorage.getItem('authentication');
   isVerified: boolean;
 
-  constructor(private toaster: ToasterService,
-              private http: Http,
+  constructor(private http: Http,
               private eventservice: EventService,
               private router: Router,
               private auth: AuthService) {
@@ -60,12 +58,11 @@ export class CreateComponent implements OnInit {
   ngOnInit() {
     var currentUser = this.auth.getCurrentUser();
     this.isVerified = currentUser.isVerified;
-    if(!this.isVerified)
-    {
+    if (!this.isVerified) {
       new Noty({
-      type: 'error',
-      text: 'Please verify your account first by applying to an interview in order to be able to post a new activity',
-      timeout: 10000
+        type: 'error',
+        text: 'Please verify your account first by applying to an interview in order to be able to post a new activity',
+        timeout: 10000
       }).show();
       this.router.navigate(["/profile/parent"]);
 
@@ -75,20 +72,20 @@ export class CreateComponent implements OnInit {
   onSubmit() {
 
     if (!this.picture_url) {
-      this.toaster.pop({
+      new Noty({
         type: 'error',
-        title: "No photo was uploaded",
-        body: "You have to upload a photo first before submitting the form",
-        timeout: 10000
-      });
+        text: "No photo was uploaded\nYou have to upload a photo first before submitting the form",
+        timeout: 3000,
+        progressBar: true
+      }).show();
     }
-    else if (!this.name || !this.description || !this.place || !this.price || !this.activity_type ) {
-      this.toaster.pop({
+    else if (!this.name || !this.description || !this.place || !this.price || !this.activity_type) {
+      new Noty({
         type: 'error',
-        title: "Missing Field(s)",
-        body: "One or more field(s) are missing. Please provide all fields",
-        timeout: 10000
-      });
+        text: "Missing Field(s)\nOne or more field(s) are missing. Please provide all fields",
+        timeout: 3000,
+        progressBar: true
+      }).show();
     }
     else {
       const activity = {
@@ -106,12 +103,12 @@ export class CreateComponent implements OnInit {
           this.router.navigate(["/event/view"]);
         }
         else {
-          this.toaster.pop({
-            type: 'res.err',
-            title: "You need to upload a photo",
-            body: "you have to provide an activity name",
-            timeout: 10000
-          });
+          new Noty({
+            type: 'error',
+            text: "You need to upload a photo\nyou have to provide an activity name",
+            timeout: 3000,
+            progressBar: true
+          }).show();
         }
       });
     }
@@ -124,22 +121,23 @@ export class CreateComponent implements OnInit {
     var status = event.serverResponse.status;
 
     if (status != 200) {
-      this.toaster.pop({
+      new Noty({
         type: 'error',
-        title: "could not upload photo",
-        body: response.err,
-        timeout: 10000
-      });
+        text: "could not upload photo",
+        timeout: 3000,
+        progressBar: true
+      }).show();
       console.log(status);
       return;
     }
 
     this.picture_url = response.filename;
-    this.toaster.pop({
+
+    new Noty({
       type: 'success',
-      title: "Successfull operation",
-      body: "Your photo was uploaded to the server successfully!",
-      timeout: 10000
-    });
+      text: "Your photo was uploaded to the server successfully!",
+      timeout: 3000,
+      progressBar: true
+    }).show();
   }
 }
