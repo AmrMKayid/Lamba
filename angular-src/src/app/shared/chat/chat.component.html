@@ -11,7 +11,8 @@
 					<tbody>
 				        <tr  *ngFor='let chat of chats'>
 				            <th (click)="changeCurrentChat(chat)"><img src="http://localhost:3000/api/uploads/store/{{chat.chat.photo}}" class="img-fluid rounded-circle z-depth-0" id = "reciever_img"></th>
-				            <td (click)="changeCurrentChat(chat)"><span id = "name">{{chat.chat.name.firstName}} {{chat.chat.name.lastName}}</span><br><span>{{chat.messages[chat.messages.length - 1].text}}</span></td>
+				            <td (click)="changeCurrentChat(chat)"><span id = "name">{{chat.chat.name.firstName}} {{chat.chat.name.lastName}}</span><br>
+				            	<span *ngIf = "chat.messages.length > 0">{{chat.messages[chat.messages.length - 1].text}}</span></td>
 				        </tr>
 				    </tbody>
 				    <!--Table body-->
