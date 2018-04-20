@@ -43,7 +43,7 @@
 					</div>
 					<div class="card-footer">
 						<div style = "display: inline;">
-						  <input type="text" id = "message" placeholder="Type here..." [(ngModel)]="msgToServer">
+						  <input type="text" id = "message" (keyup.enter)="sendMessage(msgToServer)" placeholder="Type your message here..." [(ngModel)]="msgToServer">
 						  <button class = "btn btn-default btn-circle" (click)="sendMessage(msgToServer)"><span><i class="material-icons">send</i></span></button>
 						</div>
 
