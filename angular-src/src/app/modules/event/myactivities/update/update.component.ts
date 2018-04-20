@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Http, Headers} from '@angular/http';
-import {ToasterContainerComponent, ToasterService} from 'angular5-toaster';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 import {EventService} from '../../../../services/event.service';
 import {Router} from '@angular/router';
@@ -32,7 +31,6 @@ export class UpdateComponent implements OnInit {
   }
 
   constructor(private http: Http,
-              private toaster: ToasterService,
               private router: Router,
               private eventservice: EventService,) {
   }
@@ -53,12 +51,12 @@ export class UpdateComponent implements OnInit {
 
     this.http.patch('http://localhost:3000/api/activity/edit/' + activity, editedActivity)
       .subscribe(res => {
-        this.toaster.pop({
+        new Noty({
           type: 'success',
-          title: "Success!",
-          body: "Updated",
-          timeout: 3000
-        });
+          text: "Updated!",
+          timeout: 3000,
+          progressBar: true
+        }).show();
 
         localStorage.setItem("Update", null);
         this.router.navigate(["/event/myactivities/view"]);

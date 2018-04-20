@@ -19,61 +19,61 @@ export class ViewComponent implements OnInit {
   name: string;
   price: number;
   current: any;
-  key: string = 'name';
   description: string;
   quantity: number;
   item_type: string;
   item_condition: string;
-  newOrEdit = false;
-  createNew = false;
-  editPressed = false;
-  reverse: boolean = false;
   picture_url: string;
-  Name;
+  itemString: any;
+  item: any;
 
   constructor(private http: Http,
     private router: Router,
     private storeservice: StoreService,
     private auth: AuthService,
     private modalService: NgbModal) {
-this.getMyItems()
+
+
+
+      this.getMyItems()
 }
 
-  sort(key) {
-    this.key = key;
-    this.reverse = !this.reverse;
-  }
+editItem(item) {
+  this.item = item;
+  var itemId = item._id;
 
-  
+  this.name= this.item.name;
+  this.price = this.item.price;
+  this.description = this.item.description;
+  this.quantity = this.item.quantity;
+  this.item_type = this.item.item_type ;
+  this.item_condition = this.item.item_condition ;
 
-  editItem() {
-    var itemString = localStorage.getItem("Update");
-    var item = JSON.parse(itemString)._id;
 
-    let editedItem = {
-      name: this.name,
-      price: Number(this.price),
-      description: this.description,
-      quantity: Number(this.quantity),
-      item_type: this.item_type,
-      item_condition: this.item_condition,
-      updated_at: Date.now()
-    };
+  let editedItem = {
+    name: this.name,
+    price: Number(this.price),
+    description: this.description,
+    quantity: Number(this.quantity),
+    item_type: this.item_type,
+    item_condition: this.item_condition,
+    updated_at: Date.now()
+  };
 
-    this.http.patch('http://localhost:3000/api/store/edit/' + item, editedItem)
-      .subscribe(res => {
-        new Noty({
-          type: 'success',
-          text: 'Updated!',
-          timeout: 3000,
-          progressBar: true
-        }).show();
+  this.http.patch('http://localhost:3000/api/store/edit/' + itemId, editedItem)
+    .subscribe(res => {
+      new Noty({
+        type: 'success',
+        text: 'Updated!',
+        timeout: 3000,
+        progressBar: true
+      }).show();
 
-        localStorage.setItem("Update", null);
-        this.router.navigate(["/store/myitems/view"]);
-      });
+      localStorage.setItem("Update", null);
+      this.router.navigate(["/store/myitems/view"]);
+    });
 
-  }
+}
 
   close() {
 
@@ -81,7 +81,7 @@ this.getMyItems()
     localStorage.setItem("Update", 'null')
 
   }
-  
+
 
 
   getMyItems() {
@@ -114,7 +114,6 @@ this.getMyItems()
 
     localStorage.setItem("Update", JSON.stringify(item));
    // this.router.navigate(["/store/myitems/update"]);
-   this.editItem();
   }
 
 

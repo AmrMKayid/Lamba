@@ -55,7 +55,7 @@ export class TeacherComponent implements OnInit {
   constructor(private router: Router,
               private http: HttpClient,
               private httpClient: HttpClient,
-              private auth: AuthService,
+              public auth: AuthService,
               private modalService: NgbModal) {
   }
 
@@ -101,6 +101,10 @@ export class TeacherComponent implements OnInit {
           timeout: 3000,
           progressBar: true
         }).show();
+
+        setTimeout(function() {
+          location.reload();
+        }, 3500);
       },
       error => {
         new Noty({

@@ -1,6 +1,6 @@
 var express = require('express'),
-    router = express.Router(),
-    jwt = require('jsonwebtoken'),
+  router = express.Router(),
+  jwt = require('jsonwebtoken'),
 
     scheduleCtrl = require('../controllers/schedule.controller'),
     taskCtrl = require('../controllers/task.controller'),
@@ -14,7 +14,7 @@ var express = require('express'),
     favoritesCtrl = require('../controllers/favorites.controller'),
     requestCtrl = require('../controllers/request.controller'),
 
-    mw = require('./middlewares');
+  mw = require('./middlewares');
 
 //---------------------------- Authentication Routes --------------------------------//
 router.post('/auth/register', mw.isNotAuthenticated, authCtrl.register);
@@ -109,6 +109,12 @@ router.get('/activity/viewUnverifiedActivities', mw.isAuthenticated, mw.isAdmin,
 
 router.post('/activity/comment/:activityId', mw.isAuthenticated, activityCtrl.addComment);
 
+router.post('/activity/registerChild', mw.isAuthenticated, activityCtrl.registerChild);
+/*gets the unverified activities*/
+router.get('/activity/verify', mw.isAuthenticated, mw.isAdmin, activityCtrl.viewUnverifiedActivities);
+
+router.post('/activity/comment/:activityId', mw.isAuthenticated, activityCtrl.addComment);
+
 
 
 
@@ -148,7 +154,6 @@ router.delete('/user/rejectActivity/:activityId',mw.isAuthenticated,mw.isAdmin,u
 router.post('/request/create/:teacherId/:childId', mw.isAuthenticated, requestCtrl.addRequest);
 router.get('/request/get', mw.isAuthenticated, requestCtrl.getRequests);
 router.delete('/request/deleteRequest/:requestId',mw.isAuthenticated,requestCtrl.deleteRequest);
-
 
 
 module.exports = router;

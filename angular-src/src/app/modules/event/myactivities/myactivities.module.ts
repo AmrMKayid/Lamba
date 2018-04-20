@@ -7,7 +7,6 @@ import {UpdateComponent} from './update/update.component';
 import {ViewComponent} from './view/view.component';
 import {ImageUploadModule} from "angular2-image-upload";
 import {FormsModule} from '@angular/forms';
-import {ToasterModule} from 'angular5-toaster';
 
 
 const routes: Routes = [
@@ -37,8 +36,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     ImageUploadModule.forRoot(),
-    FormsModule,
-    ToasterModule
+    FormsModule
   ],
   declarations: [MyactivitiesComponent, CreateComponent, UpdateComponent, ViewComponent],
   exports: [RouterModule]
