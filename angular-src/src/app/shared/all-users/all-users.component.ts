@@ -34,6 +34,11 @@ export class AllUsersComponent implements OnInit {
     this.router.navigate(['profile', user._id]);
   }
 
+  messageUser(user)
+  {
+        this.router.navigate(['chat/' + user._id]);
+  }
+
   ngOnInit() {
     this.getAllUsers();
   }

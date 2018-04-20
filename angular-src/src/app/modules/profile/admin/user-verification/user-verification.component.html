@@ -1,12 +1,9 @@
 <div [@routerTransition]>
-    <div class="container">
+    <div class="main-container">
+      <br>
+      <br>
         <h2  style="text-align:center;font-weight:bold;">Interview Requests</h2>
-        <div class="text-center" *ngIf='interviewRequests.length==0'>
-            <h1>There are currently no interview requests</h1>
-            <button class="btn btn-sm"  style="background-color:#f16138;font-weight:bold" routerLink="/profile/admin/dashboard" [routerLinkActive]="['router-link-active']">Back to DashbBoard</button>
-
-          </div>
-            <br>
+            
     <div class="row">
       <div class="col-lg-4 col-md-4" *ngFor="let interview of interviewRequests">
           
@@ -23,15 +20,17 @@
     
           <div class="text-muted text-center">
             <button class="badge badge-pill btn-success" (click)="verifyUser(interview._id,interview.owner_id)" style="cursor: pointer;">VERIFY</button>
-            <span><button class="badge badge-pill btn-danger" (click)="rejectUser(interview._id)" style="cursor: pointer;" >REJECT</button></span>  
+            <span><button class="badge badge-pill btn-danger" (click)="rejectUser(interview._id,interview.owner_id)" style="cursor: pointer;" >REJECT</button></span>  
           </div>
           <br>
         </div>
         <br>
       </div>
-      
     </div>
-    <br>
-  
+    <div class="text-center" *ngIf='interviewRequests.length==0'>
+      <h1>There are currently no interview requests</h1>
+      <button class="btn btn-sm"  style="background-color:#f16138;font-weight:bold" routerLink="/profile/admin/dashboard" [routerLinkActive]="['router-link-active']">Back to DashbBoard</button>
+    </div>
+    
 </div>
 </div>

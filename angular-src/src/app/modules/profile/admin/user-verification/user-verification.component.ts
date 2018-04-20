@@ -61,10 +61,22 @@ export class UserVerificationComponent implements OnInit {
           timeout: 3000,
           progressBar: true
         }).show();
-      });     
+      });  
+      let notification={
+        title:'Verification',
+        description:'Congratulations:You are now a verified User',
+        url:'/profile/'+interviewOwner_id,
+        recieving_user_id:interviewOwner_id
+      }
+      this.httpClient.post('http://localhost:3000/api/notifications/create',notification,{headers: autorization} ).subscribe(
+        (res: any) => {
+        },
+        err=> {
+         
+        });         
   }
 
-  rejectUser(interviewId){
+  rejectUser(interviewId,interviewOwner_id){
     let autorization = {Authorization: localStorage.getItem('authentication')};
     this.httpClient.delete('http://localhost:3000/api/user/deleteVerificationForm/'+interviewId, {headers: autorization})
     .subscribe((res: any) => {
@@ -82,7 +94,19 @@ export class UserVerificationComponent implements OnInit {
         timeout: 3000,
         progressBar: true
       }).show();
-    });     
+    });
+    let notification={
+      title:'Verification',
+      description:'Sorry:You have been rejected',
+      url:'/profile/'+interviewOwner_id,
+      recieving_user_id:interviewOwner_id
+    }
+    this.httpClient.post('http://localhost:3000/api/notifications/create',notification,{headers: autorization} ).subscribe(
+      (res: any) => {
+      },
+      err=> {
+       
+      });      
   }
 
 }

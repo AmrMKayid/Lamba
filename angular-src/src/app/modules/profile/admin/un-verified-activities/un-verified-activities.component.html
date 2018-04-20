@@ -1,8 +1,8 @@
 <div [@routerTransition]>
-  <div>
+  <div  class="main-container">
+    <br>
+    <br>
   <h2  style="text-align:center;font-weight:bold;">Activities</h2>
-  <div class="text-center" *ngIf="unVerifiedActivitiesList.length ===0"><h1>There are currently no new activities </h1>
-    <button class="btn btn-sm" style="background-color:#f16138;font-weight:bold" routerLink="/profile/admin/dashboard" [routerLinkActive]="['router-link-active']">Back to DashbBoard</button></div>
   <div class="row">
       
     <div class="col-12" *ngFor="let activity of unVerifiedActivitiesList">
@@ -42,9 +42,9 @@
                   <div class="timeline-subtitle">Price: <span class="timeline-text"> {{activity.price}}</span></div>
                   <div class="timeline-subtitle">Description:</div>
                   <div>{{activity.description}}</div>
-                  <button class="badge badge-pill btn-success" (click)="verifyActivity(activity._id)" style="cursor: pointer;">VERIFY</button>
+                  <button class="badge badge-pill btn-success" (click)="verifyActivity(activity._id,activity.host_id)" style="cursor: pointer;">VERIFY</button>
                   <!--to do reject-->
-                  <span><button class="badge badge-pill btn-danger" (click)="rejectActivity(activity._id)" style="cursor: pointer;" >REJECT</button></span>
+                  <span><button class="badge badge-pill btn-danger" (click)="rejectActivity(activity._id,activity.host_id)" style="cursor: pointer;" >REJECT</button></span>
                 </div>
               </div>
             </li>
@@ -54,9 +54,8 @@
       </div>
       <!-- /.card -->
     </div>
-    <ul class="timeline">
-
-    </ul>
   </div>
+  <div class="text-center" *ngIf="unVerifiedActivitiesList.length ===0"><h1>There are currently no new activities </h1>
+    <button class="btn btn-sm" style="background-color:#f16138;font-weight:bold" routerLink="/profile/admin/dashboard" [routerLinkActive]="['router-link-active']">Back to DashbBoard</button></div>
 </div>
 </div>

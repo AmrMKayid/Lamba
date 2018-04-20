@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../../services/auth.service";
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from "../../services/auth.service";
+import {ChatService} from "../../services/chat.service";
 import { Router } from '@angular/router';
 import { NotificationService } from '../../services/notification.service';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
@@ -13,6 +14,8 @@ export class NavbarComponent implements OnInit {
 
   currentUser;
   public role;
+  chatCount;
+  
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -21,7 +24,7 @@ export class NavbarComponent implements OnInit {
   };
 
   constructor(private auth: AuthService, private router: Router, private notificationservice: NotificationService
-    , private httpClient: HttpClient) {
+    , private httpClient: HttpClient, private chat: ChatService) {
 
   }
 
@@ -30,6 +33,9 @@ export class NavbarComponent implements OnInit {
       this.currentUser = this.auth.getCurrentUser();
       if (this.auth.getCurrentUser().role)
         this.role = (this.auth.getCurrentUser().role).toLowerCase();
+        this.chat.getAllChats().subscribe((res:any)=>{
+          this.chatCount = res.data.length;
+        })
 
      setInterval(() => {
         this.refresh();

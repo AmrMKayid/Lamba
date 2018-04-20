@@ -60,8 +60,18 @@ export class VerifyTeacherComponent implements OnInit {
             progressBar: true
           }).show();
         });
-
-
+        let notification={
+          title:'Verification',
+          description:'Congratulations:You are now a verified teacher',
+          url:'/profile/'+teacherID,
+          recieving_user_id:teacherID
+        }
+        this.httpClient.post('http://localhost:3000/api/notifications/create',notification,{headers: this.authorization} ).subscribe(
+          (res: any) => {
+          },
+          err=> {
+           
+          });      
   }
   Decline(teacherID) {
     this.httpClient.get('http://localhost:3000/api/admin/decline_teacher/' +  teacherID, {headers: this.authorization})
@@ -82,6 +92,18 @@ export class VerifyTeacherComponent implements OnInit {
           progressBar: true
         }).show();
       });
+      let notification={
+        title:'Verification',
+        description:'Sorry:You have been rejected',
+        url:'/profile/'+teacherID,
+        recieving_user_id:teacherID
+      }
+      this.httpClient.post('http://localhost:3000/api/notifications/create',notification,{headers: this.authorization} ).subscribe(
+        (res: any) => {
+        },
+        err=> {
+         
+        }); 
 
     }
 }

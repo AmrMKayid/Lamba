@@ -9,6 +9,7 @@ var express = require('express'),
     userCtrl = require('../controllers/user.controller'),
     articleCtrl = require('../controllers/article.controller'),
     tagCtrl = require('../controllers/tag.controller'),
+    chatCtrl = require('../controllers/chat.controller'),
     activityCtrl = require('../controllers/activity.controller'),
     notificationCtrl = require('../controllers/notification.controller'),
     favoritesCtrl = require('../controllers/favorites.controller'),
@@ -154,6 +155,12 @@ router.delete('/user/rejectActivity/:activityId',mw.isAuthenticated,mw.isAdmin,u
 router.post('/request/create/:teacherId/:childId', mw.isAuthenticated, requestCtrl.addRequest);
 router.get('/request/get', mw.isAuthenticated, requestCtrl.getRequests);
 router.delete('/request/deleteRequest/:requestId',mw.isAuthenticated,requestCtrl.deleteRequest);
+
+
+
+/*chat routes*/
+router.get('/chat/:id', mw.isAuthenticated, chatCtrl.getChat);
+router.get('/chat/', mw.isAuthenticated, chatCtrl.getAllChats);
 
 
 module.exports = router;

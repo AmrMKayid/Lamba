@@ -20,6 +20,7 @@ export class UnVerifiedArticlesComponent implements OnInit {
   public article = [];
   allTags: { value: string, id: string }[];
   tagsInitialized: boolean;
+  IMG_URL = 'http://localhost:3000/api/uploads/articlesThumbnails/';
   constructor(private httpClient: HttpClient,
               private http: Http,
               private articlesService: ArticlesService,
@@ -65,7 +66,7 @@ export class UnVerifiedArticlesComponent implements OnInit {
       
   }
 
-  verifyArticle(articleId) {
+  verifyArticle(articleId,ownerId) {
     let autorization = {Authorization: localStorage.getItem('authentication')};
     this.httpClient.get('http://localhost:3000/api/user/verifyArticle/' + articleId, {headers: autorization})
       .subscribe((res: any) => {
@@ -85,8 +86,21 @@ export class UnVerifiedArticlesComponent implements OnInit {
           progressBar: true
         }).show();
       });
+     
+      let notification={
+        title:'Article Verification',
+        description:'Congratulations:Your Article has been verified you can find it on the Resources page',
+        url:'/resources/id/'+articleId,
+        recieving_user_id:ownerId._id
+      }
+      this.httpClient.post('http://localhost:3000/api/notifications/create',notification,{headers: autorization} ).subscribe(
+        (res: any) => {
+        },
+        err=> {
+          console.log(err);
+          });
   }
-  rejectArticle(articleId) {
+  rejectArticle(articleId,ownerId,title) {
     let autorization = {Authorization: localStorage.getItem('authentication')};
     this.httpClient.delete('http://localhost:3000/api/user/rejectArticle/' + articleId, {headers: autorization})
       .subscribe((res: any) => {
@@ -105,6 +119,17 @@ export class UnVerifiedArticlesComponent implements OnInit {
           progressBar: true
         }).show();
       });
+      let notification={
+        title:'Article Verification',
+        description:'Sorry:Your Article '+title +' has been rejected.Try posting another.',
+        url:'/resources/post',
+        recieving_user_id:ownerId._id
+      }
+      this.httpClient.post('http://localhost:3000/api/notifications/create',notification,{headers: autorization} ).subscribe(
+        (res: any) => {
+        },
+        err=> {
+          });
   }
   
   getTagByID(allTags: { value: string, id: string }[], tagID: string) {

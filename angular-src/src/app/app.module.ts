@@ -24,10 +24,12 @@ import {HeaderComponent} from './modules/profile/components/header/header.compon
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 
 /* Search Library */
-import {Ng2SearchPipeModule} from 'ng2-search-filter';
-import {Ng2OrderModule} from 'ng2-order-pipe';
-import {NgxPaginationModule} from 'ngx-pagination';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { Ng2OrderModule } from 'ng2-order-pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
+import {ChatService} from "./services/chat.service";
+import {WebsocketService} from "./services/websocket.service";
+import { ChatComponent } from './shared/chat/chat.component';
 import {NotificationsComponent} from './shared/notifications/notifications.component';
 import {NotificationService} from './services/notification.service';
 import { RequestsComponent } from './shared/requests/requests.component';
@@ -46,6 +48,7 @@ import {NgxCarouselModule} from "ngx-carousel";
     FooterComponent,
     AllUsersComponent,
     RegisterRoleComponent,
+    ChatComponent,
     NotificationsComponent,
     HeaderComponent,
     RequestsComponent,
@@ -70,6 +73,8 @@ import {NgxCarouselModule} from "ngx-carousel";
     ErrorInterceptorProvider,
     JwtInterceptorProvider,
     AuthService,
+    WebsocketService,
+    ChatService,
     NotificationService
   ],
   bootstrap: [AppComponent, HeaderComponent]

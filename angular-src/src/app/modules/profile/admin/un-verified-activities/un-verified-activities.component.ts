@@ -37,7 +37,7 @@ export class UnVerifiedActivitiesComponent implements OnInit {
 
   }
 
-  verifyActivity(activityId) {
+  verifyActivity(activityId,hostId) {
     let autorization = {Authorization: localStorage.getItem('authentication')};
     this.httpClient.get('http://localhost:3000/api/user/verifyActivity/' + activityId, {headers: autorization})
       .subscribe((res: any) => {
@@ -57,8 +57,20 @@ export class UnVerifiedActivitiesComponent implements OnInit {
           progressBar: true
         }).show();
       });
+      let notification={
+        title:'Activity Verification',
+        description:'Congratulations:Your Activity has been verified you can find it on the Activities page',
+        url:'/event/view',
+        recieving_user_id:hostId
+      }
+      this.httpClient.post('http://localhost:3000/api/notifications/create',notification,{headers: autorization} ).subscribe(
+        (res: any) => {
+        },
+        err=> {
+         
+        });
   }
-  rejectActivity(activityId) {
+  rejectActivity(activityId,hostId) {
     let autorization = {Authorization: localStorage.getItem('authentication')};
     this.httpClient.delete('http://localhost:3000/api/user/rejectActivity/' + activityId, {headers: autorization})
       .subscribe((res: any) => {
@@ -77,6 +89,18 @@ export class UnVerifiedActivitiesComponent implements OnInit {
           progressBar: true
         }).show();
       });
+      let notification={
+        title:'Activity Verification',
+        description:'Sorry:Your Activity has been rejected',
+        url:'/event/myactivities/view',
+        recieving_user_id:hostId
+      }
+      this.httpClient.post('http://localhost:3000/api/notifications/create',notification,{headers: autorization} ).subscribe(
+        (res: any) => {
+        },
+        err=> {
+         
+        });
   }
   isAdmin() {
     if (this.auth.getCurrentUser().role == 'Admin') {

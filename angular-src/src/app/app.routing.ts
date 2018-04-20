@@ -6,6 +6,7 @@ import {RegisterComponent} from './shared/register/register.component';
 import {AuthGuard} from './guards/auth.guard';
 import {AllUsersComponent} from "./shared/all-users/all-users.component";
 import {RegisterRoleComponent} from './shared/register-role/register-role.component';
+import {ChatComponent} from "./shared/chat/chat.component";
 import {NotificationsComponent} from './shared/notifications/notifications.component';
 import {RequestsComponent} from './shared/requests/requests.component';
 import {InterestsComponent} from "./shared/interests/interests.component";
@@ -18,6 +19,8 @@ const appRoutes: Routes = [
   {path: 'register-role', component: RegisterRoleComponent},
   {path: 'interests', component: InterestsComponent},
   {path: 'users', component: AllUsersComponent},
+  {path: 'chat/:id', component: ChatComponent},
+  {path: 'chat', component: ChatComponent},
   {path: 'notifications',canActivate: [AuthGuard], component:NotificationsComponent},
   {path: 'requests',canActivate: [AuthGuard], component:RequestsComponent},
   {path: 'profile', canActivate: [AuthGuard], loadChildren: './modules/profile/profile.module#ProfileModule'},
