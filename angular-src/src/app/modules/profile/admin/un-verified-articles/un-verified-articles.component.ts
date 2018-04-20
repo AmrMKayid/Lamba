@@ -20,6 +20,7 @@ export class UnVerifiedArticlesComponent implements OnInit {
   public article = [];
   allTags: { value: string, id: string }[];
   tagsInitialized: boolean;
+  IMG_URL = 'http://localhost:3000/api/uploads/articlesThumbnails/';
   constructor(private httpClient: HttpClient,
               private http: Http,
               private articlesService: ArticlesService,

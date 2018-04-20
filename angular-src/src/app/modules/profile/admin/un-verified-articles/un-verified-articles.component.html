@@ -1,8 +1,7 @@
 <div [@routerTransition]>
   <div class="main-container">
     <h2  style="text-align:center;font-weight:bold;">Articles</h2>
-    <div class="text-center"  *ngIf="unVerifiedArticlesList.length ===0"><h1>There are currently no new articles </h1>
-      <button class="btn btn-sm" style="background-color:#f16138;font-weight:bold" routerLink="/profile/admin/dashboard" [routerLinkActive]="['router-link-active']">Back to DashbBoard</button></div>
+   
   <div class="row" style="position:relative">
       
     <div class="col-12" *ngFor="let article of unVerifiedArticlesList">
@@ -36,6 +35,8 @@
                       <span class="badge badge-pill light-blue" style="cursor: pointer;">{{getTagByID(allTags, tag)}}</span>
                     </ng-container>
                   </p>
+                  <img [src]="IMG_URL + article.thumbnail_url"
+                  class="img-fluid" alt="Article-thumbnail" />
               </div>
             </li>
             <li class="timeline-inverted">
@@ -61,9 +62,8 @@
       </div>
       <!-- /.card -->
     </div>
-    <ul class="timeline">
-
-    </ul>
   </div>
+  <div class="text-center"  *ngIf="unVerifiedArticlesList.length ===0"><h1>There are currently no new articles </h1>
+    <button class="btn btn-sm" style="background-color:#f16138;font-weight:bold" routerLink="/profile/admin/dashboard" [routerLinkActive]="['router-link-active']">Back to DashbBoard</button></div>
   </div>
 </div>
