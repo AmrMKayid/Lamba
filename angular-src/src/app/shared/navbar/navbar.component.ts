@@ -31,11 +31,21 @@ export class NavbarComponent implements OnInit {
       if (this.auth.getCurrentUser().role)
         this.role = (this.auth.getCurrentUser().role).toLowerCase();
 
-      this.getMyNotifications();
-      this.getMyRequests();
+     setInterval(() => {
+        this.refresh();
+    }, 6000);
+
     }
   }
 
+
+
+
+refresh()
+{
+  this.getMyNotifications();
+  this.getMyRequests();
+}
   isLoggedIn() {
     return localStorage.getItem('authentication');
   }
