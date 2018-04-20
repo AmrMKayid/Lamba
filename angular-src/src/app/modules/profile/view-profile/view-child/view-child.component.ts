@@ -66,6 +66,15 @@ export class ViewChildComponent implements OnInit {
   }
 
   updateChildSchedule(Slot, newtitle, newdescription, newurl, thisday) {
+    if (newtitle === "") {
+      newtitle = Slot.slot.title;
+    }
+    if(newdescription === ""){
+      newdescription = Slot.slot.description;
+    }
+    if (newurl === ""){
+      newurl = Slot.slot.url;
+    }
     var body = {
       title: newtitle,
       description: newdescription,
