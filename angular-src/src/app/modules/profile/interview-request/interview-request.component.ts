@@ -8,12 +8,9 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./interview-request.component.scss']
 })
 export class InterviewRequestComponent implements OnInit {
-  contactemail = new FormControl('', [Validators.required]);
-  contactnumber = new FormControl('', [Validators.required]);
-  interviewForm: FormGroup = this.fb.group({
-  contactEmail:this.contactemail,
-  contactNumber:this.contactnumber
-  });
+  contactemail: string;
+  contactnumber: string;
+  
   constructor(private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
@@ -21,9 +18,14 @@ export class InterviewRequestComponent implements OnInit {
 
   ngOnInit() {
   }
-  submitForm(){
-    let autorization = {Authorization: localStorage.getItem('authentication')};
-    this.httpClient.post('http://localhost:3000/api/user/requestVerification',this.interviewForm.value,{headers: autorization} ).subscribe(
+  submitForm(contactemail, contactnumber){
+    let form={
+      contactEmail:contactemail,
+      contactNumber:contactnumber
+    }
+     console.log(contactemail, contactnumber)
+   let autorization = {Authorization: localStorage.getItem('authentication')};
+    this.httpClient.post('http://localhost:3000/api/user/requestVerification',form,{headers: autorization} ).subscribe(
       (res: any) => {
         new Noty({
           type: 'success',
@@ -34,7 +36,6 @@ export class InterviewRequestComponent implements OnInit {
        this.router.navigate(['/']);        
       },
       err=> {
-        console.log(err)
         new Noty({
           type: 'error',
           text: err.error.msg,
