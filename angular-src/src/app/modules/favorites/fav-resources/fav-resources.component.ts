@@ -14,7 +14,7 @@ export class FavResourcesComponent implements OnInit {
   tagsInitialized: boolean;
   allTags: { value: string, id: string }[];
 
-  IMG_URL = 'http://localhost:3000/api/uploads/articlesThumbnails/';
+  IMG_URL = 'api/uploads/articlesThumbnails/';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ export class FavResourcesComponent implements OnInit {
     this.articlesInitialized = false;
     this.tagsInitialized = false;
     this.allTags = [];
-    this.http.get('http://localhost:3000/api//user/favorites/resources', this.httpOptions)
+    this.http.get('api//user/favorites/resources', this.httpOptions)
       .pipe().subscribe(
         (res: any) => {
           this.articles = res.data.reverse();
@@ -46,7 +46,7 @@ export class FavResourcesComponent implements OnInit {
           }).show();
         }
       );
-    this.http.get('http://localhost:3000/api/tags/', this.httpOptions)
+    this.http.get('api/tags/', this.httpOptions)
       .pipe().subscribe(
         (res: any) => {
           res.data.forEach(element => {
@@ -83,7 +83,7 @@ export class FavResourcesComponent implements OnInit {
   };
 
   remove(id) {
-    this.http.delete('http://localhost:3000/api/user/favorites/resources/' + id, this.httpOptions)
+    this.http.delete('api/user/favorites/resources/' + id, this.httpOptions)
       .pipe().subscribe(
         (res: any) => {
           this.articles = this.removeByKey(this.articles, { key: '_id', value: id });

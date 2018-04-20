@@ -17,7 +17,7 @@ export class DeleteTagsComponent implements OnInit {
   ngOnInit() {
     let autorization = {Authorization: localStorage.getItem('authentication')};
     console.log("ok");
-    this.http.get('http://localhost:3000/api/tags', {headers: autorization})
+    this.http.get('api/tags', {headers: autorization})
       .subscribe((res: any) => {
         this.tags= res.data;
        
@@ -38,7 +38,7 @@ export class DeleteTagsComponent implements OnInit {
 deleteTag(tagId){
   let autorization = {Authorization: localStorage.getItem('authentication')};
   console.log("ok");
-  this.http.delete('http://localhost:3000/api/tags/'+tagId, {headers: autorization})
+  this.http.delete('api/tags/'+tagId, {headers: autorization})
     .subscribe((res: any) => {
     this.ngOnInit();     
     }, err => {

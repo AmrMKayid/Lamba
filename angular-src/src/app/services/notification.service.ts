@@ -25,7 +25,7 @@ export class NotificationService {
   	var headers = new Headers();
 	headers.append('Content-Type', 'application/json');
 	headers.append('authorization', localStorage.getItem('authentication'));
-	return this.http.get('http://127.0.0.1:3000/api/notifications/get', this.httpOptions);
+	return this.http.get('api/notifications/get', this.httpOptions);
   }
 
   /**
@@ -36,7 +36,7 @@ export class NotificationService {
   	var headers = new Headers();
 	headers.append('Content-Type', 'application/json');
 	headers.append('authorization', localStorage.getItem('authentication'));
-	return this.http.post('http://127.0.0.1:3000/api/notifications/create', notification, this.httpOptions).subscribe((res:any)   => {console.log(res);});
+	return this.http.post('api/notifications/create', notification, this.httpOptions).subscribe((res:any)   => {console.log(res);});
   }
 
   /**
@@ -47,7 +47,7 @@ export class NotificationService {
 	   	var headers = new Headers();
 		headers.append('Content-Type', 'application/json');
 		headers.append('authorization', localStorage.getItem('authentication'));
-		return this.http.post('http://127.0.0.1:3000/api/notifications/seen', this.httpOptions);
+		return this.http.post('api/notifications/seen', this.httpOptions);
    }
 
 }

@@ -20,7 +20,7 @@ export class AddAdminComponent implements OnInit {
 
   ngOnInit() {
     let autorization = {Authorization: localStorage.getItem('authentication')};
-    this.httpClient.get('http://localhost:3000/api/user/viewAdmins', {headers: autorization})
+    this.httpClient.get('api/user/viewAdmins', {headers: autorization})
       .subscribe((res: any) => {
         this.admins = res.data;
       }, err => {
@@ -57,7 +57,7 @@ addAdmin(val){
      password:val.password,
      confirmPassword:val.confirmpassword
    }
-   this.httpClient.post('http://localhost:3000/api//auth/admin',postedAdmin,{headers: autorization} ).subscribe(
+   this.httpClient.post('api//auth/admin',postedAdmin,{headers: autorization} ).subscribe(
       (res: any) => {
 
         new Noty({

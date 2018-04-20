@@ -44,7 +44,7 @@ export class ActivityComponent implements OnInit {
 
 
   deleteActivity() {
-    this.http.delete('http://localhost:3000/api/activity/delete/' + this.activity["_id"])
+    this.http.delete('api/activity/delete/' + this.activity["_id"])
       .subscribe(res => {
         this.router.navigate(["/event/myactivities/view"]);
       });

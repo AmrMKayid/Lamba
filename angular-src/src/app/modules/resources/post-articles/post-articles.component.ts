@@ -134,7 +134,7 @@ export class PostArticlesComponent implements OnInit {
       thumbnail_url: this.picture_url
     };
 
-    this.http.post('http://localhost:3000/api/articles', article, this.httpOptions)
+    this.http.post('api/articles', article, this.httpOptions)
       .pipe().subscribe(res => {
         this.title = "";
         this.editorContent = "";
@@ -208,7 +208,7 @@ export class PostArticlesComponent implements OnInit {
     fd.append('image', file);
 
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:3000/api/articles/uploadArticleThumbnail', true);
+    xhr.open('POST', 'api/articles/uploadArticleThumbnail', true);
     xhr.setRequestHeader('Authorization', this.token);
     xhr.onload = () => {
       if (xhr.status === 200) {
@@ -222,7 +222,7 @@ export class PostArticlesComponent implements OnInit {
   insertToEditor(url: string) {
     // push image url to rich editor.
     const range = this.editor.getSelection();
-    this.editor.insertEmbed(range.index, 'image', `http://localhost:3000/api/uploads/articlesThumbnails/${url}`);
+    this.editor.insertEmbed(range.index, 'image', `api/uploads/articlesThumbnails/${url}`);
   }
 
   //To be able to access the current editor's selection (index) while inserting images.

@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class FavItemsComponent implements OnInit {
   items: any[];
   itemsInitialized: boolean;
-  IMG_URL = 'http://localhost:3000/api/uploads/articlesThumbnails/';
+  IMG_URL = 'api/uploads/articlesThumbnails/';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ export class FavItemsComponent implements OnInit {
   ngOnInit() {
     this.items = [];
     this.itemsInitialized = false;
-    this.http.get('http://localhost:3000/api//user/favorites/items', this.httpOptions)
+    this.http.get('api//user/favorites/items', this.httpOptions)
       .pipe().subscribe(
         (res: any) => {
           this.items = res.data.reverse();
@@ -53,7 +53,7 @@ export class FavItemsComponent implements OnInit {
   };
 
   remove(id) {
-    this.http.delete('http://localhost:3000/api/user/favorites/items/' + id, this.httpOptions)
+    this.http.delete('api/user/favorites/items/' + id, this.httpOptions)
       .pipe().subscribe(
         (res: any) => {
           this.items = this.removeByKey(this.items, { key: '_id', value: id });

@@ -10,7 +10,7 @@ export class ArticlesService {
   }
 
   loadAllArticles() {
-    return this.http.get('http://localhost:3000/api/articles', {
+    return this.http.get('api/articles', {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': localStorage.getItem('authentication')
@@ -20,7 +20,7 @@ export class ArticlesService {
   }
 
   loadArticle(id: string) {
-    return this.http.get('http://localhost:3000/api/articles/' + id, {
+    return this.http.get('api/articles/' + id, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': localStorage.getItem('authentication')
@@ -30,7 +30,7 @@ export class ArticlesService {
   }
 
   getAllTags() {
-    return this.http.get('http://localhost:3000/api/tags/', {
+    return this.http.get('api/tags/', {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': localStorage.getItem('authentication')
@@ -44,7 +44,7 @@ export class ArticlesService {
       article_id: id,
       mode: "upvote"
     }
-    return this.http.post('http://localhost:3000/api/articles/feedback', body, {
+    return this.http.post('api/articles/feedback', body, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': localStorage.getItem('authentication')
@@ -59,7 +59,7 @@ export class ArticlesService {
       article_id: id,
       mode: "downvote"
     }
-    return this.http.post('http://localhost:3000/api/articles/feedback', body, {
+    return this.http.post('api/articles/feedback', body, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': localStorage.getItem('authentication')
@@ -73,7 +73,7 @@ export class ArticlesService {
       article_id: id,
       comment_content: content
     }
-    return this.http.post('http://localhost:3000/api/articles/comment', body, {
+    return this.http.post('api/articles/comment', body, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': localStorage.getItem('authentication')
@@ -88,7 +88,7 @@ export class ArticlesService {
       comment_id: comment_id,
       reply: content
     }
-    return this.http.post('http://localhost:3000/api/articles/reply', body, {
+    return this.http.post('api/articles/reply', body, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': localStorage.getItem('authentication')
@@ -98,7 +98,7 @@ export class ArticlesService {
   }
 
   delete(id) {
-    return this.http.delete('http://localhost:3000/api/articles/' + id, {
+    return this.http.delete('api/articles/' + id, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': localStorage.getItem('authentication')
@@ -108,7 +108,7 @@ export class ArticlesService {
   }
 
   addToFavorites(id: string) {
-    return this.http.post('http://localhost:3000/api/user/favorites/resources/' + id, '', {
+    return this.http.post('api/user/favorites/resources/' + id, '', {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': localStorage.getItem('authentication')
@@ -118,7 +118,7 @@ export class ArticlesService {
   }
 
   getChildren() {
-    return this.http.get('http://localhost:3000/api/user/myChildren', {
+    return this.http.get('api/user/myChildren', {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': localStorage.getItem('authentication')
@@ -127,7 +127,7 @@ export class ArticlesService {
       .pipe();
   }
   assignChild(articleID, childID) {
-    return this.http.patch('http://localhost:3000/api/user/assignArticleToChild/' + childID, { articleID: articleID },
+    return this.http.patch('api/user/assignArticleToChild/' + childID, { articleID: articleID },
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',

@@ -179,7 +179,7 @@ export class TeacherComponent implements OnInit {
 
 
     }
-    this.httpClient.patch('http://localhost:3000/api/user/updateUser/' + this.currentUserID, {
+    this.httpClient.patch('api/user/updateUser/' + this.currentUserID, {
       "email": user.email,
       "name": user.name,
       "about": user.about,
@@ -203,7 +203,7 @@ export class TeacherComponent implements OnInit {
   ////////////////////////////// schedule/////////////////////////////////////////////////////
   getTeacherSchedule() {
 
-    this.httpClient.get('http://localhost:3000/api/schedule/getTeacherSchedule/' + this.currentUserID, this.httpOptions).subscribe((res: any) => {
+    this.httpClient.get('api/schedule/getTeacherSchedule/' + this.currentUserID, this.httpOptions).subscribe((res: any) => {
       this.sat = res.data.table.saturday;
       this.sun = res.data.table.sunday;
       this.mon = res.data.table.monday;
@@ -236,7 +236,7 @@ export class TeacherComponent implements OnInit {
       day: thisday
     }
 
-    this.httpClient.patch('http://localhost:3000/api/schedule/updateTeacherSchedule/' + Slot._id, body, this.httpOptions).subscribe((res: any) => {
+    this.httpClient.patch('api/schedule/updateTeacherSchedule/' + Slot._id, body, this.httpOptions).subscribe((res: any) => {
       if (thisday == 'saturday') {
         var index = this.sat.indexOf(Slot);
         this.sat[index] = res.data;
@@ -336,7 +336,7 @@ students = [];
     console.log(taskdata);
 
 
-    this.http.post('http://localhost:3000/api/task/newTask', taskdata, this.httpOptions).subscribe(
+    this.http.post('api/task/newTask', taskdata, this.httpOptions).subscribe(
       (res: any) => {
 
         this.getTasks();

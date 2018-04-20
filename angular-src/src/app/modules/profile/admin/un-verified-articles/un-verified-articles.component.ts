@@ -20,7 +20,7 @@ export class UnVerifiedArticlesComponent implements OnInit {
   public article = [];
   allTags: { value: string, id: string }[];
   tagsInitialized: boolean;
-  IMG_URL = 'http://localhost:3000/api/uploads/articlesThumbnails/';
+  IMG_URL = 'api/uploads/articlesThumbnails/';
   constructor(private httpClient: HttpClient,
               private http: Http,
               private articlesService: ArticlesService,
@@ -33,7 +33,7 @@ export class UnVerifiedArticlesComponent implements OnInit {
     let autorization = {Authorization: localStorage.getItem('authentication')};
     this.allTags = [];
     this.tagsInitialized = false;
-    this.httpClient.get('http://localhost:3000/api/user/viewUnverifiedArticles', {headers: autorization}).pipe()
+    this.httpClient.get('api/user/viewUnverifiedArticles', {headers: autorization}).pipe()
       .subscribe((res: any) => {
         this.unVerifiedArticlesList = res.data;
         
@@ -68,7 +68,7 @@ export class UnVerifiedArticlesComponent implements OnInit {
 
   verifyArticle(articleId,ownerId) {
     let autorization = {Authorization: localStorage.getItem('authentication')};
-    this.httpClient.get('http://localhost:3000/api/user/verifyArticle/' + articleId, {headers: autorization})
+    this.httpClient.get('api/user/verifyArticle/' + articleId, {headers: autorization})
       .subscribe((res: any) => {
         this.article = res.data;
         new Noty({
@@ -93,7 +93,7 @@ export class UnVerifiedArticlesComponent implements OnInit {
         url:'/resources/id/'+articleId,
         recieving_user_id:ownerId._id
       }
-      this.httpClient.post('http://localhost:3000/api/notifications/create',notification,{headers: autorization} ).subscribe(
+      this.httpClient.post('api/notifications/create',notification,{headers: autorization} ).subscribe(
         (res: any) => {
         },
         err=> {
@@ -102,7 +102,7 @@ export class UnVerifiedArticlesComponent implements OnInit {
   }
   rejectArticle(articleId,ownerId,title) {
     let autorization = {Authorization: localStorage.getItem('authentication')};
-    this.httpClient.delete('http://localhost:3000/api/user/rejectArticle/' + articleId, {headers: autorization})
+    this.httpClient.delete('api/user/rejectArticle/' + articleId, {headers: autorization})
       .subscribe((res: any) => {
         new Noty({
           type: 'success',
@@ -125,7 +125,7 @@ export class UnVerifiedArticlesComponent implements OnInit {
         url:'/resources/post',
         recieving_user_id:ownerId._id
       }
-      this.httpClient.post('http://localhost:3000/api/notifications/create',notification,{headers: autorization} ).subscribe(
+      this.httpClient.post('api/notifications/create',notification,{headers: autorization} ).subscribe(
         (res: any) => {
         },
         err=> {

@@ -28,7 +28,7 @@ export class VerifyTeacherComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.httpClient.get('http://localhost:3000/api/admin/teachers_verfication', {headers: this.authorization})
+    this.httpClient.get('api/admin/teachers_verfication', {headers: this.authorization})
       .subscribe((res: any) => {
         this.Teachers = res.data;
       }, err => {
@@ -42,7 +42,7 @@ export class VerifyTeacherComponent implements OnInit {
   }
 
   Accept(teacherID) {
-    this.httpClient.get('http://localhost:3000/api/admin/accept_teacher/' + teacherID, {headers: this.authorization})
+    this.httpClient.get('api/admin/accept_teacher/' + teacherID, {headers: this.authorization})
       .subscribe(res => {
         new Noty({
           type: 'success',
@@ -66,7 +66,7 @@ export class VerifyTeacherComponent implements OnInit {
           url:'/profile/'+teacherID,
           recieving_user_id:teacherID
         }
-        this.httpClient.post('http://localhost:3000/api/notifications/create',notification,{headers: this.authorization} ).subscribe(
+        this.httpClient.post('api/notifications/create',notification,{headers: this.authorization} ).subscribe(
           (res: any) => {
           },
           err=> {
@@ -74,7 +74,7 @@ export class VerifyTeacherComponent implements OnInit {
           });      
   }
   Decline(teacherID) {
-    this.httpClient.get('http://localhost:3000/api/admin/decline_teacher/' +  teacherID, {headers: this.authorization})
+    this.httpClient.get('api/admin/decline_teacher/' +  teacherID, {headers: this.authorization})
     .subscribe(res => {
        new Noty({
         type: 'success',
@@ -98,7 +98,7 @@ export class VerifyTeacherComponent implements OnInit {
         url:'/profile/'+teacherID,
         recieving_user_id:teacherID
       }
-      this.httpClient.post('http://localhost:3000/api/notifications/create',notification,{headers: this.authorization} ).subscribe(
+      this.httpClient.post('api/notifications/create',notification,{headers: this.authorization} ).subscribe(
         (res: any) => {
         },
         err=> {

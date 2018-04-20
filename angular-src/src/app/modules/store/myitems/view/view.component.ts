@@ -63,7 +63,7 @@ editItem(item) {
     updated_at: Date.now()
   };
 
-  this.http.patch('http://localhost:3000/api/store/edit/' + itemId, editedItem)
+  this.http.patch('api/store/edit/' + itemId, editedItem)
     .subscribe(res => {
       new Noty({
         type: 'success',
@@ -91,14 +91,14 @@ editItem(item) {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('authorization', localStorage.getItem('authentication'));
-    this.http.get('http://localhost:3000/api/store/getItemsById', {headers: headers}).map((res) => res.json())
+    this.http.get('api/store/getItemsById', {headers: headers}).map((res) => res.json())
       .subscribe((data: any) => {
         this.myitems = data.data;
       });
   }
 
   deleteProduct(itemId) {
-    this.http.delete('http://localhost:3000/api/store/delete/' + itemId)
+    this.http.delete('api/store/delete/' + itemId)
       .subscribe(res => {
         new Noty({
           type: 'error',

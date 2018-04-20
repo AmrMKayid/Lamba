@@ -54,7 +54,7 @@ export class ViewChildComponent implements OnInit {
 
   getChildSchedule() {
 
-    this.httpClient.get('http://localhost:3000/api/schedule/getChildSchedule/' + this.child._id, this.httpOptions).subscribe((res: any) => {
+    this.httpClient.get('api/schedule/getChildSchedule/' + this.child._id, this.httpOptions).subscribe((res: any) => {
       this.sat = res.data.saturday;
       this.sun = res.data.sunday;
       this.mon = res.data.monday;
@@ -86,7 +86,7 @@ export class ViewChildComponent implements OnInit {
     console.log(body);
     console.log(Slot._id);
 
-    this.httpClient.patch('http://localhost:3000/api/schedule/updateChildSchedule/' + Slot._id + '/' + this.child._id, body, this.httpOptions).subscribe((res: any) => {
+    this.httpClient.patch('api/schedule/updateChildSchedule/' + Slot._id + '/' + this.child._id, body, this.httpOptions).subscribe((res: any) => {
       if (thisday == 'saturday') {
         var index = this.sat.indexOf(Slot);
         this.sat[index] = res.data;

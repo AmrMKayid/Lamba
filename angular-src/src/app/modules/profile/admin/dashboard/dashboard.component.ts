@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     let autorization = {Authorization: localStorage.getItem('authentication')};
-    this.httpClient.get('http://localhost:3000/api/user/viewUnverifiedArticles', {headers: autorization})
+    this.httpClient.get('api/user/viewUnverifiedArticles', {headers: autorization})
       .subscribe((res: any) => {
         this.articles = res.data;
       }, err => {
@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit {
           progressBar: true
         }).show();
       });
-      this.httpClient.get('http://localhost:3000/api/admin/teachers_verfication', {headers: autorization})
+      this.httpClient.get('api/admin/teachers_verfication', {headers: autorization})
       .subscribe((res: any) => {
         this.Teachers = res.data;
       }, err => {
@@ -64,7 +64,7 @@ export class DashboardComponent implements OnInit {
         }).show();
       });
 
-      this.httpClient.get('http://localhost:3000/api/activity/viewUnverifiedActivities', {headers: autorization})
+      this.httpClient.get('api/activity/viewUnverifiedActivities', {headers: autorization})
       .subscribe((res: any) => {
         this.activities = res.data;
       }, err => {
@@ -75,7 +75,7 @@ export class DashboardComponent implements OnInit {
           progressBar: true
         }).show();
       });
-      this.httpClient.get('http://localhost:3000/api/admin/teachers_verfication', {headers: autorization})
+      this.httpClient.get('api/admin/teachers_verfication', {headers: autorization})
       .subscribe((res: any) => {
         this.teacherForms = res.data;
       }, err => {
@@ -86,7 +86,7 @@ export class DashboardComponent implements OnInit {
           progressBar: true
         }).show();
       });
-      this.httpClient.get('http://localhost:3000/api/user/viewVerificationForms', {headers: autorization})
+      this.httpClient.get('api/user/viewVerificationForms', {headers: autorization})
       .subscribe((res: any) => {
         this.interviews= res.data;
       }, err => {

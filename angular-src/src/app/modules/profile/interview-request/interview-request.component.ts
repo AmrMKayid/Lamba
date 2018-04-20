@@ -24,7 +24,7 @@ export class InterviewRequestComponent implements OnInit {
       contactNumber:contactnumber
     }
    let autorization = {Authorization: localStorage.getItem('authentication')};
-    this.httpClient.post('http://localhost:3000/api/user/requestVerification',form,{headers: autorization} ).subscribe(
+    this.httpClient.post('api/user/requestVerification',form,{headers: autorization} ).subscribe(
       (res: any) => {
         new Noty({
           type: 'success',

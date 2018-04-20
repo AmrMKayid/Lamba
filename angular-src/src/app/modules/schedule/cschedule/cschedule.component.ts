@@ -38,7 +38,7 @@ export class CscheduleComponent implements OnInit {
 
   getChildSchedule() {
 
-    this.http.get('http://localhost:3000/api/schedule/getMySchedule/' + this.userID, this.httpOptions).subscribe((res: any) => {
+    this.http.get('api/schedule/getMySchedule/' + this.userID, this.httpOptions).subscribe((res: any) => {
       this.sat = res.data.table.saturday;
       this.sun = res.data.table.sunday;
       this.mon = res.data.table.monday;
@@ -60,7 +60,7 @@ export class CscheduleComponent implements OnInit {
       day: thisday
     }
 
-    this.http.patch('http://localhost:3000/api/schedule/updateChildSchedule' + Slot._id + '/' + this.userID, body, this.httpOptions).subscribe((res: any) => {
+    this.http.patch('api/schedule/updateChildSchedule' + Slot._id + '/' + this.userID, body, this.httpOptions).subscribe((res: any) => {
       if (thisday == 'saturday') {
         var index = this.sat.indexOf(Slot);
         this.sat[index] = res.data;

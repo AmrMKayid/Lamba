@@ -21,7 +21,7 @@ export class ViewArticleComponent implements OnInit {
   currentUserRole: string;
   editPressed: boolean;
   pic_url: string;
-  IMG = "http://localhost:3000/api/uploads/articlesThumbnails/";
+  IMG = "api/uploads/articlesThumbnails/";
 
   isOwner: boolean;
   children: [any];
@@ -39,10 +39,10 @@ export class ViewArticleComponent implements OnInit {
         this.article = retrieved.data;
         this.isOwner = this.article.owner_id == this.auth.getCurrentUser()._id;
         if (!this.article.thumbnail_url) {
-          this.pic_url = "http://localhost:3000/api/uploads/articlesThumbnails/articleDefault";
+          this.pic_url = "api/uploads/articlesThumbnails/articleDefault";
         }
         else {
-          this.pic_url = "http://localhost:3000/api/uploads/articlesThumbnails/" + this.article.thumbnail_url;
+          this.pic_url = "api/uploads/articlesThumbnails/" + this.article.thumbnail_url;
         }
         this.author = this.article.owner;
         this.comments = this.article.comments;

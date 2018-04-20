@@ -21,7 +21,7 @@ export class UserVerificationComponent implements OnInit {
 
   ngOnInit() {
     let autorization = {Authorization: localStorage.getItem('authentication')};
-    this.httpClient.get('http://localhost:3000/api/user/viewVerificationForms', {headers: autorization})
+    this.httpClient.get('api/user/viewVerificationForms', {headers: autorization})
       .subscribe((res: any) => {
         this.interviewRequests= res.data;
       }, err => {
@@ -35,7 +35,7 @@ export class UserVerificationComponent implements OnInit {
   }
   verifyUser(interviewId,interviewOwner_id){
     let autorization = {Authorization: localStorage.getItem('authentication')};
-    this.httpClient.get('http://localhost:3000/api/user/verifyUser/'+interviewOwner_id, {headers: autorization})
+    this.httpClient.get('api/user/verifyUser/'+interviewOwner_id, {headers: autorization})
       .subscribe((res: any) => {
         new Noty({
           type: 'success',
@@ -51,7 +51,7 @@ export class UserVerificationComponent implements OnInit {
           progressBar: true
         }).show();
       });
-      this.httpClient.delete('http://localhost:3000/api/user/deleteVerificationForm/'+interviewId, {headers: autorization})
+      this.httpClient.delete('api/user/deleteVerificationForm/'+interviewId, {headers: autorization})
       .subscribe((res: any) => {
         this.ngOnInit()
       }, err => {
@@ -68,7 +68,7 @@ export class UserVerificationComponent implements OnInit {
         url:'/profile/'+interviewOwner_id,
         recieving_user_id:interviewOwner_id
       }
-      this.httpClient.post('http://localhost:3000/api/notifications/create',notification,{headers: autorization} ).subscribe(
+      this.httpClient.post('api/notifications/create',notification,{headers: autorization} ).subscribe(
         (res: any) => {
         },
         err=> {
@@ -78,7 +78,7 @@ export class UserVerificationComponent implements OnInit {
 
   rejectUser(interviewId,interviewOwner_id){
     let autorization = {Authorization: localStorage.getItem('authentication')};
-    this.httpClient.delete('http://localhost:3000/api/user/deleteVerificationForm/'+interviewId, {headers: autorization})
+    this.httpClient.delete('api/user/deleteVerificationForm/'+interviewId, {headers: autorization})
     .subscribe((res: any) => {
       new Noty({
         type: 'success',
@@ -101,7 +101,7 @@ export class UserVerificationComponent implements OnInit {
       url:'/profile/'+interviewOwner_id,
       recieving_user_id:interviewOwner_id
     }
-    this.httpClient.post('http://localhost:3000/api/notifications/create',notification,{headers: autorization} ).subscribe(
+    this.httpClient.post('api/notifications/create',notification,{headers: autorization} ).subscribe(
       (res: any) => {
       },
       err=> {

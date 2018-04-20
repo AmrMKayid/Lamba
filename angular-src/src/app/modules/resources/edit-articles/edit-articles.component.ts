@@ -113,7 +113,7 @@ export class EditArticlesComponent implements OnInit {
       tags: (this.selectedTags.map(tag => tag.id))
     };
 
-    this.http.patch('http://localhost:3000/api/articles/' + this.id, body, this.httpOptions)
+    this.http.patch('api/articles/' + this.id, body, this.httpOptions)
       .pipe().subscribe(res => {
         this.router.navigate(['/resources']);
         new Noty({

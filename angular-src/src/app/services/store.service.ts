@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class StoreService {
 
-  readonly base_address: string = 'http://localhost:3000/api/store/';
+  readonly base_address: string = 'api/store/';
   readonly headers = new HttpHeaders(
     {
       'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ export class StoreService {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('authorization', localStorage.getItem('authentication'));
-    return this.http.post('http://127.0.0.1:3000/api/store/create', item, {headers: headers}).map((res) => res.json());
+    return this.http.post('api/store/create', item, {headers: headers}).map((res) => res.json());
   }
 
   viewItems(limit: number, page: number) {
@@ -38,18 +38,18 @@ export class StoreService {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('authorization', localStorage.getItem('authentication'));
-    return this.http.patch('http://localhost:3000/api/store/likeItems/' + item._id, item, {headers: headers}).map((Response) => Response.json().data);
+    return this.http.patch('api/store/likeItems/' + item._id, item, {headers: headers}).map((Response) => Response.json().data);
   }
 
   unlikeItems(item) {
-    return this.http.patch('http://localhost:3000/api/store/likeItems/' + item._id, item).map((Response) => Response.json().data);
+    return this.http.patch('api/store/likeItems/' + item._id, item).map((Response) => Response.json().data);
   }
 
   getItem(id) {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('authorization', localStorage.getItem('authentication'));
-    return this.http.get('http://127.0.0.1:3000/api/store/myitems/view/' + id, {headers: headers}).map((res) => res.json());
+    return this.http.get('api/store/myitems/view/' + id, {headers: headers}).map((res) => res.json());
   }
 
 }

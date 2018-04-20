@@ -11,7 +11,7 @@ export class FavActivitiesComponent implements OnInit {
 
   activities: any[];
   activitiesInitialized: boolean;
-  IMG_URL = 'http://localhost:3000/api/uploads/articlesThumbnails/';
+  IMG_URL = 'api/uploads/articlesThumbnails/';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ export class FavActivitiesComponent implements OnInit {
   ngOnInit() {
     this.activities = [];
     this.activitiesInitialized = false;
-    this.http.get('http://localhost:3000/api//user/favorites/activities', this.httpOptions)
+    this.http.get('api//user/favorites/activities', this.httpOptions)
       .pipe().subscribe(
         (res: any) => {
           this.activities = res.data.reverse();
@@ -55,7 +55,7 @@ export class FavActivitiesComponent implements OnInit {
   };
 
   remove(id) {
-    this.http.delete('http://localhost:3000/api/user/favorites/activities/' + id, this.httpOptions)
+    this.http.delete('api/user/favorites/activities/' + id, this.httpOptions)
       .pipe().subscribe(
         (res: any) => {
           this.activities = this.removeByKey(this.activities, { key: '_id', value: id });

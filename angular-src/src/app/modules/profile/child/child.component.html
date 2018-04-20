@@ -14,7 +14,7 @@
   <div class="card-body text-center">
     <div class="avatar">
       <a (click)="open(img)">
-        <img src="http://localhost:3000/api/uploads/store/{{currentUser.photo}}" class="rounded-circle">
+        <img src="api/uploads/store/{{currentUser.photo}}" class="rounded-circle">
       </a>
       <ng-template #img let-c="close" let-d="dismiss">
         <div class="modal-header">
@@ -30,7 +30,7 @@
                 <image-upload
                   [headers]="{authorization: token}"
                   [max]="1"
-                  [url]="'http://127.0.0.1:3000/api/store/upload'"
+                  [url]="'api/store/upload'"
                   [dropBoxMessage]="'Drop your image here!'"
                   [buttonCaption]="'Upload'"
                   [style]="customStyle"
@@ -508,7 +508,7 @@
                 <div class="col-lg-3 col-md-4 col-sm-6 myCard" *ngFor="let user of teachers">
 
                       <div class="card">
-                        <img src="http://localhost:3000/api/uploads/store/{{user.photo}}" class="card-img-top rounded-circle mt-2">
+                        <img src="api/uploads/store/{{user.photo}}" class="card-img-top rounded-circle mt-2">
                         <div class="card-block">
                           <h4 class="card-title mt-3 grey-text">{{ user.name.firstName }} {{ user.name.lastName }}</h4>
                         </div>

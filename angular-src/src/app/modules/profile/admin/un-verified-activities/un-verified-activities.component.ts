@@ -23,7 +23,7 @@ export class UnVerifiedActivitiesComponent implements OnInit {
 
   ngOnInit() {
     let autorization = {Authorization: localStorage.getItem('authentication')};
-    this.httpClient.get('http://localhost:3000/api/activity/viewUnverifiedActivities', {headers: autorization})
+    this.httpClient.get('api/activity/viewUnverifiedActivities', {headers: autorization})
       .subscribe((res: any) => {
         this.unVerifiedActivitiesList = res.data;
       }, err => {
@@ -39,7 +39,7 @@ export class UnVerifiedActivitiesComponent implements OnInit {
 
   verifyActivity(activityId,hostId) {
     let autorization = {Authorization: localStorage.getItem('authentication')};
-    this.httpClient.get('http://localhost:3000/api/user/verifyActivity/' + activityId, {headers: autorization})
+    this.httpClient.get('api/user/verifyActivity/' + activityId, {headers: autorization})
       .subscribe((res: any) => {
         this.activity = res.data;
         new Noty({
@@ -63,7 +63,7 @@ export class UnVerifiedActivitiesComponent implements OnInit {
         url:'/event/view',
         recieving_user_id:hostId
       }
-      this.httpClient.post('http://localhost:3000/api/notifications/create',notification,{headers: autorization} ).subscribe(
+      this.httpClient.post('api/notifications/create',notification,{headers: autorization} ).subscribe(
         (res: any) => {
         },
         err=> {
@@ -72,7 +72,7 @@ export class UnVerifiedActivitiesComponent implements OnInit {
   }
   rejectActivity(activityId,hostId) {
     let autorization = {Authorization: localStorage.getItem('authentication')};
-    this.httpClient.delete('http://localhost:3000/api/user/rejectActivity/' + activityId, {headers: autorization})
+    this.httpClient.delete('api/user/rejectActivity/' + activityId, {headers: autorization})
       .subscribe((res: any) => {
         new Noty({
           type: 'success',
@@ -95,7 +95,7 @@ export class UnVerifiedActivitiesComponent implements OnInit {
         url:'/event/myactivities/view',
         recieving_user_id:hostId
       }
-      this.httpClient.post('http://localhost:3000/api/notifications/create',notification,{headers: autorization} ).subscribe(
+      this.httpClient.post('api/notifications/create',notification,{headers: autorization} ).subscribe(
         (res: any) => {
         },
         err=> {

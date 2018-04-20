@@ -70,7 +70,7 @@ openDeleteTagDialog() {
    let postedTag={
      name:val.tag
    }
-   this.httpClient.post('http://localhost:3000/api/tags',postedTag,{headers: autorization} ).subscribe(
+   this.httpClient.post('api/tags',postedTag,{headers: autorization} ).subscribe(
       (res: any) => {
 
         new Noty({

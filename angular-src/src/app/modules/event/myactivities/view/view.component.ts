@@ -26,14 +26,14 @@ export class ViewComponent implements OnInit {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('authorization', localStorage.getItem('authentication'));
-    this.http.get('http://localhost:3000/api/activity/myActivities/view', {headers: headers}).map((res) => res.json())
+    this.http.get('api/activity/myActivities/view', {headers: headers}).map((res) => res.json())
       .subscribe((data: any) => {
         this.myactivities = data.data;
       });
   }
 
   deleteActivity(activityId) {
-    this.http.delete('http://localhost:3000/api/activity/delete/' + activityId)
+    this.http.delete('api/activity/delete/' + activityId)
       .subscribe(res => {
         new Noty({
           type: 'error',

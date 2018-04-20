@@ -42,7 +42,7 @@ export class TscheduleComponent implements OnInit {
   getTeacherSchedule() {
     //let user= JSON.parse(localStorage.getItem('currentUser')).user;
 
-    this.http.get('http://localhost:3000/api/schedule/getTeacherSchedule/5ac015ff36680295c461476e').subscribe((res: any) => {
+    this.http.get('api/schedule/getTeacherSchedule/5ac015ff36680295c461476e').subscribe((res: any) => {
       this.sat = res.data.table.saturday;
       this.sun = res.data.table.sunday;
       this.mon = res.data.table.monday;
@@ -121,7 +121,7 @@ export class TscheduleComponent implements OnInit {
     this.commentdata.taskId = "5abffe465386b43094a8c784";
     this.commentdata.name = "Saleh";
 
-    this.http.post('http://localhost:3000/api/task/newComment', this.commentdata).subscribe();
+    this.http.post('api/task/newComment', this.commentdata).subscribe();
   }
 
   CreateNewTask() {
@@ -133,14 +133,14 @@ export class TscheduleComponent implements OnInit {
     this.taskdata.TeacherId = "5abfe6f3750afc19b0689a36";
     this.taskdata.StudentId = "5abffe465388b43094a8c784";
 
-    this.http.post('http://localhost:3000/api/task/newTask', this.taskdata).subscribe();
+    this.http.post('api/task/newTask', this.taskdata).subscribe();
   }
 
   mycomment = [];
 
   getComments() {
 
-    this.http.get('http://localhost:3000/api/task/getComments/5abffe465386b43094a8c784').subscribe((res: any) => {
+    this.http.get('api/task/getComments/5abffe465386b43094a8c784').subscribe((res: any) => {
       this.mycomment = res.data;
       console.log(this.mycomment);
     });

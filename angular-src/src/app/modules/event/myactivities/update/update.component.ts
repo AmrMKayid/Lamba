@@ -49,7 +49,7 @@ export class UpdateComponent implements OnInit {
       updated_at: Date.now()
     };
 
-    this.http.patch('http://localhost:3000/api/activity/edit/' + activity, editedActivity)
+    this.http.patch('api/activity/edit/' + activity, editedActivity)
       .subscribe(res => {
         new Noty({
           type: 'success',
