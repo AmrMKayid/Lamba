@@ -86,7 +86,7 @@
               Requests.</a>
             <span *ngFor="let request of requests | slice:0:4; let i=index">
 
-                  <div class=" dropdown-item"  style="cursor: pointer;">
+                  <div class=" dropdown-item" [routerLink]="['/requests']" style="cursor: pointer;">
                      <div class="col-12">
                         <div class="col-12"><strong>Student Request</strong></div>
                         <div class="float-right"> {{request.created_at | date}}</div>
