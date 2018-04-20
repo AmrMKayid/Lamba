@@ -29,7 +29,7 @@ export class InterviewRequestComponent implements OnInit {
           type: 'success',
           text: res.msg,
           timeout: 3000,
-          progressBar: true
+          progressBar: true 
         }).show();
        this.router.navigate(['/']);        
       },
