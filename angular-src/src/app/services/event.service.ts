@@ -2,11 +2,12 @@ import {Injectable} from '@angular/core';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import 'rxjs/add/operator/map';
+import {appConfig} from "../app.config";
 
 @Injectable()
 export class EventService {
 
-  readonly base_address: string = 'http://localhost:3000/api/activity/';
+  readonly base_address: string = appConfig.apiUrl + '/activity/';
   readonly headers = new HttpHeaders(
     {
       'Content-Type': 'application/json',
@@ -23,7 +24,7 @@ export class EventService {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('authorization', localStorage.getItem('authentication'));
-    return this.http.post('http://127.0.0.1:3000/api/activity/create', activity, {headers: headers}).map((res) => res.json());
+    return this.http.post(appConfig.apiUrl + '/activity/create', activity, {headers: headers}).map((res) => res.json());
   }
 
   viewActivities(limit: number, page: number) {
@@ -32,14 +33,14 @@ export class EventService {
 
   activitiesCount() {
     console.log("Mayar...event.service.ts");
-    return this.httpc.get('http://127.0.0.1:3000/api/activity/countActivities', this.options);
+    return this.httpc.get(appConfig.apiUrl + '/activity/countActivities', this.options);
   }
 
   goingActivities(activity) {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('authorization', localStorage.getItem('authentication'));
-    return this.http.patch('http://localhost:3000/api/activity/goingActivities/' + activity._id, activity, {headers: headers}).map((Response) => Response.json().data);
+    return this.http.patch(appConfig.apiUrl + '/activity/goingActivities/' + activity._id, activity, {headers: headers}).map((Response) => Response.json().data);
   }
 
 
@@ -47,11 +48,11 @@ export class EventService {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('authorization', localStorage.getItem('authentication'));
-    return this.http.get('http://127.0.0.1:3000/api/activity/myactivities/view/' + id, {headers: headers}).map((res) => res.json());
+    return this.http.get(appConfig.apiUrl + '/activity/myactivities/view/' + id, {headers: headers}).map((res) => res.json());
   }
 
   getChildren(user){
-    return this.httpc.get("http://127.0.0.1:3000/api/user/getUserChildren/"+user['_id'], this.options);
+    return this.httpc.get(appConfig.apiUrl + '/user/getUserChildren/' +user['_id'], this.options);
   }
 
   registerChild(activityID,childID){

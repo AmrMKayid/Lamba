@@ -4,6 +4,7 @@ import {ChatService} from "../../services/chat.service";
 import { Router } from '@angular/router';
 import { NotificationService } from '../../services/notification.service';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {appConfig} from "../../app.config";
 
 @Component({
   selector: 'app-navbar',
@@ -102,7 +103,7 @@ refresh()
   requests = [];
 
   getMyRequests() {
-    this.httpClient.get('http://localhost:3000/api/request/get', this.httpOptions).subscribe(
+    this.httpClient.get(appConfig.apiUrl + '/request/get', this.httpOptions).subscribe(
       (res: any) => {
         this.requests = res.data;
       },
@@ -119,7 +120,7 @@ refresh()
 
   rejectRequest(request) {
 
-    this.httpClient.delete('http://localhost:3000/api/request/deleteRequest/' + request._id, this.httpOptions).subscribe(
+    this.httpClient.delete(appConfig.apiUrl + '/request/deleteRequest/' + request._id, this.httpOptions).subscribe(
       (res: any) => {
         this.requests.splice(this.requests.indexOf(request), 1);
       },
@@ -144,7 +145,7 @@ refresh()
   }
 
   acceptRequest(request) {
-    this.httpClient.post('http://localhost:3000/api/user/addStudent/' + request.childId._id, null, this.httpOptions).subscribe(
+    this.httpClient.post(appConfig.apiUrl + '/user/addStudent/' + request.childId._id, null, this.httpOptions).subscribe(
       (res: any) => {
         new Noty({
           type: 'success',
@@ -162,7 +163,7 @@ refresh()
       }
     );
 
-    this.httpClient.delete('http://localhost:3000/api/request/deleteRequest/' + request._id, this.httpOptions).subscribe(
+    this.httpClient.delete(appConfig.apiUrl + '/request/deleteRequest/' + request._id, this.httpOptions).subscribe(
       (res: any) => {
         this.requests.splice(this.requests.indexOf(request), 1);
       },

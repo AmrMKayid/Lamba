@@ -63,7 +63,7 @@ export class ViewTeacherComponent implements OnInit {
 
 
   getChildrenForParent(){
-    this.httpClient.get('http://localhost:3000/api/user/myChildren', this.httpOptions).subscribe(
+    this.httpClient.get(appConfig.apiUrl + '/user/myChildren', this.httpOptions).subscribe(
       (res: any) => {
         this.children = res.data;
       },
@@ -81,7 +81,7 @@ export class ViewTeacherComponent implements OnInit {
     let dummy={
       title : "dsfkjsdfsd"
     };
-    this.httpClient.post('http://localhost:3000/api/request/create/'+this.user._id +"/"+this.selectedChild ,dummy, this.httpOptions).subscribe(
+    this.httpClient.post(appConfig.apiUrl + '/request/create/'+this.user._id +"/"+this.selectedChild ,dummy, this.httpOptions).subscribe(
       (res: any) => {
         new Noty({
           type: 'success',

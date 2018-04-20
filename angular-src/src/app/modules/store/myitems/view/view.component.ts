@@ -9,6 +9,7 @@ import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-boots
 
 
 import {ActivatedRoute} from "@angular/router";
+import {appConfig} from "../../../../app.config";
 
 @Component({
   selector: 'app-view',
@@ -31,52 +32,52 @@ export class ViewComponent implements OnInit {
   item: any;
 
   constructor(private http: Http,
-    private router: Router,
-    private storeservice: StoreService,
-    private auth: AuthService,
-    private modalService: NgbModal,
-    private route: ActivatedRoute) {
+              private router: Router,
+              private storeservice: StoreService,
+              private auth: AuthService,
+              private modalService: NgbModal,
+              private route: ActivatedRoute) {
 
-            this.route.data = this.item;
-            this.getMyItems()
-}
+    this.route.data = this.item;
+    this.getMyItems()
+  }
 
-editItem(item) {
-  this.item = item;
-  var itemId = item._id;
+  editItem(item) {
+    this.item = item;
+    var itemId = item._id;
 
-  this.name= this.item.name;
-  this.price = this.item.price;
-  this.description = this.item.description;
-  this.quantity = this.item.quantity;
-  this.item_type = this.item.item_type ;
-  this.item_condition = this.item.item_condition ;
+    this.name = this.item.name;
+    this.price = this.item.price;
+    this.description = this.item.description;
+    this.quantity = this.item.quantity;
+    this.item_type = this.item.item_type;
+    this.item_condition = this.item.item_condition;
 
 
-  let editedItem = {
-    name: this.name,
-    price: Number(this.price),
-    description: this.description,
-    quantity: Number(this.quantity),
-    item_type: this.item_type,
-    item_condition: this.item_condition,
-    updated_at: Date.now()
-  };
+    let editedItem = {
+      name: this.name,
+      price: Number(this.price),
+      description: this.description,
+      quantity: Number(this.quantity),
+      item_type: this.item_type,
+      item_condition: this.item_condition,
+      updated_at: Date.now()
+    };
 
-  this.http.patch('http://localhost:3000/api/store/edit/' + itemId, editedItem)
-    .subscribe(res => {
-      new Noty({
-        type: 'success',
-        text: 'Updated!',
-        timeout: 3000,
-        progressBar: true
-      }).show();
+    this.http.patch(appConfig.apiUrl + '/store/edit/' + itemId, editedItem)
+      .subscribe(res => {
+        new Noty({
+          type: 'success',
+          text: 'Updated!',
+          timeout: 3000,
+          progressBar: true
+        }).show();
 
-      localStorage.setItem("Update", null);
-      this.router.navigate(["/store/myitems/view"]);
-    });
+        localStorage.setItem("Update", null);
+        this.router.navigate(["/store/myitems/view"]);
+      });
 
-}
+  }
 
   close() {
 
@@ -86,19 +87,18 @@ editItem(item) {
   }
 
 
-
   getMyItems() {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('authorization', localStorage.getItem('authentication'));
-    this.http.get('http://localhost:3000/api/store/getItemsById', {headers: headers}).map((res) => res.json())
+    this.http.get(appConfig.apiUrl + '/store/getItemsById', {headers: headers}).map((res) => res.json())
       .subscribe((data: any) => {
         this.myitems = data.data;
       });
   }
 
   deleteProduct(itemId) {
-    this.http.delete('http://localhost:3000/api/store/delete/' + itemId)
+    this.http.delete(appConfig.apiUrl + '/store/delete/' + itemId)
       .subscribe(res => {
         new Noty({
           type: 'error',
@@ -112,7 +112,6 @@ editItem(item) {
       });
 
   }
-
 
 
   ngOnInit() {

@@ -5,6 +5,7 @@ import {AddTagsComponent} from '../../admin/add-tags/add-tags.component';
 import {DeleteTagsComponent} from '../../admin/delete-tags/delete-tags.component';
 import {HttpClient} from '@angular/common/http';
 import { Headers} from '@angular/http';
+import {appConfig} from "../../../../app.config";
 
 @Component({
   selector: 'app-sidebar',
@@ -20,7 +21,7 @@ export class SidebarComponent {
 
   constructor( public router: Router,private dialog: MatDialog,private httpClient: HttpClient
     ) {
- 
+
   }
 
 
@@ -45,8 +46,8 @@ export class SidebarComponent {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    
-      
+
+
     const dialogRef = this.dialog.open(AddTagsComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(
       val =>  this.addTag(val)
@@ -58,19 +59,19 @@ openDeleteTagDialog() {
 
   dialogConfig.disableClose = true;
   dialogConfig.autoFocus = true;
-  
-    
+
+
   const dialogRef = this.dialog.open(DeleteTagsComponent, dialogConfig);
 
 }
  addTag(val){
    if(val){
-   
+
    let autorization = {Authorization: localStorage.getItem('authentication')};
    let postedTag={
      name:val.tag
    }
-   this.httpClient.post('http://localhost:3000/api/tags',postedTag,{headers: autorization} ).subscribe(
+   this.httpClient.post(appConfig.apiUrl + '/tags',postedTag,{headers: autorization} ).subscribe(
       (res: any) => {
 
         new Noty({

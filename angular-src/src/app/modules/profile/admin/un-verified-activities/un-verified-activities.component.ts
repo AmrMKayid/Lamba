@@ -5,6 +5,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {routerTransition} from '../router.animations';
 import {AuthService} from "../../../../services/auth.service";
+import {appConfig} from "../../../../app.config";
 
 @Component({
   selector: 'app-un-verified-activities',
@@ -16,14 +17,16 @@ export class UnVerifiedActivitiesComponent implements OnInit {
   public unVerifiedActivitiesList = [];
   public user;
   public activity;
+
   constructor(private httpClient: HttpClient,
               private http: Http,
               private router: Router,
-              private auth: AuthService) { }
+              private auth: AuthService) {
+  }
 
   ngOnInit() {
     let autorization = {Authorization: localStorage.getItem('authentication')};
-    this.httpClient.get('http://localhost:3000/api/activity/viewUnverifiedActivities', {headers: autorization})
+    this.httpClient.get(appConfig.apiUrl + '/activity/viewUnverifiedActivities', {headers: autorization})
       .subscribe((res: any) => {
         this.unVerifiedActivitiesList = res.data;
       }, err => {
@@ -37,9 +40,9 @@ export class UnVerifiedActivitiesComponent implements OnInit {
 
   }
 
-  verifyActivity(activityId,hostId) {
+  verifyActivity(activityId, hostId) {
     let autorization = {Authorization: localStorage.getItem('authentication')};
-    this.httpClient.get('http://localhost:3000/api/user/verifyActivity/' + activityId, {headers: autorization})
+    this.httpClient.get(appConfig.apiUrl + '/user/verifyActivity/' + activityId, {headers: autorization})
       .subscribe((res: any) => {
         this.activity = res.data;
         new Noty({
@@ -57,22 +60,23 @@ export class UnVerifiedActivitiesComponent implements OnInit {
           progressBar: true
         }).show();
       });
-      let notification={
-        title:'Activity Verification',
-        description:'Congratulations:Your Activity has been verified you can find it on the Activities page',
-        url:'/event/view',
-        recieving_user_id:hostId
-      }
-      this.httpClient.post('http://localhost:3000/api/notifications/create',notification,{headers: autorization} ).subscribe(
-        (res: any) => {
-        },
-        err=> {
-         
-        });
+    let notification = {
+      title: 'Activity Verification',
+      description: 'Congratulations:Your Activity has been verified you can find it on the Activities page',
+      url: '/event/view',
+      recieving_user_id: hostId
+    }
+    this.httpClient.post(appConfig.apiUrl + '/notifications/create', notification, {headers: autorization}).subscribe(
+      (res: any) => {
+      },
+      err => {
+
+      });
   }
-  rejectActivity(activityId,hostId) {
+
+  rejectActivity(activityId, hostId) {
     let autorization = {Authorization: localStorage.getItem('authentication')};
-    this.httpClient.delete('http://localhost:3000/api/user/rejectActivity/' + activityId, {headers: autorization})
+    this.httpClient.delete(appConfig.apiUrl + '/user/rejectActivity/' + activityId, {headers: autorization})
       .subscribe((res: any) => {
         new Noty({
           type: 'success',
@@ -89,19 +93,20 @@ export class UnVerifiedActivitiesComponent implements OnInit {
           progressBar: true
         }).show();
       });
-      let notification={
-        title:'Activity Verification',
-        description:'Sorry:Your Activity has been rejected',
-        url:'/event/myactivities/view',
-        recieving_user_id:hostId
-      }
-      this.httpClient.post('http://localhost:3000/api/notifications/create',notification,{headers: autorization} ).subscribe(
-        (res: any) => {
-        },
-        err=> {
-         
-        });
+    let notification = {
+      title: 'Activity Verification',
+      description: 'Sorry:Your Activity has been rejected',
+      url: '/event/myactivities/view',
+      recieving_user_id: hostId
+    }
+    this.httpClient.post(appConfig.apiUrl + '/notifications/create', notification, {headers: autorization}).subscribe(
+      (res: any) => {
+      },
+      err => {
+
+      });
   }
+
   isAdmin() {
     if (this.auth.getCurrentUser().role == 'Admin') {
       return true;

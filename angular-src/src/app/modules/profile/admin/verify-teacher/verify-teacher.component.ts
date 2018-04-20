@@ -6,7 +6,8 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {HttpModule, Response} from '@angular/http';
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { routerTransition } from '../router.animations';
+import {routerTransition} from '../router.animations';
+import {appConfig} from "../../../../app.config";
 
 @Component({
   selector: 'app-verify-teacher',
@@ -28,7 +29,7 @@ export class VerifyTeacherComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.httpClient.get('http://localhost:3000/api/admin/teachers_verfication', {headers: this.authorization})
+    this.httpClient.get(appConfig.apiUrl + '/admin/teachers_verfication', {headers: this.authorization})
       .subscribe((res: any) => {
         this.Teachers = res.data;
       }, err => {
@@ -42,16 +43,16 @@ export class VerifyTeacherComponent implements OnInit {
   }
 
   Accept(teacherID) {
-    this.httpClient.get('http://localhost:3000/api/admin/accept_teacher/' + teacherID, {headers: this.authorization})
+    this.httpClient.get(appConfig.apiUrl + '/admin/accept_teacher/' + teacherID, {headers: this.authorization})
       .subscribe(res => {
-        new Noty({
-          type: 'success',
-          text: 'Teacher Verified Successfully',
-          timeout: 2000,
-          progressBar: true
-        }).show();
-        this.ngOnInit();
-      },
+          new Noty({
+            type: 'success',
+            text: 'Teacher Verified Successfully',
+            timeout: 2000,
+            progressBar: true
+          }).show();
+          this.ngOnInit();
+        },
         err => {
           new Noty({
             type: 'error',
@@ -60,50 +61,51 @@ export class VerifyTeacherComponent implements OnInit {
             progressBar: true
           }).show();
         });
-        let notification={
-          title:'Verification',
-          description:'Congratulations:You are now a verified teacher',
-          url:'/profile/'+teacherID,
-          recieving_user_id:teacherID
-        }
-        this.httpClient.post('http://localhost:3000/api/notifications/create',notification,{headers: this.authorization} ).subscribe(
-          (res: any) => {
-          },
-          err=> {
-           
-          });      
-  }
-  Decline(teacherID) {
-    this.httpClient.get('http://localhost:3000/api/admin/decline_teacher/' +  teacherID, {headers: this.authorization})
-    .subscribe(res => {
-       new Noty({
-        type: 'success',
-        text: 'Teacher Rejected Successfully',
-        timeout: 2000,
-        progressBar: true
-      }).show();
-      this.ngOnInit();
-    },
-      err => {
-        new Noty({
-          type: 'error',
-          text: err.error.msg,
-          timeout: 2000,
-          progressBar: true
-        }).show();
-      });
-      let notification={
-        title:'Verification',
-        description:'Sorry:You have been rejected',
-        url:'/profile/'+teacherID,
-        recieving_user_id:teacherID
-      }
-      this.httpClient.post('http://localhost:3000/api/notifications/create',notification,{headers: this.authorization} ).subscribe(
-        (res: any) => {
-        },
-        err=> {
-         
-        }); 
-
+    let notification = {
+      title: 'Verification',
+      description: 'Congratulations:You are now a verified teacher',
+      url: '/profile/' + teacherID,
+      recieving_user_id: teacherID
     }
+    this.httpClient.post(appConfig.apiUrl + '/notifications/create', notification, {headers: this.authorization}).subscribe(
+      (res: any) => {
+      },
+      err => {
+
+      });
+  }
+
+  Decline(teacherID) {
+    this.httpClient.get(appConfig.apiUrl + '/admin/decline_teacher/' + teacherID, {headers: this.authorization})
+      .subscribe(res => {
+          new Noty({
+            type: 'success',
+            text: 'Teacher Rejected Successfully',
+            timeout: 2000,
+            progressBar: true
+          }).show();
+          this.ngOnInit();
+        },
+        err => {
+          new Noty({
+            type: 'error',
+            text: err.error.msg,
+            timeout: 2000,
+            progressBar: true
+          }).show();
+        });
+    let notification = {
+      title: 'Verification',
+      description: 'Sorry:You have been rejected',
+      url: '/profile/' + teacherID,
+      recieving_user_id: teacherID
+    }
+    this.httpClient.post(appConfig.apiUrl + '/notifications/create', notification, {headers: this.authorization}).subscribe(
+      (res: any) => {
+      },
+      err => {
+
+      });
+
+  }
 }

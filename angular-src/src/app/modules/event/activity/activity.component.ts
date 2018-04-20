@@ -5,6 +5,7 @@ import {trigger, state, style, animate, transition} from '@angular/animations';
 import {EventService} from '../../../services/event.service';
 import {Router} from '@angular/router';
 import {Http, Headers} from '@angular/http';
+import {appConfig} from "../../../app.config";
 
 @Component({
   selector: 'app-activity',
@@ -44,7 +45,7 @@ export class ActivityComponent implements OnInit {
 
 
   deleteActivity() {
-    this.http.delete('http://localhost:3000/api/activity/delete/' + this.activity["_id"])
+    this.http.delete(appConfig.apiUrl + '/activity/delete/' + this.activity["_id"])
       .subscribe(res => {
         this.router.navigate(["/event/myactivities/view"]);
       });

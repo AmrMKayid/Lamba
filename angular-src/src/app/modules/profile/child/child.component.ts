@@ -46,7 +46,7 @@ export class ChildComponent implements OnInit {
   ngOnInit() {
     this.currentUser = this.auth.getCurrentUser();
     this.currentUserID = this.currentUser._id;
-//  this.httpClient.get('http://localhost:3000/api/user/getUserInfo/'+this.currentUserID,
+//  this.httpClient.get(appConfig.apiUrl + '/user/getUserInfo/'+this.currentUserID,
     this.getChildSchedule();
     this.getTasks();
     this.getTeachers();
@@ -87,7 +87,7 @@ export class ChildComponent implements OnInit {
 
   getChildSchedule() {
 
-    this.httpClient.get('http://localhost:3000/api/schedule/getChildSchedule/' + this.currentUserID, this.httpOptions).subscribe((res: any) => {
+    this.httpClient.get(appConfig.apiUrl + '/schedule/getChildSchedule/' + this.currentUserID, this.httpOptions).subscribe((res: any) => {
       this.sat = res.data.saturday;
       this.sun = res.data.sunday;
       this.mon = res.data.monday;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { ArticlesService } from '../articles.service';
 import { Router } from '@angular/router';
+import {appConfig} from "../../../app.config";
 
 @Component({
   selector: 'app-view-articles',
@@ -17,7 +18,7 @@ export class ViewArticlesComponent implements OnInit {
   filterTagsIDs: string[] = [];
   keyword: string;
 
-  IMG_URL = 'http://localhost:3000/api/uploads/articlesThumbnails/';
+  IMG_URL = appConfig.apiUrl + '/uploads/articlesThumbnails/';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

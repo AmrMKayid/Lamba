@@ -4,6 +4,7 @@ import {Http, Headers} from '@angular/http';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 import {EventService} from '../../../../services/event.service';
 import {Router} from '@angular/router';
+import {appConfig} from "../../../../app.config";
 
 @Component({
   selector: 'app-view',
@@ -26,14 +27,14 @@ export class ViewComponent implements OnInit {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('authorization', localStorage.getItem('authentication'));
-    this.http.get('http://localhost:3000/api/activity/myActivities/view', {headers: headers}).map((res) => res.json())
+    this.http.get(appConfig.apiUrl + '/activity/myActivities/view', {headers: headers}).map((res) => res.json())
       .subscribe((data: any) => {
         this.myactivities = data.data;
       });
   }
 
   deleteActivity(activityId) {
-    this.http.delete('http://localhost:3000/api/activity/delete/' + activityId)
+    this.http.delete(appConfig.apiUrl + '/activity/delete/' + activityId)
       .subscribe(res => {
         new Noty({
           type: 'error',

@@ -239,7 +239,7 @@ export class ParentComponent implements OnInit {
     };
 
 
-    this.http.post('http://localhost:3000/api/task/newTask', taskdata, this.httpOptions).subscribe(
+    this.http.post(appConfig.apiUrl + '/task/newTask', taskdata, this.httpOptions).subscribe(
       (res: any) => {
         this.tasks = this.tasks.concat(res.data);
 

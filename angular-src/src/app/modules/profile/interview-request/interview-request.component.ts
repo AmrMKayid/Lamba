@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
+import {appConfig} from "../../../app.config";
+
 @Component({
   selector: 'app-interview-request',
   templateUrl: './interview-request.component.html',
@@ -10,21 +12,23 @@ import {HttpClient} from '@angular/common/http';
 export class InterviewRequestComponent implements OnInit {
   contactemail: string;
   contactnumber: string;
-  
+
   constructor(private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private httpClient: HttpClient) { }
+              private route: ActivatedRoute,
+              private router: Router,
+              private httpClient: HttpClient) {
+  }
 
   ngOnInit() {
   }
-  submitForm(contactemail, contactnumber){
-    let form={
-      contactEmail:contactemail,
-      contactNumber:contactnumber
+
+  submitForm(contactemail, contactnumber) {
+    let form = {
+      contactEmail: contactemail,
+      contactNumber: contactnumber
     }
-   let autorization = {Authorization: localStorage.getItem('authentication')};
-    this.httpClient.post('http://localhost:3000/api/user/requestVerification',form,{headers: autorization} ).subscribe(
+    let autorization = {Authorization: localStorage.getItem('authentication')};
+    this.httpClient.post(appConfig.apiUrl + '/user/requestVerification', form, {headers: autorization}).subscribe(
       (res: any) => {
         new Noty({
           type: 'success',
@@ -32,9 +36,9 @@ export class InterviewRequestComponent implements OnInit {
           timeout: 3000,
           progressBar: true
         }).show();
-       this.router.navigate(['/']);        
+        this.router.navigate(['/']);
       },
-      err=> {
+      err => {
         new Noty({
           type: 'error',
           text: err.error.msg,

@@ -3,6 +3,7 @@ import {WebsocketService} from './websocket.service';
 import {Observable, Subject} from 'rxjs/Rx';
 import * as socketIo from 'socket.io-client';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {appConfig} from "../app.config";
 
 @Injectable()
 export class ChatService {
@@ -12,7 +13,7 @@ export class ChatService {
 
   // Our constructor calls our wsService connect method
   constructor(private http: HttpClient) {
-    
+
 
   }
 public initSocket()
@@ -50,7 +51,7 @@ public initSocket()
       })
     };
 
-    return this.http.get('http://127.0.0.1:3000/api/chat', httpOptions);
+    return this.http.get(appConfig.apiUrl + '/chat', httpOptions);
   }
   public getChat(user_id)
   {
@@ -61,13 +62,13 @@ public initSocket()
       })
     };
 
-    return this.http.get('http://127.0.0.1:3000/api/chat/' + user_id, httpOptions);
+    return this.http.get(appConfig.apiUrl + '/chat/' + user_id, httpOptions);
   }
 
 
   public getUserInfo(user_id)
   {
-      return this.http.get('http://127.0.0.1:3000/api/user/getUserInfo/' + user_id);
+      return this.http.get(appConfig.apiUrl + '/user/getUserInfo/' + user_id);
   }
 
 

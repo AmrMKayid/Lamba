@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {AuthService} from "../../services/auth.service";
 import {NotificationService} from "../../services/notification.service";
+import {appConfig} from "../../app.config";
 
 @Component({
   selector: 'app-requests',
@@ -12,7 +13,7 @@ export class RequestsComponent implements OnInit {
 
   constructor(private httpClient: HttpClient,
               private auth: AuthService,
-              private notificationservice: NotificationService){
+              private notificationservice: NotificationService) {
   }
 
   requests = [];
@@ -30,7 +31,7 @@ export class RequestsComponent implements OnInit {
   }
 
   getMyRequests() {
-    this.httpClient.get('http://localhost:3000/api/request/get', this.httpOptions).subscribe(
+    this.httpClient.get(appConfig.apiUrl + '/request/get', this.httpOptions).subscribe(
       (res: any) => {
         this.requests = res.data;
       },
@@ -45,8 +46,8 @@ export class RequestsComponent implements OnInit {
     );
   }
 
-  acceptRequest(request){
-    this.httpClient.post('http://localhost:3000/api/user/addStudent/'+request.childId._id ,null,this.httpOptions).subscribe(
+  acceptRequest(request) {
+    this.httpClient.post(appConfig.apiUrl + '/user/addStudent/' + request.childId._id, null, this.httpOptions).subscribe(
       (res: any) => {
         new Noty({
           type: 'success',
@@ -64,9 +65,9 @@ export class RequestsComponent implements OnInit {
       }
     );
 
-    this.httpClient.delete('http://localhost:3000/api/request/deleteRequest/'+request._id,this.httpOptions).subscribe(
+    this.httpClient.delete(appConfig.apiUrl + '/request/deleteRequest/' + request._id, this.httpOptions).subscribe(
       (res: any) => {
-        this.requests.splice(this.requests.indexOf(request),1);
+        this.requests.splice(this.requests.indexOf(request), 1);
       },
       err => {
         new Noty({
@@ -80,19 +81,19 @@ export class RequestsComponent implements OnInit {
 
     var notifyParent = {
       title: "Your request is accepted",
-      description: this.auth.getCurrentUser().name.firstName+" "+this.auth.getCurrentUser().name.lastName+
-                   " accepted your request to add your child "+request.childId.name.firstName+" to his/her students",
-      url: "/profile/"+request.recievingTeacherId,
+      description: this.auth.getCurrentUser().name.firstName + " " + this.auth.getCurrentUser().name.lastName +
+      " accepted your request to add your child " + request.childId.name.firstName + " to his/her students",
+      url: "/profile/" + request.recievingTeacherId,
       recieving_user_id: request.requestingParentId._id
     };
     this.notificationservice.CreateNotification(notifyParent);
   }
 
-  rejectRequest(request){
+  rejectRequest(request) {
 
-    this.httpClient.delete('http://localhost:3000/api/request/deleteRequest/'+request._id,this.httpOptions).subscribe(
+    this.httpClient.delete(appConfig.apiUrl + '/request/deleteRequest/' + request._id, this.httpOptions).subscribe(
       (res: any) => {
-        this.requests.splice(this.requests.indexOf(request),1);
+        this.requests.splice(this.requests.indexOf(request), 1);
       },
       err => {
         new Noty({
@@ -106,9 +107,9 @@ export class RequestsComponent implements OnInit {
 
     var notifyParent = {
       title: "Your request is rejected",
-      description: this.auth.getCurrentUser().name.firstName+" "+this.auth.getCurrentUser().name.lastName+
-                    " rejected your request to add your child "+request.childId.name.firstName+" to his/her students",
-      url: "/profile/"+request.recievingTeacherId,
+      description: this.auth.getCurrentUser().name.firstName + " " + this.auth.getCurrentUser().name.lastName +
+      " rejected your request to add your child " + request.childId.name.firstName + " to his/her students",
+      url: "/profile/" + request.recievingTeacherId,
       recieving_user_id: request.requestingParentId._id
     };
     this.notificationservice.CreateNotification(notifyParent);

@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {Http, Headers} from '@angular/http';
 
 import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {appConfig} from "../../../app.config";
 
 
 
@@ -59,7 +60,7 @@ export class ItemComponent implements OnInit {
 
 
   deleteProduct() {
-    this.http.delete('http://localhost:3000/api/store/delete/' + this.item["_id"])
+    this.http.delete(appConfig.apiUrl + '/store/delete/' + this.item["_id"])
       .subscribe(res => {
         this.router.navigate(["/store/myitems/view"]);
       });
@@ -113,7 +114,7 @@ export class ItemComponent implements OnInit {
       updated_at: Date.now()
     };
 
-    this.http.patch('http://localhost:3000/api/store/edit/' + itemId, editedItem)
+    this.http.patch(appConfig.apiUrl + '/store/edit/' + itemId, editedItem)
       .subscribe(res => {
         new Noty({
           type: 'success',

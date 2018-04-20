@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {routerTransition} from '../router.animations';
 import {HttpClient} from '@angular/common/http';
+import {appConfig} from "../../../../app.config";
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +17,7 @@ export class DashboardComponent implements OnInit {
   public activities: Array<any> = [];
   public interviews: Array<any> = [];
   public teacherForms: Array<any> = [];
+
   constructor(private httpClient: HttpClient) {
     this.sliders.push(
       {
@@ -41,7 +43,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     let autorization = {Authorization: localStorage.getItem('authentication')};
-    this.httpClient.get('http://localhost:3000/api/user/viewUnverifiedArticles', {headers: autorization})
+    this.httpClient.get(appConfig.apiUrl + '/user/viewUnverifiedArticles', {headers: autorization})
       .subscribe((res: any) => {
         this.articles = res.data;
       }, err => {
@@ -52,7 +54,7 @@ export class DashboardComponent implements OnInit {
           progressBar: true
         }).show();
       });
-      this.httpClient.get('http://localhost:3000/api/admin/teachers_verfication', {headers: autorization})
+    this.httpClient.get(appConfig.apiUrl + '/admin/teachers_verfication', {headers: autorization})
       .subscribe((res: any) => {
         this.Teachers = res.data;
       }, err => {
@@ -64,7 +66,7 @@ export class DashboardComponent implements OnInit {
         }).show();
       });
 
-      this.httpClient.get('http://localhost:3000/api/activity/viewUnverifiedActivities', {headers: autorization})
+    this.httpClient.get(appConfig.apiUrl + '/activity/viewUnverifiedActivities', {headers: autorization})
       .subscribe((res: any) => {
         this.activities = res.data;
       }, err => {
@@ -75,7 +77,7 @@ export class DashboardComponent implements OnInit {
           progressBar: true
         }).show();
       });
-      this.httpClient.get('http://localhost:3000/api/admin/teachers_verfication', {headers: autorization})
+    this.httpClient.get(appConfig.apiUrl + '/admin/teachers_verfication', {headers: autorization})
       .subscribe((res: any) => {
         this.teacherForms = res.data;
       }, err => {
@@ -86,9 +88,9 @@ export class DashboardComponent implements OnInit {
           progressBar: true
         }).show();
       });
-      this.httpClient.get('http://localhost:3000/api/user/viewVerificationForms', {headers: autorization})
+    this.httpClient.get(appConfig.apiUrl + '/user/viewVerificationForms', {headers: autorization})
       .subscribe((res: any) => {
-        this.interviews= res.data;
+        this.interviews = res.data;
       }, err => {
         new Noty({
           type: 'error',

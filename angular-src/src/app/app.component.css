@@ -1,14 +1,13 @@
-.meclass
-{
+.meclass {
   position: fixed;
-  bottom:25px;
+  bottom: 25px;
   right: 20px;
   z-index: 100000000000000;
   width: 60px;
   height: 60px;
   text-align: center !important;
   padding: 0px;
-    padding-top: 10px;
+  padding-top: 10px;
 }
 
 .meclass .fa {

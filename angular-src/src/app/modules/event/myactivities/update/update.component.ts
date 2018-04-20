@@ -3,6 +3,7 @@ import {Http, Headers} from '@angular/http';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 import {EventService} from '../../../../services/event.service';
 import {Router} from '@angular/router';
+import {appConfig} from "../../../../app.config";
 
 @Component({
   selector: 'app-update',
@@ -49,7 +50,7 @@ export class UpdateComponent implements OnInit {
       updated_at: Date.now()
     };
 
-    this.http.patch('http://localhost:3000/api/activity/edit/' + activity, editedActivity)
+    this.http.patch(appConfig.apiUrl + '/activity/edit/' + activity, editedActivity)
       .subscribe(res => {
         new Noty({
           type: 'success',
