@@ -82,7 +82,7 @@ export class RequestsComponent implements OnInit {
       title: "Your request is accepted",
       description: this.auth.getCurrentUser().name.firstName+" "+this.auth.getCurrentUser().name.lastName+
                    " accepted your request to add your child "+request.childId.name.firstName+" to his/her students",
-      url: "fgasf/sadfs",// todo teacher account
+      url: "/profile/"+request.recievingTeacherId,
       recieving_user_id: request.requestingParentId._id
     };
     this.notificationservice.CreateNotification(notifyParent);
@@ -108,7 +108,7 @@ export class RequestsComponent implements OnInit {
       title: "Your request is rejected",
       description: this.auth.getCurrentUser().name.firstName+" "+this.auth.getCurrentUser().name.lastName+
                     " rejected your request to add your child "+request.childId.name.firstName+" to his/her students",
-      url: "fgasf/sadfs",// todo teacher account
+      url: "/profile/"+request.recievingTeacherId,
       recieving_user_id: request.requestingParentId._id
     };
     this.notificationservice.CreateNotification(notifyParent);
