@@ -17,7 +17,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class ViewComponent implements OnInit {
 
-  myitems: any[];
+  myitems = [];
   itemId: string;
   name: string;
   price: number;
