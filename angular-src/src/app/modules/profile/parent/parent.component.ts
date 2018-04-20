@@ -14,7 +14,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 export class ParentComponent implements OnInit {
 
-  currentUser;
+  user: any;
+  currentUser: any;
   token = localStorage.getItem('authentication');
   myChildren = [];
 
@@ -38,8 +39,21 @@ export class ParentComponent implements OnInit {
 
   ngOnInit() {
 
-    this.currentUser = this.auth.getCurrentUser();
-    this.getMyChildren(this.currentUser._id);
+    this.user = this.auth.getCurrentUser();
+
+    this.http.get(appConfig.apiUrl + '/user/getUserByID/' + this.user._id, this.httpOptions)
+      .subscribe(
+        (res: any) => {
+          this.currentUser = res.data;
+        }, (err) => {
+          new Noty({
+            type: 'error',
+            text: err.msg,
+            timeout: 1500,
+            progressBar: true
+          }).show();
+        });
+    this.getMyChildren(this.user._id);
     this.newChildBtn = false;
     this.getTasks();
   }
@@ -68,8 +82,6 @@ export class ParentComponent implements OnInit {
     this.http.patch(appConfig.apiUrl + '/user/updateUser/' + this.currentUser._id, updatedUser, this.httpOptions).subscribe(
       (res: any) => {
 
-        localStorage.setItem('authentication', res.data);
-
         this.modalref.close();
 
         new Noty({
@@ -79,9 +91,7 @@ export class ParentComponent implements OnInit {
           progressBar: true
         }).show();
 
-        setTimeout(function() {
-          location.reload();
-        }, 3500);
+        this.ngOnInit();
 
       },
       error => {

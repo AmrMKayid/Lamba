@@ -532,34 +532,6 @@ module.exports.updateUser = function (req, res, next) {
         });
     }
 
-    /*var valid =
-      req.body.about &&
-      Validations.isString(req.body.about) &&
-    //  req.body.address&&
-      req.body.address.city &&
-      Validations.isString(req.body.address.city) &&
-      req.body.address.street &&
-      Validations.isString(req.address.street) &&
-      req.body.address.state &&
-      Validations.isString(req.body.address.state) &&
-      req.body.address.zip &&
-      Validations.isNumber(req.body.address.zip) &&
-    // req.body.name&&
-      req.body.name.firstName &&
-      Validations.isString(req.body.name.firstName) &&
-      req.body.name.lastName &&
-      Validations.isString(req.body.name.lastName) &&
-
-      req.body.fees &&
-      Validations.isNumber(req.body.fees);
-    if (!valid) {
-      return res.status(422).json({
-        err: null,
-        msg: 'name(String) , fees(Number) ,address(address) and about(String) are required fields.',
-        data: null
-      });
-    }*/
-
     User.findByIdAndUpdate(
         req.params.userId, {
             $set: req.body
@@ -582,15 +554,10 @@ module.exports.updateUser = function (req, res, next) {
                 });
         }
         else {
-            var token = jwt.sign({
-                user: updateUser.toObject()
-            }, req.app.get('secret'), {
-                expiresIn: '12h'
-            });
             res.status(200).json({
                 err: null,
-                msg: 'Welcome',
-                data: token
+                msg: 'Information is Updated!',
+                data: null
             });
         }
     });
@@ -673,18 +640,18 @@ module.exports.getMyTeachers = function (req, res, next) {
                 .status(404)
                 .json({err: null, msg: 'child not found.', data: null});
         }
-        
 
-        if (user._id !== req.decodedToken.user._id && user.parent_id !== req.decodedToken.user._id ) {
 
-                return res
-                    .status(401)
-                    .json({err: null, msg: 'you are not authorized to view the teachers', data: null});
+        if (user._id !== req.decodedToken.user._id && user.parent_id !== req.decodedToken.user._id) {
+
+            return res
+                .status(401)
+                .json({err: null, msg: 'you are not authorized to view the teachers', data: null});
 
 
         }
 
-     else {
+        else {
             User.find({
                 students: {
                     $eq: req.params.ChildId
@@ -771,7 +738,7 @@ module.exports.addStudent = function (req, res, next) {
                             data: null
                         });
                     }
-                    else{
+                    else {
                         User.findById(req.decodedToken.user._id).exec(function (err, user) {
                             if (err) {
                                 return next(err);

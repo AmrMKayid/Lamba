@@ -12,7 +12,7 @@
   <div class="card-body text-center">
     <div class="avatar">
       <a (click)="open(img)">
-        <img src="http://localhost:3000/api/uploads/store/{{currentUser.photo}}" class="rounded-circle">
+        <img src="http://localhost:3000/api/uploads/store/{{currentUser?.photo}}" class="rounded-circle">
       </a>
       <ng-template #img let-c="close" let-d="dismiss">
         <div class="modal-header">
@@ -37,10 +37,10 @@
       </ng-template>
     </div>
     <!--Title-->
-    <h3 class="card-title"><strong>{{currentUser.name.firstName}} {{currentUser.name.lastName}}</strong></h3>
-    <h4 class="indigo-text"><strong>{{currentUser.role}} | {{currentUser.isVerified? 'Verified' :
+    <h3 class="card-title"><strong>{{currentUser?.name.firstName}} {{currentUser?.name.lastName}}</strong></h3>
+    <h4 class="indigo-text"><strong>{{currentUser?.role}} | {{currentUser?.isVerified? 'Verified' :
       'UnVerified'}}</strong></h4>
-    <ng-container *ngIf="!currentUser.isVerified">
+    <ng-container *ngIf="!currentUser?.isVerified">
       <h6 style="color: #ed5249">You need to complete your profile & wait for Admin Verification!</h6>
     </ng-container>
 
@@ -945,8 +945,8 @@
                                     <div class="md-form mb-0">
                                       <i class="material-icons prefix">face</i>
                                       <input type="text" id="orangeForm-updatedFirstName" class="form-control"
-                                             [ngModel]="currentUser.name?.firstName"
-                                             value="{{ currentUser.name?.firstName }}"
+                                             [ngModel]="currentUser?.name?.firstName"
+                                             value="{{ currentUser?.name?.firstName }}"
                                              [ngModelOptions]="{standalone: true}"
                                              #updatedFirstName
                                              mdbActive>
@@ -958,8 +958,8 @@
                                     <div class="md-form mb-0">
                                       <i class="material-icons prefix">face</i>
                                       <input type="text" id="orangeForm-updatedMiddleName" class="form-control"
-                                             [ngModel]="currentUser.name?.middleName"
-                                             value="{{ currentUser.name?.middleName }}"
+                                             [ngModel]="currentUser?.name?.middleName"
+                                             value="{{ currentUser?.name?.middleName }}"
                                              [ngModelOptions]="{standalone: true}"
                                              #updatedMiddleName
                                              mdbActive>
@@ -971,8 +971,8 @@
                                     <div class="md-form mb-0">
                                       <i class="material-icons prefix">face</i>
                                       <input type="text" id="orangeForm-updatedLastName" class="form-control"
-                                             [ngModel]="currentUser.name?.lastName"
-                                             value="{{ currentUser.name?.lastName }}"
+                                             [ngModel]="currentUser?.name?.lastName"
+                                             value="{{ currentUser?.name?.lastName }}"
                                              [ngModelOptions]="{standalone: true}"
                                              #updatedLastName
                                              mdbActive>
@@ -986,8 +986,8 @@
                               <div class="md-form">
                                 <i class="material-icons prefix">date_range</i>
                                 <input type="date" id="orangeForm-updatedBirthday" class="form-control"
-                                       [ngModel]="currentUser.birthday! | date:'yyyy-MM-dd'"
-                                       value="{{ currentUser.birthday! | date:'yyyy-MM-dd' }}"
+                                       [ngModel]="currentUser?.birthday! | date:'yyyy-MM-dd'"
+                                       value="{{ currentUser?.birthday! | date:'yyyy-MM-dd' }}"
                                        [ngModelOptions]="{standalone: true}"
                                        #updatedBirthday
                                        mdbActive>
@@ -997,7 +997,7 @@
                               <div class="md-form">
                                 <i class="material-icons prefix">phone</i>
                                 <input type="text" id="orangeForm-updatedPhone" class="form-control"
-                                       [ngModel]="currentUser.phone!" value="{{ currentUser.phone! }}"
+                                       [ngModel]="currentUser?.phone!" value="{{ currentUser?.phone! }}"
                                        [ngModelOptions]="{standalone: true}"
                                        #updatedPhone
                                        mdbActive>
@@ -1012,8 +1012,8 @@
                                     <div class="md-form mb-0">
                                       <i class="material-icons prefix">streetview</i>
                                       <input type="text" id="orangeForm-updatedStreet" class="form-control"
-                                             [ngModel]="currentUser.address?.street!"
-                                             value="{{ currentUser.address?.street! }}"
+                                             [ngModel]="currentUser?.address?.street!"
+                                             value="{{ currentUser?.address?.street! }}"
                                              [ngModelOptions]="{standalone: true}"
                                              #updatedStreet mdbActive>
                                       <label for="orangeForm-updatedStreet">Street</label>
@@ -1024,8 +1024,8 @@
                                     <div class="md-form mb-0">
                                       <i class="material-icons prefix">location_city</i>
                                       <input type="text" id="orangeForm-updatedCity" class="form-control"
-                                             [ngModel]="currentUser.address?.city!"
-                                             value="{{ currentUser.address?.city! }}"
+                                             [ngModel]="currentUser?.address?.city!"
+                                             value="{{ currentUser?.address?.city! }}"
                                              [ngModelOptions]="{standalone: true}"
                                              #updatedCity
                                              mdbActive>
@@ -1037,8 +1037,8 @@
                                     <div class="md-form mb-0">
                                       <i class="material-icons prefix">location_searching</i>
                                       <input type="text" id="orangeForm-updatedState" class="form-control"
-                                             [ngModel]="currentUser.address?.state!"
-                                             value="{{ currentUser.address?.state! }}"
+                                             [ngModel]="currentUser?.address?.state!"
+                                             value="{{ currentUser?.address?.state! }}"
                                              [ngModelOptions]="{standalone: true}"
                                              #updatedState
                                              mdbActive>
@@ -1050,8 +1050,8 @@
                                     <div class="md-form mb-0">
                                       <i class="material-icons prefix">code</i>
                                       <input type="text" id="orangeForm-updatedZip" class="form-control"
-                                             [ngModel]="currentUser.address?.zip!"
-                                             value="{{ currentUser.address?.zip! }}"
+                                             [ngModel]="currentUser?.address?.zip!"
+                                             value="{{ currentUser?.address?.zip! }}"
                                              [ngModelOptions]="{standalone: true}"
                                              #updatedZip
                                              mdbActive>
@@ -1066,7 +1066,7 @@
                               <div class="md-form">
                                 <i class="material-icons prefix">description</i>
                                 <input type="text" id="orangeForm-updatedAbout" class="form-control"
-                                       [ngModel]="currentUser.about!" value="{{ currentUser.about! }}"
+                                       [ngModel]="currentUser?.about!" value="{{ currentUser?.about! }}"
                                        [ngModelOptions]="{standalone: true}"
                                        #updatedAbout
                                        mdbActive>
@@ -1118,58 +1118,58 @@
                   <tbody>
                   <tr>
                     <th scope="row">First Name:</th>
-                    <th scope="row">{{currentUser.name.firstName}}</th>
+                    <th scope="row">{{currentUser?.name.firstName}}</th>
                   </tr>
 
                   <tr>
                     <th scope="row">Middle Name:</th>
-                    <th scope="row">{{currentUser.name.middleName!}}</th>
+                    <th scope="row">{{currentUser?.name.middleName!}}</th>
                   </tr>
 
                   <tr>
                     <th scope="row">Last Name:</th>
-                    <th scope="row">{{currentUser.name.lastName}}</th>
+                    <th scope="row">{{currentUser?.name.lastName}}</th>
                   </tr>
 
                   <tr>
                     <th scope="row">Birthday:</th>
-                    <th scope="row">{{currentUser.birthday! | date}}</th>
+                    <th scope="row">{{currentUser?.birthday! | date}}</th>
                   </tr>
 
                   <tr>
                     <th scope="row">Gender:</th>
-                    <th scope="row">{{currentUser.gender!}}</th>
+                    <th scope="row">{{currentUser?.gender!}}</th>
                   </tr>
 
                   <tr>
                     <th scope="row">Phone:</th>
-                    <th scope="row">{{currentUser.phone!}}</th>
+                    <th scope="row">{{currentUser?.phone!}}</th>
                   </tr>
 
                   <tr>
                     <th scope="row">Street:</th>
-                    <th scope="row">{{currentUser.address?.street!}}</th>
+                    <th scope="row">{{currentUser?.address?.street!}}</th>
                   </tr>
 
                   <tr>
                     <th scope="row">City:</th>
-                    <th scope="row">{{currentUser.address?.city!}}</th>
+                    <th scope="row">{{currentUser?.address?.city!}}</th>
                   </tr>
 
                   <tr>
                     <th scope="row">Country:</th>
-                    <th scope="row">{{currentUser.address?.state!}}</th>
+                    <th scope="row">{{currentUser?.address?.state!}}</th>
                   </tr>
 
                   <tr>
                     <th scope="row">Zip Code:</th>
-                    <th scope="row">{{currentUser.address?.zip!}}</th>
+                    <th scope="row">{{currentUser?.address?.zip!}}</th>
                   </tr>
 
 
                   <tr>
                     <th scope="row">About:</th>
-                    <th scope="row">{{currentUser.about!}}</th>
+                    <th scope="row">{{currentUser?.about!}}</th>
                   </tr>
 
                   </tbody>

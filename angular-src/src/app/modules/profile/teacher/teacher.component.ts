@@ -28,6 +28,7 @@ export class TeacherComponent implements OnInit {
   email: string;
   about: string;
   currentUserID: String;
+  user: any;
   currentUser: any;
   fees: number;
   phone: number;
@@ -60,8 +61,22 @@ export class TeacherComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentUser = this.auth.getCurrentUser();
-    this.currentUserID = this.currentUser._id;
+    this.user = this.auth.getCurrentUser();
+    this.currentUserID = this.user._id;
+
+    this.http.get(appConfig.apiUrl + '/user/getUserByID/' + this.currentUserID, this.httpOptions)
+      .subscribe(
+        (res: any) => {
+          this.currentUser = res.data;
+        }, (err) => {
+          new Noty({
+            type: 'error',
+            text: err.msg,
+            timeout: 1500,
+            progressBar: true
+          }).show();
+        });
+
     this.getTeacherSchedule();
     this.getStudents();
     this.getTasks();
@@ -91,8 +106,6 @@ export class TeacherComponent implements OnInit {
     this.http.patch(appConfig.apiUrl + '/user/updateUser/' + this.currentUser._id, updatedUser, this.httpOptions).subscribe(
       (res: any) => {
 
-        localStorage.setItem('authentication', res.data);
-
         this.modalref.close();
 
         new Noty({
@@ -102,9 +115,8 @@ export class TeacherComponent implements OnInit {
           progressBar: true
         }).show();
 
-        setTimeout(function() {
-          location.reload();
-        }, 3500);
+        this.ngOnInit();
+
       },
       error => {
         new Noty({
@@ -218,15 +230,15 @@ export class TeacherComponent implements OnInit {
 
 
   updateTeacherSchedule(Slot, newtitle, newdescription, newurl, thisday) {
-    console.log(newtitle +"title here");
+    console.log(newtitle + "title here");
     if (newtitle === "") {
       newtitle = Slot.slot.title;
     }
-   if(newdescription === ""){
-     newdescription = Slot.slot.description;
+    if (newdescription === "") {
+      newdescription = Slot.slot.description;
     }
-   if (newurl === ""){
-     newurl = Slot.slot.url;
+    if (newurl === "") {
+      newurl = Slot.slot.url;
     }
 
     var body = {
@@ -302,7 +314,8 @@ export class TeacherComponent implements OnInit {
   }
 
 
-tasks = [];
+  tasks = [];
+
   getTasks() {
     this.http.get(appConfig.apiUrl + '/task/getTasks/', this.httpOptions)
       .subscribe((res: any) => {
@@ -313,7 +326,7 @@ tasks = [];
   }
 
 
-students = [];
+  students = [];
 
   getStudents() {
     this.http.get(appConfig.apiUrl + '/user/getMyStudents/', this.httpOptions)
