@@ -3,6 +3,8 @@ import {ChatService} from '../../services/chat.service';
 import { ActivatedRoute } from '@angular/router';
 import './js/jquery.emojipicker.js';
 import './js/jquery.emojis.js';
+import {AuthService} from "../../services/auth.service";
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -20,7 +22,8 @@ export class ChatComponent implements OnInit {
   reciever_id : string;
   sub; 
   constructor(private chat: ChatService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private auth: AuthService) {
   }
 
   ngOnInit() {

@@ -1,29 +1,50 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
 
 <div class="divider" style="padding-top:50px;"></div>
-<div class="container">
-	<div *ngIf = "currentChat">
-		<div *ngFor='let message of currentChat.messages'>
-			<div class = "col-md-6" *ngIf='message.from == currentChat.chat._id'>{{currentChat.chat.name.firstName}}: {{message.text}}</div>
-			<div class = "col-md-offset-6" *ngIf='message.from != currentChat.chat._id'>Me: {{message.text}}</div>
-
+<div class = "container">
+	<div class = "row" id = "container">
+		<div class = "col-md-3 col-xs-3">
+			
+			<div *ngFor='let chat of chats'>
+				  <button class="btn btn-default waves-light" mdbRippleRadius (click)="changeCurrentChat(chat)">{{chat.chat.name.firstName}} {{chat.chat.name.lastName}}</button>
+			</div>
 		</div>
-		<div>
 
-		</div>
+
+		<div class = "col-md-9 col-xs-9">
+			<div *ngIf = "currentChat">
+				<div class = "card">
+					 <h3 class="card-header primary-color white-text">
+					 {{currentChat.chat.name.firstName}} {{this.currentChat.chat.name.lastName}}
+					</h3>
+					<div class="card-body">
+						<div class = "row" *ngFor='let message of currentChat.messages'>
+							<div  *ngIf='message.from == currentChat.chat._id' class = "col-md-1 col-sm-1"><img src="http://localhost:3000/api/uploads/store/{{this.currentChat.chat.photo}}" class="img-fluid rounded-circle z-depth-0" id = "reciever_img"> </div>
+
+							<div id = "recieved" class = "col-md-4 col-sm-4" *ngIf='message.from == currentChat.chat._id'> 
+							{{message.text}} 
+							</div>
+							
+							<div id = "sent" class = "offset-md-8 offset-sm-8" *ngIf='message.from != currentChat.chat._id'>
+							 {{message.text}}
+							</div>
+
+						</div>
+					</div>
+					<div class="card-footer">
+						<div style = "display: inline;">
+						  <input type="text" id = "message" placeholder="Type here..." [(ngModel)]="msgToServer">
+						  <button class = "btn btn-default btn-circle" (click)="sendMessage(msgToServer)"><span><i class="material-icons">send</i></span></button>
+						</div>
+
+					</div>
+
+					</div>
+				</div>
+			</div>
 	</div>
-  <input type="text" class="txt" placeholder="Type here..." [(ngModel)]="msgToServer">
-  <!--<h1>{{msgToServer}}</h1>-->
-  <button class="btn btn-default waves-light" mdbRippleRadius (click)="sendMessage(msgToServer)">Send To Server</button>
-  <br><br>
-  <h1 *ngIf = "currentChat">Message From {{currentChat.chat.name.firstName}}: <br> {{serverMsg | json}}</h1>
 </div>
 
+	
 
 
-<h2>Chats</h2>
-
-
-<div *ngFor='let chat of chats'>
-	  <button class="btn btn-default waves-light" mdbRippleRadius (click)="changeCurrentChat(chat)">{{chat.chat.name.firstName}} {{chat.chat.name.lastName}}</button>
-</div>
