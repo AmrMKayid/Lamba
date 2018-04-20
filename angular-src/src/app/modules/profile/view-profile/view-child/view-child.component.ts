@@ -47,6 +47,8 @@ export class ViewChildComponent implements OnInit {
     this.isteacher = (this.auth.getCurrentUser().students.indexOf(this.child._id) !== -1); // could be needed in tasks
     if (this.isparent) {
       this.getChildSchedule();
+      this.getTasks();
+      this.getTeachers();
     }
 
   }
@@ -150,6 +152,28 @@ export class ViewChildComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+
+
+  tasks = [];
+    getTasks() {
+      this.http.get(appConfig.apiUrl + '/task/getChildTasks/'+this.child._id, this.httpOptions)
+        .subscribe((res: any) => {
+          this.tasks = res.data;
+          console.log(res.data);
+
+        });
+    }
+
+
+    teachers = [];
+    getTeachers() {
+      this.http.get(appConfig.apiUrl + '/user/getMyTeachers/'+this.child._id, this.httpOptions)
+        .subscribe((res: any) => {
+          this.teachers = res.data;
+          console.log(res.data);
+
+        });
+    }
 
 
 }

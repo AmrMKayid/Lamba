@@ -32,7 +32,7 @@
 
     <div class="mt-5">
 
-      <ngb-tabset class="nav-justified">
+      <ngb-tabset class="nav-justified" *ngIf="isparent">
 
         <ngb-tab title="Schedule" *ngIf="isparent">
           <ng-template ngbTabContent>
@@ -916,245 +916,55 @@
           <ng-template ngbTabContent>
             <div class="container">
               <div class="row mt-3">
-
-                <div class="col-lg-3 col-md-4 col-sm-6">
-
+                <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let task of tasks">
                   <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                    <div class="card-header">task assigned to</div>
+                    <div class="card-header">{{task.title}}</div>
                     <div class="card-body">
-                      <h5 class="card-title">Task title</h5>
-                      <p class="card-text white-text">Task short description.</p>
+                      <h5 class="card-title">{{(task.description | slice:0:50)}} ...</h5>
+                      <p class="card-text white-text">Assigned from <a (click)="viewUser(task.userId._id)"><strong>{{task.userId.name.firstName}} {{task.userId.name.lastName}}</strong></a></p>
                     </div>
                     <div class="card-footer">
                       <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task">
-                          <i class="fa fa-tasks fa-2x white-text mr-2" aria-hidden="true"></i>
-                        </a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove">
-                          <i class="fa fa-ban fa-2x white-text" aria-hidden="true"></i>
-                        </a>
+                        <a placement="bottom" ngbTooltip="Task" (click)="viewTask(task._id)"><i
+                          class="fa fa-tasks fa-2x white-text mr-2"
+                          aria-hidden="true"></i></a>
+                        <a placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x white-text"
+                                                                     aria-hidden="true"></i></a>
                       </div>
                     </div>
                   </div>
-
                 </div>
-
-                <div class="col-lg-3 col-md-4 col-sm-6">
-
-                  <div class="card text-white bg-secondry black-text mb-3" style="max-width: 18rem;">
-                    <div class="card-header">task assigned to</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Task title</h5>
-                      <p class="card-text ">Task short description.</p>
-                    </div>
-                    <div class="card-footer">
-                      <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task">
-                          <i class="fa fa-tasks fa-2x black-text  mr-2" aria-hidden="true"></i>
-                        </a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove">
-                          <i class="fa fa-ban fa-2x black-text" aria-hidden="true"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="col-lg-3 col-md-4 col-sm-6">
-
-                  <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-                    <div class="card-header">task assigned to</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Task title</h5>
-                      <p class="card-text white-text">Task short description.</p>
-                    </div>
-                    <div class="card-footer">
-                      <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task">
-                          <i class="fa fa-tasks fa-2x white-text mr-2" aria-hidden="true"></i>
-                        </a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove">
-                          <i class="fa fa-ban fa-2x white-text" aria-hidden="true"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="col-lg-3 col-md-4 col-sm-6">
-
-                  <div class="card text-white bg-danger  mb-3" style="max-width: 18rem;">
-                    <div class="card-header">task assigned to</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Task title</h5>
-                      <p class="card-text white-text">Task short description.</p>
-                    </div>
-                    <div class="card-footer">
-                      <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task">
-                          <i class="fa fa-tasks fa-2x white-text mr-2" aria-hidden="true"></i>
-                        </a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove">
-                          <i class="fa fa-ban fa-2x white-text" aria-hidden="true"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="col-lg-3 col-md-4 col-sm-6">
-
-                  <div class="card text-white bg-warning  mb-3" style="max-width: 18rem;">
-                    <div class="card-header">task assigned to</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Task title</h5>
-                      <p class="card-text white-text">Task short description.</p>
-                    </div>
-                    <div class="card-footer">
-                      <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task">
-                          <i class="fa fa-tasks fa-2x white-text mr-2" aria-hidden="true"></i>
-                        </a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove">
-                          <i class="fa fa-ban fa-2x white-text" aria-hidden="true"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="col-lg-3 col-md-4 col-sm-6">
-
-                  <div class="card text-white bg-info  mb-3" style="max-width: 18rem;">
-                    <div class="card-header">task assigned to</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Task title</h5>
-                      <p class="card-text white-text">Task short description.</p>
-                    </div>
-                    <div class="card-footer">
-                      <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task">
-                          <i class="fa fa-tasks fa-2x white-text mr-2" aria-hidden="true"></i>
-                        </a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove">
-                          <i class="fa fa-ban fa-2x white-text" aria-hidden="true"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="col-lg-3 col-md-4 col-sm-6">
-
-                  <div class="card text-white bg-dark  mb-3" style="max-width: 18rem;">
-                    <div class="card-header">task assigned to</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Task title</h5>
-                      <p class="card-text white-text">Task short description.</p>
-                    </div>
-                    <div class="card-footer">
-                      <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task">
-                          <i class="fa fa-tasks fa-2x white-text mr-2" aria-hidden="true"></i>
-                        </a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove">
-                          <i class="fa fa-ban fa-2x white-text" aria-hidden="true"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="col-lg-3 col-md-4 col-sm-6">
-
-                  <div class="card text-white bg-light black-text mb-3" style="max-width: 18rem;">
-                    <div class="card-header">task assigned to</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Task title</h5>
-                      <p class="card-text">Task short description.</p>
-                    </div>
-                    <div class="card-footer">
-                      <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Task">
-                          <i class="fa fa-tasks fa-2x black-text  mr-2" aria-hidden="true"></i>
-                        </a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove">
-                          <i class="fa fa-ban fa-2x black-text" aria-hidden="true"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
 
               </div>
             </div>
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab title="Teachers" *ngIf="isparent">
+        <ngb-tab title="Teachers">
           <ng-template ngbTabContent>
             <div class="container">
 
               <div class="row mt-3">
 
-                <div class="col-lg-3 col-md-4 col-sm-6 myCard">
+                <div class="col-lg-3 col-md-4 col-sm-6 myCard" *ngFor="let user of teachers">
 
-                  <div class="card">
-                    <img class="card-img-top rounded-circle mt-2"
-                         src="https://www.lacartedescolocs.fr/assets/fallbacks/profile_woman_medium_fallback-a7f0361efd57b6d193bef198dacdaaf2a0ac1aa17f23cd9613540c05f2c6bac6.png">
-                    <div class="card-block">
-                      <h4 class="card-title mt-3 grey-text">Teacher name</h4>
-                    </div>
-                    <div class="card-footer">
-                      <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Profile">
-                          <i class="fa fa-user fa-2x" aria-hidden="true"></i>
-                        </a>
-                        <a href="#" placement="bottom" ngbTooltip="Messages">
-                          <i class="fa fa-envelope fa-fw fa-2x" aria-hidden="true"></i>
-                        </a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove">
-                          <i class="fa fa-ban fa-2x" aria-hidden="true"></i>
-                        </a>
+                      <div class="card">
+                        <img src="http://localhost:3000/api/uploads/store/{{user.photo}}" class="card-img-top rounded-circle mt-2">
+                        <div class="card-block">
+                          <h4 class="card-title mt-3 grey-text">{{ user.name.firstName }} {{ user.name.lastName }}</h4>
+                        </div>
+                        <div class="card-footer">
+                          <div class="icon pull-right">
+                            <a placement="bottom" ngbTooltip="Profile" (click)="viewUser(user._id)"><i
+                              class="fa fa-user fa-2x" aria-hidden="true"></i></a>
+                            <a placement="bottom" ngbTooltip="Messages"><i class="fa fa-envelope fa-fw fa-2x"
+                                                                           aria-hidden="true"></i></a>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
+
+
                 </div>
-
-                <div class="col-lg-3 col-md-4 col-sm-6 myCard">
-
-                  <div class="card">
-                    <img class="card-img-top rounded-circle mt-2"
-                         src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg">
-                    <div class="card-block">
-
-                      <h4 class="card-title mt-3 grey-text">Teacher name</h4>
-                    </div>
-                    <div class="card-footer">
-                      <div class="icon pull-right">
-                        <a href="#" placement="bottom" ngbTooltip="Profile">
-                          <i class="fa fa-user fa-2x" aria-hidden="true"></i>
-                        </a>
-                        <a href="#" placement="bottom" ngbTooltip="Messages">
-                          <i class="fa fa-envelope fa-fw fa-2x" aria-hidden="true"></i>
-                        </a>
-                        <a href="#" placement="bottom" ngbTooltip="Remove">
-                          <i class="fa fa-ban fa-2x" aria-hidden="true"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-
               </div>
 
 

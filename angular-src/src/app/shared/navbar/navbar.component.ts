@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   currentUser;
   public role;
   chatCount;
-  
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -33,14 +33,9 @@ export class NavbarComponent implements OnInit {
       this.currentUser = this.auth.getCurrentUser();
       if (this.auth.getCurrentUser().role)
         this.role = (this.auth.getCurrentUser().role).toLowerCase();
-        this.chat.getAllChats().subscribe((res:any)=>{
-          this.chatCount = res.data.length;
-        })
-
-     setInterval(() => {
-        this.refresh();
-    }, 6000);
-
+        setInterval(() => {
+           this.refresh();
+       }, 6000);
     }
   }
 
@@ -51,6 +46,9 @@ refresh()
 {
   this.getMyNotifications();
   this.getMyRequests();
+  this.chat.getAllChats().subscribe((res:any)=>{
+    this.chatCount = res.data.length;
+  });
 }
   isLoggedIn() {
     return localStorage.getItem('authentication');
