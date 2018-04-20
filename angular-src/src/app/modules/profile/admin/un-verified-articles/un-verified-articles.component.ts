@@ -17,6 +17,7 @@ import {AuthService} from "../../../../services/auth.service";
 })
 export class UnVerifiedArticlesComponent implements OnInit {
   public unVerifiedArticlesList = [];
+  public List=[1];
   public article = [];
   allTags: { value: string, id: string }[];
   tagsInitialized: boolean;
@@ -36,7 +37,7 @@ export class UnVerifiedArticlesComponent implements OnInit {
     this.httpClient.get('http://localhost:3000/api/user/viewUnverifiedArticles', {headers: autorization}).pipe()
       .subscribe((res: any) => {
         this.unVerifiedArticlesList = res.data;
-        
+        this.List=res.data;
       }, err => {
         new Noty({
           type: 'error',

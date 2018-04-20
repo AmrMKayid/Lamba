@@ -18,6 +18,7 @@ import { routerTransition } from '../router.animations';
 export class VerifyTeacherComponent implements OnInit {
 
   public Teachers = [];
+  public List=[1];
   authorization = {Authorization: localStorage.getItem('authentication')};
 
 
@@ -31,6 +32,7 @@ export class VerifyTeacherComponent implements OnInit {
     this.httpClient.get('http://localhost:3000/api/admin/teachers_verfication', {headers: this.authorization})
       .subscribe((res: any) => {
         this.Teachers = res.data;
+        this.List=res.data;
       }, err => {
         new Noty({
           type: 'error',

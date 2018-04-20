@@ -16,6 +16,7 @@ export class UnVerifiedActivitiesComponent implements OnInit {
   public unVerifiedActivitiesList = [];
   public user;
   public activity;
+  public List=[1];
   constructor(private httpClient: HttpClient,
               private http: Http,
               private router: Router,
@@ -26,6 +27,7 @@ export class UnVerifiedActivitiesComponent implements OnInit {
     this.httpClient.get('http://localhost:3000/api/activity/viewUnverifiedActivities', {headers: autorization})
       .subscribe((res: any) => {
         this.unVerifiedActivitiesList = res.data;
+        this.List=res.data;
       }, err => {
         new Noty({
           type: 'error',
@@ -42,6 +44,7 @@ export class UnVerifiedActivitiesComponent implements OnInit {
     this.httpClient.get('http://localhost:3000/api/user/verifyActivity/' + activityId, {headers: autorization})
       .subscribe((res: any) => {
         this.activity = res.data;
+        this.List=res.data;
         new Noty({
           type: 'success',
           text: res.msg,
