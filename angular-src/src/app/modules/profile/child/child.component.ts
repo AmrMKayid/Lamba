@@ -49,7 +49,10 @@ export class ChildComponent implements OnInit {
 //  this.httpClient.get('http://localhost:3000/api/user/getUserInfo/'+this.currentUserID,
     this.getChildSchedule();
     this.getTasks();
+    this.getTeachers();
   }
+
+
 
   onUploadFinished(event) {
 
@@ -135,6 +138,15 @@ tasks = [];
         this.tasks = res.data;
         console.log(res.data);
 
+      });
+  }
+
+
+  teachers = [];
+  getTeachers() {
+    this.http.get(appConfig.apiUrl + '/user/getMyTeachers/'+this.currentUser._id, this.httpOptions)
+      .subscribe((res: any) => {
+        this.teachers = res.data;
       });
   }
 
