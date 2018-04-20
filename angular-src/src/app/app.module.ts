@@ -48,7 +48,7 @@ import {NgxCarouselModule} from "ngx-carousel";
     RegisterRoleComponent,
     NotificationsComponent,
     HeaderComponent,
-    RequestsComponent
+    RequestsComponent,
     InterestsComponent
   ],
   imports: [
