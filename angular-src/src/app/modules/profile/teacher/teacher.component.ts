@@ -161,56 +161,66 @@ export class TeacherComponent implements OnInit {
       });
   }
 
+  openlg(content) {
+    this.modalref = this.modalService.open(content, {size: 'lg'})
 
-  onEditInfo(): void {
-    if (!this.firstName || !this.lastName || !this.email) {
-      new Noty({
-        type: 'error',
-        text: 'All fields are required',
-        timeout: 3000,
-        progressBar: true
-      }).show();
-      return;
-    }
-    const user = {
-      name: {
-        firstName: this.firstName,
-        middleName: this.middleName,
-        lastName: this.lastName,
-      },
-      email: this.email,
-      about: this.about,
-      address: {
-        city: this.city,
-        state: this.state,
-        zip: this.zip,
-        street: this.street,
-      },
-      fees: this.fees,
-      phone: this.phone
-
-
-    }
-    this.httpClient.patch('http://localhost:3000/api/user/updateUser/' + this.currentUserID, {
-      "email": user.email,
-      "name": user.name,
-      "about": user.about,
-      "Address": user.address,
-      "fees": user.fees,
-      "phone": user.phone
-
-
-    }).subscribe(
-      res => {
-        document.getElementById('editModal').style.display = 'none';
-      },
-      err => {
-        document.getElementById('editModal').style.display = 'none';
-      }
-    );
-
-
+    this.modalref.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
+
+
+  // onEditInfo(): void {
+  //   if (!this.firstName || !this.lastName || !this.email) {
+  //     new Noty({
+  //       type: 'error',
+  //       text: 'All fields are required',
+  //       timeout: 3000,
+  //       progressBar: true
+  //     }).show();
+  //     return;
+  //   }
+  //   const user = {
+  //     name: {
+  //       firstName: this.firstName,
+  //       middleName: this.middleName,
+  //       lastName: this.lastName,
+  //     },
+  //     email: this.email,
+  //     about: this.about,
+  //     address: {
+  //       city: this.city,
+  //       state: this.state,
+  //       zip: this.zip,
+  //       street: this.street,
+  //     },
+  //     fees: this.fees,
+  //     phone: this.phone
+  //
+  //
+  //   }
+  //   this.httpClient.patch('http://localhost:3000/api/user/updateUser/' + this.currentUserID, {
+  //     "email": user.email,
+  //     "name": user.name,
+  //     "about": user.about,
+  //     "Address": user.address,
+  //     "fees": user.fees,
+  //     "phone": user.phone
+  //
+  //
+  //   }).subscribe(
+  //     res => {
+  //       document.getElementById('editModal').style.display = 'none';
+  //     },
+  //     err => {
+  //       document.getElementById('editModal').style.display = 'none';
+  //     }
+  //   );
+  //
+  //
+  // }
 
   ////////////////////////////// schedule/////////////////////////////////////////////////////
   getTeacherSchedule() {
