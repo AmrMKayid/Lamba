@@ -21,8 +21,6 @@ describe("schedule ", () => {
             console.log('Connected to lambatest');
             done();
         });
-
-
     });
     teacher = {
         email: 'mariamm@yahoo.com',
