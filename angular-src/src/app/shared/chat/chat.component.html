@@ -3,7 +3,7 @@
 <div class="divider" style="padding-top:50px;"></div>
 <div class = "container">
 	<div class = "row" id = "container">
-		<div class = "col-md-3 col-xs-3">
+		<div class = "col-md-3 col-xs-3 scroll-box">
 			<!--Table-->
 			<h3 style = "text-align: center">Chats</h3>
 				<table class="table table-hover">
@@ -27,7 +27,7 @@
 					 <h3 class="card-header primary-color white-text">
 					 {{currentChat.chat.name.firstName}} {{this.currentChat.chat.name.lastName}}
 					</h3>
-					<div class="card-body">
+					<div class="card-body scroll-box">
 						<div class = "row" *ngFor='let message of currentChat.messages'>
 							<div  *ngIf='message.from == currentChat.chat._id' class = "col-md-1 col-sm-1"><img src="http://localhost:3000/api/uploads/store/{{this.currentChat.chat.photo}}" class="img-fluid rounded-circle z-depth-0" id = "reciever_img"> </div>
 
