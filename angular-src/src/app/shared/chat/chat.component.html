@@ -4,10 +4,19 @@
 <div class = "container">
 	<div class = "row" id = "container">
 		<div class = "col-md-3 col-xs-3">
-			
-			<div *ngFor='let chat of chats'>
-				  <button class="btn btn-default waves-light" mdbRippleRadius (click)="changeCurrentChat(chat)">{{chat.chat.name.firstName}} {{chat.chat.name.lastName}}</button>
-			</div>
+			<!--Table-->
+			<h3 style = "text-align: center">Chats</h3>
+				<table class="table table-hover">
+
+					<tbody>
+				        <tr  *ngFor='let chat of chats'>
+				            <th (click)="changeCurrentChat(chat)"><img src="http://localhost:3000/api/uploads/store/{{chat.chat.photo}}" class="img-fluid rounded-circle z-depth-0" id = "reciever_img"></th>
+				            <td (click)="changeCurrentChat(chat)"><span id = "name">{{chat.chat.name.firstName}} {{chat.chat.name.lastName}}</span><br><span>{{chat.messages[chat.messages.length - 1].text}}</span></td>
+				        </tr>
+				    </tbody>
+				    <!--Table body-->
+
+				</table>
 		</div>
 
 
@@ -40,6 +49,9 @@
 					</div>
 
 					</div>
+				</div>
+				<div  *ngIf = "!currentChat">
+					<h2>you have no messages yet!</h2>
 				</div>
 			</div>
 	</div>
