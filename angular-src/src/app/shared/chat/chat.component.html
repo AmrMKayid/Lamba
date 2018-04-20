@@ -1,9 +1,11 @@
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+
 <div class="divider" style="padding-top:50px;"></div>
 <div class="container">
 	<div *ngIf = "currentChat">
 		<div *ngFor='let message of currentChat.messages'>
-			<div *ngIf='message.from == currentChat.chat._id'>{{currentChat.chat.name.firstName}}: {{message.text}}</div>
-			<div *ngIf='message.from != currentChat.chat._id'>Me: {{message.text}}</div>
+			<div class = "col-md-6" *ngIf='message.from == currentChat.chat._id'>{{currentChat.chat.name.firstName}}: {{message.text}}</div>
+			<div class = "col-md-offset-6" *ngIf='message.from != currentChat.chat._id'>Me: {{message.text}}</div>
 
 		</div>
 		<div>

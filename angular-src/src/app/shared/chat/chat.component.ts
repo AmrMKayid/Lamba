@@ -1,11 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {ChatService} from '../../services/chat.service';
 import { ActivatedRoute } from '@angular/router';
-
+import './js/jquery.emojipicker.js';
+import './js/jquery.emojis.js';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss']
+  styleUrls: ['./chat.component.scss',
+  			  './css/jquery.emojipicker.css',
+  			  './css/jquery.emojipicker.g.css']
 })
 export class ChatComponent implements OnInit {
 

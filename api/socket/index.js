@@ -38,18 +38,24 @@ function onNewConnection(socket)
 
     /*gets the authorization token*/
     socket.on("authorize", function(data){
-
-        // gets the logged in user id
-        const secret = config.SECRET;
-        decoded = jwt.verify(data, secret);
-        var user_id = decoded.user._id;
-        // adds user to the clients list
-        client = {
-            id: user_id,
-            token: data,
-            socket: socket
-        };
-        clients.push(client);
+        try
+        {
+            // gets the logged in user id
+            const secret = config.SECRET;
+            decoded = jwt.verify(data, secret);
+            var user_id = decoded.user._id;
+            // adds user to the clients list
+            client = {
+                id: user_id,
+                token: data,
+                socket: socket
+            };
+            clients.push(client);
+        }
+        catch(e)
+        {
+            socket.disconnect(true);
+        }
     });
 
 
@@ -122,32 +128,39 @@ function getClient(user_id)
 
 function sendMessage(msg)
 {  
-    const secret = config.SECRET;
-    decoded = jwt.verify(msg.authorization, secret);
-    var user_id = decoded.user._id;
-    message = 
+    try
     {
-        from: user_id,
-        to: msg.reciever_id,
-        text: msg.data,
-        created: Date.now()
-    };
-    User.findById(message.to, function(err, retrievedUser){
-        if(err || retrievedUser._id != message.to)
+        const secret = config.SECRET;
+        decoded = jwt.verify(msg.authorization, secret);
+        var user_id = decoded.user._id;
+        message = 
         {
-            return;
+            from: user_id,
+            to: msg.reciever_id,
+            text: msg.data,
+            created: Date.now()
+        };
+        User.findById(message.to, function(err, retrievedUser){
+            if(err || retrievedUser._id != message.to)
+            {
+                return;
+            }
+            var messagedb = new Message(message);
+            messagedb.save();
+        });
+        
+        for(var i = 0; i < clients.length; i++)
+        {
+            if(clients[i].id == message.to)
+            {
+                messagestr  = JSON.stringify(message);
+                clients[i].socket.emit("message", messagestr);
+            }
         }
-        var messagedb = new Message(message);
-        messagedb.save();
-    });
-    
-    for(var i = 0; i < clients.length; i++)
+    }
+    catch(e)
     {
-        if(clients[i].id == message.to)
-        {
-            messagestr  = JSON.stringify(message);
-            clients[i].socket.emit("message", messagestr);
-        }
+        
     }
 
 }
