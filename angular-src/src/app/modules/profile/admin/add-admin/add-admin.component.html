@@ -1,0 +1,34 @@
+<div [@routerTransition]>
+  <br>
+  <br>
+        <h2  style="text-align:center;font-weight:bold;">Admins</h2>
+  <button class="badge badge-pill "  style="cursor: pointer;background-color:green;float:right" (click)="openAddAdminDialog()">Add Admin</button>
+  <br>
+ 
+<div class="main-container">
+<hr>
+   <div class="row row-eq-height">
+     <div class="col-lg-4 col-md-4" *ngFor="let admin of admins">
+       <div class="card">
+         <div class="card-header" style="background-color:#ffc335;">
+                <i class="fa fa-user-o" aria-hidden="true"></i>
+         </div>
+         <div class="card-body"> 
+                <p><i class="fa fa-fw fa-user" aria-hidden="true"></i><strong>Name:</strong> {{ admin.name.firstName+" "+admin.name.lastName}} </p>
+                <p><i class="fa fa-fw fa-envelope" aria-hidden="true"></i><strong>Email:</strong> {{ admin.email}}</p>
+           <p><i class="fa fa-fw fa-clock-o" aria-hidden="true"></i><strong>Joined At: </strong>{{ admin.joinedAt | date}}</p>
+         </div>
+   
+        
+   
+       </div>
+       <br>
+     </div>     
+     </div>
+     <div class="text-center" *ngIf='admins.length==0'>
+      <h1>There are currently no admins</h1>
+ <button class="btn btn-sm"  style="background-color:#f16138;font-weight:bold" routerLink="/profile/admin/dashboard" [routerLinkActive]="['router-link-active']">Back to DashbBoard</button>
+ </div>
+</div>
+
+</div>
