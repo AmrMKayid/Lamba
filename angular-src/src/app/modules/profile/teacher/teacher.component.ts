@@ -101,6 +101,10 @@ export class TeacherComponent implements OnInit {
           timeout: 3000,
           progressBar: true
         }).show();
+
+        setTimeout(function() {
+          location.reload();
+        }, 3500);
       },
       error => {
         new Noty({
