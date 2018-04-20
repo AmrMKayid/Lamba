@@ -23,7 +23,6 @@ export class ViewComponent implements OnInit {
 
 
   getMyActivities() {
-    console.log("get in ts");
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('authorization', localStorage.getItem('authentication'));

@@ -49,7 +49,6 @@ export class ItemComponent implements OnInit {
           this.item = res.data;
           this.user = res.seller;
           this.owner = res.owner;
-          console.log(this.user);
         },
         error => {
           return this.router.navigate(["/store/myitems/view"]);

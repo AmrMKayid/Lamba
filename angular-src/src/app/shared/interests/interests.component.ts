@@ -66,7 +66,6 @@ export class InterestsComponent implements OnInit {
 
   Interests() {
     this.interests = Array.from(new Set(this.interests.map((itemInArray) => itemInArray)))
-    console.log(this.interests)
     this.router.navigate(['register'], {queryParams: {role: this.chosenRole, interests: this.interests}});
   }
 

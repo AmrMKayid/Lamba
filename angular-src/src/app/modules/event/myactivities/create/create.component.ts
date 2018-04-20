@@ -97,7 +97,6 @@ export class CreateComponent implements OnInit {
         picture_url: this.picture_url
       }
 
-      console.log(activity);
       this.eventservice.createActivity(activity).subscribe(res => {
         if (!res.err) {
           this.router.navigate(["/event/view"]);
@@ -127,7 +126,6 @@ export class CreateComponent implements OnInit {
         timeout: 3000,
         progressBar: true
       }).show();
-      console.log(status);
       return;
     }
 

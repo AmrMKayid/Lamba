@@ -60,7 +60,6 @@ export class ChildComponent implements OnInit {
     var status = event.serverResponse.status;
 
     if (status != 200) {
-      console.log(status);
       return;
     }
     this.currentUser.photo = response.filename;
@@ -127,7 +126,6 @@ export class ChildComponent implements OnInit {
 
 
   viewTask(taskId) {
-    console.log(taskId);
     this.router.navigate(['schedule/viewtask/', taskId]);
   }
 
@@ -136,7 +134,6 @@ tasks = [];
     this.http.get(appConfig.apiUrl + '/task/getTasks/', this.httpOptions)
       .subscribe((res: any) => {
         this.tasks = res.data;
-        console.log(res.data);
 
       });
   }

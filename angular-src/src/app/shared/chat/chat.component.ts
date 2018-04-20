@@ -65,7 +65,6 @@ export class ChatComponent implements OnInit {
         this.chat.onMessage().subscribe(msg => {
            var msgObj = JSON.parse(msg);
             var found = false;
-            console.log(msgObj);
             for(var i = 0; i < this.chats.length; i++)
             {
                 if(this.chats[i].chat._id == msgObj.from)
@@ -160,7 +159,6 @@ export class ChatComponent implements OnInit {
               }
             }
             this.chats.push(chatObj);
-            console.log(this.chats);
             this.currentChat = this.chats[0];
       });
   }

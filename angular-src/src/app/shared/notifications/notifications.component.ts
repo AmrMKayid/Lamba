@@ -30,7 +30,6 @@ export class NotificationsComponent implements OnInit {
   		}
 
   		this.notifications = res.data;
- 		console.log(this.notifications);
   	});
 
   }

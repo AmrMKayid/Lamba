@@ -65,37 +65,30 @@ export class CscheduleComponent implements OnInit {
       if (thisday == 'saturday') {
         var index = this.sat.indexOf(Slot);
         this.sat[index] = res.data;
-        console.log(this.sat[index]);
       }
       if (thisday == 'sunday') {
         var index = this.sun.indexOf(Slot);
         this.sun[index] = res.data;
-        console.log(this.sun[index]);
       }
       if (thisday == 'monday') {
         var index = this.mon.indexOf(Slot);
         this.mon[index] = res.data;
-        console.log(this.mon[index]);
       }
       if (thisday == 'tuesday') {
         var index = this.tues.indexOf(Slot);
         this.tues[index] = res.data;
-        console.log(this.tues[index]);
       }
       if (thisday == 'wednesday') {
         var index = this.wed.indexOf(Slot);
         this.wed[index] = res.data;
-        console.log(this.wed[index]);
       }
       if (thisday == 'thursday') {
         var index = this.thurs.indexOf(Slot);
         this.thurs[index] = res.data;
-        console.log(this.thurs[index]);
       }
       if (thisday == 'friday') {
         var index = this.fri.indexOf(Slot);
         this.fri[index] = res.data;
-        console.log(this.fri[index]);
       }
     });
   }

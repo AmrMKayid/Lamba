@@ -40,7 +40,6 @@ export class ViewComponent implements OnInit {
   }
 
   getActivityCount() {
-    console.log("Mayar...view.compoent.ts");
     this.EventService.activitiesCount().subscribe((data: any) => {
       this.activitiesCount = data.data;
       this.lastPageNumber = Math.ceil(this.activitiesCount / this.limit);
@@ -65,9 +64,6 @@ export class ViewComponent implements OnInit {
 
     this.pages = new Array<number>(max - min + 1);
 
-    console.log(this.pages);
-    console.log("min: " + min + " max: " + max);
-    console.log("lastPageNumber: " + this.lastPageNumber + " curPage: " + this.curPage);
 
     for (let i = min, j: number = 0; i <= max; i++, j++) {
       this.pages[j] = i;
@@ -99,7 +95,6 @@ export class ViewComponent implements OnInit {
   registerChild(activityID,childId)
   {
     this.EventService.registerChild(activityID,childId).subscribe( (data) =>{
-      console.log(data);
     });
   }
 
@@ -119,7 +114,6 @@ export class ViewComponent implements OnInit {
         }
 
         this.children = children;
-        console.log(children);
 
 
         this.modalService.open(content).result.then((result) => {
