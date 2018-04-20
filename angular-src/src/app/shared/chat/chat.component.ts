@@ -18,7 +18,6 @@ export class ChatComponent implements OnInit {
 
   chats = [];
   currentChat;
-  serverMsg;
   reciever_id : string;
   sub; 
   constructor(private chat: ChatService,
@@ -66,6 +65,7 @@ export class ChatComponent implements OnInit {
         this.chat.onMessage().subscribe(msg => {
            var msgObj = JSON.parse(msg);
             var found = false;
+            console.log(msgObj);
             for(var i = 0; i < this.chats.length; i++)
             {
                 if(this.chats[i].chat._id == msgObj.from)
@@ -91,8 +91,12 @@ export class ChatComponent implements OnInit {
               };
               chatObj.messages.push(msgObj)
               this.chats.push(chatObj);
-
+                  if(!this.currentChat)
+                  {
+                    this.currentChat = chatObj;
+                  }
                });
+
             }
         });
     });
@@ -108,6 +112,7 @@ export class ChatComponent implements OnInit {
       var message = {text: msg};
       this.currentChat.messages.push(message);
       this.chat.send(msg, this.currentChat.chat._id);
+      this.msgToServer = "";
     }
   }
 
