@@ -78,7 +78,10 @@ export class ViewTeacherComponent implements OnInit {
     );
   }
   sendRequest(){
-    this.httpClient.post('http://localhost:3000/api/request/create/'+this.user._id +"/"+this.selectedChild ,null, this.httpOptions).subscribe(
+    let dummy={
+      title : "dsfkjsdfsd"
+    };
+    this.httpClient.post('http://localhost:3000/api/request/create/'+this.user._id +"/"+this.selectedChild ,dummy, this.httpOptions).subscribe(
       (res: any) => {
         new Noty({
           type: 'success',

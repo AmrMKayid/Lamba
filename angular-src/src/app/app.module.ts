@@ -30,6 +30,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 import { NotificationsComponent } from './shared/notifications/notifications.component';
 import {NotificationService} from './services/notification.service';
+import { RequestsComponent } from './shared/requests/requests.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import {NotificationService} from './services/notification.service';
     AllUsersComponent,
     RegisterRoleComponent,
     NotificationsComponent,
-    HeaderComponent
+    HeaderComponent,
+    RequestsComponent
   ],
   imports: [
     BrowserModule,

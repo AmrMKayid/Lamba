@@ -70,6 +70,30 @@
                notifications.</a>
             </div>
          </li>
+
+        <li class="nav-item dropdown btn-group" dropdown *ngIf="isTeacher()">
+          <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-effect waves-light" mdbWavesEffect>{{requests.length}}
+            <i class="fa fa-user-plus"></i>
+          </a>
+          <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary mydropdown" role="menu">
+            <a class="dropdown-item waves-light" mdbWavesEffect *ngIf="requests.length == 0">No new
+              Requests.</a>
+            <span *ngFor="let request of requests | slice:0:4; let i=index">
+
+                  <div class=" dropdown-item"  style="cursor: pointer;">
+                     <div class="col-12">
+                        <div class="col-12"><strong>Student Request</strong></div>
+                        <div class="float-right"> {{request.created_at | date}}</div>
+                     </div>
+                    <div class="col-12"  style=" white-space: pre-wrap; clear: both;">{{request.requestingParentId.name.firstName}} {{request.requestingParentId.name.lastName}} wants you to supervise his/her child {{request.childId.name.firstName}}</div>
+                  </div>
+                  <div class="divider dropdown-divider"></div>
+               </span>
+            <a [routerLink]="['/requests']" class="dropdown-item waves-light text-center" mdbWavesEffect *ngIf="requests.length !== 0">See more
+              Request.</a>
+          </div>
+        </li>
+
          <li class="nav-item d-md-none" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
          <a class="nav-link waves-light" mdbRippleRadius>Messages</a>
          </li>

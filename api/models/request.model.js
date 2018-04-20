@@ -16,10 +16,6 @@ const RequestSchema = new Schema({
     created_at: {
         type: Date,
         required: true
-    },
-    description : {
-        type: String,
-        required:true
     }
 });
 

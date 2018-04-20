@@ -685,57 +685,64 @@ module.exports.addStudent = function (req, res, next) {
             data: null
         });
     }
-    Child.findById(req.params.childId).exec(function (err, user) {
+    else {
+        Child.findById(req.params.childId).exec(function (err, child) {
 
-        if (err) {
-            return next(err);
-        }
-        if (!user) {
-            return res
-                .status(404)
-                .json({err: null, msg: 'child not found.', data: null});
-        }
-
-        Request.findOne({
-            recievingTeacherId: req.decodedToken.user._id,
-            childId: req.params.childId
-        }, function (err, retrievedRequests) {
             if (err) {
                 return next(err);
             }
-            if (!retrievedRequests) {
-                return res.status(422).json({
-                    err: null,
-                    msg:
-                        'you need a request from the parent to add this child',
-                    data: null
+            if (!child) {
+                return res
+                    .status(404)
+                    .json({err: null, msg: 'child not found.', data: null});
+            }
+            else {
+                Request.findOne({
+                    recievingTeacherId: req.decodedToken.user._id,
+                    childId: req.params.childId
+                }, function (err, retrievedRequests) {
+                    if (err) {
+                        return next(err);
+                    }
+                    if (!retrievedRequests) {
+                        return res.status(422).json({
+                            err: null,
+                            msg:
+                                'you need a request from the parent to add this child',
+                            data: null
+                        });
+                    }
+                    else{
+                        User.findById(req.decodedToken.user._id).exec(function (err, user) {
+                            if (err) {
+                                return next(err);
+                            }
+                            if (!user) {
+                                return res
+                                    .status(404)
+                                    .json({err: null, msg: 'child not found.', data: null});
+                            }
+                            else {
+                                user.students.push(req.params.childId);
+                                user.save(function (err) {
+                                    if (err) {
+                                        return next(err);
+                                    }
+                                    res.status(200).json({
+                                        err: null,
+                                        msg: 'child added successfully.',
+                                        data: user.students
+                                    });
+
+                                });
+                            }
+                        });
+                    }
                 });
             }
         });
-    });
-    Teacher.findById(req.decodedToken.user._id).exec(function (err, user) {
-        if (err) {
-            return next(err);
-        }
-        if (!user) {
-            return res
-                .status(404)
-                .json({err: null, msg: 'child not found.', data: null});
-        }
-        user.students.push(req.params.childId);
-        user.save(function (err) {
-            if (err) {
-                return next(err);
-            }
-            res.status(200).json({
-                err: null,
-                msg: 'child added successfully.',
-                data: user.students
-            });
 
-        });
-    });
-
+    }
 };
 
 //teacher view sessions
