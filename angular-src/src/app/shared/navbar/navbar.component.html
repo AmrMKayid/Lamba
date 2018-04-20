@@ -92,7 +92,7 @@
                         <div class="float-right"> {{request.created_at | date}}</div>
                      </div>
                     <div class="col-12"  style=" white-space: pre-wrap; clear: both;">{{request.requestingParentId.name.firstName}} {{request.requestingParentId.name.lastName}} wants you to supervise his/her child {{request.childId.name.firstName}}</div>
-                <div class="row text-right">  <div class="col-4"> </div><div class="col-8"> <button class="btn btn-light-green btn-sm mr-2">Accept</button><button class="btn btn-danger btn-sm" >Reject</button></div></div>
+                <div class="row text-right">  <div class="col-4"> </div><div class="col-8"> <button class="btn btn-light-green btn-sm mr-2" (click)="acceptRequest(request)">Accept</button><button class="btn btn-danger btn-sm" (click)="rejectRequest(request)" >Reject</button></div></div>
                   </div>
                   <div class="divider dropdown-divider"></div>
                </span>
