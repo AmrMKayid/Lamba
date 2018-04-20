@@ -29,13 +29,12 @@
           <strong *ngIf="activity.activity_type">Type: {{activity.activity_type}}</strong>
         </p>
         <br>
-        <a role="button" (click)="remove(activity._id" class="pull-right pull-bottom">
+        <a role="button" (click)="remove(activity._id)" class="pull-right pull-bottom">
           <i class="fa fa-trash fa-2x"></i>
         </a>
       </div>
+      <!--Actual content-->
     </div>
-    <!--Actual content-->
-</div>
-<hr class="mb-5">
-</ng-container>
+    <hr class="mb-5">
+  </ng-container>
 </div>
