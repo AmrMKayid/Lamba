@@ -19,7 +19,6 @@ export class ViewComponent implements OnInit {
   name: string;
   price: number;
   current: any;
-  key: string = 'name';
   description: string;
   quantity: number;
   item_type: string;
