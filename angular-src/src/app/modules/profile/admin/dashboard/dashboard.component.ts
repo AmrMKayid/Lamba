@@ -55,10 +55,13 @@ export class DashboardComponent implements OnInit {
       this.httpClient.get('http://localhost:3000/api/admin/teachers_verfication', {headers: autorization})
       .subscribe((res: any) => {
         this.Teachers = res.data;
-        console.log(res.msg);
-        console.log(res.data);
       }, err => {
-        console.log(err.error.msg);
+        new Noty({
+          type: 'error',
+          text: err.error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
       });
 
       this.httpClient.get('http://localhost:3000/api/activity/viewUnverifiedActivities', {headers: autorization})

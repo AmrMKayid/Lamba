@@ -81,7 +81,6 @@ openDeleteTagDialog() {
         }).show();
       },
       err=> {
-        console.log(err)
         new Noty({
           type: 'error',
           text: err.error.msg,

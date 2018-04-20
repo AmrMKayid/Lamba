@@ -30,7 +30,6 @@ export class UnVerifiedArticlesComponent implements OnInit {
   ngOnInit() {
 
     let autorization = {Authorization: localStorage.getItem('authentication')};
-    console.log("ok");
     this.allTags = [];
     this.tagsInitialized = false;
     this.httpClient.get('http://localhost:3000/api/user/viewUnverifiedArticles', {headers: autorization}).pipe()
@@ -67,7 +66,6 @@ export class UnVerifiedArticlesComponent implements OnInit {
   }
 
   verifyArticle(articleId) {
-    console.log(articleId)
     let autorization = {Authorization: localStorage.getItem('authentication')};
     this.httpClient.get('http://localhost:3000/api/user/verifyArticle/' + articleId, {headers: autorization})
       .subscribe((res: any) => {

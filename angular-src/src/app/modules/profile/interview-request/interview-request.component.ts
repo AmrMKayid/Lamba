@@ -23,7 +23,6 @@ export class InterviewRequestComponent implements OnInit {
       contactEmail:contactemail,
       contactNumber:contactnumber
     }
-     console.log(contactemail, contactnumber)
    let autorization = {Authorization: localStorage.getItem('authentication')};
     this.httpClient.post('http://localhost:3000/api/user/requestVerification',form,{headers: autorization} ).subscribe(
       (res: any) => {

@@ -32,13 +32,17 @@ export class VerifyTeacherComponent implements OnInit {
       .subscribe((res: any) => {
         this.Teachers = res.data;
       }, err => {
-        console.log(err.error.msg);
+        new Noty({
+          type: 'success',
+          text: err.error.msg,
+          timeout: 2000,
+          progressBar: true
+        }).show();
       });
   }
 
   Accept(teacherID) {
     this.httpClient.get('http://localhost:3000/api/admin/accept_teacher/' + teacherID, {headers: this.authorization})
-    //.catch((err: any) => console.log(err))
       .subscribe(res => {
         new Noty({
           type: 'success',
@@ -49,7 +53,12 @@ export class VerifyTeacherComponent implements OnInit {
         this.ngOnInit();
       },
         err => {
-          console.log(err.error.msg);
+          new Noty({
+            type: 'success',
+            text: err.error.msg,
+            timeout: 2000,
+            progressBar: true
+          }).show();
         });
 
 
@@ -66,7 +75,12 @@ export class VerifyTeacherComponent implements OnInit {
       this.ngOnInit();
     },
       err => {
-        console.log(err.error.msg);
+        new Noty({
+          type: 'success',
+          text: err.error.msg,
+          timeout: 2000,
+          progressBar: true
+        }).show();
       });
 
     }
