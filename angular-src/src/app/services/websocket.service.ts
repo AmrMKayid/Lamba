@@ -14,7 +14,7 @@ export class WebsocketService {
 
   connect(): Rx.Subject<MessageEvent> {
 
-    this.socket = io('http://localhost:3000');
+    this.socket = io('');
 
     // We define our observable which will observe any incoming messages
     // from our socket.io server.

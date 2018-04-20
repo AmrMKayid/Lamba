@@ -8,7 +8,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 export class ChatService {
 
   private socket;
-  private SERVER_URL = "http://127.0.0.1:3000";
+  private SERVER_URL = "";
 
   // Our constructor calls our wsService connect method
   constructor(private http: HttpClient) {
@@ -50,7 +50,7 @@ public initSocket()
       })
     };
 
-    return this.http.get('http://127.0.0.1:3000/api/chat', httpOptions);
+    return this.http.get('api/chat', httpOptions);
   }
   public getChat(user_id)
   {
@@ -61,13 +61,13 @@ public initSocket()
       })
     };
 
-    return this.http.get('http://127.0.0.1:3000/api/chat/' + user_id, httpOptions);
+    return this.http.get('api/chat/' + user_id, httpOptions);
   }
 
 
   public getUserInfo(user_id)
   {
-      return this.http.get('http://127.0.0.1:3000/api/user/getUserInfo/' + user_id);
+      return this.http.get('api/user/getUserInfo/' + user_id);
   }
 
 
