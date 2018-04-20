@@ -4,6 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import {TscheduleComponent} from './tschedule/tschedule.component';
 import {TaskComponent} from './task/task.component';
@@ -35,7 +36,9 @@ const appRoutes: Routes = [
     FormsModule, ReactiveFormsModule,
     RouterModule.forChild(appRoutes),
     NgbModule.forRoot(),
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    NgxPaginationModule
+
   ],
   declarations: [
     TscheduleComponent,

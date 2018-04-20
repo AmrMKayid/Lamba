@@ -14,7 +14,7 @@ import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-boots
 })
 export class ViewComponent implements OnInit {
 
-  myitems: any[];
+  myitems= [];
   itemId: string;
   name: string;
   price: number;

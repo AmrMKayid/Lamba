@@ -24,7 +24,7 @@ export class TaskComponent implements OnInit {
     })
   };
 
-
+  commentx : String;
   title: String;
   description: String;
   createdAt: Date;
@@ -45,6 +45,8 @@ export class TaskComponent implements OnInit {
 
     this.getTask();
     this.getComments();
+
+
   }
 
 
@@ -63,7 +65,12 @@ export class TaskComponent implements OnInit {
   getComments() {
     this.http.get('http://localhost:3000/api/task/getComments/' + this.taskId, this.httpOptions).subscribe((res: any) => {
       this.taskComments = res.data;
-      console.log(this.taskComments);
+
+      this.taskComments.sort(function(x, y){
+        console.log(x);
+      return  y.createdAt - x.createdAt;
+  });
+  console.log(this.taskComments);
     });
   }
 
@@ -108,6 +115,8 @@ export class TaskComponent implements OnInit {
       });
 
     this.newComment = "";
+    this.commentx = "";
+
 
   }
 
