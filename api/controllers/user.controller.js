@@ -673,32 +673,32 @@ module.exports.getMyTeachers = function (req, res, next) {
                 .status(404)
                 .json({err: null, msg: 'child not found.', data: null});
         }
-        if (user._id != req.decodedToken.user._id) {
-            if (user.parent_id != req.decodedToken.user._id) {
+        if (user._id != req.decodedToken.user._id || user.parent_id != req.decodedToken.user._id ) {
 
                 return res
                     .status(401)
                     .json({err: null, msg: 'you are not authorized to view the teachers', data: null});
 
-            }
+
         }
 
-        User.find({
-            students: {
-                $eq: req.params.ChildId
-            }
-        }).exec(function (err, teachers) {
-            if (err) {
-                return next(err);
-            }
-            return res.status(200).json({
-                err: null,
-                msg: 'Requests received successfully.!',
-                data: teachers
+     else {
+            User.find({
+                students: {
+                    $eq: req.params.ChildId
+                }
+            }).exec(function (err, teachers) {
+                if (err) {
+                    return next(err);
+                }
+                return res.status(200).json({
+                    err: null,
+                    msg: 'Requests received successfully.!',
+                    data: teachers
 
+                });
             });
-        });
-
+        }
 
     });
 
