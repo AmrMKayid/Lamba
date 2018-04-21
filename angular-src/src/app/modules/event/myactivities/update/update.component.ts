@@ -11,6 +11,9 @@ import {appConfig} from "../../../../app.config";
   styleUrls: ['./update.component.css']
 })
 export class UpdateComponent implements OnInit {
+
+  apiUrlHTML = appConfig.apiUrl;
+
   myactivities: any[];
   activityId: string;
   name: string;

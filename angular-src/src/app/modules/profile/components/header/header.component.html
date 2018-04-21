@@ -1,5 +1,6 @@
 <!--Navbar-->
-<mdb-navbar  *ngIf="hideNavbar()"  SideClass="navbar navbar-expand-md navbar-dark elegant-color-dark  fixed-top scrolling-navbar">
+<mdb-navbar *ngIf="hideNavbar()"
+            SideClass="navbar navbar-expand-md navbar-dark elegant-color-dark  fixed-top scrolling-navbar">
   <!-- Navbar brand -->
   <logo>
     <a class="navbar-brand" [routerLink]="['/']">
@@ -39,9 +40,10 @@
 
       <li class="nav-item" [routerLinkActive]="['active']">
         <!--TODO: Resources-->
-        <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/event/view']" *ngIf="isLoggedIn()">Activities</a>
+        <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/event/view']"
+           *ngIf="isLoggedIn()">Activities</a>
       </li>
-      
+
 
     </ul>
     <!-- Links -->
@@ -67,7 +69,8 @@
       <li class="nav-item avatar dropdown d-none d-lg-block d-md-block d-xl-block" dropdown *ngIf="isLoggedIn()">
         <a dropdownToggle mdbRippleRadius type="button" class="nav-link dropdown-toggle waves-light pt-0"
            mdbRippleRadius>
-          <img src="{{apiConfig.apiUrl}}/uploads/store/{{this.auth.getCurrentUser().photo}}" class="img-fluid rounded-circle z-depth-0">
+          <img src="{{apiUrlHTML}}/uploads/store/{{this.auth.getCurrentUser().photo}}"
+               class="img-fluid rounded-circle z-depth-0">
           <span class="caret"></span>
         </a>
 

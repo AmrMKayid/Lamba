@@ -9,13 +9,14 @@ import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-boots
 import {appConfig} from "../../../app.config";
 
 
-
 @Component({
   selector: 'app-item',
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.css']
 })
 export class ItemComponent implements OnInit {
+
+  apiUrlHTML = appConfig.apiUrl;
 
   id: string;
   item: any;
@@ -96,12 +97,12 @@ export class ItemComponent implements OnInit {
     this.item = item;
     var itemId = item._id;
 
-    this.name= this.item.name;
+    this.name = this.item.name;
     this.price = this.item.price;
     this.description = this.item.description;
     this.quantity = this.item.quantity;
-    this.item_type = this.item.item_type ;
-    this.item_condition = this.item.item_condition ;
+    this.item_type = this.item.item_type;
+    this.item_condition = this.item.item_condition;
 
 
     let editedItem = {
@@ -129,12 +130,12 @@ export class ItemComponent implements OnInit {
 
   }
 
-    close() {
+  close() {
 
-      this.router.navigate(["/store/myitems/view"]);
-      localStorage.setItem("Update", 'null')
+    this.router.navigate(["/store/myitems/view"]);
+    localStorage.setItem("Update", 'null')
 
-    }
+  }
 
 
 }

@@ -16,6 +16,9 @@ import {appConfig} from "../../../../app.config";
   animations: [routerTransition()]
 })
 export class AddAdminComponent implements OnInit {
+
+  apiUrlHTML = appConfig.apiUrl;
+
   public admins = [];
 
   constructor(public router: Router, private dialog: MatDialog, private httpClient: HttpClient) {

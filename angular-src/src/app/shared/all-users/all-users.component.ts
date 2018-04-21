@@ -11,6 +11,8 @@ import {AuthService} from "../../services/auth.service";
 })
 export class AllUsersComponent implements OnInit {
 
+  apiUrlHTML = appConfig.apiUrl;
+
   Users: any;
 
   // Pagination: initializing p to one
@@ -34,9 +36,8 @@ export class AllUsersComponent implements OnInit {
     this.router.navigate(['profile', user._id]);
   }
 
-  messageUser(user)
-  {
-        this.router.navigate(['chat/' + user._id]);
+  messageUser(user) {
+    this.router.navigate(['chat/' + user._id]);
   }
 
   ngOnInit() {

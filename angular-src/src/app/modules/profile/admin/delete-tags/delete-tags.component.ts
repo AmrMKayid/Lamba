@@ -11,6 +11,9 @@ import {appConfig} from "../../../../app.config";
   styleUrls: ['./delete-tags.component.scss']
 })
 export class DeleteTagsComponent implements OnInit {
+
+  apiUrlHTML = appConfig.apiUrl;
+  
   public tags = [];
 
   constructor(private router: Router, private http: HttpClient, private fb: FormBuilder,

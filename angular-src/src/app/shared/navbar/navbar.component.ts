@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {ChatService} from "../../services/chat.service";
-import { Router } from '@angular/router';
-import { NotificationService } from '../../services/notification.service';
+import {Router} from '@angular/router';
+import {NotificationService} from '../../services/notification.service';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {appConfig} from "../../app.config";
 
@@ -12,6 +12,8 @@ import {appConfig} from "../../app.config";
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+
+  apiUrlHTML = appConfig.apiUrl;
 
   currentUser;
   public role;
@@ -34,23 +36,21 @@ export class NavbarComponent implements OnInit {
       this.currentUser = this.auth.getCurrentUser();
       if (this.auth.getCurrentUser().role)
         this.role = (this.auth.getCurrentUser().role).toLowerCase();
-        setInterval(() => {
-           this.refresh();
-       }, 6000);
+      setInterval(() => {
+        this.refresh();
+      }, 6000);
     }
   }
 
 
+  refresh() {
+    this.getMyNotifications();
+    this.getMyRequests();
+    this.chat.getAllChats().subscribe((res: any) => {
+      this.chatCount = res.data.length;
+    });
+  }
 
-
-refresh()
-{
-  this.getMyNotifications();
-  this.getMyRequests();
-  this.chat.getAllChats().subscribe((res:any)=>{
-    this.chatCount = res.data.length;
-  });
-}
   isLoggedIn() {
     return localStorage.getItem('authentication');
   }
@@ -138,7 +138,7 @@ refresh()
       title: "Your request is rejected",
       description: this.auth.getCurrentUser().name.firstName + " " + this.auth.getCurrentUser().name.lastName +
       " rejected your request to add your child " + request.childId.name.firstName + " to his/her students",
-      url: "/profile/"+request.recievingTeacherId,
+      url: "/profile/" + request.recievingTeacherId,
       recieving_user_id: request.requestingParentId._id
     };
     this.notificationservice.CreateNotification(notifyParent);
@@ -181,12 +181,11 @@ refresh()
       title: "Your request is accepted",
       description: this.auth.getCurrentUser().name.firstName + " " + this.auth.getCurrentUser().name.lastName +
       " accepted your request to add your child " + request.childId.name.firstName + " to his/her students",
-      url: "/profile/"+request.recievingTeacherId,
+      url: "/profile/" + request.recievingTeacherId,
       recieving_user_id: request.requestingParentId._id
     };
     this.notificationservice.CreateNotification(notifyParent);
   }
-
 
 
 }

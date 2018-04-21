@@ -11,6 +11,8 @@ import {appConfig} from "../../../app.config";
 })
 export class TscheduleComponent implements OnInit {
 
+  apiUrlHTML = appConfig.apiUrl;
+
   public userID;
   httpOptions = {
     headers: new HttpHeaders({

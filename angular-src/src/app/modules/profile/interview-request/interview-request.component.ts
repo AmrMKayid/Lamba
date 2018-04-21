@@ -10,6 +10,9 @@ import {appConfig} from "../../../app.config";
   styleUrls: ['./interview-request.component.scss']
 })
 export class InterviewRequestComponent implements OnInit {
+
+  apiUrlHTML = appConfig.apiUrl;
+
   contactemail: string;
   contactnumber: string;
 

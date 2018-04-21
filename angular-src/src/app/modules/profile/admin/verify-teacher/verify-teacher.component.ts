@@ -18,6 +18,8 @@ import {appConfig} from "../../../../app.config";
 })
 export class VerifyTeacherComponent implements OnInit {
 
+  apiUrlHTML = appConfig.apiUrl;
+
   public Teachers = [];
   public List=[1];
   authorization = {Authorization: localStorage.getItem('authentication')};

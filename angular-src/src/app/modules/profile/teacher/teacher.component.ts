@@ -17,6 +17,7 @@ import {stringDistance} from "codelyzer/util/utils";
 })
 export class TeacherComponent implements OnInit {
 
+  apiUrlHTML = appConfig.apiUrl;
 
   firstName: string;
   middleName: string;

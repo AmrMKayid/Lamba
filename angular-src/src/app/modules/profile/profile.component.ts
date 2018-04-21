@@ -11,6 +11,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
 
+  apiUrlHTML = appConfig.apiUrl;
+
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -73,5 +75,5 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
-  
+
 }

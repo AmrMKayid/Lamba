@@ -5,6 +5,7 @@ import {trigger, state, style, animate, transition} from '@angular/animations';
 import {EventService} from '../../../../services/event.service';
 import {Router} from '@angular/router';
 import {AuthService} from "../../../../services/auth.service";
+import {appConfig} from "../../../../app.config";
 
 
 @Component({
@@ -13,6 +14,8 @@ import {AuthService} from "../../../../services/auth.service";
   styleUrls: ['./create.component.css']
 })
 export class CreateComponent implements OnInit {
+
+  apiUrlHTML = appConfig.apiUrl;
 
   customStyle = {
     selectButton: {

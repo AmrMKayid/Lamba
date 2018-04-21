@@ -1,53 +1,62 @@
 <div [@routerTransition]>
-        
-    <section class="text-center pb-3 my-5">
-        <div class="container-fluid">
-            <h2  style="text-align:center;font-weight:bold;">Teacher Registration</h2>
-    <div class="row row-eq-height">
 
-    <!--Grid column-->
-    <div class="col-lg-3 col-wrap col-md-6 mb-6 d-lg-flex " *ngFor="let teacher of Teachers">
-          
-     <!--Card-->
-     <div class="card align-items-center">
+  <section class="text-center pb-3 my-5">
+    <div class="container-fluid">
+      <h2 style="text-align:center;font-weight:bold;">Teacher Registration</h2>
+      <div class="row row-eq-height">
 
-       
-<!--Card image-->
-<div class="view overlay waves-light" mdbWavesEffect>
-    <img *ngIf="teacher.photo" src="{{apiConfig.apiUrl}}/uploads/store/{{teacher.photo}}"  class="img-fluid" alt="" height="100" width="100">
-    <img *ngIf="!teacher.photo" src="../../../../../assets/user.png" class="img-fluid" alt="" height="100">
-    
-    <a>
-        <div class="mask rgba-white-slight"></div>
-    </a>
-</div>
-<!--Card image-->
-    
-        <!--Card content-->
-                <div class="card-body text-center ">
-                    <!--Category & Title-->
-                    <a ng-href="" class="text-center">
-                       <a [routerLink]="['/profile',teacher._id]"><h3>{{teacher.name.firstName+" "+teacher.name.lastName}}</h3></a>
-                        <span class="badge badge-pill light-blue">NEW Teacher</span>
-                    </a>
-                    <h4 class="font-weight-bold grey-text">
-                        {{teacher.about}}
-                    </h4>
-                    <h4 class="font-weight-bold grey-text">
-                        {{teacher.qualifications}}
-                    </h4>
+        <!--Grid column-->
+        <div class="col-lg-3 col-wrap col-md-6 mb-6 d-lg-flex " *ngFor="let teacher of Teachers">
 
-                    <h5 class="blue-text">
-                        {{teacher.joinedAt | date}}
-                    </h5>
-                    <button class="badge badge-pill btn-success" (click)="Accept(teacher._id)" style="cursor: pointer;">Verify</button>
-                    <button class="badge badge-pill btn-danger" (click)="Decline(teacher._id)" style="cursor: pointer;">Decline</button>
-                </div>
-</div>
-</div>
-</div>
-</div>
-<div class="text-center" *ngIf="List.length ===0"><h1>There are currently no new teachers </h1>
-    <button class="btn btn-sm" style="background-color:#f16138;font-weight:bold" routerLink="/profile/admin/dashboard" [routerLinkActive]="['router-link-active']">Back to DashbBoard</button></div>
-</section>
+          <!--Card-->
+          <div class="card align-items-center">
+
+
+            <!--Card image-->
+            <div class="view overlay waves-light" mdbWavesEffect>
+              <img *ngIf="teacher.photo" src="{{apiUrlHTML}}/uploads/store/{{teacher.photo}}" class="img-fluid" alt=""
+                   height="100" width="100">
+              <img *ngIf="!teacher.photo" src="../../../../../assets/user.png" class="img-fluid" alt="" height="100">
+
+              <a>
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+            <!--Card image-->
+
+            <!--Card content-->
+            <div class="card-body text-center ">
+              <!--Category & Title-->
+              <a ng-href="" class="text-center">
+                <a [routerLink]="['/profile',teacher._id]"><h3>{{teacher.name.firstName+" "+teacher.name.lastName}}</h3>
+                </a>
+                <span class="badge badge-pill light-blue">NEW Teacher</span>
+              </a>
+              <h4 class="font-weight-bold grey-text">
+                {{teacher.about}}
+              </h4>
+              <h4 class="font-weight-bold grey-text">
+                {{teacher.qualifications}}
+              </h4>
+
+              <h5 class="blue-text">
+                {{teacher.joinedAt | date}}
+              </h5>
+              <button class="badge badge-pill btn-success" (click)="Accept(teacher._id)" style="cursor: pointer;">
+                Verify
+              </button>
+              <button class="badge badge-pill btn-danger" (click)="Decline(teacher._id)" style="cursor: pointer;">
+                Decline
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center" *ngIf="List.length ===0"><h1>There are currently no new teachers </h1>
+      <button class="btn btn-sm" style="background-color:#f16138;font-weight:bold" routerLink="/profile/admin/dashboard"
+              [routerLinkActive]="['router-link-active']">Back to DashbBoard
+      </button>
+    </div>
+  </section>
 </div>

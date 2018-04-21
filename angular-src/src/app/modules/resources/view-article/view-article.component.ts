@@ -13,6 +13,8 @@ import {appConfig} from "../../../app.config";
 })
 export class ViewArticleComponent implements OnInit {
 
+  apiUrlHTML = appConfig.apiUrl;
+
   article: any = {};
   isInitialized: boolean = false;
   author: any;

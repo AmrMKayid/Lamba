@@ -17,15 +17,17 @@
       <th>Edit</th>
     </tr>
     <tr>
-      <th><input class="form-control" id="Name" [(ngModel)]="name" placeholder="Activity Name" value="{{ name }}"><br></th>
-      <th><input class="form-control" id="price" [(ngModel)]="price" placeholder="Activity's Price" value="{{ price }}"><br></th>
+      <th><input class="form-control" id="Name" [(ngModel)]="name" placeholder="Activity Name" value="{{ name }}"><br>
+      </th>
+      <th><input class="form-control" id="price" [(ngModel)]="price" placeholder="Activity's Price" value="{{ price }}"><br>
+      </th>
       <th><input class="form-control" id="description" [(ngModel)]="description" placeholder="Activity's description"
                  value="{{ description }}"><br></th>
       <th><input class="form-control" id="place" [(ngModel)]="place" placeholder="Activity's place"
                  value="{{ place }}"><br></th>
       <th><input class="form-control" id="activity_type" [(ngModel)]="activity_type" placeholder="Activity's Type"
                  value="{{ activity_type }}"><br></th>
-        <button (click)="editActivity()" class="btn btn-danger">Submit</button>
+      <button (click)="editActivity()" class="btn btn-danger">Submit</button>
 
     </tr>
   </table>

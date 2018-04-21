@@ -12,7 +12,7 @@
   <div class="card-body text-center">
     <div class="avatar">
       <a (click)="open(img)">
-        <img src="{{apiConfig.apiUrl}}/uploads/store/{{currentUser?.photo}}" class="rounded-circle">
+        <img src="{{apiUrlHTML}}/uploads/store/{{currentUser?.photo}}" class="rounded-circle">
       </a>
       <ng-template #img let-c="close" let-d="dismiss">
         <div class="modal-header">
@@ -28,7 +28,7 @@
                 <image-upload
                   [headers]="{authorization: token}"
                   [max]="1"
-                  [url]="'{{apiConfig.apiUrl}}/store/upload'"
+                  url="{{apiUrlHTML}}/store/upload"
                   [dropBoxMessage]="'Drop your image here!'"
                   [buttonCaption]="'Upload'"
                   [style]="customStyle"
@@ -159,7 +159,7 @@
                 <div class="col-lg-3 col-md-4 col-sm-6 myCard" *ngFor="let child of myChildren">
                   <div class="card">
                     <img class="card-img-top rounded-circle mt-2"
-                         src="{{apiConfig.apiUrl}}/uploads/store/{{child.photo}}">
+                         src="{{apiUrlHTML}}/uploads/store/{{child.photo}}">
                     <div class="card-block">
                       <h4 class="card-title mt-3 grey-text">{{ child.name.firstName }} {{ child.name.lastName }}</h4>
                     </div>
@@ -331,34 +331,33 @@
                               </div>
 
 
+                              <div class="row">
+                                <div class="col-6">
+                                  <div class="md-form">
+                                    <i class="material-icons prefix">date_range</i>
+                                    <input type="date" id="orangeForm-updatedBirthday" class="form-control"
+                                           [ngModel]="currentUser?.birthday! | date:'yyyy-MM-dd'"
+                                           value="{{ currentUser?.birthday! | date:'yyyy-MM-dd' }}"
+                                           [ngModelOptions]="{standalone: true}"
+                                           #updatedBirthday
+                                           mdbActive>
+                                    <label for="orangeForm-updatedBirthday"></label>
+                                  </div>
+                                </div>
+                                <div class="col-6">
 
-<div class="row">
-  <div class="col-6">
-                              <div class="md-form">
-                                <i class="material-icons prefix">date_range</i>
-                                <input type="date" id="orangeForm-updatedBirthday" class="form-control"
-                                       [ngModel]="currentUser?.birthday! | date:'yyyy-MM-dd'"
-                                       value="{{ currentUser?.birthday! | date:'yyyy-MM-dd' }}"
-                                       [ngModelOptions]="{standalone: true}"
-                                       #updatedBirthday
-                                       mdbActive>
-                                <label for="orangeForm-updatedBirthday"></label>
+                                  <div class="md-form">
+                                    <i class="material-icons prefix">phone</i>
+                                    <input type="text" id="orangeForm-updatedPhone" class="form-control"
+                                           [ngModel]="currentUser?.phone!" value="{{ currentUser?.phone! }}"
+                                           [ngModelOptions]="{standalone: true}"
+                                           #updatedPhone
+                                           mdbActive>
+                                    <label for="orangeForm-updatedPhone">Phone</label>
+                                  </div>
+                                </div>
+
                               </div>
-</div>
-<div class="col-6">
-
-                              <div class="md-form">
-                                <i class="material-icons prefix">phone</i>
-                                <input type="text" id="orangeForm-updatedPhone" class="form-control"
-                                       [ngModel]="currentUser?.phone!" value="{{ currentUser?.phone! }}"
-                                       [ngModelOptions]="{standalone: true}"
-                                       #updatedPhone
-                                       mdbActive>
-                                <label for="orangeForm-updatedPhone">Phone</label>
-                              </div>
-                            </div>
-
-</div>
                               <div class="md-form mb-0">
 
                                 <div class="row">

@@ -14,6 +14,7 @@ import {appConfig} from "../../../app.config";
 })
 export class ChildComponent implements OnInit {
 
+  apiUrlHTML = appConfig.apiUrl;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -51,7 +52,6 @@ export class ChildComponent implements OnInit {
     this.getTasks();
     this.getTeachers();
   }
-
 
 
   onUploadFinished(event) {
@@ -125,13 +125,13 @@ export class ChildComponent implements OnInit {
   }
 
 
-
   viewTask(taskId) {
     console.log(taskId);
     this.router.navigate(['schedule/viewtask/', taskId]);
   }
 
-tasks = [];
+  tasks = [];
+
   getTasks() {
     this.http.get(appConfig.apiUrl + '/task/getTasks/', this.httpOptions)
       .subscribe((res: any) => {
@@ -143,8 +143,9 @@ tasks = [];
 
 
   teachers = [];
+
   getTeachers() {
-    this.http.get(appConfig.apiUrl + '/user/getMyTeachers/'+this.currentUser._id, this.httpOptions)
+    this.http.get(appConfig.apiUrl + '/user/getMyTeachers/' + this.currentUser._id, this.httpOptions)
       .subscribe((res: any) => {
         this.teachers = res.data;
       });

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {StoreService} from '../../../services/store.service';
 import {Router} from "@angular/router";
 import * as $ from 'jquery';
+import {appConfig} from "../../../app.config";
 
 @Component({
   selector: 'app-view',
@@ -9,6 +10,8 @@ import * as $ from 'jquery';
   styleUrls: ['./view.component.css']
 })
 export class ViewComponent implements OnInit {
+
+  apiUrlHTML = appConfig.apiUrl;
 
   itemsCount: number; // Total number of items
   limit: number; // Number of items per page
@@ -78,7 +81,7 @@ export class ViewComponent implements OnInit {
       this.ngOnInit();
 
       this.loadItems();
-    
+
     });
   }
 
@@ -88,7 +91,7 @@ export class ViewComponent implements OnInit {
 
       this.ngOnInit();
     });
-   this.loadItems();
+    this.loadItems();
   }
 
   viewInfo(_id) {

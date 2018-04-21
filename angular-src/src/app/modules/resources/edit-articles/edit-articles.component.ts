@@ -12,6 +12,9 @@ import {appConfig} from "../../../app.config";
   styleUrls: ['./edit-articles.component.css']
 })
 export class EditArticlesComponent implements OnInit {
+
+  apiUrlHTML = appConfig.apiUrl;
+
   article: any = {};
   id: string;
   public title: String;

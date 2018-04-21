@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NotificationService} from '../../services/notification.service';
 import {HttpClient} from '@angular/common/http';
 
@@ -9,10 +9,12 @@ import {HttpClient} from '@angular/common/http';
 })
 export class NotificationsComponent implements OnInit {
 
-  constructor( private http: HttpClient,
-               private notificationservice: NotificationService) { }
+  constructor(private http: HttpClient,
+              private notificationservice: NotificationService) {
+  }
 
-	notifications : Array<Object>;
+  notifications: Array<Object>;
+
   ngOnInit() {
 
     var test = {
@@ -23,15 +25,14 @@ export class NotificationsComponent implements OnInit {
     };
     this.notificationservice.CreateNotification(test);
 
-  	this.notificationservice.getMyNotifications().subscribe((res: any) => {
-  		if(res.err != null)
-  		{
-  			/*generate error*/
-  		}
+    this.notificationservice.getMyNotifications().subscribe((res: any) => {
+      if (res.err != null) {
+        /*generate error*/
+      }
 
-  		this.notifications = res.data;
- 		console.log(this.notifications);
-  	});
+      this.notifications = res.data;
+      console.log(this.notifications);
+    });
 
   }
 

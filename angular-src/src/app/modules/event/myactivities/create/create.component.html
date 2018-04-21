@@ -26,7 +26,7 @@
       <div class="row">
         <div class="col-md-10 col-xs-10">
           <input id="comment_field" class="form-control" type="text" placeholder="Place" name="place"
-                 autocomplete="off"  [(ngModel)]="place">
+                 autocomplete="off" [(ngModel)]="place">
         </div>
       </div>
 
@@ -38,7 +38,8 @@
       </div>
       <div class="row">
         <div class="col-md-10 col-xs-10">
-          <input id="comment_field" class="form-control" type="text" placeholder="Activity Type. e.g: education, art, sport"
+          <input id="comment_field" class="form-control" type="text"
+                 placeholder="Activity Type. e.g: education, art, sport"
                  name="activity_type" autocomplete="off" [(ngModel)]="activity_type">
         </div>
       </div>
@@ -54,7 +55,7 @@
           <image-upload
             [headers]="{authorization: token}"
             [max]="1"
-            [url]="'{{apiConfig.apiUrl}}/store/upload'"
+            url="{{apiUrlHTML}}/store/upload"
             [dropBoxMessage]="'Drop your image here!'"
             [buttonCaption]="'Upload an Image'"
             [style]="customStyle"

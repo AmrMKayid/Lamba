@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {appConfig} from "../../app.config";
 
 // SERVICE IS USED JUST TO PASS DATA ACROSS COMPONENTS (INSTED OF @Input)
@@ -127,8 +127,9 @@ export class ArticlesService {
     })
       .pipe();
   }
+
   assignChild(articleID, childID) {
-    return this.http.patch(appConfig.apiUrl + '/user/assignArticleToChild/' + childID, { articleID: articleID },
+    return this.http.patch(appConfig.apiUrl + '/user/assignArticleToChild/' + childID, {articleID: articleID},
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',

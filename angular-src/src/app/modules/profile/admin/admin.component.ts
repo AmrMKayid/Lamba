@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Http } from '@angular/http';
-import { Router } from '@angular/router';
-import { AuthService } from '../../../services/auth.service';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Http} from '@angular/http';
+import {Router} from '@angular/router';
+import {AuthService} from '../../../services/auth.service';
 
 
 @Component({
@@ -15,10 +15,9 @@ export class AdminComponent implements OnInit {
   token = localStorage.getItem('authentication');
 
   constructor(private httpClient: HttpClient,
-    private http: Http,
-    private router: Router,
-    private auth: AuthService
-  ) {
+              private http: Http,
+              private router: Router,
+              private auth: AuthService) {
 
   }
 
@@ -36,6 +35,6 @@ export class AdminComponent implements OnInit {
     this.router.navigate(['/profile/admin/verify-teachers']);
 
   }
-  
+
 
 }

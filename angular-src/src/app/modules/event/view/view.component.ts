@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {AuthService} from "../../../services/auth.service";
 import * as $ from 'jquery';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {appConfig} from "../../../app.config";
 
 @Component({
   selector: 'app-view',
@@ -12,6 +13,8 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 })
 export class ViewComponent implements OnInit {
 
+  apiUrlHTML = appConfig.apiUrl;
+
   activitiesCount: number;
   limit: number;
   curPage: number;
@@ -19,7 +22,7 @@ export class ViewComponent implements OnInit {
   closeResult: string;
 
   user;
-  children :any[];
+  children: any[];
 
 
   activities: any[]; // Current activities
@@ -28,8 +31,8 @@ export class ViewComponent implements OnInit {
 
   constructor(private EventService: EventService,
               private router: Router,
-                private auth: AuthService,
-            private modalService: NgbModal) {
+              private auth: AuthService,
+              private modalService: NgbModal) {
     this.limit = 20;
     this.curPage = 1;
     this.user = this.auth.getCurrentUser();
@@ -96,26 +99,24 @@ export class ViewComponent implements OnInit {
     this.router.navigate(['/event/view/' + _id]);
   }
 
-  registerChild(activityID,childId)
-  {
-    this.EventService.registerChild(activityID,childId).subscribe( (data) =>{
+  registerChild(activityID, childId) {
+    this.EventService.registerChild(activityID, childId).subscribe((data) => {
       console.log(data);
     });
   }
 
-  open(content,activityID) {
-    this.EventService.getChildren(this.user).subscribe( (children:any)=>{
-      this.EventService.getActivity(activityID).subscribe( (activity:any)=>{
+  open(content, activityID) {
+    this.EventService.getChildren(this.user).subscribe((children: any) => {
+      this.EventService.getActivity(activityID).subscribe((activity: any) => {
 
         activity = activity.data;
         children = children.data;
 
-        for( var child of children)
-        {
-            if(activity.going_user_id.includes(child._id))
-              child['registered'] = true;
-            else
-              child['registered'] = false;
+        for (var child of children) {
+          if (activity.going_user_id.includes(child._id))
+            child['registered'] = true;
+          else
+            child['registered'] = false;
         }
 
         this.children = children;
