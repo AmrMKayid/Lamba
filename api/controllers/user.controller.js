@@ -220,8 +220,8 @@ module.exports.updateImage = function (req, res, next) {
                 var token = jwt.sign({
                     user: updateChild.toObject()
                 }, req.app.get('secret'), {
-                    expiresIn: '12h'
-                });
+                        expiresIn: '12h'
+                    });
                 res.status(200).json({
                     err: null,
                     msg: 'Welcome',
@@ -232,8 +232,8 @@ module.exports.updateImage = function (req, res, next) {
             var token = jwt.sign({
                 user: updateUser.toObject()
             }, req.app.get('secret'), {
-                expiresIn: '12h'
-            });
+                    expiresIn: '12h'
+                });
             res.status(200).json({
                 err: null,
                 msg: 'Welcome',
@@ -413,27 +413,27 @@ module.exports.verifyArticle = function (req, res, next) {
             updatedAt: true
         }
     }, {
-        new: true
-    }).exec(function (err, article) {
-        if (err) {
-            return next(err);
-        }
-        if (!article) {
-            return res
-                .status(404)
-                .json({
-                    err: null,
-                    msg: 'Article not found.',
-                    data: null
-                });
-        }
-        res.status(200).json({
-            err: null,
-            msg: 'Article verified successfully.',
-            data: null
-        });
+            new: true
+        }).exec(function (err, article) {
+            if (err) {
+                return next(err);
+            }
+            if (!article) {
+                return res
+                    .status(404)
+                    .json({
+                        err: null,
+                        msg: 'Article not found.',
+                        data: null
+                    });
+            }
+            res.status(200).json({
+                err: null,
+                msg: 'Article verified successfully.',
+                data: null
+            });
 
-    });
+        });
 };
 
 //delete article upon admin rejection
@@ -471,8 +471,8 @@ module.exports.rejectArticle = function (req, res, next) {
 
                 Child.update(
                     {},
-                    {$pull: {allowedArticles: result._id}},
-                    {multi: true},
+                    { $pull: { allowedArticles: result._id } },
+                    { multi: true },
                     (err, updatedArticles) => {
                         if (err) {
                             console.log(err);
@@ -524,6 +524,13 @@ module.exports.getUserInfo = function (req, res, next) {
 
 module.exports.updateUser = function (req, res, next) {
 
+    if (req.decodedToken.user._id != req.params.userId) {
+        return res.status(401).json({
+            err: null,
+            msg: 'Not authorized.',
+            data: null
+        });
+    }
     if (!Validations.isObjectId(req.params.userId)) {
         return res.status(422).json({
             err: null,
@@ -531,6 +538,11 @@ module.exports.updateUser = function (req, res, next) {
             data: null
         });
     }
+    delete req.body.role;
+    delete req.body.joinedAt;
+    delete req.body.password;
+    delete req.body.isVerified;
+    delete req.body.isReviewed;
 
     User.findByIdAndUpdate(
         req.params.userId, {
@@ -637,7 +649,7 @@ module.exports.getMyTeachers = function (req, res, next) {
         if (!user) {
             return res
                 .status(404)
-                .json({err: null, msg: 'child not found.', data: null});
+                .json({ err: null, msg: 'child not found.', data: null });
         }
 
 
@@ -645,7 +657,7 @@ module.exports.getMyTeachers = function (req, res, next) {
 
             return res
                 .status(401)
-                .json({err: null, msg: 'you are not authorized to view the teachers', data: null});
+                .json({ err: null, msg: 'you are not authorized to view the teachers', data: null });
 
 
         }
@@ -719,7 +731,7 @@ module.exports.addStudent = function (req, res, next) {
             if (!child) {
                 return res
                     .status(404)
-                    .json({err: null, msg: 'child not found.', data: null});
+                    .json({ err: null, msg: 'child not found.', data: null });
             }
             else {
                 Request.findOne({
@@ -745,7 +757,7 @@ module.exports.addStudent = function (req, res, next) {
                             if (!user) {
                                 return res
                                     .status(404)
-                                    .json({err: null, msg: 'child not found.', data: null});
+                                    .json({ err: null, msg: 'child not found.', data: null });
                             }
                             else {
                                 user.students.push(req.params.childId);
@@ -783,7 +795,7 @@ module.exports.viewSessions = function (req, res, next) {
         if (!user) {
             return res
                 .status(404)
-                .json({err: null, msg: 'User not found.', data: null});
+                .json({ err: null, msg: 'User not found.', data: null });
         }
 
         res.status(200).json({
@@ -824,7 +836,7 @@ module.exports.addSession = function (req, res, next) {
         if (!user) {
             return res
                 .status(404)
-                .json({err: null, msg: 'User not found.', data: null});
+                .json({ err: null, msg: 'User not found.', data: null });
         }
         var newSession = user.sessions.create(req.body);
         user.sessions.push(newSession);
@@ -856,13 +868,13 @@ module.exports.deleteSession = function (req, res, next) {
         if (!user) {
             return res
                 .status(404)
-                .json({err: null, msg: 'User not found.', data: null});
+                .json({ err: null, msg: 'User not found.', data: null });
         }
         var session = user.sessions.id(req.params.sessionId);
         if (!session) {
             return res
                 .status(404)
-                .json({err: null, msg: 'Session not found.', data: null});
+                .json({ err: null, msg: 'Session not found.', data: null });
         }
         session.remove();
         user.save(function (err) {
@@ -909,13 +921,13 @@ module.exports.updateSession = function (req, res, next) {
         if (!user) {
             return res
                 .status(404)
-                .json({err: null, msg: 'User not found.', data: null});
+                .json({ err: null, msg: 'User not found.', data: null });
         }
         var session = user.sessions.id(req.params.sessionId);
         if (!session) {
             return res
                 .status(404)
-                .json({err: null, msg: 'Session not found.', data: null});
+                .json({ err: null, msg: 'Session not found.', data: null });
         }
         session.title = req.body.title;
         session.grade = req.body.grade;
@@ -962,7 +974,7 @@ module.exports.createVerificationForm = function (req, res, next) {
         if (!user) {
             return res
                 .status(404)
-                .json({err: null, msg: 'User not found.', data: null});
+                .json({ err: null, msg: 'User not found.', data: null });
         }
         if (user.isVerified == true) {
             return res.status(403).json({
@@ -971,7 +983,7 @@ module.exports.createVerificationForm = function (req, res, next) {
                 data: null
             });
         }
-        Verification.find({owner_id: req.decodedToken.user._id}).exec(function (err, checkForm) {
+        Verification.find({ owner_id: req.decodedToken.user._id }).exec(function (err, checkForm) {
             if (err) {
                 return next(err);
             }
@@ -1078,9 +1090,9 @@ module.exports.verifyUser = function (req, res, next) {
     }
     User.findByIdAndUpdate(req.params.userId,
         {
-            $set: {isVerified: true},
+            $set: { isVerified: true },
         },
-        {new: true}
+        { new: true }
     ).exec(function (err, user) {
         if (err) {
             return next(err);
@@ -1088,7 +1100,7 @@ module.exports.verifyUser = function (req, res, next) {
         if (!user) {
             return res
                 .status(404)
-                .json({err: null, msg: 'User not found.', data: null});
+                .json({ err: null, msg: 'User not found.', data: null });
         }
         res.status(200).json({
             err: null,
@@ -1109,22 +1121,22 @@ module.exports.getMyChildren = function (req, res, next) {
     }
 
     Child.find({
-            parent_id: {$eq: req.decodedToken.user._id}
-        }, '_id name',
+        parent_id: { $eq: req.decodedToken.user._id }
+    }, '_id name',
         (err, result) => {
             if (err) {
                 return next(err);
             }
         }).exec(function (err, children) {
-        if (err) {
-            return next(err);
-        }
-        res.status(200).json({
-            err: null,
-            msg: 'children retrieved successfully.',
-            data: children
+            if (err) {
+                return next(err);
+            }
+            res.status(200).json({
+                err: null,
+                msg: 'children retrieved successfully.',
+                data: children
+            });
         });
-    });
 };
 //verify activity
 module.exports.verifyActivity = function (req, res, next) {
@@ -1139,10 +1151,10 @@ module.exports.verifyActivity = function (req, res, next) {
     }
     Activity.findByIdAndUpdate(req.params.activityId,
         {
-            $set: {isVerified: true},
-            $currentDate: {updated_at: true}
+            $set: { isVerified: true },
+            $currentDate: { updated_at: true }
         },
-        {new: true}
+        { new: true }
     ).exec(function (err, activity) {
         if (err) {
             return next(err);
@@ -1150,7 +1162,7 @@ module.exports.verifyActivity = function (req, res, next) {
         if (!activity) {
             return res
                 .status(404)
-                .json({err: null, msg: 'Activity not found.', data: null});
+                .json({ err: null, msg: 'Activity not found.', data: null });
         }
         res.status(200).json({
             err: null,
@@ -1206,7 +1218,7 @@ module.exports.rejectActivity = function (req, res, next) {
 };
 //Admin view all admins
 module.exports.viewAdmins = function (req, res, next) {
-    User.find({role: 'Admin'}).exec(function (err, admins) {
+    User.find({ role: 'Admin' }).exec(function (err, admins) {
         if (err) {
             console.log(err);
             return next(err);

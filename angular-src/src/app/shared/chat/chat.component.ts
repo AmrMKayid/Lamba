@@ -144,7 +144,6 @@ export class ChatComponent implements OnInit {
         }
       }
       this.chats.push(chatObj);
-      console.log(this.chats);
       this.currentChat = this.chats[0];
     });
   }

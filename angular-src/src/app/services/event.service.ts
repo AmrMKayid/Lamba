@@ -32,7 +32,6 @@ export class EventService {
   }
 
   activitiesCount() {
-    console.log("Mayar...event.service.ts");
     return this.httpc.get(appConfig.apiUrl + '/activity/countActivities', this.options);
   }
 

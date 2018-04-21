@@ -71,12 +71,6 @@ export class CreateComponent implements OnInit {
       }).show();
     }
     else if (!this.name || !this.description || !this.quantity || !this.price || !this.item_type || !this.item_condition) {
-      console.log(this.name);
-      console.log(this.description);
-      console.log(this.quantity);
-      console.log(this.price);
-      console.log(this.item_type);
-      console.log(this.item_condition);
 
       new Noty({
         type: 'error',

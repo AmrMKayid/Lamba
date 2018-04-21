@@ -71,10 +71,8 @@ export class TaskComponent implements OnInit {
       this.taskComments = res.data;
 
       this.taskComments.sort(function(x, y){
-        console.log(x);
       return  y.createdAt - x.createdAt;
   });
-  console.log(this.taskComments);
     });
   }
 
@@ -85,7 +83,6 @@ export class TaskComponent implements OnInit {
       role: this.currentUser.role,
       taskId: this.taskId
     };
-    console.log(commentData);
     this.http.post(appConfig.apiUrl + '/task/newComment', commentData, this.httpOptions).subscribe(
       (res: any) => {
 
@@ -97,9 +94,7 @@ export class TaskComponent implements OnInit {
           photo: this.currentUser.photo
         }
         };
-        console.log(commentData2);
         this.taskComments = this.taskComments.concat(commentData2);
-        console.log(this.taskComments);
 
         new Noty({
           type: 'success',
@@ -109,7 +104,6 @@ export class TaskComponent implements OnInit {
         }).show();
       },
       error => {
-        console.log(error)
         new Noty({
           type: 'error',
           text: error.msg,
@@ -135,7 +129,6 @@ export class TaskComponent implements OnInit {
   // getTasks(childId){
   //   this.http.get("http://localhost:3000/api/task/getTasks/" + childId).subscribe((res: any) => {
   //     this.Tasks = res.data;
-  //     // console.log(this.Tasks[0].Title);
   //     var arrayLength = this.Tasks.length;
   //     for (var i = 0; i < arrayLength; i++) {
   //       this.TasksTitles[i] = this.Tasks[i].Title;

@@ -115,7 +115,6 @@ export class ParentComponent implements OnInit {
     var status = event.serverResponse.status;
 
     if (status != 200) {
-      console.log(status);
       return;
     }
     this.currentUser.photo = response.filename;
@@ -151,7 +150,6 @@ export class ParentComponent implements OnInit {
   }
 
   viewTask(taskId) {
-    console.log(taskId);
     this.router.navigate(['schedule/viewtask/', taskId]);
   }
 
@@ -269,7 +267,6 @@ export class ParentComponent implements OnInit {
     this.http.get(appConfig.apiUrl + '/task/getTasks/', this.httpOptions)
       .subscribe((res: any) => {
         this.tasks = res.data;
-        // console.log(res.data);
       });
 
   }

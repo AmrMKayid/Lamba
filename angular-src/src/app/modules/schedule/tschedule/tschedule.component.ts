@@ -116,7 +116,6 @@ export class TscheduleComponent implements OnInit {
   };
 
   CreateNewComment() {
-    console.log("commented");
     this.commentdata.Comment = this.comment;
     this.comment = "";
     this.commentdata.userType = "Child";
@@ -128,7 +127,6 @@ export class TscheduleComponent implements OnInit {
   }
 
   CreateNewTask() {
-    console.log("done");
     this.taskdata.Title = this.taskname;
     this.taskname = "";
     this.taskdata.Description = this.description;
@@ -145,7 +143,6 @@ export class TscheduleComponent implements OnInit {
 
     this.http.get(appConfig.apiUrl + '/task/getComments/5abffe465386b43094a8c784').subscribe((res: any) => {
       this.mycomment = res.data;
-      console.log(this.mycomment);
     });
   }
 }

@@ -77,7 +77,6 @@ export class AddAdminComponent implements OnInit {
           this.ngOnInit();
         },
         err => {
-          console.log(err)
           new Noty({
             type: 'error',
             text: err.error.msg,

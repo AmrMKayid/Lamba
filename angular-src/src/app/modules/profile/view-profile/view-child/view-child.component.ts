@@ -87,44 +87,35 @@ export class ViewChildComponent implements OnInit {
     }
 
 
-    console.log(body);
-    console.log(Slot._id);
 
     this.httpClient.patch(appConfig.apiUrl + '/schedule/updateChildSchedule/' + Slot._id + '/' + this.child._id, body, this.httpOptions).subscribe((res: any) => {
       if (thisday == 'saturday') {
         var index = this.sat.indexOf(Slot);
         this.sat[index] = res.data;
-        console.log(this.sat[index]);
       }
       if (thisday == 'sunday') {
         var index = this.sun.indexOf(Slot);
         this.sun[index] = res.data;
-        console.log(this.sun[index]);
       }
       if (thisday == 'monday') {
         var index = this.mon.indexOf(Slot);
         this.mon[index] = res.data;
-        console.log(this.mon[index]);
       }
       if (thisday == 'tuesday') {
         var index = this.tues.indexOf(Slot);
         this.tues[index] = res.data;
-        console.log(this.tues[index]);
       }
       if (thisday == 'wednesday') {
         var index = this.wed.indexOf(Slot);
         this.wed[index] = res.data;
-        console.log(this.wed[index]);
       }
       if (thisday == 'thursday') {
         var index = this.thurs.indexOf(Slot);
         this.thurs[index] = res.data;
-        console.log(this.thurs[index]);
       }
       if (thisday == 'friday') {
         var index = this.fri.indexOf(Slot);
         this.fri[index] = res.data;
-        console.log(this.fri[index]);
       }
     });
 
@@ -161,7 +152,6 @@ export class ViewChildComponent implements OnInit {
       this.http.get(appConfig.apiUrl + '/task/getChildTasks/'+this.child._id, this.httpOptions)
         .subscribe((res: any) => {
           this.tasks = res.data;
-          console.log(res.data);
 
         });
     }
@@ -172,7 +162,6 @@ export class ViewChildComponent implements OnInit {
       this.http.get(appConfig.apiUrl + '/user/getMyTeachers/'+this.child._id, this.httpOptions)
         .subscribe((res: any) => {
           this.teachers = res.data;
-          console.log(res.data);
 
         });
     }

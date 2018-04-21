@@ -22,13 +22,11 @@ export class DeleteTagsComponent implements OnInit {
 
   ngOnInit() {
     let autorization = {Authorization: localStorage.getItem('authentication')};
-    console.log("ok");
     this.http.get(appConfig.apiUrl + '/tags', {headers: autorization})
       .subscribe((res: any) => {
         this.tags = res.data;
 
       }, err => {
-        console.log(err)
         new Noty({
           type: 'error',
           text: err.error.msg,
@@ -45,12 +43,10 @@ export class DeleteTagsComponent implements OnInit {
 
   deleteTag(tagId) {
     let autorization = {Authorization: localStorage.getItem('authentication')};
-    console.log("ok");
     this.http.delete(appConfig.apiUrl + '/tags/' + tagId, {headers: autorization})
       .subscribe((res: any) => {
         this.ngOnInit();
       }, err => {
-        console.log(err);
         new Noty({
           type: 'error',
           text: err.error.msg,
