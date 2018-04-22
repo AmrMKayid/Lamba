@@ -24,7 +24,7 @@ describe('assign article to child' , () => {
       });
   });
 parent = {
-  "email":"m@gmail.com",
+  "email":"mg@gmail.com",
   "password":"123456789"
 },
 parent2 = {
@@ -53,7 +53,7 @@ describe("Login as a second Parent", () => {
         });
     });
 });
-childID = "5ad3835c0f37ba3f1c769a86";
+childID = "5adc78a6384677e300b4ab86";
 body={
 "articleID":"5ad384490f37ba3f1c769af8"
 };
