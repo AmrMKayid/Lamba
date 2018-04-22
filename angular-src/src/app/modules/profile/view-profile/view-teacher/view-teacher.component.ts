@@ -13,11 +13,13 @@ import {ModalDismissReasons, NgbModal, NgbModalRef} from "@ng-bootstrap/ng-boots
 })
 export class ViewTeacherComponent implements OnInit {
 
+  apiUrlHTML = appConfig.apiUrl;
+
   userID;
   @Input() user;
-  isParent :boolean;
+  isParent: boolean;
   closeResult: string;
-  selectedChild : string;
+  selectedChild: string;
   //schedule
   public sat = [];
   public sun = [];
@@ -62,11 +64,7 @@ export class ViewTeacherComponent implements OnInit {
   }
 
 
-
-
-
-
-  getChildrenForParent(){
+  getChildrenForParent() {
     this.httpClient.get(appConfig.apiUrl + '/user/myChildren', this.httpOptions).subscribe(
       (res: any) => {
         this.children = res.data;
@@ -81,11 +79,12 @@ export class ViewTeacherComponent implements OnInit {
       }
     );
   }
-  sendRequest(){
-    let dummy={
-      title : "dsfkjsdfsd"
+
+  sendRequest() {
+    let dummy = {
+      title: "dsfkjsdfsd"
     };
-    this.httpClient.post(appConfig.apiUrl + '/request/create/'+this.user._id +"/"+this.selectedChild ,dummy, this.httpOptions).subscribe(
+    this.httpClient.post(appConfig.apiUrl + '/request/create/' + this.user._id + "/" + this.selectedChild, dummy, this.httpOptions).subscribe(
       (res: any) => {
         new Noty({
           type: 'success',
@@ -103,6 +102,7 @@ export class ViewTeacherComponent implements OnInit {
       }
     );
   }
+
   modalref: NgbModalRef;
 
   open(content) {

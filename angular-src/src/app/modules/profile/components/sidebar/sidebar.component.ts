@@ -4,7 +4,7 @@ import {MatDialog, MatDialogConfig} from "@angular/material";
 import {AddTagsComponent} from '../../admin/add-tags/add-tags.component';
 import {DeleteTagsComponent} from '../../admin/delete-tags/delete-tags.component';
 import {HttpClient} from '@angular/common/http';
-import { Headers} from '@angular/http';
+import {Headers} from '@angular/http';
 import {appConfig} from "../../../../app.config";
 
 @Component({
@@ -13,25 +13,27 @@ import {appConfig} from "../../../../app.config";
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
+
+  apiUrlHTML = appConfig.apiUrl;
+
   isActive: boolean = false;
   showMenu: string = '';
   pushRightClass: string = 'push-right';
   sidenavWidth = 4;
 
 
-  constructor( public router: Router,private dialog: MatDialog,private httpClient: HttpClient
-    ) {
+  constructor(public router: Router, private dialog: MatDialog, private httpClient: HttpClient) {
 
   }
 
 
   addExpandClass(element: any) {
     if (element === this.showMenu) {
-        this.showMenu = '0';
+      this.showMenu = '0';
     } else {
-        this.showMenu = element;
+      this.showMenu = element;
     }
-}
+  }
 
   increase() {
     this.sidenavWidth = 15;
@@ -40,6 +42,7 @@ export class SidebarComponent {
   decrease() {
     this.sidenavWidth = 4;
   }
+
   openAddTagDialog() {
 
     const dialogConfig = new MatDialogConfig();
@@ -50,47 +53,49 @@ export class SidebarComponent {
 
     const dialogRef = this.dialog.open(AddTagsComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(
-      val =>  this.addTag(val)
-  );
-}
-openDeleteTagDialog() {
+      val => this.addTag(val)
+    );
+  }
 
-  const dialogConfig = new MatDialogConfig();
+  openDeleteTagDialog() {
 
-  dialogConfig.disableClose = true;
-  dialogConfig.autoFocus = true;
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
 
 
-  const dialogRef = this.dialog.open(DeleteTagsComponent, dialogConfig);
+    const dialogRef = this.dialog.open(DeleteTagsComponent, dialogConfig);
 
-}
- addTag(val){
-   if(val){
+  }
 
-   let autorization = {Authorization: localStorage.getItem('authentication')};
-   let postedTag={
-     name:val.tag
-   }
-   this.httpClient.post(appConfig.apiUrl + '/tags',postedTag,{headers: autorization} ).subscribe(
-      (res: any) => {
+  addTag(val) {
+    if (val) {
 
-        new Noty({
-          type: 'success',
-          text: res.msg,
-          timeout: 3000,
-          progressBar: true
-        }).show();
-      },
-      err=> {
-        new Noty({
-          type: 'error',
-          text: err.error.msg,
-          timeout: 3000,
-          progressBar: true
-        }).show();
-      });
+      let autorization = {Authorization: localStorage.getItem('authentication')};
+      let postedTag = {
+        name: val.tag
+      }
+      this.httpClient.post(appConfig.apiUrl + '/tags', postedTag, {headers: autorization}).subscribe(
+        (res: any) => {
 
- }
- }
+          new Noty({
+            type: 'success',
+            text: res.msg,
+            timeout: 3000,
+            progressBar: true
+          }).show();
+        },
+        err => {
+          new Noty({
+            type: 'error',
+            text: err.error.msg,
+            timeout: 3000,
+            progressBar: true
+          }).show();
+        });
+
+    }
+  }
 
 }

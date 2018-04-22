@@ -9,6 +9,9 @@ import {appConfig} from "../../../app.config";
   styleUrls: ['./fav-items.component.scss']
 })
 export class FavItemsComponent implements OnInit {
+
+  apiUrlHTML = appConfig.apiUrl;
+  
   items: any[];
   itemsInitialized: boolean;
   IMG_URL = appConfig.apiUrl + '/uploads/articlesThumbnails/';

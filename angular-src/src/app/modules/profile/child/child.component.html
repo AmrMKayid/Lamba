@@ -2,7 +2,7 @@
 <div class="card card-cascade wider reverse my-4 myCardSize">
 
   <!--Card image-->
-  <div >
+  <div>
     <img src="assets/nawwarBG.png" class="img-fluid">
     <a>
       <div class="mask"></div>
@@ -14,7 +14,7 @@
   <div class="card-body text-center">
     <div class="avatar">
       <a (click)="open(img)">
-        <img src="http://localhost:3000/api/uploads/store/{{currentUser.photo}}" class="rounded-circle">
+        <img src="{{apiUrlHTML}}/uploads/store/{{currentUser.photo}}" class="rounded-circle">
       </a>
       <ng-template #img let-c="close" let-d="dismiss">
         <div class="modal-header">
@@ -30,7 +30,7 @@
                 <image-upload
                   [headers]="{authorization: token}"
                   [max]="1"
-                  [url]="'http://127.0.0.1:3000/api/store/upload'"
+                  url="{{apiUrlHTML}}/store/upload"
                   [dropBoxMessage]="'Drop your image here!'"
                   [buttonCaption]="'Upload'"
                   [style]="customStyle"
@@ -480,7 +480,8 @@
                     <div class="card-header">{{task.title}}</div>
                     <div class="card-body">
                       <h5 class="card-title">{{(task.description | slice:0:50)}} ...</h5>
-                      <p class="card-text white-text">Assigned to <a (click)="viewUser(task.userId._id)"><strong>{{task.studentId.name.firstName}} {{task.studentId.name.lastName}}</strong></a></p>
+                      <p class="card-text white-text">Assigned to <a (click)="viewUser(task.userId._id)"><strong>{{task.studentId.name.firstName}}
+                        {{task.studentId.name.lastName}}</strong></a></p>
                     </div>
                     <div class="card-footer">
                       <div class="icon pull-right">
@@ -507,20 +508,20 @@
 
                 <div class="col-lg-3 col-md-4 col-sm-6 myCard" *ngFor="let user of teachers">
 
-                      <div class="card">
-                        <img src="http://localhost:3000/api/uploads/store/{{user.photo}}" class="card-img-top rounded-circle mt-2">
-                        <div class="card-block">
-                          <h4 class="card-title mt-3 grey-text">{{ user.name.firstName }} {{ user.name.lastName }}</h4>
-                        </div>
-                        <div class="card-footer">
-                          <div class="icon pull-right">
-                            <a placement="bottom" ngbTooltip="Profile" (click)="viewUser(user._id)"><i
-                              class="fa fa-user fa-2x" aria-hidden="true"></i></a>
-                            <a placement="bottom" ngbTooltip="Messages"><i class="fa fa-envelope fa-fw fa-2x"
-                                                                           aria-hidden="true"></i></a>
-                          </div>
-                        </div>
+                  <div class="card">
+                    <img src="{{apiUrlHTML}}/uploads/store/{{user.photo}}" class="card-img-top rounded-circle mt-2">
+                    <div class="card-block">
+                      <h4 class="card-title mt-3 grey-text">{{ user.name.firstName }} {{ user.name.lastName }}</h4>
+                    </div>
+                    <div class="card-footer">
+                      <div class="icon pull-right">
+                        <a placement="bottom" ngbTooltip="Profile" (click)="viewUser(user._id)"><i
+                          class="fa fa-user fa-2x" aria-hidden="true"></i></a>
+                        <a placement="bottom" ngbTooltip="Messages"><i class="fa fa-envelope fa-fw fa-2x"
+                                                                       aria-hidden="true"></i></a>
                       </div>
+                    </div>
+                  </div>
 
 
                 </div>

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router, NavigationEnd} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {AuthService} from "../../../../services/auth.service";
+import {appConfig} from "../../../../app.config";
 
 @Component({
   selector: 'app-header',
@@ -9,11 +10,14 @@ import {AuthService} from "../../../../services/auth.service";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
+  apiUrlHTML = appConfig.apiUrl;
+
   pushRightClass: string = 'push-right';
   currentUser;
 
   constructor(private translate: TranslateService, public router: Router, private auth: AuthService) {
-    this.currentUser = this.auth.getCurrentUser(); 
+    this.currentUser = this.auth.getCurrentUser();
   }
 
   ngOnInit() {
@@ -39,7 +43,7 @@ export class HeaderComponent implements OnInit {
     if(this.router.url=='/profile/admin/verification-requests')
     return true;
     return false;
-       
+
   }
   isAdmin() {
     if (this.auth.getCurrentUser().role == 'Admin') {
@@ -47,5 +51,5 @@ export class HeaderComponent implements OnInit {
     }
     return false;
   }
-  
+
 }

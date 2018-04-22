@@ -9,7 +9,7 @@ import {appConfig} from "../app.config";
 export class ChatService {
 
   private socket;
-  private SERVER_URL = "http://127.0.0.1:3000";
+  private SERVER_URL = appConfig.apiUrl ==='api'? "" : "http://127.0.0.1:3000";
 
   // Our constructor calls our wsService connect method
   constructor(private http: HttpClient) {

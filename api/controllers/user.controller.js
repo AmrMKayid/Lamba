@@ -551,7 +551,6 @@ module.exports.updateUser = function (req, res, next) {
             new: true
         }
     ).exec(function (err, updateUser) {
-        console.log(updateUser);
         if (err) {
             console.log(err)
             return next(err);

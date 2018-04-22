@@ -10,6 +10,9 @@ import {appConfig} from "../../../../app.config";
   animations: [routerTransition()]
 })
 export class DashboardComponent implements OnInit {
+
+  apiUrlHTML = appConfig.apiUrl;
+
   public sliders: Array<any> = [];
   public articles: Array<any> = [];
   public Teachers: Array<any> = [];

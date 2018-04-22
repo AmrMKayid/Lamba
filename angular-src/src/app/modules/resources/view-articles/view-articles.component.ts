@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { ArticlesService } from '../articles.service';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {HttpHeaders, HttpClient} from '@angular/common/http';
+import {ArticlesService} from '../articles.service';
+import {Router} from '@angular/router';
 import {appConfig} from "../../../app.config";
 
 @Component({
@@ -10,6 +10,9 @@ import {appConfig} from "../../../app.config";
   styleUrls: ['./view-articles.component.scss']
 })
 export class ViewArticlesComponent implements OnInit {
+
+  apiUrlHTML = appConfig.apiUrl;
+
   articles: any[];
   articlesInitialized: boolean;
   tagsInitialized: boolean;
@@ -27,8 +30,8 @@ export class ViewArticlesComponent implements OnInit {
   };
 
   constructor(private http: HttpClient,
-    private articlesService: ArticlesService,
-    private router: Router) {
+              private articlesService: ArticlesService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -53,7 +56,7 @@ export class ViewArticlesComponent implements OnInit {
     this.articlesService.getAllTags().subscribe(
       (res: any) => {
         res.data.forEach(element => {
-          this.allTags.push({ value: element.name, id: element._id })
+          this.allTags.push({value: element.name, id: element._id})
         });
         this.tagsInitialized = true;
       }, err => {
@@ -88,6 +91,6 @@ export class ViewArticlesComponent implements OnInit {
     this.filterTagsIDs = [];
     this.filterTagsIDs.push(tag);
     this.selectedTags = [];
-    this.selectedTags.push({ value: tag, id: tag, display: this.getTagByID(this.allTags, tag) });
+    this.selectedTags.push({value: tag, id: tag, display: this.getTagByID(this.allTags, tag)});
   }
 }

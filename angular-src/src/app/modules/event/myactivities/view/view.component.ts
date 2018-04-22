@@ -13,6 +13,8 @@ import {appConfig} from "../../../../app.config";
 })
 export class ViewComponent implements OnInit {
 
+  apiUrlHTML = appConfig.apiUrl;
+
   myactivities: any;
 
   constructor(private http: Http,

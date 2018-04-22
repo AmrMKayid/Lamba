@@ -17,6 +17,9 @@ import {appConfig} from "../../../../app.config";
 
 })
 export class UnVerifiedArticlesComponent implements OnInit {
+
+  apiUrlHTML = appConfig.apiUrl;
+  
   public unVerifiedArticlesList = [];
   public List=[1];
   public article = [];

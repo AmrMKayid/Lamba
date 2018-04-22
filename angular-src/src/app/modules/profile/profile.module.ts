@@ -26,19 +26,20 @@ import {DashboardComponent} from './admin/dashboard/dashboard.component'
 import {StatModule} from './admin/stat/stat.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { MatFormFieldModule } from '@angular/material';
+import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
+import {MatFormFieldModule} from '@angular/material';
 import {ArticlesService} from '../resources/articles.service';
 import {MyProfileComponent} from './my-profile/my-profile.component';
-import { AddTagsComponent } from './admin/add-tags/add-tags.component';
+import {AddTagsComponent} from './admin/add-tags/add-tags.component';
 import {MatInputModule} from '@angular/material';
-import { DeleteTagsComponent } from './admin/delete-tags/delete-tags.component';
-import { UnVerifiedActivitiesComponent } from './admin/un-verified-activities/un-verified-activities.component';
-import { AddAdminComponent } from './admin/add-admin/add-admin.component';
-import { AdminFormComponent } from './admin/admin-form/admin-form.component';
+import {DeleteTagsComponent} from './admin/delete-tags/delete-tags.component';
+import {UnVerifiedActivitiesComponent} from './admin/un-verified-activities/un-verified-activities.component';
+import {AddAdminComponent} from './admin/add-admin/add-admin.component';
+import {AdminFormComponent} from './admin/admin-form/admin-form.component';
 import {SafeHtmlPipe} from './admin/un-verified-articles/safe-html.pipe';
-import { UserVerificationComponent } from './admin/user-verification/user-verification.component';
-import { InterviewRequestComponent } from './interview-request/interview-request.component';
+import {UserVerificationComponent} from './admin/user-verification/user-verification.component';
+import {InterviewRequestComponent} from './interview-request/interview-request.component';
+
 const appRoutes: Routes = [
   {
     path: 'me',
@@ -58,23 +59,23 @@ const appRoutes: Routes = [
       },
       {
         path: 'un-verified-activities',
-        component:UnVerifiedActivitiesComponent
+        component: UnVerifiedActivitiesComponent
       },
       {
         path: 'verify-teachers',
         component: VerifyTeacherComponent
       },
       {
-      path: 'add-admin',
-      component: AddAdminComponent
-      },{
-      path: 'verification-requests',
-      component: UserVerificationComponent
+        path: 'add-admin',
+        component: AddAdminComponent
+      }, {
+        path: 'verification-requests',
+        component: UserVerificationComponent
       }
     ]
-  },{
-    path:'request-interview',
-    component:InterviewRequestComponent
+  }, {
+    path: 'request-interview',
+    component: InterviewRequestComponent
   },
   {
     path: ':id',
@@ -128,7 +129,7 @@ const appRoutes: Routes = [
     ArticlesService
   ],
   bootstrap: [ProfileComponent, AdminComponent],
-  entryComponents: [AddTagsComponent,DeleteTagsComponent,AdminFormComponent]
+  entryComponents: [AddTagsComponent, DeleteTagsComponent, AdminFormComponent]
 
 })
 export class ProfileModule {

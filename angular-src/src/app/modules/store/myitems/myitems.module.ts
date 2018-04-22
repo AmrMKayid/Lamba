@@ -5,7 +5,7 @@ import {MyitemsComponent} from './myitems.component';
 import {CreateComponent} from './create/create.component';
 import {ViewComponent} from './view/view.component';
 import {ImageUploadModule} from "angular2-image-upload";
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
 

@@ -10,6 +10,8 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class ViewParentComponent implements OnInit {
 
+  apiUrlHTML = appConfig.apiUrl;
+
   userID;
   @Input() user;
 

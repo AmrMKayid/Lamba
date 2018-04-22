@@ -42,6 +42,8 @@ Quill.register(Image, true);
 })
 export class PostArticlesComponent implements OnInit {
 
+  apiUrlHTML = appConfig.apiUrl;
+
   public title: String;
   public editorContent: String;
   tagsInitialized: boolean;

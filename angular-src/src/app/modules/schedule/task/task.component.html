@@ -33,7 +33,7 @@
         </div>
 
         <div class="media mb-4" *ngFor="let comment of taskComments">
-          <img class="d-flex mr-3 rounded-circle" width="60" src="http://localhost:3000/api/uploads/store/{{comment.userId.photo}}" alt="">
+          <img class="d-flex mr-3 rounded-circle" width="60" src="{{apiUrlHTML}}/uploads/store/{{comment.userId.photo}}" alt="">
           <div class="media-body">
             <div class="row">
               <div class="col-6"><h5 class="mt-0">{{comment.userId.name.firstName}} {{comment.userId.name.lastName}}</h5></div>
@@ -54,11 +54,9 @@
 </div> -->
 
 
-
-
 <div class="divider" style="padding-top:20px;"></div>
 <div class="container">
-  <section class="mt-4" >
+  <section class="mt-4">
     <div class="row">
       <div class="col-md-8 mb-4">
         <!--/.Featured Image-->
@@ -89,15 +87,20 @@
               </h4>
 
 
-              <textarea class="form-control md-textarea" #newComment [(ngModel)]="commentx" name="commentx" placeholder=" Leave your comment here ..." rows="5" mdbActive></textarea>
+              <textarea class="form-control md-textarea" #newComment [(ngModel)]="commentx" name="commentx"
+                        placeholder=" Leave your comment here ..." rows="5" mdbActive></textarea>
               <div class="text-center">
-                <button type="submit" (click)="createNewComment(newComment.value)" class="btn btn-deep-orange waves-light">Post</button>
+                <button type="submit" (click)="createNewComment(newComment.value)"
+                        class="btn btn-deep-orange waves-light">Post
+                </button>
               </div>
             </div>
             <hr>
             <!-- COMMENTS START HERE! -->
-            <div class="media d-block d-md-flex mt-4" *ngFor="let comment of taskComments | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
-              <img class="d-flex mb-3 mx-auto rounded-circle" width="60" src="http://localhost:3000/api/uploads/store/{{comment.userId.photo}}" alt="Generic placeholder image">
+            <div class="media d-block d-md-flex mt-4"
+                 *ngFor="let comment of taskComments | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
+              <img class="d-flex mb-3 mx-auto rounded-circle" width="60"
+                   src="{{apiUrlHTML}}/uploads/store/{{comment.userId.photo}}" alt="Generic placeholder image">
               <div class="media-body text-center text-md-left ml-md-3 ml-0">
                 <h5 class="mt-0 font-weight-bold">
                   <a class="name-capitalize" style="cursor: pointer;" [routerLink]="['/profile',comment.userId._id]">
@@ -122,16 +125,12 @@
       <div class="col-md-4 mb-4">
 
 
-
-
-
-
         <div class="card mb-4 text-center wow fadeIn">
           <div class="card-header">
             <strong>Change status</strong>
           </div>
           <div class="card-body">
-          ?
+            ?
           </div>
         </div>
         <!--/.Card : Dynamic content wrapper-->

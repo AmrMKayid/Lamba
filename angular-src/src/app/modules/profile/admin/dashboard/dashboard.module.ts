@@ -5,6 +5,7 @@ import {NgbCarouselModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 import {DashboardRoutingModule} from './dashboard-routing.module';
 
 import {StatModule} from '../stat/stat.module';
+
 // import {DashboardComponent} from "./dashboard.component";
 
 @NgModule({

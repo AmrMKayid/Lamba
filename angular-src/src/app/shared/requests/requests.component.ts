@@ -11,6 +11,8 @@ import {appConfig} from "../../app.config";
 })
 export class RequestsComponent implements OnInit {
 
+  apiUrlHTML = appConfig.apiUrl;
+
   constructor(private httpClient: HttpClient,
               private auth: AuthService,
               private notificationservice: NotificationService) {

@@ -9,6 +9,9 @@ import {appConfig} from "../../../app.config";
   styleUrls: ['./cschedule.component.css']
 })
 export class CscheduleComponent implements OnInit {
+
+  apiUrlHTML = appConfig.apiUrl;
+  
   public userID;
   httpOptions = {
     headers: new HttpHeaders({

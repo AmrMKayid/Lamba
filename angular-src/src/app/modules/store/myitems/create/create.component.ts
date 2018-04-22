@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
+import {appConfig} from "../../../../app.config";
 
 @Component({
   selector: 'app-create',
@@ -14,6 +15,8 @@ import {MDBBootstrapModule} from 'angular-bootstrap-md';
   styleUrls: ['./create.component.css']
 })
 export class CreateComponent implements OnInit {
+
+  apiUrlHTML = appConfig.apiUrl;
 
   customStyle = {
     selectButton: {

@@ -11,6 +11,8 @@ import {appConfig} from "../../../app.config";
 })
 export class TaskComponent implements OnInit {
 
+  apiUrlHTML = appConfig.apiUrl;
+
   constructor(private route: ActivatedRoute,
               private http: HttpClient,
               private auth: AuthService) {

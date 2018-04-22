@@ -2,7 +2,7 @@
 <div class="card card-cascade wider reverse my-4 myCardSize">
 
   <!--Card image-->
-  <div >
+  <div>
     <img src="assets/nawwarBG.png" class="img-fluid">
     <a>
       <div class="mask"></div>
@@ -13,22 +13,25 @@
   <!--Card content-->
   <div class="card-body text-center">
     <div class="avatar">
-      <img src="http://localhost:3000/api/uploads/store/{{user.photo}}" class="rounded-circle">
+      <img src="{{apiUrlHTML}}/uploads/store/{{user.photo}}" class="rounded-circle">
     </div>
 
     <!--Title-->
     <h3 class="card-title"><strong>{{user.name.firstName}} {{user.name.lastName}}</strong></h3>
     <h4 class="indigo-text"><strong>{{user.role}} | {{user.isVerified? 'Verified' : 'UnVerified'}}</strong></h4>
 
-    <button class="btn btn-deep-orange" *ngIf="isParent" (click)="open(content)"><i aria-hidden="true"></i>Connect</button>
+    <button class="btn btn-deep-orange" *ngIf="isParent" (click)="open(content)"><i aria-hidden="true"></i>Connect
+    </button>
     <ng-template #content let-c="close" let-d="dismiss">
-      <div class="card-body" >
+      <div class="card-body">
         <select class="custom-select" [(ngModel)]="selectedChild" name="selected-child">
-          <option *ngFor="let child of children" [value]="child._id">{{ child.name.firstName + ' ' + child.name.lastName }}</option>
+          <option *ngFor="let child of children" [value]="child._id">{{ child.name.firstName + ' ' + child.name.lastName
+            }}
+          </option>
         </select>
         <br>
         <br>
-        <a role="button" class="btn btn-primary btn-block" (click)="sendRequest()" >Submit Request
+        <a role="button" class="btn btn-primary btn-block" (click)="sendRequest()">Submit Request
 
         </a>
       </div>
@@ -36,7 +39,7 @@
 
     <div class="mt-5">
 
-      <ngb-tabset class="nav-justified" >
+      <ngb-tabset class="nav-justified">
         <ngb-tab title="Schedule">
           <ng-template ngbTabContent>
             <div class="container">
@@ -484,7 +487,6 @@
         </ngb-tab>
 
 
-
         <ngb-tab title="Info">
           <ng-template ngbTabContent>
 
@@ -507,7 +509,7 @@
 
                   <tr>
                     <th scope="row">Middle Name:</th>
-                    <th scope="row" >{{user.name.middleName!}}</th>
+                    <th scope="row">{{user.name.middleName!}}</th>
                   </tr>
 
                   <tr>

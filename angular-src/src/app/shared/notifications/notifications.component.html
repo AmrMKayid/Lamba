@@ -1,22 +1,21 @@
-
 <div class="divider" style="padding-top:50px;"></div>
 
 
 <div class="container">
 
-<div class="row" >
-	<div class="col-sm-6 mb-3" *ngFor='let notification of notifications' >
-		<div class="card" [routerLink]=[notification.url] style="cursor: pointer;">
-		<div class="card-body">
-			<div class="row">
-			<div class="col-6"><h5 class="card-title"><strong>{{notification.title}}</strong></h5></div>
-			<div class="col-6 text-right" >{{notification.created_at |date }}</div>
-			</div>
-			<p class="card-text">{{notification.description}}</p>
-		</div>
-	</div>
-	</div>
-</div>
+  <div class="row">
+    <div class="col-sm-6 mb-3" *ngFor='let notification of notifications'>
+      <div class="card" [routerLink]=[notification.url] style="cursor: pointer;">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-6"><h5 class="card-title"><strong>{{notification.title}}</strong></h5></div>
+            <div class="col-6 text-right">{{notification.created_at |date }}</div>
+          </div>
+          <p class="card-text">{{notification.description}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 </div>

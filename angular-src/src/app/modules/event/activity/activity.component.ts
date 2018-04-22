@@ -14,6 +14,8 @@ import {appConfig} from "../../../app.config";
 })
 export class ActivityComponent implements OnInit {
 
+  apiUrlHTML = appConfig.apiUrl;
+
   id: string;
   activity: Object;
   user: Object;

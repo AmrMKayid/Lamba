@@ -12,6 +12,8 @@ import {ModalDismissReasons, NgbModal, NgbModalRef} from "@ng-bootstrap/ng-boots
 })
 export class ViewChildComponent implements OnInit {
 
+  apiUrlHTML = appConfig.apiUrl;
+
   @Input() child;
   httpOptions = {
     headers: new HttpHeaders({

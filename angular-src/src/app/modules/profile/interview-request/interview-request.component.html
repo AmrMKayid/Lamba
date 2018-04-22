@@ -6,29 +6,33 @@
 
 
         <!-- Login form -->
-        <form  class="form-signin" novalidate>
+        <form class="form-signin" novalidate>
 
           <p class="h5 text-center mb-4">Interview Request</p>
 
           <div class="md-form">
             <i class="material-icons prefix">email</i>
-            <input class="form-control" type="text" id="defaultForm-email" [(ngModel)]="contactemail" mdbActive [ngModelOptions]="{standalone: true}">
+            <input class="form-control" type="text" id="defaultForm-email" [(ngModel)]="contactemail" mdbActive
+                   [ngModelOptions]="{standalone: true}">
             <br>
             <label for="defaultForm-email">Contact Email</label>
           </div>
 
           <div class="md-form">
             <i class="material-icons prefix">phone</i>
-            <input class="form-control" type="text" id="defaultForm-pass" [(ngModel)]="contactnumber" mdbActive [ngModelOptions]="{standalone: true}">
+            <input class="form-control" type="text" id="defaultForm-pass" [(ngModel)]="contactnumber" mdbActive
+                   [ngModelOptions]="{standalone: true}">
             <br>
             <label for="defaultForm-pass">Contact Number</label>
           </div>
 
           <div class="text-center">
-            <button type="submit" class="btn btn-default waves-light" mdbRippleRadius (click)="submitForm(contactemail, contactnumber)">Send Request</button>
+            <button type="submit" class="btn btn-default waves-light" mdbRippleRadius
+                    (click)="submitForm(contactemail, contactnumber)">Send Request
+            </button>
             <span>
                 <button [routerLink]="['/']"
-                [routerLinkActive]="['router-link-active']" class="btn" mdbRippleRadius>cancel</button>
+                        [routerLinkActive]="['router-link-active']" class="btn" mdbRippleRadius>cancel</button>
             </span>
           </div>
         </form>

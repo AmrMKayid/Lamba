@@ -7,7 +7,8 @@ import { appConfig } from "../app.config";
 @Injectable()
 export class NotificationService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
 
   httpOptions = {

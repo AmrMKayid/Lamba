@@ -8,7 +8,7 @@ import {ViewComponent} from './view/view.component';
 import {HttpModule} from '@angular/http';
 import {ItemComponent} from './item/item.component';
 // import {ToasterModule} from 'angular5-toaster';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';

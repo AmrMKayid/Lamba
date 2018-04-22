@@ -28,7 +28,7 @@
 
       <div class='activity' *ngFor='let activity of activities'>
 
-        <img src="http://127.0.0.1:3000/api/uploads/activity/{{activity['picture_url']}}" class="imgw100prec">
+        <img src="{{apiUrlHTML}}/uploads/activity/{{activity['picture_url']}}" class="imgw100prec">
 
         <div class="activityBody">
 
@@ -41,7 +41,6 @@
 
           <div class="activityInfo" (click)="viewInfo(activity['_id'])"><i class="fa fa-info"></i></div>
           <div class="activityGoing"><i class="fa fa-heart" (click)="goingActivities(activity)"></i></div>
-
 
 
           <ng-template #content let-c="close" let-d="dismiss">
@@ -60,7 +59,9 @@
                       <div class="" *ngIf="!child['registered']">
 
                         <h1>{{child['name']['firstName']}} {{child['name']['lastName']}}</h1>
-                        <button type="button" name="button" (click)="registerChild(activity['_id'],child['_id']);d('Cross click')">Register</button>
+                        <button type="button" name="button"
+                                (click)="registerChild(activity['_id'],child['_id']);d('Cross click')">Register
+                        </button>
                       </div>
 
                     </div>
@@ -72,7 +73,9 @@
           </ng-template>
 
 
-          <button class="btn btn-unique waves-light float-right" (click)="open(content,activity['_id'])">Register Child</button>
+          <button class="btn btn-unique waves-light float-right" (click)="open(content,activity['_id'])">Register
+            Child
+          </button>
 
         </div>
 

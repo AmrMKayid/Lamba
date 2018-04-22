@@ -1,17 +1,19 @@
-<h2>Tags <span>  <a (click)="close()" class="float-right"><i class="fa fa-times-circle" aria-hidden="true"></i></a></span></h2>
+<h2>Tags <span>  <a (click)="close()" class="float-right"><i class="fa fa-times-circle"
+                                                             aria-hidden="true"></i></a></span></h2>
 
 <mat-dialog-content><strong>
-<div class="row" style="width: 50rem;">
-  <div class="col-md-4" *ngFor="let tag of tags" >
-      <div  class="card my-2 " style="width: 15rem;">
+  <div class="row" style="width: 50rem;">
+    <div class="col-md-4" *ngFor="let tag of tags">
+      <div class="card my-2 " style="width: 15rem;">
         <div class="card-header" style="background-color:#ffc335;"></div>
         <div class="card-body">
-                <span class="badge badge-pill light-blue" style="cursor: pointer;" >{{tag.name}}</span>
-                <button class="badge badge-pill btn-danger float-right" (click)="deleteTag(tag._id)" style="cursor: pointer;">Remove</button>
-        </div>
+          <span class="badge badge-pill light-blue" style="cursor: pointer;">{{tag.name}}</span>
+          <button class="badge badge-pill btn-danger float-right" (click)="deleteTag(tag._id)" style="cursor: pointer;">
+            Remove
+          </button>
         </div>
       </div>
     </div>
-    </strong>
-  </mat-dialog-content>
- 
+  </div>
+</strong>
+</mat-dialog-content>
