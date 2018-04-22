@@ -83,7 +83,7 @@ export class ViewBookingsComponent implements OnInit {
       this.http.post(appConfig.apiUrl + '/booking/newNotif', this.Notification, this.httpOptions).subscribe();
     });
 
-    this.http.delete(appConfig.apiUrl + '/booking/deleteNotif/' + this.description , this.httpOptions).subscribe();
+    this.http.get(appConfig.apiUrl + '/booking/deleteNotif/' + this.description , this.httpOptions).subscribe();
     
     this.fees = "";
     this.email = "";
