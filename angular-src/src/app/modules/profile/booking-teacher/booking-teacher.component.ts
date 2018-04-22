@@ -42,7 +42,7 @@ parent: String;
 
   BookTeacher() {
     this.Notification.title = "New Booking";
-    this.Notification.description = "New Booking In Slot " + this.Slot + " from Parent " + this.parent ;
+    this.Notification.description = "Booking In Slot " + this.Slot + " from Parent " + this.parent ;
     this.Notification.url = "/profile/viewbookings";
     this.http.get(appConfig.apiUrl + '/booking/getId/' + this.email, this.httpOptions).subscribe((res: any) => {
     this.Notification.recieving_user_id = res.data;

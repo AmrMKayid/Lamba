@@ -34,11 +34,17 @@ export class ViewBookingsComponent implements OnInit {
   }
 
   Bookings = []
+  Descriptions = []
+  CreatedAt = []  
 
   getBookings(){
     this.http.get(appConfig.apiUrl + '/booking/getBookings', this.httpOptions).subscribe((res: any) => {
       this.Bookings = res.data;
-      
+      var arrayLength = this.Bookings.length;
+      for (var i = 0; i < arrayLength; i++) {
+        this.Descriptions[i] = this.Bookings[i].description;
+        this.CreatedAt[i] = this.Bookings[i].created_at;
+      }      
     });
   }
 
