@@ -14,7 +14,7 @@ var express = require('express'),
     notificationCtrl = require('../controllers/notification.controller'),
     favoritesCtrl = require('../controllers/favorites.controller'),
     requestCtrl = require('../controllers/request.controller'),
-
+    bookingCtrl = require('../controllers/booking.controller'),
     mw = require('./middlewares');
 
 //---------------------------- Authentication Routes --------------------------------//
@@ -154,6 +154,10 @@ router.post('/request/create/:teacherId/:childId', mw.isAuthenticated, requestCt
 router.get('/request/get', mw.isAuthenticated, requestCtrl.getRequests);
 router.delete('/request/deleteRequest/:requestId', mw.isAuthenticated, requestCtrl.deleteRequest);
 
+//---------------------------- Booking Routes--------------------------------------------//
+router.get('/booking/getId/:email',mw.isAuthenticated, bookingCtrl.getId);
+router.post('/booking/newNotif',mw.isAuthenticated, bookingCtrl.newNotif);
+router.get('/booking/getBookings',mw.isAuthenticated, bookingCtrl.getBookings);
 
 /*chat routes*/
 router.get('/chat/:id', mw.isAuthenticated, chatCtrl.getChat);

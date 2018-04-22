@@ -39,11 +39,21 @@ import {AdminFormComponent} from './admin/admin-form/admin-form.component';
 import {SafeHtmlPipe} from './admin/un-verified-articles/safe-html.pipe';
 import {UserVerificationComponent} from './admin/user-verification/user-verification.component';
 import {InterviewRequestComponent} from './interview-request/interview-request.component';
+import { BookingTeacherComponent } from './booking-teacher/booking-teacher.component';
+import { ViewBookingsComponent } from './view-bookings/view-bookings.component';
 
 const appRoutes: Routes = [
   {
     path: 'me',
     component: MyProfileComponent,
+  },
+  {
+    path: 'book',
+    component: BookingTeacherComponent,
+  },
+  {
+    path: 'viewbookings',
+    component: ViewBookingsComponent
   },
   {
     path: 'admin',
@@ -121,7 +131,9 @@ const appRoutes: Routes = [
     AdminFormComponent,
     SafeHtmlPipe,
     UserVerificationComponent,
-    InterviewRequestComponent
+    InterviewRequestComponent,
+    BookingTeacherComponent,
+    ViewBookingsComponent
 
   ],
   providers: [
