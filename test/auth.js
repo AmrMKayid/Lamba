@@ -54,6 +54,7 @@ describe('Registration & Login', () => {
         });
     });
 
+
     teacher = {
         name: {
             firstName: 'Amr',
@@ -357,7 +358,6 @@ describe('Registration & Login', () => {
             });
         });
     });
-
 
     //--------------------------------------------------------------------------------------//
 

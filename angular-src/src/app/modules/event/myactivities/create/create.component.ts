@@ -67,7 +67,7 @@ export class CreateComponent implements OnInit {
         text: 'Please verify your account first by applying to an interview in order to be able to post a new activity',
         timeout: 10000
       }).show();
-      this.router.navigate(["/profile/parent"]);
+      this.router.navigate(["/profile/request-interview"]);
 
     }
   }

@@ -15,7 +15,7 @@ chai.use(chaiHttp);
 
 
 describe("schedule ", () => {
-    let  teacher , parent , child , task , com , teacherToken, parentToken , childToken , teacherId , childId , parentId , taskId , slotId,slotIdTeacher;
+    let  teacher , parent , child , task , com , teacherToken, parentToken , childToken , teacherId , childId , parentId , taskId1 , slotId,slotIdTeacher;
     before((done) => {
         mongoose.connect('mongodb://localhost:27017/lambatest', () => {
             console.log('Connected to lambatest');
@@ -398,8 +398,8 @@ done();
                 userId: parentId ,
                 studentId: childId
             };
-            chai.request("http://localhost:3000/api").post("/task/newTask").send(task).end((err,res)=>{
-                taskId = res.body.data._id;
+            chai.request("http://localhost:3000/api").post("/task/newTask").send(task).set("authorization",parentToken).end((err,res)=>{
+                taskId1 = res.body.data._id;
                 done();
             });
         });
@@ -412,9 +412,8 @@ done();
             com = {
                 comment: "dummy comment",
                 userId: parentId ,
-                userType: "Parent",
-                name: "dummy name",
-                taskId : taskId
+                 role : 'Child',
+                taskId : taskId1
             };
             chai.request("http://localhost:3000/api").post("/task/newComment").send(com).set("authorization",parentToken).end((err,res)=>{
                 expect(res).to.have.status(201);
@@ -427,7 +426,6 @@ done();
                 comment: "dummy comment",
                 userId: teacherId ,
                 userType: "Parent",
-                name: "dummy name",
                 taskId : taskId
             };
             chai.request("http://localhost:3000/api").post("/task/newComment").send(com).set("authorization",parentToken).end((err,res)=>{
@@ -436,12 +434,11 @@ done();
             });
         });
 
-        it("it should not create comment because it is not his parent" , (done) => {
+       it("it should not create comment because it is not his parent" , (done) => {
             com = {
                 comment: "dummy comment",
                 userId: teacherId ,
-                userType: "Parent",
-                name: "dummy name",
+                role: 'Teacher',
                 taskId : taskId
             };
             chai.request("http://localhost:3000/api").post("/task/newComment").send(com).set("authorization",teacherToken).end((err,res)=>{
@@ -456,8 +453,7 @@ done();
                 comment: "dummy comment",
                 userId: parentId ,
                 userType: "Parent",
-                name: "dummy name",
-                taskId : taskId
+                taskId : taskId1
             };
             chai.request("http://localhost:3000/api").post("/task/newComment").send(com).end((err,res)=>{
                 expect(res).to.have.status(401);
@@ -465,12 +461,11 @@ done();
             });
         });
 
-        it("it should not find the task" , (done) => {
+     it("it should not find the task" , (done) => {
             com = {
                 comment: "dummy comment",
                 userId: parentId ,
                 userType: "Parent",
-                name: "dummy name",
                 taskId : parentId
             };
             chai.request("http://localhost:3000/api").post("/task/newComment").send(com).set("authorization",parentToken).end((err,res)=>{
@@ -481,6 +476,30 @@ done();
 
     });
 
+describe("get comments", () => {
+
+
+    it("it should get comments related to a specific task" , (done) => {
+
+    chai.request("http://localhost:3000/api").get("/task/getComments/"+ taskId1).set("authorization",parentToken).end((err,res)=>{
+        expect(res).to.have.status(200);
+    done();
+});
+});
+
+
+
+it("it should not get comments because user is not logged in" , (done) => {
+
+chai.request("http://localhost:3000/api").get("/task/getComments/"+ taskId1).end((err,res)=>{
+    expect(res).to.have.status(401);
+done();
+});
+});
+
+
+
+});
 
 
 

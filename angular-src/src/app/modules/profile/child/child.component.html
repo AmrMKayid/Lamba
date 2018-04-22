@@ -30,7 +30,7 @@
                 <image-upload
                   [headers]="{authorization: token}"
                   [max]="1"
-                  [url]="'apiUrlHTML/api/store/upload'"
+                  url="{{apiUrlHTML}}/store/upload"
                   [dropBoxMessage]="'Drop your image here!'"
                   [buttonCaption]="'Upload'"
                   [style]="customStyle"

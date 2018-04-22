@@ -40,7 +40,7 @@ module.exports.createActivities = async function(req, res, next) {
   if (!isVerified) {
     return res.status(422).json({
       err: null,
-      msg: '',
+      msg: 'not verified',
       data: null
     });
   }
@@ -55,6 +55,8 @@ module.exports.createActivities = async function(req, res, next) {
     activity_type: req.body.activity_type,
     picture_url: req.body.picture_url,
     host_id: user_id,
+    host_firstName:decoded.user.name.firstName,
+    host_lastName:decoded.user.name.lastName,
     isVerified: false,
     created_at: Date.now(),
     updated_at: Date.now()

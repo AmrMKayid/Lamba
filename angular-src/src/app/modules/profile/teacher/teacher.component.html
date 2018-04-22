@@ -941,7 +941,7 @@
                     <div class="row">
                       <div class="col-12">
                         <image-upload [headers]="{authorization: token}" [max]="1"
-                                      [url]="'http://127.0.0.1:3000/api/store/upload'"
+                                      url="{{apiUrlHTML}}/store/upload"
                                       [dropBoxMessage]="'Drop your image here!'" [buttonCaption]="'Upload'"
                                       [style]="customStyle" (uploadFinished)="onUploadFinished($event)">
                         </image-upload>
