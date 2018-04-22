@@ -1,5 +1,5 @@
 <!--Navbar-->
-<mdb-navbar *ngIf="hideNavbar()" SideClass="navbar navbar-expand-md navbar-dark unique-color sticky-top scrolling-navbar">
+<mdb-navbar *ngIf="hideNavbar()" SideClass="navbar navbar-expand-md navbar-dark unique-color sticky-top ">
    <!-- Navbar brand -->
    <logo>
       <a class="navbar-brand" [routerLink]="['/']">
@@ -10,36 +10,33 @@
    <links>
       <!-- Links -->
       <ul class="navbar-nav mr-auto">
-         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" *ngIf="!isLoggedIn()">
+         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
          <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/']">Home</a>
          </li>
          <ng-container *ngIf="!(this.auth.getCurrentUser()?.role! === 'Teacher' && !this.auth.getCurrentUser()?.isVerified!)">
-            <li class="nav-item" [routerLinkActive]="['active']">
-               <!--TODO: News Feed-->
-               <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/newsFeed']" *ngIf="isLoggedIn()">News
+            <!-- <li class="nav-item" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
+               <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/newsFeed']" >News
                Feed</a>
-            </li>
-            <li class="nav-item" [routerLinkActive]="['active']">
-               <!--TODO: Resources-->
-               <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/users']" *ngIf="isLoggedIn()">People</a>
-            </li>
-            <li class="nav-item" [routerLinkActive]="['active']">
-               <!--TODO: Resources-->
-               <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/resources']" *ngIf="isLoggedIn()">Resources</a>
-            </li>
-            <li class="nav-item" [routerLinkActive]="['active']">
-               <!--TODO: Resources-->
-               <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/store/view']" *ngIf="isLoggedIn()">Store</a>
-            </li>
-            <!-- <li class="nav-item" [routerLinkActive]="['active']">
-               <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/event/view']" *ngIf="isLoggedIn()">Activities</a>
             </li> -->
-            <li class="nav-item" [routerLinkActive]="['active']">
+            <li class="nav-item" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
                <!--TODO: Resources-->
-               <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/favorites']" *ngIf="isLoggedIn()">Favorites</a>
+               <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/users']" >People</a>
             </li>
-
-
+            <li class="nav-item" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
+               <!--TODO: Resources-->
+               <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/resources']" >Resources</a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
+               <!--TODO: Resources-->
+               <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/store/view']" >Store</a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
+               <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/event/view']" >Activities</a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
+               <!--TODO: Resources-->
+               <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/favorites']" >Favorites</a>
+            </li>
          </ng-container>
       </ul>
       <!-- Links -->
@@ -48,8 +45,8 @@
          <li class="nav-item" [routerLinkActive]="['active']" *ngIf="!isLoggedIn()">
          <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/login']">Login</a>
          </li>
-         <li class="nav-item" [routerLinkActive]="['active']">
-            <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/register-role']" *ngIf="!isLoggedIn()">Sign Up
+         <li class="nav-item" [routerLinkActive]="['active']" *ngIf="!isLoggedIn()">
+            <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/register-role']" >Sign Up
             </a>
          </li>
          <li class="nav-item dropdown btn-group d-none d-lg-block d-md-block d-xl-block" dropdown *ngIf="isLoggedIn()">
@@ -106,7 +103,7 @@
         <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['requests']">Requests</a>
         </li>
          <li class="nav-item d-md-none" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
-         <a class="nav-link waves-light" mdbRippleRadius>Messages</a>
+         <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['chat']">Messages</a>
          </li>
          <li class="nav-item d-md-none" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
          <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['profile','me']">Profile</a>

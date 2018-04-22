@@ -145,6 +145,14 @@ export class ViewChildComponent implements OnInit {
   }
 
 
+  viewChild(childID) {
+    this.router.navigate(['profile', childID]);
+  }
+
+  viewTask(taskId) {
+    this.router.navigate(['schedule/viewtask/', taskId]);
+  }
+
   tasks = [];
     getTasks() {
       this.http.get(appConfig.apiUrl + '/task/getChildTasks/'+this.child._id, this.httpOptions)
