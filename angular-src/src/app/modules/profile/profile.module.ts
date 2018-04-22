@@ -41,6 +41,7 @@ import {UserVerificationComponent} from './admin/user-verification/user-verifica
 import {InterviewRequestComponent} from './interview-request/interview-request.component';
 import { BookingTeacherComponent } from './booking-teacher/booking-teacher.component';
 import { ViewBookingsComponent } from './view-bookings/view-bookings.component';
+import { ReportsComponent } from './admin/reports/reports.component';
 
 const appRoutes: Routes = [
   {
@@ -78,12 +79,18 @@ const appRoutes: Routes = [
       {
         path: 'add-admin',
         component: AddAdminComponent
-      }, {
+      },
+      {
         path: 'verification-requests',
         component: UserVerificationComponent
+      },
+      {
+        path:'reports',
+        component: ReportsComponent
       }
     ]
-  }, {
+  },
+  {
     path: 'request-interview',
     component: InterviewRequestComponent
   },
@@ -133,7 +140,8 @@ const appRoutes: Routes = [
     UserVerificationComponent,
     InterviewRequestComponent,
     BookingTeacherComponent,
-    ViewBookingsComponent
+    ViewBookingsComponent,
+    ReportsComponent
 
   ],
   providers: [

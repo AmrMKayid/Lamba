@@ -30,4 +30,3 @@ const NotificationSchema = new Schema({
 
 //missing timing
 mongoose.model('Notification', NotificationSchema);
-

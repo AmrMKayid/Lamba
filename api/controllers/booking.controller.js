@@ -30,7 +30,6 @@ module.exports.newNotif = function(req, res, next) {
         msg: 'Notification was created successfully.',
         data: notif
       });
-      console.log(notif)
     });
 };
 

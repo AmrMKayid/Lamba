@@ -15,6 +15,7 @@ var express = require('express'),
     favoritesCtrl = require('../controllers/favorites.controller'),
     requestCtrl = require('../controllers/request.controller'),
     bookingCtrl = require('../controllers/booking.controller'),
+    reportCtrl = require('../controllers/report.controller'),
     mw = require('./middlewares');
 
 //---------------------------- Authentication Routes --------------------------------//
@@ -160,9 +161,13 @@ router.post('/booking/newNotif',mw.isAuthenticated, bookingCtrl.newNotif);
 router.get('/booking/getBookings',mw.isAuthenticated, bookingCtrl.getBookings);
 router.get('/booking/deleteNotif/:description', bookingCtrl.deleteNotif);
 
+//---------------------------- Reports Routes--------------------------------------------//
+router.post('/reports/newReport',mw.isAuthenticated, reportCtrl.newReport);
+router.get('/reports/getReport',mw.isAuthenticated, reportCtrl.getReports);
+router.patch('/reports/closeReport/:reportId', mw.isAuthenticated, reportCtrl.closeReport);
+
 /*chat routes*/
 router.get('/chat/:id', mw.isAuthenticated, chatCtrl.getChat);
 router.get('/chat/', mw.isAuthenticated, chatCtrl.getAllChats);
-
 
 module.exports = router;
