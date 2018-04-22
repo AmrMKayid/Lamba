@@ -10,19 +10,24 @@
   </tr>
  
 </table>
+
 <table style="display: inline-block;">
-    <tr>
-      <th>Created At</th> 
-    </tr>
-    <tr *ngFor = "let CA of CreatedAt">
-        <td> {{ CA }}</td>
-    </tr>
-  </table>
+  <tr>
+    <th>Created At</th> 
+  </tr>
+  <tr *ngFor = "let CA of CreatedAt">
+    <td> {{ CA }}</td>
+  </tr>
+</table>
 
-  <h2>Accept Or Reject:</h2>
+<h2>Accept Or Reject:</h2>
 
+<p>Enter Booking Description:</p>
   <input type="text" [(ngModel)]="description" name="description">
-
-  <button (click) = "Accept()">Accept</button>
-  <button (click) = "Reject()">Reject</button>
+<p>Enter Parent Email:</p>  
+  <input type="text" [(ngModel)]="email" name="email">
+<p>Enter Your Fees (If You Accept The Booking):</p>
+  <input type="text" [(ngModel)]="fees" name="fees">
+<button (click) = "Accept()">Accept</button>
+<button (click) = "Reject()">Reject</button>
 

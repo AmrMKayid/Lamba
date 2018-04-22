@@ -48,4 +48,34 @@ export class ViewBookingsComponent implements OnInit {
     });
   }
 
+  Notification =  {
+    title: "",
+    description: "",
+    url: "",
+    recieving_user_id: "",
+  };
+
+  fees: string;
+  description: string;
+  email: string;
+  
+  Accept(){
+    this.Notification.title = "New Booking Accepted";
+    this.Notification.description = "Booking is Accepted With fees = " + this.fees;
+    this.Notification.url = " ";
+    this.http.get(appConfig.apiUrl + '/booking/getId/' + this.email, this.httpOptions).subscribe((res: any) => {
+      this.Notification.recieving_user_id = res.data;
+      this.http.post(appConfig.apiUrl + '/booking/newNotif', this.Notification, this.httpOptions).subscribe();
+    });
+  }
+
+  Reject(){
+    this.Notification.title = "New Booking Rejected";
+    this.Notification.description = "Booking is Rejected";
+    this.Notification.url = " ";
+    this.http.get(appConfig.apiUrl + '/booking/getId/' + this.email, this.httpOptions).subscribe((res: any) => {
+      this.Notification.recieving_user_id = res.data;
+      this.http.post(appConfig.apiUrl + '/booking/newNotif', this.Notification, this.httpOptions).subscribe();
+    });
+  }
 }
