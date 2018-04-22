@@ -158,6 +158,7 @@ router.delete('/request/deleteRequest/:requestId', mw.isAuthenticated, requestCt
 router.get('/booking/getId/:email',mw.isAuthenticated, bookingCtrl.getId);
 router.post('/booking/newNotif',mw.isAuthenticated, bookingCtrl.newNotif);
 router.get('/booking/getBookings',mw.isAuthenticated, bookingCtrl.getBookings);
+router.get('/booking/deleteNotif/:description', bookingCtrl.deleteNotif);
 
 /*chat routes*/
 router.get('/chat/:id', mw.isAuthenticated, chatCtrl.getChat);

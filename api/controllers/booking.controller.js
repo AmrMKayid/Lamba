@@ -53,3 +53,20 @@ module.exports.getBookings = function(req,res,next){
     });
   });
 };
+
+module.exports.deleteNotif = function(req,res,next){
+  Notification.findOneAndRemove({
+    description: {
+      $eq: req.params.description
+    }
+  }).exec(function(err, deleted) {
+    if (err) {
+      return next(err);
+    }
+    res.status(200).json({
+      err: null,
+      msg:'Booking Deleted Successfully.',
+      data: deleted
+    });
+  });
+};
