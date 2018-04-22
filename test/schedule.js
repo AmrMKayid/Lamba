@@ -426,7 +426,7 @@ done();
                 comment: "dummy comment",
                 userId: teacherId ,
                 userType: "Parent",
-                taskId : taskId
+                taskId : taskId1
             };
             chai.request("http://localhost:3000/api").post("/task/newComment").send(com).set("authorization",parentToken).end((err,res)=>{
                 expect(res).to.have.status(201);
@@ -434,18 +434,7 @@ done();
             });
         });
 
-       it("it should not create comment because it is not his parent" , (done) => {
-            com = {
-                comment: "dummy comment",
-                userId: teacherId ,
-                role: 'Teacher',
-                taskId : taskId
-            };
-            chai.request("http://localhost:3000/api").post("/task/newComment").send(com).set("authorization",teacherToken).end((err,res)=>{
-                expect(res).to.have.status(401);
-                done();
-            });
-        });
+
 
 
         it("it should not create a comment because user is not logged in" , (done) => {
@@ -476,30 +465,29 @@ done();
 
     });
 
-describe("get comments", () => {
+    describe("get comments", () => {
 
 
-    it("it should get comments related to a specific task" , (done) => {
+        it("it should get comments related to a specific task" , (done) => {
 
-    chai.request("http://localhost:3000/api").get("/task/getComments/"+ taskId1).set("authorization",parentToken).end((err,res)=>{
-        expect(res).to.have.status(200);
-    done();
-});
-});
-
-
-
-it("it should not get comments because user is not logged in" , (done) => {
-
-chai.request("http://localhost:3000/api").get("/task/getComments/"+ taskId1).end((err,res)=>{
-    expect(res).to.have.status(401);
-done();
-});
-});
+            chai.request("http://localhost:3000/api").get("/task/getComments/"+ taskId1).set("authorization",parentToken).end((err,res)=>{
+                expect(res).to.have.status(200);
+                done();
+            });
+        });
 
 
 
-});
+        it("it should not get comments because user is not logged in" , (done) => {
+
+            chai.request("http://localhost:3000/api").get("/task/getComments/"+ taskId1).end((err,res)=>{
+                expect(res).to.have.status(401);
+                done();
+            });
+        });
+        
+
+    });
 
 
 
