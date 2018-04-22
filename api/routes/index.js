@@ -60,7 +60,7 @@ router.get('/task/getComments/:taskId', mw.isAuthenticated, taskCtrl.getComments
 router.get('/task/getChildTasks/:ChildId', mw.isAuthenticated, taskCtrl.getChildTasks);
 router.patch('/schedule/updateTeacherSchedule/:SlotId/', mw.isAuthenticated, scheduleCtrl.updateTeacherSchedule);
 router.patch('/schedule/updateChildSchedule/:SlotId/:ChildId', mw.isAuthenticated, scheduleCtrl.updateChildSchedule);
-
+router.get('/task/deleteTask/:taskID', mw.isAuthenticated, taskCtrl.markAsDone);
 /*-----------------------------Store Routes-------------------------------------*/
 router.post('/store/create', mw.isAuthenticated, storeCtrl.createItems);
 router.post('/store/upload', storeCtrl.uploadItemPhoto);

@@ -66,6 +66,10 @@ export class TaskComponent implements OnInit {
     });
   }
 
+  markTaskAsDone(){
+    this.http.get(appConfig.apiUrl + '/task/deleteTask/' + this.taskId, this.httpOptions).subscribe();
+  }
+
   getComments() {
     this.http.get(appConfig.apiUrl + '/task/getComments/' + this.taskId, this.httpOptions).subscribe((res: any) => {
       this.taskComments = res.data;
