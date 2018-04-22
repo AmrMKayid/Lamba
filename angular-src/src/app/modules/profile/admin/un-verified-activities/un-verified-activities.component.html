@@ -23,12 +23,10 @@
                       <small class="text-muted"><i class="fa fa-clock-o"></i> {{ activity.created_at | date}}</small>
                     </p>
                     <p class="grey-text">Posted by
-                      <a style="cursor: pointer;" [routerLink]="['/profile',activity.host_id]" *ngIf="!isAdmin()"
+                      <a style="cursor: pointer;" [routerLink]="['/profile',activity.host_id]" 
                          class="name-capitalize">{{activity.host_firstName}}
                         {{activity.host_lastName}}</a>
-                      <a style="color:black" style="cursor: pointer;" *ngIf="isAdmin()" class="name-capitalize">Admin:
-                        {{activity.host_firstName}}
-                        {{activity.host_lastName}}</a>
+                      
                     </p>
                     <img id="icon" style="width:100%" src="{{apiUrlHTML}}/uploads/store/{{activity['picture_url']}}"/>
                   </div>
