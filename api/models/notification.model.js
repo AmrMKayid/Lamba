@@ -19,6 +19,7 @@ const NotificationSchema = new Schema({
     },
     created_at: {
         type: Date,
+	default: Date.now,
         required: true
     },
     seen_at: {
@@ -29,4 +30,3 @@ const NotificationSchema = new Schema({
 
 //missing timing
 mongoose.model('Notification', NotificationSchema);
-

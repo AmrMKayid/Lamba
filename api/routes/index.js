@@ -14,7 +14,8 @@ var express = require('express'),
     notificationCtrl = require('../controllers/notification.controller'),
     favoritesCtrl = require('../controllers/favorites.controller'),
     requestCtrl = require('../controllers/request.controller'),
-
+    bookingCtrl = require('../controllers/booking.controller'),
+    reportCtrl = require('../controllers/report.controller'),
     mw = require('./middlewares');
 
 //---------------------------- Authentication Routes --------------------------------//
@@ -59,7 +60,7 @@ router.get('/task/getComments/:taskId', mw.isAuthenticated, taskCtrl.getComments
 router.get('/task/getChildTasks/:ChildId', mw.isAuthenticated, taskCtrl.getChildTasks);
 router.patch('/schedule/updateTeacherSchedule/:SlotId/', mw.isAuthenticated, scheduleCtrl.updateTeacherSchedule);
 router.patch('/schedule/updateChildSchedule/:SlotId/:ChildId', mw.isAuthenticated, scheduleCtrl.updateChildSchedule);
-
+router.get('/task/deleteTask/:taskID', mw.isAuthenticated, taskCtrl.markAsDone);
 /*-----------------------------Store Routes-------------------------------------*/
 router.post('/store/create', mw.isAuthenticated, storeCtrl.createItems);
 router.post('/store/upload', storeCtrl.uploadItemPhoto);
@@ -154,10 +155,19 @@ router.post('/request/create/:teacherId/:childId', mw.isAuthenticated, requestCt
 router.get('/request/get', mw.isAuthenticated, requestCtrl.getRequests);
 router.delete('/request/deleteRequest/:requestId', mw.isAuthenticated, requestCtrl.deleteRequest);
 
+//---------------------------- Booking Routes--------------------------------------------//
+router.get('/booking/getId/:email',mw.isAuthenticated, bookingCtrl.getId);
+router.post('/booking/newNotif',mw.isAuthenticated, bookingCtrl.newNotif);
+router.get('/booking/getBookings',mw.isAuthenticated, bookingCtrl.getBookings);
+router.get('/booking/deleteNotif/:description', bookingCtrl.deleteNotif);
+
+//---------------------------- Reports Routes--------------------------------------------//
+router.post('/reports/newReport',mw.isAuthenticated, reportCtrl.newReport);
+router.get('/reports/getReport',mw.isAuthenticated, reportCtrl.getReports);
+router.patch('/reports/closeReport/:reportId', mw.isAuthenticated, reportCtrl.closeReport);
 
 /*chat routes*/
 router.get('/chat/:id', mw.isAuthenticated, chatCtrl.getChat);
 router.get('/chat/', mw.isAuthenticated, chatCtrl.getAllChats);
-
 
 module.exports = router;

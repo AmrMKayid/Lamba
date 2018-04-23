@@ -614,3 +614,16 @@ module.exports.getTeacher = function(req, res, next) {
   });
 
 };
+
+module.exports.markAsDone = function(req,res,next){
+  Task.findByIdAndRemove(req.params.taskID).exec(function(err, task) {
+    if (err) {
+      return next(err);
+    }
+    res.status(200).json({
+      err: null,
+      msg:'Task removed successfully.',
+      data: task
+    });
+  });
+};
