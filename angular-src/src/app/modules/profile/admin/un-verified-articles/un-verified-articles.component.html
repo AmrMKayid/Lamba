@@ -25,10 +25,8 @@
                   </p>
                 </div>
                 <p class="grey-text">Posted by
-                  <a style="cursor: pointer;" [routerLink]="['/profile',article.owner_id._id]" *ngIf="!isAdmin()" class="name-capitalize">{{article.owner_id.name.firstName}}
+                  <a style="cursor: pointer;" [routerLink]="['/profile',article.owner_id._id]" class="name-capitalize">{{article.owner_id.name.firstName}}
                     {{article.owner_id.name.lastName}}</a>
-                    <a style="cursor: pointer;" *ngIf="isAdmin()"  class="name-capitalize">Admin: {{article.owner_id.name.firstName}}
-                      {{article.owner_id.name.lastName}}</a>
                 </p>
                 <p>
                     <strong>Tags: </strong>

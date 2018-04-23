@@ -121,8 +121,9 @@
          <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['chat']">Messages</a>
          </li>
          <li class="nav-item d-md-none" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
-         <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['profile','me']">Profile</a>
-         </li>
+            <a class="nav-link waves-light" mdbRippleRadius *ngIf="isAdmin()"
+            [routerLink]="['/profile/admin/dashboard']">Dashboard</a>
+         <a class="nav-link waves-light" mdbRippleRadius *ngIf="!isAdmin()" [routerLink]="['profile','me']">Profile</a> </li>
          <li class="nav-item d-md-none " *ngIf="isLoggedIn()">
             <a class="nav-link waves-light" mdbRippleRadius (click)="logout()" [routerLink]="['/']">Log Out</a>
          </li>
