@@ -4,61 +4,6 @@
    <logo>
       <a class="navbar-brand" [routerLink]="['/']">
       <img src="assets/logo.png" height="40" alt="">
-<<<<<<< HEAD
-      </a>
-   </logo>
-   <!-- Collapsible content -->
-   <links>
-      <!-- Links -->
-      <ul class="navbar-nav mr-auto">
-         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
-         <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/']">Home</a>
-         </li>
-         <ng-container *ngIf="!(this.auth.getCurrentUser()?.role! === 'Teacher' && !this.auth.getCurrentUser()?.isVerified!)">
-            <!-- <li class="nav-item" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
-               <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/newsFeed']" >News
-               Feed</a>
-            </li> -->
-            <li class="nav-item" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
-               <!--TODO: Resources-->
-               <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/users']" >People</a>
-            </li>
-            <li class="nav-item" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
-               <!--TODO: Resources-->
-               <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/resources']" >Resources</a>
-            </li>
-            <li class="nav-item" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
-               <!--TODO: Resources-->
-               <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/store/view']" >Store</a>
-            </li>
-            <li class="nav-item" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
-               <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/event/view']" >Activities</a>
-            </li>
-            <li class="nav-item" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
-               <!--TODO: Resources-->
-               <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/favorites']" >Favorites</a>
-            </li>
-         </ng-container>
-      </ul>
-      <!-- Links -->
-      <!-- Links -->
-      <ul class="navbar-nav ml-auto">
-         <li class="nav-item" [routerLinkActive]="['active']" *ngIf="!isLoggedIn()">
-         <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/login']">Login</a>
-         </li>
-         <li class="nav-item" [routerLinkActive]="['active']" *ngIf="!isLoggedIn()">
-            <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/register-role']" >Sign Up
-            </a>
-         </li>
-         <li class="nav-item dropdown btn-group d-none d-lg-block d-md-block d-xl-block" dropdown *ngIf="isLoggedIn()">
-            <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-effect waves-light" mdbWavesEffect>{{notifications.length}}
-            <i class="fa fa-bell"></i>
-            </a>
-            <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary mydropdown" role="menu">
-               <a class="dropdown-item waves-light" mdbWavesEffect *ngIf="notifications.length == 0">No new
-               notifications.</a>
-               <span *ngFor="let notification of notifications | slice:0:4; let i=index">
-=======
     </a>
   </logo>
   <!-- Collapsible content -->
@@ -123,7 +68,6 @@
           <a class="dropdown-item waves-light" mdbWavesEffect *ngIf="notifications.length == 0">No new
             notifications.</a>
           <span *ngFor="let notification of notifications | slice:0:4; let i=index">
->>>>>>> dev-youhanna
 
                   <div class=" dropdown-item" [routerLink]=[notification.url] style="cursor: pointer;">
                      <div class="col-12">
