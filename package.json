@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "dev": "concurrently \"mongod\" \"node ./bin/www\" \"cd angular-src && ng serve -o\"",
     "devBack": "concurrently \"mongod\" \"node ./bin/www\"",
-    "test": "mocha --timeout 100000 --exit"
+    "test": "mocha --timeout 10000 --exit"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
