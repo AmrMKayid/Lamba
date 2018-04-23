@@ -48,6 +48,12 @@ parent: String;
       this.Notification.recieving_user_id = res.data;
       this.http.post(appConfig.apiUrl + '/booking/newNotif', this.Notification, this.httpOptions).subscribe();
     });
+    new Noty({
+      type: 'success',
+      text: `Teacher is Booked!`,
+      timeout: 3000,
+      progressBar: true
+    }).show();
   }
 }
 

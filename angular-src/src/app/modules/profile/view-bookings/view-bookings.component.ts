@@ -46,6 +46,12 @@ export class ViewBookingsComponent implements OnInit {
         this.CreatedAt[i] = this.Bookings[i].created_at;
       }      
     });
+    new Noty({
+      type: 'success',
+      text: `All Bookings Retrieved!`,
+      timeout: 3000,
+      progressBar: true
+    }).show();
   }
 
   Notification =  {
@@ -70,6 +76,14 @@ export class ViewBookingsComponent implements OnInit {
       this.fees = "";
       this.email = "";
       this.description = "";
+    
+      new Noty({
+        type: 'success',
+        text: `Booking Accepted Successfully!`,
+        timeout: 3000,
+        progressBar: true
+      }).show();
+    
     });
   }
 
@@ -88,5 +102,13 @@ export class ViewBookingsComponent implements OnInit {
     this.fees = "";
     this.email = "";
     this.description = "";
+
+    new Noty({
+      type: 'success',
+      text: `Booking Rejected Successfully!`,
+      timeout: 3000,
+      progressBar: true
+    }).show();
+  
   }
 }
