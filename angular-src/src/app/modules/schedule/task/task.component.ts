@@ -35,7 +35,7 @@ export class TaskComponent implements OnInit {
   updatedAt: Date;
   comments: any;
   studentId: String;
-  teacherId: String;
+  teacherId: string;
   taskComments = [];
   currentUser: any;
 
@@ -66,8 +66,21 @@ export class TaskComponent implements OnInit {
     });
   }
 
+  Notification =  {
+    title: "",
+    description: "",
+    url: "",
+    recieving_user_id: "",
+  };
+  
+
   markTaskAsDone(){
     this.http.get(appConfig.apiUrl + '/task/deleteTask/' + this.taskId, this.httpOptions).subscribe();
+    this.Notification.title = "Task is Done";
+    this.Notification.description = "Task " + this.title + " with description " + this.description ;
+    this.Notification.url = " ";
+    this.Notification.recieving_user_id = this.teacherId;
+      this.http.post(appConfig.apiUrl + '/booking/newNotif', this.Notification, this.httpOptions).subscribe();
   }
 
   getComments() {

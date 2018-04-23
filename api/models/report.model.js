@@ -6,7 +6,7 @@ const ReportSchema = new Schema({
         required: true
     },
     isClosed: {
-        type: boolean,
+        type: Boolean,
         default: false,
         required: true
     },
