@@ -38,11 +38,10 @@ Notification =  {
 
 email: string;
 Slot: String;
-parent: String;
 
   BookTeacher() {
     this.Notification.title = "New Booking";
-    this.Notification.description = "Booking In Slot " + this.Slot + " from Parent " + this.parent ;
+    this.Notification.description = "Booking In Slot " + this.Slot + " from Parent " + this.currentUser.email ;
     this.Notification.url = "/profile/viewbookings";
     this.http.get(appConfig.apiUrl + '/booking/getId/' + this.email, this.httpOptions).subscribe((res: any) => {
       this.Notification.recieving_user_id = res.data;
@@ -55,5 +54,7 @@ parent: String;
       progressBar: true
     }).show();
   }
+
+
 }
 

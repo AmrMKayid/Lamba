@@ -1,4 +1,8 @@
-<h2>All Bookings:</h2>
+<!-- <h2>All Bookings:</h2> -->
+
+<h4 class="text-left text-primary" style="padding-left:20px;" style="padding-top:20px;">
+    <strong>All Bookings</strong>
+  </h4>
 
 <table style="display: inline-block;">
   <tr>
@@ -20,14 +24,36 @@
   </tr>
 </table>
 
-<h2>Accept Or Reject:</h2>
+<h4 class="text-left text-primary" style="padding-left:20px;" style="padding-top:20px;">
+    <strong>Accept Or Reject</strong>
+  </h4>
 
-<p>Enter Booking Description:</p>
+<!-- <p>Enter Booking Description:</p>
   <input type="text" [(ngModel)]="description" name="description">
 <p>Enter Parent Email:</p>  
   <input type="text" [(ngModel)]="email" name="email">
 <p>Enter Your Accepting Fees/Rejecting Reason:</p>
   <input type="text" [(ngModel)]="fees" name="fees">
 <button (click) = "Accept()">Accept</button>
-<button (click) = "Reject()">Reject</button>
+<button (click) = "Reject()">Reject</button> -->
 
+<textarea class="form-control md-textarea"[(ngModel)]="email" name="email"
+  placeholder=" Enter Parent Email ..." rows="1" mdbActive></textarea>
+
+  <textarea class="form-control md-textarea"[(ngModel)]="description" name="description"
+  placeholder=" Enter Booking Details To Accept/Reject ..." rows="1" mdbActive></textarea>
+
+
+  <textarea class="form-control md-textarea"[(ngModel)]="fees" name="fees"
+  placeholder=" Enter Your Accepting Fees/Rejecting Reason:" rows="1" mdbActive></textarea>
+
+  <div class="card-body">
+      <button type="submit" (click)="Accept()"
+      class="btn btn-deep-orange waves-light">Accept
+      </button>
+      
+        <button type="submit" (click)="Reject()"
+        class="btn btn-deep-orange waves-light">Reject
+        </button>
+      </div>
+    

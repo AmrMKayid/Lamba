@@ -42,7 +42,6 @@ import {InterviewRequestComponent} from './interview-request/interview-request.c
 import { BookingTeacherComponent } from './booking-teacher/booking-teacher.component';
 import { ViewBookingsComponent } from './view-bookings/view-bookings.component';
 import { ReportsComponent } from './admin/reports/reports.component';
-
 const appRoutes: Routes = [
   {
     path: 'me',

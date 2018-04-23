@@ -157,9 +157,9 @@ router.delete('/request/deleteRequest/:requestId', mw.isAuthenticated, requestCt
 
 //---------------------------- Booking Routes--------------------------------------------//
 router.get('/booking/getId/:email',mw.isAuthenticated, bookingCtrl.getId);
-router.post('/booking/newNotif',mw.isAuthenticated, bookingCtrl.newNotif);
+router.post('/booking/newNotif', bookingCtrl.newNotif);
 router.get('/booking/getBookings',mw.isAuthenticated, bookingCtrl.getBookings);
-router.get('/booking/deleteNotif/:description', bookingCtrl.deleteNotif);
+router.get('/booking/deleteNotif/:description', mw.isAuthenticated, bookingCtrl.deleteNotif);
 
 //---------------------------- Reports Routes--------------------------------------------//
 router.post('/reports/newReport',mw.isAuthenticated, reportCtrl.newReport);
