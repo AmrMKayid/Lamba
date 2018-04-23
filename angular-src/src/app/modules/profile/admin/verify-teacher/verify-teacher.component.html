@@ -1,8 +1,14 @@
 <div [@routerTransition]>
-
+  <br>
+  <br>
+    <h2 style="text-align:center;font-weight:bold;">Teacher Registration</h2>
+    <div class="text-center" *ngIf="List.length ===0"><h1>There are currently no new teachers </h1>
+      <button class="btn btn-sm" style="background-color:#f16138;font-weight:bold" routerLink="/profile/admin/dashboard"
+              [routerLinkActive]="['router-link-active']">Back to DashbBoard
+      </button>
+    </div>
   <section class="text-center pb-3 my-5">
     <div class="container-fluid">
-      <h2 style="text-align:center;font-weight:bold;">Teacher Registration</h2>
       <div class="row row-eq-height">
 
         <!--Grid column-->
@@ -52,11 +58,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="text-center" *ngIf="List.length ===0"><h1>There are currently no new teachers </h1>
-      <button class="btn btn-sm" style="background-color:#f16138;font-weight:bold" routerLink="/profile/admin/dashboard"
-              [routerLinkActive]="['router-link-active']">Back to DashbBoard
-      </button>
     </div>
   </section>
 </div>
