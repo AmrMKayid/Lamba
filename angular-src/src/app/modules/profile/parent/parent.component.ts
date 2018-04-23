@@ -231,6 +231,18 @@ export class ParentComponent implements OnInit {
 
   createNewTask(taskName, tasksDescription, studentId) {
 
+    if(!taskName || !tasksDescription)
+    {
+      new Noty({
+        type: 'error',
+        text: "Please fill in all fields.",
+        timeout: 3000,
+        progressBar: true
+      }).show();
+    }
+    else
+    {
+
     var taskdata = {
       title: taskName,
       description: tasksDescription,
@@ -241,7 +253,8 @@ export class ParentComponent implements OnInit {
 
     this.http.post(appConfig.apiUrl + '/task/newTask', taskdata, this.httpOptions).subscribe(
       (res: any) => {
-        this.tasks = this.tasks.concat(res.data);
+
+        this.getTasks();
 
         new Noty({
           type: 'success',
@@ -259,6 +272,10 @@ export class ParentComponent implements OnInit {
           progressBar: true
         }).show();
       });
+
+    }
+
+
 
   }
 

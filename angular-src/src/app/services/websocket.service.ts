@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import * as io from 'socket.io-client';
 import {Observable} from 'rxjs/Observable';
 import * as Rx from 'rxjs/Rx';
+import {appConfig} from "../app.config";
 
 @Injectable()
 export class WebsocketService {
@@ -14,7 +15,7 @@ export class WebsocketService {
 
   connect(): Rx.Subject<MessageEvent> {
 
-    this.socket = io('http://localhost:3000');
+    this.socket = appConfig.apiUrl ==='api'? io('') : io('http://localhost:3000');
 
     // We define our observable which will observe any incoming messages
     // from our socket.io server.

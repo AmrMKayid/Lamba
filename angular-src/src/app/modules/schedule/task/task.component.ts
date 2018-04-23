@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {ActivatedRoute} from "@angular/router";
+import {Router, ActivatedRoute} from '@angular/router';
 import {AuthService} from "../../../services/auth.service";
 import {appConfig} from "../../../app.config";
 
@@ -13,7 +13,8 @@ export class TaskComponent implements OnInit {
 
   apiUrlHTML = appConfig.apiUrl;
 
-  constructor(private route: ActivatedRoute,
+  constructor(private router: Router,
+              private route: ActivatedRoute,
               private http: HttpClient,
               private auth: AuthService) {
   }
@@ -35,7 +36,7 @@ export class TaskComponent implements OnInit {
   updatedAt: Date;
   comments: any;
   studentId: String;
-  teacherId: String;
+  teacherId: string;
   taskComments = [];
   currentUser: any;
 
@@ -65,6 +66,30 @@ export class TaskComponent implements OnInit {
       this.teacherId = res.data.userId;
     });
   }
+
+  Notification =  {
+    title: "",
+    description: "",
+    url: "",
+    recieving_user_id: "",
+  };
+  
+
+  markTaskAsDone(){
+    this.http.get(appConfig.apiUrl + '/task/deleteTask/' + this.taskId, this.httpOptions).subscribe();
+    this.Notification.title = "Task is Done";
+    this.Notification.description = "Task " + this.title + " with description " + this.description ;
+    this.Notification.url = " ";
+    this.Notification.recieving_user_id = this.teacherId;
+      this.http.post(appConfig.apiUrl + '/booking/newNotif', this.Notification, this.httpOptions).subscribe();
+  new Noty({
+        type: 'success',
+        text: `Task is Marked As Done!`,
+        timeout: 3000,
+        progressBar: true
+      }).show();
+      this.router.navigate(['/profile/me']);
+    }
 
   getComments() {
     this.http.get(appConfig.apiUrl + '/task/getComments/' + this.taskId, this.httpOptions).subscribe((res: any) => {

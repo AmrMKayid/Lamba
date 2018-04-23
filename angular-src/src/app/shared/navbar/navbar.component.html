@@ -1,9 +1,8 @@
 <!--Navbar-->
-<mdb-navbar *ngIf="hideNavbar()"
-            SideClass="navbar navbar-expand-md navbar-dark unique-color sticky-top scrolling-navbar">
-  <!-- Navbar brand -->
-  <logo>
-    <a class="navbar-brand" [routerLink]="['/']">
+<mdb-navbar *ngIf="hideNavbar()" SideClass="navbar navbar-expand-md navbar-dark unique-color sticky-top ">
+   <!-- Navbar brand -->
+   <logo>
+      <a class="navbar-brand" [routerLink]="['/']">
       <img src="assets/logo.png" height="40" alt="">
     </a>
   </logo>
@@ -21,6 +20,10 @@
           <!--TODO: News Feed-->
           <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/newsFeed']" *ngIf="isLoggedIn()">News
             Feed</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <!--TODO: News Feed-->
+          <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/profile/book']" *ngIf="isLoggedIn()">Book A Teacher</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']">
           <!--TODO: Resources-->
@@ -113,25 +116,24 @@
       </li>
       <li class="nav-item d-md-none" [routerLinkActive]="['active']" *ngIf="isTeacher()">
         <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['requests']">Requests</a>
-      </li>
-      <li class="nav-item d-md-none" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
-        <a class="nav-link waves-light" mdbRippleRadius>Messages</a>
-      </li>
-      <li class="nav-item d-md-none" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
-        <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['profile','me']">Profile</a>
-      </li>
-      <li class="nav-item d-md-none " *ngIf="isLoggedIn()">
-        <a class="nav-link waves-light" mdbRippleRadius (click)="logout()" [routerLink]="['/']">Log Out</a>
-      </li>
-      <li class="nav-item d-none d-lg-block d-md-block d-xl-block" *ngIf="isLoggedIn()">
-        <a class="nav-link waves-effect waves-light" [routerLink]="['/chat']">{{chatCount}}
-          <i class="fa fa-envelope"></i>
-        </a>
-      </li>
-      <li class="nav-item avatar dropdown d-none d-lg-block d-md-block d-xl-block" dropdown *ngIf="isLoggedIn()">
-        <a dropdownToggle mdbRippleRadius type="button" class="nav-link dropdown-toggle waves-light pt-0"
-           mdbRippleRadius>
-          <img src="{{apiUrlHTML}}/uploads/store/{{this.auth.getCurrentUser().photo}}"
+        </li>
+         <li class="nav-item d-md-none" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
+         <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['chat']">Messages</a>
+         </li>
+         <li class="nav-item d-md-none" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
+         <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['profile','me']">Profile</a>
+         </li>
+         <li class="nav-item d-md-none " *ngIf="isLoggedIn()">
+            <a class="nav-link waves-light" mdbRippleRadius (click)="logout()" [routerLink]="['/']">Log Out</a>
+         </li>
+        <li class="nav-item d-none d-lg-block d-md-block d-xl-block" *ngIf="isLoggedIn()">
+          <a class="nav-link waves-effect waves-light" [routerLink]="['/chat']">{{chatCount}}
+            <i class="fa fa-envelope"></i>
+          </a>
+        </li>
+         <li class="nav-item avatar dropdown d-none d-lg-block d-md-block d-xl-block" dropdown *ngIf="isLoggedIn()">
+            <a dropdownToggle mdbRippleRadius type="button" class="nav-link dropdown-toggle waves-light pt-0" mdbRippleRadius>
+            <img src="http://localhost:3000/api/uploads/store/{{this.auth.getCurrentUser().photo}}"
                class="img-fluid rounded-circle z-depth-0">
           <span class="caret"></span>
         </a>

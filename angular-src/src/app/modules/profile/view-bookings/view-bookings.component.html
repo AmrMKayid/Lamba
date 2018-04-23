@@ -1,0 +1,33 @@
+<h2>All Bookings:</h2>
+
+<table style="display: inline-block;">
+  <tr>
+    <th>Description</th>
+  </tr>
+  
+  <tr *ngFor = "let Description of Descriptions" >
+    <td > {{ Description }}</td>
+  </tr>
+ 
+</table>
+
+<table style="display: inline-block;">
+  <tr>
+    <th>Created At</th> 
+  </tr>
+  <tr *ngFor = "let CA of CreatedAt">
+    <td> {{ CA }}</td>
+  </tr>
+</table>
+
+<h2>Accept Or Reject:</h2>
+
+<p>Enter Booking Description:</p>
+  <input type="text" [(ngModel)]="description" name="description">
+<p>Enter Parent Email:</p>  
+  <input type="text" [(ngModel)]="email" name="email">
+<p>Enter Your Accepting Fees/Rejecting Reason:</p>
+  <input type="text" [(ngModel)]="fees" name="fees">
+<button (click) = "Accept()">Accept</button>
+<button (click) = "Reject()">Reject</button>
+

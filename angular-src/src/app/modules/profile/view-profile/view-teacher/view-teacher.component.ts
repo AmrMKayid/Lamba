@@ -42,7 +42,8 @@ export class ViewTeacherComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private auth: AuthService,
               private httpClient: HttpClient,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private router: Router) {
   }
 
 
@@ -122,5 +123,13 @@ export class ViewTeacherComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  viewChild(childID) {
+    this.router.navigate(['profile', childID]);
+  }
+
+  viewTask(taskId) {
+    this.router.navigate(['schedule/viewtask/', taskId]);
   }
 }
