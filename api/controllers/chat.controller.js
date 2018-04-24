@@ -65,7 +65,7 @@ module.exports.getAllChats = function (req, res, next) {
 }
 
 module.exports.getChat = function (req, res, next) {
-// gets the logged in user id
+	// gets the logged in user id
     const authorization = req.headers.authorization;
     const secret = req.app.get('secret');
     decoded = jwt.verify(authorization, secret);
@@ -88,4 +88,34 @@ module.exports.getChat = function (req, res, next) {
         });
 
 	});
+}
+
+
+module.exports.getUnopenedChatsCount = function(req, res, next){
+
+	// gets the logged in user id
+    const authorization = req.headers.authorization;
+    const secret = req.app.get('secret');
+    decoded = jwt.verify(authorization, secret);
+    var user_id = decoded.user._id;
+
+	Message.find({$or:[{from: user_id, to: req.params.id, opened_at: null},{from: req.params.id, to: user_id, opened_at: null}]}, function(err, logs) {
+
+		if(err)
+		{
+			return res.status(404).json({
+                err: err,
+                msg: "Chat Not Found",
+                data: []
+            });
+		}
+
+		return  res.status(200).json({
+            err: null,
+            msg: "Retrieved Messages",
+            data: logs.length
+        });
+
+	});
+
 }

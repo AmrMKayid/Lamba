@@ -16,7 +16,18 @@ const MessageSchema = mongoose.Schema({
     created: {
         type: Date,
         default: Date.now()
-    }
+    },
+	opened_at:
+	{
+		type: Date,
+        default: null	
+	},
+	seen_at:
+	{
+		type: Date,
+		default: null
+	}
+
 });
 
 const Message = mongoose.model('Message', MessageSchema);
