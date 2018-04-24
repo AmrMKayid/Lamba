@@ -452,7 +452,7 @@ function loginUser(req, res, next) {
                     },
                     req.app.get('secret'),
                     {
-                        expiresIn: '12h'
+                        expiresIn: '21d'
                     }
                 );
                 // Send the JWT to the frontend
@@ -503,7 +503,7 @@ function loginChild(req, res, next) {
                 },
                 req.app.get('secret'),
                 {
-                    expiresIn: '12h'
+                    expiresIn: '21d'
                 }
             );
             // Send the JWT to the frontend
