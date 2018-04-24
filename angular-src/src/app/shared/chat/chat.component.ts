@@ -33,6 +33,8 @@ export class ChatComponent implements OnInit {
 
     this.sub = this.route.params.subscribe(params => {
 
+      console.log("called");
+      this.chat.OpenChats().subscribe(res => {console.log(res)});
       this.initChats();
       this.chat.initSocket();
       if (params['id']) {
@@ -92,6 +94,7 @@ export class ChatComponent implements OnInit {
 
         }
       });
+
     });
 
 
@@ -104,6 +107,12 @@ export class ChatComponent implements OnInit {
       this.currentChat.messages.push(message);
       this.chat.send(msg, this.currentChat.chat._id);
       this.msgToServer = "";
+      this.chat.SeenChat(this.currentChat.chat._id).subscribe(res=>{console.log(res)});
+      for(var i = 0; i < this.currentChat.messages.length; i++)
+      {
+        this.currentChat.messages[i].seen_at = Date.now();
+      }
+
     }
   }
 
@@ -150,6 +159,11 @@ export class ChatComponent implements OnInit {
 
   changeCurrentChat(chat) {
     this.currentChat = chat;
+    this.chat.SeenChat(chat.chat._id).subscribe(res=>{console.log(res)});
+    for(var i = 0; i < chat.messages.length; i++)
+    {
+      chat.messages[i].seen_at = Date.now();
+    }
   }
 
   ngOnDestroy() {

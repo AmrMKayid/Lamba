@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
   currentUser;
   public role;
   chatCount;
-
+  chatColor = 'white';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -47,8 +47,12 @@ export class NavbarComponent implements OnInit {
   refresh() {
     this.getMyNotifications();
     this.getMyRequests();
-    this.chat.getAllChats().subscribe((res: any) => {
-      this.chatCount = res.data.length;
+    this.chat.getChatCount().subscribe((res: any) => {
+      this.chatCount = res.data;
+      if(this.chatCount > 0)
+      {
+        this.chatColor = 'red';
+      }
     });
   }
 
