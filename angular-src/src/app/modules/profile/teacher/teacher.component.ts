@@ -162,6 +162,35 @@ export class TeacherComponent implements OnInit {
       });
   }
 
+  onUploadFinishedCover(event) {
+
+    var response = JSON.parse(event.serverResponse._body);
+    var status = event.serverResponse.status;
+
+    if (status != 200) {
+      return;
+    }
+    this.currentUser.coverPhoto = response.filename;
+    this.http.patch(appConfig.apiUrl + '/user/updateCoverImage/' + this.currentUser._id, {coverPhoto: response.filename})
+      .subscribe((res: any) => {
+        localStorage.setItem('authentication', res.data);
+        this.modalref.close();
+        new Noty({
+          type: 'success',
+          text: "Your Image uploaded successfully!",
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      }, error => {
+        new Noty({
+          type: 'success',
+          text: error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      });
+  }
+
   openlg(content) {
     this.modalref = this.modalService.open(content, {size: 'lg'})
 

@@ -29,6 +29,10 @@ const ChildSchema = new mongoose.Schema({
         type: String,
         default: 'image-1523726285660'
     },
+    coverPhoto: {
+        type: String,
+        default: 'coverPhoto'
+    },
     parent_id: {
         type: String,
         required: true
@@ -220,6 +224,10 @@ const UserSchema = new mongoose.Schema({
     photo: {
         type: String,
         default: 'image-1523726285660'
+    },
+    coverPhoto: {
+        type: String,
+        default: 'coverPhoto'
     },
     phone: String,
     address: {
