@@ -21,6 +21,7 @@ var express = require('express'),
 //---------------------------- Authentication Routes --------------------------------//
 router.post('/auth/register', mw.isNotAuthenticated, authCtrl.register);
 router.post('/auth/login', mw.isNotAuthenticated, authCtrl.login);
+router.post('/auth/refresh', mw.isAuthenticated, authCtrl.refreshToken);
 router.post('/auth/child', mw.isAuthenticated, mw.isNotChild, authCtrl.addChild);
 router.get('/user/viewAdmins', mw.isAuthenticated, userCtrl.viewAdmins);
 router.post('/auth/admin', mw.isAuthenticated, authCtrl.addAdmin);

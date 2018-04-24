@@ -383,7 +383,7 @@ module.exports.addAdmin = function (req, res, next) {
             }
 
             req.body.password = hash;
-            req.body.isVerified=true;
+            req.body.isVerified = true;
             req.body.role = 'Admin';
 
             UniqueUser.create({}, function (err, newUniqueUser) {
@@ -416,50 +416,50 @@ function loginUser(req, res, next) {
     User.findOne({
         email: req.body.email.trim().toLowerCase()
     }).exec(function (err, user) {
+        if (err) {
+            return next(err);
+        }
+
+        // If user not found then he/she is not registered
+        if (!user) {
+            return res.status(404).json({
+                err: null,
+                msg: 'User not found!',
+                data: null
+            });
+        }
+
+        // If user found then check that the password he entered matches the encrypted hash in the database
+        Encryption.comparePasswordToHash(req.body.password, user.password, function (err, passwordMatches) {
             if (err) {
                 return next(err);
             }
 
-            // If user not found then he/she is not registered
-            if (!user) {
-                return res.status(404).json({
+            // If password doesn't match then its incorrect
+            if (!passwordMatches) {
+                return res.status(401).json({
                     err: null,
-                    msg: 'User not found!',
+                    msg: 'Password is incorrect.',
                     data: null
                 });
             }
 
-            // If user found then check that the password he entered matches the encrypted hash in the database
-            Encryption.comparePasswordToHash(req.body.password, user.password, function (err, passwordMatches) {
-                if (err) {
-                    return next(err);
+            // Create a JWT and put in it the user object from the database
+            var token = jwt.sign(
+                {
+                    // user.toObject transorms the document to a json object without the password as we can't leak sensitive info to the frontend
+                    user: user.toObject()
+                },
+                req.app.get('secret'),
+                {
+                    expiresIn: '21d'
                 }
+            );
+            // Send the JWT to the frontend
 
-                // If password doesn't match then its incorrect
-                if (!passwordMatches) {
-                    return res.status(401).json({
-                        err: null,
-                        msg: 'Password is incorrect.',
-                        data: null
-                    });
-                }
-
-                // Create a JWT and put in it the user object from the database
-                var token = jwt.sign(
-                    {
-                        // user.toObject transorms the document to a json object without the password as we can't leak sensitive info to the frontend
-                        user: user.toObject()
-                    },
-                    req.app.get('secret'),
-                    {
-                        expiresIn: '12h'
-                    }
-                );
-                // Send the JWT to the frontend
-
-                res.status(200).json({err: null, msg: 'Welcome', data: token});
-            });
-        }
+            res.status(200).json({ err: null, msg: 'Welcome', data: token });
+        });
+    }
     );
 }
 
@@ -503,11 +503,24 @@ function loginChild(req, res, next) {
                 },
                 req.app.get('secret'),
                 {
-                    expiresIn: '12h'
+                    expiresIn: '21d'
                 }
             );
             // Send the JWT to the frontend
-            res.status(200).json({err: null, msg: 'Welcome', data: token});
+            res.status(200).json({ err: null, msg: 'Welcome', data: token });
         });
+    });
+}
+
+module.exports.refreshToken = function (req, res, next) {
+    var token = jwt.sign({
+        user: req.decodedToken.user.toObject()
+    }, req.app.get('secret'), {
+            expiresIn: '21d'
+        });
+    return res.status(200).json({
+        err: null,
+        msg: 'Token refereshed',
+        data: token
     });
 }
