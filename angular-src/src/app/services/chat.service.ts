@@ -92,6 +92,18 @@ public initSocket()
         'authorization': localStorage.getItem('authentication')
         })
       };
-    return this.http.post(appConfig.apiUrl + '/chat/open',{} ,httpOptions);
+    return this.http.patch(appConfig.apiUrl + '/chat/open',{} ,httpOptions);
+  }
+  public SeenChat(from_id)
+  {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'authorization': localStorage.getItem('authentication')
+        })
+      };
+
+      return this.http.patch(appConfig.apiUrl + '/chat/seen',{from: from_id} ,httpOptions);
+
   }
 }

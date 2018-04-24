@@ -94,6 +94,7 @@ export class ChatComponent implements OnInit {
 
         }
       });
+
     });
 
 
@@ -152,6 +153,11 @@ export class ChatComponent implements OnInit {
 
   changeCurrentChat(chat) {
     this.currentChat = chat;
+    this.chat.SeenChat(chat.chat._id).subscribe(res=>{console.log(res)});
+    for(var i = 0; i < chat.messages.length; i++)
+    {
+      chat.messages[i].seen_at = Date.now();
+    }
   }
 
   ngOnDestroy() {
