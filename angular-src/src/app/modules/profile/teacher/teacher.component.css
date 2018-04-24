@@ -2,6 +2,12 @@
   width: 100%;
 }
 
+img.img-fluid {
+  max-height: 425px;
+  object-fit: cover;
+  width:100%;
+}
+
 .avatar {
   border-radius: 50%;
   height: 150px;
