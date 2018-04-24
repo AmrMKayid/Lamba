@@ -132,15 +132,24 @@ module.exports.openChat = function(req, res, next){
 
 	
 	
-	Message.update({ to: 100 },
-   { $set:
-      {
-        quantity: 500,
-        details: { model: "14Q3", make: "xyz" },
-        tags: [ "coats", "outerwear", "clothing" ]
-      }
-   }
-)
+	Message.update({ to: user_id },{$set:{opened_at: Date.now()}},  function(err, logs) {
+
+		if(err)
+		{
+			return res.status(404).json({
+                err: err,
+                msg: "Chat Not Found",
+                data: []
+            });
+		}
+
+		return res.status(200).json({
+			err: null,
+			msg: "Chats updated successfully",
+			data: logs.length
+		});
+
+	});
 
 }
 
@@ -152,7 +161,7 @@ module.exports.openChat = function(req, res, next){
 
 
 
-module.exports.openChat = function(req, res, next){
+module.exports.seen = function(req, res, next){
 
 	if(!req.body.from)
 	{
@@ -167,4 +176,24 @@ module.exports.openChat = function(req, res, next){
     const secret = req.app.get('secret');
     decoded = jwt.verify(authorization, secret);
     var user_id = decoded.user._id;
+
+
+	Message.update({from: req.body.from, to: user_id}, {$set:{opened_at: Date.now()}}, function(err, logs) {
+
+		if(err)
+		{
+			return res.status(404).json({
+                err: err,
+                msg: "Chat Not Found",
+                data: []
+            });
+		}
+
+		return res.status(200).json({
+			err: null,
+			msg: "Chats updated successfully",
+			data: logs.length
+		});
+
+	});
 }
