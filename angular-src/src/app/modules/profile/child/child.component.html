@@ -505,8 +505,8 @@
                     <div class="card-header">{{task.title}}</div>
                     <div class="card-body">
                       <h5 class="card-title">{{(task.description | slice:0:50)}} ...</h5>
-                      <p class="card-text white-text">Assigned to <a (click)="viewUser(task.userId._id)"><strong>{{task.studentId.name.firstName}}
-                        {{task.studentId.name.lastName}}</strong></a></p>
+                      <p class="card-text white-text">Assigned by <a (click)="viewUser(task.userId._id)"><strong>{{task.userId.name.firstName}}
+                        {{task.userId.name.lastName}}</strong></a></p>
                     </div>
                     <div class="card-footer">
                       <div class="icon pull-right">

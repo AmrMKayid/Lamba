@@ -716,7 +716,7 @@ module.exports.getMyTeachers = function (req, res, next) {
         }
 
 
-        if (user._id !== req.decodedToken.user._id && user.parent_id !== req.decodedToken.user._id) {
+        if (user._id != req.decodedToken.user._id && user.parent_id != req.decodedToken.user._id) {
 
             return res
                 .status(401)
