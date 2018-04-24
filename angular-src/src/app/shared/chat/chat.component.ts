@@ -107,6 +107,12 @@ export class ChatComponent implements OnInit {
       this.currentChat.messages.push(message);
       this.chat.send(msg, this.currentChat.chat._id);
       this.msgToServer = "";
+      this.chat.SeenChat(this.currentChat.chat._id).subscribe(res=>{console.log(res)});
+      for(var i = 0; i < this.currentChat.messages.length; i++)
+      {
+        this.currentChat.messages[i].seen_at = Date.now();
+      }
+
     }
   }
 

@@ -110,6 +110,7 @@ module.exports.getUnopenedChatsCount = function(req, res, next){
             });
 		}
 
+		console.log(logs);
 		return  res.status(200).json({
             err: null,
             msg: "Retrieved Messages",
@@ -130,9 +131,8 @@ module.exports.openChat = function(req, res, next){
     decoded = jwt.verify(authorization, secret);
     var user_id = decoded.user._id;
 
-			console.log("The fuckin function was called \n\n\n\n\n\n\n\n")
 	
-	Message.update({ to: user_id },{$set:{opened_at: Date.now()}},  function(err, logs) {
+	Message.update({ to: user_id },{$set:{opened_at: Date.now()}}, {multi: true},  function(err, logs) {
 
 		if(err)
 		{
@@ -144,10 +144,10 @@ module.exports.openChat = function(req, res, next){
 		}
 
 
-
+		
 		return res.status(200).json({
 			err: null,
-			msg: "Chats updated successfully",
+			msg: "Chats updated very successfully",
 			data: logs.length
 		});
 
@@ -179,8 +179,8 @@ module.exports.seen = function(req, res, next){
     decoded = jwt.verify(authorization, secret);
     var user_id = decoded.user._id;
 
-
-	Message.update({from: req.body.from, to: user_id}, {$set:{opened_at: Date.now()}}, function(err, logs) {
+	
+	Message.update({ to: user_id },{$set:{opened_at: Date.now()}}, {multi: true},  function(err, logs) {
 
 		if(err)
 		{
@@ -191,11 +191,24 @@ module.exports.seen = function(req, res, next){
             });
 		}
 
-		return res.status(200).json({
-			err: null,
-			msg: "Chats updated successfully",
-			data: logs.length
-		});
 
+		Message.update({to: user_id, from: req.body.from}, {seen_at: Date.now()} ,{multi: true} , function(err, logs) {
+
+			if(err)
+			{
+				return res.status(404).json({
+		            err: err,
+		            msg: "Chat Not Found",
+		            data: []
+		        });
+			}
+	
+			return res.status(200).json({
+				err: null,
+				msg: "Chats updated successfully",
+				data: logs.length
+			});
+
+		});
 	});
 }

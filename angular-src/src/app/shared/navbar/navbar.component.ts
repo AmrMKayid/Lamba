@@ -38,7 +38,7 @@ export class NavbarComponent implements OnInit {
         this.role = (this.auth.getCurrentUser().role).toLowerCase();
       setInterval(() => {
         this.refresh();
-      }, 6000);
+      }, 2000);
     }
   }
 
