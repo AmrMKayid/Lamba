@@ -555,6 +555,13 @@ module.exports.addFavItem = function (req, res, next) {
         });
       }
       let childItemIDs = child.favorites.items;
+      if (childItemIDs.includes(itemID)) {
+        return res.status(422).json({
+          err: null,
+          msg: 'Item is already in your favorites',
+          data: null
+        });
+      }
       Item.findById(itemID, (err, item) => {
         if (err) {
           return next(err);
@@ -566,7 +573,7 @@ module.exports.addFavItem = function (req, res, next) {
             data: null
           });
         }
-        child.favorites.items.push(item._id);
+        child.favorites.items.addToSet(item._id);
         child.save(function (err, updatedChild) {
           if (err) return next(err);
           return res.status(200).json({
@@ -591,6 +598,13 @@ module.exports.addFavItem = function (req, res, next) {
           data: null
         });
       }
+      if (user.favorites.items.includes(itemID)) {
+        return res.status(422).json({
+          err: null,
+          msg: 'Item is already in your favorites',
+          data: null
+        });
+      }
 
       Item.findById(itemID, (err, item) => {
         if (err) {
@@ -604,7 +618,7 @@ module.exports.addFavItem = function (req, res, next) {
           });
         }
 
-        user.favorites.items.push(item._id);
+        user.favorites.items.addToSet(item._id);
         user.save(function (err, updatedUser) {
           if (err) return next(err);
           return res.status(200).json({
