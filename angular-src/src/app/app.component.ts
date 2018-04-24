@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+declare var require: any
+require('../assets/chatbot.js');
 
 @Component({
   selector: 'app-root',

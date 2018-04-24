@@ -1,10 +1,13 @@
 import {Component, OnInit} from '@angular/core';
+
+import {Http, Headers} from '@angular/http';
+import {trigger, state, style, animate, transition} from '@angular/animations';
 import {EventService} from '../../../services/event.service';
-import {Router} from "@angular/router";
-import {AuthService} from "../../../services/auth.service";
-import * as $ from 'jquery';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import {appConfig} from "../../../app.config";
+import {Router} from '@angular/router';
+import {appConfig} from '../../../app.config';
+import {AuthService} from '../../../services/auth.service';
+import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-view',
@@ -15,125 +18,136 @@ export class ViewComponent implements OnInit {
 
   apiUrlHTML = appConfig.apiUrl;
 
-  activitiesCount: number;
-  limit: number;
-  curPage: number;
-  lastPageNumber: number;
-  closeResult: string;
+  //myactivities: any;
+  activity: any;
+  myactivities: any[];
+  activityId: string;
+  name: string;
+  price: number;
+  current: any;
+  key: string = 'name';
+  description: string;
+  place: string;
+  activity_type: string;
+  newOrEdit = false;
+  createNew = false;
+  editPressed = false;
+  reverse: boolean = false;
+  picture_url: string;
 
-  user;
-  children: any[];
-
-
-  activities: any[]; // Current activities
-  pages: any[]; // Holds the numbers of the pages available to be picked
-
-
-  constructor(private EventService: EventService,
-              private router: Router,
-              private auth: AuthService,
-              private modalService: NgbModal) {
-    this.limit = 20;
-    this.curPage = 1;
-    this.user = this.auth.getCurrentUser();
-    this.getActivityCount();
+  sort(key) {
+    this.key = key;
+    this.reverse = !this.reverse;
   }
+  constructor(private http: Http,
+              private router: Router,
+              private eventservice: EventService,
+              private auth: AuthService,
+              private modalService: NgbModal,
+              private route: ActivatedRoute) {
+    this.getMyActivities()
+  }
+
+
+  getMyActivities() {
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('authorization', localStorage.getItem('authentication'));
+    this.http.get(appConfig.apiUrl + '/activity/myActivities/view', {headers: headers}).map((res) => res.json())
+      .subscribe((data: any) => {
+        this.myactivities = data.data;
+      });
+  }
+
+  deleteActivity(activityId) {
+    this.http.delete(appConfig.apiUrl + '/activity/delete/' + activityId)
+      .subscribe(res => {
+        new Noty({
+          type: 'error',
+          text: "Deleted!",
+          timeout: 3000,
+          progressBar: true
+        }).show();
+
+        this.getMyActivities();
+
+      });
+
+  }
+
+
+  editActivity(activity) {
+    this.activity = activity;
+    var activityId = activity._id;
+
+    this.name = this.activity.name;
+    this.price = this.activity.price;
+    this.description = this.activity.description;
+    this.place = this.activity.place;
+    this.activity_type = this.activity.activity_type;
+
+
+    let editedActivity = {
+      name: this.name,
+      price: Number(this.price),
+      description: this.description,
+      place: this.place,
+      activity_type: this.activity_type,
+      updated_at: Date.now()
+    };
+
+    this.http.patch(appConfig.apiUrl + '/event/edit/' + activityId, editedActivity)
+      .subscribe(res => {
+        new Noty({
+          type: 'success',
+          text: 'Updated!',
+          timeout: 3000,
+          progressBar: true
+        }).show();
+
+        localStorage.setItem("Update", null);
+        this.router.navigate(["/store/myitems/view"]);
+      });
+
+  }
+
 
   ngOnInit() {
   }
 
-  getActivityCount() {
-    this.EventService.activitiesCount().subscribe((data: any) => {
-      this.activitiesCount = data.data;
-      this.lastPageNumber = Math.ceil(this.activitiesCount / this.limit);
-      this.loadPageBar(this.curPage);
-    });
-  }
-
-  loadPage(page: number) {
-    this.curPage = page;
-    if (this.curPage == -1)
-      this.curPage = this.lastPageNumber;
-    this.loadPageBar(this.curPage);
-    this.loadActivities();
-  }
-
-  loadPageBar(page: number) {
-    // The number of the first page relative to current page
-    let min: number = 1 > this.curPage - 3 ? 1 : this.curPage - 3;
-    // The number of the last page relative to current page
-    let max: number = this.lastPageNumber < this.curPage + 3 ? this.lastPageNumber : this.curPage + 3;
-
-
-    this.pages = new Array<number>(max - min + 1);
-
-
-    for (let i = min, j: number = 0; i <= max; i++, j++) {
-      this.pages[j] = i;
-    }
-    this.loadActivities();
-  }
-
-
-  loadActivities() {
-    this.EventService.viewActivities(this.limit, this.curPage).subscribe((data: any) => {
-      this.activities = data.data;
-    });
-  }
-
-  goingActivities(activity) {
-    this.EventService.goingActivities(activity).subscribe((data: any) => {
-      for (var i = 0; i < this.activities.length; i++) {
-        if (this.activities[i]._id == data._id) {
-          this.activities[i].going_user_id = data.going_user_id;
-        }
+  close() {
+    
+        this.router.navigate(["/event/myactivities/view"]);
+        localStorage.setItem("Update", 'null')
+    
       }
-    });
-  }
 
-  viewInfo(_id) {
-    this.router.navigate(['/event/view/' + _id]);
-  }
-
-  registerChild(activityID,childId)
-  {
-    this.EventService.registerChild(activityID,childId).subscribe( (data) =>{
-    });
-  }
-
-  open(content, activityID) {
-    this.EventService.getChildren(this.user).subscribe((children: any) => {
-      this.EventService.getActivity(activityID).subscribe((activity: any) => {
-
-        activity = activity.data;
-        children = children.data;
-
-        for (var child of children) {
-          if (activity.going_user_id.includes(child._id))
-            child['registered'] = true;
-          else
-            child['registered'] = false;
-        }
-
-        this.children = children;
-
-
-        this.modalService.open(content).result.then((result) => {
+      viewInfo(_id) {
+        this.router.navigate(['/event/view/' + _id]);
+      }
+    
+    
+      modalref: NgbModalRef;
+      closeResult: string;
+    
+    
+      open(content) {
+        this.modalref = this.modalService.open(content)
+    
+        this.modalref.result.then((result) => {
           this.closeResult = `Closed with: ${result}`;
         }, (reason) => {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         });
-      });
-    });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
+      }
+    
+      private getDismissReason(reason: any): string {
+        if (reason === ModalDismissReasons.ESC) {
+          return 'by pressing ESC';
+        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+          return 'by clicking on a backdrop';
+        } else {
+          return `with: ${reason}`;
+        }
+      }
 }
