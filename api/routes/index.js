@@ -170,5 +170,7 @@ router.patch('/reports/closeReport/:reportId', mw.isAuthenticated, reportCtrl.cl
 router.get('/chat/:id', mw.isAuthenticated, chatCtrl.getChat);
 router.get('/chat/', mw.isAuthenticated, chatCtrl.getAllChats);
 router.get('/chat/unopened/count', mw.isAuthenticated, chatCtrl.getUnopenedChatsCount);
+router.patch('/chat/open', mw.isAuthenticated, chatCtrl.getUnopenedChatsCount);
+router.patch('/chat/seen', mw.isAuthenticated, chatCtrl.getUnopenedChatsCount);
 
 module.exports = router;

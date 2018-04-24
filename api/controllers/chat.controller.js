@@ -99,7 +99,7 @@ module.exports.getUnopenedChatsCount = function(req, res, next){
     decoded = jwt.verify(authorization, secret);
     var user_id = decoded.user._id;
 
-	Message.find({$or:[{from: user_id, to: req.params.id, opened_at: null},{from: req.params.id, to: user_id, opened_at: null}]}, function(err, logs) {
+	Message.find({to: user_id, opened_at: null}, function(err, logs) {
 
 		if(err)
 		{
@@ -118,4 +118,53 @@ module.exports.getUnopenedChatsCount = function(req, res, next){
 
 	});
 
+}
+
+
+module.exports.openChat = function(req, res, next){
+
+
+	// gets the logged in user id
+    const authorization = req.headers.authorization;
+    const secret = req.app.get('secret');
+    decoded = jwt.verify(authorization, secret);
+    var user_id = decoded.user._id;
+
+	
+	
+	Message.update({ to: 100 },
+   { $set:
+      {
+        quantity: 500,
+        details: { model: "14Q3", make: "xyz" },
+        tags: [ "coats", "outerwear", "clothing" ]
+      }
+   }
+)
+
+}
+
+
+
+
+
+
+
+
+
+module.exports.openChat = function(req, res, next){
+
+	if(!req.body.from)
+	{
+        return res.status(422).json({
+            err: null,
+            msg: 'One or More field(s) is missing or of incorrect type',
+            data: null
+    	});
+	}
+	// gets the logged in user id
+    const authorization = req.headers.authorization;
+    const secret = req.app.get('secret');
+    decoded = jwt.verify(authorization, secret);
+    var user_id = decoded.user._id;
 }
