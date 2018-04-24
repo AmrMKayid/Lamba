@@ -431,16 +431,36 @@ module.exports.deleteArticle = function (req, res, next) {
                                 console.log(err);
                                 return next(err);
                             }
-                            return res.status(200).json({
-                                err: null,
-                                msg: 'Article deleted successfully.',
-                                data: result
-                            });
+                            Child.update(
+                                {},
+                                { $pull: { 'favorites.resources': result._id } },
+                                { multi: true },
+                                (err, updatedArticles) => {
+                                    if (err) {
+                                        console.log(err);
+                                        return next(err);
+                                    }
+                                    User.update(
+                                        {},
+                                        { $pull: { 'favorites.resources': result._id } },
+                                        { multi: true },
+                                        (err, updatedArticles) => {
+                                            if (err) {
+                                                console.log(err);
+                                                return next(err);
+                                            }
+                                            return res.status(200).json({
+                                                err: null,
+                                                msg: 'Article deleted successfully.',
+                                                data: result
+                                            });
+                                        }
+                                    );
+                                }
+                            );
                         }
                     );
-
                 });
-
             } else {
                 return res.status(401).json({
                     err: null,
