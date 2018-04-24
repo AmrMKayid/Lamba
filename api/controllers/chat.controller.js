@@ -130,7 +130,7 @@ module.exports.openChat = function(req, res, next){
     decoded = jwt.verify(authorization, secret);
     var user_id = decoded.user._id;
 
-	
+			console.log("The fuckin function was called \n\n\n\n\n\n\n\n")
 	
 	Message.update({ to: user_id },{$set:{opened_at: Date.now()}},  function(err, logs) {
 
@@ -142,6 +142,8 @@ module.exports.openChat = function(req, res, next){
                 data: []
             });
 		}
+
+
 
 		return res.status(200).json({
 			err: null,

@@ -78,7 +78,7 @@ public initSocket()
     var httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': localStorage.getItem('authentication')
+      'authorization': localStorage.getItem('authentication')
       })
     };
     return this.http.get(appConfig.apiUrl + '/chat/unopened/count', httpOptions);
@@ -89,10 +89,9 @@ public initSocket()
    var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('authentication')
+        'authorization': localStorage.getItem('authentication')
         })
       };
-    return this.http.get(appConfig.apiUrl + '/chat/open', httpOptions).subscribe();
-
+    return this.http.post(appConfig.apiUrl + '/chat/open',{} ,httpOptions);
   }
 }

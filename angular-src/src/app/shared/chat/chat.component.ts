@@ -33,7 +33,8 @@ export class ChatComponent implements OnInit {
 
     this.sub = this.route.params.subscribe(params => {
 
-      this.chat.OpenChats();
+      console.log("called");
+      this.chat.OpenChats().subscribe(res => {console.log(res)});
       this.initChats();
       this.chat.initSocket();
       if (params['id']) {
