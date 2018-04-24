@@ -200,6 +200,15 @@ module.exports.addChild = function (req, res, next) {
         });
     }
 
+    if (!(/^[a-z0-9]+$/i.test(req.body.username))) {
+        return res.status(422).json({
+            err: null,
+            msg:
+                'Username cannot have special characters.',
+            data: null
+        });
+    }
+
     var password = req.body.password.trim();
     if (password.length < 8) {
         return res.status(422).json({
