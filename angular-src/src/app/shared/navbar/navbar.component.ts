@@ -51,7 +51,7 @@ export class NavbarComponent implements OnInit {
       if(this.chatCount > 0)
       {
 
-        chatColor = 'red';
+        this.chatColor = 'red';
       }
     });
   }
