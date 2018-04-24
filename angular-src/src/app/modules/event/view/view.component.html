@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div class="page-list">
 
@@ -87,4 +87,48 @@
 
     </div>
   </div>
-</section>
+</section> -->
+
+
+
+
+<div class="row">
+  
+    <div class="col-lg-4 col-md-6 mb-3" *ngFor='let activity of activities'>
+      <div class="card h-100">
+        <img class="card-img-top myImg" src="{{apiUrlHTML}}/uploads/activity/{{activity['picture_url']}}" alt="">
+        <div class="card-body">
+          <h4 class="card-title">
+            {{activity['name']}}
+          </h4>
+          <h5>{{activity['price'] | currency}}</h5>
+          <p class="card-text">{{activity['description'] | slice:0:50 }} ...</p>
+        </div>
+        <div class="card-footer">
+          <div class="icon pull-right">
+            <a (click)="viewInfo(activity['_id'])" placement="bottom" ngbTooltip="Info">
+              <i class="fa fa-info fa-2x mr-2" aria-hidden="true"></i>
+            </a>
+            <a (click)="goingActivities(activity)" placement="bottom" ngbTooltip="Love">
+              <i class="fa fa-heart fa-fw fa-2x mr-2" aria-hidden="true"></i>
+            </a>
+            <a placement="bottom" ngbTooltip="Favorite">
+              <i class="fa fa-star fa-2x" aria-hidden="true"></i>
+            </a>
+          </div>
+  
+          <div class="icon pull-left" style="line-height: 2.1em;">
+  
+            <span>{{activity['going_user_id'].length}}</span> <i class="fa fa-heart fa-fw mr-2" style="color:red;"
+                                                             aria-hidden="true"></i>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf='itemsCount==0' class="row">
+    <h5 class="m-auto pt-5">There are currently no items to be displayed</h5>
+  </div>
+  
