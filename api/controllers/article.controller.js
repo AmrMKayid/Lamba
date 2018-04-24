@@ -287,12 +287,19 @@ const findArticleById = function (article_id, res, next) {
             if (err) {
                 return next(err);
             }
+            if (!result) {
+                return res.status(404).json({
+                    err: null,
+                    msg: 'Article not found.',
+                    data: null
+                });
+            }
             //FEATUREZ: Change el pending and stuff
             if (result.approved === false) {
                 res.status(401).json({
                     err: null,
                     msg: 'Cannot retrieve this article.',
-                    data: result
+                    data: null
                 });
             }
             User.findById(result.owner_id, (err, ownerUser) => {
