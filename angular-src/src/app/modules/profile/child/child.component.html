@@ -3,7 +3,32 @@
 
   <!--Card image-->
   <div>
-    <img src="assets/nawwarBG.png" class="img-fluid">
+    <a (click)="open(coverImg)">
+      <img src="{{apiUrlHTML}}/uploads/store/{{currentUser?.coverPhoto}}" class="img-fluid">
+    </a>
+
+    <ng-template #coverImg let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Your Image</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <image-upload [headers]="{authorization: token}" [max]="1"
+                            url="{{apiUrlHTML}}/store/upload"
+                            [dropBoxMessage]="'Drop your image here!'" [buttonCaption]="'Upload'"
+                            [style]="customStyle" (uploadFinished)="onUploadFinishedCover($event)">
+              </image-upload>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
     <a>
       <div class="mask"></div>
     </a>
