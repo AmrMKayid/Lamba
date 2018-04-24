@@ -344,7 +344,7 @@ module.exports.addFavActivity = function (req, res, next) {
           });
         }
 
-        child.favorites.activities.push(activity._id);
+        child.favorites.activities.addToSet(activity._id);
         child.save(function (err, updatedChild) {
           if (err) return next(err);
           return res.status(200).json({
@@ -388,7 +388,7 @@ module.exports.addFavActivity = function (req, res, next) {
           });
         }
 
-        user.favorites.activities.push(activity._id);
+        user.favorites.activities.addToSet(activity._id);
         user.save(function (err, updatedUser) {
           if (err) return next(err);
           return res.status(200).json({
