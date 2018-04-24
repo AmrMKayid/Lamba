@@ -110,7 +110,7 @@ module.exports.addFavArticle = function (req, res, next) {
             data: null
           });
         }
-        child.favorites.resources.push(article._id);
+        child.favorites.resources.addToSet(article._id);
         child.save(function (err, updatedChild) {
           if (err) return next(err);
           return res.status(200).json({
