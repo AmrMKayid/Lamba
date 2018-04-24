@@ -514,7 +514,7 @@ function loginChild(req, res, next) {
 
 module.exports.refreshToken = function (req, res, next) {
     var token = jwt.sign({
-        user: req.decodedToken.user.toObject()
+        user: req.decodedToken.user
     }, req.app.get('secret'), {
             expiresIn: '21d'
         });
