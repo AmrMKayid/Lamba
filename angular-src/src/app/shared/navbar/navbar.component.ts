@@ -46,8 +46,9 @@ export class NavbarComponent implements OnInit {
   refresh() {
     this.getMyNotifications();
     this.getMyRequests();
-    this.chat.getAllChats().subscribe((res: any) => {
-      this.chatCount = res.data.length;
+    this.chat.getChatCount().subscribe((res: any) => {
+      console.log(res);
+      this.chatCount = res.data;
     });
   }
 

@@ -72,4 +72,15 @@ public initSocket()
   }
 
 
+
+  public getChatCount()
+  {
+    var httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('authentication')
+      })
+    };
+    return this.http.get(appConfig.apiUrl + '/chat/unopened/count', httpOptions);
+  }
 }
