@@ -90,8 +90,14 @@ module.exports.addFavArticle = function (req, res, next) {
           data: null
         });
       }
-
       let childArticlesIDs = child.favorites.resources;
+      if (childArticlesIDs.includes(articleID)) {
+        return res.status(422).json({
+          err: null,
+          msg: 'Resource is already in your favorites',
+          data: null
+        });
+      }
       Article.findById(articleID, (err, article) => {
         if (err) {
           return next(err);
@@ -136,6 +142,15 @@ module.exports.addFavArticle = function (req, res, next) {
         });
       }
 
+      let userArticlesIDs = user.favorites.resources;
+      if (userArticlesIDs.includes(articleID)) {
+        return res.status(422).json({
+          err: null,
+          msg: 'Resource is already in your favorites',
+          data: null
+        });
+      }
+
       Article.findById(articleID, (err, article) => {
         if (err) {
           return next(err);
@@ -148,7 +163,7 @@ module.exports.addFavArticle = function (req, res, next) {
           });
         }
 
-        user.favorites.resources.push(article._id);
+        user.favorites.resources.addToSet(article._id);
         user.save(function (err, updatedUser) {
           if (err) return next(err);
           return res.status(200).json({
