@@ -1,22 +1,22 @@
 var express = require('express'),
-    router = express.Router(),
-    jwt = require('jsonwebtoken'),
+  router = express.Router(),
+  jwt = require('jsonwebtoken'),
 
-    scheduleCtrl = require('../controllers/schedule.controller'),
-    taskCtrl = require('../controllers/task.controller'),
-    storeCtrl = require('../controllers/store.controller'),
-    authCtrl = require('../controllers/auth.controller'),
-    userCtrl = require('../controllers/user.controller'),
-    articleCtrl = require('../controllers/article.controller'),
-    tagCtrl = require('../controllers/tag.controller'),
-    chatCtrl = require('../controllers/chat.controller'),
-    activityCtrl = require('../controllers/activity.controller'),
-    notificationCtrl = require('../controllers/notification.controller'),
-    favoritesCtrl = require('../controllers/favorites.controller'),
-    requestCtrl = require('../controllers/request.controller'),
-    bookingCtrl = require('../controllers/booking.controller'),
-    reportCtrl = require('../controllers/report.controller'),
-    mw = require('./middlewares');
+  scheduleCtrl = require('../controllers/schedule.controller'),
+  taskCtrl = require('../controllers/task.controller'),
+  storeCtrl = require('../controllers/store.controller'),
+  authCtrl = require('../controllers/auth.controller'),
+  userCtrl = require('../controllers/user.controller'),
+  articleCtrl = require('../controllers/article.controller'),
+  tagCtrl = require('../controllers/tag.controller'),
+  chatCtrl = require('../controllers/chat.controller'),
+  activityCtrl = require('../controllers/activity.controller'),
+  notificationCtrl = require('../controllers/notification.controller'),
+  favoritesCtrl = require('../controllers/favorites.controller'),
+  requestCtrl = require('../controllers/request.controller'),
+  bookingCtrl = require('../controllers/booking.controller'),
+  reportCtrl = require('../controllers/report.controller'),
+  mw = require('./middlewares');
 
 //---------------------------- Authentication Routes --------------------------------//
 router.post('/auth/register', mw.isNotAuthenticated, authCtrl.register);
@@ -77,6 +77,8 @@ router.patch('/store/likeItems/:itemId', mw.isAuthenticated, storeCtrl.likeItems
 router.patch('/store/unlikeItems/:itemId', mw.isAuthenticated, storeCtrl.unlikeItems);
 router.get('/uploads/store/:filename', storeCtrl.getImage);
 router.get('/store/myitems/view/:itemId', mw.isAuthenticated, storeCtrl.getItem);
+
+router.get('/store/search', mw.isAuthenticated, storeCtrl.search);
 
 //-----------------------------C1: Articles & TAGS Routes----------------------------------------------//
 router.get('/articles', mw.isAuthenticated, articleCtrl.getArticles);
