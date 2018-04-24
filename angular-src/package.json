@@ -23,6 +23,7 @@
     "@angular/platform-browser": "^5.2.9",
     "@angular/platform-browser-dynamic": "^5.2.9",
     "@angular/router": "^5.2.0",
+    "@auth0/angular-jwt": "^1.1.0",
     "@nebular/auth": "^2.0.0-rc.6",
     "@nebular/theme": "^2.0.0-rc.6",
     "@ng-bootstrap/ng-bootstrap": "^1.1.0",

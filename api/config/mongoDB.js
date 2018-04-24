@@ -70,3 +70,4 @@ require('../models/activity.model');
 require('../models/notification.model');
 require('../models/request.model');
 require('../models/verification.model');
+require('../models/report.model');

@@ -30,7 +30,7 @@ export class NotificationsComponent implements OnInit {
         /*generate error*/
       }
 
-  		this.notifications = res.data;
+  		this.notifications = res.data.reverse();
   	});
 
   }

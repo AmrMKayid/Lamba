@@ -90,8 +90,14 @@ module.exports.addFavArticle = function (req, res, next) {
           data: null
         });
       }
-
       let childArticlesIDs = child.favorites.resources;
+      if (childArticlesIDs.includes(articleID)) {
+        return res.status(422).json({
+          err: null,
+          msg: 'Resource is already in your favorites',
+          data: null
+        });
+      }
       Article.findById(articleID, (err, article) => {
         if (err) {
           return next(err);
@@ -110,7 +116,7 @@ module.exports.addFavArticle = function (req, res, next) {
             data: null
           });
         }
-        child.favorites.resources.push(article._id);
+        child.favorites.resources.addToSet(article._id);
         child.save(function (err, updatedChild) {
           if (err) return next(err);
           return res.status(200).json({
@@ -136,6 +142,15 @@ module.exports.addFavArticle = function (req, res, next) {
         });
       }
 
+      let userArticlesIDs = user.favorites.resources;
+      if (userArticlesIDs.includes(articleID)) {
+        return res.status(422).json({
+          err: null,
+          msg: 'Resource is already in your favorites',
+          data: null
+        });
+      }
+
       Article.findById(articleID, (err, article) => {
         if (err) {
           return next(err);
@@ -148,7 +163,7 @@ module.exports.addFavArticle = function (req, res, next) {
           });
         }
 
-        user.favorites.resources.push(article._id);
+        user.favorites.resources.addToSet(article._id);
         user.save(function (err, updatedUser) {
           if (err) return next(err);
           return res.status(200).json({
@@ -310,6 +325,13 @@ module.exports.addFavActivity = function (req, res, next) {
       }
 
       let favoriteIDs = child.favorites.activities;
+      if (favoriteIDs.includes(activityID)) {
+        return res.status(422).json({
+          err: null,
+          msg: 'Activity is already in your favorites',
+          data: null
+        });
+      }
       Activity.findById(activityID, (err, activity) => {
         if (err) {
           return next(err);
@@ -322,7 +344,7 @@ module.exports.addFavActivity = function (req, res, next) {
           });
         }
 
-        child.favorites.activities.push(activity._id);
+        child.favorites.activities.addToSet(activity._id);
         child.save(function (err, updatedChild) {
           if (err) return next(err);
           return res.status(200).json({
@@ -346,6 +368,14 @@ module.exports.addFavActivity = function (req, res, next) {
         });
       }
 
+      if (user.favorites.activities.includes(activityID)) {
+        return res.status(422).json({
+          err: null,
+          msg: 'Activity is already in your favorites',
+          data: null
+        });
+      }
+
       Activity.findById(activityID, (err, activity) => {
         if (err) {
           return next(err);
@@ -358,7 +388,7 @@ module.exports.addFavActivity = function (req, res, next) {
           });
         }
 
-        user.favorites.activities.push(activity._id);
+        user.favorites.activities.addToSet(activity._id);
         user.save(function (err, updatedUser) {
           if (err) return next(err);
           return res.status(200).json({
@@ -525,6 +555,13 @@ module.exports.addFavItem = function (req, res, next) {
         });
       }
       let childItemIDs = child.favorites.items;
+      if (childItemIDs.includes(itemID)) {
+        return res.status(422).json({
+          err: null,
+          msg: 'Item is already in your favorites',
+          data: null
+        });
+      }
       Item.findById(itemID, (err, item) => {
         if (err) {
           return next(err);
@@ -536,7 +573,7 @@ module.exports.addFavItem = function (req, res, next) {
             data: null
           });
         }
-        child.favorites.items.push(item._id);
+        child.favorites.items.addToSet(item._id);
         child.save(function (err, updatedChild) {
           if (err) return next(err);
           return res.status(200).json({
@@ -561,6 +598,13 @@ module.exports.addFavItem = function (req, res, next) {
           data: null
         });
       }
+      if (user.favorites.items.includes(itemID)) {
+        return res.status(422).json({
+          err: null,
+          msg: 'Item is already in your favorites',
+          data: null
+        });
+      }
 
       Item.findById(itemID, (err, item) => {
         if (err) {
@@ -574,7 +618,7 @@ module.exports.addFavItem = function (req, res, next) {
           });
         }
 
-        user.favorites.items.push(item._id);
+        user.favorites.items.addToSet(item._id);
         user.save(function (err, updatedUser) {
           if (err) return next(err);
           return res.status(200).json({

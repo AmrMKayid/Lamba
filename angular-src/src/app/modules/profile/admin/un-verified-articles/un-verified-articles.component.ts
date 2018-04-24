@@ -147,10 +147,5 @@ export class UnVerifiedArticlesComponent implements OnInit {
     }
   }
 
-  isAdmin() {
-    if (this.auth.getCurrentUser().role == 'Admin') {
-      return true;
-    }
-    return false;
-  }
+
 }
