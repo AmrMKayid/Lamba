@@ -22,6 +22,7 @@ export class AuthService {
   }
 
   logout() {
+    localStorage.removeItem('authentication');
     localStorage.clear();
   }
 

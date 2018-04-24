@@ -15,6 +15,9 @@ export class NavbarComponent implements OnInit {
 
   apiUrlHTML = appConfig.apiUrl;
 
+  notifications = [];
+  requests = [];
+
   currentUser;
   public role;
   chatCount;
@@ -38,7 +41,8 @@ export class NavbarComponent implements OnInit {
         this.role = (this.auth.getCurrentUser().role).toLowerCase();
       this.refresh();
       setInterval(() => {
-        this.refresh();
+        if (this.isLoggedIn())
+          this.refresh();
       }, 2000);
     }
   }
@@ -103,7 +107,6 @@ export class NavbarComponent implements OnInit {
 
   }
 
-  notifications = [];
 
   getMyNotifications() {
     this.notificationservice.getMyNotifications().subscribe((res: any) => {
@@ -111,7 +114,7 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  requests = [];
+
 
   getMyRequests() {
     this.httpClient.get(appConfig.apiUrl + '/request/get', this.httpOptions).subscribe(

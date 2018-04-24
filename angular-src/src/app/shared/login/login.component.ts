@@ -41,7 +41,8 @@ export class LoginComponent implements OnInit {
     this.authService.login(user)
       .subscribe(
         token => {
-          this.router.navigate(['profile', 'me']);
+          //this.router.navigate(['profile', 'me']);
+           window.open("/profile/me", "_self");
         },
         error => {
           new Noty({
