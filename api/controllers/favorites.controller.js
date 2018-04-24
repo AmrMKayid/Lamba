@@ -325,6 +325,13 @@ module.exports.addFavActivity = function (req, res, next) {
       }
 
       let favoriteIDs = child.favorites.activities;
+      if (favoriteIDs.includes(activityID)) {
+        return res.status(422).json({
+          err: null,
+          msg: 'Activity is already in your favorites',
+          data: null
+        });
+      }
       Activity.findById(activityID, (err, activity) => {
         if (err) {
           return next(err);
@@ -357,6 +364,14 @@ module.exports.addFavActivity = function (req, res, next) {
         return res.status(404).json({
           err: null,
           msg: 'User not found.',
+          data: null
+        });
+      }
+
+      if (user.favorites.activities.includes(activityID)) {
+        return res.status(422).json({
+          err: null,
+          msg: 'Activity is already in your favorites',
           data: null
         });
       }
