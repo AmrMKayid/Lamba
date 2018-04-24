@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
   currentUser;
   public role;
   chatCount;
-
+  chatColor = 'white';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -36,9 +36,10 @@ export class NavbarComponent implements OnInit {
       this.currentUser = this.auth.getCurrentUser();
       if (this.auth.getCurrentUser().role)
         this.role = (this.auth.getCurrentUser().role).toLowerCase();
+        this.refresh();
       setInterval(() => {
         this.refresh();
-      }, 6000);
+      }, 2000);
     }
   }
 
@@ -46,8 +47,12 @@ export class NavbarComponent implements OnInit {
   refresh() {
     this.getMyNotifications();
     this.getMyRequests();
-    this.chat.getAllChats().subscribe((res: any) => {
-      this.chatCount = res.data.length;
+    this.chat.getChatCount().subscribe((res: any) => {
+      this.chatCount = res.data;
+      if(this.chatCount > 0)
+      {
+        this.chatColor = 'red';
+      }
     });
   }
 
@@ -96,7 +101,7 @@ export class NavbarComponent implements OnInit {
 
   getMyNotifications() {
     this.notificationservice.getMyNotifications().subscribe((res: any) => {
-      this.notifications = res.data;
+      this.notifications = res.data.reverse();
     });
   }
 
@@ -105,7 +110,7 @@ export class NavbarComponent implements OnInit {
   getMyRequests() {
     this.httpClient.get(appConfig.apiUrl + '/request/get', this.httpOptions).subscribe(
       (res: any) => {
-        this.requests = res.data;
+        this.requests = res.data.reverse();
       },
       (err) => {
         new Noty({

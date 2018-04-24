@@ -1,5 +1,5 @@
-<nav class="sidebar" [ngStyle]="{ 'width.em': sidenavWidth}" opened="true" (mouseenter)="increase()"
-     (mouseleave)="decrease()">
+<nav class="sidebar" type="button" [ngStyle]="{ 'width.em': sidenavWidth}" opened="true" (mouseenter)="increase()"
+ (mouseleave)="decrease()" (click)="sidebarOnClick()">
   <div class="list-group">
     <br>
 

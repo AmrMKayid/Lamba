@@ -28,6 +28,7 @@ router.post('/auth/admin', mw.isAuthenticated, authCtrl.addAdmin);
 router.get('/user/getAllUsers', userCtrl.getAllUsers);
 router.get('/user/getUserChildren/:userID', userCtrl.getUserChildren);
 router.patch('/user/updateImage/:userID', userCtrl.updateImage);
+router.patch('/user/updateCoverImage/:userID', userCtrl.updateCoverImage);
 router.get('/user/getChild/:childId', mw.isAuthenticated, userCtrl.getChildByID);
 router.get('/admin/teachers_verfication', mw.isAuthenticated, mw.isAdmin, userCtrl.getPendingTeachers);
 router.get('/admin/accept_teacher/:teacherID', mw.isAuthenticated, mw.isAdmin, userCtrl.acceptTeacher);
@@ -156,18 +157,21 @@ router.get('/request/get', mw.isAuthenticated, requestCtrl.getRequests);
 router.delete('/request/deleteRequest/:requestId', mw.isAuthenticated, requestCtrl.deleteRequest);
 
 //---------------------------- Booking Routes--------------------------------------------//
-router.get('/booking/getId/:email',mw.isAuthenticated, bookingCtrl.getId);
-router.post('/booking/newNotif',mw.isAuthenticated, bookingCtrl.newNotif);
-router.get('/booking/getBookings',mw.isAuthenticated, bookingCtrl.getBookings);
+router.get('/booking/getId/:email', mw.isAuthenticated, bookingCtrl.getId);
+router.post('/booking/newNotif', mw.isAuthenticated, bookingCtrl.newNotif);
+router.get('/booking/getBookings', mw.isAuthenticated, bookingCtrl.getBookings);
 router.get('/booking/deleteNotif/:description', bookingCtrl.deleteNotif);
 
 //---------------------------- Reports Routes--------------------------------------------//
-router.post('/reports/newReport',mw.isAuthenticated, reportCtrl.newReport);
-router.get('/reports/getReport',mw.isAuthenticated, reportCtrl.getReports);
+router.post('/reports/newReport', mw.isAuthenticated, reportCtrl.newReport);
+router.get('/reports/getReport', mw.isAuthenticated, reportCtrl.getReports);
 router.patch('/reports/closeReport/:reportId', mw.isAuthenticated, reportCtrl.closeReport);
 
 /*chat routes*/
 router.get('/chat/:id', mw.isAuthenticated, chatCtrl.getChat);
 router.get('/chat/', mw.isAuthenticated, chatCtrl.getAllChats);
+router.get('/chat/unopened/count', mw.isAuthenticated, chatCtrl.getUnopenedChatsCount);
+router.patch('/chat/open', mw.isAuthenticated, chatCtrl.openChat);
+router.patch('/chat/seen', mw.isAuthenticated, chatCtrl.seen);
 
 module.exports = router;

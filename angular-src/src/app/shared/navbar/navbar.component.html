@@ -121,14 +121,16 @@
          <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['chat']">Messages</a>
          </li>
          <li class="nav-item d-md-none" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
-         <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['profile','me']">Profile</a>
-         </li>
+            <a class="nav-link waves-light" mdbRippleRadius *ngIf="isAdmin()"
+            [routerLink]="['/profile/admin/dashboard']">Dashboard</a>
+         <a class="nav-link waves-light" mdbRippleRadius *ngIf="!isAdmin()" [routerLink]="['profile','me']">Profile</a> </li>
          <li class="nav-item d-md-none " *ngIf="isLoggedIn()">
             <a class="nav-link waves-light" mdbRippleRadius (click)="logout()" [routerLink]="['/']">Log Out</a>
          </li>
         <li class="nav-item d-none d-lg-block d-md-block d-xl-block" *ngIf="isLoggedIn()">
           <a class="nav-link waves-effect waves-light" [routerLink]="['/chat']">{{chatCount}}
-            <i class="fa fa-envelope"></i>
+            <i *ngIf="chatCount > 0" class="fa fa-envelope" style="color: red"></i>
+            <i *ngIf="chatCount == 0 || !chatCount" class="fa fa-envelope" style="color: white"></i>
           </a>
         </li>
          <li class="nav-item avatar dropdown d-none d-lg-block d-md-block d-xl-block" dropdown *ngIf="isLoggedIn()">

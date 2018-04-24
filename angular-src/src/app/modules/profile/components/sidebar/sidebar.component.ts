@@ -20,7 +20,7 @@ export class SidebarComponent {
   showMenu: string = '';
   pushRightClass: string = 'push-right';
   sidenavWidth = 4;
-
+  isClick:boolean=false;
 
   constructor(public router: Router, private dialog: MatDialog, private httpClient: HttpClient) {
 
@@ -35,10 +35,19 @@ export class SidebarComponent {
     }
   }
 
-  increase() {
+  sidebarOnClick() {
+    if(!this.isClick){
     this.sidenavWidth = 15;
-  }
+    this.isClick=true;
+    }else{
+      this.sidenavWidth = 4;
+      this.isClick=false;
+    }
 
+  }
+increase(){
+  this.sidenavWidth = 15;
+}
   decrease() {
     this.sidenavWidth = 4;
   }
