@@ -1,8 +1,8 @@
 <!--Card-->
-<div class="card card-cascade wider reverse my-4 myCardSize">
+<div class="card card-cascade wider reverse my-4 myCardSize" *ngIf="currentUser">
   <!--Background image-->
   <div>
-    <a (click)="open(coverImg)">
+    <a (click)="open(coverImg)" >
       <img src="{{apiUrlHTML}}/uploads/store/{{currentUser?.coverPhoto}}" class="img-fluid">
     </a>
 
