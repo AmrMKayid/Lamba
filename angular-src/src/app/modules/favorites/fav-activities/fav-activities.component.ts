@@ -11,7 +11,8 @@ import {appConfig} from "../../../app.config";
 export class FavActivitiesComponent implements OnInit {
 
   apiUrlHTML = appConfig.apiUrl;
-
+  
+  keyword: string;
   activities: any[];
   activitiesInitialized: boolean;
   IMG_URL = appConfig.apiUrl + '/uploads/articlesThumbnails/';
