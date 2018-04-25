@@ -186,6 +186,17 @@ export class ParentComponent implements OnInit {
     this.gender = gender
   }
 
+
+
+
+  viewUser(user) {
+    this.router.navigate(['profile', user._id]);
+  }
+
+  messageUser(user) {
+    this.router.navigate(['chat/' + user._id]);
+  }
+
   newChild(childFirstName, childlastName, childUsername, childPassword, childConfirmPassword) {
     if (!childUsername) {
       new Noty({

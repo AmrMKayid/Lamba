@@ -133,6 +133,15 @@ export class TeacherComponent implements OnInit {
   }
 
 
+
+  viewUser(user) {
+    this.router.navigate(['profile', user._id]);
+  }
+
+  messageUser(user) {
+    this.router.navigate(['chat/' + user._id]);
+  }
+
   onUploadFinished(event) {
 
     var response = JSON.parse(event.serverResponse._body);

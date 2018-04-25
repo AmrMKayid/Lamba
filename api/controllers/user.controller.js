@@ -1293,3 +1293,22 @@ module.exports.viewAdmins = function (req, res, next) {
         });
     });
 };
+
+
+
+module.exports.getParent = function (req, res, next) {
+
+
+  User.findById(req.params.parentId).exec(function (err, user) {
+      if (err) {
+          return next(err);
+      }
+      res.status(200).json({
+          err: null,
+          msg: 'Parent retrieved successfully.',
+          data: user
+      });
+
+    });
+
+};

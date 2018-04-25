@@ -54,6 +54,22 @@ export class ChildComponent implements OnInit {
   }
 
 
+  viewChild(childID) {
+    this.router.navigate(['profile', childID]);
+  }
+
+  viewTask(taskId) {
+    this.router.navigate(['schedule/viewtask/', taskId]);
+  }
+
+  viewUser(user) {
+    this.router.navigate(['profile', user._id]);
+  }
+
+  messageUser(user) {
+    this.router.navigate(['chat/' + user._id]);
+  }
+
   onUploadFinished(event) {
 
     var response = JSON.parse(event.serverResponse._body);
@@ -153,10 +169,6 @@ export class ChildComponent implements OnInit {
   }
 
 
-  viewTask(taskId) {
-    this.router.navigate(['schedule/viewtask/', taskId]);
-  }
-
   tasks = [];
 
   getTasks() {
@@ -177,9 +189,7 @@ export class ChildComponent implements OnInit {
       });
   }
 
-  viewUser(userId) {
-    this.router.navigate(['profile', userId]);
-  }
+
 
 
 }

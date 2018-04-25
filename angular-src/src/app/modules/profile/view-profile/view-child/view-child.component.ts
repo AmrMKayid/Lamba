@@ -53,6 +53,9 @@ export class ViewChildComponent implements OnInit {
       this.getTeachers();
     }
 
+    this.getParent();
+
+
   }
 
 
@@ -148,11 +151,19 @@ export class ViewChildComponent implements OnInit {
 
 
   viewChild(childID) {
-    this.router.navigate(['profile', childID]);
+    this.router.navigate(['profile/', childID]);
   }
 
   viewTask(taskId) {
     this.router.navigate(['schedule/viewtask/', taskId]);
+  }
+
+  viewUser(user) {
+    this.router.navigate(['profile/', user._id]);
+  }
+
+  messageUser(user) {
+    this.router.navigate(['chat/' + user._id]);
   }
 
   tasks = [];
@@ -171,6 +182,15 @@ export class ViewChildComponent implements OnInit {
         .subscribe((res: any) => {
           this.teachers = res.data;
 
+        });
+    }
+
+
+    parent : any;
+    getParent() {
+      this.http.get(appConfig.apiUrl + '/user/getParent/'+this.child.parent_id, this.httpOptions)
+        .subscribe((res: any) => {
+          this.parent = res.data;
         });
     }
 
