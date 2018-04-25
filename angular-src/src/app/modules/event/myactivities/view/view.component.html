@@ -2,7 +2,7 @@
   
     <div class="col-lg-4 col-md-6 mb-3" *ngFor='let activity of myactivities'>
       <div class="card h-100">
-        <img class="card-img-top myImg" src="{{apiUrlHTML}}/uploads/event/{{activity['picture_url']}}" alt="">
+        <img class="card-img-top myImg" src="{{apiUrlHTML}}/uploads/activity/{{activity['picture_url']}}" alt="">
         <div class="card-body">
           <h4 class="card-title">
             {{activity['name']}}
@@ -58,19 +58,19 @@
                         <label for="orangeForm-description">description</label>
                       </div>
                       <div class="md-form">
-                        <i class="material-icons prefix">place</i>
-                        <input type="text" id="orangeForm-placey" value="{{activity['place']}}"
+                       
+                        <input type="text" id="orangeForm-place" value="{{activity['place']}}"
                                [(ngModel)]="activity['place']" [ngModelOptions]="{standalone: true}" class="form-control"
                                #place mdbActive>
                         <label for="orangeForm-place">place</label>
                       </div>
                       <div class="md-form">
-                        <i class="material-icons prefix">type</i>
-                        <input type="text" id="orangeForm-type" value="{{activity['type']}}"
-                               [(ngModel)]="activity['type']" [ngModelOptions]="{standalone: true}" class="form-control"
-                               #type
+                        
+                        <input type="text" id="orangeForm-type" value="{{activity['activity_type']}}"
+                               [(ngModel)]="activity['activity_type']" [ngModelOptions]="{standalone: true}" class="form-control"
+                               #activity_type
                                mdbActive>
-                        <label for="orangeForm-type">type</label>
+                        <label for="orangeForm-activity_type">activity_type</label>
                       </div>
                       <div class="text-center">
                         <div class="row">

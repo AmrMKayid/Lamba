@@ -65,7 +65,7 @@ module.exports.getAllChats = function (req, res, next) {
 }
 
 module.exports.getChat = function (req, res, next) {
-// gets the logged in user id
+	// gets the logged in user id
     const authorization = req.headers.authorization;
     const secret = req.app.get('secret');
     decoded = jwt.verify(authorization, secret);
@@ -87,5 +87,128 @@ module.exports.getChat = function (req, res, next) {
             data: logs
         });
 
+	});
+}
+
+
+module.exports.getUnopenedChatsCount = function(req, res, next){
+
+	// gets the logged in user id
+    const authorization = req.headers.authorization;
+    const secret = req.app.get('secret');
+    decoded = jwt.verify(authorization, secret);
+    var user_id = decoded.user._id;
+
+	Message.find({to: user_id, opened_at: null}, function(err, logs) {
+
+		if(err)
+		{
+			return res.status(404).json({
+                err: err,
+                msg: "Chat Not Found",
+                data: []
+            });
+		}
+
+		console.log(logs);
+		return  res.status(200).json({
+            err: null,
+            msg: "Retrieved Messages",
+            data: logs.length
+        });
+
+	});
+
+}
+
+
+module.exports.openChat = function(req, res, next){
+
+
+	// gets the logged in user id
+    const authorization = req.headers.authorization;
+    const secret = req.app.get('secret');
+    decoded = jwt.verify(authorization, secret);
+    var user_id = decoded.user._id;
+
+	
+	Message.update({ to: user_id },{$set:{opened_at: Date.now()}}, {multi: true},  function(err, logs) {
+
+		if(err)
+		{
+			return res.status(404).json({
+                err: err,
+                msg: "Chat Not Found",
+                data: []
+            });
+		}
+
+
+		
+		return res.status(200).json({
+			err: null,
+			msg: "Chats updated very successfully",
+			data: logs.length
+		});
+
+	});
+
+}
+
+
+
+
+
+
+
+
+
+module.exports.seen = function(req, res, next){
+
+	if(!req.body.from)
+	{
+        return res.status(422).json({
+            err: null,
+            msg: 'One or More field(s) is missing or of incorrect type',
+            data: null
+    	});
+	}
+	// gets the logged in user id
+    const authorization = req.headers.authorization;
+    const secret = req.app.get('secret');
+    decoded = jwt.verify(authorization, secret);
+    var user_id = decoded.user._id;
+
+	
+	Message.update({ to: user_id },{$set:{opened_at: Date.now()}}, {multi: true},  function(err, logs) {
+
+		if(err)
+		{
+			return res.status(404).json({
+                err: err,
+                msg: "Chat Not Found",
+                data: []
+            });
+		}
+
+
+		Message.update({to: user_id, from: req.body.from}, {seen_at: Date.now()} ,{multi: true} , function(err, logs) {
+
+			if(err)
+			{
+				return res.status(404).json({
+		            err: err,
+		            msg: "Chat Not Found",
+		            data: []
+		        });
+			}
+	
+			return res.status(200).json({
+				err: null,
+				msg: "Chats updated successfully",
+				data: logs.length
+			});
+
+		});
 	});
 }

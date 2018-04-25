@@ -1,6 +1,6 @@
 <div class="container" *ngIf="itemsInitialized">
-
-  <ng-container *ngFor="let item of items | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
+  <input class="text-center" type="text" [(ngModel)]="keyword" placeholder="Search through the titles">
+  <ng-container *ngFor="let item of items | filter: keyword | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
     <div class="row mt-3 wow fadeIn">
 
       <!--Image thumbnail-->

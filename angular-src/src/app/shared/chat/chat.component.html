@@ -14,7 +14,10 @@
                                                      class="img-fluid rounded-circle z-depth-0" id="reciever_img"></th>
           <td (click)="changeCurrentChat(chat)"><span
             id="name">{{chat.chat.name.firstName}} {{chat.chat.name.lastName}}</span><br>
-            <span *ngIf="chat.messages.length > 0">{{chat.messages[chat.messages.length - 1].text}}</span></td>
+            <span *ngIf="chat.messages.length > 0">
+            		<span *ngIf="chat.messages[chat.messages.length - 1].seen_at != null">{{chat.messages[chat.messages.length - 1].text}}</span>
+            		<span *ngIf="chat.messages[chat.messages.length - 1].seen_at == null"  style ="font-weight: bold;">{{chat.messages[chat.messages.length - 1].text}}</span>
+            </span></td>
         </tr>
         </tbody>
         <!--Table body-->
@@ -39,7 +42,7 @@
                 {{message.text}}
               </div>
 
-              <div id="sent" class="offset-md-8 offset-sm-8" *ngIf='message.from != currentChat.chat._id'>
+              <div id="sent" class="offset-md-8 offset-sm-8 mr-2" *ngIf='message.from != currentChat.chat._id'>
                 {{message.text}}
               </div>
 
@@ -63,7 +66,3 @@
     </div>
   </div>
 </div>
-
-
-
-

@@ -72,4 +72,38 @@ public initSocket()
   }
 
 
+
+  public getChatCount()
+  {
+    var httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'authorization': localStorage.getItem('authentication')
+      })
+    };
+    return this.http.get(appConfig.apiUrl + '/chat/unopened/count', httpOptions);
+  }
+
+  public OpenChats()
+  {
+   var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'authorization': localStorage.getItem('authentication')
+        })
+      };
+    return this.http.patch(appConfig.apiUrl + '/chat/open',{} ,httpOptions);
+  }
+  public SeenChat(from_id)
+  {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'authorization': localStorage.getItem('authentication')
+        })
+      };
+
+      return this.http.patch(appConfig.apiUrl + '/chat/seen',{from: from_id} ,httpOptions);
+
+  }
 }

@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpHeaders, HttpClient} from '@angular/common/http';
-import {Router} from '@angular/router';
-import {appConfig} from "../../../app.config";
+import { Component, OnInit } from '@angular/core';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { appConfig } from "../../../app.config";
 
 @Component({
   selector: 'app-fav-items',
@@ -12,6 +12,7 @@ export class FavItemsComponent implements OnInit {
 
   apiUrlHTML = appConfig.apiUrl;
   
+  keyword: string;
   items: any[];
   itemsInitialized: boolean;
   IMG_URL = appConfig.apiUrl + '/uploads/articlesThumbnails/';
@@ -23,7 +24,7 @@ export class FavItemsComponent implements OnInit {
   };
 
   constructor(private http: HttpClient,
-              private router: Router) {
+    private router: Router) {
   }
 
   ngOnInit() {
@@ -31,19 +32,19 @@ export class FavItemsComponent implements OnInit {
     this.itemsInitialized = false;
     this.http.get(appConfig.apiUrl + '//user/favorites/items', this.httpOptions)
       .pipe().subscribe(
-      (res: any) => {
-        this.items = res.data.reverse();
-        this.itemsInitialized = true;
-      }, err => {
-        this.router.navigate(['/']);
-        new Noty({
-          type: 'error',
-          text: `Items could not be retrieved: ${err.error.msg}`,
-          timeout: 3000,
-          progressBar: true
-        }).show();
-      }
-    );
+        (res: any) => {
+          this.items = res.data.reverse();
+          this.itemsInitialized = true;
+        }, err => {
+          this.router.navigate(['/']);
+          new Noty({
+            type: 'error',
+            text: `Items could not be retrieved: ${err.error.msg}`,
+            timeout: 3000,
+            progressBar: true
+          }).show();
+        }
+      );
   }
 
   removeByKey(array, params) {
@@ -60,18 +61,18 @@ export class FavItemsComponent implements OnInit {
   remove(id) {
     this.http.delete(appConfig.apiUrl + '/user/favorites/items/' + id, this.httpOptions)
       .pipe().subscribe(
-      (res: any) => {
-        this.items = this.removeByKey(this.items, {key: '_id', value: id});
-      }, err => {
-        this.router.navigate(['/']);
-        new Noty({
-          type: 'error',
-          text: `Item couldn't be removed from favorites : ${err.error.msg}`,
-          timeout: 3000,
-          progressBar: true
-        }).show();
-      }
-    );
+        (res: any) => {
+          this.items = this.removeByKey(this.items, { key: '_id', value: id });
+        }, err => {
+          this.router.navigate(['/']);
+          new Noty({
+            type: 'error',
+            text: `Item couldn't be removed from favorites : ${err.error.msg}`,
+            timeout: 3000,
+            progressBar: true
+          }).show();
+        }
+      );
   }
 }
 

@@ -11,7 +11,8 @@ import {appConfig} from "../../../app.config";
 export class FavResourcesComponent implements OnInit {
 
   apiUrlHTML = appConfig.apiUrl;
-
+  
+  keyword: string;
   articles: any[];
   articlesInitialized: boolean;
   tagsInitialized: boolean;

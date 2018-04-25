@@ -220,7 +220,7 @@ module.exports.updateImage = function (req, res, next) {
                 var token = jwt.sign({
                     user: updateChild.toObject()
                 }, req.app.get('secret'), {
-                        expiresIn: '12h'
+                        expiresIn: '21d'
                     });
                 res.status(200).json({
                     err: null,
@@ -232,7 +232,7 @@ module.exports.updateImage = function (req, res, next) {
             var token = jwt.sign({
                 user: updateUser.toObject()
             }, req.app.get('secret'), {
-                    expiresIn: '12h'
+                    expiresIn: '21d'
                 });
             res.status(200).json({
                 err: null,
@@ -283,7 +283,7 @@ module.exports.updateCoverImage = function (req, res, next) {
                 var token = jwt.sign({
                     user: updateChild.toObject()
                 }, req.app.get('secret'), {
-                    expiresIn: '12h'
+                    expiresIn: '21d'
                 });
                 res.status(200).json({
                     err: null,
@@ -295,7 +295,7 @@ module.exports.updateCoverImage = function (req, res, next) {
             var token = jwt.sign({
                 user: updateUser.toObject()
             }, req.app.get('secret'), {
-                expiresIn: '12h'
+                expiresIn: '21d'
             });
             res.status(200).json({
                 err: null,
@@ -716,7 +716,7 @@ module.exports.getMyTeachers = function (req, res, next) {
         }
 
 
-        if (user._id !== req.decodedToken.user._id && user.parent_id !== req.decodedToken.user._id) {
+        if (user._id != req.decodedToken.user._id && user.parent_id != req.decodedToken.user._id) {
 
             return res
                 .status(401)
