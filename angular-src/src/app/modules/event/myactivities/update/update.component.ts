@@ -48,7 +48,7 @@ export class UpdateComponent implements OnInit {
       name: this.name,
       price: Number(this.price),
       description: this.description,
-      plae: this.place,
+      place: this.place,
       activity_type: this.activity_type,
       updated_at: Date.now()
     };

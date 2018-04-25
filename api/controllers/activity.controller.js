@@ -55,8 +55,8 @@ module.exports.createActivities = async function(req, res, next) {
     activity_type: req.body.activity_type,
     picture_url: req.body.picture_url,
     host_id: user_id,
-    host_firstName:decoded.user.name.firstName,
-    host_lastName:decoded.user.name.lastName,
+    host_firstName: decoded.user.name.firstName,
+    host_lastName: decoded.user.name.lastName,
     isVerified: false,
     created_at: Date.now(),
     updated_at: Date.now()
@@ -181,7 +181,7 @@ module.exports.editActivities = function(req, res, next) {
   req.body.updatedAt = moment().toDate();
 
   Activity.findByIdAndUpdate(
-    req.params.activityID, {
+    req.params.activityId, {
       $set: req.body
     }, {
       new: true
@@ -190,21 +190,13 @@ module.exports.editActivities = function(req, res, next) {
     if (err) {
       return next(err);
     }
-    if (!updatedActivity) {
-      return res
-        .status(404)
-        .json({
-          err: null,
-          msg: 'Update Failed',
-          data: null
-        });
-    }
     res.status(200).json({
       err: null,
       msg: 'Activity was updated successfully.',
       data: updatedActivity
     });
   });
+
 };
 
 
