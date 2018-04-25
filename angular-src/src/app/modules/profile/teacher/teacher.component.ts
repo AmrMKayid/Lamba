@@ -420,5 +420,21 @@ export class TeacherComponent implements OnInit {
     this.router.navigate(['schedule/viewtask/', taskId]);
   }
 
+  deleteTask(taskId) {
+    this.http.get(appConfig.apiUrl + '/task/deleteTask/' + taskId, this.httpOptions).subscribe((res: any) => {
+      console.log("deleted");
+      this.getTasks();
+      });
+
+
+    new Noty({
+      type: 'success',
+      text: `Task deleted successfully.`,
+      timeout: 3000,
+      progressBar: true
+    }).show();
+
+
+  }
 
 }

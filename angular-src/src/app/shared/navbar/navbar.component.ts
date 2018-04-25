@@ -40,11 +40,15 @@ export class NavbarComponent implements OnInit {
       if (this.auth.getCurrentUser().role)
         this.role = (this.auth.getCurrentUser().role).toLowerCase();
       this.refresh();
-      setInterval(() => {
-        if (this.isLoggedIn())
-          this.refresh();
-      }, 2000);
     }
+
+    setInterval(() => {
+      if (this.isLoggedIn())
+      {
+        console.log(this.isLoggedIn());
+        this.refresh();
+      }
+    }, 2000);
   }
 
 

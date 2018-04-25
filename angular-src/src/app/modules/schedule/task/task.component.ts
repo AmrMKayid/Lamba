@@ -73,7 +73,7 @@ export class TaskComponent implements OnInit {
     url: "",
     recieving_user_id: "",
   };
-  
+
 
   markTaskAsDone(){
     this.http.get(appConfig.apiUrl + '/task/deleteTask/' + this.taskId, this.httpOptions).subscribe();
@@ -143,32 +143,4 @@ export class TaskComponent implements OnInit {
 
   }
 
-
-  // Tasks = []
-  // TasksTitles = []
-  // TasksDescriptions = []
-  // TasksTeachers = []
-  // TasksCreatedAt = []
-  // TasksUpdatedAt = []
-  // Teacher = []
-  // getTasks(childId){
-  //   this.http.get("http://localhost:3000/api/task/getTasks/" + childId).subscribe((res: any) => {
-  //     this.Tasks = res.data;
-  //     var arrayLength = this.Tasks.length;
-  //     for (var i = 0; i < arrayLength; i++) {
-  //       this.TasksTitles[i] = this.Tasks[i].Title;
-  //       this.TasksDescriptions[i] = this.Tasks[i].Description;
-  //       this.TasksCreatedAt[i] = this.Tasks[i].createdAt;
-  //       this.TasksUpdatedAt[i] = this.Tasks[i].updatedAt;
-  //       this.http.get(appConfig.apiUrl + '/task/getTeacher/' + this.Tasks[i].TeacherId)
-  //       .subscribe((res: any) => { this.TasksTeachers[i] = res.data;
-  //         var arrayLength2 = this.TasksTeachers.length;
-  //         for (var i = 0; i < arrayLength2; i++) {
-  //           this.Teacher[i] = this.TasksTeachers[i].firstName + this.TasksTeachers[i].lastName ;
-  //         }
-  //
-  //       });
-  //     }
-  //   });
-  // }
 }

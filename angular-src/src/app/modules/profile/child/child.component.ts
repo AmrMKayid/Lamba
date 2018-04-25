@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {Http, Headers} from '@angular/http';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../../../services/auth.service";
-import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {appConfig} from "../../../app.config";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Http, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { AuthService } from "../../../services/auth.service";
+import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { appConfig } from "../../../app.config";
 
 @Component({
   selector: 'app-child',
@@ -38,16 +38,16 @@ export class ChildComponent implements OnInit {
   ///////////////////////////////////////////////////////////
 
   constructor(private router: Router,
-              private http: HttpClient,
-              private httpClient: HttpClient,
-              private auth: AuthService,
-              private modalService: NgbModal) {
+    private http: HttpClient,
+    private httpClient: HttpClient,
+    private auth: AuthService,
+    private modalService: NgbModal) {
   }
 
   ngOnInit() {
     this.currentUser = this.auth.getCurrentUser();
     this.currentUserID = this.currentUser._id;
-//  this.httpClient.get(appConfig.apiUrl + '/user/getUserInfo/'+this.currentUserID,
+    //  this.httpClient.get(appConfig.apiUrl + '/user/getUserInfo/'+this.currentUserID,
     this.getChildSchedule();
     this.getTasks();
     this.getTeachers();
@@ -79,7 +79,7 @@ export class ChildComponent implements OnInit {
       return;
     }
     this.currentUser.photo = response.filename;
-    this.http.patch(appConfig.apiUrl + '/user/updateImage/' + this.currentUser._id, {photo: response.filename})
+    this.http.patch(appConfig.apiUrl + '/user/updateImage/' + this.currentUser._id, { photo: response.filename })
       .subscribe((res: any) => {
         localStorage.setItem('authentication', res.data);
         this.modalref.close();
@@ -109,7 +109,7 @@ export class ChildComponent implements OnInit {
       return;
     }
     this.currentUser.coverPhoto = response.filename;
-    this.http.patch(appConfig.apiUrl + '/user/updateCoverImage/' + this.currentUser._id, {coverPhoto: response.filename})
+    this.http.patch(appConfig.apiUrl + '/user/updateCoverImage/' + this.currentUser._id, { coverPhoto: response.filename })
       .subscribe((res: any) => {
         localStorage.setItem('authentication', res.data);
         this.modalref.close();
@@ -188,6 +188,7 @@ export class ChildComponent implements OnInit {
         this.teachers = res.data;
       });
   }
+
 
 
 
