@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  ngOnInit() {    
     if (localStorage.getItem('authentication')) {
       if (!this.tokenService.logoutIfExpired()) {
         this.tokenService.refreshToken(7);

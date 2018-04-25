@@ -22,8 +22,8 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('authentication');
     localStorage.clear();
+    window.location.href = 'login';    
   }
 
   // Registration

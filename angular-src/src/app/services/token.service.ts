@@ -19,7 +19,7 @@ export class TokenService {
   logoutIfExpired() {
     if (this.tokenHelper.isTokenExpired(localStorage.getItem('authentication'))) {
       localStorage.clear();
-      this.router.navigate(['/']);
+      window.location.href = 'login';
       return true;
     } else {
       return false;
@@ -32,7 +32,7 @@ export class TokenService {
     if (daysLeft < days) {
       this.httpClient.post(appConfig.apiUrl + '/auth/refresh', '', { headers: { Authorization: localStorage.getItem('authentication') } }).subscribe(
         (res: any) => {
-          localStorage.setItem('authentication', res);
+          localStorage.setItem('authentication', res.data);
         },
         err => {
           new Noty({
@@ -42,7 +42,7 @@ export class TokenService {
             progressBar: true
           }).show();
           localStorage.clear();
-          this.router.navigate(['login']);
+          window.location.href = 'login';
         }
       );
     }
