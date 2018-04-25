@@ -6,7 +6,7 @@
       <img class="card-img-top myImg" src="{{apiUrlHTML}}/uploads/event/{{activity['picture_url']}}" alt="">
       <div class="card-body">
         <h4 class="card-title">
-          {activity['name']}}
+          {{activity['name']}}
         </h4>
         <h5>{{activity['price'] | currency}}</h5>
         <p class="card-text">{{activity['description'] | slice:0:50 }} ...</p>
