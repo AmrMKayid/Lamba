@@ -387,6 +387,15 @@ export class TeacherComponent implements OnInit {
     };
 
 
+    if (!taskName || !tasksDescription) {
+      new Noty({
+        type: 'error',
+        text: "Please fill in all fields.",
+        timeout: 3000,
+        progressBar: true
+      }).show();
+    }
+    else {
 
     this.http.post(appConfig.apiUrl + '/task/newTask', taskdata, this.httpOptions).subscribe(
       (res: any) => {
@@ -409,6 +418,8 @@ export class TeacherComponent implements OnInit {
           progressBar: true
         }).show();
       });
+
+    }
 
   }
 
