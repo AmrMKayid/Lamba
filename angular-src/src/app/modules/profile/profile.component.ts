@@ -1,7 +1,8 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {appConfig} from '../../app.config';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { appConfig } from '../../app.config';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -28,8 +29,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   currentUser;
 
   constructor(private http: HttpClient,
-              private route: ActivatedRoute,
-              private router: Router) {
+    private route: ActivatedRoute,
+    private router: Router,
+    private location: Location) {
   }
 
   ngOnInit() {
@@ -45,8 +47,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
             } else {
               if (res.data.role === 'Parent') {
                 this.isParent = true;
-              } else {
+              } else if (res.data.role === 'Teacher') {
                 this.isTeacher = true;
+              } else {
+                new Noty({
+                  type: 'info',
+                  text: `You cannot view this profile.`,
+                  timeout: 2000,
+                  progressBar: true
+                }).show();
+                this.location.back();
               }
             }
             this.currentUser = res.data;
