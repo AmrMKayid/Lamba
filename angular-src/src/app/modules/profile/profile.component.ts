@@ -43,13 +43,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
         .subscribe(
           (res: any) => {
             if (!res.data.role) {
-              this.isChild = true;
-            } else {
+              this.isParent = false;
+                this.isTeacher = false;
+                  this.isChild = true;            } else {
               if (res.data.role === 'Parent') {
                 this.isParent = true;
+                  this.isTeacher = false;
+                    this.isChild = false;
               } else if (res.data.role === 'Teacher') {
-                this.isTeacher = true;
-              } else {
+                this.isParent = false;
+                  this.isTeacher = true;
+                    this.isChild = false;              } else {
                 new Noty({
                   type: 'info',
                   text: `You cannot view this profile.`,
