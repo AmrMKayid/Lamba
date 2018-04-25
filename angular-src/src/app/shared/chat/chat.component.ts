@@ -33,7 +33,6 @@ export class ChatComponent implements OnInit {
 
     this.sub = this.route.params.subscribe(params => {
 
-      console.log("called");
       this.chat.OpenChats().subscribe(res => {console.log(res)});
       this.initChats();
       this.chat.initSocket();
@@ -65,7 +64,6 @@ export class ChatComponent implements OnInit {
       this.chat.onMessage().subscribe(msg => {
         var msgObj = JSON.parse(msg);
         var found = false;
-        console.log(msgObj);
         for (var i = 0; i < this.chats.length; i++) {
           if (this.chats[i].chat._id == msgObj.from) {
             found = true;

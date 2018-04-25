@@ -176,6 +176,25 @@ module.exports.getActivitiesById = function(req, res, next) {
 }
 
 
+module.exports.getThisActivity = function(req, res, next) {
+
+  var id = req.params.Id;
+  Activity.find({
+    _id: id
+  }).exec(function(err, Activities) {
+    if (err) {
+      console.log(err)
+    }
+    return res.status(200).json({
+      err: null,
+      msg: 'finished successfully',
+      data: Activities
+    });
+  });
+
+}
+
+
 module.exports.editActivities = function(req, res, next) {
 
   req.body.updatedAt = moment().toDate();

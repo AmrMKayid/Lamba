@@ -433,7 +433,6 @@ export class TeacherComponent implements OnInit {
 
   deleteTask(taskId) {
     this.http.get(appConfig.apiUrl + '/task/deleteTask/' + taskId, this.httpOptions).subscribe((res: any) => {
-      console.log("deleted");
       this.getTasks();
       });
 

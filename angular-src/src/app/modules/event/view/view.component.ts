@@ -20,7 +20,7 @@ export class ViewComponent implements OnInit {
 
   //myactivities: any;
   activity: any;
-  myactivities: any[];
+  myactivities = [];
   activityId: string;
   name: string;
   price: number;
@@ -55,7 +55,7 @@ export class ViewComponent implements OnInit {
     headers.append('authorization', localStorage.getItem('authentication'));
     this.http.get(appConfig.apiUrl + '/activity/myActivities/view', {headers: headers}).map((res) => res.json())
       .subscribe((data: any) => {
-        this.myactivities = data.data;
+        this.myactivities = data.data.filter(event => event.isVerified == true);
       });
   }
 
@@ -116,31 +116,31 @@ export class ViewComponent implements OnInit {
   }
 
   close() {
-    
+
         this.router.navigate(["/event/myactivities/view"]);
         localStorage.setItem("Update", 'null')
-    
+
       }
 
       viewInfo(_id) {
         this.router.navigate(['/event/view/' + _id]);
       }
-    
-    
+
+
       modalref: NgbModalRef;
       closeResult: string;
-    
-    
+
+
       open(content) {
         this.modalref = this.modalService.open(content)
-    
+
         this.modalref.result.then((result) => {
           this.closeResult = `Closed with: ${result}`;
         }, (reason) => {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         });
       }
-    
+
       private getDismissReason(reason: any): string {
         if (reason === ModalDismissReasons.ESC) {
           return 'by pressing ESC';
@@ -151,4 +151,3 @@ export class ViewComponent implements OnInit {
         }
       }
 }
- 
