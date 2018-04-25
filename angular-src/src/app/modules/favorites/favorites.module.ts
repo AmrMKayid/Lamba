@@ -9,6 +9,7 @@ import { FavActivitiesComponent } from './fav-activities/fav-activities.componen
 import { FavoritesComponent } from './favorites.component'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FavResourcesComponent } from './fav-resources/fav-resources.component';
+import {Ng2SearchPipeModule} from 'ng2-search-filter';
 
 
 const appRoutes: Routes = [
@@ -26,6 +27,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     NgxPaginationModule,
     NgbModule,
+    Ng2SearchPipeModule,  
     RouterModule.forChild(appRoutes)
   ],
   declarations: [
