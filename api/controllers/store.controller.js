@@ -115,7 +115,7 @@ module.exports.viewItems = function(req, res, next) {
 
   var valid = Validations.isNumber(req.params.tuplesPerPage) &&
     Validations.isNumber(req.params.pageNumber) &&
-    parseInt(req.params.tuplesPerPage) <= 20;
+    parseInt(req.params.tuplesPerPage) <= 60;
 
   // returns error if not valid
   if (!valid) {
@@ -397,30 +397,52 @@ module.exports.search = function(req, res, next) {
     });
   }
 
-  console.log(req.query.key);
+  let itemPerPage = parseInt(req.query.itemPerPage);
+  let pageNumber = parseInt(req.query.pageNumber);
 
-  Item.find({
+  // If the user didn't enter either of those values, set them to default ones
+  if (!itemPerPage)
+    itemPerPage = 30;
+  if (!pageNumber)
+    pageNumber = 1;
+
+  Item.count({
     name: {
       $regex: '.*' + req.query.key + '.*',
       '$options': 'i'
     }
-  }, (err, data) => {
-    if (err) {
-      return res.status(404).json({
-        err: 'Retrieved 0 items from the database',
-        msg: 'Error while retrieving item from the database',
-        data: null
-      });
-    }
+  }, (err, count) => {
 
-    return res.status(200).json({
-      err: null,
-      msg: 'Items retrieved successfully',
-      data: data
+    let query = Item.find({
+      name: {
+        $regex: '.*' + req.query.key + '.*',
+        '$options': 'i'
+      }
+    }).skip((pageNumber - 1) * itemPerPage).limit(itemPerPage);
+
+
+    query.exec((err, data) => {
+      if (err) {
+        return res.status(404).json({
+          err: 'Retrieved 0 items from the database',
+          msg: 'Error while retrieving item from the database',
+          data: null
+        });
+      }
+
+      return res.status(200).json({
+        err: null,
+        msg: 'Items retrieved successfully',
+        count: count,
+        data: data
+      });
+
+
     });
 
-
   });
+
+
 }
 
 /*****************************************************************************
