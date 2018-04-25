@@ -32,7 +32,7 @@
 
     <div class="mt-5">
 
-      <ngb-tabset class="nav-justified" *ngIf="isparent">
+      <ngb-tabset class="nav-justified">
 
         <ngb-tab title="Schedule" *ngIf="isparent">
           <ng-template ngbTabContent>
@@ -816,103 +816,13 @@
                       </ngb-tabset>
                     </div>
                   </div>
-
-
-                  <!-- <table class="table">
-                    <thead class="thead-dark">
-                      <tr>
-                        <th scope="col">Saturday</th>
-                        <th scope="col">Sunday</th>
-                        <th scope="col">Monday</th>
-                        <th scope="col">Tuesday</th>
-                        <th scope="col">Wednesday</th>
-                        <th scope="col">Thursday</th>
-                        <th scope="col">Friday</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Slot1</td>
-                        <td>Slot1</td>
-                        <td>Slot1</td>
-                        <td>Slot1</td>
-                        <td>Slot1</td>
-                        <td>Slot1</td>
-                        <td>Slot1</td>
-                      </tr>
-                      <tr>
-                        <td>Slot2</td>
-                        <td>Slot2</td>
-                        <td>Slot2</td>
-                        <td>Slot2</td>
-                        <td>Slot2</td>
-                        <td>Slot2</td>
-                        <td>Slot2</td>
-                      </tr>
-                      <tr>
-                        <td>Slot3</td>
-                        <td>Slot3</td>
-                        <td>Slot3</td>
-                        <td>Slot3</td>
-                        <td>Slot3</td>
-                        <td>Slot3</td>
-                        <td>Slot3</td>
-                      </tr>
-                      <tr>
-                        <td>Slot4</td>
-                        <td>Slot4</td>
-                        <td>Slot4</td>
-                        <td>Slot4</td>
-                        <td>Slot4</td>
-                        <td>Slot4</td>
-                        <td>Slot4</td>
-                      </tr>
-                      <tr>
-                        <td>Slot5</td>
-                        <td>Slot5</td>
-                        <td>Slot5</td>
-                        <td>Slot5</td>
-                        <td>Slot5</td>
-                        <td>Slot5</td>
-                        <td>Slot5</td>
-
-                      </tr>
-                      <tr>
-                        <td>Slot6</td>
-                        <td>Slot6</td>
-                        <td>Slot6</td>
-                        <td>Slot6</td>
-                        <td>Slot6</td>
-                        <td>Slot6</td>
-                        <td>Slot6</td>
-                      </tr>
-                      <tr>
-                        <td>Slot7</td>
-                        <td>Slot7</td>
-                        <td>Slot7</td>
-                        <td>Slot7</td>
-                        <td>Slot7</td>
-                        <td>Slot7</td>
-                        <td>Slot7</td>
-                      </tr>
-                      <tr>
-                        <td>Slot8</td>
-                        <td>Slot8</td>
-                        <td>Slot8</td>
-                        <td>Slot8</td>
-                        <td>Slot8</td>
-                        <td>Slot8</td>
-                        <td>Slot8</td>
-                      </tr>
-                    </tbody>
-                  </table> -->
                 </div>
               </div>
             </div>
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab title="Tasks">
+        <ngb-tab title="Tasks" *ngIf="isparent">
           <ng-template ngbTabContent>
             <div class="container">
               <div class="row mt-3">
@@ -941,7 +851,7 @@
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab title="Teachers">
+        <ngb-tab title="Teachers" *ngIf="isparent">
           <ng-template ngbTabContent>
             <div class="container">
 
@@ -956,9 +866,9 @@
                     </div>
                     <div class="card-footer">
                       <div class="icon pull-right">
-                        <a placement="bottom" ngbTooltip="Profile" (click)="viewUser(user._id)"><i
+                        <a placement="bottom" ngbTooltip="Profile" (click)="viewUser(user)"><i
                           class="fa fa-user fa-2x" aria-hidden="true"></i></a>
-                        <a placement="bottom" ngbTooltip="Messages"><i class="fa fa-envelope fa-fw fa-2x"
+                        <a placement="bottom" ngbTooltip="Messages" (click)="messageUser(user)"><i class="fa fa-envelope fa-fw fa-2x"
                                                                        aria-hidden="true"></i></a>
                       </div>
                     </div>
@@ -972,6 +882,43 @@
             </div>
           </ng-template>
         </ngb-tab>
+
+
+        <ngb-tab title="Parent" *ngIf="!isparent && parent">
+          <ng-template ngbTabContent>
+            <div class="container">
+
+              <div class="row mt-3">
+
+                <div class="col-lg-3 col-md-4 col-sm-6 myCard">
+
+                  <div class="card">
+                    <img src="{{apiUrlHTML}}/uploads/store/{{parent.photo}}" class="card-img-top rounded-circle mt-2">
+                    <div class="card-block">
+                      <h4 class="card-title mt-3 grey-text">{{ parent.name.firstName }} {{ parent.name.lastName }}</h4>
+                    </div>
+                    <div class="card-footer">
+                      <div class="icon pull-right">
+                        <a placement="bottom" ngbTooltip="Profile" (click)="viewUser(parent)"><i
+                          class="fa fa-user fa-2x" aria-hidden="true"></i></a>
+                        <a placement="bottom" ngbTooltip="Messages" (click)="messageUser(parent)"><i class="fa fa-envelope fa-fw fa-2x"
+                                                                       aria-hidden="true"></i></a>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+
+
+            </div>
+          </ng-template>
+        </ngb-tab>
+
+
+
+
 
       </ngb-tabset>
 

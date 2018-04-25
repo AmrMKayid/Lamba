@@ -22,6 +22,6 @@ export class ViewParentComponent implements OnInit {
   ngOnInit() {
   }
 
-  
+
 
 }
