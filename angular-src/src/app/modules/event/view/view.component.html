@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="row">
 
   <div class="col-lg-4 col-md-6 mb-3" *ngFor='let activity of myactivities'>
@@ -22,6 +23,65 @@
             <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
           </a>
         </div>
+=======
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="page-list">
+
+  <ul class="pagination pagination-lg">
+    <li>
+      <a (click)="loadPage(1)">
+        << </a>
+    </li>
+    <li *ngFor="let p of pages">
+      <a (click)="loadPage(p)">{{p}}</a>
+    </li>
+    <li>
+      <a (click)="loadPage(-1)">
+        >>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<section>
+
+
+  <div class="main-container">
+
+
+    <div class="block">
+
+      <div class='activity' *ngFor='let activity of activities'>
+
+        <img src="{{apiUrlHTML}}/uploads/activity/{{activity['picture_url']}}" class="imgw100prec">
+
+        <div class="activityBody">
+
+          <h2 class="activityName"><b>{{activity['name']}}</b></h2>
+
+          <div class="activityGoingCount">{{activity['going_user_id'].length}} <span class="fa fa-heart"></span></div>
+          <div class="activityPrice">Price: {{activity['price']}} LE</div>
+          <article class="activityDesc">{{activity['description']}}</article>
+
+
+          <div class="activityInfo" (click)="viewInfo(activity['_id'])"><i class="fa fa-info"></i></div>
+          <div class="activityGoing"><i class="fa fa-heart" (click)="goingActivities(activity)"></i></div>
+
+
+          <ng-template #content let-c="close" let-d="dismiss">
+            <div class="modal-header">
+              <h4 class="modal-title">Register your Child</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                  <div class="col-12">
+                    <div *ngFor='let child of children'>
+>>>>>>> 86e9778aed1daf0c7e1260abebcd02267a818d24
 
 
         <ng-template #content let-c="close" let-d="dismiss">
@@ -94,8 +154,56 @@
       </div>
     </div>
   </div>
+<<<<<<< HEAD
 </div>
 
 <div *ngIf='myactivities.length==0' >
   <h5 class="m-auto pt-5">There are currently no activities to be displayed</h5>
 </div>
+=======
+</section> -->
+
+
+
+
+<div class="row">
+  
+    <div class="col-lg-4 col-md-6 mb-3" *ngFor='let activity of activities'>
+      <div class="card h-100">
+        <img class="card-img-top myImg" src="{{apiUrlHTML}}/uploads/activity/{{activity['picture_url']}}" alt="">
+        <div class="card-body">
+          <h4 class="card-title">
+            {{activity['name']}}
+          </h4>
+          <h5>{{activity['price'] | currency}}</h5>
+          <p class="card-text">{{activity['description'] | slice:0:50 }} ...</p>
+        </div>
+        <div class="card-footer">
+          <div class="icon pull-right">
+            <a (click)="viewInfo(activity['_id'])" placement="bottom" ngbTooltip="Info">
+              <i class="fa fa-info fa-2x mr-2" aria-hidden="true"></i>
+            </a>
+            <a (click)="goingActivities(activity)" placement="bottom" ngbTooltip="Love">
+              <i class="fa fa-heart fa-fw fa-2x mr-2" aria-hidden="true"></i>
+            </a>
+            <a placement="bottom" ngbTooltip="Favorite">
+              <i class="fa fa-star fa-2x" aria-hidden="true"></i>
+            </a>
+          </div>
+  
+          <div class="icon pull-left" style="line-height: 2.1em;">
+  
+            <span>{{activity['going_user_id'].length}}</span> <i class="fa fa-heart fa-fw mr-2" style="color:red;"
+                                                             aria-hidden="true"></i>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf='itemsCount==0' class="row">
+    <h5 class="m-auto pt-5">There are currently no items to be displayed</h5>
+  </div>
+  
+>>>>>>> 86e9778aed1daf0c7e1260abebcd02267a818d24

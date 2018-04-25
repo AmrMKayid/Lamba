@@ -1,26 +1,27 @@
 var express = require('express'),
-    router = express.Router(),
-    jwt = require('jsonwebtoken'),
+  router = express.Router(),
+  jwt = require('jsonwebtoken'),
 
-    scheduleCtrl = require('../controllers/schedule.controller'),
-    taskCtrl = require('../controllers/task.controller'),
-    storeCtrl = require('../controllers/store.controller'),
-    authCtrl = require('../controllers/auth.controller'),
-    userCtrl = require('../controllers/user.controller'),
-    articleCtrl = require('../controllers/article.controller'),
-    tagCtrl = require('../controllers/tag.controller'),
-    chatCtrl = require('../controllers/chat.controller'),
-    activityCtrl = require('../controllers/activity.controller'),
-    notificationCtrl = require('../controllers/notification.controller'),
-    favoritesCtrl = require('../controllers/favorites.controller'),
-    requestCtrl = require('../controllers/request.controller'),
-    bookingCtrl = require('../controllers/booking.controller'),
-    reportCtrl = require('../controllers/report.controller'),
-    mw = require('./middlewares');
+  scheduleCtrl = require('../controllers/schedule.controller'),
+  taskCtrl = require('../controllers/task.controller'),
+  storeCtrl = require('../controllers/store.controller'),
+  authCtrl = require('../controllers/auth.controller'),
+  userCtrl = require('../controllers/user.controller'),
+  articleCtrl = require('../controllers/article.controller'),
+  tagCtrl = require('../controllers/tag.controller'),
+  chatCtrl = require('../controllers/chat.controller'),
+  activityCtrl = require('../controllers/activity.controller'),
+  notificationCtrl = require('../controllers/notification.controller'),
+  favoritesCtrl = require('../controllers/favorites.controller'),
+  requestCtrl = require('../controllers/request.controller'),
+  bookingCtrl = require('../controllers/booking.controller'),
+  reportCtrl = require('../controllers/report.controller'),
+  mw = require('./middlewares');
 
 //---------------------------- Authentication Routes --------------------------------//
 router.post('/auth/register', mw.isNotAuthenticated, authCtrl.register);
 router.post('/auth/login', mw.isNotAuthenticated, authCtrl.login);
+router.post('/auth/refresh', mw.isAuthenticated, authCtrl.refreshToken);
 router.post('/auth/child', mw.isAuthenticated, mw.isNotChild, authCtrl.addChild);
 router.get('/user/viewAdmins', mw.isAuthenticated, userCtrl.viewAdmins);
 router.post('/auth/admin', mw.isAuthenticated, authCtrl.addAdmin);
@@ -28,6 +29,7 @@ router.post('/auth/admin', mw.isAuthenticated, authCtrl.addAdmin);
 router.get('/user/getAllUsers', userCtrl.getAllUsers);
 router.get('/user/getUserChildren/:userID', userCtrl.getUserChildren);
 router.patch('/user/updateImage/:userID', userCtrl.updateImage);
+router.patch('/user/updateCoverImage/:userID', userCtrl.updateCoverImage);
 router.get('/user/getChild/:childId', mw.isAuthenticated, userCtrl.getChildByID);
 router.get('/admin/teachers_verfication', mw.isAuthenticated, mw.isAdmin, userCtrl.getPendingTeachers);
 router.get('/admin/accept_teacher/:teacherID', mw.isAuthenticated, mw.isAdmin, userCtrl.acceptTeacher);
@@ -37,6 +39,8 @@ router.get('/admin/decline_teacher/:teacherID', mw.isAuthenticated, mw.isAdmin, 
 router.get('/user/getMyTeachers/:ChildId', mw.isAuthenticated, userCtrl.getMyTeachers);
 router.get('/user/getMyStudents/', mw.isAuthenticated, userCtrl.getMyStudents);
 router.post('/user/addStudent/:childId', mw.isAuthenticated, userCtrl.addStudent);
+
+router.get('/user/getParent/:parentId', mw.isAuthenticated, userCtrl.getParent);
 
 router.patch('/user/updateUser/:userId', mw.isAuthenticated, userCtrl.updateUser);
 router.get('/user/getUserInfo/:userId', userCtrl.getUserInfo);
@@ -75,6 +79,8 @@ router.patch('/store/likeItems/:itemId', mw.isAuthenticated, storeCtrl.likeItems
 router.patch('/store/unlikeItems/:itemId', mw.isAuthenticated, storeCtrl.unlikeItems);
 router.get('/uploads/store/:filename', storeCtrl.getImage);
 router.get('/store/myitems/view/:itemId', mw.isAuthenticated, storeCtrl.getItem);
+
+router.get('/store/search', mw.isAuthenticated, storeCtrl.search);
 
 //-----------------------------C1: Articles & TAGS Routes----------------------------------------------//
 router.get('/articles', mw.isAuthenticated, articleCtrl.getArticles);
@@ -156,18 +162,21 @@ router.get('/request/get', mw.isAuthenticated, requestCtrl.getRequests);
 router.delete('/request/deleteRequest/:requestId', mw.isAuthenticated, requestCtrl.deleteRequest);
 
 //---------------------------- Booking Routes--------------------------------------------//
-router.get('/booking/getId/:email',mw.isAuthenticated, bookingCtrl.getId);
-router.post('/booking/newNotif',mw.isAuthenticated, bookingCtrl.newNotif);
-router.get('/booking/getBookings',mw.isAuthenticated, bookingCtrl.getBookings);
+router.get('/booking/getId/:email', mw.isAuthenticated, bookingCtrl.getId);
+router.post('/booking/newNotif', mw.isAuthenticated, bookingCtrl.newNotif);
+router.get('/booking/getBookings', mw.isAuthenticated, bookingCtrl.getBookings);
 router.get('/booking/deleteNotif/:description', bookingCtrl.deleteNotif);
 
 //---------------------------- Reports Routes--------------------------------------------//
-router.post('/reports/newReport',mw.isAuthenticated, reportCtrl.newReport);
-router.get('/reports/getReport',mw.isAuthenticated, reportCtrl.getReports);
+router.post('/reports/newReport', mw.isAuthenticated, reportCtrl.newReport);
+router.get('/reports/getReport', mw.isAuthenticated, reportCtrl.getReports);
 router.patch('/reports/closeReport/:reportId', mw.isAuthenticated, reportCtrl.closeReport);
 
 /*chat routes*/
 router.get('/chat/:id', mw.isAuthenticated, chatCtrl.getChat);
 router.get('/chat/', mw.isAuthenticated, chatCtrl.getAllChats);
+router.get('/chat/unopened/count', mw.isAuthenticated, chatCtrl.getUnopenedChatsCount);
+router.patch('/chat/open', mw.isAuthenticated, chatCtrl.openChat);
+router.patch('/chat/seen', mw.isAuthenticated, chatCtrl.seen);
 
 module.exports = router;

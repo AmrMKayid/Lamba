@@ -30,8 +30,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    // reset login status
-    this.authService.logout();
+    localStorage.clear();
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -41,7 +40,8 @@ export class LoginComponent implements OnInit {
     this.authService.login(user)
       .subscribe(
         token => {
-          this.router.navigate(['profile', 'me']);
+          //this.router.navigate(['profile', 'me']);
+           window.open("/profile/me", "_self");
         },
         error => {
           new Noty({

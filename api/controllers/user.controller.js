@@ -220,7 +220,7 @@ module.exports.updateImage = function (req, res, next) {
                 var token = jwt.sign({
                     user: updateChild.toObject()
                 }, req.app.get('secret'), {
-                        expiresIn: '12h'
+                        expiresIn: '21d'
                     });
                 res.status(200).json({
                     err: null,
@@ -232,8 +232,71 @@ module.exports.updateImage = function (req, res, next) {
             var token = jwt.sign({
                 user: updateUser.toObject()
             }, req.app.get('secret'), {
-                    expiresIn: '12h'
+                    expiresIn: '21d'
                 });
+            res.status(200).json({
+                err: null,
+                msg: 'Welcome',
+                data: token
+            });
+        }
+    });
+};
+
+module.exports.updateCoverImage = function (req, res, next) {
+    if (!Validations.isObjectId(req.params.userID)) {
+        return res.status(422).json({
+            err: null,
+            msg: 'userId parameter must be a valid ObjectId.',
+            data: null
+        });
+    }
+    User.findByIdAndUpdate(
+        req.params.userID, {
+            $set: req.body
+        }, {
+            new: true
+        }
+    ).exec(function (err, updateUser) {
+        if (err) {
+            console.log(err)
+            return next(err);
+        }
+        if (!updateUser) {
+            Child.findByIdAndUpdate(
+                req.params.userID, {
+                    $set: req.body
+                }, {
+                    new: true
+                }
+            ).exec(function (err, updateChild) {
+                if (err) {
+                    return next(err);
+                }
+                if (!updateChild) {
+                    return res.status(404).json({
+                        err: null,
+                        msg: 'User not found.',
+                        data: null
+                    });
+                }
+                var token = jwt.sign({
+                    user: updateChild.toObject()
+                }, req.app.get('secret'), {
+                    expiresIn: '21d'
+                });
+                res.status(200).json({
+                    err: null,
+                    msg: 'Welcome',
+                    data: token
+                });
+            });
+        } else {
+            var token = jwt.sign({
+                user: updateUser.toObject()
+            }, req.app.get('secret'), {
+                expiresIn: '21d'
+            });
             res.status(200).json({
                 err: null,
                 msg: 'Welcome',
@@ -653,7 +716,7 @@ module.exports.getMyTeachers = function (req, res, next) {
         }
 
 
-        if (user._id !== req.decodedToken.user._id && user.parent_id !== req.decodedToken.user._id) {
+        if (user._id != req.decodedToken.user._id && user.parent_id != req.decodedToken.user._id) {
 
             return res
                 .status(401)
@@ -1229,4 +1292,23 @@ module.exports.viewAdmins = function (req, res, next) {
             data: admins
         });
     });
+};
+
+
+
+module.exports.getParent = function (req, res, next) {
+
+
+  User.findById(req.params.parentId).exec(function (err, user) {
+      if (err) {
+          return next(err);
+      }
+      res.status(200).json({
+          err: null,
+          msg: 'Parent retrieved successfully.',
+          data: user
+      });
+
+    });
+
 };

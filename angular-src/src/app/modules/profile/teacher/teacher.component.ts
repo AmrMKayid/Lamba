@@ -133,6 +133,15 @@ export class TeacherComponent implements OnInit {
   }
 
 
+
+  viewUser(user) {
+    this.router.navigate(['profile', user._id]);
+  }
+
+  messageUser(user) {
+    this.router.navigate(['chat/' + user._id]);
+  }
+
   onUploadFinished(event) {
 
     var response = JSON.parse(event.serverResponse._body);
@@ -143,6 +152,35 @@ export class TeacherComponent implements OnInit {
     }
     this.currentUser.photo = response.filename;
     this.http.patch(appConfig.apiUrl + '/user/updateImage/' + this.currentUser._id, {photo: response.filename})
+      .subscribe((res: any) => {
+        localStorage.setItem('authentication', res.data);
+        this.modalref.close();
+        new Noty({
+          type: 'success',
+          text: "Your Image uploaded successfully!",
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      }, error => {
+        new Noty({
+          type: 'success',
+          text: error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      });
+  }
+
+  onUploadFinishedCover(event) {
+
+    var response = JSON.parse(event.serverResponse._body);
+    var status = event.serverResponse.status;
+
+    if (status != 200) {
+      return;
+    }
+    this.currentUser.coverPhoto = response.filename;
+    this.http.patch(appConfig.apiUrl + '/user/updateCoverImage/' + this.currentUser._id, {coverPhoto: response.filename})
       .subscribe((res: any) => {
         localStorage.setItem('authentication', res.data);
         this.modalref.close();

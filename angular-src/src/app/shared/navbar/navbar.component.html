@@ -21,10 +21,9 @@
           <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/newsFeed']" *ngIf="isLoggedIn()">News
             Feed</a>
         </li>
-        <li class="nav-item" [routerLinkActive]="['active']">
-          <!--TODO: News Feed-->
+        <!-- <li class="nav-item" [routerLinkActive]="['active']">
           <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/profile/book']" *ngIf="isLoggedIn()">Book A Teacher</a>
-        </li>
+        </li> -->
         <li class="nav-item" [routerLinkActive]="['active']">
           <!--TODO: Resources-->
           <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/users']" *ngIf="isLoggedIn()">People</a>
@@ -38,9 +37,9 @@
           <!--TODO: Resources-->
           <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/store/view']" *ngIf="isLoggedIn()">Store</a>
         </li>
-        <!-- <li class="nav-item" [routerLinkActive]="['active']">
+        <li class="nav-item" [routerLinkActive]="['active']">
            <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/event/view']" *ngIf="isLoggedIn()">Activities</a>
-        </li> -->
+        </li>
         <li class="nav-item" [routerLinkActive]="['active']">
           <!--TODO: Resources-->
           <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/favorites']"
@@ -129,7 +128,8 @@
          </li>
         <li class="nav-item d-none d-lg-block d-md-block d-xl-block" *ngIf="isLoggedIn()">
           <a class="nav-link waves-effect waves-light" [routerLink]="['/chat']">{{chatCount}}
-            <i class="fa fa-envelope"></i>
+            <i *ngIf="chatCount > 0" class="fa fa-envelope" style="color: red"></i>
+            <i *ngIf="chatCount == 0 || !chatCount" class="fa fa-envelope" style="color: white"></i>
           </a>
         </li>
          <li class="nav-item avatar dropdown d-none d-lg-block d-md-block d-xl-block" dropdown *ngIf="isLoggedIn()">

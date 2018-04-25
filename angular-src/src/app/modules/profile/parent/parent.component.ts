@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import {appConfig} from "../../../app.config";
-import {AuthService} from "../../../services/auth.service";
-import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { appConfig } from "../../../app.config";
+import { AuthService } from "../../../services/auth.service";
+import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-parent',
@@ -34,9 +34,9 @@ export class ParentComponent implements OnInit {
 
 
   constructor(private router: Router,
-              private http: HttpClient,
-              private auth: AuthService,
-              private modalService: NgbModal) {
+    private http: HttpClient,
+    private auth: AuthService,
+    private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -61,8 +61,8 @@ export class ParentComponent implements OnInit {
   }
 
   EditInfo(updatedFirstName, updatedMiddleName, updatedLastName,
-           updatedStreet, updatedCity, updatedState, updatedZip,
-           updatedBirthday, updatedPhone, updatedAbout) {
+    updatedStreet, updatedCity, updatedState, updatedZip,
+    updatedBirthday, updatedPhone, updatedAbout) {
 
     let updatedUser = {
       name: {
@@ -118,7 +118,36 @@ export class ParentComponent implements OnInit {
       return;
     }
     this.currentUser.photo = response.filename;
-    this.http.patch(appConfig.apiUrl + '/user/updateImage/' + this.currentUser._id, {photo: response.filename})
+    this.http.patch(appConfig.apiUrl + '/user/updateImage/' + this.currentUser._id, { photo: response.filename })
+      .subscribe((res: any) => {
+        localStorage.setItem('authentication', res.data);
+        this.modalref.close();
+        new Noty({
+          type: 'success',
+          text: "Your Image uploaded successfully!",
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      }, error => {
+        new Noty({
+          type: 'success',
+          text: error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      });
+  }
+
+  onUploadFinishedCover(event) {
+
+    var response = JSON.parse(event.serverResponse._body);
+    var status = event.serverResponse.status;
+
+    if (status != 200) {
+      return;
+    }
+    this.currentUser.coverPhoto = response.filename;
+    this.http.patch(appConfig.apiUrl + '/user/updateCoverImage/' + this.currentUser._id, { coverPhoto: response.filename })
       .subscribe((res: any) => {
         localStorage.setItem('authentication', res.data);
         this.modalref.close();
@@ -157,8 +186,36 @@ export class ParentComponent implements OnInit {
     this.gender = gender
   }
 
-  newChild(childFirstName, childlastName, childUsername, childPassword, childConfirmPassword) {
 
+
+
+  viewUser(user) {
+    this.router.navigate(['profile', user._id]);
+  }
+
+  messageUser(user) {
+    this.router.navigate(['chat/' + user._id]);
+  }
+
+  newChild(childFirstName, childlastName, childUsername, childPassword, childConfirmPassword) {
+    if (!childUsername) {
+      new Noty({
+        type: 'warning',
+        text: `Username cannot be empty!`,
+        timeout: 2000,
+        progressBar: true
+      }).show();
+      return false;
+    }
+    if (!(/^[a-z0-9]+$/i.test(childUsername))) {
+      new Noty({
+        type: 'warning',
+        text: `Username cannot have special characters!`,
+        timeout: 2000,
+        progressBar: true
+      }).show();
+      return false;
+    }
     let newChild = {
       name: {
         firstName: childFirstName,
@@ -196,7 +253,7 @@ export class ParentComponent implements OnInit {
   modalref: NgbModalRef;
 
   openlg(content) {
-    this.modalref = this.modalService.open(content, {size: 'lg'})
+    this.modalref = this.modalService.open(content, { size: 'lg' })
 
     this.modalref.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -231,8 +288,7 @@ export class ParentComponent implements OnInit {
 
   createNewTask(taskName, tasksDescription, studentId) {
 
-    if(!taskName || !tasksDescription)
-    {
+    if (!taskName || !tasksDescription) {
       new Noty({
         type: 'error',
         text: "Please fill in all fields.",
@@ -240,38 +296,37 @@ export class ParentComponent implements OnInit {
         progressBar: true
       }).show();
     }
-    else
-    {
+    else {
 
-    var taskdata = {
-      title: taskName,
-      description: tasksDescription,
-      userId: this.currentUser._id,
-      studentId: studentId
-    };
+      var taskdata = {
+        title: taskName,
+        description: tasksDescription,
+        userId: this.currentUser._id,
+        studentId: studentId
+      };
 
 
-    this.http.post(appConfig.apiUrl + '/task/newTask', taskdata, this.httpOptions).subscribe(
-      (res: any) => {
+      this.http.post(appConfig.apiUrl + '/task/newTask', taskdata, this.httpOptions).subscribe(
+        (res: any) => {
 
-        this.getTasks();
+          this.getTasks();
 
-        new Noty({
-          type: 'success',
-          text: `You've been successfully created New tasks!`,
-          timeout: 3000,
-          progressBar: true
-        }).show();
-        this.modalref.close();
-      },
-      error => {
-        new Noty({
-          type: 'error',
-          text: error.error.msg,
-          timeout: 3000,
-          progressBar: true
-        }).show();
-      });
+          new Noty({
+            type: 'success',
+            text: `You've been successfully created New tasks!`,
+            timeout: 3000,
+            progressBar: true
+          }).show();
+          this.modalref.close();
+        },
+        error => {
+          new Noty({
+            type: 'error',
+            text: error.error.msg,
+            timeout: 3000,
+            progressBar: true
+          }).show();
+        });
 
     }
 

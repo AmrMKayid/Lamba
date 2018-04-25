@@ -35,7 +35,7 @@ export class RequestsComponent implements OnInit {
   getMyRequests() {
     this.httpClient.get(appConfig.apiUrl + '/request/get', this.httpOptions).subscribe(
       (res: any) => {
-        this.requests = res.data;
+        this.requests = res.data.reverse();
       },
       (err) => {
         new Noty({

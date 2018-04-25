@@ -3,7 +3,32 @@
 
   <!--Card image-->
   <div>
-    <img src="assets/nawwarBG.png" class="img-fluid">
+    <a (click)="open(coverImg)">
+      <img src="{{apiUrlHTML}}/uploads/store/{{currentUser?.coverPhoto}}" class="img-fluid">
+    </a>
+
+    <ng-template #coverImg let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Your Image</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <image-upload [headers]="{authorization: token}" [max]="1"
+                            url="{{apiUrlHTML}}/store/upload"
+                            [dropBoxMessage]="'Drop your image here!'" [buttonCaption]="'Upload'"
+                            [style]="customStyle" (uploadFinished)="onUploadFinishedCover($event)">
+              </image-upload>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
     <a>
       <div class="mask"></div>
     </a>
@@ -110,7 +135,7 @@
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL">
+                                          <a href="{{Slot.slot.url}}" placement="bottom" ngbTooltip="Go to URL">
                                             <i class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i>
                                           </a>
 
@@ -165,7 +190,7 @@
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL">
+                                          <a href="{{Slot.slot.url}}" placement="bottom" ngbTooltip="Go to URL">
                                             <i class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i>
                                           </a>
                                           <a href="#" placement="bottom" ngbTooltip="Edit Slot">
@@ -220,7 +245,7 @@
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL">
+                                          <a href="{{Slot.slot.url}}" placement="bottom" ngbTooltip="Go to URL">
                                             <i class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i>
                                           </a>
                                           <a href="#" placement="bottom" ngbTooltip="Edit Slot">
@@ -276,7 +301,7 @@
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL">
+                                          <a href="{{Slot.slot.url}}" placement="bottom" ngbTooltip="Go to URL">
                                             <i class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i>
                                           </a>
                                           <a href="#" placement="bottom" ngbTooltip="Edit Slot">
@@ -332,7 +357,7 @@
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL">
+                                          <a href="{{Slot.slot.url}}" placement="bottom" ngbTooltip="Go to URL">
                                             <i class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i>
                                           </a>
                                           <a href="#" placement="bottom" ngbTooltip="Edit Slot">
@@ -388,7 +413,7 @@
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL">
+                                          <a href="{{Slot.slot.url}}" placement="bottom" ngbTooltip="Go to URL">
                                             <i class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i>
                                           </a>
                                           <a href="#" placement="bottom" ngbTooltip="Edit Slot">
@@ -444,7 +469,7 @@
                                       </div>
                                       <div class="row text-center">
                                         <div class="col-12">
-                                          <a href="#" placement="bottom" ngbTooltip="Go to URL">
+                                          <a href="{{Slot.slot.url}}" placement="bottom" ngbTooltip="Go to URL">
                                             <i class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i>
                                           </a>
                                           <a href="#" placement="bottom" ngbTooltip="Edit Slot">
@@ -480,8 +505,8 @@
                     <div class="card-header">{{task.title}}</div>
                     <div class="card-body">
                       <h5 class="card-title">{{(task.description | slice:0:50)}} ...</h5>
-                      <p class="card-text white-text">Assigned to <a (click)="viewUser(task.userId._id)"><strong>{{task.studentId.name.firstName}}
-                        {{task.studentId.name.lastName}}</strong></a></p>
+                      <p class="card-text white-text">Assigned by <a (click)="viewUser(task.userId._id)"><strong>{{task.userId.name.firstName}}
+                        {{task.userId.name.lastName}}</strong></a></p>
                     </div>
                     <div class="card-footer">
                       <div class="icon pull-right">
@@ -515,9 +540,9 @@
                     </div>
                     <div class="card-footer">
                       <div class="icon pull-right">
-                        <a placement="bottom" ngbTooltip="Profile" (click)="viewUser(user._id)"><i
+                        <a placement="bottom" ngbTooltip="Profile" (click)="viewUser(user)"><i
                           class="fa fa-user fa-2x" aria-hidden="true"></i></a>
-                        <a placement="bottom" ngbTooltip="Messages"><i class="fa fa-envelope fa-fw fa-2x"
+                        <a placement="bottom" ngbTooltip="Messages" (click)="messageUser(user)"><i class="fa fa-envelope fa-fw fa-2x"
                                                                        aria-hidden="true"></i></a>
                       </div>
                     </div>

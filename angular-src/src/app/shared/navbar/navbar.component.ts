@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from "../../services/auth.service";
-import {ChatService} from "../../services/chat.service";
-import {Router} from '@angular/router';
-import {NotificationService} from '../../services/notification.service';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {appConfig} from "../../app.config";
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from "../../services/auth.service";
+import { ChatService } from "../../services/chat.service";
+import { Router } from '@angular/router';
+import { NotificationService } from '../../services/notification.service';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { appConfig } from "../../app.config";
 
 @Component({
   selector: 'app-navbar',
@@ -15,10 +15,13 @@ export class NavbarComponent implements OnInit {
 
   apiUrlHTML = appConfig.apiUrl;
 
+  notifications = [];
+  requests = [];
+
   currentUser;
   public role;
   chatCount;
-
+  chatColor = 'white';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -36,18 +39,30 @@ export class NavbarComponent implements OnInit {
       this.currentUser = this.auth.getCurrentUser();
       if (this.auth.getCurrentUser().role)
         this.role = (this.auth.getCurrentUser().role).toLowerCase();
+      this.refresh();
       setInterval(() => {
-        this.refresh();
-      }, 6000);
+        if (this.isLoggedIn())
+          this.refresh();
+      }, 2000);
     }
   }
 
 
   refresh() {
     this.getMyNotifications();
-    this.getMyRequests();
-    this.chat.getAllChats().subscribe((res: any) => {
-      this.chatCount = res.data.length;
+    if (this.isTeacher()) {
+      this.getMyRequests();
+    }
+    this.getMsgs()
+  }
+
+
+  getMsgs() {
+    this.chat.getChatCount().subscribe((res: any) => {
+      this.chatCount = res.data;
+      if (this.chatCount > 0) {
+        this.chatColor = 'red';
+      }
     });
   }
 
@@ -92,25 +107,24 @@ export class NavbarComponent implements OnInit {
 
   }
 
-  notifications = [];
 
   getMyNotifications() {
     this.notificationservice.getMyNotifications().subscribe((res: any) => {
-      this.notifications = res.data;
+      this.notifications = res.data.reverse();
     });
   }
 
-  requests = [];
+
 
   getMyRequests() {
     this.httpClient.get(appConfig.apiUrl + '/request/get', this.httpOptions).subscribe(
       (res: any) => {
-        this.requests = res.data;
+        this.requests = res.data.reverse();
       },
       (err) => {
         new Noty({
           type: 'error',
-          text: `Something went wrong while retrieving your requests: ${err.error.msg}`,
+          text: `Something went wrong while retrieving your requests: ${err.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -137,7 +151,7 @@ export class NavbarComponent implements OnInit {
     var notifyParent = {
       title: "Your request is rejected",
       description: this.auth.getCurrentUser().name.firstName + " " + this.auth.getCurrentUser().name.lastName +
-      " rejected your request to add your child " + request.childId.name.firstName + " to his/her students",
+        " rejected your request to add your child " + request.childId.name.firstName + " to his/her students",
       url: "/profile/" + request.recievingTeacherId,
       recieving_user_id: request.requestingParentId._id
     };
@@ -180,7 +194,7 @@ export class NavbarComponent implements OnInit {
     var notifyParent = {
       title: "Your request is accepted",
       description: this.auth.getCurrentUser().name.firstName + " " + this.auth.getCurrentUser().name.lastName +
-      " accepted your request to add your child " + request.childId.name.firstName + " to his/her students",
+        " accepted your request to add your child " + request.childId.name.firstName + " to his/her students",
       url: "/profile/" + request.recievingTeacherId,
       recieving_user_id: request.requestingParentId._id
     };
