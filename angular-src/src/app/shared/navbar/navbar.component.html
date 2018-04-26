@@ -13,7 +13,8 @@
       <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
         <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/']">Home</a>
       </li>
-      <ng-container *ngIf="!(this.auth.getCurrentUser()?.role! === 'Teacher' && !this.auth.getCurrentUser()?.isVerified!)">
+      <ng-container
+        *ngIf="!(this.auth.getCurrentUser()?.role! === 'Teacher' && !this.auth.getCurrentUser()?.isVerified!)">
         <!-- <li class="nav-item" [routerLinkActive]="['active']">
           <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/newsFeed']" *ngIf="isLoggedIn()">News
             Feed</a>
@@ -27,18 +28,21 @@
         </li>
         <li class="nav-item" [routerLinkActive]="['active']">
           <!--TODO: Resources-->
-          <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/resources']" *ngIf="isLoggedIn()">Resources</a>
+          <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/resources']"
+             *ngIf="isLoggedIn()">Resources</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']">
           <!--TODO: Resources-->
           <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/store/view']" *ngIf="isLoggedIn()">Store</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']">
-          <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/event/view']" *ngIf="isLoggedIn()">Activities</a>
+          <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/event/view']"
+             *ngIf="isLoggedIn()">Activities</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']">
           <!--TODO: Resources-->
-          <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/favorites']" *ngIf="isLoggedIn()">Favorites</a>
+          <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/favorites']"
+             *ngIf="isLoggedIn()">Favorites</a>
         </li>
 
 
@@ -55,8 +59,10 @@
         </a>
       </li>
       <li class="nav-item dropdown btn-group d-none d-lg-block d-md-block d-xl-block" dropdown *ngIf="isLoggedIn()">
-        <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-effect waves-light" mdbWavesEffect>{{notifications.length}}
-          <i class="fa fa-bell"></i>
+        <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-effect waves-light" mdbWavesEffect>{{NotifCount}}
+          <!--<i class="fa fa-bell"></i>-->
+          <i *ngIf="NotifCount > 0" class="fa fa-bell" style="color: red"></i>
+          <i *ngIf="NotifCount == 0 || !NotifCount" class="fa fa-bell" style="color: white"></i>
         </a>
         <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary mydropdown" role="menu">
           <a class="dropdown-item waves-light" mdbWavesEffect *ngIf="notifications.length == 0">No new
@@ -72,7 +78,8 @@
                   </div>
                   <div class="divider dropdown-divider"></div>
                </span>
-          <a [routerLink]="['/notifications']" class="dropdown-item waves-light text-center" mdbWavesEffect *ngIf="notifications.length !== 0">See more
+          <a [routerLink]="['/notifications']" class="dropdown-item waves-light text-center" mdbWavesEffect
+             *ngIf="notifications.length !== 0">See more
             notifications.</a>
         </div>
       </li>
@@ -98,7 +105,8 @@
                   </div>
                   <div class="divider dropdown-divider"></div>
                </span>
-          <a [routerLink]="['/requests']" class="dropdown-item waves-light text-center" mdbWavesEffect *ngIf="requests.length !== 0">See more
+          <a [routerLink]="['/requests']" class="dropdown-item waves-light text-center" mdbWavesEffect
+             *ngIf="requests.length !== 0">See more
             Request.</a>
         </div>
       </li>
@@ -114,24 +122,27 @@
       </li>
       <li class="nav-item d-md-none" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
         <a class="nav-link waves-light" mdbRippleRadius *ngIf="isAdmin()" [routerLink]="['/profile/admin/dashboard']">Dashboard</a>
-        <a class="nav-link waves-light" mdbRippleRadius *ngIf="!isAdmin()" [routerLink]="['profile','me']">Profile</a> </li>
+        <a class="nav-link waves-light" mdbRippleRadius *ngIf="!isAdmin()" [routerLink]="['profile','me']">Profile</a>
+      </li>
       <li class="nav-item d-md-none " *ngIf="isLoggedIn()">
         <a class="nav-link waves-light" mdbRippleRadius href="/login">Log Out</a>
       </li>
       <li class="nav-item d-none d-lg-block d-md-block d-xl-block" *ngIf="isLoggedIn()">
         <a class="nav-link waves-effect waves-light" [routerLink]="['/chat']">{{chatCount}}
-            <i *ngIf="chatCount > 0" class="fa fa-envelope" style="color: red"></i>
-            <i *ngIf="chatCount == 0 || !chatCount" class="fa fa-envelope" style="color: white"></i>
-          </a>
+          <i *ngIf="chatCount > 0" class="fa fa-envelope" style="color: red"></i>
+          <i *ngIf="chatCount == 0 || !chatCount" class="fa fa-envelope" style="color: white"></i>
+        </a>
       </li>
       <li class="nav-item avatar dropdown d-none d-lg-block d-md-block d-xl-block" dropdown *ngIf="isLoggedIn()">
-        <a dropdownToggle mdbRippleRadius type="button" class="nav-link dropdown-toggle waves-light pt-0" mdbRippleRadius>
-            <img src="{{apiUrlHTML}}/uploads/store/{{this.auth.getCurrentUser().photo}}"
+        <a dropdownToggle mdbRippleRadius type="button" class="nav-link dropdown-toggle waves-light pt-0"
+           mdbRippleRadius>
+          <img src="{{apiUrlHTML}}/uploads/store/{{this.auth.getCurrentUser().photo}}"
                class="img-fluid rounded-circle z-depth-0">
           <span class="caret"></span>
         </a>
         <div *dropdownMenu class="dropdown-menu dropdown-primary pull-left" role="menu">
-          <a class="dropdown-item waves-light" mdbRippleRadius *ngIf="isAdmin()" [routerLink]="['/profile/admin/dashboard']">Dashboard</a>
+          <a class="dropdown-item waves-light" mdbRippleRadius *ngIf="isAdmin()"
+             [routerLink]="['/profile/admin/dashboard']">Dashboard</a>
           <a class="dropdown-item waves-light" mdbRippleRadius *ngIf="!isAdmin()" [routerLink]="['profile','me']">Profile</a>
           <div class="divider dropdown-divider"></div>
           <a class="dropdown-item waves-light" mdbRippleRadius href="/login">Log Out</a>

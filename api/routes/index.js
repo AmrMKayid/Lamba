@@ -133,6 +133,7 @@ router.get('/activity/getThisActivity/view/:Id', activityCtrl.getThisActivity);
 router.post('/notifications/create', mw.isAuthenticated, notificationCtrl.addNotification);
 router.patch('/notifications/seen', mw.isAuthenticated, notificationCtrl.changeSeenStatus);
 router.get('/notifications/get', mw.isAuthenticated, notificationCtrl.getNotifications);
+router.get('/notifications/unopened/count', mw.isAuthenticated, notificationCtrl.getUnopenedNotifCount);
 
 //-----------------------------Teacher Session Routes----------------------------------------------//
 router.get('/user/viewSessions', mw.isAuthenticated, userCtrl.viewSessions);

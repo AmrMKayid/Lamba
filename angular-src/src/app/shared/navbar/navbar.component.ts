@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../../services/auth.service";
-import { ChatService } from "../../services/chat.service";
-import { Router } from '@angular/router';
-import { NotificationService } from '../../services/notification.service';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { appConfig } from "../../app.config";
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from "../../services/auth.service";
+import {ChatService} from "../../services/chat.service";
+import {Router} from '@angular/router';
+import {NotificationService} from '../../services/notification.service';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {appConfig} from "../../app.config";
 
 @Component({
   selector: 'app-navbar',
@@ -21,6 +21,7 @@ export class NavbarComponent implements OnInit {
   currentUser;
   public role;
   chatCount;
+  NotifCount;
   chatColor = 'white';
   httpOptions = {
     headers: new HttpHeaders({
@@ -29,8 +30,9 @@ export class NavbarComponent implements OnInit {
     })
   };
 
-  constructor(private auth: AuthService, private router: Router, private notificationservice: NotificationService
-    , private httpClient: HttpClient, private chat: ChatService) {
+  constructor(private auth: AuthService, private router: Router,
+              private notificationservice: NotificationService,
+              private httpClient: HttpClient, private chat: ChatService) {
 
   }
 
@@ -112,8 +114,12 @@ export class NavbarComponent implements OnInit {
     this.notificationservice.getMyNotifications().subscribe((res: any) => {
       this.notifications = res.data.reverse();
     });
-  }
 
+    this.notificationservice.getNotifCount().subscribe((res: any) => {
+      this.NotifCount = res.data;
+    });
+
+  }
 
 
   getMyRequests() {
@@ -151,7 +157,7 @@ export class NavbarComponent implements OnInit {
     var notifyParent = {
       title: "Your request is rejected",
       description: this.auth.getCurrentUser().name.firstName + " " + this.auth.getCurrentUser().name.lastName +
-        " rejected your request to add your child " + request.childId.name.firstName + " to his/her students",
+      " rejected your request to add your child " + request.childId.name.firstName + " to his/her students",
       url: "/profile/" + request.recievingTeacherId,
       recieving_user_id: request.requestingParentId._id
     };
@@ -194,7 +200,7 @@ export class NavbarComponent implements OnInit {
     var notifyParent = {
       title: "Your request is accepted",
       description: this.auth.getCurrentUser().name.firstName + " " + this.auth.getCurrentUser().name.lastName +
-        " accepted your request to add your child " + request.childId.name.firstName + " to his/her students",
+      " accepted your request to add your child " + request.childId.name.firstName + " to his/her students",
       url: "/profile/" + request.recievingTeacherId,
       recieving_user_id: request.requestingParentId._id
     };
