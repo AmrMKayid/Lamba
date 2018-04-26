@@ -132,4 +132,8 @@ export class ViewTeacherComponent implements OnInit {
   viewTask(taskId) {
     this.router.navigate(['schedule/viewtask/', taskId]);
   }
+
+  book(){
+    this.router.navigate(['profile/book']);
+  }
 }

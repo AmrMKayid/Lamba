@@ -13,7 +13,8 @@ ul.ngx-pagination {
 }
 
 input[type=text] {
-  width: 130px;
+  margin: auto;
+  width: 50%;
   -webkit-transition: width 0.4s ease-in-out;
   transition: width 0.4s ease-in-out;
 }

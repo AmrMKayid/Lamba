@@ -19,6 +19,7 @@ import {appConfig} from "../../../../app.config";
 export class ViewComponent implements OnInit {
 
   apiUrlHTML = appConfig.apiUrl;
+  p: any;
 
   myitems = [];
   itemId: string;

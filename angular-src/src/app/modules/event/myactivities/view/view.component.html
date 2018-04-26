@@ -89,12 +89,12 @@
 </div>
 
 
-<div class="row mt-5" style="text-align: center;" *ngIf='!myactivities.length==0'>
+<div class="row mt-5" style="text-align: center;" *ngIf='!(myactivities.length===0)'>
   <div class="col-12">
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
   </div>
 </div>
 
-<div *ngIf='myactivities.length==0' class="row">
+<div *ngIf='myactivities.length===0' class="row">
   <h5 class="m-auto pt-5">There are currently no activities to be displayed</h5>
 </div>

@@ -14,6 +14,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   notifications: Array<Object>;
+  p: any;
 
   ngOnInit() {
 
