@@ -8,8 +8,8 @@
       <div class="col-lg-5 col-xl-4 mb-4">
         <!--Featured image-->
         <div class="view overlay rounded z-depth-1">
-          <img [src]="IMG_URL + item.picture_url" onError="this.src='../../../../assets/images/fallbacks/item.png'" class="img-thumbnail"
-            alt="Article-thumbnail" />
+          <img [src]="IMG_URL + item.picture_url" onError="this.src='../../../../assets/images/fallbacks/item.jpg'" class="img-thumbnail"
+            alt="Item-thumbnail" />
           <a style="cursor: pointer;" [routerLink]="['/store','view',item._id]">
             <div class="mask"></div>
           </a>
