@@ -55,8 +55,8 @@ module.exports.createActivities = async function(req, res, next) {
     activity_type: req.body.activity_type,
     picture_url: req.body.picture_url,
     host_id: user_id,
-    host_firstName:decoded.user.name.firstName,
-    host_lastName:decoded.user.name.lastName,
+    host_firstName: decoded.user.name.firstName,
+    host_lastName: decoded.user.name.lastName,
     isVerified: false,
     created_at: Date.now(),
     updated_at: Date.now()
@@ -121,27 +121,29 @@ module.exports.uploadActivityPhoto = function(req, res, next) {
 // retrieves a collection of tuples based on the paramaters
 module.exports.viewActivities = function(req, res, next) {
 
-  var valid = Validations.isNumber(req.params.tuplesPerPage) &&
-    Validations.isNumber(req.params.pageNumber) &&
-    parseInt(req.params.tuplesPerPage) <= 20;
+  // var valid = Validations.isNumber(req.params.tuplesPerPage) &&
+  //   Validations.isNumber(req.params.pageNumber) &&
+  //   parseInt(req.params.tuplesPerPage) <= 20;
+  //
+  // // returns error if not valid
+  // if (!valid) {
+  //   return res.status(422).json({
+  //     err: null,
+  //     msg: 'One or More field(s) is missing or of incorrect type',
+  //     data: null
+  //   });
+  // }
 
-  // returns error if not valid
-  if (!valid) {
-    return res.status(422).json({
-      err: null,
-      msg: 'One or More field(s) is missing or of incorrect type',
-      data: null
-    });
-  }
 
-
-  var limit = parseInt(req.params.tuplesPerPage);
-  var pageNumber = parseInt(req.params.pageNumber);
+  // var limit = parseInt(req.params.tuplesPerPage);
+  // var pageNumber = parseInt(req.params.pageNumber);
 
 
   var query = Activity.find({
     isVerified: true
-  }).skip((pageNumber - 1) * limit).limit(limit);
+  });
+
+  // .skip((pageNumber - 1) * limit).limit(limit);
 
   query.exec(function(err, activities) {
     if (err) return err;
@@ -176,12 +178,31 @@ module.exports.getActivitiesById = function(req, res, next) {
 }
 
 
+module.exports.getThisActivity = function(req, res, next) {
+
+  var id = req.params.Id;
+  Activity.find({
+    _id: id
+  }).exec(function(err, Activities) {
+    if (err) {
+      console.log(err)
+    }
+    return res.status(200).json({
+      err: null,
+      msg: 'finished successfully',
+      data: Activities
+    });
+  });
+
+}
+
+
 module.exports.editActivities = function(req, res, next) {
 
   req.body.updatedAt = moment().toDate();
 
   Activity.findByIdAndUpdate(
-    req.params.activityID, {
+    req.params.activityId, {
       $set: req.body
     }, {
       new: true
@@ -190,21 +211,13 @@ module.exports.editActivities = function(req, res, next) {
     if (err) {
       return next(err);
     }
-    if (!updatedActivity) {
-      return res
-        .status(404)
-        .json({
-          err: null,
-          msg: 'Update Failed',
-          data: null
-        });
-    }
     res.status(200).json({
       err: null,
       msg: 'Activity was updated successfully.',
       data: updatedActivity
     });
   });
+
 };
 
 

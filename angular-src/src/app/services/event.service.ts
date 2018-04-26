@@ -47,7 +47,7 @@ export class EventService {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('authorization', localStorage.getItem('authentication'));
-    return this.http.get(appConfig.apiUrl + '/activity/myactivities/view/' + id, {headers: headers}).map((res) => res.json());
+    return this.http.get(appConfig.apiUrl + '/activity/getThisActivity/view/' + id, {headers: headers}).map((res) => res.json());
   }
 
   getChildren(user) {

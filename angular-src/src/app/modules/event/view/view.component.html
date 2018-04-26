@@ -2,7 +2,7 @@
 
   <div class="col-lg-4 col-md-6 mb-3" *ngFor='let activity of myactivities'>
     <div class="card h-100">
-      <img class="card-img-top myImg" src="{{apiUrlHTML}}/uploads/event/{{activity['picture_url']}}" alt="">
+      <img class="card-img-top myImg" src="{{apiUrlHTML}}/uploads/store/{{activity['picture_url']}}" alt="">
       <div class="card-body">
         <h4 class="card-title">
           {{activity['name']}}
@@ -15,56 +15,25 @@
           <a (click)="viewInfo(activity['_id'])" placement="bottom" ngbTooltip="Info">
             <i class="fa fa-info fa-2x mr-2" aria-hidden="true"></i>
           </a>
-          <a (click)="deleteActivity(activity._id)" placement="bottom" ngbTooltip="Delete">
-            <i class="fa fa-trash fa-2x mr-2" aria-hidden="true"></i>
+          <a (click)="goingActivities(activity)" placement="bottom" ngbTooltip="Love">
+            <i class="fa fa-check fa-fw fa-2x mr-2" aria-hidden="true"></i>
           </a>
-          <a (click)="open(content)" placement="bottom" ngbTooltip="Edit">
-            <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
+          <a placement="bottom" ngbTooltip="Favorite">
+            <i class="fa fa-star fa-2x" aria-hidden="true"></i>
           </a>
         </div>
 
+        <div class="icon pull-left" style="line-height: 2.1em;">
 
-        <div class="row">
+          <span>{{activity['going_user_id'].length}}</span> <i class="fa fa-check fa-fw mr-2" style="color:green;"
+                                                           aria-hidden="true"></i>
 
-          <div class="col-lg-4 col-md-6 mb-3" *ngFor='let activity of activities'>
-            <div class="card h-100">
-              <img class="card-img-top myImg" src="{{apiUrlHTML}}/uploads/activity/{{activity['picture_url']}}" alt="">
-              <div class="card-body">
-                <h4 class="card-title">
-                  {{activity['name']}}
-                </h4>
-                <h5>{{activity['price'] | currency}}</h5>
-                <p class="card-text">{{activity['description'] | slice:0:50 }} ...</p>
-              </div>
-              <div class="card-footer">
-                <div class="icon pull-right">
-                  <a (click)="viewInfo(activity['_id'])" placement="bottom" ngbTooltip="Info">
-                    <i class="fa fa-info fa-2x mr-2" aria-hidden="true"></i>
-                  </a>
-                  <a (click)="goingActivities(activity)" placement="bottom" ngbTooltip="Love">
-                    <i class="fa fa-heart fa-fw fa-2x mr-2" aria-hidden="true"></i>
-                  </a>
-                  <a placement="bottom" ngbTooltip="Favorite">
-                    <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                  </a>
-                </div>
-
-                <div class="icon pull-left" style="line-height: 2.1em;">
-
-                  <span>{{activity['going_user_id'].length}}</span> <i class="fa fa-heart fa-fw mr-2" style="color:red;"
-                                                                       aria-hidden="true"></i>
-
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-
-<div *ngIf='itemsCount==0' class="row">
-  <h5 class="m-auto pt-5">There are currently no items to be displayed</h5>
+<div *ngIf='myactivities.length==0' class="row">
+  <h5 class="m-auto pt-5">There are currently no activities to be displayed</h5>
 </div>

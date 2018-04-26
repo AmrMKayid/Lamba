@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-import {appConfig} from '../app.config';
+import { appConfig } from '../app.config';
 
 @Injectable()
 export class AuthService {
@@ -12,18 +12,20 @@ export class AuthService {
   }
 
   login(user: any) {
+
     return this.http.post<any>(appConfig.apiUrl + '/auth/login', user)
       .map(token => {
         if (token && token.data) {
           localStorage.setItem('authentication', token.data);
-        }
-        return token;
-      });
+       }
+       return token;
+       });
+
   }
 
   logout() {
     localStorage.clear();
-    window.location.href = 'login';    
+    window.location.href = 'login';
   }
 
   // Registration

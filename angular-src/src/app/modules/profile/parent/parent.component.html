@@ -1,8 +1,8 @@
 <!--Card-->
-<div class="card card-cascade wider reverse my-4 myCardSize">
+<div class="card card-cascade wider reverse my-4 myCardSize" *ngIf="currentUser">
   <!--Background image-->
   <div>
-    <a (click)="open(coverImg)">
+    <a (click)="open(coverImg)" >
       <img src="{{apiUrlHTML}}/uploads/store/{{currentUser?.coverPhoto}}" class="img-fluid">
     </a>
 
@@ -269,7 +269,7 @@
                         <a placement="bottom" ngbTooltip="Task" (click)="viewTask(task._id)"><i
                           class="fa fa-tasks fa-2x white-text mr-2"
                           aria-hidden="true"></i></a>
-                        <a placement="bottom" ngbTooltip="Remove"><i class="fa fa-ban fa-2x white-text"
+                        <a placement="bottom" ngbTooltip="Remove" (click)="deleteTask(task._id)"><i class="fa fa-ban fa-2x white-text"
                                                                      aria-hidden="true"></i></a>
                       </div>
                     </div>

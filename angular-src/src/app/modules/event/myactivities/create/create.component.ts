@@ -23,9 +23,8 @@ export class CreateComponent implements OnInit {
       "color": "#FFF"
     },
     clearButton: {
-      "background-color": "white",
-      "border-radius": "25px",
-      "color": "red",
+      "background-color": "red",
+      "color": "white",
       "margin-left": "10px"
     },
     layout: {
@@ -33,8 +32,7 @@ export class CreateComponent implements OnInit {
       "color": "gray",
       "font-size": "15px",
       "margin": "10px",
-      "padding-top": "5px",
-      "width": "500px"
+      "padding-top": "5px"
     },
     previewPanel: {
       "background-color": "white",
@@ -102,6 +100,12 @@ export class CreateComponent implements OnInit {
 
       this.eventservice.createActivity(activity).subscribe(res => {
         if (!res.err) {
+          new Noty({
+                type: 'success',
+                text: `Your event is waiting for admin aproval.`,
+                timeout: 3000,
+                progressBar: true
+              }).show();
           this.router.navigate(["/event/view"]);
         }
         else {
@@ -114,6 +118,9 @@ export class CreateComponent implements OnInit {
         }
       });
     }
+
+
+
 
   }
 

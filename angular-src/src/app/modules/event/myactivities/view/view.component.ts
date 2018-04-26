@@ -96,7 +96,7 @@ export class ViewComponent implements OnInit {
       updated_at: Date.now()
     };
 
-    this.http.patch(appConfig.apiUrl + '/event/edit/' + activityId, editedActivity)
+    this.http.patch(appConfig.apiUrl + '/activity/edit/' + activityId, editedActivity)
       .subscribe(res => {
         new Noty({
           type: 'success',
@@ -106,7 +106,7 @@ export class ViewComponent implements OnInit {
         }).show();
 
         localStorage.setItem("Update", null);
-        this.router.navigate(["/store/myitems/view"]);
+        this.router.navigate(["/event/myactivities/view"]);
       });
 
   }
@@ -116,31 +116,31 @@ export class ViewComponent implements OnInit {
   }
 
   close() {
-    
+
         this.router.navigate(["/event/myactivities/view"]);
         localStorage.setItem("Update", 'null')
-    
+
       }
 
       viewInfo(_id) {
         this.router.navigate(['/event/view/' + _id]);
       }
-    
-    
+
+
       modalref: NgbModalRef;
       closeResult: string;
-    
-    
+
+
       open(content) {
         this.modalref = this.modalService.open(content)
-    
+
         this.modalref.result.then((result) => {
           this.closeResult = `Closed with: ${result}`;
         }, (reason) => {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         });
       }
-    
+
       private getDismissReason(reason: any): string {
         if (reason === ModalDismissReasons.ESC) {
           return 'by pressing ESC';
@@ -151,4 +151,3 @@ export class ViewComponent implements OnInit {
         }
       }
 }
- 

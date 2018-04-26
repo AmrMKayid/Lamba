@@ -20,7 +20,7 @@ export class ViewComponent implements OnInit {
 
   //myactivities: any;
   activity: any;
-  myactivities: any[];
+  myactivities = [];
   activityId: string;
   name: string;
   price: number;
@@ -53,9 +53,16 @@ export class ViewComponent implements OnInit {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('authorization', localStorage.getItem('authentication'));
-    this.http.get(appConfig.apiUrl + '/activity/myActivities/view', {headers: headers}).map((res) => res.json())
+    this.http.get(appConfig.apiUrl + '/activity/view', {headers: headers}).map((res) => res.json())
       .subscribe((data: any) => {
-        this.myactivities = data.data;
+        this.myactivities = data.data.filter(event => event.isVerified == true);
+      }, error => {
+        new Noty({
+          type: 'success',
+          text: error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
       });
   }
 
@@ -72,6 +79,27 @@ export class ViewComponent implements OnInit {
         this.getMyActivities();
 
       });
+
+  }
+
+  goingActivities(activity) {
+    this.eventservice.goingActivities(activity).subscribe((data: any) => {
+      for (var i = 0; i < this.myactivities.length; i++) {
+        if (this.myactivities[i]._id == data._id) {
+          this.myactivities[i].going_user_id = data.going_user_id;
+        }
+      }
+
+      this.getMyActivities();
+
+    }, error => {
+      new Noty({
+        type: 'success',
+        text: "You are already going to this activity.",
+        timeout: 3000,
+        progressBar: true
+      }).show();
+    });
 
   }
 
@@ -116,31 +144,31 @@ export class ViewComponent implements OnInit {
   }
 
   close() {
-    
+
         this.router.navigate(["/event/myactivities/view"]);
         localStorage.setItem("Update", 'null')
-    
+
       }
 
       viewInfo(_id) {
         this.router.navigate(['/event/view/' + _id]);
       }
-    
-    
+
+
       modalref: NgbModalRef;
       closeResult: string;
-    
-    
+
+
       open(content) {
         this.modalref = this.modalService.open(content)
-    
+
         this.modalref.result.then((result) => {
           this.closeResult = `Closed with: ${result}`;
         }, (reason) => {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         });
       }
-    
+
       private getDismissReason(reason: any): string {
         if (reason === ModalDismissReasons.ESC) {
           return 'by pressing ESC';
@@ -151,4 +179,3 @@ export class ViewComponent implements OnInit {
         }
       }
 }
- 

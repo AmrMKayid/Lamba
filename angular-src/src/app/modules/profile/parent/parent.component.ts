@@ -7,6 +7,9 @@ import { AuthService } from "../../../services/auth.service";
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import { enable, destroy } from 'splash-screen';
+
+
 @Component({
   selector: 'app-parent',
   templateUrl: './parent.component.html',
@@ -40,6 +43,7 @@ export class ParentComponent implements OnInit {
   }
 
   ngOnInit() {
+
 
     this.user = this.auth.getCurrentUser();
 
@@ -340,6 +344,22 @@ export class ParentComponent implements OnInit {
       .subscribe((res: any) => {
         this.tasks = res.data;
       });
+
+  }
+
+  deleteTask(taskId) {
+    this.http.get(appConfig.apiUrl + '/task/deleteTask/' + taskId, this.httpOptions).subscribe((res: any) => {
+      this.getTasks();
+      });
+
+
+    new Noty({
+      type: 'success',
+      text: `Task deleted successfully.`,
+      timeout: 3000,
+      progressBar: true
+    }).show();
+
 
   }
 
