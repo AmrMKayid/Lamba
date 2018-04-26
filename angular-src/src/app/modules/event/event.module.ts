@@ -7,6 +7,7 @@ import {EventService} from '../../services/event.service';
 import {ViewComponent} from './view/view.component';
 import {HttpModule} from '@angular/http';
 import {ActivityComponent} from './activity/activity.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
@@ -39,8 +40,10 @@ const routes: Routes = [
     CommonModule,
     HttpModule,
     RouterModule.forChild(routes),
-    NgbModule.forRoot()
-    
+    NgbModule.forRoot(),
+    NgxPaginationModule,
+
+
   ],
   declarations: [
     EventComponent,
