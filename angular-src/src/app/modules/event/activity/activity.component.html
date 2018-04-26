@@ -1,36 +1,34 @@
-<div class="card card-cascade wider">
-  <div class="card-body">
-    <div class="activity" *ngIf="activity">
-      <div class="row">
-        <div class="col-md-4 col-xs-3">
-          <img id="icon" src="{{apiUrlHTML}}/uploads/activity/{{activity['picture_url']}}"/>
-        </div>
-        <div class="col-md-8 col-xs-9">
-          <div class="row" id="info">
-            <div class="col-md-8 col-xs-9">
-              <div class="row">
-                <span id="name">name:<b>{{activity.name}}</b></span>
-                <span id="type">type:({{activity["activity_type"]}})</span>
-              </div>
-              <div class="row">
-                <span id="username">by <b>{{activity["host_firstName"] + " " + activity["host_lastName"]}}</b></span>
-              </div>
-            </div>
-            <div class="col-md-4 col-xs-3">
-              <div class="box">
-                <span id="place">place:<b>{{activity["place"]}}</b></span>
-                <br>
-                <span id="price">Price:{{activity["price"]}}LE.</span>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-10 col-md-9">
-              <span id="description">description:{{activity["description"]}}</span>
-            </div>
-          </div>
-        </div>
+
+
+
+
+<div class="card mt-4" *ngIf="activity">
+  <div class="row">
+
+    <div class="col-xl-3 col-lg-3 col-md-3"><img class="card-img-top img-fluid" src="{{apiUrlHTML}}/uploads/store/{{activity['picture_url']}}" alt="" style="width:100%; height:200px; object-fit:cover; margin:5px;"></div>
+    <div class="col-xl-3 col-lg-4 col-md-4">
+      <div class="card-body">
+        <h3 class="card-title">{{activity["name"]}}</h3>
+        <h5><strong>Place:</strong> {{activity["place"]}}</h5>
+        <h5><strong>Type:</strong> {{activity["activity_type"]}}</h5>
+        <h5><strong>Price:</strong> {{activity["price"] | currency}}</h5>
       </div>
     </div>
+    <div class="col-xl-6 col-lg-5 col-md-5">
+      <div class="card-body">
+        <p class="card-text">{{activity["description"]}}</p>
+      </div>
+
+    </div>
+
   </div>
+  <div class="card-footer " *ngIf="currentUser._id != activity.host_id">
+    <div class="icon pull-right">
+      <a placement="bottom" ngbTooltip="Got to host profile" (click)="viewUser(activity.host_id)"><i
+        class="fa fa-user fa-2x" aria-hidden="true"></i></a>
+      <a placement="bottom" ngbTooltip="Messages host" (click)="messageUser(activity.host_id)"><i class="fa fa-envelope fa-fw fa-2x"
+                                                     aria-hidden="true"></i></a>
+    </div>
+  </div>
+
 </div>

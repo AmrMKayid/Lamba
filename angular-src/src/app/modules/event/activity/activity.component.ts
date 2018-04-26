@@ -5,6 +5,7 @@ import { EventService } from '../../../services/event.service';
 import { Router } from '@angular/router';
 import { Http, Headers } from '@angular/http';
 import { appConfig } from "../../../app.config";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-activity',
@@ -19,14 +20,26 @@ export class ActivityComponent implements OnInit {
   activity: any;
   user: Object;
   owner: boolean
+  currentUser : any;
 
   constructor(private route: ActivatedRoute,
     private http: Http,
     private eventservice: EventService,
-    private router: Router) {
+    private router: Router,
+  private auth: AuthService) {
+  }
+
+  viewUser(id) {
+    this.router.navigate(['profile', id]);
+  }
+
+  messageUser(id) {
+    this.router.navigate(['chat/' + id]);
   }
 
   ngOnInit() {
+    this.currentUser = this.auth.getCurrentUser();
+
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.eventservice.getActivity(this.id).subscribe(res => {

@@ -2,8 +2,8 @@
 
   <div class="col-lg-4 col-md-6 mb-3" *ngFor='let item of myitems  | paginate: { itemsPerPage: 6, currentPage: p };let i = index'>
     <div class="card h-100">
-      <img class="card-img-top myImg" src="{{apiUrlHTML}}/uploads/store/{{item['picture_url']}}" alt="">
-      <div class="card-body">
+      <img class="card-img-top myImg" (click)="viewInfo(item['_id'])" style="cursor: pointer;" src="{{apiUrlHTML}}/uploads/store/{{item['picture_url']}}" alt="">
+      <div class="card-body" (click)="viewInfo(item['_id'])" style="cursor: pointer;">
         <h4 class="card-title">
           {{item['name']}}
         </h4>
@@ -12,9 +12,6 @@
       </div>
       <div class="card-footer">
         <div class="icon pull-right">
-          <a (click)="viewInfo(item['_id'])" placement="bottom" ngbTooltip="Info">
-            <i class="fa fa-info fa-2x mr-2" aria-hidden="true"></i>
-          </a>
           <a (click)="deleteProduct(item._id)" placement="bottom" ngbTooltip="Delete">
             <i class="fa fa-trash fa-2x mr-2" aria-hidden="true"></i>
           </a>

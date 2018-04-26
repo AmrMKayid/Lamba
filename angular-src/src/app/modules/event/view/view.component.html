@@ -4,7 +4,7 @@
     <div class="card h-100">
       <img class="card-img-top myImg" (click)="viewInfo(activity['_id'])" style="cursor: pointer;" src="{{apiUrlHTML}}/uploads/store/{{activity['picture_url']}}"
         alt="">
-      <div class="card-body">
+      <div class="card-body" (click)="viewInfo(activity['_id'])" style="cursor: pointer;">
         <h4 class="card-title">
           {{activity['name']}}
         </h4>

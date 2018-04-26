@@ -7,6 +7,7 @@ import { Http, Headers } from '@angular/http';
 
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { appConfig } from "../../../app.config";
+import {AuthService} from "../../../services/auth.service";
 
 
 @Component({
@@ -34,15 +35,27 @@ export class ItemComponent implements OnInit {
   item_condition: string;
   picture_url: string;
   itemString: any;
+  currentUser : any;
 
   constructor(private route: ActivatedRoute,
     private http: Http,
     private storeservice: StoreService,
     private modalService: NgbModal,
-    private router: Router) {
+    private router: Router,
+  private auth: AuthService) {
+  }
+
+  viewUser(id) {
+    this.router.navigate(['profile', id]);
+  }
+
+  messageUser(id) {
+    this.router.navigate(['chat/' + id]);
   }
 
   ngOnInit() {
+    this.currentUser = this.auth.getCurrentUser();
+
     this.route.params.subscribe(params => {
       this.id = params['id'];
 
@@ -50,6 +63,9 @@ export class ItemComponent implements OnInit {
         this.item = res.data;
         this.user = res.seller;
         this.owner = res.owner;
+
+
+
       },
         error => {
           new Noty({
