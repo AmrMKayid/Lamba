@@ -17,7 +17,7 @@
            *ngFor="let item of items | filter:filter | paginate: { itemsPerPage: 6, currentPage: p };">
         <div class="card h-100">
           <img class="card-img-top myImg" (click)="viewInfo(item['_id'])" style="cursor: pointer;"
-               src="{{apiUrlHTML}}/uploads/store/{{item['picture_url']}}"
+               src="{{apiUrlHTML}}/uploads/store/{{item['picture_url']}}" onError="this.src='../../../../assets/images/fallbacks/item.jpg'"
                alt="">
           <div class="card-body" (click)="viewInfo(item['_id'])" style="cursor: pointer;">
             <h4 class="card-title">
