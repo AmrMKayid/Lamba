@@ -27,7 +27,7 @@ const ChildSchema = new mongoose.Schema({
     },
     photo: {
         type: String,
-        default: 'image-1523726285660'
+        default: 'lam3i'
     },
     coverPhoto: {
         type: String,
@@ -223,7 +223,7 @@ const UserSchema = new mongoose.Schema({
     },
     photo: {
         type: String,
-        default: 'image-1523726285660'
+        default: 'lam3i'
     },
     coverPhoto: {
         type: String,
