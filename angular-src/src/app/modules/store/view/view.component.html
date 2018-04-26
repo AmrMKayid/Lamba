@@ -1,27 +1,9 @@
-<!-- <div class="page-list">
-
-  <ul class="pagination pagination-lg">
-    <li>
-      <a (click)="loadPage(1)">
-        << </a>
-    </li>
-    <li *ngFor="let p of pages">
-      <a (click)="loadPage(p)">{{p}}</a>
-    </li>
-    <li>
-      <a (click)="loadPage(-1)">
-        >>
-      </a>
-    </li>
-  </ul>
-</div> -->
-
-
 <div class="row">
 
   <div class="col-lg-4 col-md-6 mb-3" *ngFor='let item of items'>
     <div class="card h-100">
-      <img class="card-img-top myImg" src="{{apiUrlHTML}}/uploads/store/{{item['picture_url']}}" alt="">
+      <img class="card-img-top myImg" (click)="viewInfo(item['_id'])" style="cursor: pointer;" src="{{apiUrlHTML}}/uploads/store/{{item['picture_url']}}"
+        alt="">
       <div class="card-body">
         <h4 class="card-title">
           {{item['name']}}
@@ -31,9 +13,6 @@
       </div>
       <div class="card-footer">
         <div class="icon pull-right">
-          <a (click)="viewInfo(item['_id'])" placement="bottom" ngbTooltip="Info">
-            <i class="fa fa-info fa-2x mr-2" aria-hidden="true"></i>
-          </a>
           <a (click)="likeItems(item)" placement="bottom" ngbTooltip="Love">
             <i class="fa fa-heart fa-fw fa-2x mr-2" aria-hidden="true"></i>
           </a>
@@ -44,8 +23,8 @@
 
         <div class="icon pull-left" style="line-height: 2.1em;">
 
-          <span>{{item['likes_user_id'].length}}</span> <i class="fa fa-heart fa-fw mr-2" style="color:red;"
-                                                           aria-hidden="true"></i>
+          <span>{{item['likes_user_id'].length}}</span>
+          <i class="fa fa-heart fa-fw mr-2" style="color:red;" aria-hidden="true"></i>
 
         </div>
       </div>
