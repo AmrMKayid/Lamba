@@ -134,4 +134,8 @@ export class ViewTeacherComponent implements OnInit {
   book() {
     this.router.navigate(['profile/book/', this.user._id]);
   }
+
+  messageUser() {
+    this.router.navigate(['chat/' + this.user._id]);
+  }
 }
