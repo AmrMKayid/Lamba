@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { StoreService } from '../../../services/store.service';
-import { Router } from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {StoreService} from '../../../services/store.service';
+import {Router} from "@angular/router";
 import * as $ from 'jquery';
-import { appConfig } from "../../../app.config";
+import {appConfig} from "../../../app.config";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-view',
@@ -22,15 +23,23 @@ export class ViewComponent implements OnInit {
   items: any[]; // Current items
   pages: any[]; // Holds the numbers of the pages available to be picked
 
+  AllItems: any;
+
+  // Pagination: initializing p to one
+  p: number = 1;
+  filter;
+
 
   constructor(private StoreService: StoreService,
-    private router: Router) {
+              private http: HttpClient,
+              private router: Router) {
     this.limit = 20;
     this.curPage = 1;
     this.getItemCount();
   }
 
   ngOnInit() {
+    this.getAllItems()
   }
 
   getItemCount() {
@@ -39,6 +48,13 @@ export class ViewComponent implements OnInit {
       this.lastPageNumber = Math.ceil(this.itemsCount / this.limit);
       this.loadPageBar(this.curPage);
     });
+  }
+
+  getAllItems() {
+    this.http.get(appConfig.apiUrl + '/store/getAllItems/')
+      .subscribe((res: any) => {
+        this.AllItems = res.data;
+      });
   }
 
   loadPage(page: number) {
@@ -73,16 +89,16 @@ export class ViewComponent implements OnInit {
 
   likeItems(item) {
     this.StoreService.likeItems(item).subscribe((data: any) => {
-      for (var i = 0; i < this.items.length; i++) {
-        if (this.items[i]._id == data._id) {
-          this.items[i].likes_user_id = data.likes_user_id;
+        for (var i = 0; i < this.items.length; i++) {
+          if (this.items[i]._id == data._id) {
+            this.items[i].likes_user_id = data.likes_user_id;
+          }
         }
+        this.ngOnInit();
+
+        this.loadItems();
+
       }
-      this.ngOnInit();
-
-      this.loadItems();
-
-    }
       , error => {
         new Noty({
           type: 'info',
