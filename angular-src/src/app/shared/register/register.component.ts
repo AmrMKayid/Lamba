@@ -46,15 +46,15 @@ export class RegisterComponent implements OnInit {
       }).show();
       return false;
     }
-    // else if (!mailREGEX.test(value.email.toLowerCase())) {
-    //   new Noty({
-    //     type: 'warning',
-    //     text: `Invalid email provided.`,
-    //     timeout: 3000,
-    //     progressBar: true
-    //   }).show();
-    //   return false;
-    // }
+    else if (!mailREGEX.test(value.email.toLowerCase())) {
+      new Noty({
+        type: 'warning',
+        text: `Invalid email provided.`,
+        timeout: 3000,
+        progressBar: true
+      }).show();
+      return false;
+    }
     else if (value.password.length < 8) {
       new Noty({
         type: 'warning',
