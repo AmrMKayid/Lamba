@@ -82,6 +82,14 @@ export class ViewComponent implements OnInit {
 
       this.loadItems();
 
+    }
+    , error => {
+      new Noty({
+        type: 'success',
+        text: "You already liked this item.",
+        timeout: 3000,
+        progressBar: true
+      }).show();
     });
   }
 

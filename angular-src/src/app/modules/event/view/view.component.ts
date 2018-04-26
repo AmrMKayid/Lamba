@@ -53,9 +53,16 @@ export class ViewComponent implements OnInit {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('authorization', localStorage.getItem('authentication'));
-    this.http.get(appConfig.apiUrl + '/activity/myActivities/view', {headers: headers}).map((res) => res.json())
+    this.http.get(appConfig.apiUrl + '/activity/view', {headers: headers}).map((res) => res.json())
       .subscribe((data: any) => {
         this.myactivities = data.data.filter(event => event.isVerified == true);
+      }, error => {
+        new Noty({
+          type: 'success',
+          text: error.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
       });
   }
 
@@ -72,6 +79,27 @@ export class ViewComponent implements OnInit {
         this.getMyActivities();
 
       });
+
+  }
+
+  goingActivities(activity) {
+    this.eventservice.goingActivities(activity).subscribe((data: any) => {
+      for (var i = 0; i < this.myactivities.length; i++) {
+        if (this.myactivities[i]._id == data._id) {
+          this.myactivities[i].going_user_id = data.going_user_id;
+        }
+      }
+
+      this.getMyActivities();
+
+    }, error => {
+      new Noty({
+        type: 'success',
+        text: "You are already going to this activity.",
+        timeout: 3000,
+        progressBar: true
+      }).show();
+    });
 
   }
 

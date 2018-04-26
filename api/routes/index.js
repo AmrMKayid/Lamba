@@ -105,7 +105,9 @@ router.post('/activity/upload', activityCtrl.uploadActivityPhoto);
 router.get('/activity/myActivities/view', activityCtrl.getActivitiesById);
 //mw.isAuthenticated ??
 router.get('/activity/countActivities', mw.isAuthenticated, activityCtrl.countActivities);
-router.get('/activity/view/:tuplesPerPage/:pageNumber', mw.isAuthenticated, activityCtrl.viewActivities);
+// router.get('/activity/view/:tuplesPerPage/:pageNumber', mw.isAuthenticated, activityCtrl.viewActivities);
+ router.get('/activity/view/', mw.isAuthenticated, activityCtrl.viewActivities);
+
 router.patch('/activity/edit/:activityId', activityCtrl.editActivities);
 router.delete('/activity/delete/:activityId', activityCtrl.deleteActivities);
 router.patch('/activity/goingActivities/:activityId', mw.isAuthenticated, activityCtrl.goingActivities);
