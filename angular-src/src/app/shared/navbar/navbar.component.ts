@@ -68,6 +68,11 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  seenNotif() {
+    this.notificationservice.SeenNotification().subscribe();
+    this.refresh();
+  }
+
   isLoggedIn() {
     return localStorage.getItem('authentication');
   }

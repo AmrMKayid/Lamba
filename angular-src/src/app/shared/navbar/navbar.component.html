@@ -58,12 +58,14 @@
         <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['/register-role']" *ngIf="!isLoggedIn()">Sign Up
         </a>
       </li>
-      <li class="nav-item dropdown btn-group d-none d-lg-block d-md-block d-xl-block" dropdown *ngIf="isLoggedIn()">
+
+      <li (click)="seenNotif()" class="nav-item dropdown btn-group d-none d-lg-block d-md-block d-xl-block" dropdown *ngIf="isLoggedIn()">
         <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-effect waves-light" mdbWavesEffect>{{NotifCount}}
           <!--<i class="fa fa-bell"></i>-->
           <i *ngIf="NotifCount > 0" class="fa fa-bell" style="color: red"></i>
           <i *ngIf="NotifCount == 0 || !NotifCount" class="fa fa-bell" style="color: white"></i>
         </a>
+
         <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary mydropdown" role="menu">
           <a class="dropdown-item waves-light" mdbWavesEffect *ngIf="notifications.length == 0">No new
             notifications.</a>

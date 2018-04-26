@@ -44,10 +44,13 @@ export class NotificationService {
    * Changes the all the notifications last seen of a the current user to the current timestamp in the database
    */
   SeenNotification() {
-    var headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('authorization', localStorage.getItem('authentication'));
-    return this.http.post(appConfig.apiUrl + '/notifications/seen', this.httpOptions);
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'authorization': localStorage.getItem('authentication')
+      })
+    };
+    return this.http.patch(appConfig.apiUrl + '/notifications/seen', null , httpOptions);
   }
 
   public getNotifCount() {

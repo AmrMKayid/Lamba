@@ -67,7 +67,6 @@ module.exports.addNotification = async function (req, res, next) {
 
 
 module.exports.changeSeenStatus = async function (req, res, next) {
-
     // gets the logged in user id
     const authorization = req.headers.authorization;
     const secret = req.app.get('secret');
