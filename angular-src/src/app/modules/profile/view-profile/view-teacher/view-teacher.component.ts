@@ -132,6 +132,6 @@ export class ViewTeacherComponent implements OnInit {
   }
 
   book() {
-    this.router.navigate(['profile/book']);
+    this.router.navigate(['profile/book/', this.user._id]);
   }
 }

@@ -1,29 +1,23 @@
 <div class="divider" style="padding-top:50px;"></div>
-  <div class="container">
-    <div class="myContainer">
-      <div class="card card-signup">
-        <div class="card-body">
+<div class="container">
+  <div class="myContainer">
+    <div class="card card-signup">
+      <div class="card-body">
 
 
 
-          <p class="h5 text-center mb-4">Book A Teacher</p>
+        <p class="h5 text-center mb-4">Book A Teacher</p>
 
-          <div class="md-form">
-            <input class="form-control" type="text" [(ngModel)]="email" mdbActive required>
-            <br>
-            <label>Teacher Email</label>
-          </div>
+        <div class="md-form">
+          <input class="form-control" type="text" [(ngModel)]="Slot" mdbActive required>
+          <br>
+          <label>Your Desired Slot</label>
+        </div>
 
-          <div class="md-form">
-            <input class="form-control" type="text" [(ngModel)]="Slot" mdbActive required>
-            <br>
-            <label>Your Desired Slot</label>
-          </div>
+        <div class="text-center">
+          <button (click)="BookTeacher()" class="btn btn-default waves-light" mdbRippleRadius>Book</button>
+        </div>
 
-          <div class="text-center">
-            <button (click) = "BookTeacher()" class="btn btn-default waves-light" mdbRippleRadius>Book</button>
-          </div>
-      
       </div>
     </div>
   </div>

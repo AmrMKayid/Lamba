@@ -49,7 +49,7 @@ const appRoutes: Routes = [
     component: MyProfileComponent,
   },
   {
-    path: 'book',
+    path: 'book/:id',
     component: BookingTeacherComponent,
   },
   {
