@@ -131,7 +131,6 @@ router.post('/activity/comment/:activityId', mw.isAuthenticated, activityCtrl.ad
 
 router.get('/activity/getThisActivity/view/:Id', activityCtrl.getThisActivity);
 
-
 /*Notifications Routes*/
 router.post('/notifications/create', mw.isAuthenticated, notificationCtrl.addNotification);
 router.patch('/notifications/seen', mw.isAuthenticated, notificationCtrl.changeSeenStatus);

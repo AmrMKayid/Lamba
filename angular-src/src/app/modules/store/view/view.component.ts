@@ -23,8 +23,6 @@ export class ViewComponent implements OnInit {
   items: any[]; // Current items
   pages: any[]; // Holds the numbers of the pages available to be picked
 
-  AllItems: any;
-
   // Pagination: initializing p to one
   p: number = 1;
   filter;
@@ -39,7 +37,6 @@ export class ViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllItems()
   }
 
   getItemCount() {
@@ -48,13 +45,6 @@ export class ViewComponent implements OnInit {
       this.lastPageNumber = Math.ceil(this.itemsCount / this.limit);
       this.loadPageBar(this.curPage);
     });
-  }
-
-  getAllItems() {
-    this.http.get(appConfig.apiUrl + '/store/getAllItems/')
-      .subscribe((res: any) => {
-        this.AllItems = res.data;
-      });
   }
 
   loadPage(page: number) {
