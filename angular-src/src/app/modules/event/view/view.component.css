@@ -8,3 +8,7 @@ object-fit: cover;
 .nimp {
     padding: 10px !important;
 }
+
+ul.ngx-pagination {
+    padding: 0px;
+}
