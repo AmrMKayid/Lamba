@@ -39,7 +39,7 @@ export class VerifyTeacherComponent implements OnInit {
       }, err => {
         new Noty({
           type: 'error',
-          text: err.error.msg,
+          text: err.error ? err.error.msg : err.msg,
           timeout: 2000,
           progressBar: true
         }).show();
@@ -60,7 +60,7 @@ export class VerifyTeacherComponent implements OnInit {
         err => {
           new Noty({
             type: 'error',
-            text: err.error.msg,
+            text: err.error ? err.error.msg : err.msg,
             timeout: 2000,
             progressBar: true
           }).show();
@@ -93,7 +93,7 @@ export class VerifyTeacherComponent implements OnInit {
         err => {
           new Noty({
             type: 'error',
-            text: err.error.msg,
+            text: err.error ? err.error.msg : err.msg,
             timeout: 2000,
             progressBar: true
           }).show();

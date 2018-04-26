@@ -32,7 +32,7 @@ export class AddAdminComponent implements OnInit {
       }, err => {
         new Noty({
           type: 'error',
-          text: err.error.msg,
+          text: err.error ? err.error.msg : err.msg,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -79,7 +79,7 @@ export class AddAdminComponent implements OnInit {
         err => {
           new Noty({
             type: 'error',
-            text: err.error.msg,
+            text: err.error ? err.error.msg : err.msg,
             timeout: 3000,
             progressBar: true
           }).show();

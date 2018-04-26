@@ -200,12 +200,10 @@ export class ViewArticleComponent implements OnInit {
           timeout: 3000,
           progressBar: true
         }).show();
-        this.router.navigate(['/resources']);
       }, err => {
-        let msg = err.error.msg;
         new Noty({
           type: 'error',
-          text: err.error.msg,
+          text: `Something went wrong while assigning your child\n${err.error ? err.error.msg : err.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
