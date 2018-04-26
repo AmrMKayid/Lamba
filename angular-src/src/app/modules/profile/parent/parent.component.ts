@@ -54,7 +54,7 @@ export class ParentComponent implements OnInit {
         }, (err) => {
           new Noty({
             type: 'error',
-            text: err.msg,
+            text: `Something went wrong while retrieving the user:\n${err.error.msg}`,
             timeout: 1500,
             progressBar: true
           }).show();
@@ -92,7 +92,7 @@ export class ParentComponent implements OnInit {
 
         new Noty({
           type: 'success',
-          text: `You've been successfully updated your info!`,
+          text: `You have successfully updated your info!`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -103,7 +103,7 @@ export class ParentComponent implements OnInit {
       error => {
         new Noty({
           type: 'error',
-          text: error.error.msg,
+          text: `Something went wrong while updating your info:\n${error.error.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -134,8 +134,8 @@ export class ParentComponent implements OnInit {
         }).show();
       }, error => {
         new Noty({
-          type: 'success',
-          text: error.msg,
+          type: 'error',
+          text: `Something went wrong while uploading your image:\n${error.error.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -163,8 +163,8 @@ export class ParentComponent implements OnInit {
         }).show();
       }, error => {
         new Noty({
-          type: 'success',
-          text: error.msg,
+          type: 'error',
+          text: `Something went wrong while uploading your image\n${error.error.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -238,7 +238,7 @@ export class ParentComponent implements OnInit {
 
         new Noty({
           type: 'success',
-          text: `You've been successfully created New Child Account!`,
+          text: `You have successfully added a new child!`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -246,7 +246,7 @@ export class ParentComponent implements OnInit {
       error => {
         new Noty({
           type: 'error',
-          text: error.error.msg,
+          text: `Something went wrong while adding your child:\n${error.error.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -317,7 +317,7 @@ export class ParentComponent implements OnInit {
 
           new Noty({
             type: 'success',
-            text: `You've been successfully created New tasks!`,
+            text: `You have successfully created a new task!`,
             timeout: 3000,
             progressBar: true
           }).show();
@@ -326,7 +326,7 @@ export class ParentComponent implements OnInit {
         error => {
           new Noty({
             type: 'error',
-            text: error.error.msg,
+            text: `Something went wrong while adding your task:\n${error.error.msg}`,
             timeout: 3000,
             progressBar: true
           }).show();

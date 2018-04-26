@@ -72,7 +72,7 @@ export class TeacherComponent implements OnInit {
         }, (err) => {
           new Noty({
             type: 'error',
-            text: err.msg,
+            text: `Something went wrong while fetching the user:\n${err.error.msg}`,
             timeout: 1500,
             progressBar: true
           }).show();
@@ -111,7 +111,7 @@ export class TeacherComponent implements OnInit {
 
         new Noty({
           type: 'success',
-          text: `You've been successfully updated your info!`,
+          text: `You have successfully updated your info!`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -122,7 +122,7 @@ export class TeacherComponent implements OnInit {
       error => {
         new Noty({
           type: 'error',
-          text: error.error.msg,
+          text: `Something went wrong while updating your info:\n${error.error.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -157,14 +157,14 @@ export class TeacherComponent implements OnInit {
         this.modalref.close();
         new Noty({
           type: 'success',
-          text: "Your Image uploaded successfully!",
+          text: "Your image was uploaded successfully!",
           timeout: 3000,
           progressBar: true
         }).show();
       }, error => {
         new Noty({
-          type: 'success',
-          text: error.msg,
+          type: 'error',
+          text: `Something went wrong while uploading your image:\n${error.error.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -192,8 +192,8 @@ export class TeacherComponent implements OnInit {
         }).show();
       }, error => {
         new Noty({
-          type: 'success',
-          text: error.msg,
+          type: 'error',
+          text: `Something went wrong while uploading your image:\n${error.error.msg}`,          
           timeout: 3000,
           progressBar: true
         }).show();
@@ -211,55 +211,6 @@ export class TeacherComponent implements OnInit {
   }
 
 
-  // onEditInfo(): void {
-  //   if (!this.firstName || !this.lastName || !this.email) {
-  //     new Noty({
-  //       type: 'error',
-  //       text: 'All fields are required',
-  //       timeout: 3000,
-  //       progressBar: true
-  //     }).show();
-  //     return;
-  //   }
-  //   const user = {
-  //     name: {
-  //       firstName: this.firstName,
-  //       middleName: this.middleName,
-  //       lastName: this.lastName,
-  //     },
-  //     email: this.email,
-  //     about: this.about,
-  //     address: {
-  //       city: this.city,
-  //       state: this.state,
-  //       zip: this.zip,
-  //       street: this.street,
-  //     },
-  //     fees: this.fees,
-  //     phone: this.phone
-  //
-  //
-  //   }
-  //   this.httpClient.patch(appConfig.apiUrl + '/user/updateUser/' + this.currentUserID, {
-  //     "email": user.email,
-  //     "name": user.name,
-  //     "about": user.about,
-  //     "Address": user.address,
-  //     "fees": user.fees,
-  //     "phone": user.phone
-  //
-  //
-  //   }).subscribe(
-  //     res => {
-  //       document.getElementById('editModal').style.display = 'none';
-  //     },
-  //     err => {
-  //       document.getElementById('editModal').style.display = 'none';
-  //     }
-  //   );
-  //
-  //
-  // }
 
   ////////////////////////////// schedule/////////////////////////////////////////////////////
   getTeacherSchedule() {
@@ -404,7 +355,7 @@ export class TeacherComponent implements OnInit {
 
         new Noty({
           type: 'success',
-          text: `You've been successfully created New tasks!`,
+          text: `You  successfully created a new task!`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -413,7 +364,7 @@ export class TeacherComponent implements OnInit {
       error => {
         new Noty({
           type: 'error',
-          text: error.error.msg,
+          text: `Something went wrong while creating the task:\n${error.error.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();

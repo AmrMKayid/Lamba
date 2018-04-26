@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
 
   constructor(
-  private fb: FormBuilder,
+    private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService) {
@@ -38,16 +38,28 @@ export class LoginComponent implements OnInit {
   }
 
   login(user: any) {
+
+    if (!(user.email || user.username) || !user.password){
+      new Noty({
+        type: 'warning',
+        text: `Please fill in all fields.`,
+        timeout: 3000,
+        progressBar: true
+      }).show();
+      return false;
+    }
+
+      console.log(user);
+
     this.authService.login(user)
       .subscribe(
         token => {
-          //this.router.navigate(['profile', 'me']);
-        window.open("/profile/me", "_self");
+          window.open("/profile/me", "_self");
         },
         error => {
           new Noty({
             type: 'error',
-            text: error.msg,
+            text: `Something went wrong while logging in:\n${error.error.msg}`,
             timeout: 3000,
             progressBar: true
           }).show();

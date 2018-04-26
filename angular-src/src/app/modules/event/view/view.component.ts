@@ -59,7 +59,7 @@ export class ViewComponent implements OnInit {
       }, error => {
         new Noty({
           type: 'success',
-          text: error.msg,
+          text: `Couldn't retrieve activity(s): ${error.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -70,8 +70,8 @@ export class ViewComponent implements OnInit {
     this.http.delete(appConfig.apiUrl + '/activity/delete/' + activityId)
       .subscribe(res => {
         new Noty({
-          type: 'error',
-          text: "Deleted!",
+          type: 'info',
+          text: "Activity deleted successfullys!",
           timeout: 3000,
           progressBar: true
         }).show();
@@ -94,7 +94,7 @@ export class ViewComponent implements OnInit {
 
     }, error => {
       new Noty({
-        type: 'success',
+        type: 'info',
         text: "You are already going to this activity.",
         timeout: 3000,
         progressBar: true

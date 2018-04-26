@@ -64,18 +64,18 @@ export class CreateComponent implements OnInit {
 
     if (!this.picture_url) {
       new Noty({
-        type: 'error',
+        type: 'warning',
         text: 'No photo was uploaded\nYou have to upload a photo first before submitting the form',
-        timeout: 10000,
+        timeout: 3000,
         progressBar: true
       }).show();
     }
     else if (!this.name || !this.description || !this.quantity || !this.price || !this.item_type || !this.item_condition) {
 
       new Noty({
-        type: 'error',
+        type: 'warning',
         text: 'Missing Field(s)\nOne or more field(s) are missing. Please provide all fields',
-        timeout: 10000,
+        timeout: 3000,
         progressBar: true
       }).show();
     }
@@ -96,9 +96,9 @@ export class CreateComponent implements OnInit {
         }
         else {
           new Noty({
-            type: 'error',
+            type: 'warning',
             text: 'You need to upload a photo\nyou have to provide an Item Name',
-            timeout: 10000,
+            timeout: 3000,
             progressBar: true
           }).show();
         }
@@ -114,9 +114,9 @@ export class CreateComponent implements OnInit {
 
     if (status != 200) {
       new Noty({
-        type: 'error',
-        text: 'could not upload photo\n' + response.err,
-        timeout: 10000,
+        type: 'warning',
+        text: 'Could not upload photo\n' + response.err,
+        timeout: 3000,
         progressBar: true
       }).show();
       return;
@@ -125,8 +125,8 @@ export class CreateComponent implements OnInit {
     this.picture_url = response.filename;
     new Noty({
       type: 'success',
-      text: 'Your photo was uploaded to the server successfully',
-      timeout: 10000,
+      text: 'Photo uploaded successfully',
+      timeout: 3000,
       progressBar: true
     }).show();
   }

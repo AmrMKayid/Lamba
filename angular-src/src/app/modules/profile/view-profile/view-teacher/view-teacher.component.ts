@@ -88,15 +88,15 @@ export class ViewTeacherComponent implements OnInit {
       (res: any) => {
         new Noty({
           type: 'success',
-          text: `sent a request for the teacher `,
-          timeout: 3000,
+          text: `Request sent to the teacher`,
+          timeout: 2000,
           progressBar: true
         }).show();
       }, err => {
         new Noty({
           type: 'warning',
-          text: `can not send request: ${err.error.msg}`,
-          timeout: 5000,
+          text: `Something went wrong while requesting the teacher: ${err.error.msg}`,
+          timeout: 3000,
           progressBar: true
         }).show();
       }

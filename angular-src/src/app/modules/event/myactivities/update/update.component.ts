@@ -57,7 +57,7 @@ export class UpdateComponent implements OnInit {
       .subscribe(res => {
         new Noty({
           type: 'success',
-          text: "Updated!",
+          text: "Event updated successfullys!",
           timeout: 3000,
           progressBar: true
         }).show();

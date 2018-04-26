@@ -63,8 +63,8 @@ export class ViewComponent implements OnInit {
     this.http.delete(appConfig.apiUrl + '/activity/delete/' + activityId)
       .subscribe(res => {
         new Noty({
-          type: 'error',
-          text: "Deleted!",
+          type: 'info',
+          text: "Activity deleted successfully!",
           timeout: 3000,
           progressBar: true
         }).show();
@@ -100,7 +100,7 @@ export class ViewComponent implements OnInit {
       .subscribe(res => {
         new Noty({
           type: 'success',
-          text: 'Updated!',
+          text: 'Activity updated successfully!',
           timeout: 3000,
           progressBar: true
         }).show();

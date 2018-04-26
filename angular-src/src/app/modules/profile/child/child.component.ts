@@ -92,8 +92,8 @@ export class ChildComponent implements OnInit {
         }).show();
       }, error => {
         new Noty({
-          type: 'success',
-          text: error.msg,
+          type: 'error',
+          text: `Something went wrong while uploading your image\n${error.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -121,8 +121,8 @@ export class ChildComponent implements OnInit {
         }).show();
       }, error => {
         new Noty({
-          type: 'success',
-          text: error.msg,
+          type: 'error',
+          text: `Something went wrong while uploading your image\n${error.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();

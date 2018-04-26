@@ -103,7 +103,7 @@ export class ViewComponent implements OnInit {
     this.http.delete(appConfig.apiUrl + '/store/delete/' + itemId)
       .subscribe(res => {
         new Noty({
-          type: 'error',
+          type: 'success',
           text: 'Deleted!',
           timeout: 3000,
           progressBar: true

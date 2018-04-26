@@ -141,7 +141,7 @@ export class NavbarComponent implements OnInit {
       err => {
         new Noty({
           type: 'warning',
-          text: `can not accept request: ${err.error.msg}`,
+          text: `Can not accept request: ${err.error.msg}`,
           timeout: 5000,
           progressBar: true
         }).show();
@@ -163,15 +163,15 @@ export class NavbarComponent implements OnInit {
       (res: any) => {
         new Noty({
           type: 'success',
-          text: `added child to successfully your students `,
+          text: `Child added successfully to your students.`,
           timeout: 3000,
           progressBar: true
         }).show();
       }, err => {
         new Noty({
           type: 'warning',
-          text: `can not accept request: ${err.error.msg}`,
-          timeout: 5000,
+          text: `Can not accept request:\n${err.error.msg}`,
+          timeout: 3000,
           progressBar: true
         }).show();
       }
@@ -184,8 +184,8 @@ export class NavbarComponent implements OnInit {
       err => {
         new Noty({
           type: 'warning',
-          text: `can not accept request: ${err.error.msg}`,
-          timeout: 5000,
+          text: `Can not accept request:\n${err.error.msg}`,
+          timeout: 3000,
           progressBar: true
         }).show();
       }

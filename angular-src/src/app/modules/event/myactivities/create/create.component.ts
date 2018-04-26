@@ -132,7 +132,7 @@ export class CreateComponent implements OnInit {
     if (status != 200) {
       new Noty({
         type: 'error',
-        text: "could not upload photo",
+        text: "Could not upload photo",
         timeout: 3000,
         progressBar: true
       }).show();

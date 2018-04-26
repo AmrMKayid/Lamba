@@ -44,16 +44,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
           (res: any) => {
             if (!res.data.role) {
               this.isParent = false;
-                this.isTeacher = false;
-                  this.isChild = true;            } else {
+              this.isTeacher = false;
+              this.isChild = true;
+            } else {
               if (res.data.role === 'Parent') {
                 this.isParent = true;
-                  this.isTeacher = false;
-                    this.isChild = false;
+                this.isTeacher = false;
+                this.isChild = false;
               } else if (res.data.role === 'Teacher') {
                 this.isParent = false;
-                  this.isTeacher = true;
-                    this.isChild = false;              } else {
+                this.isTeacher = true;
+                this.isChild = false;
+              } else {
                 new Noty({
                   type: 'info',
                   text: `You cannot view this profile.`,
