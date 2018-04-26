@@ -30,38 +30,36 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    // reset login status
-    this.authService.logout();
+    localStorage.clear();
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   login(user: any) {
+
+    if (!(user.email || user.username) || !user.password) {
+      new Noty({
+        type: 'warning',
+        text: `Please fill in all fields.`,
+        timeout: 3000,
+        progressBar: true
+      }).show();
+      return false;
+    }
+
     this.authService.login(user)
       .subscribe(
         token => {
-          const userRole = this.authService.getUserFromToken(token.data).role;
-          if (userRole === 'Parent') {
-            this.returnUrl = 'profile/parent';
-          } else if (userRole === 'Teacher') {
-            this.returnUrl = 'profile/teacher';
-          } else if (userRole === 'Admin') {
-            this.returnUrl = 'profile/admin/dashboard';
-          }
-          else {
-            this.returnUrl = 'profile/child';
-          }
-          this.router.navigate([this.returnUrl]);
+          window.open("/profile/me", "_self");
         },
         error => {
           new Noty({
             type: 'error',
-            text: error.msg,
+            text: `Something went wrong while logging in:\n${error.error ? error.error.msg : error.msg}`,
             timeout: 3000,
             progressBar: true
           }).show();
-          console.log(error);
         });
   }
 

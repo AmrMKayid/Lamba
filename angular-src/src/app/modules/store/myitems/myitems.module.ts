@@ -3,12 +3,12 @@ import {CommonModule} from '@angular/common';
 import {Routes, RouterModule} from '@angular/router';
 import {MyitemsComponent} from './myitems.component';
 import {CreateComponent} from './create/create.component';
-import {UpdateComponent} from './update/update.component';
 import {ViewComponent} from './view/view.component';
 import {ImageUploadModule} from "angular2-image-upload";
-import {FormsModule} from '@angular/forms';
-import {ToasterModule} from 'angular5-toaster';
-
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {MDBBootstrapModule} from 'angular-bootstrap-md';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 const routes: Routes = [
   {
@@ -18,10 +18,6 @@ const routes: Routes = [
       {
         path: 'create',
         component: CreateComponent
-      },
-      {
-        path: 'update',
-        component: UpdateComponent
       },
       {
         path: 'view',
@@ -38,9 +34,12 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ImageUploadModule.forRoot(),
     FormsModule,
-    ToasterModule
+    ReactiveFormsModule,
+    MDBBootstrapModule.forRoot(),
+    NgbModule.forRoot(),
+    NgxPaginationModule
   ],
-  declarations: [MyitemsComponent, CreateComponent, UpdateComponent, ViewComponent],
+  declarations: [MyitemsComponent, CreateComponent, ViewComponent],
   exports: [RouterModule]
 })
 export class MyitemsModule {

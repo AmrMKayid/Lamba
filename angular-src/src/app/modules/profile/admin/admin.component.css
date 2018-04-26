@@ -1,18 +1,30 @@
 .main-container {
-  margin-top: 0px;
-  margin-left: 11.5%;
+  margin-top: 2%;
+  margin-left: 2%;
   margin-right: 0px;
   padding: 0px;
   -ms-overflow-x: hidden;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: hidden;
   position: relative;
   overflow: hidden;
   width: 100%;
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 762px) {
   .main-container {
     margin-left: 0px !important;
   }
+}
+
+.row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  flex-wrap: wrap;
+}
+.row > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
 }

@@ -113,24 +113,26 @@ module.exports.uploadItemPhoto = function (req, res, next) {
 // retrieves a collection of tuples based on the paramaters
 module.exports.viewItems = function (req, res, next) {
 
-    var valid = Validations.isNumber(req.params.tuplesPerPage) &&
-        Validations.isNumber(req.params.pageNumber) &&
-        parseInt(req.params.tuplesPerPage) <= 20;
+    // var valid = Validations.isNumber(req.params.tuplesPerPage) &&
+    //   Validations.isNumber(req.params.pageNumber) &&
+    //   parseInt(req.params.tuplesPerPage) <= 60;
+    //
+    // if (!valid) {
+    //   return res.status(422).json({
+    //     err: null,
+    //     msg: 'One or More field(s) is missing or of incorrect type',
+    //     data: null
+    //   });
+    // }
 
-    // returns error if not valid
-    if (!valid) {
-        return res.status(422).json({
-            err: null,
-            msg: 'One or More field(s) is missing or of incorrect type',
-            data: null
-        });
-    }
-
-    var limit = parseInt(req.params.tuplesPerPage);
-    var pageNumber = parseInt(req.params.pageNumber);
+    // var limit = parseInt(req.params.tuplesPerPage);
+    // var pageNumber = parseInt(req.params.pageNumber);
 
 
-    var query = Item.find().skip((pageNumber - 1) * limit).limit(limit);
+    // var query = Item.find().skip((pageNumber - 1) * limit).limit(limit);
+
+    var query = Item.find();
+
 
     query.exec(function (err, items) {
         if (err) return err;
@@ -149,7 +151,9 @@ module.exports.getItemsById = function (req, res, next) {
     const secret = req.app.get('secret');
     decoded = jwt.verify(authorization, secret);
     console.log(decoded.user._id)
-    Item.find({seller_id: decoded.user._id}).exec(function (err, Items) {
+    Item.find({
+        seller_id: decoded.user._id
+    }).exec(function (err, Items) {
         if (err) {
             console.log(err)
         }
@@ -168,11 +172,11 @@ module.exports.editItems = function (req, res, next) {
     req.body.updatedAt = moment().toDate();
 
     Item.findByIdAndUpdate(
-        req.params.itemId,
-        {
+        req.params.itemId, {
             $set: req.body
-        },
-        {new: true}
+        }, {
+            new: true
+        }
     ).exec(function (err, updatedProduct) {
         if (err) {
             return next(err);
@@ -180,7 +184,11 @@ module.exports.editItems = function (req, res, next) {
         if (!updatedProduct) {
             return res
                 .status(404)
-                .json({err: null, msg: 'Update Failed', data: null});
+                .json({
+                    err: null,
+                    msg: 'Update Failed',
+                    data: null
+                });
         }
         res.status(200).json({
             err: null,
@@ -203,7 +211,11 @@ module.exports.deleteItems = function (req, res, next) {
         if (!deletedProduct) {
             return res
                 .status(404)
-                .json({err: null, msg: 'Delete failed', data: null});
+                .json({
+                    err: null,
+                    msg: 'Delete failed',
+                    data: null
+                });
         }
         fs.unlink(path.resolve('api/uploads/' + deletedProduct.picture_url));
         res.status(200).json({
@@ -232,18 +244,18 @@ module.exports.likeItems = function (req, res, next) {
                 data: null
             });
         }
+        else {
+            retrievedItem.likes_user_id.push(user_id);
 
-        retrievedItem.likes_user_id.push(user_id);
-
-        Item.findByIdAndUpdate(retrievedItem._id, retrievedItem, function (err, item) {
-            console.log(item);
-            return res.status(200).json({
-                err: null,
-                msg: 'Item was liked successfully.',
-                data: item
+            Item.findByIdAndUpdate(retrievedItem._id, retrievedItem, function (err, item) {
+                console.log(item);
+                return res.status(200).json({
+                    err: null,
+                    msg: 'Item was liked successfully.',
+                    data: item
+                });
             });
-        });
-
+        }
 
     });
 
@@ -265,8 +277,7 @@ module.exports.unlikeItems = function (req, res, next) {
                     msg: "cannot unlike",
                     data: null
                 });
-            }
-            else {
+            } else {
                 retrievedItem.likes_user_id = req.params.likes_user_id.pop(user);
                 retrievedItem.likes = req.params.likes - 1;
             }
@@ -377,10 +388,67 @@ module.exports.getItem = function (req, res, next) {
 }
 
 
+module.exports.search = function (req, res, next) {
+    if (!req.query.key) {
+        return res.status(422).json({
+            err: 'Empty key field',
+            msg: 'You have to provide a text to search for',
+            data: null
+        });
+    }
+
+    let itemPerPage = parseInt(req.query.itemPerPage);
+    let pageNumber = parseInt(req.query.pageNumber);
+
+    // If the user didn't enter either of those values, set them to default ones
+    if (!itemPerPage)
+        itemPerPage = 30;
+    if (!pageNumber)
+        pageNumber = 1;
+
+    Item.count({
+        name: {
+            $regex: '.*' + req.query.key + '.*',
+            '$options': 'i'
+        }
+    }, (err, count) => {
+
+        let query = Item.find({
+            name: {
+                $regex: '.*' + req.query.key + '.*',
+                '$options': 'i'
+            }
+        }).skip((pageNumber - 1) * itemPerPage).limit(itemPerPage);
+
+
+        query.exec((err, data) => {
+            if (err) {
+                return res.status(404).json({
+                    err: 'Retrieved 0 items from the database',
+                    msg: 'Error while retrieving item from the database',
+                    data: null
+                });
+            }
+
+            return res.status(200).json({
+                err: null,
+                msg: 'Items retrieved successfully',
+                count: count,
+                data: data
+            });
+
+
+        });
+
+    });
+
+
+};
+
 /*****************************************************************************
- *                                                                                                                 *
- *                          private functions                                                 *
- *                                                                                                                 *
+ *                                                                           *
+ *                          private functions                                *
+ *                                                                           *
  *****************************************************************************/
 
 /**

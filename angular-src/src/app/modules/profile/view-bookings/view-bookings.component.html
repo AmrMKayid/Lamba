@@ -1,0 +1,82 @@
+<div class="divider" style="padding-top:50px;"></div>
+  <div class="container">
+    <div class="bookingContainer">
+      <div class="card card-signup">
+        <div class="card-body">
+   
+          <p class="h5 text-center mb-4">All Bookings</p>
+
+          <table style="display: inline-block;">
+            <tr>
+              <th>Description</th>
+            </tr>
+  
+            <tr *ngFor = "let Description of Descriptions" >
+              <td > {{ Description }}</td>
+            </tr>
+ 
+          </table>
+
+          <table style="display: inline-block;">
+            <tr>
+              <th>Created At</th> 
+            </tr>
+            <tr *ngFor = "let CA of CreatedAt">
+              <td> {{ CA }}</td>
+            </tr>
+          </table>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 
+<h2>Accept Or Reject:</h2>
+
+<p>Enter Booking Description:</p>
+  <input type="text" [(ngModel)]="description" name="description">
+<p>Enter Parent Email:</p>  
+  <input type="text" [(ngModel)]="email" name="email">
+<p>Enter Your Accepting Fees/Rejecting Reason:</p>
+  <input type="text" [(ngModel)]="fees" name="fees">
+<button (click) = "Accept()">Accept</button>
+<button (click) = "Reject()">Reject</button>
+ -->
+ <div class="divider"></div>
+ <div class="container">
+   <div class="myContainer">
+     <div class="card card-signup">
+       <div class="card-body">
+
+
+
+         <p class="h5 text-center mb-4">Accept Or Reject</p>
+
+         <div class="md-form">
+           <input class="form-control" type="text" [(ngModel)]="description" mdbActive required>
+           <br>
+           <label>Booking Description</label>
+         </div>
+
+         <div class="md-form">
+           <input class="form-control" type="text" [(ngModel)]="email" mdbActive required>
+           <br>
+           <label>Parent Email</label>
+         </div>
+
+         <div class="md-form">
+          <input class="form-control" type="text" [(ngModel)]="fees" mdbActive required>
+          <br>
+          <label>Accepting Fees/Rejection Reason</label>
+        </div>
+
+         <div class="text-center">
+           <button (click) = "Accept()" class="btn btn-default waves-light" mdbRippleRadius>Accept</button>
+           <button (click) = "Reject()" class="btn btn-default waves-light" mdbRippleRadius>Reject</button>
+         </div>
+
+     </div>
+   </div>
+ </div>
+</div>

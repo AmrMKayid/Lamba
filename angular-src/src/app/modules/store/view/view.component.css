@@ -1,150 +1,26 @@
-.main-container {
-  width: 100%;
+.myImg {
+  height: 200px;
+  object-fit: cover;
+
+}
+
+.nimp {
+  padding: 10px !important;
+}
+
+ul.ngx-pagination {
+  padding: 0px;
+}
+
+input[type=text] {
   margin: auto;
-  overflow: hidden;
+  width: 50%;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
 }
 
-.page-list {
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-}
 
-.pagination > li > a {
-  color: #3F719B;
-  cursor: pointer;
-}
-
-.block {
-  display: block;
+/* When the input field gets focus, change its width to 100% */
+input[type=text]:focus {
   width: 100%;
-  margin: auto;
-  overflow: hidden;
-  column-count: 4;
-  -webkit-column-break-inside: avoid;
-  padding-right: 3%;
-}
-
-.item {
-  margin: 5px;
-  margin-bottom: 30px;
-  border-radius: 8px;
-  box-shadow: 0 1px 8px 0 rgba(58, 58, 58, 0.2), 0 6px 20px 0 rgba(255, 255, 255, 0.19);
-  border-bottom: 2px solid #dddddd;
-  padding: 5px;
-  display: inline-block;
-  -webkit-transition: all 500ms linear;
-  -ms-transition: all 500ms linear;
-  transition: all 500ms linear;
-  color: #3F719B;
-  width: 100%;
-}
-
-.item:hover {
-  background-color: rgb(247, 247, 247);
-  color: #4F4DA8;
-}
-
-.itemBody {
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  padding: 10px;
-}
-
-.imgw100prec {
-  width: 100%;
-  float: left;
-  border-radius: 8px;
-  max-height: 400px;
-}
-
-.itemDesc {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: #c09898;
-}
-
-.itemInfo {
-  background-color: #ffc7c700;
-  text-align: center;
-  font-size: 26px;
-  color: #ccc7c7;
-  border-radius: 5px;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  border: 1px solid;
-  transition: all 1s ease;
-  cursor: pointer;
-}
-
-.itemInfo:hover {
-  color: rgb(176, 255, 250);
-  background-color: rgb(7, 199, 226);
-}
-
-.itemUnLike {
-  background-color: #ffc7c700;
-  text-align: center;
-  font-size: 26px;
-  color: #ccc7c7;
-  border-radius: 5px;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  border: 1px solid;
-  transition: all 1s ease;
-  cursor: pointer;
-}
-
-.itemUnLike:hover {
-  color: rgb(255, 200, 200);
-  background-color: rgb(255, 116, 116);
-}
-
-.itemLikeCount {
-  /* margin-left: 2px; */
-  font-size: 11px;
-  /* color: #ff8b8c; */
-}
-
-/* Large Laptops */
-
-@media only screen and (max-width: 1500px) {
-  .block {
-    column-count: 4;
-  }
-}
-
-/* Small/Medium Laptops */
-
-@media only screen and (max-width: 1050px) {
-  .block {
-    column-count: 3;
-  }
-}
-
-/* Tablets  */
-
-@media only screen and (max-width: 800px) {
-  .block {
-    column-count: 2;
-  }
-}
-
-/* Large Mobiles */
-
-@media only screen and (max-width: 450px) {
-  .block {
-    column-count: 1;
-  }
-}
-
-/* Small/Medium Mobiles */
-
-@media only screen and (max-width: 390px) {
-  .block {
-    column-count: 1;
-  }
 }

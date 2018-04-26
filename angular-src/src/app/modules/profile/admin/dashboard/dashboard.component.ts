@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {routerTransition} from '../router.animations';
 import {HttpClient} from '@angular/common/http';
+import {appConfig} from "../../../../app.config";
 
 @Component({
   selector: 'app-dashboard',
@@ -9,9 +10,16 @@ import {HttpClient} from '@angular/common/http';
   animations: [routerTransition()]
 })
 export class DashboardComponent implements OnInit {
-  public alerts: Array<any> = [];
+
+  apiUrlHTML = appConfig.apiUrl;
+
   public sliders: Array<any> = [];
   public articles: Array<any> = [];
+  public Teachers: Array<any> = [];
+
+  public activities: Array<any> = [];
+  public interviews: Array<any> = [];
+  public teacherForms: Array<any> = [];
 
   constructor(private httpClient: HttpClient) {
     this.sliders.push(
@@ -34,41 +42,66 @@ export class DashboardComponent implements OnInit {
       }
     );
 
-    this.alerts.push(
-      {
-        id: 1,
-        type: 'success',
-        message: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptates est animi quibusdam praesentium quam, et perspiciatis,
-                consectetur velit culpa molestias dignissimos
-                voluptatum veritatis quod aliquam! Rerum placeat necessitatibus, vitae dolorum`
-      },
-      {
-        id: 2,
-        type: 'warning',
-        message: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptates est animi quibusdam praesentium quam, et perspiciatis,
-                consectetur velit culpa molestias dignissimos
-                voluptatum veritatis quod aliquam! Rerum placeat necessitatibus, vitae dolorum`
-      }
-    );
   }
 
   ngOnInit() {
     let autorization = {Authorization: localStorage.getItem('authentication')};
-    this.httpClient.get('http://localhost:3000/api/user/viewUnverifiedArticles', {headers: autorization})
+    this.httpClient.get(appConfig.apiUrl + '/user/viewUnverifiedArticles', {headers: autorization})
       .subscribe((res: any) => {
         this.articles = res.data;
-        console.log(res.msg);
-        console.log(res.data);
       }, err => {
-        console.log(err.error.msg);
+        new Noty({
+          type: 'error',
+          text: err.error ? err.error.msg : err.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      });
+    this.httpClient.get(appConfig.apiUrl + '/admin/teachers_verfication', {headers: autorization})
+      .subscribe((res: any) => {
+        this.Teachers = res.data;
+      }, err => {
+        new Noty({
+          type: 'error',
+          text: err.error ? err.error.msg : err.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
       });
 
+    this.httpClient.get(appConfig.apiUrl + '/activity/viewUnverifiedActivities', {headers: autorization})
+      .subscribe((res: any) => {
+        this.activities = res.data;
+      }, err => {
+        new Noty({
+          type: 'error',
+          text: err.error ? err.error.msg : err.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      });
+    this.httpClient.get(appConfig.apiUrl + '/admin/teachers_verfication', {headers: autorization})
+      .subscribe((res: any) => {
+        this.teacherForms = res.data;
+      }, err => {
+        new Noty({
+          type: 'error',
+          text: err.error ? err.error.msg : err.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      });
+    this.httpClient.get(appConfig.apiUrl + '/user/viewVerificationForms', {headers: autorization})
+      .subscribe((res: any) => {
+        this.interviews = res.data;
+      }, err => {
+        new Noty({
+          type: 'error',
+          text: err.error ? err.error.msg : err.msg,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      });
   }
 
-  public closeAlert(alert: any) {
-    const index: number = this.alerts.indexOf(alert);
-    this.alerts.splice(index, 1);
-  }
 }

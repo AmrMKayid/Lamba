@@ -1,11 +1,15 @@
 <div [@routerTransition]>
-
-
-  <div class="row">
+  <div class="main-container">
+    <br>
+    <br>
+    <h2  style="text-align:center;font-weight:bold;">Articles</h2>
+   
+  <div class="row" style="position:relative">
+      
     <div class="col-12" *ngFor="let article of unVerifiedArticlesList">
       <div class="card card-default">
-        <div class="card-header">
-          <a class="btn-floating peach-gradient waves-light"><i class="fa fa-leaf"></i></a>
+        <div class="card-header" style="background-color:#ffc335;">
+          <a class="btn-floating peach-gradient waves-light"><i class="fa fa-fw fa-edit"></i></a>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -20,10 +24,19 @@
                     <small class="text-muted"><i class="fa fa-clock-o"></i> {{ article.createdAt | date}}</small>
                   </p>
                 </div>
-                <div class="timeline-body" *ngFor="let tag of article.tags">
-                  <button type="button" class="btn btn-default btn-block">{{tag}}</button>
-
-                </div>
+                <p class="grey-text">Posted by
+                  <a style="cursor: pointer;" [routerLink]="['/profile',article.owner_id._id]" class="name-capitalize">{{article.owner_id.name.firstName}}
+                    {{article.owner_id.name.lastName}}</a>
+                </p>
+                <p>
+                    <strong>Tags: </strong>
+                    <em *ngIf="article.tags.length ===0">No tags defined for this article</em>
+                    <ng-container *ngFor="let tag of article.tags">
+                      <span class="badge badge-pill light-blue" style="cursor: pointer;">{{getTagByID(allTags, tag)}}</span>
+                    </ng-container>
+                  </p>
+                  <img [src]="(article.thumbnail_url)? IMG_URL + article.thumbnail_url : IMG_URL + 'articleDefault'"
+                  class="img-fluid" alt="Article-thumbnail" />
               </div>
             </li>
             <li class="timeline-inverted">
@@ -34,12 +47,12 @@
                   <h4 class="timeline-title">{{ article.title}}</h4>
                 </div>
                 <div class="timeline-body">
-
-                  <div [innerHTML]="article.content">
-                  </div>
-                  <button class="btn btn-secondary btn-sm" (click)="verifyArticle(article._id)">VERIFY</button>
+                   
+                  <div [innerHTML]="article.content | safeHtml"></div>
+                  
+                  <button class="badge badge-pill btn-success" (click)="verifyArticle(article._id,article.owner_id)" style="cursor: pointer;">VERIFY</button>
                   <!--to do reject-->
-                  <span><button class="btn btn-danger btn-sm ">REJECT</button></span>
+                  <span><button class="badge badge-pill btn-danger" (click)="rejectArticle(article._id,article.owner_id,article.title)"  style="cursor: pointer;" >REJECT</button></span>
                 </div>
               </div>
             </li>
@@ -49,8 +62,8 @@
       </div>
       <!-- /.card -->
     </div>
-    <ul class="timeline">
-
-    </ul>
+  </div>
+  <div class="text-center"  *ngIf="List.length ===0"><h1>There are currently no new articles </h1>
+    <button class="btn btn-sm" style="background-color:#f16138;font-weight:bold" routerLink="/profile/admin/dashboard" [routerLinkActive]="['router-link-active']">Back to DashbBoard</button></div>
   </div>
 </div>

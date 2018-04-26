@@ -27,10 +27,23 @@
           </tag-input>
         </div>
         <br>
-        <quill-editor [modules]="toolbarOptions" [placeholder]="'Enter post content here...'" name="editorContent"
+        <quill-editor (onEditorCreated)="editorCreated($event)" [modules]="toolbarOptions"
+                      [placeholder]="'Enter post content here...'" name="editorContent"
                       id="detailEditTxt"
                       [(ngModel)]="editorContent">
         </quill-editor>
+        <br>
+        <image-upload
+          [headers]="{authorization: token}"
+          [max]="1"
+          url="{{apiUrlHTML}}/articles/uploadArticleThumbnail"
+          [dropBoxMessage]="''"
+          [buttonCaption]="'Upload a thumbnail image'"
+          [style]="customStyle"
+          (uploadFinished)="onUploadFinished($event)"
+
+        >
+        </image-upload>
         <br>
         <div class="button-row" style="text-align: right;">
           <a style="color:#3F729B; font-family: Roboto;" class="btn btn-primary" (click)="onSubmit()" role="button">

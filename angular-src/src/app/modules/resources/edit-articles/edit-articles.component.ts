@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {HttpHeaders} from '@angular/common/http';
 import {ArticlesService} from '../articles.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {appConfig} from "../../../app.config";
 
 @Component({
   selector: 'app-edit-articles',
@@ -11,6 +12,9 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./edit-articles.component.css']
 })
 export class EditArticlesComponent implements OnInit {
+
+  apiUrlHTML = appConfig.apiUrl;
+
   article: any = {};
   id: string;
   public title: String;
@@ -37,7 +41,6 @@ export class EditArticlesComponent implements OnInit {
       ['video', 'link']
     ]
   };
-  //TODO: Export it into a service.
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -61,7 +64,7 @@ export class EditArticlesComponent implements OnInit {
       }, err => {
         new Noty({
           type: 'error',
-          text: `Tags couldn't be retrieved: ${err.error.msg}`,
+          text: `Tags couldn't be retrieved: ${err.error ? err.error.msg : err.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -89,7 +92,7 @@ export class EditArticlesComponent implements OnInit {
       }, err => {
         new Noty({
           type: 'error',
-          text: `Your article couldn't be retrieved: ${err.error.msg}`,
+          text: `Your article couldn't be retrieved: ${err.error ? err.error.msg : err.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -98,7 +101,6 @@ export class EditArticlesComponent implements OnInit {
   }
 
   onEdit() {
-    //TODO: Beuatify these alerts! ,_,
     if (!this.title || !this.editorContent) {
       new Noty({
         type: 'warning',
@@ -109,14 +111,13 @@ export class EditArticlesComponent implements OnInit {
       return;
     }
     let body = {
-      id: this.article._id,
       title: this.title,
       content: this.editorContent,
       approved: false,
       tags: (this.selectedTags.map(tag => tag.id))
     };
 
-    this.http.put('http://localhost:3000/api/articles', body, this.httpOptions)
+    this.http.patch(appConfig.apiUrl + '/articles/' + this.id, body, this.httpOptions)
       .pipe().subscribe(res => {
       this.router.navigate(['/resources']);
       new Noty({
@@ -129,7 +130,7 @@ export class EditArticlesComponent implements OnInit {
       let msg = err.error.msg;
       new Noty({
         type: 'error',
-        text: `Something went wrong while editing your post: ${err.error.msg}`,
+        text: `Something went wrong while editing your post: ${err.error ? err.error.msg : err.msg}`,
         timeout: 3000,
         progressBar: true
       }).show();

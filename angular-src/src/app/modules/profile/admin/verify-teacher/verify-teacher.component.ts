@@ -6,16 +6,24 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {HttpModule, Response} from '@angular/http';
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {routerTransition} from '../router.animations';
+import {appConfig} from "../../../../app.config";
 
 @Component({
   selector: 'app-verify-teacher',
   templateUrl: './verify-teacher.component.html',
-  styleUrls: ['./verify-teacher.component.css']
+  styleUrls: ['./verify-teacher.component.css'],
+  animations: [routerTransition()]
+
 })
 export class VerifyTeacherComponent implements OnInit {
 
+  apiUrlHTML = appConfig.apiUrl;
+
   public Teachers = [];
-  p: number = 1;
+  public List=[1];
+  authorization = {Authorization: localStorage.getItem('authentication')};
+
 
   constructor(private httpClient: HttpClient,
               private http: Http,
@@ -24,55 +32,84 @@ export class VerifyTeacherComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.httpClient.get('http://localhost:3000/api/admin/teachers_verfication')
+    this.httpClient.get(appConfig.apiUrl + '/admin/teachers_verfication', {headers: this.authorization})
       .subscribe((res: any) => {
         this.Teachers = res.data;
+        this.List=res.data;
+      }, err => {
+        new Noty({
+          type: 'error',
+          text: err.error ? err.error.msg : err.msg,
+          timeout: 2000,
+          progressBar: true
+        }).show();
       });
   }
 
   Accept(teacherID) {
-    if (localStorage.length == 0) {
-      new Noty({
-        type: 'info',
-        text: 'Access Denied',
-        timeout: 2000,
-        progressBar: true
-      }).show();
-      //this.router.navigate([]);
-      return false;
-    }
-
-    this.httpClient.get('http://localhost:3000/api/admin/accept_teacher/' + teacherID)
-    //.catch((err: any) => console.log(err))
+    this.httpClient.get(appConfig.apiUrl + '/admin/accept_teacher/' + teacherID, {headers: this.authorization})
       .subscribe(res => {
-        new Noty({
-          type: 'success',
-          text: 'Teacher Verified Successfully',
-          timeout: 2000,
-          progressBar: true
-        }).show();
-        this.router.navigate(['/profile/admin/verify-teachers']);
+          new Noty({
+            type: 'success',
+            text: 'Teacher Verified Successfully',
+            timeout: 2000,
+            progressBar: true
+          }).show();
+          this.ngOnInit();
+        },
+        err => {
+          new Noty({
+            type: 'error',
+            text: err.error ? err.error.msg : err.msg,
+            timeout: 2000,
+            progressBar: true
+          }).show();
+        });
+    let notification = {
+      title: 'Verification',
+      description: 'Congratulations:You are now a verified teacher',
+      url: '/profile/' + teacherID,
+      recieving_user_id: teacherID
+    }
+    this.httpClient.post(appConfig.apiUrl + '/notifications/create', notification, {headers: this.authorization}).subscribe(
+      (res: any) => {
+      },
+      err => {
+
+      });
+  }
+
+  Decline(teacherID) {
+    this.httpClient.get(appConfig.apiUrl + '/admin/decline_teacher/' + teacherID, {headers: this.authorization})
+      .subscribe(res => {
+          new Noty({
+            type: 'success',
+            text: 'Teacher Rejected Successfully',
+            timeout: 2000,
+            progressBar: true
+          }).show();
+          this.ngOnInit();
+        },
+        err => {
+          new Noty({
+            type: 'error',
+            text: err.error ? err.error.msg : err.msg,
+            timeout: 2000,
+            progressBar: true
+          }).show();
+        });
+    let notification = {
+      title: 'Verification',
+      description: 'Sorry:You have been rejected',
+      url: '/profile/' + teacherID,
+      recieving_user_id: teacherID
+    }
+    this.httpClient.post(appConfig.apiUrl + '/notifications/create', notification, {headers: this.authorization}).subscribe(
+      (res: any) => {
+      },
+      err => {
 
       });
 
-
   }
-
-  // Decline(teacherID) {
-  //   if (localStorage.length == 0) {
-
-  //     //this.router.navigate(['']);
-  //     return false;
-  //   }
-  //   let headers = new Headers();
-  //   headers.append('Content-Type', 'application/json');
-
-  //   this.http.post('http://localhost:3000/admin/decline_teacher/' +  teacherID, { headers: headers })
-  //     //.catch((err: any) => console.log(err))
-  //     .subscribe(res => {
-  //       //this.router.navigate(['dashboard/cart']);
-
-  //     });
-  // }
-
 }

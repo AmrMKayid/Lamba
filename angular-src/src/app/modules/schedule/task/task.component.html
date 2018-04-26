@@ -1,57 +1,90 @@
-<div class="card card-cascade wider reverse my-4 myCardSize">
-
-  <!-- Page Content -->
-  <div class="container">
-
+<div class="divider" style="padding-top:20px;"></div>
+<div class="container">
+  <section class="mt-4">
     <div class="row">
-
-      <!-- Post Content Column -->
-      <div class="col-lg-12">
-
-        <!-- Title -->
-        <h1 class="mt-4">{{title}}</h1>
-
-
-        <!-- Date/Time -->
-        <p>{{createdAt | date }}</p>
-
-        <hr>
-        <p>{{description}}</p>
-        <hr>
-
-
-        <!-- Comments Form -->
-        <div class="card my-4 myCardSize">
-          <h5 class="card-header">Leave a Comment:</h5>
+      <div class="col-md-8 mb-4">
+        <!--/.Featured Image-->
+        <!--Card-->
+        <div class="card mb-4 wow fadeIn">
+          <!--Card content-->
           <div class="card-body">
-            <form>
-              <div class="md-form">
-                <i class="material-icons prefix">comment</i>
-                <textarea type="text" id="form8" class="md-textarea" #newComment mdbActive></textarea>
-                <label for="form8">Comment</label>
+            <h1 class="text-center text-primary">
+              <strong>{{title}}</strong>
+            </h1>
+            <hr>
+            <p>{{description}}</p>
+            <hr>
+            <p align="right">Created at:
+              <em>{{createdAt | date }}</em>
+            </p>
+          </div>
+        </div>
+
+
+        <!--Comments-->
+        <div class="card card-comments mb-3 wow fadeIn">
+          <div class="card-header font-weight-bold">{{taskComments.length}} comments</div>
+          <div class="card-body">
+            <div class="form-group mt-4">
+              <h4 class="text-center text-primary">
+                <strong>Comment on the task</strong>
+              </h4>
+
+
+              <textarea class="form-control md-textarea" #newComment [(ngModel)]="commentx" name="commentx"
+                        placeholder=" Leave your comment here ..." rows="5" mdbActive></textarea>
+              <div class="text-center">
+                <button type="submit" (click)="createNewComment(newComment.value)"
+                        class="btn btn-deep-orange waves-light">Post
+                </button>
               </div>
-              <button class="btn btn-deep-orange waves-light" (click)="createNewComment(newComment.value)"
-                      mdbRippleRadius>Create Comment
-              </button>
-            </form>
+            </div>
+            <hr>
+            <!-- COMMENTS START HERE! -->
+            <div class="media d-block d-md-flex mt-4"
+                 *ngFor="let comment of taskComments | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
+              <img class="d-flex mb-3 mx-auto rounded-circle" width="60"
+                   src="{{apiUrlHTML}}/uploads/store/{{comment.userId.photo}}" alt="Generic placeholder image">
+              <div class="media-body text-center text-md-left ml-md-3 ml-0">
+                <h5 class="mt-0 font-weight-bold">
+                  <a class="name-capitalize" style="cursor: pointer;" [routerLink]="['/profile',comment.userId._id]">
+                    {{comment.userId.name.firstName}} {{comment.userId.name.lastName}}
+                  </a>
+                </h5>
+                {{comment.comment}}
+              </div>
+            </div>
+            <div style="text-align: center;">
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+
           </div>
         </div>
-
-        <!-- Single Comment -->
-        <div class="media mb-4" *ngFor="let comment of taskComments">
-          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-          <div class="media-body">
-            <h5 class="mt-0">{{comment.name}}</h5>
-            <p>{{comment.comment}}</p>
-          </div>
-        </div>
-
+        <!--/.Comments-->
 
       </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-4 mb-4" *ngIf="currentUser._id == studentId">
 
 
+        <div class="card mb-4 text-center wow fadeIn">
+          <div class="card-header">
+            <strong>Mark task as done</strong>
+          </div>
+          <div class="card-body">
+            <button type="submit" (click)="markTaskAsDone()"
+            class="btn btn-success waves-light">Mark As Done
+            </button>
+          </div>
+        </div>
+        <!--/.Card : Dynamic content wrapper-->
+      </div>
+      <!--Grid column-->
     </div>
-  </div>
+    <!--Grid row-->
+  </section>
 
 
 </div>

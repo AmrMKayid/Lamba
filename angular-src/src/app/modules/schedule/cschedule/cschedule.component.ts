@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ActivatedRoute} from "@angular/router";
+import {appConfig} from "../../../app.config";
 
 @Component({
   selector: 'app-cschedule',
@@ -8,6 +9,9 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./cschedule.component.css']
 })
 export class CscheduleComponent implements OnInit {
+
+  apiUrlHTML = appConfig.apiUrl;
+  
   public userID;
   httpOptions = {
     headers: new HttpHeaders({
@@ -25,6 +29,9 @@ export class CscheduleComponent implements OnInit {
   public thurs = [];
   public fri = [];
 
+  createTeacherSchedule;
+  createChildShcedule;
+
   constructor(private http: HttpClient,
               private route: ActivatedRoute) {
     this.route.queryParams.subscribe(params => {
@@ -35,7 +42,7 @@ export class CscheduleComponent implements OnInit {
 
   getChildSchedule() {
 
-    this.http.get('http://localhost:3000/api/schedule/getMySchedule/' + this.userID, this.httpOptions).subscribe((res: any) => {
+    this.http.get(appConfig.apiUrl + '/schedule/getMySchedule/' + this.userID, this.httpOptions).subscribe((res: any) => {
       this.sat = res.data.table.saturday;
       this.sun = res.data.table.sunday;
       this.mon = res.data.table.monday;
@@ -57,41 +64,34 @@ export class CscheduleComponent implements OnInit {
       day: thisday
     }
 
-    this.http.patch('http://localhost:3000/api/schedule/updateChildSchedule' + Slot._id + '/' + this.userID, body, this.httpOptions).subscribe((res: any) => {
+    this.http.patch(appConfig.apiUrl + '/schedule/updateChildSchedule' + Slot._id + '/' + this.userID, body, this.httpOptions).subscribe((res: any) => {
       if (thisday == 'saturday') {
         var index = this.sat.indexOf(Slot);
         this.sat[index] = res.data;
-        console.log(this.sat[index]);
       }
       if (thisday == 'sunday') {
         var index = this.sun.indexOf(Slot);
         this.sun[index] = res.data;
-        console.log(this.sun[index]);
       }
       if (thisday == 'monday') {
         var index = this.mon.indexOf(Slot);
         this.mon[index] = res.data;
-        console.log(this.mon[index]);
       }
       if (thisday == 'tuesday') {
         var index = this.tues.indexOf(Slot);
         this.tues[index] = res.data;
-        console.log(this.tues[index]);
       }
       if (thisday == 'wednesday') {
         var index = this.wed.indexOf(Slot);
         this.wed[index] = res.data;
-        console.log(this.wed[index]);
       }
       if (thisday == 'thursday') {
         var index = this.thurs.indexOf(Slot);
         this.thurs[index] = res.data;
-        console.log(this.thurs[index]);
       }
       if (thisday == 'friday') {
         var index = this.fri.indexOf(Slot);
         this.fri[index] = res.data;
-        console.log(this.fri[index]);
       }
     });
   }

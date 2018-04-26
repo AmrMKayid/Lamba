@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {StoreService} from '../../../services/store.service';
 import {Router} from "@angular/router";
 import * as $ from 'jquery';
+import {appConfig} from "../../../app.config";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-view',
@@ -9,6 +11,8 @@ import * as $ from 'jquery';
   styleUrls: ['./view.component.css']
 })
 export class ViewComponent implements OnInit {
+
+  apiUrlHTML = appConfig.apiUrl;
 
   itemsCount: number; // Total number of items
   limit: number; // Number of items per page
@@ -19,8 +23,13 @@ export class ViewComponent implements OnInit {
   items: any[]; // Current items
   pages: any[]; // Holds the numbers of the pages available to be picked
 
+  // Pagination: initializing p to one
+  p: number = 1;
+  filter;
+
 
   constructor(private StoreService: StoreService,
+              private http: HttpClient,
               private router: Router) {
     this.limit = 20;
     this.curPage = 1;
@@ -55,11 +64,7 @@ export class ViewComponent implements OnInit {
 
     this.pages = new Array<number>(max - min + 1);
 
-    console.log(this.pages);
-    console.log("min: " + min + " max: " + max);
-    console.log("lastPageNumber: " + this.lastPageNumber + " curPage: " + this.curPage);
-
-    for (let i = min, j: number = 0; i <= max; i++, j++) {
+    for (let i = min, j: number = 0; i <= max; i++ , j++) {
       this.pages[j] = i;
     }
     this.loadItems();
@@ -67,33 +72,73 @@ export class ViewComponent implements OnInit {
 
 
   loadItems() {
-    this.StoreService.viewItems(this.limit, this.curPage).subscribe((data: any) => {
+    this.StoreService.viewItems().subscribe((data: any) => {
       this.items = data.data;
-      console.log(this.items);
     });
   }
 
   likeItems(item) {
-    console.log(item);
     this.StoreService.likeItems(item).subscribe((data: any) => {
-      console.log('what');
-      console.log(data);
-      for (var i = 0; i < this.items.length; i++) {
-        if (this.items[i]._id == data._id) {
-          this.items[i].likes_user_id = data.likes_user_id;
+        for (var i = 0; i < this.items.length; i++) {
+          if (this.items[i]._id == data._id) {
+            this.items[i].likes_user_id = data.likes_user_id;
+          }
         }
+        this.ngOnInit();
+
+        this.loadItems();
+
       }
-    });
+      , error => {
+        new Noty({
+          type: 'info',
+          text: "You already liked this item.",
+          timeout: 3000,
+          progressBar: true
+        }).show();
+      });
   }
 
   unlikeItems(item) {
     this.StoreService.unlikeItems(item).subscribe((data: any) => {
       this.items = data.data;
+
+      this.ngOnInit();
     });
+    this.loadItems();
   }
 
   viewInfo(_id) {
-    console.log("awfawf");
     this.router.navigate(['/store/view/' + _id]);
+  }
+
+  addToFav(item) {
+    this.StoreService.addToFavorites(item._id).subscribe(
+      (res: any) => {
+        new Noty({
+          type: 'success',
+          text: `Added to favorites successfully`,
+          timeout: 1500,
+          progressBar: true
+        }).show();
+      },
+      err => {
+        if (err.status === 304) {
+          new Noty({
+            type: 'info',
+            text: `Item is already in your favorites.`,
+            timeout: 1500,
+            progressBar: true
+          }).show();
+        } else {
+          new Noty({
+            type: 'warning',
+            text: `Something went wrong while adding to favorites: ${err.error ? err.error.msg : err.msg}`,
+            timeout: 2000,
+            progressBar: true
+          }).show();
+        }
+      }
+    )
   }
 }

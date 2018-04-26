@@ -5,9 +5,14 @@ var mongoose = require('mongoose'),
     User = mongoose.model('User'),
     Child = mongoose.model('Child'),
     Tag = mongoose.model('Tag'),
-    Article = mongoose.model('Article');
+    /////////HERE//////////
+    path = require('path'),
+    fs = require('fs');
+/////////HERE//////////
+Article = mongoose.model('Article');
 
-const {JSDOM} = jsdom;
+
+const { JSDOM } = jsdom;
 
 module.exports.getArticle = function (req, res, next) {
     let article_id = req.params.id;
@@ -57,25 +62,25 @@ module.exports.getArticles = function (req, res, next) {
             //Find all articles with the IDs in the child's profile, and only return back the ones approved
             let articlesIDs = child.allowedArticles;
             Article.find({
-                    _id: {$in: articlesIDs},
-                    approved: {$eq: true}
-                }, 'title createdAt owner_id _id tags upvoters downvoters',
+                _id: { $in: articlesIDs },
+                approved: { $eq: true }
+            }, 'title createdAt owner_id _id tags upvoters downvoters thumbnail_url',
                 (err, result) => {
                     if (err) {
                         return next(err);
                     }
                 }).populate('owner_id', 'name', 'User').exec((err, result) => {
-                res.status(200).json({
-                    err: null,
-                    msg: 'Articles retrieved successfully.',
-                    data: result
+                    res.status(200).json({
+                        err: null,
+                        msg: 'Articles retrieved successfully.',
+                        data: result
+                    });
                 });
-            });
         });
     } else {
         Article.find({
             approved: true
-        }, 'title createdAt owner_id _id tags upvoters downvoters', (err, result) => {
+        }, 'title createdAt owner_id _id tags upvoters downvoters thumbnail_url', (err, result) => {
             if (err) {
                 return next(err);
             }
@@ -141,7 +146,7 @@ module.exports.createArticle = function (req, res, next) {
         if (!user) {
             return res
                 .status(404)
-                .json({err: null, msg: 'User not found.', data: null});
+                .json({ err: null, msg: 'User not found.', data: null });
         }
         Tag.find({
             '_id': {
@@ -153,11 +158,15 @@ module.exports.createArticle = function (req, res, next) {
                 return next(err);
             }
             const content = transformHtml(req.body.content);
+            if (!req.body.thumbnail_url) {
+                req.body.thumbnail_url = "articleDefault";
+            }
             let article = {
                 owner_id: req.decodedToken.user._id,
                 title: req.body.title,
                 content,
-                tags: null
+                tags: null,
+                thumbnail_url: req.body.thumbnail_url
             };
             if (retrievedTags.length !== req.body.tags.length) {
                 return res.status(404).json({
@@ -230,7 +239,7 @@ const upvote = function (article, id, res, next) {
         return res.status(200).json({
             err: null,
             msg: "Already upvoted",
-            data: {upvoters: article.upvoters, downvoters: article.downvoters}
+            data: { upvoters: article.upvoters, downvoters: article.downvoters }
         });
     } else if (article.downvoters.includes(id)) {
         article.downvoters.splice(article.downvoters.indexOf(id), 1);
@@ -243,7 +252,7 @@ const upvote = function (article, id, res, next) {
         return res.status(200).json({
             err: null,
             msg: "Successfully upvoted.",
-            data: {upvoters: updatedArticle.upvoters, downvoters: updatedArticle.downvoters}
+            data: { upvoters: updatedArticle.upvoters, downvoters: updatedArticle.downvoters }
         });
     });
 }
@@ -253,7 +262,7 @@ const downvote = function (article, id, res, next) {
         return res.status(200).json({
             err: null,
             msg: "Already downvoted",
-            data: {upvoters: article.upvoters, downvoters: article.downvoters}
+            data: { upvoters: article.upvoters, downvoters: article.downvoters }
         });
     } else if (article.upvoters.includes(id)) {
         article.upvoters.splice(article.upvoters.indexOf(id), 1);
@@ -266,7 +275,7 @@ const downvote = function (article, id, res, next) {
         return res.status(200).json({
             err: null,
             msg: "Successfully updated.",
-            data: {upvoters: updatedArticle.upvoters, downvoters: updatedArticle.downvoters}
+            data: { upvoters: updatedArticle.upvoters, downvoters: updatedArticle.downvoters }
         });
     });
 }
@@ -278,27 +287,36 @@ const findArticleById = function (article_id, res, next) {
             if (err) {
                 return next(err);
             }
+            if (!result) {
+                return res.status(404).json({
+                    err: null,
+                    msg: 'Article not found.',
+                    data: null
+                });
+            }
             //FEATUREZ: Change el pending and stuff
             if (result.approved === false) {
                 res.status(401).json({
                     err: null,
                     msg: 'Cannot retrieve this article.',
-                    data: result
+                    data: null
                 });
             }
             User.findById(result.owner_id, (err, ownerUser) => {
                 if (err) {
                     return next(err);
                 }
-
-                result._doc.name = ownerUser.name;
+                result._doc.owner = {};
+                result._doc.owner.name = ownerUser.name;
+                result._doc.owner.photo = ownerUser.photo;
+                result._doc.owner.about = ownerUser.about;
                 res.status(200).json({
                     err: null,
                     msg: 'Article retrieved successfully.',
                     data: result
                 });
             });
-        }).populate('comments.commenter', 'name', 'User').populate('comments.replies.replier', 'name', 'User');
+        }).populate('comments.commenter', 'name photo');
 }
 
 
@@ -323,10 +341,11 @@ const transformHtml = (html) => {
     return result.substring(25, result.length - 14);
 };
 //////////////////////////////////////COMMENTS////////////////////////////////////////
-const comment = function (article, id, content, res, next) {
+const comment = function (article, id, role, content, res, next) {
     let comment = {
         comment_content: content,
         commenter: id,
+        kind: role
     }
     article.comments.push(comment);
     article.save(function (err, updatedArticle) {
@@ -336,41 +355,11 @@ const comment = function (article, id, content, res, next) {
         return res.status(200).json({
             err: null,
             msg: "Comment is added successfully.",
-            data: {comments: updatedArticle.comments}
+            data: { comments: updatedArticle.comments }
         });
     });
 };
-const reply = function (article, userID, comment_id, reply, res, next) {
-    let rep = {
-        reply_content: reply,
-        replier: userID
-    }
 
-    // article.update(
-    //     { _id: article._id, "comments._id": comment_id},//, "comments._id":comment_id},
-    //     { $push: { "comments.replies": rep } }
-    // );
-    // article.update({'comments._id': comment_id}, {$push: {'comments.0.replies': rep}});
-    //article.comments.replies.push(rep);
-    Article.updateOne(
-        {"_id": article._id, 'comments._id': comment_id},
-        {$push: {'comments.$.replies': rep}}
-    ).exec((err, result) => {
-        res.status(200).json({
-            err: null,
-            msg: 'Articles retrieved successfully.',
-            data: result
-        });
-    });
-    // article.save(function (err, updatedArticle) {
-    //     if (err) { return next(err) }
-    //     return res.status(200).json({
-    //         err: null,
-    //         msg: "Reply is added successfully.",
-    //         data: { comments: updatedArticle.comments}
-    //     });
-    // });
-};
 module.exports.commentArticle = function (req, res, next) {
     let valid = req.body.article_id &&
         Validations.isString(req.body.article_id) &&
@@ -395,42 +384,15 @@ module.exports.commentArticle = function (req, res, next) {
                 data: null
             });
         }
-        comment(retrievedArticle, userID, req.body.comment_content, res, next);
+        //Checks the role and thus sets the reference accordingly in the model
+        if (req.decodedToken.user.email) {
+            comment(retrievedArticle, userID, 'User', req.body.comment_content, res, next);
+
+        } else {
+            comment(retrievedArticle, userID, 'Child', req.body.comment_content, res, next);
+        }
     })
 };
-module.exports.replyComment = function (req, res, next) {
-    let valid = req.body.article_id &&
-        Validations.isString(req.body.article_id) &&
-        req.body.comment_id &&
-        Validations.isString(req.body.comment_id) &&
-        req.body.reply &&
-        Validations.isString(req.body.reply)
-    if (!valid) {
-        return res.status(422).json({
-            err: null,
-            msg: 'article_id(String), and comment_id(String) and reply content(String) are required fields.',
-            data: null
-        });
-    }
-    let userID = req.decodedToken.user._id;
-    Article.findById(req.body.article_id, (err, retrievedArticle) => {
-        if (err) {
-            return next(err);
-        }
-        if (!retrievedArticle) {
-            return res.status(404).json({
-                err: null,
-                msg: 'Article was not found.',
-                data: null
-            });
-        }
-        reply(retrievedArticle, userID, req.body.comment_id, req.body.reply, res, next);
-    })
-};
-
-
-/////////////////
-
 
 module.exports.deleteArticle = function (req, res, next) {
     if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
@@ -469,23 +431,43 @@ module.exports.deleteArticle = function (req, res, next) {
 
                     Child.update(
                         {},
-                        {$pull: {allowedArticles: result._id}},
-                        {multi: true},
+                        { $pull: { allowedArticles: result._id } },
+                        { multi: true },
                         (err, updatedArticles) => {
                             if (err) {
                                 console.log(err);
                                 return next(err);
                             }
-                            return res.status(200).json({
-                                err: null,
-                                msg: 'Article deleted successfully.',
-                                data: result
-                            });
+                            Child.update(
+                                {},
+                                { $pull: { 'favorites.resources': result._id } },
+                                { multi: true },
+                                (err, updatedArticles) => {
+                                    if (err) {
+                                        console.log(err);
+                                        return next(err);
+                                    }
+                                    User.update(
+                                        {},
+                                        { $pull: { 'favorites.resources': result._id } },
+                                        { multi: true },
+                                        (err, updatedArticles) => {
+                                            if (err) {
+                                                console.log(err);
+                                                return next(err);
+                                            }
+                                            return res.status(200).json({
+                                                err: null,
+                                                msg: 'Article deleted successfully.',
+                                                data: result
+                                            });
+                                        }
+                                    );
+                                }
+                            );
                         }
                     );
-
                 });
-
             } else {
                 return res.status(401).json({
                     err: null,
@@ -501,21 +483,28 @@ module.exports.deleteArticle = function (req, res, next) {
 
 
 module.exports.editArticle = function (req, res, next) {
-    let valid = req.body.id && req.body.id.match(/^[0-9a-fA-F]{24}$/)
-        && req.body.title && Validations.isString(req.body.title)
+    if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+        return res.status(422).json({
+            err: null,
+            msg: 'Invalid ID provided.',
+            data: null
+        });
+    }
+    let valid =
+        req.body.title && Validations.isString(req.body.title)
         && req.body.content && Validations.isString(req.body.content)
         && req.body.tags && Validations.isArray(req.body.tags)
 
     if (!valid) {
         return res.status(422).json({
             err: null,
-            msg: 'id,title,content(Strings). tags(Array) are all required fields',
+            msg: 'title,content(Strings). tags(Array) are all required fields',
             data: null
         });
     }
 
     if (req.decodedToken.user._id) {
-        Article.findById(req.body.id, (err, retrievedArticle) => {
+        Article.findById(req.params.id, (err, retrievedArticle) => {
             if (err) {
                 return next(err);
             }
@@ -555,3 +544,23 @@ module.exports.editArticle = function (req, res, next) {
         });
     }
 }
+module.exports.uploadArticleThumbnail = function (req, res, next) {
+    if (!req.file) {
+        return res.status(422).json({
+            err: null,
+            msg: "Couldn't upload image",
+            data: null
+        });
+    }
+    return res.status(200).json({
+        err: null,
+        msg: "Image uploaded successfully",
+        filename: req.file.filename
+    });
+};
+module.exports.getImage = function (req, res, next) {
+    return res.status(200).sendFile(path.resolve('api/uploads/' + req.params.filename));
+
+}
+
+// Use the mv() method to place the file somewhere on your serve

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpHeaders, HttpClient} from '@angular/common/http';
 import {ArticlesService} from '../articles.service';
 import {Router} from '@angular/router';
+import {appConfig} from "../../../app.config";
 
 @Component({
   selector: 'app-view-articles',
@@ -9,6 +10,9 @@ import {Router} from '@angular/router';
   styleUrls: ['./view-articles.component.scss']
 })
 export class ViewArticlesComponent implements OnInit {
+
+  apiUrlHTML = appConfig.apiUrl;
+
   articles: any[];
   articlesInitialized: boolean;
   tagsInitialized: boolean;
@@ -17,6 +21,7 @@ export class ViewArticlesComponent implements OnInit {
   filterTagsIDs: string[] = [];
   keyword: string;
 
+  IMG_URL = appConfig.apiUrl + '/uploads/articlesThumbnails/';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -34,7 +39,6 @@ export class ViewArticlesComponent implements OnInit {
     this.articlesInitialized = false;
     this.tagsInitialized = false;
     this.allTags = [];
-
     this.articlesService.loadAllArticles().subscribe(
       (res: any) => {
         this.articles = res.data.reverse();
@@ -43,7 +47,7 @@ export class ViewArticlesComponent implements OnInit {
         this.router.navigate(['/']);
         new Noty({
           type: 'error',
-          text: `Articles could not be retrieved: ${err.error.msg}`,
+          text: `Articles could not be retrieved: ${err.error ? err.error.msg : err.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -59,7 +63,7 @@ export class ViewArticlesComponent implements OnInit {
         this.router.navigate(['/']);
         new Noty({
           type: 'error',
-          text: `Tags could not be retrieved: ${err.error.msg}`,
+          text: `Tags could not be retrieved: ${err.error ? err.error.msg : err.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();

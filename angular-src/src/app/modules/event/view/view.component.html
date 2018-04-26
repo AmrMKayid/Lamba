@@ -1,0 +1,57 @@
+<div class="row">
+
+  <div class="container">
+
+    <!--<nav class="navbar">-->
+    <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search">
+    <!--</nav>-->
+
+    <br>
+
+    <div *ngIf='myactivities.length===0' class="row">
+      <h5 class="m-auto pt-5">There are currently no activities to be displayed</h5>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-lg-4 col-md-6 mb-3" *ngFor='let activity of myactivities | filter:filter | paginate: { itemsPerPage: 6, currentPage: p };let i = index'>
+        <div class="card h-100">
+          <img class="card-img-top myImg" (click)="viewInfo(activity['_id'])" style="cursor: pointer;" src="{{apiUrlHTML}}/uploads/store/{{activity['picture_url']}}"
+            onError="this.src='../../../../assets/images/fallbacks/activity.jpeg'" alt="">
+          <div class="card-body" (click)="viewInfo(activity['_id'])" style="cursor: pointer;">
+            <h4 class="card-title">
+              {{activity['name']}}
+            </h4>
+            <h5>{{activity['price'] | currency}}</h5>
+            <p class="card-text">{{activity['description'] | slice:0:50 }} ...</p>
+          </div>
+          <div class="card-footer">
+            <div class="icon pull-right">
+              <a (click)="goingActivities(activity)" placement="bottom" ngbTooltip="Check-in">
+                <i class="fa fa-check fa-fw fa-2x mr-2" aria-hidden="true"></i>
+              </a>
+              <a (click)="addToFav(activity)" placement="bottom" ngbTooltip="Favorite">
+                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
+              </a>
+            </div>
+
+            <div class="icon pull-left" style="line-height: 2.1em;">
+
+              <span>{{activity['going_user_id'].length}}</span>
+              <i class="fa fa-check fa-fw mr-2" style="color:green;" aria-hidden="true"></i>
+
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+    <div class="container text-center">
+      <br>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+    </div>
+  </div>
+
+</div>

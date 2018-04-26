@@ -12,6 +12,7 @@ var express = require('express'),
     routes = require('./api/routes'),
     config = require('./api/config'),
     multer = require('multer'),
+    socketIO = require('./api/socket'),
     app = express();
 
 // Set the secret of the app that will be used in authentication
@@ -19,6 +20,9 @@ app.set('secret', config.SECRET);
 
 
 //---------------- Middlewares ----------------//
+
+app.io = require('socket.io')();
+socketIO(app.io);
 
 // Middleware for uploading binary files
 var storage = multer.diskStorage({
@@ -94,11 +98,14 @@ app.use(function (err, req, res, next) {
   a matching route on our server, or the requested data could not be found in the database
 */
 app.use(function (req, res) {
+
     res.status(404).json({
         err: null,
         msg: '404 Not Found',
         data: null
     });
+    res.sendFile(__dirname + '/public/index.html');
+
 });
 
 //---------------- Middlewares ----------------//

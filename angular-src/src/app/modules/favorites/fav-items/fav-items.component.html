@@ -1,0 +1,46 @@
+<div class="container-fluid" *ngIf="itemsInitialized">
+  <input class="text-center" type="text" [(ngModel)]="keyword" placeholder="Search through the titles">
+  <ng-container *ngFor="let item of items | filter: keyword | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
+    <div class="row mt-3 wow fadeIn">
+
+
+      <!--Image thumbnail-->
+      <div class="col-lg-5 col-xl-4 mb-4">
+        <!--Featured image-->
+        <div class="view overlay rounded z-depth-1">
+          <img [src]="IMG_URL + item.picture_url" onError="this.src='../../../../assets/images/fallbacks/item.jpg'" class="img-thumbnail"
+            alt="Item-thumbnail" style="width:100%; height:200px; object-fit:cover;"/>
+          <a style="cursor: pointer;" [routerLink]="['/store','view',item._id]">
+            <div class="mask"></div>
+          </a>
+        </div>
+      </div>
+      <!--Image thumbnail-->
+
+      <!--Actual content-->
+
+      <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
+        <br>
+        <h3 class="mb-3 font-weight-bold dark-grey-text">
+          <a style="cursor: pointer;" [routerLink]="['/store','view',item._id]">
+            <strong>{{item.name}}</strong>
+          </a>
+        </h3>
+        <p>
+          <em *ngIf="!item.item_type">No tags defined for this article</em>
+          <ng-container *ngIf="item.item_type">
+            <strong>
+              Type: {{item.item_type}}
+            </strong>
+          </ng-container>
+        </p>
+        <br>
+        <a role="button" (click)="remove(item._id)" class="pull-right pull-bottom">
+          <i class="fa fa-trash fa-2x"></i>
+        </a>
+      </div>
+      <!--Actual content-->
+    </div>
+    <hr class="mb-5">
+  </ng-container>
+</div>

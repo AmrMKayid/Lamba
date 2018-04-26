@@ -1,0 +1,48 @@
+<div class="card myCardSize" *ngIf="isVerified">
+
+
+  <form>
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Title" name="name" [(ngModel)]="name">
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Place" name="place" [(ngModel)]="place">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Activity type" name="activity_type" type="text"
+               [(ngModel)]="activity_type">
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Price" name="price" type="number" [(ngModel)]="price">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <textarea type="text" class="form-control" placeholder="Description" style="height: 100px; padding: 5px;"
+                name="description" [(ngModel)]="description"></textarea>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <image-upload [headers]="{authorization: token}" [max]="1"
+                      url="{{apiUrlHTML}}/store/upload"
+                      [dropBoxMessage]="'Drop your image here!'" [buttonCaption]="'Upload an Image'"
+                      [style]="customStyle" (uploadFinished)="onUploadFinished($event)"
+                      mdbInputDirective>
+        </image-upload>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <button class="btn btn-unique waves-light" (click)="onSubmit()" mdbWavesEffect>Create New Activity</button>
+    </div>
+
+
+  </form>
+
+
+</div>

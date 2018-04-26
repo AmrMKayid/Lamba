@@ -1,0 +1,24 @@
+.avatar img {
+  width: 100%;
+}
+
+.avatar {
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
+  margin: -100px auto 0;
+  overflow: hidden;
+  border: 5px solid #fff;
+}
+
+.myCard .card {
+
+  margin-bottom: 15px;
+}
+
+img.card-img-top {
+  height: 120px;
+  width: 120px;
+  object-fit: cover;
+  margin: auto;
+}

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ActivatedRoute} from "@angular/router";
+import {appConfig} from "../../../app.config";
 
 @Component({
   selector: 'app-tschedule',
@@ -9,6 +10,8 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./tschedule.component.css']
 })
 export class TscheduleComponent implements OnInit {
+
+  apiUrlHTML = appConfig.apiUrl;
 
   public userID;
   httpOptions = {
@@ -35,10 +38,14 @@ export class TscheduleComponent implements OnInit {
   }
 
 
+  createTeacherSchedule() {
+
+  }
+
   getTeacherSchedule() {
     //let user= JSON.parse(localStorage.getItem('currentUser')).user;
 
-    this.http.get('http://localhost:3000/api/schedule/getTeacherSchedule/5ac015ff36680295c461476e').subscribe((res: any) => {
+    this.http.get(appConfig.apiUrl + '/schedule/getTeacherSchedule/5ac015ff36680295c461476e').subscribe((res: any) => {
       this.sat = res.data.table.saturday;
       this.sun = res.data.table.sunday;
       this.mon = res.data.table.monday;
@@ -109,7 +116,6 @@ export class TscheduleComponent implements OnInit {
   };
 
   CreateNewComment() {
-    console.log("commented");
     this.commentdata.Comment = this.comment;
     this.comment = "";
     this.commentdata.userType = "Child";
@@ -117,11 +123,10 @@ export class TscheduleComponent implements OnInit {
     this.commentdata.taskId = "5abffe465386b43094a8c784";
     this.commentdata.name = "Saleh";
 
-    this.http.post('http://localhost:3000/api/task/newComment', this.commentdata).subscribe();
+    this.http.post(appConfig.apiUrl + '/task/newComment', this.commentdata).subscribe();
   }
 
   CreateNewTask() {
-    console.log("done");
     this.taskdata.Title = this.taskname;
     this.taskname = "";
     this.taskdata.Description = this.description;
@@ -129,16 +134,15 @@ export class TscheduleComponent implements OnInit {
     this.taskdata.TeacherId = "5abfe6f3750afc19b0689a36";
     this.taskdata.StudentId = "5abffe465388b43094a8c784";
 
-    this.http.post('http://localhost:3000/api/task/newTask', this.taskdata).subscribe();
+    this.http.post(appConfig.apiUrl + '/task/newTask', this.taskdata).subscribe();
   }
 
   mycomment = [];
 
   getComments() {
 
-    this.http.get('http://localhost:3000/api/task/getComments/5abffe465386b43094a8c784').subscribe((res: any) => {
+    this.http.get(appConfig.apiUrl + '/task/getComments/5abffe465386b43094a8c784').subscribe((res: any) => {
       this.mycomment = res.data;
-      console.log(this.mycomment);
     });
   }
 }

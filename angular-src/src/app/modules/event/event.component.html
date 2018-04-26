@@ -1,0 +1,34 @@
+<div class="divider" style="padding-top:50px;"></div>
+
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-lg-3 mb-3">
+
+
+      <div class="nav  flex-column nav-pills " aria-orientation="vertical">
+        <a [routerLinkActive]="['active']" [routerLink]="['/event/view']" *ngIf="isLoggedIn()" class="nav-link nimp"
+           style="padding: 10px !important;"><span><i class="material-icons">event</i></span> Activities</a>
+        <a [routerLinkActive]="['active']" href="#" class="nav-link nimp" [routerLink]="['/event/myactivities/view']"
+           *ngIf="isLoggedIn()" style="padding: 10px !important;"><span><i class="material-icons">event_note</i></span> My
+          activities</a>
+        <a [routerLinkActive]="['active']" href="#" class="nav-link nimp" [routerLink]="['/event/myactivities/create']"
+           *ngIf="isLoggedIn()" style="padding:10px !important;"><span><i class="material-icons">playlist_add</i></span>
+          Add activity</a>
+      </div>
+
+
+    </div>
+
+    <div class="col-lg-9">
+
+
+      <router-outlet></router-outlet>
+
+
+    </div>
+
+  </div>
+
+</div>

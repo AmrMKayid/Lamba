@@ -1,0 +1,50 @@
+<div class="divider" style="padding-top:50px;"></div>
+<div class="container">
+
+  <div class="row text-center mb-3">
+    <div class="col-md-12">
+      <h2>Choose your Interests!</h2>
+    </div>
+  </div>
+
+  <div class="divider" style="padding-top:50px;"></div>
+
+  <ngx-carousel
+    [inputs]="carouselTile"
+    (carouselLoad)="carouselTileLoad($event)">
+
+    <ngx-tile NgxCarouselItem>
+      <a (click)="newInterest('Science')"><h1 id="science"></h1></a>
+    </ngx-tile>
+
+    <ngx-tile NgxCarouselItem>
+      <a (click)="newInterest('Math')"><h1 id="math"></h1></a>
+    </ngx-tile>
+
+    <ngx-tile NgxCarouselItem>
+      <a (click)="newInterest('Programming')"><h1 id="programming">Programming</h1></a>
+    </ngx-tile>
+
+    <ngx-tile NgxCarouselItem>
+      <a (click)="newInterest('Literature')"><h1 id="literature">Literature</h1></a>
+    </ngx-tile>
+
+    <ngx-tile NgxCarouselItem>
+      <a (click)="newInterest('History')"><h1 id="history">History</h1></a>
+    </ngx-tile>
+
+    <ngx-tile NgxCarouselItem>
+      <a (click)="newInterest('Sports')"><h1 id="sports"></h1></a>
+    </ngx-tile>
+
+    <button NgxCarouselPrev class='leftRs'>&lt;</button>
+    <button NgxCarouselNext class='rightRs'>&gt;</button>
+  </ngx-carousel>
+
+  <div class="row text-center mb-3">
+    <div class="col-md-12">
+      <button class="btn btn-deep-orange waves-light" type="submit" mdbRippleRadius (click)="Interests()">Next</button>
+    </div>
+  </div>
+
+</div>

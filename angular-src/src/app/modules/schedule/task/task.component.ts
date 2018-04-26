@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {ActivatedRoute} from "@angular/router";
+import {Router, ActivatedRoute} from '@angular/router';
 import {AuthService} from "../../../services/auth.service";
+import {appConfig} from "../../../app.config";
 
 @Component({
   selector: 'app-task',
@@ -10,12 +11,16 @@ import {AuthService} from "../../../services/auth.service";
 })
 export class TaskComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute,
+  apiUrlHTML = appConfig.apiUrl;
+
+  constructor(private router: Router,
+              private route: ActivatedRoute,
               private http: HttpClient,
               private auth: AuthService) {
   }
 
   taskId: String;
+  p: any;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -24,14 +29,14 @@ export class TaskComponent implements OnInit {
     })
   };
 
-
+  commentx : String;
   title: String;
   description: String;
   createdAt: Date;
   updatedAt: Date;
   comments: any;
   studentId: String;
-  teacherId: String;
+  teacherId: string;
   taskComments = [];
   currentUser: any;
 
@@ -40,17 +45,18 @@ export class TaskComponent implements OnInit {
   ngOnInit() {
 
     this.currentUser = this.auth.getCurrentUser();
-    this.route.queryParams.subscribe(params => {
-      this.taskId = params['id'];
-    });
+
+    this.taskId = this.route.snapshot.params.id
 
     this.getTask();
     this.getComments();
+
+
   }
 
 
   getTask() {
-    this.http.get('http://localhost:3000/api/task/getTask/' + this.taskId, this.httpOptions).subscribe((res: any) => {
+    this.http.get(appConfig.apiUrl + '/task/getTask/' + this.taskId, this.httpOptions).subscribe((res: any) => {
       this.title = res.data.title;
       this.description = res.data.description;
       this.createdAt = res.data.createdAt;
@@ -61,9 +67,37 @@ export class TaskComponent implements OnInit {
     });
   }
 
+  Notification =  {
+    title: "",
+    description: "",
+    url: "",
+    recieving_user_id: "",
+  };
+
+
+  markTaskAsDone(){
+    this.http.get(appConfig.apiUrl + '/task/deleteTask/' + this.taskId, this.httpOptions).subscribe();
+    this.Notification.title = "Task is Done";
+    this.Notification.description = "Task " + this.title + " with description " + this.description ;
+    this.Notification.url = " ";
+    this.Notification.recieving_user_id = this.teacherId;
+      this.http.post(appConfig.apiUrl + '/booking/newNotif', this.Notification, this.httpOptions).subscribe();
+  new Noty({
+        type: 'success',
+        text: `Task is Marked As Done!`,
+        timeout: 3000,
+        progressBar: true
+      }).show();
+      this.router.navigate(['/profile/me']);
+    }
+
   getComments() {
-    this.http.get('http://localhost:3000/api/task/getComments/' + this.taskId, this.httpOptions).subscribe((res: any) => {
+    this.http.get(appConfig.apiUrl + '/task/getComments/' + this.taskId, this.httpOptions).subscribe((res: any) => {
       this.taskComments = res.data;
+
+      this.taskComments.sort(function(x, y){
+      return  y.createdAt - x.createdAt;
+  });
     });
   }
 
@@ -71,15 +105,21 @@ export class TaskComponent implements OnInit {
   createNewComment(comment) {
     var commentData = {
       comment: comment,
-      userId: this.currentUser._id,
-      userType: this.currentUser.role,
-      taskId: this.taskId,
-      name: this.currentUser.name.firstName + " " + this.currentUser.name.lastName
+      role: this.currentUser.role,
+      taskId: this.taskId
     };
-    console.log(commentData);
-    this.http.post('http://localhost:3000/api/task/newComment', commentData, this.httpOptions).subscribe(
+    this.http.post(appConfig.apiUrl + '/task/newComment', commentData, this.httpOptions).subscribe(
       (res: any) => {
-        this.taskComments = this.taskComments.concat(commentData);
+
+        var commentData2 = {
+          comment: comment,
+          role: this.currentUser.role,
+          userId: {
+          name: this.currentUser.name,
+          photo: this.currentUser.photo
+        }
+        };
+        this.taskComments = this.taskComments.concat(commentData2);
 
         new Noty({
           type: 'success',
@@ -89,46 +129,18 @@ export class TaskComponent implements OnInit {
         }).show();
       },
       error => {
-        console.log(error)
         new Noty({
           type: 'error',
-          text: error.msg,
+          text: `Something went wrong\n${error.error ? error.error.msg : error.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
       });
 
     this.newComment = "";
+    this.commentx = "";
+
 
   }
 
-
-  // Tasks = []
-  // TasksTitles = []
-  // TasksDescriptions = []
-  // TasksTeachers = []
-  // TasksCreatedAt = []
-  // TasksUpdatedAt = []
-  // Teacher = []
-  // getTasks(childId){
-  //   this.http.get("http://localhost:3000/api/task/getTasks/" + childId).subscribe((res: any) => {
-  //     this.Tasks = res.data;
-  //     // console.log(this.Tasks[0].Title);
-  //     var arrayLength = this.Tasks.length;
-  //     for (var i = 0; i < arrayLength; i++) {
-  //       this.TasksTitles[i] = this.Tasks[i].Title;
-  //       this.TasksDescriptions[i] = this.Tasks[i].Description;
-  //       this.TasksCreatedAt[i] = this.Tasks[i].createdAt;
-  //       this.TasksUpdatedAt[i] = this.Tasks[i].updatedAt;
-  //       this.http.get('http://localhost:3000/api/task/getTeacher/' + this.Tasks[i].TeacherId)
-  //       .subscribe((res: any) => { this.TasksTeachers[i] = res.data;
-  //         var arrayLength2 = this.TasksTeachers.length;
-  //         for (var i = 0; i < arrayLength2; i++) {
-  //           this.Teacher[i] = this.TasksTeachers[i].firstName + this.TasksTeachers[i].lastName ;
-  //         }
-  //
-  //       });
-  //     }
-  //   });
-  // }
 }

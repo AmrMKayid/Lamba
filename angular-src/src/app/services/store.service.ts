@@ -1,12 +1,13 @@
-import {Injectable} from '@angular/core';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
+import { appConfig } from "../app.config";
 
 @Injectable()
 export class StoreService {
 
-  readonly base_address: string = 'http://localhost:3000/api/store/';
+  readonly base_address: string = appConfig.apiUrl + '/store/';
   readonly headers = new HttpHeaders(
     {
       'Content-Type': 'application/json',
@@ -14,7 +15,7 @@ export class StoreService {
       'Authorization': localStorage.getItem('authentication')
     });
 
-  readonly options = {headers: this.headers};
+  readonly options = { headers: this.headers };
 
   constructor(private http: Http, private httpc: HttpClient) {
   }
@@ -23,11 +24,11 @@ export class StoreService {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('authorization', localStorage.getItem('authentication'));
-    return this.http.post('http://127.0.0.1:3000/api/store/create', item, {headers: headers}).map((res) => res.json());
+    return this.http.post(appConfig.apiUrl + '/store/create', item, { headers: headers }).map((res) => res.json());
   }
 
-  viewItems(limit: number, page: number) {
-    return this.httpc.get(this.base_address + 'view/' + limit + '/' + page, this.options);
+  viewItems() {
+    return this.httpc.get(this.base_address + 'view/', this.options);
   }
 
   itemsCount() {
@@ -38,18 +39,28 @@ export class StoreService {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('authorization', localStorage.getItem('authentication'));
-    return this.http.patch('http://localhost:3000/api/store/likeItems/' + item._id, item, {headers: headers}).map((Response) => Response.json().data);
+    return this.http.patch(appConfig.apiUrl + '/store/likeItems/' + item._id, item, { headers: headers }).map((Response) => Response.json().data);
   }
 
   unlikeItems(item) {
-    return this.http.patch('http://localhost:3000/api/store/likeItems/' + item._id, item).map((Response) => Response.json().data);
+    return this.http.patch(appConfig.apiUrl + '/store/likeItems/' + item._id, item).map((Response) => Response.json().data);
   }
 
   getItem(id) {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('authorization', localStorage.getItem('authentication'));
-    return this.http.get('http://127.0.0.1:3000/api/store/myitems/view/' + id, {headers: headers}).map((res) => res.json());
+    return this.http.get(appConfig.apiUrl + '/store/myitems/view/' + id, { headers: headers }).map((res) => res.json());
+  }
+
+  addToFavorites(id: string) {
+    return this.http.post(appConfig.apiUrl + '/user/favorites/items/' + id, '', {
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('authentication')
+      })
+    })
+      .pipe();
   }
 
 }

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router, NavigationEnd} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {AuthService} from "../../../../services/auth.service";
+import {appConfig} from "../../../../app.config";
 
 @Component({
   selector: 'app-header',
@@ -9,44 +10,46 @@ import {AuthService} from "../../../../services/auth.service";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
+  apiUrlHTML = appConfig.apiUrl;
+
   pushRightClass: string = 'push-right';
   currentUser;
 
   constructor(private translate: TranslateService, public router: Router, private auth: AuthService) {
     this.currentUser = this.auth.getCurrentUser();
-    this.translate.addLangs(['en', 'fr', 'ur', 'es', 'it', 'fa', 'de', 'zh-CHS']);
-    this.translate.setDefaultLang('en');
-    const browserLang = this.translate.getBrowserLang();
-    this.translate.use(browserLang.match(/en|fr|ur|es|it|fa|de|zh-CHS/) ? browserLang : 'en');
-
-    this.router.events.subscribe(val => {
-      if (
-        val instanceof NavigationEnd &&
-        window.innerWidth <= 992 &&
-        this.isToggled()
-      ) {
-        this.toggleSidebar();
-      }
-    });
   }
 
   ngOnInit() {
   }
 
-  isToggled(): boolean {
-    const dom: Element = document.querySelector('body');
-    return dom.classList.contains(this.pushRightClass);
+  logout() {
+    this.auth.logout();
   }
-
-  toggleSidebar() {
-    const dom: any = document.querySelector('body');
-    dom.classList.toggle(this.pushRightClass);
+  isLoggedIn() {
+    return localStorage.getItem('authentication');
   }
+  hideNavbar(){
+    if(this.router.url == '/profile/admin/dashboard')
+    return true;
+    if(this.router.url == '/profile/admin/un-verified-articles')
+    return true;
+    if(this.router.url == '/profile/admin/un-verified-activities')
+    return true;
+    if(this.router.url=='/profile/admin/verify-teachers')
+    return true;
+    if(this.router.url=='/profile/admin/add-admin')
+    return true;
+    if(this.router.url=='/profile/admin/verification-requests')
+    return true;
+    return false;
 
-
-  onLoggedout() {
-    localStorage.removeItem('isLoggedin');
   }
-
+  isAdmin() {
+    if (this.auth.getCurrentUser().role == 'Admin') {
+      return true;
+    }
+    return false;
+  }
 
 }

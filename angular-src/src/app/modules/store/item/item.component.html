@@ -1,50 +1,39 @@
-<toaster-container></toaster-container>
-<div class="card card-cascade wider">
-  <div class="card-body">
-    <div class="item" *ngIf="item&&user">
-      <div class="row">
-        <div class="col-md-4 col-xs-3">
-          <img id="icon" src="http://127.0.0.1:3000/api/uploads/store/{{item['picture_url']}}"/>
-        </div>
-        <div class="col-md-8 col-xs-9">
-          <div class="row" id="info">
-            <div class="col-md-8 col-xs-9">
-              <div class="row">
-                <span id="name"><b>{{item["name"]}}</b></span>
-                <span id="type">({{item["item_type"]}})</span>
-              </div>
-              <div class="row">
-                <span id="username">by <b>{{user["name"].firstName + " " + user["name"].lastName}}</b></span>
-              </div>
-              <div class="row">
-                <span id="email">Email: {{user["email"]}} </span>
-                <span id="phone" *ngIf="user.phone"> number: {{user["phone"]}}</span>
-              </div>
-            </div>
-            <div class="col-md-4 col-xs-3">
-              <div class="box">
-                <span id="condition"><b>{{item["item_condition"]}}</b></span>
-                <br>
-                <span id="price">{{item["price"]}}LE.</span>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-10 col-md-9">
-              <span id="description">{{item["description"]}}</span>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-offset-7">
-              <span id="quantity"><b>Quantity: </b>{{item["quantity"]}}</span>
-            </div>
-          </div>
-          <div class="row" *ngIf="owner">
-            <button (click)="deleteProduct()" class="btn btn-danger">Delete</button>
-            <button (click)=" update(item)" class="btn btn-info">Edit</button>
-          </div>
-        </div>
+<div class="card mt-4" *ngIf="item&&user">
+  <div class="row">
+
+    <div class="col-xl-3 col-lg-3 col-md-3">
+      <img class="card-img-top img-fluid" src="{{apiUrlHTML}}/uploads/store/{{item['picture_url']}}" onError="this.src='../../../../assets/images/fallbacks/item.jpg'"
+        alt="" style="width:100%; height:200px; object-fit:cover; margin:5px;">
+    </div>
+    <div class="col-xl-3 col-lg-4 col-md-4">
+      <div class="card-body">
+        <h3 class="card-title">{{item["name"]}}</h3>
+        <h5>
+          <strong>Price:</strong> {{item["price"] | currency}}</h5>
+        <h5>
+          <strong>Quantity:</strong> {{item["quantity"]}}</h5>
+        <h5>
+          <strong>Condition:</strong> {{item["item_condition"]}}</h5>
+        <h5>
+          <strong>Type:</strong> {{item["item_type"]}}</h5>
       </div>
     </div>
+    <div class="col-xl-6 col-lg-5 col-md-5">
+      <div class="card-body">
+        <p class="card-text">{{item["description"]}}</p>
+      </div>
+    </div>
+
   </div>
+  <div class="card-footer" *ngIf="currentUser._id != item.seller_id">
+    <div class="icon pull-right">
+      <a placement="bottom" ngbTooltip="Go to seller profile" (click)="viewUser(item.seller_id)">
+        <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+      </a>
+      <a placement="bottom" ngbTooltip="Messages seller" (click)="messageUser(item.seller_id)">
+        <i class="fa fa-envelope fa-fw fa-2x" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+
 </div>
