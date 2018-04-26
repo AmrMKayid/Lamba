@@ -9,7 +9,7 @@
         <!--Featured image-->
         <div class="view overlay rounded z-depth-1">
           <img [src]="IMG_URL + activity.picture_url" onError="this.src='../../../../assets/images/fallbacks/resources.jpg'" class="img-thumbnail"
-            alt="activity-thumbnail" />
+            alt="activity-thumbnail" style="width:100%; height:200px; object-fit:cover;"/>
           <a style="cursor: pointer;" [routerLink]="['/event','view',activity._id]">
             <div class="mask"></div>
           </a>
