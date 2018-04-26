@@ -26,6 +26,30 @@ module.exports.getId = function (req, res, next) {
   });
 };
 
+module.exports.getParentId = function (req, res, next) {
+  User.findOne({
+    email: {
+      $eq: req.params.email
+    },
+    role: {
+      $eq: "Parent"
+    }
+  }).exec(function (err, usr) {
+    if (err) {
+      return next(err);
+    }
+    if (!usr) {
+      return next(err);
+    }
+    res.status(200).json({
+      err: null,
+      msg: 'Id recieved successfully.',
+      data: usr._id
+
+    });
+  });
+};
+
 module.exports.newNotif = function (req, res, next) {
   User.findById(req.body.recieving_user_id, (err, user) => {
     if (err) {
@@ -39,6 +63,7 @@ module.exports.newNotif = function (req, res, next) {
       });
     }
     Notification.create(req.body, function (err, notif) {
+
       if (err) {
         console.log(err);
         return next(err);
@@ -80,6 +105,9 @@ module.exports.deleteNotif = function (req, res, next) {
     }
   }).exec(function (err, deleted) {
     if (err) {
+      return next(err);
+    }
+    if (!deleted) {
       return next(err);
     }
     res.status(200).json({
