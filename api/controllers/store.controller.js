@@ -445,20 +445,6 @@ module.exports.search = function (req, res, next) {
 
 };
 
-
-module.exports.getAllItems = function (req, res, next) {
-    Item.find({}).exec(function (err, items) {
-        if (err) {
-            return next(err);
-        }
-        res.status(200).json({
-            err: null,
-            msg: 'Items retrieved successfully.',
-            data: items
-        });
-    })
-};
-
 /*****************************************************************************
  *                                                                           *
  *                          private functions                                *
