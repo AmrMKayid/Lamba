@@ -9,7 +9,7 @@
         <!--Featured image-->
         <div class="view overlay rounded z-depth-1">
           <img [src]="IMG_URL + item.picture_url" onError="this.src='../../../../assets/images/fallbacks/item.jpg'" class="img-thumbnail"
-            alt="Item-thumbnail" />
+            alt="Item-thumbnail" style="width:100%; height:200px; object-fit:cover;"/>
           <a style="cursor: pointer;" [routerLink]="['/store','view',item._id]">
             <div class="mask"></div>
           </a>
