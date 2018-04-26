@@ -5,7 +5,7 @@
       <div class="col-md-8 mb-4">
         <!--Featured Image-->
         <div class="card mb-4 wow fadeIn">
-          <img src="{{pic_url}}" class="img-fluid" alt="">
+          <img src="{{pic_url}}" onError="this.src='../../../../assets/images/fallbacks/resources.jpg'" class="img-fluid" alt="">
         </div>
         <!--/.Featured Image-->
         <!--Card-->
@@ -38,8 +38,8 @@
           <!--Card content-->
           <div class="card-body">
             <div class="media d-block d-md-flex mt-3">
-              <img class="d-flex mb-3 mx-auto z-depth-1" [src]="IMG + author.photo" alt="Generic placeholder image"
-                   style="width: 100px;">
+              <img class="d-flex mb-3 mx-auto z-depth-1" [src]="IMG + author.photo" onError="this.src='../../../../assets/images/fallbacks/profile.png'"
+                alt="Generic placeholder image" style="width: 100px;">
               <div class="media-body text-center text-md-left ml-md-3 ml-0">
                 <h5 class="mt-0 font-weight-bold name-capitalize">{{author.name.firstName + ' ' + author.name.lastName}}
                 </h5>
@@ -58,17 +58,16 @@
               <h4 class="text-center text-primary">
                 <strong>Leave a reply</strong>
               </h4>
-              <textarea class="form-control" [(ngModel)]="commentContent" name="comment"
-                        placeholder=" Leave your comment here ..." rows="5"></textarea>
+              <textarea class="form-control" [(ngModel)]="commentContent" name="comment" placeholder=" Leave your comment here ..." rows="5"></textarea>
               <div class="text-center">
                 <button type="submit" (click)="comment()" class="btn btn-info btn-sm">Post</button>
               </div>
             </div>
             <hr>
             <!-- COMMENTS START HERE! -->
-            <div class="media d-block d-md-flex mt-4"
-                 *ngFor="let comment of comments | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
-              <img class="d-flex mb-3 mx-auto " [src]="IMG + comment.commenter.photo" alt="Generic placeholder image">
+            <div class="media d-block d-md-flex mt-4" *ngFor="let comment of comments | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
+              <img class="d-flex mb-3 mx-auto " [src]="IMG + comment.commenter.photo" onError="this.src='../../../../assets/images/fallbacks/profile.png'"
+                alt="Generic placeholder image">
               <div class="media-body text-center text-md-left ml-md-3 ml-0">
                 <h5 class="mt-0 font-weight-bold">
                   <a class="name-capitalize" style="cursor: pointer;" [routerLink]="['/profile',comment.commenter._id]">
@@ -170,8 +169,7 @@
           </div>
           <div class="card-body">
             <select class="custom-select" [(ngModel)]="selectedChild" name="selected-child">
-              <option *ngFor="let child of children" [value]="child._id">{{ child.name.firstName + ' ' +
-                child.name.lastName }}
+              <option *ngFor="let child of children" [value]="child._id">{{ child.name.firstName + ' ' + child.name.lastName }}
               </option>
             </select>
             <br>

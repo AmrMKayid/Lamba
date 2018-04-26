@@ -41,12 +41,7 @@ export class ViewArticleComponent implements OnInit {
       (retrieved: any) => {
         this.article = retrieved.data;
         this.isOwner = this.article.owner_id == this.auth.getCurrentUser()._id;
-        if (!this.article.thumbnail_url) {
-          this.pic_url = appConfig.apiUrl + "/uploads/articlesThumbnails/articleDefault";
-        }
-        else {
-          this.pic_url = appConfig.apiUrl + "/uploads/articlesThumbnails/" + this.article.thumbnail_url;
-        }
+        this.pic_url = appConfig.apiUrl + "/uploads/articlesThumbnails/" + this.article.thumbnail_url;
         this.author = this.article.owner;
         this.comments = this.article.comments;
         if (this.currentUserRole == 'Parent') {
