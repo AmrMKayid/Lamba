@@ -20,8 +20,9 @@
     <h3 class="card-title"><strong>{{user.name.firstName}} {{user.name.lastName}}</strong></h3>
     <h4 class="indigo-text"><strong>{{user.role}} | {{user.isVerified? 'Verified' : 'UnVerified'}}</strong></h4>
 
-    <button class="btn btn-deep-orange" *ngIf="isParent" (click)="open(content)"><i aria-hidden="true"></i>Connect
+    <button class="btn btn-deep-orange" *ngIf="isParent" (click)="book()"><i aria-hidden="true"></i>Book
     </button>
+
     <ng-template #content let-c="close" let-d="dismiss">
       <div class="card-body">
         <select class="custom-select" [(ngModel)]="selectedChild" name="selected-child">

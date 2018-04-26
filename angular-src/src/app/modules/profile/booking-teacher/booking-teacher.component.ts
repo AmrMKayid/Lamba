@@ -38,22 +38,32 @@ Notification =  {
 
 email: string;
 Slot: String;
-parent: String;
 
   BookTeacher() {
     this.Notification.title = "New Booking";
-    this.Notification.description = "Booking In Slot " + this.Slot + " from Parent " + this.parent ;
+    this.Notification.description = "Booking In Slot " + this.Slot + " from Parent " + this.currentUser.email ;
     this.Notification.url = "/profile/viewbookings";
     this.http.get(appConfig.apiUrl + '/booking/getId/' + this.email, this.httpOptions).subscribe((res: any) => {
       this.Notification.recieving_user_id = res.data;
       this.http.post(appConfig.apiUrl + '/booking/newNotif', this.Notification, this.httpOptions).subscribe();
-    });
+      new Noty({
+        type: 'success',
+        text: `Teacher is Booked!`,
+        timeout: 3000,
+        progressBar: true
+      }).show();
+  },
+  error => {
     new Noty({
-      type: 'success',
-      text: `Teacher is Booked!`,
+      type: 'error',
+      text: `Teacher doesn't exist!`,
       timeout: 3000,
       progressBar: true
     }).show();
   }
+);
+    
+  }
 }
+
 
