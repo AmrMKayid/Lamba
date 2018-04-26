@@ -51,6 +51,14 @@ module.exports.getParentId = function (req, res, next) {
 };
 
 module.exports.newNotif = function (req, res, next) {
+  if(!req.body.recieving_user_id || !req.body.recieving_user_id.match(/^[0-9a-fA-F]{24}$/)){
+    return res.status(422).json({
+      err: null,
+      msg: 'Invalid ID provided.',
+      data: null
+    });
+
+  }
   User.findById(req.body.recieving_user_id, (err, user) => {
     if (err) {
       return next(err);
