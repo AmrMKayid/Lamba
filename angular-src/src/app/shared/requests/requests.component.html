@@ -4,7 +4,7 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-sm-6 mb-3" *ngFor='let request of requests'>
+    <div class="col-6 mb-3" *ngFor='let request of requests | paginate: { itemsPerPage: 4, currentPage: p };let i = index'>
       <div class="card">
         <div class="card-body">
           <div class="row">
@@ -35,4 +35,10 @@
   </div>
 
 
-</div>
+
+    <div class="row mt-5" style="text-align: center;">
+      <div class="col-12">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
