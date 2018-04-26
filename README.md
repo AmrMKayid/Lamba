@@ -6,7 +6,7 @@
 
 ---
 
-# <h2 align="center"> [Nawwar Educational Platform](https://http://nawwar.tk:3000/) </h2>
+# <h2 align="center"> [Nawwar Educational Platform](https://nawwar.tk:3000/) </h2>
 
 ## Getting Started:
 > Open **3** Terminals and run each of the following command
