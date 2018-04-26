@@ -178,4 +178,35 @@ export class ViewComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+
+  addToFav(activity) {
+    this.eventservice.addToFavorites(activity._id).subscribe(
+      (res: any) => {
+        new Noty({
+          type: 'success',
+          text: `Added to favorites successfully`,
+          timeout: 1500,
+          progressBar: true
+        }).show();
+      },
+      err => {
+        if (err.status === 304) {
+          new Noty({
+            type: 'info',
+            text: `Activity is already in your favorites.`,
+            timeout: 1500,
+            progressBar: true
+          }).show();
+        } else {
+          new Noty({
+            type: 'warning',
+            text: `Something went wrong while adding to favorites: ${err.error ? err.error.msg : err.msg}`,
+            timeout: 2000,
+            progressBar: true
+          }).show();
+        }
+      }
+    );
+  }
+
 }

@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
-import {appConfig} from "../app.config";
+import { appConfig } from "../app.config";
 
 @Injectable()
 export class EventService {
@@ -15,7 +15,7 @@ export class EventService {
       'Authorization': localStorage.getItem('authentication')
     });
 
-  readonly options = {headers: this.headers};
+  readonly options = { headers: this.headers };
 
   constructor(private http: Http, private httpc: HttpClient) {
   }
@@ -24,7 +24,7 @@ export class EventService {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('authorization', localStorage.getItem('authentication'));
-    return this.http.post(appConfig.apiUrl + '/activity/create', activity, {headers: headers}).map((res) => res.json());
+    return this.http.post(appConfig.apiUrl + '/activity/create', activity, { headers: headers }).map((res) => res.json());
   }
 
   viewActivities(limit: number, page: number) {
@@ -39,7 +39,7 @@ export class EventService {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('authorization', localStorage.getItem('authentication'));
-    return this.http.patch(appConfig.apiUrl + '/activity/goingActivities/' + activity._id, activity, {headers: headers}).map((Response) => Response.json().data);
+    return this.http.patch(appConfig.apiUrl + '/activity/goingActivities/' + activity._id, activity, { headers: headers }).map((Response) => Response.json().data);
   }
 
 
@@ -47,7 +47,7 @@ export class EventService {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('authorization', localStorage.getItem('authentication'));
-    return this.http.get(appConfig.apiUrl + '/activity/getThisActivity/view/' + id, {headers: headers}).map((res) => res.json());
+    return this.http.get(appConfig.apiUrl + '/activity/getThisActivity/view/' + id, { headers: headers }).map((res) => res.json());
   }
 
   getChildren(user) {
@@ -60,6 +60,16 @@ export class EventService {
       "childId": childID
     };
     return this.httpc.post(this.base_address + "registerChild", param, this.options);
+  }
+
+  addToFavorites(id: string) {
+    return this.http.post(appConfig.apiUrl + '/user/favorites/activities/' + id, '', {
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('authentication')
+      })
+    })
+      .pipe();
   }
 
 }
