@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { Http, Headers } from '@angular/http';
-import { trigger, state, style, animate, transition } from '@angular/animations';
-import { EventService } from '../../../services/event.service';
-import { Router } from '@angular/router';
-import { appConfig } from '../../../app.config';
-import { AuthService } from '../../../services/auth.service';
-import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute } from "@angular/router";
+import {Http, Headers} from '@angular/http';
+import {trigger, state, style, animate, transition} from '@angular/animations';
+import {EventService} from '../../../services/event.service';
+import {Router} from '@angular/router';
+import {appConfig} from '../../../app.config';
+import {AuthService} from '../../../services/auth.service';
+import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-view',
@@ -17,6 +17,11 @@ import { ActivatedRoute } from "@angular/router";
 export class ViewComponent implements OnInit {
 
   apiUrlHTML = appConfig.apiUrl;
+
+
+  // Pagination: initializing p to one
+  p: number = 1;
+  filter;
 
   //myactivities: any;
   activity: any;
@@ -39,12 +44,13 @@ export class ViewComponent implements OnInit {
     this.key = key;
     this.reverse = !this.reverse;
   }
+
   constructor(private http: Http,
-    private router: Router,
-    private eventservice: EventService,
-    private auth: AuthService,
-    private modalService: NgbModal,
-    private route: ActivatedRoute) {
+              private router: Router,
+              private eventservice: EventService,
+              private auth: AuthService,
+              private modalService: NgbModal,
+              private route: ActivatedRoute) {
     this.getMyActivities()
   }
 
@@ -53,7 +59,7 @@ export class ViewComponent implements OnInit {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('authorization', localStorage.getItem('authentication'));
-    this.http.get(appConfig.apiUrl + '/activity/view', { headers: headers }).map((res) => res.json())
+    this.http.get(appConfig.apiUrl + '/activity/view', {headers: headers}).map((res) => res.json())
       .subscribe((data: any) => {
         this.myactivities = data.data.filter(event => event.isVerified == true);
       }, error => {
