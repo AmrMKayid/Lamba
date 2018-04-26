@@ -1,8 +1,8 @@
-import {Component, OnInit, Input, ViewEncapsulation} from '@angular/core';
-import {ArticlesService} from '../articles.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AuthService} from '../../../services/auth.service';
-import {appConfig} from "../../../app.config";
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { ArticlesService } from '../articles.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
+import { appConfig } from "../../../app.config";
 
 
 @Component({
@@ -147,7 +147,7 @@ export class ViewArticleComponent implements OnInit {
 
   addToFavorite(id) {
     this.articleService.addToFavorites(id).subscribe(
-      (res: 200) => {
+      (res: any) => {
         new Noty({
           type: 'success',
           text: `Added to favorites successfully`,
@@ -155,12 +155,21 @@ export class ViewArticleComponent implements OnInit {
           progressBar: true
         }).show();
       }, err => {
-        new Noty({
-          type: 'warning',
-          text: `Something went wrong while adding to favorites: ${err.error ? err.error.msg : err.msg}`,
-          timeout: 2000,
-          progressBar: true
-        }).show();
+        if (err.status === 304) {
+          new Noty({
+            type: 'info',
+            text: `Resource is already in your favorites.`,
+            timeout: 1500,
+            progressBar: true
+          }).show();
+        } else {
+          new Noty({
+            type: 'warning',
+            text: `Something went wrong while adding to favorites: ${err.error ? err.error.msg : err.msg}`,
+            timeout: 2000,
+            progressBar: true
+          }).show();
+        }
       }
     );
   }
