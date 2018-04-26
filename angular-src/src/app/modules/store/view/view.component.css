@@ -1,14 +1,24 @@
-.myImg
-{
-height: 200px;
-object-fit: cover;
+.myImg {
+  height: 200px;
+  object-fit: cover;
 
 }
 
 .nimp {
-    padding: 10px !important;
+  padding: 10px !important;
 }
 
 ul.ngx-pagination {
-    padding: 0px;
+  padding: 0px;
+}
+
+input[type=text] {
+  width: 130px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+
+/* When the input field gets focus, change its width to 100% */
+input[type=text]:focus {
+  width: 100%;
 }

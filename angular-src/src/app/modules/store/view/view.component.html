@@ -2,9 +2,9 @@
 
   <div class="container">
 
-    <nav class="navbar">
-      <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search">
-    </nav>
+    <!--<nav class="navbar">-->
+    <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search">
+    <!--</nav>-->
 
     <br>
 
@@ -12,45 +12,44 @@
       <h5 class="m-auto pt-5">There are currently no items to be displayed</h5>
     </div>
 
-
-    <div class="container text-center">
-      <div class="row mt-3">
-        <div class="col-lg-4 col-md-6 mb-3"
-             *ngFor="let item of items | filter:filter | paginate: { itemsPerPage: 6, currentPage: p };">
-          <div class="card h-100">
-            <img class="card-img-top myImg" (click)="viewInfo(item['_id'])" style="cursor: pointer;"
-                 src="{{apiUrlHTML}}/uploads/store/{{item['picture_url']}}"
-                 alt="">
-            <div class="card-body" (click)="viewInfo(item['_id'])" style="cursor: pointer;">
-              <h4 class="card-title">
-                {{item['name']}}
-              </h4>
-              <h5>{{item['price'] | currency}}</h5>
-              <p class="card-text">{{item['description'] | slice:0:50 }} ...</p>
+    <div class="row mt-3">
+      <div class="col-lg-4 col-md-6 mb-3"
+           *ngFor="let item of items | filter:filter | paginate: { itemsPerPage: 6, currentPage: p };">
+        <div class="card h-100">
+          <img class="card-img-top myImg" (click)="viewInfo(item['_id'])" style="cursor: pointer;"
+               src="{{apiUrlHTML}}/uploads/store/{{item['picture_url']}}"
+               alt="">
+          <div class="card-body" (click)="viewInfo(item['_id'])" style="cursor: pointer;">
+            <h4 class="card-title">
+              {{item['name']}}
+            </h4>
+            <h5>{{item['price'] | currency}}</h5>
+            <p class="card-text">{{item['description'] | slice:0:50 }} ...</p>
+          </div>
+          <div class="card-footer">
+            <div class="icon pull-right">
+              <a (click)="likeItems(item)" placement="bottom" ngbTooltip="Love">
+                <i class="fa fa-heart fa-fw fa-2x mr-2" aria-hidden="true"></i>
+              </a>
+              <a (click)="addToFav(item)" placement="bottom" ngbTooltip="Favorite">
+                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
+              </a>
             </div>
-            <div class="card-footer">
-              <div class="icon pull-right">
-                <a (click)="likeItems(item)" placement="bottom" ngbTooltip="Love">
-                  <i class="fa fa-heart fa-fw fa-2x mr-2" aria-hidden="true"></i>
-                </a>
-                <a (click)="addToFav(item)" placement="bottom" ngbTooltip="Favorite">
-                  <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                </a>
-              </div>
 
-              <div class="icon pull-left" style="line-height: 2.1em;">
+            <div class="icon pull-left" style="line-height: 2.1em;">
 
-                <span>{{item['likes_user_id'].length}}</span>
-                <i class="fa fa-heart fa-fw mr-2" style="color:red;" aria-hidden="true"></i>
+              <span>{{item['likes_user_id'].length}}</span>
+              <i class="fa fa-heart fa-fw mr-2" style="color:red;" aria-hidden="true"></i>
 
-              </div>
             </div>
           </div>
-
-
         </div>
-      </div>
 
+
+      </div>
+    </div>
+
+    <div class="container text-center">
       <br>
       <pagination-controls (pageChange)="p = $event"></pagination-controls>
 
