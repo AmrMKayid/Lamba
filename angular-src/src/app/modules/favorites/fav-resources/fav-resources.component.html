@@ -1,4 +1,4 @@
-<div class="container" *ngIf="tagsInitialized && articlesInitialized">
+<div class="container-fluid" *ngIf="tagsInitialized && articlesInitialized">
 
   <input class="text-center" type="text" [(ngModel)]="keyword" placeholder="Search through the titles">
 
@@ -9,7 +9,7 @@
       <div class="col-lg-5 col-xl-4 mb-4">
         <!--Featured image-->
         <div class="view overlay rounded z-depth-1">
-          <img [src]="(article.thumbnail_url)? IMG_URL + article.thumbnail_url : IMG_URL + 'articleDefault'" class="img-thumbnail"
+          <img [src]="IMG_URL + article.thumbnail_url" onError="this.src='../../../../assets/images/fallbacks/resources.jpg'" class="img-thumbnail"
             alt="Article-thumbnail" />
           <a style="cursor: pointer;" [routerLink]="['/resources','id',article._id]">
             <div class="mask"></div>

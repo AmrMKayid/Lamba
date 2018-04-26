@@ -1,6 +1,6 @@
 <div class="container" *ngIf="activitiesInitialized">
   <input class="text-center" type="text" [(ngModel)]="keyword" placeholder="Search through the titles">
-  
+
   <ng-container *ngFor="let activity of activities | filter: keyword | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
     <div class="row mt-3 wow fadeIn">
 
@@ -8,8 +8,8 @@
       <div class="col-lg-5 col-xl-4 mb-4">
         <!--Featured image-->
         <div class="view overlay rounded z-depth-1">
-          <img [src]="(activity.picture_url)? IMG_URL + activity.picture_url : IMG_URL + 'activityDefault'" class="img-thumbnail" alt="Activity-thumbnail"
-          />
+          <img [src]="IMG_URL + activity.picture_url" onError="this.src='../../../../assets/images/fallbacks/resources.jpg'" class="img-thumbnail"
+            alt="activity-thumbnail" />
           <a style="cursor: pointer;" [routerLink]="['/event','view',activity._id]">
             <div class="mask"></div>
           </a>
@@ -27,7 +27,7 @@
         </h3>
         <p>
           <em *ngIf="!activity.activity_type">No type defined for this activity</em>
-          <strong *ngIf="activity.activity_type">Type: {{activity.activity_type}}</strong>
+          <span *ngIf="activity.activity_type">Type: {{activity.activity_type}}</span>
         </p>
         <br>
         <a role="button" (click)="remove(activity._id)" class="pull-right pull-bottom">

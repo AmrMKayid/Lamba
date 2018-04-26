@@ -1,14 +1,15 @@
-<div class="container" *ngIf="itemsInitialized">
+<div class="container-fluid" *ngIf="itemsInitialized">
   <input class="text-center" type="text" [(ngModel)]="keyword" placeholder="Search through the titles">
   <ng-container *ngFor="let item of items | filter: keyword | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
     <div class="row mt-3 wow fadeIn">
+
 
       <!--Image thumbnail-->
       <div class="col-lg-5 col-xl-4 mb-4">
         <!--Featured image-->
         <div class="view overlay rounded z-depth-1">
-          <img [src]="(item.picture_url)? IMG_URL + item.picture_url : IMG_URL + 'itemDefault'" class="img-thumbnail" alt="Item-thumbnail"
-          />
+          <img [src]="IMG_URL + item.picture_url" onError="this.src='../../../../assets/images/fallbacks/item.png'" class="img-thumbnail"
+            alt="Article-thumbnail" />
           <a style="cursor: pointer;" [routerLink]="['/store','view',item._id]">
             <div class="mask"></div>
           </a>
@@ -17,6 +18,7 @@
       <!--Image thumbnail-->
 
       <!--Actual content-->
+
       <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
         <br>
         <h3 class="mb-3 font-weight-bold dark-grey-text">
@@ -25,10 +27,12 @@
           </a>
         </h3>
         <p>
-          <em *ngIf="!item.item_type">No type defined for this item</em>
-          <strong *ngIf="item.item_type">
-            Type: {{item.item_type}}
-          </strong>
+          <em *ngIf="!item.item_type">No tags defined for this article</em>
+          <ng-container *ngIf="item.item_type">
+            <strong>
+              Type: {{item.item_type}}
+            </strong>
+          </ng-container>
         </p>
         <br>
         <a role="button" (click)="remove(item._id)" class="pull-right pull-bottom">
