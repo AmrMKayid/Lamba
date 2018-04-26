@@ -17,6 +17,7 @@ import {ActivatedRoute} from "@angular/router";
 export class ViewComponent implements OnInit {
 
   apiUrlHTML = appConfig.apiUrl;
+  p: any;
 
   //myactivities: any;
   activity: any;

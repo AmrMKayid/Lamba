@@ -13,6 +13,8 @@ export class RequestsComponent implements OnInit {
 
   apiUrlHTML = appConfig.apiUrl;
 
+  p: any;
+
   constructor(private httpClient: HttpClient,
               private auth: AuthService,
               private notificationservice: NotificationService) {
