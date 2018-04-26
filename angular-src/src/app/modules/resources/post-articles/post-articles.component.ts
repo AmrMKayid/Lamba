@@ -229,7 +229,7 @@ export class PostArticlesComponent implements OnInit {
   insertToEditor(url: string) {
     // push image url to rich editor.
     const range = this.editor.getSelection();
-    this.editor.insertEmbed(range.index, 'image', `http://localhost:3000/api/uploads/articlesThumbnails/${url}`);
+    this.editor.insertEmbed(range.index, 'image', appConfig.apiUrl + `/uploads/articlesThumbnails/${url}`);
   }
 
   //To be able to access the current editor's selection (index) while inserting images.
