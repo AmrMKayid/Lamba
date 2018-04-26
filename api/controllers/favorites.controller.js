@@ -92,7 +92,7 @@ module.exports.addFavArticle = function (req, res, next) {
       }
       let childArticlesIDs = child.favorites.resources;
       if (childArticlesIDs.includes(articleID)) {
-        return res.status(422).json({
+        return res.status(304).json({
           err: null,
           msg: 'Resource is already in your favorites',
           data: null
@@ -144,7 +144,7 @@ module.exports.addFavArticle = function (req, res, next) {
 
       let userArticlesIDs = user.favorites.resources;
       if (userArticlesIDs.includes(articleID)) {
-        return res.status(422).json({
+        return res.status(304).json({
           err: null,
           msg: 'Resource is already in your favorites',
           data: null
@@ -326,7 +326,7 @@ module.exports.addFavActivity = function (req, res, next) {
 
       let favoriteIDs = child.favorites.activities;
       if (favoriteIDs.includes(activityID)) {
-        return res.status(422).json({
+        return res.status(304).json({
           err: null,
           msg: 'Activity is already in your favorites',
           data: null
@@ -369,7 +369,7 @@ module.exports.addFavActivity = function (req, res, next) {
       }
 
       if (user.favorites.activities.includes(activityID)) {
-        return res.status(422).json({
+        return res.status(304).json({
           err: null,
           msg: 'Activity is already in your favorites',
           data: null
@@ -556,7 +556,7 @@ module.exports.addFavItem = function (req, res, next) {
       }
       let childItemIDs = child.favorites.items;
       if (childItemIDs.includes(itemID)) {
-        return res.status(422).json({
+        return res.status(304).json({
           err: null,
           msg: 'Item is already in your favorites',
           data: null
@@ -599,7 +599,7 @@ module.exports.addFavItem = function (req, res, next) {
         });
       }
       if (user.favorites.items.includes(itemID)) {
-        return res.status(422).json({
+        return res.status(304).json({
           err: null,
           msg: 'Item is already in your favorites',
           data: null
