@@ -20,8 +20,14 @@
     <h3 class="card-title"><strong>{{user.name.firstName}} {{user.name.lastName}}</strong></h3>
     <h4 class="indigo-text"><strong>{{user.role}} | {{user.isVerified? 'Verified' : 'UnVerified'}}</strong></h4>
 
-    <button class="btn btn-deep-orange" *ngIf="isParent" (click)="book()"><i aria-hidden="true"></i>Book
-    </button>
+<div class="row ">
+  <div class="col-12 text-center">
+    <button type="button" (click)="messageUser()" class="btn btn-info waves-light" mdbWavesEffect><span class="fa fa-envelope mr-2"></span>Message</button>
+    <button type="button" *ngIf="isParent" (click)="open(content)" class="btn btn-primary waves-light" mdbWavesEffect><span class="fa fa-plus mr-2"></span>Connect</button>
+  </div>
+
+</div>
+
 
     <ng-template #content let-c="close" let-d="dismiss">
       <div class="card-body">
