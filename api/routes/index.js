@@ -72,7 +72,9 @@ router.get('/store/getItemsById', storeCtrl.getItemsById);
 
 // TODO add mw.isAuthenticated
 router.get('/store/countItmes', mw.isAuthenticated, storeCtrl.countItmes);
-router.get('/store/view/:tuplesPerPage/:pageNumber', mw.isAuthenticated, storeCtrl.viewItems);
+// router.get('/store/view/:tuplesPerPage/:pageNumber', mw.isAuthenticated, storeCtrl.viewItems);
+ router.get('/store/view/', mw.isAuthenticated, storeCtrl.viewItems);
+
 router.patch('/store/edit/:itemId', storeCtrl.editItems);
 router.delete('/store/delete/:itemId', storeCtrl.deleteItems);
 router.patch('/store/likeItems/:itemId', mw.isAuthenticated, storeCtrl.likeItems);

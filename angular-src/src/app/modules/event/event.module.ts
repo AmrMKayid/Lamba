@@ -41,7 +41,7 @@ const routes: Routes = [
     HttpModule,
     RouterModule.forChild(routes),
     NgbModule.forRoot(),
-    NgxPaginationModule,
+    NgxPaginationModule
 
 
   ],

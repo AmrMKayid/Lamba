@@ -7,7 +7,7 @@ import {StoreService} from '../../services/store.service';
 import {ViewComponent} from './view/view.component';
 import {HttpModule} from '@angular/http';
 import {ItemComponent} from './item/item.component';
-// import {ToasterModule} from 'angular5-toaster';
+import {NgxPaginationModule} from 'ngx-pagination';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -44,7 +44,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     NgbModule.forRoot(),
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    NgxPaginationModule
   ],
   declarations: [
     StoreComponent,

@@ -66,7 +66,7 @@ export class ViewComponent implements OnInit {
 
 
   loadItems() {
-    this.StoreService.viewItems(this.limit, this.curPage).subscribe((data: any) => {
+    this.StoreService.viewItems().subscribe((data: any) => {
       this.items = data.data;
     });
   }

@@ -27,8 +27,8 @@ export class StoreService {
     return this.http.post(appConfig.apiUrl + '/store/create', item, { headers: headers }).map((res) => res.json());
   }
 
-  viewItems(limit: number, page: number) {
-    return this.httpc.get(this.base_address + 'view/' + limit + '/' + page, this.options);
+  viewItems() {
+    return this.httpc.get(this.base_address + 'view/', this.options);
   }
 
   itemsCount() {

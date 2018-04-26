@@ -8,6 +8,7 @@ import {ImageUploadModule} from "angular2-image-upload";
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 const routes: Routes = [
   {
@@ -35,8 +36,8 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     MDBBootstrapModule.forRoot(),
-    NgbModule.forRoot()
-    // ToasterModule
+    NgbModule.forRoot(),
+    NgxPaginationModule
   ],
   declarations: [MyitemsComponent, CreateComponent, ViewComponent],
   exports: [RouterModule]

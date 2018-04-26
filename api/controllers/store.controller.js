@@ -113,24 +113,26 @@ module.exports.uploadItemPhoto = function(req, res, next) {
 // retrieves a collection of tuples based on the paramaters
 module.exports.viewItems = function(req, res, next) {
 
-  var valid = Validations.isNumber(req.params.tuplesPerPage) &&
-    Validations.isNumber(req.params.pageNumber) &&
-    parseInt(req.params.tuplesPerPage) <= 60;
+  // var valid = Validations.isNumber(req.params.tuplesPerPage) &&
+  //   Validations.isNumber(req.params.pageNumber) &&
+  //   parseInt(req.params.tuplesPerPage) <= 60;
+  //
+  // if (!valid) {
+  //   return res.status(422).json({
+  //     err: null,
+  //     msg: 'One or More field(s) is missing or of incorrect type',
+  //     data: null
+  //   });
+  // }
 
-  // returns error if not valid
-  if (!valid) {
-    return res.status(422).json({
-      err: null,
-      msg: 'One or More field(s) is missing or of incorrect type',
-      data: null
-    });
-  }
-
-  var limit = parseInt(req.params.tuplesPerPage);
-  var pageNumber = parseInt(req.params.pageNumber);
+  // var limit = parseInt(req.params.tuplesPerPage);
+  // var pageNumber = parseInt(req.params.pageNumber);
 
 
-  var query = Item.find().skip((pageNumber - 1) * limit).limit(limit);
+  // var query = Item.find().skip((pageNumber - 1) * limit).limit(limit);
+
+   var query = Item.find();
+
 
   query.exec(function(err, items) {
     if (err) return err;
@@ -242,7 +244,9 @@ module.exports.likeItems = function(req, res, next) {
         data: null
       });
     }
+    else
 
+    {
     retrievedItem.likes_user_id.push(user_id);
 
     Item.findByIdAndUpdate(retrievedItem._id, retrievedItem, function(err, item) {
@@ -253,7 +257,7 @@ module.exports.likeItems = function(req, res, next) {
         data: item
       });
     });
-
+  }
 
   });
 
