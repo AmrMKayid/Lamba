@@ -1,9 +1,9 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {appConfig} from "../../../../app.config";
-import {ActivatedRoute, Router} from "@angular/router";
-import {AuthService} from "../../../../services/auth.service";
-import {ModalDismissReasons, NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import { Component, OnInit, Input } from '@angular/core';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { appConfig } from "../../../../app.config";
+import { ActivatedRoute, Router } from "@angular/router";
+import { AuthService } from "../../../../services/auth.service";
+import { ModalDismissReasons, NgbModal, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
 
 
 @Component({
@@ -40,10 +40,10 @@ export class ViewTeacherComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute,
-              private auth: AuthService,
-              private httpClient: HttpClient,
-              private modalService: NgbModal,
-              private router: Router) {
+    private auth: AuthService,
+    private httpClient: HttpClient,
+    private modalService: NgbModal,
+    private router: Router) {
   }
 
 
@@ -81,10 +81,8 @@ export class ViewTeacherComponent implements OnInit {
   }
 
   sendRequest() {
-    let dummy = {
-      title: "dsfkjsdfsd"
-    };
-    this.httpClient.post(appConfig.apiUrl + '/request/create/' + this.user._id + "/" + this.selectedChild, dummy, this.httpOptions).subscribe(
+
+    this.httpClient.post(appConfig.apiUrl + '/request/create/' + this.user._id + "/" + this.selectedChild, {}, this.httpOptions).subscribe(
       (res: any) => {
         new Noty({
           type: 'success',
@@ -133,7 +131,7 @@ export class ViewTeacherComponent implements OnInit {
     this.router.navigate(['schedule/viewtask/', taskId]);
   }
 
-  book(){
+  book() {
     this.router.navigate(['profile/book']);
   }
 }
