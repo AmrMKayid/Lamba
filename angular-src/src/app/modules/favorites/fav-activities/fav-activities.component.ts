@@ -39,7 +39,7 @@ export class FavActivitiesComponent implements OnInit {
         this.router.navigate(['/']);
         new Noty({
           type: 'error',
-          text: `Activities could not be retrieved: ${err.error.msg}`,
+          text: `Activities could not be retrieved: ${err.error ? err.error.msg : err.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -67,7 +67,7 @@ export class FavActivitiesComponent implements OnInit {
         this.router.navigate(['/']);
         new Noty({
           type: 'error',
-          text: `Item couldn't be removed from favorites : ${err.error.msg}`,
+          text: `Item couldn't be removed from favorites : ${err.error ? err.error.msg : err.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();

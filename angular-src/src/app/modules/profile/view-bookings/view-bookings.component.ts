@@ -50,7 +50,7 @@ export class ViewBookingsComponent implements OnInit {
       ,(error)=>{
         new Noty({
           type: 'error',
-          text: `Something went wrong while retrieving bookings:\n${error.error.msg}`,
+          text: `Something went wrong while retrieving bookings:\n${error.error ? error.error.msg : error.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();

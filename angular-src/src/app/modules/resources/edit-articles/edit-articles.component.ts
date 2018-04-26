@@ -64,7 +64,7 @@ export class EditArticlesComponent implements OnInit {
       }, err => {
         new Noty({
           type: 'error',
-          text: `Tags couldn't be retrieved: ${err.error.msg}`,
+          text: `Tags couldn't be retrieved: ${err.error ? err.error.msg : err.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -92,7 +92,7 @@ export class EditArticlesComponent implements OnInit {
       }, err => {
         new Noty({
           type: 'error',
-          text: `Your article couldn't be retrieved: ${err.error.msg}`,
+          text: `Your article couldn't be retrieved: ${err.error ? err.error.msg : err.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -130,7 +130,7 @@ export class EditArticlesComponent implements OnInit {
       let msg = err.error.msg;
       new Noty({
         type: 'error',
-        text: `Something went wrong while editing your post: ${err.error.msg}`,
+        text: `Something went wrong while editing your post: ${err.error ? err.error.msg : err.msg}`,
         timeout: 3000,
         progressBar: true
       }).show();

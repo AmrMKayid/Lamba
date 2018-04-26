@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {trigger, state, style, animate, transition} from '@angular/animations';
-import {EventService} from '../../../services/event.service';
-import {Router} from '@angular/router';
-import {Http, Headers} from '@angular/http';
-import {appConfig} from "../../../app.config";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+import { EventService } from '../../../services/event.service';
+import { Router } from '@angular/router';
+import { Http, Headers } from '@angular/http';
+import { appConfig } from "../../../app.config";
 
 @Component({
   selector: 'app-activity',
@@ -21,18 +21,24 @@ export class ActivityComponent implements OnInit {
   owner: boolean
 
   constructor(private route: ActivatedRoute,
-              private http: Http,
-              private eventservice: EventService,
-              private router: Router) {
+    private http: Http,
+    private eventservice: EventService,
+    private router: Router) {
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.eventservice.getActivity(this.id).subscribe(res => {
-          this.activity = res.data[0];
-        },
+        this.activity = res.data[0];
+      },
         error => {
+          new Noty({
+            type: 'error',
+            text: `Something went wrong: ${error.error ? error.error.msg : error.msg}`,
+            progressBar: true,
+            timeout: 3000
+          }).show()
           return this.router.navigate(["/event/myactivities/view"]);
         });
 

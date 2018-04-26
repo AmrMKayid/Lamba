@@ -44,7 +44,7 @@ export class FavResourcesComponent implements OnInit {
         this.router.navigate(['/']);
         new Noty({
           type: 'error',
-          text: `Articles could not be retrieved: ${err.error.msg}`,
+          text: `Articles could not be retrieved: ${err.error ? err.error.msg : err.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -61,7 +61,7 @@ export class FavResourcesComponent implements OnInit {
         this.router.navigate(['/']);
         new Noty({
           type: 'error',
-          text: `Tags could not be retrieved: ${err.error.msg}`,
+          text: `Tags could not be retrieved: ${err.error ? err.error.msg : err.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -97,7 +97,7 @@ export class FavResourcesComponent implements OnInit {
         this.router.navigate(['/']);
         new Noty({
           type: 'error',
-          text: `Item couldn't be removed from favorites : ${err.error.msg}`,
+          text: `Item couldn't be removed from favorites : ${err.error ? err.error.msg : err.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();

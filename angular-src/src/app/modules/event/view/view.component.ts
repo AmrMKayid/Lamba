@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import {Http, Headers} from '@angular/http';
-import {trigger, state, style, animate, transition} from '@angular/animations';
-import {EventService} from '../../../services/event.service';
-import {Router} from '@angular/router';
-import {appConfig} from '../../../app.config';
-import {AuthService} from '../../../services/auth.service';
-import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {ActivatedRoute} from "@angular/router";
+import { Http, Headers } from '@angular/http';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+import { EventService } from '../../../services/event.service';
+import { Router } from '@angular/router';
+import { appConfig } from '../../../app.config';
+import { AuthService } from '../../../services/auth.service';
+import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-view',
@@ -40,11 +40,11 @@ export class ViewComponent implements OnInit {
     this.reverse = !this.reverse;
   }
   constructor(private http: Http,
-              private router: Router,
-              private eventservice: EventService,
-              private auth: AuthService,
-              private modalService: NgbModal,
-              private route: ActivatedRoute) {
+    private router: Router,
+    private eventservice: EventService,
+    private auth: AuthService,
+    private modalService: NgbModal,
+    private route: ActivatedRoute) {
     this.getMyActivities()
   }
 
@@ -53,13 +53,13 @@ export class ViewComponent implements OnInit {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('authorization', localStorage.getItem('authentication'));
-    this.http.get(appConfig.apiUrl + '/activity/view', {headers: headers}).map((res) => res.json())
+    this.http.get(appConfig.apiUrl + '/activity/view', { headers: headers }).map((res) => res.json())
       .subscribe((data: any) => {
         this.myactivities = data.data.filter(event => event.isVerified == true);
       }, error => {
         new Noty({
           type: 'success',
-          text: `Couldn't retrieve activity(s): ${error.msg}`,
+          text: `Couldn't retrieve activity(s): ${error.error ? error.error.msg : error.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -145,37 +145,37 @@ export class ViewComponent implements OnInit {
 
   close() {
 
-        this.router.navigate(["/event/myactivities/view"]);
-        localStorage.setItem("Update", 'null')
+    this.router.navigate(["/event/myactivities/view"]);
+    localStorage.setItem("Update", 'null')
 
-      }
+  }
 
-      viewInfo(_id) {
-        this.router.navigate(['/event/view/' + _id]);
-      }
-
-
-      modalref: NgbModalRef;
-      closeResult: string;
+  viewInfo(_id) {
+    this.router.navigate(['/event/view/' + _id]);
+  }
 
 
-      open(content) {
-        this.modalref = this.modalService.open(content)
+  modalref: NgbModalRef;
+  closeResult: string;
 
-        this.modalref.result.then((result) => {
-          this.closeResult = `Closed with: ${result}`;
-        }, (reason) => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        });
-      }
 
-      private getDismissReason(reason: any): string {
-        if (reason === ModalDismissReasons.ESC) {
-          return 'by pressing ESC';
-        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-          return 'by clicking on a backdrop';
-        } else {
-          return `with: ${reason}`;
-        }
-      }
+  open(content) {
+    this.modalref = this.modalService.open(content)
+
+    this.modalref.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
 }

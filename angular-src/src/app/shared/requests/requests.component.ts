@@ -40,7 +40,7 @@ export class RequestsComponent implements OnInit {
       (err) => {
         new Noty({
           type: 'error',
-          text: `Something went wrong while retrieving your requests: ${err.error.msg}`,
+          text: `Something went wrong while retrieving your requests: ${err.error ? err.error.msg : err.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -60,7 +60,7 @@ export class RequestsComponent implements OnInit {
       }, err => {
         new Noty({
           type: 'warning',
-          text: `can not accept request: ${err.error.msg}`,
+          text: `can not accept request: ${err.error ? err.error.msg : err.msg}`,
           timeout: 5000,
           progressBar: true
         }).show();
@@ -74,7 +74,7 @@ export class RequestsComponent implements OnInit {
       err => {
         new Noty({
           type: 'warning',
-          text: `can not accept request: ${err.error.msg}`,
+          text: `can not accept request: ${err.error ? err.error.msg : err.msg}`,
           timeout: 5000,
           progressBar: true
         }).show();
@@ -100,7 +100,7 @@ export class RequestsComponent implements OnInit {
       err => {
         new Noty({
           type: 'warning',
-          text: `can not accept request: ${err.error.msg}`,
+          text: `can not accept request: ${err.error ? err.error.msg : err.msg}`,
           timeout: 5000,
           progressBar: true
         }).show();

@@ -114,7 +114,7 @@ export class PostArticlesComponent implements OnInit {
       }, err => {
         new Noty({
           type: 'error',
-          text: `Something went wrong while retrieving the tags: ${err.error.msg}`,
+          text: `Something went wrong while retrieving the tags: ${err.error ? err.error.msg : err.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();

@@ -85,7 +85,7 @@ export class ViewComponent implements OnInit {
     }
     , error => {
       new Noty({
-        type: 'success',
+        type: 'info',
         text: "You already liked this item.",
         timeout: 3000,
         progressBar: true

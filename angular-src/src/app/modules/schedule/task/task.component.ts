@@ -131,7 +131,7 @@ export class TaskComponent implements OnInit {
       error => {
         new Noty({
           type: 'error',
-          text: `Something went wrong\n${error.error.msg}`,
+          text: `Something went wrong\n${error.error ? error.error.msg : error.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();

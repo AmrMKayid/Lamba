@@ -72,7 +72,7 @@ export class ViewTeacherComponent implements OnInit {
       (err) => {
         new Noty({
           type: 'error',
-          text: `Something went wrong while retrieving your children: ${err.error.msg}`,
+          text: `Something went wrong while retrieving your children: ${err.error ? err.error.msg : err.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -95,7 +95,7 @@ export class ViewTeacherComponent implements OnInit {
       }, err => {
         new Noty({
           type: 'warning',
-          text: `Something went wrong while requesting the teacher: ${err.error.msg}`,
+          text: `Something went wrong while requesting the teacher: ${err.error ? err.error.msg : err.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();

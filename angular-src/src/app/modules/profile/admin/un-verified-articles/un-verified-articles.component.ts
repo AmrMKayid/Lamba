@@ -62,7 +62,7 @@ export class UnVerifiedArticlesComponent implements OnInit {
         this.router.navigate(['/']);
         new Noty({
           type: 'error',
-          text: `Tags could not be retrieved: ${err.error.msg}`,
+          text: `Tags could not be retrieved: ${err.error ? err.error.msg : err.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();

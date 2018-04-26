@@ -57,7 +57,7 @@ export class ViewArticleComponent implements OnInit {
             (err) => {
               new Noty({
                 type: 'error',
-                text: `Something went wrong while retrieving your children: ${err.error.msg}`,
+                text: `Something went wrong while retrieving your children: ${err.error ? err.error.msg : err.msg}`,
                 timeout: 3000,
                 progressBar: true
               }).show();
@@ -70,7 +70,7 @@ export class ViewArticleComponent implements OnInit {
         this.router.navigate(['/resources']);
         new Noty({
           type: 'error',
-          text: `Article not retrieved: ${err.error.msg}`,
+          text: `Article not retrieved: ${err.error ? err.error.msg : err.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -90,7 +90,7 @@ export class ViewArticleComponent implements OnInit {
       }, err => {
         new Noty({
           type: 'warning',
-          text: `Article was not updated: ${err.error.msg}`,
+          text: `Article was not updated: ${err.error ? err.error.msg : err.msg}`,
           timeout: 2500,
           progressBar: true
         }).show();
@@ -106,7 +106,7 @@ export class ViewArticleComponent implements OnInit {
       }, err => {
         new Noty({
           type: 'warning',
-          text: `Article was not updated: ${err.error.msg}`,
+          text: `Article was not updated: ${err.error ? err.error.msg : err.msg}`,
           timeout: 2500,
           progressBar: true
         }).show();
@@ -136,7 +136,7 @@ export class ViewArticleComponent implements OnInit {
         }, err => {
           new Noty({
             type: 'error',
-            text: `Something went wrong while submitting the comment: ${err.error.msg}`,
+            text: `Something went wrong while submitting the comment: ${err.error ? err.error.msg : err.msg}`,
             timeout: 3000,
             progressBar: true
           }).show();
@@ -157,7 +157,7 @@ export class ViewArticleComponent implements OnInit {
       }, err => {
         new Noty({
           type: 'error',
-          text: `Something went wrong while adding to favorites: ${err.error.msg}`,
+          text: `Something went wrong while adding to favorites: ${err.error ? err.error.msg : err.msg}`,
           timeout: 2000,
           progressBar: true
         }).show();
@@ -178,7 +178,7 @@ export class ViewArticleComponent implements OnInit {
       }, err => {
         new Noty({
           type: 'error',
-          text: `Something went wrong while deleting the article: ${err.error.msg}`,
+          text: `Something went wrong while deleting the article: ${err.error ? err.error.msg : err.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();

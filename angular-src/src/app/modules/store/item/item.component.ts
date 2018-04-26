@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {trigger, state, style, animate, transition} from '@angular/animations';
-import {StoreService} from '../../../services/store.service';
-import {Router} from '@angular/router';
-import {Http, Headers} from '@angular/http';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+import { StoreService } from '../../../services/store.service';
+import { Router } from '@angular/router';
+import { Http, Headers } from '@angular/http';
 
-import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {appConfig} from "../../../app.config";
+import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { appConfig } from "../../../app.config";
 
 
 @Component({
@@ -36,10 +36,10 @@ export class ItemComponent implements OnInit {
   itemString: any;
 
   constructor(private route: ActivatedRoute,
-              private http: Http,
-              private storeservice: StoreService,
-              private modalService: NgbModal,
-              private router: Router) {
+    private http: Http,
+    private storeservice: StoreService,
+    private modalService: NgbModal,
+    private router: Router) {
   }
 
   ngOnInit() {
@@ -47,11 +47,17 @@ export class ItemComponent implements OnInit {
       this.id = params['id'];
 
       this.storeservice.getItem(this.id).subscribe(res => {
-          this.item = res.data;
-          this.user = res.seller;
-          this.owner = res.owner;
-        },
+        this.item = res.data;
+        this.user = res.seller;
+        this.owner = res.owner;
+      },
         error => {
+          new Noty({
+            type: 'error',
+            text: `Something went wrong:\n ${error.error ? error.error.msg : error.msg}`,
+            timeout: 3000,
+            progressBar: true
+          }).show()
           return this.router.navigate(["/store/myitems/view"]);
         });
 
