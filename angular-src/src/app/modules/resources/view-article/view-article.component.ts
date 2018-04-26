@@ -156,7 +156,7 @@ export class ViewArticleComponent implements OnInit {
         }).show();
       }, err => {
         new Noty({
-          type: 'error',
+          type: 'warning',
           text: `Something went wrong while adding to favorites: ${err.error ? err.error.msg : err.msg}`,
           timeout: 2000,
           progressBar: true
