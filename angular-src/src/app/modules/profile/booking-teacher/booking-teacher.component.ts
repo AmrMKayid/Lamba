@@ -15,6 +15,7 @@ export class BookingTeacherComponent implements OnInit {
 
   constructor(public http: HttpClient, private auth: AuthService, private router: Router, private route: ActivatedRoute) { }
   id: string;
+  Slot: string;
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -25,10 +26,13 @@ export class BookingTeacherComponent implements OnInit {
   ngOnInit() {
 
     this.id = this.route.snapshot.params['id'];
+    this.Slot = this.route.snapshot.params['slot'];
     this.currentUser = this.auth.getCurrentUser();
     if (this.currentUser.role == 'Teacher' || this.currentUser.role == 'Child') {
       this.router.navigate(['/']);
     }
+  
+  this.BookTeacher();
   }
 
   Notification = {
@@ -37,8 +41,6 @@ export class BookingTeacherComponent implements OnInit {
     url: "",
     recieving_user_id: "",
   };
-
-  Slot: String;
 
   BookTeacher() {
     if (!this.Slot) {

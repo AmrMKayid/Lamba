@@ -106,8 +106,16 @@ export class ViewBookingsComponent implements OnInit {
     this.Notification.url = " ";
     this.http.get(appConfig.apiUrl + '/booking/getParentId/' + this.email, this.httpOptions).subscribe((res: any) => {
       this.Notification.recieving_user_id = res.data;
+      this.http.delete(appConfig.apiUrl + '/booking/deleteNotif/' + this.description, this.httpOptions).subscribe((error:any) => {
+        new Noty({
+          type: 'error',
+          text: `Cannot find this booking!`,
+          timeout: 3000,
+          progressBar: true
+        }).show();  
+      });
+      
       this.http.post(appConfig.apiUrl + '/booking/newNotif', this.Notification, this.httpOptions).subscribe();
-      this.http.delete(appConfig.apiUrl + '/booking/deleteNotif/' + this.description, this.httpOptions).subscribe();
       this.fees = "";
       this.email = "";
       this.description = "";
