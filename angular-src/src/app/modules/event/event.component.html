@@ -8,11 +8,14 @@
 
 
       <div class="nav  flex-column nav-pills " aria-orientation="vertical">
-        <a [routerLinkActive]="['active']" [routerLink]="['/event/view']" *ngIf="isLoggedIn()" class="nav-link nimp" style="padding: 10px !important;"><span><i class="material-icons">store</i></span> Activities</a>
-        <a [routerLinkActive]="['active']" href="#" class="nav-link nimp" [routerLink]="['/event/myactivities/view']" *ngIf="isLoggedIn()" style="padding: 10px !important;"><span><i class="material-icons">loyalty</i></span> My
-           activities</a>
-        <a [routerLinkActive]="['active']" href="#" class="nav-link nimp" [routerLink]="['/event/myactivities/create']" *ngIf="isLoggedIn()" style="padding:10px !important;"><span><i class="material-icons">playlist_add</i></span>
-           Add activity</a>
+        <a [routerLinkActive]="['active']" [routerLink]="['/event/view']" *ngIf="isLoggedIn()" class="nav-link nimp"
+           style="padding: 10px !important;"><span><i class="material-icons">event</i></span> Activities</a>
+        <a [routerLinkActive]="['active']" href="#" class="nav-link nimp" [routerLink]="['/event/myactivities/view']"
+           *ngIf="isLoggedIn()" style="padding: 10px !important;"><span><i class="material-icons">event_note</i></span> My
+          activities</a>
+        <a [routerLinkActive]="['active']" href="#" class="nav-link nimp" [routerLink]="['/event/myactivities/create']"
+           *ngIf="isLoggedIn()" style="padding:10px !important;"><span><i class="material-icons">playlist_add</i></span>
+          Add activity</a>
       </div>
 
 
