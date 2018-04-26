@@ -49,14 +49,6 @@ const appRoutes: Routes = [
     component: MyProfileComponent,
   },
   {
-    path: ':id/:slot',
-    component: BookingTeacherComponent,
-  },
-  {
-    path: 'viewbookings',
-    component: ViewBookingsComponent
-  },
-  {
     path: 'admin',
     component: AdminComponent,
     children: [
@@ -93,6 +85,14 @@ const appRoutes: Routes = [
   {
     path: 'request-interview',
     component: InterviewRequestComponent
+  },
+  {
+    path: 'booking/:id/:slot',
+    component: BookingTeacherComponent,
+  },
+  {
+    path: 'viewbookings',
+    component: ViewBookingsComponent
   },
   {
     path: ':id',
