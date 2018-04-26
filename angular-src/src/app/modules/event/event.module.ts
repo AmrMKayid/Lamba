@@ -38,7 +38,9 @@ const routes: Routes = [
   imports: [
     CommonModule,
     HttpModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    NgbModule.forRoot()
+    
   ],
   declarations: [
     EventComponent,
