@@ -5,9 +5,15 @@ Notification = mongoose.model('Notification');
 module.exports.getId = function(req, res, next) {
     User.findOne({email: {
             $eq: req.params.email  
-          }  
+          },
+            role:{
+              $eq: "Teacher"
+            }
           }).exec(function(err, usr) {
             if (err) {
+              return next(err);
+            }
+            if(!usr){
               return next(err);
             }
           res.status(200).json({
