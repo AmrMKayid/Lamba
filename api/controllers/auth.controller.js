@@ -454,10 +454,24 @@ function loginUser(req, res, next) {
             }
 
             // Create a JWT and put in it the user object from the database
+            let tokenData = user.toObject();
+            delete tokenData.schedule;
+            delete tokenData.favorites;
+            delete tokenData.messages;
+            delete tokenData.myItems;
+            delete tokenData.interests;
+            delete tokenData.joinedAt;
+            delete tokenData.qualifications;
+            delete tokenData.sessions;
+            delete tokenData.cart;
+            delete tokenData.gender;
+
+
+
             var token = jwt.sign(
                 {
                     // user.toObject transorms the document to a json object without the password as we can't leak sensitive info to the frontend
-                    user: user.toObject()
+                    user: tokenData
                 },
                 req.app.get('secret'),
                 {
