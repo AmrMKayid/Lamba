@@ -242,7 +242,17 @@ const UserSchema = new mongoose.Schema({
         default: Date.now()
     },
 
-    messages: [{type: mongoose.Schema.Types.ObjectId, ref: 'Message'}],
+    mailToken: {
+        id: String,
+        expires: Date
+    },
+
+    mailActivated: {
+        type: Boolean,
+        default: false
+    },
+
+    messages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }],
 
     myItems: [String],
     cart: [String],
