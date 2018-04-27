@@ -249,6 +249,7 @@ const UserSchema = new mongoose.Schema({
 
     mailActivated: {
         type: Boolean,
+        required: true,
         default: false
     },
 
