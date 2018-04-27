@@ -1,7 +1,33 @@
-# IMPORTANT 
-# Please drop any entries for the articles in the database as their controller has been updated, and it would give errors for older schemas
+<h1 align="center">  T20  </h1>
 
-## To be added:
- 
-* Add a resource to your favorite should sort of disable the button or indicate somehow
-* The rest of the components need adding to favorites functionality 
+<p align="center">
+  <img src ="pics/HomePage.png" />
+</p>
+
+---
+
+# <h2 align="center"> [Nawwar Educational Platform](https://nawwar.tk:3000/) </h2>
+
+## Getting Started:
+> Open **3** Terminals and run each of the following command
+
+_**Server:**_
+
+```
+npm install
+npm start 
+```
+
+_**DataBase:**_
+
+```
+mongod
+```
+
+_**Angular:**_
+
+```
+cd angular-src
+npm install
+ng serve
+```

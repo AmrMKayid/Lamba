@@ -20,13 +20,17 @@
     <h3 class="card-title"><strong>{{user.name.firstName}} {{user.name.lastName}}</strong></h3>
     <h4 class="indigo-text"><strong>{{user.role}} | {{user.isVerified? 'Verified' : 'UnVerified'}}</strong></h4>
 
-<div class="row ">
-  <div class="col-12 text-center">
-    <button type="button" (click)="messageUser()" class="btn btn-info waves-light" mdbWavesEffect><span class="fa fa-envelope mr-2"></span>Message</button>
-    <button type="button" *ngIf="isParent" (click)="open(content)" class="btn btn-warning  waves-light" mdbWavesEffect><span class="fa fa-plus mr-2"></span>Connect</button>
-  </div>
+    <div class="row ">
+      <div class="col-12 text-center">
+        <button type="button" (click)="messageUser()" class="btn btn-info waves-light" mdbWavesEffect><span
+          class="fa fa-envelope mr-2"></span>Message
+        </button>
+        <button type="button" *ngIf="isParent" (click)="open(content)" class="btn btn-warning  waves-light"
+                mdbWavesEffect><span class="fa fa-plus mr-2"></span>Connect
+        </button>
+      </div>
 
-</div>
+    </div>
 
 
     <ng-template #content let-c="close" let-d="dismiss">
@@ -93,7 +97,7 @@
                                         <div class="col-12">
                                           <a href="{{Slot.slot.url}}" placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="/profile/{{user._id}}/{{Slot.slot.title}}" placement="bottom"
+                                          <a href="/profile/booking/{{user._id}}/{{Slot.slot.title}}" placement="bottom"
                                              ngbTooltip="Book This Slot"><i class="material-icons" aria-hidden="true">add_box</i></a>
                                         </div>
                                       </div>
@@ -143,7 +147,7 @@
                                         <div class="col-12">
                                           <a href="{{Slot.slot.url}}" placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="/profile/{{user._id}}/{{Slot.slot.title}}" placement="bottom"
+                                          <a href="/profile/booking/{{user._id}}/{{Slot.slot.title}}" placement="bottom"
                                              ngbTooltip="Book This Slot"><i class="material-icons" aria-hidden="true">add_box</i></a>
                                         </div>
                                       </div>
@@ -193,7 +197,7 @@
                                         <div class="col-12">
                                           <a href="{{Slot.slot.url}}" placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="/profile/{{user._id}}/{{Slot.slot.title}}" placement="bottom"
+                                          <a href="/profile/booking/{{user._id}}/{{Slot.slot.title}}" placement="bottom"
                                              ngbTooltip="Book This Slot"><i class="material-icons" aria-hidden="true">add_box</i></a>
                                         </div>
                                       </div>
@@ -243,7 +247,7 @@
                                         <div class="col-12">
                                           <a href="{{Slot.slot.url}}" placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="/profile/{{user._id}}/{{Slot.slot.title}}" placement="bottom"
+                                          <a href="/profile/booking/{{user._id}}/{{Slot.slot.title}}" placement="bottom"
                                              ngbTooltip="Book This Slot"><i class="material-icons" aria-hidden="true">add_box</i></a>
                                         </div>
                                       </div>
@@ -293,7 +297,7 @@
                                         <div class="col-12">
                                           <a href="{{Slot.slot.url}}" placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="/profile/{{user._id}}/{{Slot.slot.title}}" placement="bottom"
+                                          <a href="/profile/booking/{{user._id}}/{{Slot.slot.title}}" placement="bottom"
                                              ngbTooltip="Book This Slot"><i class="material-icons" aria-hidden="true">add_box</i></a>
                                         </div>
                                       </div>
@@ -343,7 +347,7 @@
                                         <div class="col-12">
                                           <a href="{{Slot.slot.url}}" placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="/profile/{{user._id}}/{{Slot.slot.title}}" placement="bottom"
+                                          <a href="/profile/booking/{{user._id}}/{{Slot.slot.title}}" placement="bottom"
                                              ngbTooltip="Book This Slot"><i class="material-icons" aria-hidden="true">add_box</i></a>
                                         </div>
                                       </div>
@@ -393,7 +397,7 @@
                                         <div class="col-12">
                                           <a href="{{Slot.slot.url}}" placement="bottom" ngbTooltip="Go to URL"><i
                                             class="fa fa-link fa-2x white-black mr-2" aria-hidden="true"></i></a>
-                                          <a href="/profile/{{user._id}}/{{Slot.slot.title}}" placement="bottom"
+                                          <a href="/profile/booking/{{user._id}}/{{Slot.slot.title}}" placement="bottom"
                                              ngbTooltip="Book This Slot"><i class="material-icons" aria-hidden="true">add_box</i></a>
                                         </div>
                                       </div>
@@ -410,96 +414,6 @@
                       </ngb-tabset>
                     </div>
                   </div>
-
-
-                  <!-- <table class="table">
-                    <thead class="thead-dark">
-                      <tr>
-                        <th scope="col">Saturday</th>
-                        <th scope="col">Sunday</th>
-                        <th scope="col">Monday</th>
-                        <th scope="col">Tuesday</th>
-                        <th scope="col">Wednesday</th>
-                        <th scope="col">Thursday</th>
-                        <th scope="col">Friday</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Slot1</td>
-                        <td>Slot1</td>
-                        <td>Slot1</td>
-                        <td>Slot1</td>
-                        <td>Slot1</td>
-                        <td>Slot1</td>
-                        <td>Slot1</td>
-                      </tr>
-                      <tr>
-                        <td>Slot2</td>
-                        <td>Slot2</td>
-                        <td>Slot2</td>
-                        <td>Slot2</td>
-                        <td>Slot2</td>
-                        <td>Slot2</td>
-                        <td>Slot2</td>
-                      </tr>
-                      <tr>
-                        <td>Slot3</td>
-                        <td>Slot3</td>
-                        <td>Slot3</td>
-                        <td>Slot3</td>
-                        <td>Slot3</td>
-                        <td>Slot3</td>
-                        <td>Slot3</td>
-                      </tr>
-                      <tr>
-                        <td>Slot4</td>
-                        <td>Slot4</td>
-                        <td>Slot4</td>
-                        <td>Slot4</td>
-                        <td>Slot4</td>
-                        <td>Slot4</td>
-                        <td>Slot4</td>
-                      </tr>
-                      <tr>
-                        <td>Slot5</td>
-                        <td>Slot5</td>
-                        <td>Slot5</td>
-                        <td>Slot5</td>
-                        <td>Slot5</td>
-                        <td>Slot5</td>
-                        <td>Slot5</td>
-
-                      </tr>
-                      <tr>
-                        <td>Slot6</td>
-                        <td>Slot6</td>
-                        <td>Slot6</td>
-                        <td>Slot6</td>
-                        <td>Slot6</td>
-                        <td>Slot6</td>
-                        <td>Slot6</td>
-                      </tr>
-                      <tr>
-                        <td>Slot7</td>
-                        <td>Slot7</td>
-                        <td>Slot7</td>
-                        <td>Slot7</td>
-                        <td>Slot7</td>
-                        <td>Slot7</td>
-                        <td>Slot7</td>
-                      </tr>
-                      <tr>
-                        <td>Slot8</td>
-                        <td>Slot8</td>
-                        <td>Slot8</td>
-                        <td>Slot8</td>
-                        <td>Slot8</td>
-                        <td>Slot8</td>
-                        <td>Slot8</td>
-                      </tr>
-                    </tbody>
-                  </table> -->
                 </div>
               </div>
             </div>
