@@ -71,6 +71,14 @@ export class RegisterComponent implements OnInit {
         progressBar: true
       }).show();
       return false;
+    } else if (!(/^[a-zA-Z]+$/.test(value.name.firstName) && /^[a-zA-Z]+$/.test(value.name.lastName))) {
+      new Noty({
+        type: 'warning',
+        text: `Name may only consist of English letters (No symbols/numerics).`,
+        timeout: 3000,
+        progressBar: true
+      }).show();
+      return false;
     }
 
     value.role = this.chosenRole;

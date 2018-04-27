@@ -54,6 +54,14 @@ module.exports.register = function (req, res, next) {
         });
     }
 
+    if (!(/^[a-zA-Z]+$/.test(req.body.name.firstName) && /^[a-zA-Z]+$/.test(req.body.name.lastName))) {
+        return res.status(422).json({
+            err: null,
+            msg: 'Name is invalid (only English characters).',
+            data: null
+        });
+    }
+
 
     var role = req.body.role;
     if (!(role === 'Teacher' || role === 'Parent')) {
