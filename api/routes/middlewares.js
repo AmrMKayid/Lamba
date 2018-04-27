@@ -34,7 +34,7 @@ module.exports.isAuthenticated = function (req, res, next) {
           data: null
         });
       }
-      if (!user.active) {
+      if (!user.mailActivated) {
         return res.status(401).json({
           error: null,
           msg: 'Email needs to be activated.',
