@@ -25,7 +25,6 @@ module.exports.register = function (req, res, next) {
         req.body.confirmPassword &&
         Validations.isString(req.body.confirmPassword);
     if (!valid) {
-        // console.log(req.body);
         return res.status(422).json({
             err: null,
             msg:

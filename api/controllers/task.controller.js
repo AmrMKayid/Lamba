@@ -71,7 +71,6 @@ module.exports.createNewTask = function(req, res, next) {
 
       }
 
-      console.log(req.body);
       Task.create(req.body, function(err, task) {
         if (err) {
           return next(err);
@@ -190,7 +189,6 @@ module.exports.createNewComment = function(req, res, next) {
       userId: req.decodedToken.user._id,
       role: req.body.role
     }
-    console.log(com);
 
     Comment.create(com, function(err, comment) {
       if (err) {

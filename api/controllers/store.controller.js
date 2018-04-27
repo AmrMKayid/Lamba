@@ -150,7 +150,6 @@ module.exports.getItemsById = function (req, res, next) {
     const authorization = req.headers.authorization;
     const secret = req.app.get('secret');
     decoded = jwt.verify(authorization, secret);
-    console.log(decoded.user._id)
     Item.find({
         seller_id: decoded.user._id
     }).exec(function (err, Items) {
@@ -197,7 +196,6 @@ module.exports.editItems = function (req, res, next) {
         });
     });
 
-    // console.log("edit\n");
 };
 
 
@@ -248,7 +246,6 @@ module.exports.likeItems = function (req, res, next) {
             retrievedItem.likes_user_id.push(user_id);
 
             Item.findByIdAndUpdate(retrievedItem._id, retrievedItem, function (err, item) {
-                console.log(item);
                 return res.status(200).json({
                     err: null,
                     msg: 'Item was liked successfully.',

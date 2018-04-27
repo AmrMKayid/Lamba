@@ -110,7 +110,6 @@ module.exports.getUnopenedChatsCount = function(req, res, next){
             });
 		}
 
-		console.log(logs);
 		return  res.status(200).json({
             err: null,
             msg: "Retrieved Messages",

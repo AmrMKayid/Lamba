@@ -554,9 +554,7 @@ module.exports.rejectArticle = function (req, res, next) {
 
   }
 };
-//end yamsmeen
 module.exports.getUserInfo = function (req, res, next) {
-  console.log(req.body)
   if (!Validations.isObjectId(req.params.userId)) {
     return res.status(422).json({
       err: null,
@@ -626,7 +624,7 @@ module.exports.updateUser = function (req, res, next) {
       data: null
     });
   }
-  
+
 
   User.findByIdAndUpdate(
     req.params.userId, {
@@ -678,12 +676,9 @@ module.exports.assignArticleToChild = function (req, res, next) {
         data: null
       });
     }
-    console.log(child.parent_id);
-    console.log(req.decodedToken._id);
     if (child.parent_id == req.decodedToken.user._id) {
 
       if (child.allowedArticles.includes(req.body.articleID)) {
-        console.log('done already');
         return res.status(200).json({
           err: null,
           msg: "The child is already assigned",
@@ -1091,7 +1086,6 @@ module.exports.createVerificationForm = function (req, res, next) {
           });
         });
       } else {
-        console.log(checkForm);
         return res
           .status(422)
           .json({
