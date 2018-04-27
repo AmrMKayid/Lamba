@@ -19,6 +19,7 @@ var express = require('express'),
     mw = require('./middlewares');
 
 //---------------------------- Authentication Routes --------------------------------//
+router.get('/verify/:id/:token', authCtrl.verifyMail);
 router.post('/auth/register', mw.isNotAuthenticated, authCtrl.register);
 router.post('/auth/login', mw.isNotAuthenticated, authCtrl.login);
 router.post('/auth/refresh', mw.isAuthenticated, authCtrl.refreshToken);
