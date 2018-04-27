@@ -68,6 +68,26 @@ export class ParentComponent implements OnInit {
     updatedStreet, updatedCity, updatedState, updatedZip,
     updatedBirthday, updatedPhone, updatedAbout) {
 
+    if (!updatedFirstName || !updatedLastName) {
+      new Noty({
+        type: 'warning',
+        text: `Please fill in both the first and the last name, they're both required.`,
+        timeout: 3000,
+        progressBar: true
+      }).show();
+      return false;
+    } else if (!(/^[a-zA-Z]+$/.test(updatedFirstName) && /^[a-zA-Z]+$/.test(updatedLastName)) && (updatedMiddleName) ? /^[a-zA-Z]+$/.test(updatedMiddleName) : true) {
+      new Noty({
+        type: 'warning',
+        text: `Invalid name, only English letters are allowed (No symbols nor numeric).`,
+        timeout: 3000,
+        progressBar: true
+      }).show();
+      return false;
+    }
+
+    //EXTRA VALIDATION WON'T BREAK THE APP FOR NOW :D
+
     let updatedUser = {
       name: {
         firstName: updatedFirstName,
@@ -350,7 +370,7 @@ export class ParentComponent implements OnInit {
   deleteTask(taskId) {
     this.http.get(appConfig.apiUrl + '/task/deleteTask/' + taskId, this.httpOptions).subscribe((res: any) => {
       this.getTasks();
-      });
+    });
 
 
     new Noty({
