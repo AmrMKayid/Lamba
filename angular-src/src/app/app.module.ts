@@ -36,7 +36,6 @@ import { RequestsComponent } from './shared/requests/requests.component';
 import { InterestsComponent } from './shared/interests/interests.component';
 import { NgxCarouselModule } from "ngx-carousel";
 import { ActivationComponent } from './shared/activation/activation.component';
-import { HttpModule } from '@angular/http';
 
 
 @NgModule({
@@ -63,7 +62,6 @@ import { HttpModule } from '@angular/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    HttpModule,
     NgxCarouselModule,
     Ng2SearchPipeModule, Ng2OrderModule, NgxPaginationModule,
     NgbModule.forRoot(),
