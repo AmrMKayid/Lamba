@@ -525,7 +525,7 @@ function loginUser(req, res, next) {
           return res.status(429).json({
             err: null,
             msg: 'Verification already sent',
-            data: null
+            data: moment(user.user.mailToken.expires).diff(moment().utc(), 'm')
           });
         }
 

@@ -68,8 +68,8 @@ export class LoginComponent implements OnInit {
           if (errMsg === 'Verification already sent') {
             return new Noty({
               type: 'warning',
-              text: `A verification link has been already sent. If you cannot find it, you can request a new one by re-logging in after an hour`,
-              timeout: 3000,
+              text: `A verification link has been already sent. If you cannot find it, you can request a new one by re-logging in after ${error.data} minutes`,
+              timeout: 6000,
               progressBar: true
             }).show();
           } else {
