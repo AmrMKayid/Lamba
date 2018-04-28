@@ -494,7 +494,7 @@ function loginUser(req, res, next) {
 
       if (!user.mailActivated) {
         //Token expired already, send him a new one
-        if (moment(user.mailToken.expires).isBefore(moment())) {
+        if (moment(user.mailToken.expires).isBefore(moment().utc())) {
           user.mailToken = {
             id: uuidv4(),
             expires: moment().add(1, 'h').utc().valueOf()
@@ -666,7 +666,7 @@ module.exports.verifyMail = function (req, res, next) {
     if (user.mailToken.id !== token) {
       return res.redirect(FRONTEND_URL + '/activation?mode=invalid');
     }
-    if (moment(user.mailToken.expires).isBefore(moment())) {
+    if (moment(user.mailToken.expires).isBefore(moment().utc())) {
       return res.redirect(FRONTEND_URL + '/activation?mode=expired');
     }
     if (user.mailActivated) {
@@ -713,7 +713,7 @@ module.exports.forgotPassword = function (req, res, next) {
     //He requested an unproccessed reset recently?
     if (user.passwordResetToken) {
       //Recent token has expired, serve him a new one.
-      if (moment(user.passwordResetToken.expires).isBefore(moment())) {
+      if (moment(user.passwordResetToken.expires).isBefore(moment().utc())) {
         user.passwordResetToken = {
           id: uuidv4(),
           expires: moment().add(1, 'h').utc().valueOf()
@@ -743,7 +743,7 @@ module.exports.forgotPassword = function (req, res, next) {
         return res.status(429).json({
           err: null,
           msg: 'Reset email already sent.',
-          data: moment(user.passwordResetToken.expires).diff(moment(), 'm')
+          data: moment(user.passwordResetToken.expires).diff(moment().utc(), 'm')
         });
       }
 
@@ -778,5 +778,58 @@ module.exports.forgotPassword = function (req, res, next) {
 }
 
 module.exports.resetPassword = function (req, res, next) {
-  //TODO: RESET GOES HERE
+  let newPassword = req.body.password;
+  let token = req.params.token;
+  let uuidREGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  if (!token || !uuidREGEX.test(token)) {
+    return res.status(422).json({
+      err: null,
+      msg: 'Invalid token.',
+      data: null
+    });
+
+  }
+  if (!newPassword || newPassword.length < 8) {
+    return res.status(422).json({
+      err: null,
+      msg: 'Invalid password provided.',
+      data: null
+    });
+  }
+  User.findOne({
+    'passwordResetToken.id': token
+  }).exec(
+    (err, user) => {
+      if (err) return next(err);
+      if (!user) {
+        return res.status(404).json({
+          err: null,
+          msg: 'Invalid token.',
+          data: null
+        });
+      }
+      //If token expired, don't delete it from the document for further fetches :D
+      if (moment(user.passwordResetToken.expires).isBefore(moment().utc())) {
+        return res.status(401).json({
+          err: null,
+          msg: 'Token expired.',
+          data: null
+        });
+      } else {
+        Encryption.hashPassword(newPassword, (err, hash) => {
+          if (err) return next(err);
+          user.passwordResetToken = undefined;
+          user.password = hash;
+          user.save((err, updatedUser) => {
+            if (err) return next(err);
+            return res.status(200).json({
+              err: null,
+              msg: 'Password updated successfully.',
+              data: null
+            });
+          });
+        });
+      }
+    }
+  );
 }
