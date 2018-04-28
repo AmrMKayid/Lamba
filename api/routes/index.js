@@ -187,4 +187,8 @@ router.get('/chat/unopened/count', mw.isAuthenticated, chatCtrl.getUnopenedChats
 router.patch('/chat/open', mw.isAuthenticated, chatCtrl.openChat);
 router.patch('/chat/seen', mw.isAuthenticated, chatCtrl.seen);
 
+router.post('/user/forgot/:email', authCtrl.forgotPassword);
+router.post('/user/reset/:token', authCtrl.resetPassword);
+
+
 module.exports = router;
