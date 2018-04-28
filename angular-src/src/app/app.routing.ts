@@ -11,11 +11,15 @@ import { NotificationsComponent } from './shared/notifications/notifications.com
 import { RequestsComponent } from './shared/requests/requests.component';
 import { InterestsComponent } from "./shared/interests/interests.component";
 import { ActivationComponent } from './shared/activation/activation.component';
+import { ForgotPasswordComponent } from './shared/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './shared/reset-password/reset-password.component';
 
 
 const appRoutes: Routes = [
   { path: '', component: HomepageComponent },
   { path: 'activation', component: ActivationComponent },
+  { path: 'forgot', component: ForgotPasswordComponent },
+  { path: 'reset/:token', component: ResetPasswordComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'register-role', component: RegisterRoleComponent },
