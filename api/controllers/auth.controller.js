@@ -500,7 +500,10 @@ function loginUser(req, res, next) {
             expires: moment().add(1, 'h').utc().valueOf()
           };
           //Save the new mail token with the new expiration date
-          user.save((err) => {
+          user.save((err, newUser) => {
+            if (err) {
+              return next(err);
+            }
             let verificationURL = req.protocol + '://' + req.get('host') + `/api/verify/${user._id}/${user.mailToken.id}`;
 
             let msg = {
@@ -647,31 +650,133 @@ module.exports.refreshToken = function (req, res, next) {
 }
 
 module.exports.verifyMail = function (req, res, next) {
+  let FRONTEND_URL = 'http://localhost:4200';
+  //FOR BUILT PROJECTS
+  // let FRONTEND_URL =  req.protocol + '://' + req.get('host') ;
+
   let id = req.params.id;
   let token = req.params.token;
   User.findById(id, (err, user) => {
     if (err) {
-      return res.redirect('http://localhost:4200/activation?mode=error');
+      return res.redirect(FRONTEND_URL + '/activation?mode=error');
     }
     if (!user) {
-      return res.redirect('http://localhost:4200/activation?mode=user');
+      return res.redirect(FRONTEND_URL + '/activation?mode=user');
     }
     if (user.mailToken.id !== token) {
-      return res.redirect('http://localhost:4200/activation?mode=invalid');
+      return res.redirect(FRONTEND_URL + '/activation?mode=invalid');
     }
     if (moment(user.mailToken.expires).isBefore(moment())) {
-      return res.redirect('http://localhost:4200/activation?mode=expired');
+      return res.redirect(FRONTEND_URL + '/activation?mode=expired');
     }
     if (user.mailActivated) {
-      return res.redirect('http://localhost:4200/activation?mode=already');
+      return res.redirect(FRONTEND_URL + '/activation?mode=already');
     }
     user.mailActivated = true;
     user.mailToken = undefined;
     user.save(function (err, updatedUser) {
       if (err) {
-        return res.redirect('http://localhost:4200/activation?mode=user');
+        return res.redirect(FRONTEND_URL + '/activation?mode=user');
       }
-      return res.redirect('http://localhost:4200/activation?mode=success');
+      return res.redirect(FRONTEND_URL + '/activation?mode=success');
     });
   });
+}
+
+module.exports.forgotPassword = function (req, res, next) {
+  let FRONTEND_URL = 'http://localhost:4200';
+  //FOR BUILT PROJECTS
+  // let FRONTEND =  req.protocol + '://' + req.get('host') ;
+
+  userMail = req.params.email;
+  if (!userMail) {
+    return res.status(422).json({
+      err: null,
+      msg: 'Empty email provided',
+      data: null
+    });
+  }
+
+  User.findOne({
+    email: userMail.toLowerCase()
+  }).exec(function (err, user) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.status(404).json({
+        err: null,
+        msg: 'No user exists with the provided email.',
+        data: null
+      });
+    }
+    //He requested an unproccessed reset recently?
+    if (user.passwordResetToken) {
+      //Recent token has expired, serve him a new one.
+      if (moment(user.passwordResetToken.expires).isBefore(moment())) {
+        user.passwordResetToken = {
+          id: uuidv4(),
+          expires: moment().add(1, 'h').utc().valueOf()
+        }
+        user.save((err, updatedUser) => {
+          if (err) {
+            return next(err);
+          }
+          let passwordResetURL = FRONTEND_URL + `/reset/${user.passwordResetToken.id}`;
+
+          let msg = {
+            to: updatedUser.email,
+            from: 'nawwar@nawwar.com',
+            subject: 'Password reset request.',
+            text: passwordResetURL,
+            html: MAIL_TEMPLATE.replace('[VERIFICATION_LINK]', passwordResetURL)
+          };
+          sgMail.send(msg);
+          return res.status(200).json({
+            err: null,
+            msg: 'Reset email sent successfully.',
+            data: null
+          });
+        });
+        // Recent token has not expired, send back a timer of how long to wait to re-request
+      } else {
+        return res.status(429).json({
+          err: null,
+          msg: 'Reset email already sent.',
+          data: moment(user.passwordResetToken.expires).diff(moment(), 'm')
+        });
+      }
+
+      //He didn't request an unproccessed reset, so a new mail is generated directly
+    } else {
+      user.passwordResetToken = {
+        id: uuidv4(),
+        expires: moment().add(1, 'h').utc().valueOf()
+      }
+      user.save((err, updatedUser) => {
+        if (err) {
+          return next(err);
+        }
+        let passwordResetURL = FRONTEND_URL + `/reset/${user.passwordResetToken.id}`;
+
+        let msg = {
+          to: updatedUser.email,
+          from: 'nawwar@nawwar.com',
+          subject: 'Password reset request.',
+          text: passwordResetURL,
+          html: MAIL_TEMPLATE.replace('[VERIFICATION_LINK]', passwordResetURL)
+        };
+        sgMail.send(msg);
+        return res.status(200).json({
+          err: null,
+          msg: 'Reset email has been sent.',
+          data: null
+        });
+      });
+    }
+  });
+}
+
+module.exports.resetPassword = function (req, res, next) {
+  //TODO: RESET GOES HERE
 }
