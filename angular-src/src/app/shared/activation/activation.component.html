@@ -1,0 +1,27 @@
+<div class="divider" style="padding-top:50px;"></div>
+<div class="container">
+  <div class="myContainer">
+    <div class="card card">
+      <div *ngIf="renderType == 'success'" class="card-body">
+        EMAIL ACTIVATED!
+      </div>
+      <div *ngIf="renderType == 'invalid'" class="card-body">
+        INVALID TOKEN!
+      </div>
+      <div *ngIf="renderType == 'user'" class="card-body">
+        ERROR WITH THE USER
+      </div>
+      <div *ngIf="renderType == 'already'" class="card-body">
+        USER ALREADY ACTIVATED
+      </div>
+      <div *ngIf="renderType == 'expired'" class="card-body">
+        TOKEN EXPIRED, REQUEST A NEW ONE BY LOGGING IN
+      </div>
+      <div *ngIf="renderType == 'error'" class="card-body">
+        SOMETHING WENT WRONG, PLEASE REQUEST A NEW ACTIVATION LINK
+      </div>
+
+
+    </div>
+  </div>
+</div>

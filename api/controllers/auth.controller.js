@@ -493,11 +493,39 @@ function loginUser(req, res, next) {
       }
 
       if (!user.mailActivated) {
-        return res.status(401).json({
-          err: null,
-          msg: 'You need to verify your email first before you login.',
-          data: null
-        });
+        //Token expired already, send him a new one
+        if (moment(user.mailToken.expires).isBefore(moment())) {
+          user.mailToken = {
+            id: uuidv4(),
+            expires: moment().add(1, 'h').utc().valueOf()
+          };
+          //Save the new mail token with the new expiration date
+          user.save((err) => {
+            let verificationURL = req.protocol + '://' + req.get('host') + `/api/verify/${user._id}/${user.mailToken.id}`;
+
+            let msg = {
+              to: user.email,
+              from: 'nawwar@nawwar.com',
+              subject: 'Welcome to Nawwar, please confirm your email address!',
+              text: verificationURL,
+              html: MAIL_TEMPLATE.replace('[VERIFICATION_LINK]', verificationURL)
+            };
+            sgMail.send(msg);
+          });
+          return res.status(201).json({
+            err: null,
+            msg: 'A verification email has been sent.',
+            data: null
+          });
+
+        } else {
+          return res.status(429).json({
+            err: null,
+            msg: 'Verification already sent',
+            data: null
+          });
+        }
+
       }
 
       // Create a JWT and put in it the user object from the database
@@ -623,40 +651,27 @@ module.exports.verifyMail = function (req, res, next) {
   let token = req.params.token;
   User.findById(id, (err, user) => {
     if (err) {
-      return next(err);
+      return res.redirect('http://localhost:4200/activation?mode=error');
     }
     if (!user) {
-      return res.status(404).json({
-        err: null,
-        msg: 'User not found.',
-        data: null
-      });
+      return res.redirect('http://localhost:4200/activation?mode=user');
     }
     if (user.mailToken.id !== token) {
-      return res.status(422).json({
-        err: null,
-        msg: 'Email token is invalid.',
-        data: null
-      });
+      return res.redirect('http://localhost:4200/activation?mode=invalid');
     }
     if (moment(user.mailToken.expires).isBefore(moment())) {
-      return res.status(401).json({
-        err: null,
-        msg: 'Token expired',
-        data: null
-      });
+      return res.redirect('http://localhost:4200/activation?mode=expired');
+    }
+    if (user.mailActivated) {
+      return res.redirect('http://localhost:4200/activation?mode=already');
     }
     user.mailActivated = true;
-    delete user.mailToken;
+    user.mailToken = undefined;
     user.save(function (err, updatedUser) {
       if (err) {
-        return next(err)
+        return res.redirect('http://localhost:4200/activation?mode=user');
       }
-      return res.status(200).json({
-        err: null,
-        msg: "Email activated successfully.",
-        data: null
-      });
+      return res.redirect('http://localhost:4200/activation?mode=success');
     });
   });
 }
