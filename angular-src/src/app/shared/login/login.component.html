@@ -24,9 +24,19 @@
             <label for="defaultForm-pass">Your password</label>
           </div>
 
-          <div class="text-center">
-            <button type="submit" class="btn btn-default waves-light" mdbRippleRadius>Login</button>
+          <div class="row">
+            <div class="col">
+              <div class="text-center">
+                <button type="submit" class="btn btn-default waves-light" mdbRippleRadius>Login</button>
+              </div>
+            </div>
+            <div class="col">
+              <div class="text-center">
+                <a [routerLink]="['/forgot']" role="button" class="btn btn-info waves-light" mdbRippleRadius>Reset password</a>
+              </div>
+            </div>
           </div>
+
         </form>
         <!-- Login form -->
 
