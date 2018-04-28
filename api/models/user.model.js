@@ -242,6 +242,11 @@ const UserSchema = new mongoose.Schema({
         default: Date.now()
     },
 
+    passwordResetToken: {
+        id: String,
+        expires: Date
+    },
+
     mailToken: {
         id: String,
         expires: Date
