@@ -104,13 +104,18 @@ export class RegisterComponent implements OnInit {
             type: 'success',
             text: `You have registered successfully. Please check your email for a verification link.`,
             timeout: 3000,
-            progressBar: true
-          }).show();
-          new Noty({
-            type: 'info',
-            text: `If you don't recieve the link after a couple of minutes, you can request a new one by logging in.`,
-            timeout: 4000,
-            progressBar: true
+            progressBar: true,
+            callbacks: {
+              afterClose: () => {
+                new Noty({
+                  type: 'info',
+                  text: `If you don't recieve the link after a couple of minutes, you can request a new one by logging in.`,
+                  timeout: 3000,
+                  progressBar: true
+                }).show();
+
+              }
+            }
           }).show();
 
           this.router.navigate(['/login']);

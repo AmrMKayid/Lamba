@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
             new Noty({
               type: 'info',
               text: `An activation link has been sent to your email. Please verify your email and re-login`,
-              timeout: 3000,
+              timeout: 4000,
               progressBar: true
             }).show();
           }
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
             return new Noty({
               type: 'warning',
               text: `A verification link has been already sent. If you cannot find it, you can request a new one by re-logging in after ${error.data} minutes`,
-              timeout: 6000,
+              timeout: 7000,
               progressBar: true
             }).show();
           } else {
