@@ -243,13 +243,19 @@ const UserSchema = new mongoose.Schema({
     },
 
     passwordResetToken: {
-        id: String,
-        expires: Date
+        type: new mongoose.Schema({
+            id: String,
+            expires: Date
+        }),
+        default: null
     },
 
     mailToken: {
-        id: String,
-        expires: Date
+        type: new mongoose.Schema({
+            id: String,
+            expires: Date
+        }),
+        default: null
     },
 
     mailActivated: {
@@ -416,8 +422,7 @@ if (!UserSchema.options.toObject) {
 UserSchema.options.toObject.transform = function (document, transformedDocument) {
     delete transformedDocument.password;
     return transformedDocument;
-}
-    ;
+};
 
 if (!ChildSchema.options.toObject) {
     ChildSchema.options.toObject = {};
