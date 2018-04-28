@@ -565,11 +565,23 @@ function loginChild(req, res, next) {
         });
       }
 
+      let tokenData = user.toObject();
+      delete tokenData.schedule;
+      delete tokenData.favorites;
+      delete tokenData.messages;
+      delete tokenData.myItems;
+      delete tokenData.interests;
+      delete tokenData.joinedAt;
+      delete tokenData.qualifications;
+      delete tokenData.sessions;
+      delete tokenData.cart;
+      delete tokenData.gender;
+
       // Create a JWT and put in it the user object from the database
       var token = jwt.sign(
         {
           // user.toObject transorms the document to a json object without the password as we can't leak sensitive info to the frontend
-          user: user.toObject()
+          user: tokenData
         },
         req.app.get('secret'),
         {
@@ -583,8 +595,19 @@ function loginChild(req, res, next) {
 }
 
 module.exports.refreshToken = function (req, res, next) {
+  let tokenData = req.decodedToken.user;
+  delete tokenData.schedule;
+  delete tokenData.favorites;
+  delete tokenData.messages;
+  delete tokenData.myItems;
+  delete tokenData.interests;
+  delete tokenData.joinedAt;
+  delete tokenData.qualifications;
+  delete tokenData.sessions;
+  delete tokenData.cart;
+  delete tokenData.gender;
   var token = jwt.sign({
-    user: req.decodedToken.user
+    user: tokenData
   }, req.app.get('secret'), {
       expiresIn: '21d'
     });

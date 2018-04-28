@@ -217,8 +217,19 @@ module.exports.updateImage = function (req, res, next) {
             data: null
           });
         }
+        let tokenData = updateChild.toObject();
+        delete tokenData.schedule;
+        delete tokenData.favorites;
+        delete tokenData.messages;
+        delete tokenData.myItems;
+        delete tokenData.interests;
+        delete tokenData.joinedAt;
+        delete tokenData.qualifications;
+        delete tokenData.sessions;
+        delete tokenData.cart;
+        delete tokenData.gender;
         var token = jwt.sign({
-          user: updateChild.toObject()
+          user: tokenData
         }, req.app.get('secret'), {
             expiresIn: '21d'
           });
@@ -229,8 +240,19 @@ module.exports.updateImage = function (req, res, next) {
         });
       });
     } else {
+      let tokenData = updateUser.toObject();
+      delete tokenData.schedule;
+      delete tokenData.favorites;
+      delete tokenData.messages;
+      delete tokenData.myItems;
+      delete tokenData.interests;
+      delete tokenData.joinedAt;
+      delete tokenData.qualifications;
+      delete tokenData.sessions;
+      delete tokenData.cart;
+      delete tokenData.gender;
       var token = jwt.sign({
-        user: updateUser.toObject()
+        user: tokenData
       }, req.app.get('secret'), {
           expiresIn: '21d'
         });
@@ -280,8 +302,21 @@ module.exports.updateCoverImage = function (req, res, next) {
             data: null
           });
         }
+
+        let tokenData = updateChild.toObject();
+        delete tokenData.schedule;
+        delete tokenData.favorites;
+        delete tokenData.messages;
+        delete tokenData.myItems;
+        delete tokenData.interests;
+        delete tokenData.joinedAt;
+        delete tokenData.qualifications;
+        delete tokenData.sessions;
+        delete tokenData.cart;
+        delete tokenData.gender;
+
         var token = jwt.sign({
-          user: updateChild.toObject()
+          user: tokenData
         }, req.app.get('secret'), {
             expiresIn: '21d'
           });
@@ -292,8 +327,19 @@ module.exports.updateCoverImage = function (req, res, next) {
         });
       });
     } else {
+      let tokenData = updateUser.toObject();
+      delete tokenData.schedule;
+      delete tokenData.favorites;
+      delete tokenData.messages;
+      delete tokenData.myItems;
+      delete tokenData.interests;
+      delete tokenData.joinedAt;
+      delete tokenData.qualifications;
+      delete tokenData.sessions;
+      delete tokenData.cart;
+      delete tokenData.gender;
       var token = jwt.sign({
-        user: updateUser.toObject()
+        user: tokenData
       }, req.app.get('secret'), {
           expiresIn: '21d'
         });
@@ -305,7 +351,6 @@ module.exports.updateCoverImage = function (req, res, next) {
     }
   });
 };
-
 
 module.exports.getPendingTeachers = function (req, res, next) {
   User.find({
