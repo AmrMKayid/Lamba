@@ -38,7 +38,6 @@ export class AppComponent implements OnInit {
           this.getMyUser();
           if (this.isV) {
             this.refreshToken();
-            console.log("v");
           }
         }
       }
