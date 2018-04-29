@@ -23,27 +23,32 @@ module.exports.isAuthenticated = function (req, res, next) {
         data: null
       });
     }
-    User.findById(decodedToken.user._id, (err, user) => {
-      if (!user) {
-        return next(err);
-      }
-      if (!user) {
-        return res.status(404).json({
-          error: null,
-          msg: 'User not found.',
-          data: null
-        });
-      }
-      if (!user.mailActivated) {
-        return res.status(401).json({
-          error: null,
-          msg: 'Email needs to be activated.',
-          data: null
-        });
-      }
+    if (!decodedToken.user.username) {
+      User.findById(decodedToken.user._id, (err, user) => {
+        if (!user) {
+          return next(err);
+        }
+        if (!user) {
+          return res.status(404).json({
+            error: null,
+            msg: 'User not found.',
+            data: null
+          });
+        }
+        if (!user.mailActivated) {
+          return res.status(401).json({
+            error: null,
+            msg: 'Email needs to be activated.',
+            data: null
+          });
+        }
+        req.decodedToken = decodedToken;
+        return next();
+      });
+    } else {
       req.decodedToken = decodedToken;
-      return next();
-    });
+      next();
+    }
 
   });
 };
