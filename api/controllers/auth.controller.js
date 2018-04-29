@@ -6,8 +6,8 @@ var mongoose = require('mongoose'),
   UniqueUser = mongoose.model('UniqueUser'),
   Child = mongoose.model('Child'),
   uuidv4 = require('uuid/v4'),
+  User = mongoose.model('User'),
   moment = require('moment');
-User = mongoose.model('User');
 
 const sgMail = require('@sendgrid/mail');
 const MAIL_TEMPLATE = require('../utils/MAIL_TEMPLATE');
@@ -525,7 +525,7 @@ function loginUser(req, res, next) {
           return res.status(429).json({
             err: null,
             msg: 'Verification already sent',
-            data: moment(user.user.mailToken.expires).diff(moment().utc(), 'm')
+            data: moment(user.mailToken.expires).diff(moment().utc(), 'm')
           });
         }
 
@@ -656,9 +656,13 @@ module.exports.verifyMail = function (req, res, next) {
 
   let id = req.params.id;
   let token = req.params.token;
+
   User.findById(id, (err, user) => {
     if (err) {
       return res.redirect(FRONTEND_URL + '/activation?mode=error');
+    }
+    if (user.mailActivated) {
+      return res.redirect(FRONTEND_URL + '/activation?mode=already');
     }
     if (!user) {
       return res.redirect(FRONTEND_URL + '/activation?mode=user');
@@ -668,9 +672,6 @@ module.exports.verifyMail = function (req, res, next) {
     }
     if (moment(user.mailToken.expires).isBefore(moment().utc())) {
       return res.redirect(FRONTEND_URL + '/activation?mode=expired');
-    }
-    if (user.mailActivated) {
-      return res.redirect(FRONTEND_URL + '/activation?mode=already');
     }
     user.mailActivated = true;
     user.mailToken = undefined;
