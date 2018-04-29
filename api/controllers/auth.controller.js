@@ -148,7 +148,7 @@ module.exports.register = function (req, res, next) {
             from: 'nawwar@nawwar.com',
             subject: 'Welcome to Nawwar, please confirm your email address!',
             text: verificationURL,
-            html: MAIL_TEMPLATE.replace('[VERIFICATION_LINK]', verificationURL)
+            html: MAIL_TEMPLATE.VERIFICATION.replace('[VERIFICATION_LINK]', verificationURL)
           };
           sgMail.send(msg);
 
@@ -511,7 +511,7 @@ function loginUser(req, res, next) {
               from: 'nawwar@nawwar.com',
               subject: 'Welcome to Nawwar, please confirm your email address!',
               text: verificationURL,
-              html: MAIL_TEMPLATE.replace('[VERIFICATION_LINK]', verificationURL)
+              html: MAIL_TEMPLATE.VERIFICATION.replace('[VERIFICATION_LINK]', verificationURL)
             };
             sgMail.send(msg);
           });
@@ -730,7 +730,7 @@ module.exports.forgotPassword = function (req, res, next) {
             from: 'nawwar@nawwar.com',
             subject: 'Password reset request.',
             text: passwordResetURL,
-            html: MAIL_TEMPLATE.replace('[VERIFICATION_LINK]', passwordResetURL)
+            html: MAIL_TEMPLATE.RESET.replace('[RESET_LINK]', passwordResetURL)
           };
           sgMail.send(msg);
           return res.status(200).json({
@@ -765,7 +765,7 @@ module.exports.forgotPassword = function (req, res, next) {
           from: 'nawwar@nawwar.com',
           subject: 'Password reset request.',
           text: passwordResetURL,
-          html: MAIL_TEMPLATE.replace('[VERIFICATION_LINK]', passwordResetURL)
+          html: MAIL_TEMPLATE.RESET.replace('[RESET_LINK]', passwordResetURL)
         };
         sgMail.send(msg);
         return res.status(200).json({
