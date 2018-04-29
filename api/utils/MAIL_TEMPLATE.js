@@ -265,10 +265,10 @@ module.exports.VERIFICATION =
                                         <td align='center'>
                                           <table>
                                             <tr>
-                                              <td align='center' bgcolor='#289CDC' style='background:#1A54BA; padding:15px 18px;-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;'>
+                                            <td align='center' >
                                                 <div class="contentEditableContainer contentTextEditable">
                                                   <div class="contentEditable" align='center'>
-                                                    <a href="[VERIFICATION_LINK]" class='link2' style='color:#ffffff;'>Activate your Account</a>
+                                                    <a href="[VERIFICATION_LINK]" class='link2' style='background:#1A54BA; padding:15px 18px;-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; color:#ffffff;'>Activate your Account</a>
                                                   </div>
                                                 </div>
                                               </td>
