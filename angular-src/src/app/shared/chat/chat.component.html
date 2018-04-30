@@ -9,16 +9,19 @@
       <table class="table table-hover">
 
         <tbody>
-        <tr *ngFor='let chat of chats'>
-          <th (click)="changeCurrentChat(chat)"><img src="{{apiUrlHTML}}/uploads/store/{{chat.chat.photo}}"
-                                                     class="img-fluid rounded-circle z-depth-0" id="reciever_img"></th>
-          <td (click)="changeCurrentChat(chat)"><span
-            id="name">{{chat.chat.name.firstName}} {{chat.chat.name.lastName}}</span><br>
-            <span *ngIf="chat.messages.length > 0">
-            		<span *ngIf="chat.messages[chat.messages.length - 1].seen_at != null">{{chat.messages[chat.messages.length - 1].text}}</span>
-            		<span *ngIf="chat.messages[chat.messages.length - 1].seen_at == null"  style ="font-weight: bold;">{{chat.messages[chat.messages.length - 1].text}}</span>
-            </span></td>
-        </tr>
+          <tr style="cursor: pointer;" *ngFor='let chat of chats'>
+            <th (click)="changeCurrentChat(chat)">
+              <img src="{{apiUrlHTML}}/uploads/store/{{chat.chat.photo}}" class="img-fluid rounded-circle z-depth-0" id="reciever_img">
+            </th>
+            <td (click)="changeCurrentChat(chat)">
+              <span id="name">{{chat.chat.name.firstName}} {{chat.chat.name.lastName}}</span>
+              <br>
+              <span *ngIf="chat.messages.length > 0">
+                <span *ngIf="chat.messages[chat.messages.length - 1].seen_at != null">{{chat.messages[chat.messages.length - 1].text}}</span>
+                <span *ngIf="chat.messages[chat.messages.length - 1].seen_at == null" style="font-weight: bold;">{{chat.messages[chat.messages.length - 1].text}}</span>
+              </span>
+            </td>
+          </tr>
         </tbody>
         <!--Table body-->
 
@@ -34,9 +37,10 @@
           </h3>
           <div class="card-body scroll-box">
             <div class="row" *ngFor='let message of currentChat.messages'>
-              <div *ngIf='message.from == currentChat.chat._id' class="col-md-1 col-sm-1"><img
-                src="{{apiUrlHTML}}/uploads/store/{{this.currentChat.chat.photo}}"
-                class="img-fluid rounded-circle z-depth-0" id="reciever_img"></div>
+              <div *ngIf='message.from == currentChat.chat._id' class="col-md-1 col-sm-1">
+                <img src="{{apiUrlHTML}}/uploads/store/{{this.currentChat.chat.photo}}" class="img-fluid rounded-circle z-depth-0"
+                  id="reciever_img">
+              </div>
 
               <div id="recieved" class="col-md-4 col-sm-4" *ngIf='message.from == currentChat.chat._id'>
                 {{message.text}}
@@ -50,10 +54,12 @@
           </div>
           <div class="card-footer">
             <div style="display: inline;">
-              <input type="text" id="message" (keyup.enter)="sendMessage(msgToServer)"
-                     placeholder="Type your message here..." [(ngModel)]="msgToServer">
-              <button class="btn btn-default btn-circle" (click)="sendMessage(msgToServer)"><span><i
-                class="material-icons">send</i></span></button>
+              <input type="text" id="message" (keyup.enter)="sendMessage(msgToServer)" placeholder="Type your message here..." [(ngModel)]="msgToServer">
+              <button class="btn btn-default btn-circle" (click)="sendMessage(msgToServer)">
+                <span>
+                  <i class="material-icons">send</i>
+                </span>
+              </button>
             </div>
 
           </div>
@@ -61,7 +67,7 @@
         </div>
       </div>
       <div *ngIf="!currentChat">
-        <h2>you have no messages yet!</h2>
+        <h2 class="text-center">You have no messages yet!</h2>
       </div>
     </div>
   </div>
