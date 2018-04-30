@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {Http, Headers} from '@angular/http';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../../../services/auth.service";
-import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {appConfig} from "../../../app.config";
-import {stringDistance} from "codelyzer/util/utils";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Http, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { AuthService } from "../../../services/auth.service";
+import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { appConfig } from "../../../app.config";
+import { stringDistance } from "codelyzer/util/utils";
 
 
 @Component({
@@ -55,10 +55,10 @@ export class TeacherComponent implements OnInit {
   ///////////////////////////////////////////////////////////
 
   constructor(private router: Router,
-              private http: HttpClient,
-              private httpClient: HttpClient,
-              public auth: AuthService,
-              private modalService: NgbModal) {
+    private http: HttpClient,
+    private httpClient: HttpClient,
+    public auth: AuthService,
+    private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -84,9 +84,36 @@ export class TeacherComponent implements OnInit {
   }
 
   EditInfo(updatedFirstName, updatedMiddleName, updatedLastName,
-           updatedStreet, updatedCity, updatedState, updatedZip,
-           updatedBirthday, updatedPhone, updatedAbout) {
+    updatedStreet, updatedCity, updatedState, updatedZip,
+    updatedBirthday, updatedPhone, updatedAbout) {
 
+    if (!updatedFirstName || !updatedLastName) {
+      new Noty({
+        type: 'warning',
+        text: `Please fill in both the first and the last name, they're both required.`,
+        timeout: 3000,
+        progressBar: true
+      }).show();
+      return false;
+    } else if (!/^[a-zA-Z]+$/.test(updatedFirstName) || !/^[a-zA-Z]+$/.test(updatedLastName)) {
+      new Noty({
+        type: 'warning',
+        text: `Invalid name, only English letters are allowed (No symbols nor numeric).`,
+        timeout: 3000,
+        progressBar: true
+      }).show();
+      return false;
+    } else if (updatedMiddleName) {
+      if (!(/^[a-zA-Z]+$/.test(updatedMiddleName))) {
+        new Noty({
+          type: 'warning',
+          text: `Invalid middlename, only English letters are allowed (No symbols nor numeric).`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+        return false;
+      }
+    }
     let updatedUser = {
       name: {
         firstName: updatedFirstName,
@@ -151,7 +178,7 @@ export class TeacherComponent implements OnInit {
       return;
     }
     this.currentUser.photo = response.filename;
-    this.http.patch(appConfig.apiUrl + '/user/updateImage/' + this.currentUser._id, {photo: response.filename})
+    this.http.patch(appConfig.apiUrl + '/user/updateImage/' + this.currentUser._id, { photo: response.filename })
       .subscribe((res: any) => {
         localStorage.setItem('authentication', res.data);
         this.modalref.close();
@@ -180,7 +207,7 @@ export class TeacherComponent implements OnInit {
       return;
     }
     this.currentUser.coverPhoto = response.filename;
-    this.http.patch(appConfig.apiUrl + '/user/updateCoverImage/' + this.currentUser._id, {coverPhoto: response.filename})
+    this.http.patch(appConfig.apiUrl + '/user/updateCoverImage/' + this.currentUser._id, { coverPhoto: response.filename })
       .subscribe((res: any) => {
         localStorage.setItem('authentication', res.data);
         this.modalref.close();
@@ -193,7 +220,7 @@ export class TeacherComponent implements OnInit {
       }, error => {
         new Noty({
           type: 'error',
-          text: `Something went wrong while uploading your image:\n${error.error ? error.error.msg : error.msg}`,          
+          text: `Something went wrong while uploading your image:\n${error.error ? error.error.msg : error.msg}`,
           timeout: 3000,
           progressBar: true
         }).show();
@@ -201,7 +228,7 @@ export class TeacherComponent implements OnInit {
   }
 
   openlg(content) {
-    this.modalref = this.modalService.open(content, {size: 'lg'})
+    this.modalref = this.modalService.open(content, { size: 'lg' })
 
     this.modalref.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -348,27 +375,27 @@ export class TeacherComponent implements OnInit {
     }
     else {
 
-    this.http.post(appConfig.apiUrl + '/task/newTask', taskdata, this.httpOptions).subscribe(
-      (res: any) => {
+      this.http.post(appConfig.apiUrl + '/task/newTask', taskdata, this.httpOptions).subscribe(
+        (res: any) => {
 
-        this.getTasks();
+          this.getTasks();
 
-        new Noty({
-          type: 'success',
-          text: `You  successfully created a new task!`,
-          timeout: 3000,
-          progressBar: true
-        }).show();
-        this.modalref.close();
-      },
-      error => {
-        new Noty({
-          type: 'error',
-          text: `Something went wrong while creating the task:\n${error.error ? error.error.msg : error.msg}`,
-          timeout: 3000,
-          progressBar: true
-        }).show();
-      });
+          new Noty({
+            type: 'success',
+            text: `You  successfully created a new task!`,
+            timeout: 3000,
+            progressBar: true
+          }).show();
+          this.modalref.close();
+        },
+        error => {
+          new Noty({
+            type: 'error',
+            text: `Something went wrong while creating the task:\n${error.error ? error.error.msg : error.msg}`,
+            timeout: 3000,
+            progressBar: true
+          }).show();
+        });
 
     }
 
@@ -385,7 +412,7 @@ export class TeacherComponent implements OnInit {
   deleteTask(taskId) {
     this.http.get(appConfig.apiUrl + '/task/deleteTask/' + taskId, this.httpOptions).subscribe((res: any) => {
       this.getTasks();
-      });
+    });
 
 
     new Noty({

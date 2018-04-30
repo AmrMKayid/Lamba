@@ -76,7 +76,7 @@ export class ParentComponent implements OnInit {
         progressBar: true
       }).show();
       return false;
-    } else if (!(/^[a-zA-Z]+$/.test(updatedFirstName) && /^[a-zA-Z]+$/.test(updatedLastName)) && (updatedMiddleName) ? /^[a-zA-Z]+$/.test(updatedMiddleName) : true) {
+    } else if (!/^[a-zA-Z]+$/.test(updatedFirstName) || !/^[a-zA-Z]+$/.test(updatedLastName)) {
       new Noty({
         type: 'warning',
         text: `Invalid name, only English letters are allowed (No symbols nor numeric).`,
@@ -84,6 +84,16 @@ export class ParentComponent implements OnInit {
         progressBar: true
       }).show();
       return false;
+    } else if (updatedMiddleName) {
+      if (!(/^[a-zA-Z]+$/.test(updatedMiddleName))) {
+        new Noty({
+          type: 'warning',
+          text: `Invalid middlename, only English letters are allowed (No symbols nor numeric).`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+        return false;
+      }
     }
 
     //EXTRA VALIDATION WON'T BREAK THE APP FOR NOW :D
