@@ -2,8 +2,8 @@
 
 <div class="divider" style="padding-top:50px;"></div>
 <div class="container">
-  <div class="row" id="container">
-    <div class="col-md-3 col-xs-3 scroll-box chats">
+  <div class="row">
+    <div class="col-lg-3 scroll-box chats">
       <!--Table-->
       <h3 style="text-align: center">Chats</h3>
       <table class="table table-hover">
@@ -11,7 +11,7 @@
         <tbody>
           <tr style="cursor: pointer;" *ngFor='let chat of chats'>
             <th (click)="changeCurrentChat(chat)">
-              <img src="{{apiUrlHTML}}/uploads/store/{{chat.chat.photo}}" class="img-fluid rounded-circle z-depth-0" id="reciever_img">
+              <img src="{{apiUrlHTML}}/uploads/store/{{chat.chat.photo}}" class="img-fluid rounded-circle z-depth-0" id="reciever_img2">
             </th>
             <td (click)="changeCurrentChat(chat)">
               <span id="name">{{chat.chat.name.firstName}} {{chat.chat.name.lastName}}</span>
@@ -29,7 +29,7 @@
     </div>
 
 
-    <div class="col-md-9 col-xs-9">
+    <div class="col-lg-9">
       <div *ngIf="currentChat">
         <div class="card">
           <h3 class="card-header primary-color white-text">
@@ -42,18 +42,18 @@
                   id="reciever_img">
               </div>
 
-              <div id="recieved" class="col-md-4 col-sm-4" *ngIf='message.from == currentChat.chat._id'>
+              <div id="recieved" class="col-md-4 col-sm-4 " *ngIf='message.from == currentChat.chat._id'>
                 {{message.text}}
               </div>
 
-              <div id="sent" class="offset-md-8 offset-sm-8 mr-2" *ngIf='message.from != currentChat.chat._id'>
+              <div id="sent" class="offset-md-8 offset-sm-8" *ngIf='message.from != currentChat.chat._id'>
                 {{message.text}}
               </div>
 
             </div>
           </div>
-          <div class="card-footer">
-            <div style="display: inline;">
+          <div class="card-footer text-center">
+            <div style="display: inline; ">
               <input type="text" id="message" (keyup.enter)="sendMessage(msgToServer)" placeholder="Type your message here..." [(ngModel)]="msgToServer">
               <button class="btn btn-default btn-circle" (click)="sendMessage(msgToServer)">
                 <span>
