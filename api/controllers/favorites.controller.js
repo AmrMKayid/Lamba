@@ -417,7 +417,7 @@ module.exports.removeFavActivity = function (req, res, next) {
   }
 
   let userID = req.decodedToken.user._id;
-  let activityID = req.params.articleId;
+  let activityID = req.params.activityID;
   if (req.decodedToken.user.username) {
     Child.findById(userID, (err, child) => {
       if (err) {
