@@ -16,7 +16,7 @@ const MAIL_TEMPLATE = require('../utils/MAIL_TEMPLATE');
 sgMail.setApiKey('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');
 
 
-module.exports.register = function (req, res, next) {
+module.exports.register = function(req, res, next) {
   // Check that the body keys are in the expected format and the required fields are there
   var valid =
     req.body.name &&
@@ -37,8 +37,7 @@ module.exports.register = function (req, res, next) {
   if (!valid) {
     return res.status(422).json({
       err: null,
-      msg:
-        'name(Object(firstName & lastName)), email(String and of valid email format), password(String), confirmPassword(String) and Role(String) are required fields.',
+      msg: 'name(Object(firstName & lastName)), email(String and of valid email format), password(String), confirmPassword(String) and Role(String) are required fields.',
       data: null
     });
   }
@@ -94,7 +93,7 @@ module.exports.register = function (req, res, next) {
   // Check that no other user is registered with this email
   User.findOne({
     email: req.body.email.trim().toLowerCase()
-  }).exec(function (err, user) {
+  }).exec(function(err, user) {
     // If an err occurred, call the next middleware in the app.js which is the error handler
     if (err) {
       return next(err);
@@ -103,14 +102,13 @@ module.exports.register = function (req, res, next) {
     if (user) {
       return res.status(422).json({
         err: null,
-        msg:
-          'A user with this email address already exists, please try another email address.',
+        msg: 'A user with this email address already exists, please try another email address.',
         data: null
       });
     }
 
     // Encrypt the password before saving the user in the database
-    Encryption.hashPassword(password, function (err, hash) {
+    Encryption.hashPassword(password, function(err, hash) {
       // If an err occurred, call the next middleware in the app.js which is the error handler
       if (err) {
         return next(err);
@@ -130,13 +128,13 @@ module.exports.register = function (req, res, next) {
         expires: moment().add(1, 'h').utc().valueOf()
       };
 
-      UniqueUser.create({}, function (err, newUniqueUser) {
+      UniqueUser.create({}, function(err, newUniqueUser) {
         if (err) {
           return next(err);
         }
 
         req.body._id = newUniqueUser._id
-        User.create(req.body, function (err, newUser) {
+        User.create(req.body, function(err, newUser) {
           if (err) {
             return next(err);
           }
@@ -177,7 +175,7 @@ module.exports.register = function (req, res, next) {
 };
 
 
-module.exports.login = function (req, res, next) {
+module.exports.login = function(req, res, next) {
   // Check that the body keys are in the expected format and the required fields are there
 
   var user = req.body.email && Validations.isString(req.body.email) && Validations.matchesRegex(req.body.email, EMAIL_REGEX);
@@ -189,8 +187,7 @@ module.exports.login = function (req, res, next) {
   if (!(user || child)) {
     return res.status(422).json({
       err: null,
-      msg:
-        'email(String) or username(String) is required to login.',
+      msg: 'email(String) or username(String) is required to login.',
       data: null
     });
   }
@@ -198,8 +195,7 @@ module.exports.login = function (req, res, next) {
   if (!valid) {
     return res.status(422).json({
       err: null,
-      msg:
-        'password(String) is required.',
+      msg: 'password(String) is required.',
       data: null
     });
   }
@@ -215,7 +211,7 @@ module.exports.login = function (req, res, next) {
 };
 
 
-module.exports.addChild = function (req, res, next) {
+module.exports.addChild = function(req, res, next) {
 
   var valid =
     req.body.name &&
@@ -233,8 +229,7 @@ module.exports.addChild = function (req, res, next) {
   if (!valid) {
     return res.status(422).json({
       err: null,
-      msg:
-        'name(Object(firstName & lastName)), username(String), password(String) and confirmPassword(String) are required fields.',
+      msg: 'name(Object(firstName & lastName)), username(String), password(String) and confirmPassword(String) are required fields.',
       data: null
     });
   }
@@ -242,8 +237,7 @@ module.exports.addChild = function (req, res, next) {
   if (!(/^[a-z0-9]+$/i.test(req.body.username))) {
     return res.status(422).json({
       err: null,
-      msg:
-        'Username cannot have special characters.',
+      msg: 'Username cannot have special characters.',
       data: null
     });
   }
@@ -284,7 +278,7 @@ module.exports.addChild = function (req, res, next) {
 
   Child.findOne({
     username: req.body.username.trim().toLowerCase()
-  }).exec(function (err, user) {
+  }).exec(function(err, user) {
 
     if (err) {
       return next(err);
@@ -293,18 +287,17 @@ module.exports.addChild = function (req, res, next) {
     if (user) {
       return res.status(422).json({
         err: null,
-        msg:
-          'A child with this username already exists, please try another username.',
+        msg: 'A child with this username already exists, please try another username.',
         data: null
       });
     }
 
-    Encryption.hashPassword(password, function (err, hash) {
+    Encryption.hashPassword(password, function(err, hash) {
       if (err) {
         return next(err);
       }
       req.body.password = hash;
-      UniqueUser.create({}, function (err, newUniqueUser) {
+      UniqueUser.create({}, function(err, newUniqueUser) {
 
         if (err) {
           return next(err);
@@ -313,7 +306,7 @@ module.exports.addChild = function (req, res, next) {
         req.body.parent_id = req.decodedToken.user._id; //Parent's id required in the authorization
         req.body._id = newUniqueUser._id;
 
-        Child.create(req.body, function (err, newUser) {
+        Child.create(req.body, function(err, newUser) {
           if (err) {
             return next(err);
           }
@@ -341,7 +334,7 @@ module.exports.addChild = function (req, res, next) {
 };
 
 
-module.exports.addAdmin = function (req, res, next) {
+module.exports.addAdmin = function(req, res, next) {
 
   var valid =
     req.body.name &&
@@ -360,8 +353,7 @@ module.exports.addAdmin = function (req, res, next) {
   if (!valid) {
     return res.status(422).json({
       err: null,
-      msg:
-        'name(Object(firstName & lastName)), email(String and of valid email format), password(String) and confirmPassword(String) are required fields.',
+      msg: 'name(Object(firstName & lastName)), email(String and of valid email format), password(String) and confirmPassword(String) are required fields.',
       data: null
     });
   }
@@ -408,7 +400,7 @@ module.exports.addAdmin = function (req, res, next) {
   // Check that no other user is registered with this email
   User.findOne({
     email: req.body.email.trim().toLowerCase()
-  }).exec(function (err, user) {
+  }).exec(function(err, user) {
     // If an err occurred, call the next middleware in the app.js which is the error handler
     if (err) {
       return next(err);
@@ -417,14 +409,13 @@ module.exports.addAdmin = function (req, res, next) {
     if (user) {
       return res.status(422).json({
         err: null,
-        msg:
-          'A user with this email address already exists, please try another email address.',
+        msg: 'A user with this email address already exists, please try another email address.',
         data: null
       });
     }
 
     // Encrypt the password before saving the user in the database
-    Encryption.hashPassword(password, function (err, hash) {
+    Encryption.hashPassword(password, function(err, hash) {
       // If an err occurred, call the next middleware in the app.js which is the error handler
       if (err) {
         return next(err);
@@ -434,13 +425,13 @@ module.exports.addAdmin = function (req, res, next) {
       req.body.isVerified = true;
       req.body.role = 'Admin';
 
-      UniqueUser.create({}, function (err, newUniqueUser) {
+      UniqueUser.create({}, function(err, newUniqueUser) {
         if (err) {
           return next(err);
         }
 
         req.body._id = newUniqueUser._id
-        User.create(req.body, function (err, newUser) {
+        User.create(req.body, function(err, newUser) {
           if (err) {
             return next(err);
           }
@@ -463,7 +454,7 @@ function loginUser(req, res, next) {
 
   User.findOne({
     email: req.body.email.trim().toLowerCase()
-  }).exec(function (err, user) {
+  }).exec(function(err, user) {
     if (err) {
       return next(err);
     }
@@ -478,7 +469,7 @@ function loginUser(req, res, next) {
     }
 
     // If user found then check that the password he entered matches the encrypted hash in the database
-    Encryption.comparePasswordToHash(req.body.password, user.password, function (err, passwordMatches) {
+    Encryption.comparePasswordToHash(req.body.password, user.password, function(err, passwordMatches) {
       if (err) {
         return next(err);
       }
@@ -546,22 +537,23 @@ function loginUser(req, res, next) {
 
 
 
-      var token = jwt.sign(
-        {
+      var token = jwt.sign({
           // user.toObject transorms the document to a json object without the password as we can't leak sensitive info to the frontend
           user: tokenData
         },
-        req.app.get('secret'),
-        {
+        req.app.get('secret'), {
           expiresIn: '21d'
         }
       );
       // Send the JWT to the frontend
 
-      res.status(200).json({ err: null, msg: 'Welcome', data: token });
+      res.status(200).json({
+        err: null,
+        msg: 'Welcome',
+        data: token
+      });
     });
-  }
-  );
+  });
 }
 
 
@@ -569,7 +561,7 @@ function loginChild(req, res, next) {
 
   Child.findOne({
     username: req.body.username
-  }).exec(function (err, user) {
+  }).exec(function(err, user) {
     if (err) {
       return next(err);
     }
@@ -582,7 +574,7 @@ function loginChild(req, res, next) {
       });
     }
 
-    Encryption.comparePasswordToHash(req.body.password, user.password, function (err, passwordMatches) {
+    Encryption.comparePasswordToHash(req.body.password, user.password, function(err, passwordMatches) {
       if (err) {
         return next(err);
       }
@@ -609,23 +601,86 @@ function loginChild(req, res, next) {
       delete tokenData.gender;
 
       // Create a JWT and put in it the user object from the database
-      var token = jwt.sign(
-        {
+      var token = jwt.sign({
           // user.toObject transorms the document to a json object without the password as we can't leak sensitive info to the frontend
           user: tokenData
         },
-        req.app.get('secret'),
-        {
+        req.app.get('secret'), {
           expiresIn: '21d'
         }
       );
       // Send the JWT to the frontend
-      res.status(200).json({ err: null, msg: 'Welcome', data: token });
+      res.status(200).json({
+        err: null,
+        msg: 'Welcome',
+        data: token
+      });
     });
   });
 }
 
-module.exports.refreshToken = function (req, res, next) {
+module.exports.refreshUserToken = function(req, res, next) {
+  let tokenData = req.decodedToken.user;
+
+
+  User.findById(tokenData._id).exec(function(err, myuser) {
+    if (err) {
+      return next(err);
+    }
+
+
+
+    if (myuser.isVerified != tokenData.isVerified) {
+      delete myuser.schedule;
+      delete myuser.favorites;
+      delete myuser.messages;
+      delete myuser.myItems;
+      delete myuser.interests;
+      delete myuser.joinedAt;
+      delete myuser.qualifications;
+      delete myuser.sessions;
+      delete myuser.cart;
+      delete myuser.gender;
+
+      var token = jwt.sign({
+        user: myuser
+      }, req.app.get('secret'), {
+        expiresIn: '21d'
+      });
+
+      return res.status(200).json({
+        err: null,
+        msg: 'Token refereshed',
+        data: token
+      });
+    } else {
+      delete tokenData.schedule;
+      delete tokenData.favorites;
+      delete tokenData.messages;
+      delete tokenData.myItems;
+      delete tokenData.interests;
+      delete tokenData.joinedAt;
+      delete tokenData.qualifications;
+      delete tokenData.sessions;
+      delete tokenData.cart;
+      delete tokenData.gender;
+      var token = jwt.sign({
+        user: tokenData
+      }, req.app.get('secret'), {
+        expiresIn: '21d'
+      });
+
+      return res.status(200).json({
+        err: null,
+        msg: 'Token refereshed',
+        data: token
+      });
+
+    }
+  });
+}
+
+module.exports.refreshToken = function(req, res, next) {
   let tokenData = req.decodedToken.user;
   delete tokenData.schedule;
   delete tokenData.favorites;
@@ -640,8 +695,8 @@ module.exports.refreshToken = function (req, res, next) {
   var token = jwt.sign({
     user: tokenData
   }, req.app.get('secret'), {
-      expiresIn: '21d'
-    });
+    expiresIn: '21d'
+  });
   return res.status(200).json({
     err: null,
     msg: 'Token refereshed',
@@ -649,7 +704,7 @@ module.exports.refreshToken = function (req, res, next) {
   });
 }
 
-module.exports.verifyMail = function (req, res, next) {
+module.exports.verifyMail = function(req, res, next) {
   let FRONTEND_URL = 'http://localhost:4200';
   //FOR BUILT PROJECTS
   // let FRONTEND_URL =  req.protocol + '://' + req.get('host') ;
@@ -675,7 +730,7 @@ module.exports.verifyMail = function (req, res, next) {
     }
     user.mailActivated = true;
     user.mailToken = undefined;
-    user.save(function (err, updatedUser) {
+    user.save(function(err, updatedUser) {
       if (err) {
         return res.redirect(FRONTEND_URL + '/activation?mode=user');
       }
@@ -684,7 +739,7 @@ module.exports.verifyMail = function (req, res, next) {
   });
 }
 
-module.exports.forgotPassword = function (req, res, next) {
+module.exports.forgotPassword = function(req, res, next) {
   let FRONTEND_URL = 'http://localhost:4200';
   //FOR BUILT PROJECTS
   // let FRONTEND =  req.protocol + '://' + req.get('host') ;
@@ -700,7 +755,7 @@ module.exports.forgotPassword = function (req, res, next) {
 
   User.findOne({
     email: userMail.toLowerCase()
-  }).exec(function (err, user) {
+  }).exec(function(err, user) {
     if (err) {
       return next(err);
     }
@@ -778,7 +833,7 @@ module.exports.forgotPassword = function (req, res, next) {
   });
 }
 
-module.exports.resetPassword = function (req, res, next) {
+module.exports.resetPassword = function(req, res, next) {
   let newPassword = req.body.password;
   let token = req.params.token;
   let uuidREGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;

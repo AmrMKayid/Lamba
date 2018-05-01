@@ -1,4 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { appConfig } from '../../app.config';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-event',
@@ -7,13 +10,41 @@ import {Component, OnInit} from '@angular/core';
 })
 export class EventComponent implements OnInit {
 
-  constructor() {
+  constructor(private auth: AuthService,
+    private httpClient: HttpClient) {
   }
 
+
+  currentUser: any;
   ngOnInit() {
+    this.currentUser = this.auth.getCurrentUser();
+
+    if (this.currentUser.role == "Parent" && this.currentUser.isVerified == false) {
+      this.refreshToken();
+    }
   }
 
   isLoggedIn() {
     return localStorage.getItem('authentication');
   }
+
+  refreshToken() {
+    this.httpClient.post(appConfig.apiUrl + '/auth/refreshUserToken', '', { headers: { Authorization: localStorage.getItem('authentication') } }).subscribe(
+      (res: any) => {
+        localStorage.setItem('authentication', res.data);
+      },
+      err => {
+        new Noty({
+          type: 'error',
+          text: 'Something went wrong, please re-login',
+          timeout: 3000,
+          progressBar: true
+        }).show();
+        console.log(err);
+        // localStorage.clear();
+        // window.location.href = 'login';
+      }
+    );
+  }
+
 }

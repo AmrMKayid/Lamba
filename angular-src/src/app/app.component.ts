@@ -35,10 +35,7 @@ export class AppComponent implements OnInit {
       if (val instanceof NavigationStart) {
         var isLoggedIn = Boolean(localStorage.getItem('authentication') != null);
         if (isLoggedIn && this.currentUser.role && this.currentUser.role == "Teacher" && this.currentUser.isVerified == false) {
-          this.getMyUser();
-          if (this.isV) {
             this.refreshToken();
-          }
         }
       }
     });
@@ -53,25 +50,8 @@ export class AppComponent implements OnInit {
     }
   }
 
-  isV: Boolean;
-  getMyUser() {
-    this.httpClient.get(appConfig.apiUrl + '/user/getUserByID/' + this.currentUser._id, this.httpOptions)
-      .subscribe(
-        (res: any) => {
-          this.isV = res.data.isVerified;
-        }, (err) => {
-          new Noty({
-            type: 'error',
-            text: `Something went wrong while retrieving the user:\n${err.error ? err.error.msg : err.msg}`,
-            timeout: 1500,
-            progressBar: true
-          }).show();
-        });
-  }
-
-
   refreshToken() {
-    this.httpClient.post(appConfig.apiUrl + '/auth/refreshTeacherToken', '', { headers: { Authorization: localStorage.getItem('authentication') } }).subscribe(
+    this.httpClient.post(appConfig.apiUrl + '/auth/refreshUserToken', '', { headers: { Authorization: localStorage.getItem('authentication') } }).subscribe(
       (res: any) => {
         localStorage.setItem('authentication', res.data);
       },

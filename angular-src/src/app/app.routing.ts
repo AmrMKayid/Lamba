@@ -24,7 +24,7 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'register-role', component: RegisterRoleComponent },
   { path: 'interests', component: InterestsComponent },
-  { path: 'users', component: AllUsersComponent },
+  { path: 'search', component: AllUsersComponent },
   { path: 'chat/:id', component: ChatComponent },
   { path: 'chat', component: ChatComponent },
   { path: 'notifications', canActivate: [AuthGuard], component: NotificationsComponent },

@@ -190,5 +190,7 @@ router.patch('/chat/seen', mw.isAuthenticated, chatCtrl.seen);
 router.post('/user/forgot/:email', authCtrl.forgotPassword);
 router.post('/user/reset/:token', authCtrl.resetPassword);
 
+router.post('/auth/refreshUserToken', mw.isAuthenticated, authCtrl.refreshUserToken);
+
 
 module.exports = router;

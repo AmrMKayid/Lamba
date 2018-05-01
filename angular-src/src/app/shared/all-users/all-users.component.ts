@@ -23,6 +23,8 @@ export class AllUsersComponent implements OnInit {
     private auth: AuthService,
     private http: HttpClient,
     private route: ActivatedRoute) {
+
+      this.getAllUsers("", "");
   }
 
   getAllUsers(firstName, lastName) {
@@ -47,7 +49,7 @@ export class AllUsersComponent implements OnInit {
     this.filter = "";
   }
   searchUsers() {
-    //This can now be ported as a new component (without the search input), 
+    //This can now be ported as a new component (without the search input),
     //with the search bar being in the navbar, and clicking on search in the search bar routes to the new component with the appropriate query paramaters
     //Splitting them with space (first and last name), and you can even limit the search to 2 spaces (since we limit the users to no spaces in their first and last name)
     let firstName = this.filter.split(" ")[0];
