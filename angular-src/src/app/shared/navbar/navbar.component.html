@@ -125,7 +125,7 @@
         <a class="nav-link waves-light" mdbRippleRadius [routerLink]="['chat']"><span class="fa fa-envelope mr-2"></span>Messages</a>
       </li>
       <li class="nav-item d-lg-none" [routerLinkActive]="['active']" *ngIf="isLoggedIn()">
-        <a class="nav-link waves-light" mdbRippleRadius *ngIf="isAdmin()" [routerLink]="['/profile/admin/dashboard']"><span class="fa fa-user mr-2"></span>Dashboard</a>
+        <a class="nav-link waves-light" mdbRippleRadius *ngIf="isAdmin()" [routerLink]="['/profile/admin/dashboard']"><span class="fa fa-gamepad mr-2"></span>Dashboard</a>
         <a class="nav-link waves-light" mdbRippleRadius *ngIf="!isAdmin()" [routerLink]="['profile','me']"><span class="fa fa-user mr-2"></span>
           Profile</a>
       </li>
@@ -147,7 +147,7 @@
         </a>
         <div *dropdownMenu class="dropdown-menu dropdown-primary pull-left" role="menu">
           <a class="dropdown-item waves-light" mdbRippleRadius *ngIf="isAdmin()"
-             [routerLink]="['/profile/admin/dashboard']">Dashboard</a>
+             [routerLink]="['/profile/admin/dashboard']"><span class="fa fa-gamepad mr-2"></span>Dashboard</a>
           <a class="dropdown-item waves-light" mdbRippleRadius *ngIf="!isAdmin()" [routerLink]="['profile','me']"><span class="fa fa-user mr-2"></span>Profile</a>
           <div class="divider dropdown-divider"></div>
           <a class="dropdown-item waves-light" mdbRippleRadius href="/login"><span class="fa fa-sign-out mr-2"></span>Log Out</a>
