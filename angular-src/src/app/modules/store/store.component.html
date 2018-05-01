@@ -12,13 +12,13 @@
           <span>
             <i class="material-icons">store</i>
           </span> Store</a>
-        <a [routerLinkActive]="['active']" href="#" class="nav-link nimp" [routerLink]="['/store/myitems/view']" *ngIf="isLoggedIn()"
+        <a [routerLinkActive]="['active']" style="cursor: pointer;" class="nav-link nimp" [routerLink]="['/store/myitems/view']" *ngIf="isLoggedIn()"
           style="padding: 10px !important;">
           <span>
             <i class="material-icons">loyalty</i>
           </span> My items
         </a>
-        <a [routerLinkActive]="['active']" href="#" class="nav-link nimp" [routerLink]="['/store/myitems/create']" *ngIf="isNotChild"
+        <a [routerLinkActive]="['active']" style="cursor: pointer;" class="nav-link nimp" [routerLink]="['/store/myitems/create']" *ngIf="isNotChild"
           style="padding:10px !important;">
           <span>
             <i class="material-icons">playlist_add</i>
