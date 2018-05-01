@@ -113,7 +113,44 @@ export class TeacherComponent implements OnInit {
         }).show();
         return false;
       }
+    } else if (updatedPhone) {
+      if (!/^[0-9]{11}$/.test(updatedPhone)) {
+        new Noty({
+          type: 'warning',
+          text: `Please enter a valid phone number (11 digits)`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+        return false;
+      }
+    } else if (updatedZip) {
+      if (!/^[0-9]{4,}$/.test(updatedZip)) {
+        new Noty({
+          type: 'warning',
+          text: `Zip code can only consist of numbers(at least 4 digits)`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+        return false;
+      }
     }
+    let valid =
+      /^[a-zA-Z0-9\s,.'-]{0,}$/.test(updatedAbout) &&
+      /^[a-zA-Z0-9\s,.'-]{0,}$/.test(updatedCity) &&
+      /^[a-zA-Z0-9\s,.'-]{0,}$/.test(updatedState) &&
+      /^[a-zA-Z0-9\s,.'-]{0,}$/.test(updatedStreet) &&
+      /^[a-zA-Z0-9\s,.'-]{0,}$/.test(updatedZip);
+    if (!valid) {
+      new Noty({
+        type: 'warning',
+        text: `Only English letters, digits and basic symbols (, . ' -) are allowed.`,
+        timeout: 3000,
+        progressBar: true
+      }).show();
+      return false;
+    }
+
+
     let updatedUser = {
       name: {
         firstName: updatedFirstName,
