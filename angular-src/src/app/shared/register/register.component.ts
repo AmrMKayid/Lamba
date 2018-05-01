@@ -118,7 +118,7 @@ export class RegisterComponent implements OnInit {
             }
           }).show();
 
-          this.router.navigate(['/login']);
+          this.router.navigate(['/']);
         },
         err => {
           new Noty({
