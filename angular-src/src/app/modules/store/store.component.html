@@ -8,13 +8,21 @@
 
 
       <div class="nav  flex-column nav-pills " aria-orientation="vertical">
-        <a [routerLinkActive]="['active']" [routerLink]="['/store/view']" *ngIf="isLoggedIn()" class="nav-link nimp"
-           style="padding: 10px !important;"><span><i class="material-icons">store</i></span> Store</a>
-        <a [routerLinkActive]="['active']" href="#" class="nav-link nimp" [routerLink]="['/store/myitems/view']"
-           *ngIf="isLoggedIn()" style="padding: 10px !important;"><span><i class="material-icons">loyalty</i></span> My
-          items</a>
-        <a [routerLinkActive]="['active']" href="#" class="nav-link nimp" [routerLink]="['/store/myitems/create']"
-           *ngIf="isLoggedIn()" style="padding:10px !important;"><span><i class="material-icons">playlist_add</i></span>
+        <a [routerLinkActive]="['active']" [routerLink]="['/store/view']" *ngIf="isLoggedIn()" class="nav-link nimp" style="padding: 10px !important;">
+          <span>
+            <i class="material-icons">store</i>
+          </span> Store</a>
+        <a [routerLinkActive]="['active']" href="#" class="nav-link nimp" [routerLink]="['/store/myitems/view']" *ngIf="isLoggedIn()"
+          style="padding: 10px !important;">
+          <span>
+            <i class="material-icons">loyalty</i>
+          </span> My items
+        </a>
+        <a [routerLinkActive]="['active']" href="#" class="nav-link nimp" [routerLink]="['/store/myitems/create']" *ngIf="isNotChild"
+          style="padding:10px !important;">
+          <span>
+            <i class="material-icons">playlist_add</i>
+          </span>
           Add item</a>
       </div>
 
