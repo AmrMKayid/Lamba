@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
-
+  isNotChild: boolean;
   constructor(private auth: AuthService,
     private httpClient: HttpClient) {
   }
@@ -17,6 +17,7 @@ export class EventComponent implements OnInit {
 
   currentUser: any;
   ngOnInit() {
+    this.isNotChild = this.auth.getCurrentUser().role !== 'Child';
     this.currentUser = this.auth.getCurrentUser();
 
     if (this.currentUser.role == "Parent" && this.currentUser.isVerified == false) {
@@ -40,9 +41,6 @@ export class EventComponent implements OnInit {
           timeout: 3000,
           progressBar: true
         }).show();
-        console.log(err);
-        // localStorage.clear();
-        // window.location.href = 'login';
       }
     );
   }
