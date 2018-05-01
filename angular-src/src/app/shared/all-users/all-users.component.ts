@@ -14,7 +14,7 @@ export class AllUsersComponent implements OnInit {
   apiUrlHTML = appConfig.apiUrl;
   isEmpty;
   Users: any;
-
+  isDirty;
   // Pagination: initializing p to one
   p: number = 1;
   filter;
@@ -23,8 +23,6 @@ export class AllUsersComponent implements OnInit {
     private auth: AuthService,
     private http: HttpClient,
     private route: ActivatedRoute) {
-
-      this.getAllUsers("", "");
   }
 
   getAllUsers(firstName, lastName) {
@@ -45,10 +43,12 @@ export class AllUsersComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isDirty = false;
     this.isEmpty = true;
     this.filter = "";
   }
   searchUsers() {
+    this.isDirty = true;
     //This can now be ported as a new component (without the search input),
     //with the search bar being in the navbar, and clicking on search in the search bar routes to the new component with the appropriate query paramaters
     //Splitting them with space (first and last name), and you can even limit the search to 2 spaces (since we limit the users to no spaces in their first and last name)

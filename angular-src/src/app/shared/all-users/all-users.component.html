@@ -6,13 +6,13 @@
     <button class="btn btn-primary btn-block" (click)="searchUsers()">Search</button>
   </nav>
   <br>
-  <div class="container text-center">
+  <div *ngIf="isDirty" class="container text-center">
     <div class="row mt-3">
       <div *ngIf="isEmpty" class="col-12 text-center">
         <h5 class=" text-primary">
           Your search didn't match any user, please try searching for a different user.
         </h5>
-        </div>
+      </div>
       <div class="col-lg-3 col-md-4 col-sm-6 myCard" *ngFor="let user of Users | paginate: { itemsPerPage: 8, currentPage: p };">
         <div class="card">
           <img src="{{apiUrlHTML}}/uploads/store/{{user.photo}}" class="card-img-top rounded-circle mt-2">
@@ -36,4 +36,11 @@
     <br>
     <pagination-controls (pageChange)="p=$event;"></pagination-controls>
   </div>
-</div>
+  <div *ngIf="!isDirty" class="container text-center">
+    <div class="row mt-3">
+      <h5 class=" text-primary">
+        Please enter the name of the user you're trying to find.
+      </h5>
+    </div>
+
+  </div>
