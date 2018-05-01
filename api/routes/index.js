@@ -19,6 +19,7 @@ var express = require('express'),
     mw = require('./middlewares');
 
 //---------------------------- Authentication Routes --------------------------------//
+router.get('/verify/:id/:token', authCtrl.verifyMail);
 router.post('/auth/register', mw.isNotAuthenticated, authCtrl.register);
 router.post('/auth/login', mw.isNotAuthenticated, authCtrl.login);
 router.post('/auth/refresh', mw.isAuthenticated, authCtrl.refreshToken);
@@ -185,5 +186,11 @@ router.get('/chat/', mw.isAuthenticated, chatCtrl.getAllChats);
 router.get('/chat/unopened/count', mw.isAuthenticated, chatCtrl.getUnopenedChatsCount);
 router.patch('/chat/open', mw.isAuthenticated, chatCtrl.openChat);
 router.patch('/chat/seen', mw.isAuthenticated, chatCtrl.seen);
+
+router.post('/user/forgot/:email', authCtrl.forgotPassword);
+router.post('/user/reset/:token', authCtrl.resetPassword);
+
+router.post('/auth/refreshUserToken', mw.isAuthenticated, authCtrl.refreshUserToken);
+
 
 module.exports = router;

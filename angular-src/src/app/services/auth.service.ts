@@ -14,12 +14,7 @@ export class AuthService {
   login(user: any) {
 
     return this.http.post<any>(appConfig.apiUrl + '/auth/login', user)
-      .map(token => {
-        if (token && token.data) {
-          localStorage.setItem('authentication', token.data);
-       }
-       return token;
-       });
+      .pipe();
 
   }
 

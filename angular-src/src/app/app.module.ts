@@ -35,6 +35,9 @@ import { NotificationService } from './services/notification.service';
 import { RequestsComponent } from './shared/requests/requests.component';
 import { InterestsComponent } from './shared/interests/interests.component';
 import { NgxCarouselModule } from "ngx-carousel";
+import { ActivationComponent } from './shared/activation/activation.component';
+import { ForgotPasswordComponent } from './shared/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './shared/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -51,7 +54,10 @@ import { NgxCarouselModule } from "ngx-carousel";
     NotificationsComponent,
     HeaderComponent,
     RequestsComponent,
-    InterestsComponent
+    InterestsComponent,
+    ActivationComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

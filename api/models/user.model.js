@@ -242,7 +242,29 @@ const UserSchema = new mongoose.Schema({
         default: Date.now()
     },
 
-    messages: [{type: mongoose.Schema.Types.ObjectId, ref: 'Message'}],
+    passwordResetToken: {
+        type: new mongoose.Schema({
+            id: String,
+            expires: Date
+        }),
+        default: null
+    },
+
+    mailToken: {
+        type: new mongoose.Schema({
+            id: String,
+            expires: Date
+        }),
+        default: null
+    },
+
+    mailActivated: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+
+    messages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }],
 
     myItems: [String],
     cart: [String],
@@ -400,8 +422,7 @@ if (!UserSchema.options.toObject) {
 UserSchema.options.toObject.transform = function (document, transformedDocument) {
     delete transformedDocument.password;
     return transformedDocument;
-}
-    ;
+};
 
 if (!ChildSchema.options.toObject) {
     ChildSchema.options.toObject = {};

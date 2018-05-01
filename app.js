@@ -40,7 +40,11 @@ app.use(multer({
 
 
 // Middleware to log all of the requests that comes to the server
-app.use(logger(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
+app.use(
+    logger('dev', {
+        skip: function (req, res) { return req.originalUrl.startsWith('/api/uploads/store') || req.originalUrl.startsWith('/api/uploads/articlesThumbnails') || req.originalUrl.startsWith('/api/uploads/activity') || req.originalUrl == '/api/request/get' || req.originalUrl == '/api/chat/unopened/count' || req.originalUrl == '/api/notifications/get' || req.originalUrl == '/api/notifications/unopened/count' }
+    })
+);
 
 // Middleware to allow requests from any frontend that is not hosted on the same machine as the server's
 app.use(

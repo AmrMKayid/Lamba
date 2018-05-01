@@ -1,0 +1,73 @@
+<div class="divider" style="padding-top:50px;"></div>
+<div class="container">
+  <div class="myContainer">
+    <div class="card card">
+      <div *ngIf="renderType == 'success'" class="card-body">
+        <div class="row text-center">
+          <div class="col-12"><i class="fa fa-envelope" style="color:#00C851; font-size: 8em;"></i></div>
+          <div class="col-12">
+            <p style="font-size: 1.5em;">Your account has been activated successfully.</p>
+          </div>
+          <div class="col-12">
+            <button [routerLink]="['/login']" type="button" class="btn btn-success waves-light" mdbWavesEffect><span class="fa fa-envelope mr-2"></span>Login</button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="renderType == 'invalid'" class="card-body">
+        <div class="row text-center">
+          <div class="col-12"><i class="fa fa-envelope" style="color:#ff4444; font-size: 8em;"></i></div>
+          <div class="col-12">
+            <p style="font-size: 1.5em;">Invalid Token.</p>
+          </div>
+          <div class="col-12">
+            <button [routerLink]="['/login']" type="button" class="btn btn-danger waves-light" mdbWavesEffect><span class="fa fa-envelope mr-2"></span>Login</button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="renderType == 'user'" class="card-body">
+        <div class="row text-center">
+          <div class="col-12"><i class="fa fa-envelope" style="color:#ff4444; font-size: 8em;"></i></div>
+          <div class="col-12">
+            <p style="font-size: 1.5em;">Error while activating your account.</p>
+          </div>
+          <div class="col-12">
+            <button [routerLink]="['/login']" type="button" class="btn btn-danger waves-light" mdbWavesEffect><span class="fa fa-envelope mr-2"></span>Login</button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="renderType == 'already'" class="card-body">
+        <div class="row text-center">
+          <div class="col-12"><i class="fa fa-envelope" style="color:#00C851; font-size: 8em;"></i></div>
+          <div class="col-12">
+            <p style="font-size: 1.5em;">User already activated.</p>
+          </div>
+          <div class="col-12">
+            <button [routerLink]="['/login']" type="button" class="btn btn-success waves-light" mdbWavesEffect><span class="fa fa-envelope mr-2"></span>Login</button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="renderType == 'expired'" class="card-body">
+        <div class="row text-center">
+          <div class="col-12"><i class="fa fa-envelope" style="color:#ffbb33; font-size: 8em;"></i></div>
+          <div class="col-12">
+            <p style="font-size: 1.5em;">Token already expired, request a new one by logging in.</p>
+          </div>
+          <div class="col-12">
+            <button [routerLink]="['/login']" type="button" class="btn btn-warning waves-light" mdbWavesEffect><span class="fa fa-envelope mr-2"></span>Login</button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="renderType == 'error'" class="card-body">
+        <div class="row text-center">
+          <div class="col-12"><i class="fa fa-envelope" style="color:#ff4444; font-size: 8em;"></i></div>
+          <div class="col-12">
+            <p style="font-size: 1.5em;">Something went wrong please request a new activation link.</p>
+          </div>
+          <div class="col-12">
+            <button [routerLink]="['/login']" type="button" class="btn btn-danger waves-light" mdbWavesEffect><span class="fa fa-envelope mr-2"></span>Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

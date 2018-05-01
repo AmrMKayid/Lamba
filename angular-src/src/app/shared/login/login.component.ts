@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
-import {AuthService} from '../../services/auth.service';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -24,9 +24,9 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
 
   constructor(private fb: FormBuilder,
-              private route: ActivatedRoute,
-              private router: Router,
-              private authService: AuthService) {
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -50,16 +50,36 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(user)
       .subscribe(
-        token => {
-          window.open("/profile/me", "_self");
+        (res: any) => {
+          if (res.msg === 'Welcome') {
+            localStorage.setItem('authentication', res.data);
+            window.open("/profile/me", "_self");
+          } else if (res.msg === 'A verification email has been sent.') {
+            new Noty({
+              type: 'info',
+              text: `An activation link has been sent to your email. Please verify your email and re-login`,
+              timeout: 4000,
+              progressBar: true
+            }).show();
+          }
         },
         error => {
-          new Noty({
-            type: 'error',
-            text: `Something went wrong while logging in:\n${error.error ? error.error.msg : error.msg}`,
-            timeout: 3000,
-            progressBar: true
-          }).show();
+          let errMsg = error.error ? error.error.msg : error.msg;
+          if (errMsg === 'Verification already sent') {
+            return new Noty({
+              type: 'warning',
+              text: `A verification link has been already sent. If you cannot find it, you can request a new one by re-logging in after ${error.data} minutes`,
+              timeout: 7000,
+              progressBar: true
+            }).show();
+          } else {
+            new Noty({
+              type: 'error',
+              text: `Something went wrong while logging in:\n${errMsg}`,
+              timeout: 3000,
+              progressBar: true
+            }).show();
+          }
         });
   }
 

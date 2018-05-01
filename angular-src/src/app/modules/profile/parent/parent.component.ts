@@ -68,6 +68,70 @@ export class ParentComponent implements OnInit {
     updatedStreet, updatedCity, updatedState, updatedZip,
     updatedBirthday, updatedPhone, updatedAbout) {
 
+    if (!updatedFirstName || !updatedLastName) {
+      new Noty({
+        type: 'warning',
+        text: `Please fill in both the first and the last name, they're both required.`,
+        timeout: 3000,
+        progressBar: true
+      }).show();
+      return false;
+    } else if (!/^[a-zA-Z]+$/.test(updatedFirstName) || !/^[a-zA-Z]+$/.test(updatedLastName)) {
+      new Noty({
+        type: 'warning',
+        text: `Invalid name, only English letters are allowed (No symbols nor numeric).`,
+        timeout: 3000,
+        progressBar: true
+      }).show();
+      return false;
+    } else if (updatedMiddleName) {
+      if (!(/^[a-zA-Z]+$/.test(updatedMiddleName))) {
+        new Noty({
+          type: 'warning',
+          text: `Invalid middlename, only English letters are allowed (No symbols nor numeric).`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+        return false;
+      }
+    } else if (updatedPhone) {
+      if (!/^[0-9]{11}$/.test(updatedPhone)) {
+        new Noty({
+          type: 'warning',
+          text: `Please enter a valid phone number (11 digits)`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+        return false;
+      }
+    } else if (updatedZip) {
+      if (!/^[0-9]{4,}$/.test(updatedZip)) {
+        new Noty({
+          type: 'warning',
+          text: `Zip code can only consist of numbers(at least 4 digits)`,
+          timeout: 3000,
+          progressBar: true
+        }).show();
+        return false;
+      }
+    }
+    let valid =
+      /^[a-zA-Z0-9\s,.'-]{0,}$/.test(updatedAbout) &&
+      /^[a-zA-Z0-9\s,.'-]{0,}$/.test(updatedCity) &&
+      /^[a-zA-Z0-9\s,.'-]{0,}$/.test(updatedState) &&
+      /^[a-zA-Z0-9\s,.'-]{0,}$/.test(updatedStreet) &&
+      /^[a-zA-Z0-9\s,.'-]{0,}$/.test(updatedZip);
+    if (!valid) {
+      new Noty({
+        type: 'warning',
+        text: `Only English letters, digits and basic symbols (, . ' -) are allowed.`,
+        timeout: 3000,
+        progressBar: true
+      }).show();
+      return false;
+    }
+    //EXTRA VALIDATION WON'T BREAK THE APP FOR NOW :D
+
     let updatedUser = {
       name: {
         firstName: updatedFirstName,
@@ -350,7 +414,7 @@ export class ParentComponent implements OnInit {
   deleteTask(taskId) {
     this.http.get(appConfig.apiUrl + '/task/deleteTask/' + taskId, this.httpOptions).subscribe((res: any) => {
       this.getTasks();
-      });
+    });
 
 
     new Noty({

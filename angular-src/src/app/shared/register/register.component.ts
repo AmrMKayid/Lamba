@@ -71,6 +71,14 @@ export class RegisterComponent implements OnInit {
         progressBar: true
       }).show();
       return false;
+    } else if (!(/^[a-zA-Z]+$/.test(value.name.firstName) && /^[a-zA-Z]+$/.test(value.name.lastName))) {
+      new Noty({
+        type: 'warning',
+        text: `Name may only consist of English letters (No symbols/numerics).`,
+        timeout: 3000,
+        progressBar: true
+      }).show();
+      return false;
     }
 
     value.role = this.chosenRole;
@@ -92,7 +100,25 @@ export class RegisterComponent implements OnInit {
     this.authService.register(value)
       .subscribe(
         data => {
-          this.router.navigate(['/login']);
+          new Noty({
+            type: 'success',
+            text: `You have registered successfully. Please check your email for a verification link.`,
+            timeout: 3000,
+            progressBar: true,
+            callbacks: {
+              afterClose: () => {
+                new Noty({
+                  type: 'info',
+                  text: `If you don't recieve the link after a couple of minutes, you can request a new one by logging in.`,
+                  timeout: 3000,
+                  progressBar: true
+                }).show();
+
+              }
+            }
+          }).show();
+
+          this.router.navigate(['/']);
         },
         err => {
           new Noty({

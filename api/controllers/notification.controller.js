@@ -15,7 +15,6 @@ var mongoose = require('mongoose'),
 
 module.exports.addNotification = async function (req, res, next) {
 
-    console.log(req.body);
     var valid = req.body.title && Validations.isString(req.body.title) &&
         req.body.description && Validations.isString(req.body.description) &&
         req.body.url && Validations.isString(req.body.url) &&
@@ -43,7 +42,6 @@ module.exports.addNotification = async function (req, res, next) {
     };
 
 
-    console.log(notification);
 
     // inserts the new object in the database
     Notification.create(notification, function (err, newNotification) {
@@ -139,7 +137,6 @@ module.exports.getUnopenedNotifCount = function (req, res, next) {
             });
         }
 
-        // console.log(logs);
         return res.status(200).json({
             err: null,
             msg: "Retrieved Notif",

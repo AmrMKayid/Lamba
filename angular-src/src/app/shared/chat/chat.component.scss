@@ -55,6 +55,12 @@
 	width: 40px;
 	object-fit: cover;
 }
+#reciever_img2
+{
+	height: 40px;
+	width: 40px;
+	object-fit: cover;
+}
 
 #name
 {
@@ -82,10 +88,6 @@
 @media (max-width: 767px) {
    #reciever_img {
       display: none;
-   }
-   .chats
-   {
-         display: none;
    }
 }
 

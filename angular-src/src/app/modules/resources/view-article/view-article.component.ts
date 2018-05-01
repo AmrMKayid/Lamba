@@ -196,6 +196,14 @@ export class ViewArticleComponent implements OnInit {
   };
 
   assignChild() {
+    if (!this.selectedChild) {
+      return new Noty({
+        type: 'warning',
+        text: 'Please choose a child before assigning the article',
+        timeout: 3000,
+        progressBar: true
+      }).show();
+    }
     this.articleService.assignChild(this.article._id, this.selectedChild).subscribe(
       (res: any) => {
         new Noty({

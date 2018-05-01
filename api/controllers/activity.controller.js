@@ -158,7 +158,6 @@ module.exports.viewActivities = function(req, res, next) {
 
 
 module.exports.getActivitiesById = function(req, res, next) {
-  console.log("get in controller");
   const authorization = req.headers.authorization;
   const secret = req.app.get('secret');
   decoded = jwt.verify(authorization, secret);
@@ -268,7 +267,6 @@ module.exports.goingActivities = function(req, res, next) {
     retrievedActivity.going_user_id.push(user_id);
 
     Activity.findByIdAndUpdate(retrievedActivity._id, retrievedActivity, function(err, activity) {
-      // console.log(activity);
       return res.status(200).json({
         err: null,
         msg: 'Activity going successfully.',
@@ -285,7 +283,6 @@ module.exports.goingActivities = function(req, res, next) {
 
 
 module.exports.countActivities = function(req, res, next) {
-  console.log("Mayar...controller");
 
   Activity.count({}, function(err, count) {
 
