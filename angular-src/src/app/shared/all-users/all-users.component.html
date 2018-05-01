@@ -2,33 +2,39 @@
 
 <div class="container">
   <nav class="navbar">
-    <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search">
+    <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search through the names">
+    <button class="btn btn-primary btn-block" (click)="searchUsers()">Search</button>
   </nav>
   <br>
 
   <div class="container text-center">
     <div class="row mt-3">
-      <div class="col-lg-3 col-md-4 col-sm-6 myCard"
-           *ngFor="let user of Users | filter:filter | paginate: { itemsPerPage: 8, currentPage: p };">
-
-          <div class="card">
-            <img src="{{apiUrlHTML}}/uploads/store/{{user.photo}}" class="card-img-top rounded-circle mt-2">
-            <div class="card-block">
-              <h4 class="card-title mt-3 grey-text">{{ user.name.firstName }} {{ user.name.lastName }}</h4>
-              <p>{{ user.role }}</p>
-            </div>
-            <div class="card-footer">
-              <div class="icon pull-right">
-                <a placement="bottom" ngbTooltip="Profile" (click)="viewUser(user)"><i
-                  class="fa fa-user fa-2x" aria-hidden="true"></i></a>
-                <a placement="bottom" ngbTooltip="Messages" (click)="messageUser(user)"><i class="fa fa-envelope fa-fw fa-2x"
-                                                               aria-hidden="true"></i></a>
-              </div>
+      <div *ngIf="isEmpty">
+        <h1 class="text-center text-primary">
+          Your search didn't match any user, please try searching for a different user.
+        </h1>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 myCard" *ngFor="let user of Users | paginate: { itemsPerPage: 8, currentPage: p };">
+        <div class="card">
+          <img src="{{apiUrlHTML}}/uploads/store/{{user.photo}}" class="card-img-top rounded-circle mt-2">
+          <div class="card-block">
+            <h4 class="card-title mt-3 grey-text">{{ user.name.firstName }} {{ user.name.lastName }}</h4>
+            <p>{{ user.role }}</p>
+          </div>
+          <div class="card-footer">
+            <div class="icon pull-right">
+              <a placement="bottom" ngbTooltip="Profile" (click)="viewUser(user)">
+                <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+              </a>
+              <a placement="bottom" ngbTooltip="Messages" (click)="messageUser(user)">
+                <i class="fa fa-envelope fa-fw fa-2x" aria-hidden="true"></i>
+              </a>
             </div>
           </div>
+        </div>
       </div>
     </div>
     <br>
-    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    <pagination-controls (pageChange)="p=$event;"></pagination-controls>
   </div>
 </div>

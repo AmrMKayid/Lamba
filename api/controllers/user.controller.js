@@ -8,13 +8,30 @@ var mongoose = require('mongoose'),
   Activity = mongoose.model('Activity');
 
 module.exports.getAllUsers = function (req, res, next) {
+  //Assuming that the first and last name shall be seperated with a space in the frontend.
+  let firstName = req.query.first;
+  let lastName = req.query.last;
   User.find({
-    $or: [{
-      role: 'Parent'
-    }, {
-      role: 'Teacher'
-    }]
-  }).exec(function (err, users) {
+    $and: [
+      {
+        $or: [{
+          role: 'Parent'
+        }, {
+          role: 'Teacher'
+        }]
+      },
+      {
+        $and: [{
+          'name.firstName':
+            new RegExp(firstName, 'i')
+        },
+        {
+          'name.lastName':
+            new RegExp(lastName, 'i')
+        }]
+      }
+    ]
+  }).select({ 'name.firstName': 1, 'name.lastName': 1, photo: 1, _id: 1, role: 1 }).exec(function (err, users) {
     if (err) {
       return next(err);
     }
