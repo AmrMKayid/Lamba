@@ -33,9 +33,11 @@ export class AppComponent implements OnInit {
     router.events.subscribe((val) => {
       this.currentUser = this.auth.getCurrentUser();
       if (val instanceof NavigationStart) {
-        var isLoggedIn = Boolean(localStorage.getItem('authentication') != null);
-        if (isLoggedIn && this.currentUser.role && this.currentUser.role == "Teacher" && this.currentUser.isVerified == false) {
+        if (val.url !== '/login') {
+          var isLoggedIn = Boolean(localStorage.getItem('authentication') != null);
+          if (isLoggedIn && this.currentUser.role && this.currentUser.role == "Teacher" && this.currentUser.isVerified == false) {
             this.refreshToken();
+          }
         }
       }
     });
