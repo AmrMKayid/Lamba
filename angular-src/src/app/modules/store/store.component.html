@@ -12,7 +12,7 @@
           <span>
             <i class="material-icons">store</i>
           </span> Store</a>
-        <a [routerLinkActive]="['active']" style="cursor: pointer;" class="nav-link nimp" [routerLink]="['/store/myitems/view']" *ngIf="isLoggedIn()"
+        <a [routerLinkActive]="['active']" style="cursor: pointer;" class="nav-link nimp" [routerLink]="['/store/myitems/view']" *ngIf="isNotChild"
           style="padding: 10px !important;">
           <span>
             <i class="material-icons">loyalty</i>
