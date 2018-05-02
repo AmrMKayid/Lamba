@@ -38,6 +38,8 @@ import { NgxCarouselModule } from "ngx-carousel";
 import { ActivationComponent } from './shared/activation/activation.component';
 import { ForgotPasswordComponent } from './shared/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './shared/reset-password/reset-password.component';
+import { LoginGuard } from './guards/login.guard';
+import { ChildGuard } from './guards/child.guard';
 
 
 @NgModule({
@@ -75,6 +77,8 @@ import { ResetPasswordComponent } from './shared/reset-password/reset-password.c
   ],
   providers: [
     AuthGuard,
+    LoginGuard,
+    ChildGuard,
     ErrorInterceptorProvider,
     JwtInterceptorProvider,
     AuthService,

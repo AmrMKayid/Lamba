@@ -42,6 +42,7 @@ import {InterviewRequestComponent} from './interview-request/interview-request.c
 import { BookingTeacherComponent } from './booking-teacher/booking-teacher.component';
 import { ViewBookingsComponent } from './view-bookings/view-bookings.component';
 import { ReportsComponent } from './admin/reports/reports.component';
+import { ChildGuard } from '../../guards/child.guard';
 
 const appRoutes: Routes = [
   {
@@ -84,14 +85,17 @@ const appRoutes: Routes = [
   },
   {
     path: 'request-interview',
+    canActivate: [ChildGuard],
     component: InterviewRequestComponent
   },
   {
     path: 'booking/:id/:slot',
+    canActivate: [ChildGuard],
     component: BookingTeacherComponent,
   },
   {
     path: 'viewbookings',
+    canActivate: [ChildGuard],
     component: ViewBookingsComponent
   },
   {

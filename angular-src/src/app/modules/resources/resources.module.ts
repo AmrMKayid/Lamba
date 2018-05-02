@@ -15,6 +15,7 @@ import {ViewArticleComponent} from './view-article/view-article.component';
 import {ViewArticlesComponent} from './view-articles/view-articles.component';
 import {FilterByTagsPipe} from './view-articles/filter-by-tags.pipe';
 import {Ng2SearchPipeModule} from 'ng2-search-filter';
+import { ChildGuard } from '../../guards/child.guard';
 
 const appRoutes: Routes = [
   {
@@ -23,10 +24,12 @@ const appRoutes: Routes = [
   },
   {
     path: 'post',
+    canActivate: [ChildGuard],
     component: PostArticlesComponent,
   },
   {
     path: 'edit/:id',
+    canActivate: [ChildGuard],
     component: EditArticlesComponent,
   },
   {
