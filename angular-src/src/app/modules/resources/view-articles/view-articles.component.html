@@ -11,7 +11,7 @@
       <p class="mb-4">
         Care to share your experience with others? it could help a ton :)
       </p>
-      <a style="cursor: pointer;" [routerLink]="['post']" class="btn btn-outline-white btn-lg">Post a new article
+      <a *ngIf="!isChild" style="cursor: pointer;" [routerLink]="['post']" class="btn btn-outline-white btn-lg">Post a new article
         <i class="fa fa-graduation-cap ml-2"></i>
       </a>
     </div>
@@ -22,11 +22,9 @@
         <h5 class="card-header">
           <i class="fa fa-filter mr-2" aria-hidden="true"></i>Filter by tags</h5>
         <div class="card-body">
-          <tag-input [(ngModel)]="selectedTags" [onlyFromAutocomplete]="true" (onRemove)="onTagsChanged()"
-                     (onTextChange)="onTagsChanged()">
-            <tag-input-dropdown [showDropdownIfEmpty]="true" [dynamicUpdate]="false" [focusFirstElement]="true"
-                                [displayBy]="'value'"
-                                [identifyBy]="'id'" [autocompleteItems]="allTags">
+          <tag-input [(ngModel)]="selectedTags" [onlyFromAutocomplete]="true" (onRemove)="onTagsChanged()" (onTextChange)="onTagsChanged()">
+            <tag-input-dropdown [showDropdownIfEmpty]="true" [dynamicUpdate]="false" [focusFirstElement]="true" [displayBy]="'value'"
+              [identifyBy]="'id'" [autocompleteItems]="allTags">
               <ng-template let-item="item">
                 {{ item.value }}
               </ng-template>
@@ -49,16 +47,15 @@
 
   <section class="pt-5" *ngIf="articlesInitialized && tagsInitialized">
     <!-- ARTICLE -->
-    <ng-container
-      *ngFor="let article of articles | filterByTags: filterTagsIDs | filter: keyword | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
+    <ng-container *ngFor="let article of articles | filterByTags: filterTagsIDs | filter: keyword | paginate: { itemsPerPage: 4, currentPage: p };let i = index">
       <div class="row mt-3 wow fadeIn">
 
         <!--Image thumbnail-->
         <div class="col-lg-5 col-xl-4 mb-4">
           <!--Featured image-->
           <div class="view overlay rounded z-depth-1">
-            <img [src]="IMG_URL + article.thumbnail_url" onError="this.src='../../../../assets/images/fallbacks/resources.jpg'"
-                 class="img-fluid" style="width:100%; height:200px; object-fit:cover;" alt="Article-thumbnail"/>
+            <img [src]="IMG_URL + article.thumbnail_url" onError="this.src='../../../../assets/images/fallbacks/resources.jpg'" class="img-fluid"
+              style="width:100%; height:200px; object-fit:cover;" alt="Article-thumbnail" />
             <a style="cursor: pointer;" [routerLink]="['id',article._id]">
               <div class="mask"></div>
             </a>
@@ -74,8 +71,7 @@
             </a>
           </h3>
           <p class="grey-text">Posted by
-            <a style="cursor: pointer;" [routerLink]="['/profile',article.owner_id._id]" class="name-capitalize">{{article.owner_id.name.firstName}}
-              {{article.owner_id.name.lastName}}
+            <a style="cursor: pointer;" [routerLink]="['/profile',article.owner_id._id]" class="name-capitalize">{{article.owner_id.name.firstName}} {{article.owner_id.name.lastName}}
             </a>
           </p>
           <h4>Rating:
