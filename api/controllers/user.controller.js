@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
   Validations = require('../utils/validations'),
   Article = mongoose.model('Article'),
   Request = mongoose.model('Request'),
+  Contact = mongoose.model('Contact'),
   Verification = mongoose.model('Verification'),
   Activity = mongoose.model('Activity');
 
@@ -1389,3 +1390,14 @@ module.exports.getParent = function (req, res, next) {
   });
 
 };
+
+module.exports.contactUs = function (req, res, next) {
+  Contact.create(req.body, (err, createdContact) => {
+    if (err) return next(err);
+    return res.status(200).json({
+      err: null,
+      msg: 'Message recorded successfully.',
+      data: createdContact
+    });
+  });
+}

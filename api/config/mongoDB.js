@@ -61,6 +61,7 @@ mongoose.connect(dbUrl, function (err) {
     });
 });
 
+require('../models/contact.model');
 require('../models/article.model');
 require('../models/item.model');
 require('../models/task.model');
