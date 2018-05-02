@@ -13,6 +13,7 @@ import { InterestsComponent } from "./shared/interests/interests.component";
 import { ActivationComponent } from './shared/activation/activation.component';
 import { ForgotPasswordComponent } from './shared/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './shared/reset-password/reset-password.component';
+import { LoginGuard } from './guards/login.guard';
 
 
 const appRoutes: Routes = [
@@ -24,12 +25,12 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'register-role', component: RegisterRoleComponent },
   { path: 'interests', component: InterestsComponent },
-  { path: 'search', component: AllUsersComponent },
-  { path: 'chat/:id', component: ChatComponent },
-  { path: 'chat', component: ChatComponent },
+  { path: 'search', canActivate: [AuthGuard], component: AllUsersComponent },
+  { path: 'chat/:id', canActivate: [AuthGuard], component: ChatComponent },
+  { path: 'chat', canActivate: [AuthGuard], component: ChatComponent },
   { path: 'notifications', canActivate: [AuthGuard], component: NotificationsComponent },
   { path: 'requests', canActivate: [AuthGuard], component: RequestsComponent },
-  { path: 'profile', canActivate: [AuthGuard], loadChildren: './modules/profile/profile.module#ProfileModule' },
+  { path: 'profile', canActivate: [LoginGuard], loadChildren: './modules/profile/profile.module#ProfileModule' },
   { path: 'schedule', canActivate: [AuthGuard], loadChildren: './modules/schedule/schedule.module#ScheduleModule' },
   { path: 'resources', canActivate: [AuthGuard], loadChildren: './modules/resources/resources.module#ResourcesModule' },
   { path: 'store', canActivate: [AuthGuard], loadChildren: './modules/store/store.module#StoreModule' },
