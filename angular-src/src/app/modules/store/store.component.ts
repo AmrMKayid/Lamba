@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { DEFAULT_RESIZE_TIME } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-store',
@@ -7,12 +8,12 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./store.component.css']
 })
 export class StoreComponent implements OnInit {
-  isNotChild: boolean;
+  isNotChild: boolean = false;
   constructor(private auth: AuthService) {
   }
 
   ngOnInit() {
-    this.isNotChild = this.auth.getCurrentUser().role !== 'Child';
+    this.isNotChild = !(!this.auth.getCurrentUser().role);
   }
 
   isLoggedIn() {
