@@ -187,6 +187,7 @@
                          src="{{apiUrlHTML}}/uploads/store/{{child.photo}}">
                     <div class="card-block">
                       <h4 class="card-title mt-3 grey-text">{{ child.name.firstName }} {{ child.name.lastName }}</h4>
+                      <h4 class="card-header-info">Progress: {{ this.child.score }} / {{ this.child.cTasks }}</h4>
                     </div>
                     <div class="card-footer">
                       <ng-template #content let-c="close" let-d="dismiss">

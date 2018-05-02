@@ -24,7 +24,7 @@
       <strong>{{child.role}}</strong>
     </h4>
     <h5 class="indigo-text">
-      <strong>Score: </strong>
+      <strong>Score: {{ child.score }} / {{ this.child.cTasks }}</strong>
     </h5>
     <!-- <h5 class="indigo-text" *ngIf="child.address"><strong>{{child.address.street}}, {{child.address.city}},
       {{child.address.state}}, {{child.address.zip}}</strong></h5> -->
@@ -839,7 +839,7 @@
                         <a placement="bottom" ngbTooltip="Task" (click)="viewTask(task._id)"><i
                           class="fa fa-tasks fa-2x white-text mr-2"
                           aria-hidden="true"></i></a>
-                
+
                       </div>
                     </div>
                   </div>

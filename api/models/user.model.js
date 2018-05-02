@@ -157,7 +157,9 @@ const ChildSchema = new mongoose.Schema({
         },
         updatedAt: { type: Date, default: Date.now },
     },
+    cTasks:Number,
     score: Number,
+
     //IDs :
     allowedArticles: [String],
     favorites: {
