@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
-  isNotChild: boolean;
+  isNotChild: boolean = false;
   constructor(private auth: AuthService,
     private httpClient: HttpClient) {
   }
@@ -17,7 +17,7 @@ export class EventComponent implements OnInit {
 
   currentUser: any;
   ngOnInit() {
-    this.isNotChild = this.auth.getCurrentUser().role !== 'Child';
+    this.isNotChild = !(!this.auth.getCurrentUser().role);
     this.currentUser = this.auth.getCurrentUser();
 
     if (this.currentUser.role == "Parent" && this.currentUser.isVerified == false) {
