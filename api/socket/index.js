@@ -35,7 +35,7 @@ module.exports = function socket(io) {
   */
 function onNewConnection(socket) {
 
-    console.log("new user is attempting to connect");
+    console.log("User connected - IP: ", socket.request.headers['x-real-ip']);
 
     /*gets the authorization token*/
     socket.on("authorize", function (data) {
@@ -66,7 +66,7 @@ function onNewConnection(socket) {
 
             if (c.socket.id == socket.id) {
                 clients.splice(i, 1);
-                console.log('client disconnected');
+                console.log('User disconnected - IP: ', socket.request.headers['x-real-ip']);
                 break;
             }
         }
