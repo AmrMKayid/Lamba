@@ -30,6 +30,9 @@ module.exports.getAllUsers = function (req, res, next) {
           'name.lastName':
             new RegExp(lastName, 'i')
         }]
+      },
+      {
+        mailActivated: 'true'
       }
     ]
   }).select({ 'name.firstName': 1, 'name.lastName': 1, photo: 1, _id: 1, role: 1 }).exec(function (err, users) {
@@ -1392,7 +1395,19 @@ module.exports.getParent = function (req, res, next) {
 };
 
 module.exports.contactUs = function (req, res, next) {
-  Contact.create(req.body, (err, createdContact) => {
+  if (!req.body.email || !req.body.name || !req.body.message) {
+    return res.status(422).json({
+      err: null,
+      msg: 'Information missing',
+      data: null
+    });
+  }
+  let body = {
+    email: req.body.email,
+    name: req.body.name,
+    message: req.body.message
+  };
+  Contact.create(body, (err, createdContact) => {
     if (err) return next(err);
     return res.status(200).json({
       err: null,
