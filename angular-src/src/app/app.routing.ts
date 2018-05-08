@@ -14,13 +14,14 @@ import { ActivationComponent } from './shared/activation/activation.component';
 import { ForgotPasswordComponent } from './shared/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './shared/reset-password/reset-password.component';
 import { LoginGuard } from './guards/login.guard';
+import { NonAuthGuard } from './guards/non-auth.guard';
 
 
 const appRoutes: Routes = [
   { path: '', component: HomepageComponent },
-  { path: 'activation', component: ActivationComponent },
-  { path: 'forgot', component: ForgotPasswordComponent },
-  { path: 'reset/:token', component: ResetPasswordComponent },
+  { path: 'activation', canActivate: [NonAuthGuard], component: ActivationComponent },
+  { path: 'forgot', canActivate: [NonAuthGuard], component: ForgotPasswordComponent },
+  { path: 'reset/:token', canActivate: [NonAuthGuard], component: ResetPasswordComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'register-role', component: RegisterRoleComponent },

@@ -40,9 +40,23 @@ app.use(multer({
 
 
 // Middleware to log all of the requests that comes to the server
+logger.token('id', function getName(req) {
+    if (req.decodedToken)
+        return req.decodedToken.user.name.firstName + ' ' + req.decodedToken.user.name.lastName;
+    return '';
+})
+
 app.use(
-    logger('dev', {
-        skip: function (req, res) { return req.originalUrl.startsWith('/api/uploads/store') || req.originalUrl.startsWith('/api/uploads/articlesThumbnails') || req.originalUrl.startsWith('/api/uploads/activity') || req.originalUrl == '/api/request/get' || req.originalUrl == '/api/chat/unopened/count' || req.originalUrl == '/api/notifications/get' || req.originalUrl == '/api/notifications/unopened/count' }
+    logger(':method :url :status :response-time ms - :res[content-length] :req[x-real-ip] :id', {
+        skip: function (req, res) {
+            return req.originalUrl.endsWith('.js') || req.originalUrl.endsWith('.jpg')
+                || req.originalUrl.startsWith('/styles') || req.originalUrl.startsWith('/inline') || req.originalUrl.startsWith('/scripts')
+                || req.originalUrl.startsWith('/polyfills') || req.originalUrl.startsWith('/assets') || req.originalUrl.startsWith('/main')
+                || req.originalUrl.startsWith('/Roboto') || req.originalUrl.startsWith('/fontawesome') || req.originalUrl.startsWith('/favicon')
+                || req.originalUrl.startsWith('/api/uploads/store') || req.originalUrl.startsWith('/api/uploads/articlesThumbnails')
+                || req.originalUrl.startsWith('/api/uploads/activity') || req.originalUrl == '/api/request/get' || req.originalUrl == '/api/chat/unopened/count'
+                || req.originalUrl == '/api/notifications/get' || req.originalUrl == '/api/notifications/unopened/count'
+        }
     })
 );
 

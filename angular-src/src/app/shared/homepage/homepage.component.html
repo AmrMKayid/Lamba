@@ -80,11 +80,11 @@
                     <br>
                     <small class="card-description text-muted">CO-Founder</small>
                   </h4>
-                  <div class="card-body">
-                    <p class="card-description">You can write here details about one of your team members. You can give more details about what they
-                      do. Feel free to add some
-                      <a style="cursor: pointer;">links</a> for people to be able to follow them outside the site.</p>
-                  </div>
+                  <!-- <div class="card-body"> -->
+                  <!-- <p class="card-description">You can write here details about one of your team members. You can give more details about what they -->
+                  <!-- do. Feel free to add some -->
+                  <!-- <a style="cursor: pointer;">links</a> for people to be able to follow them outside the site.</p> -->
+                  <!-- </div> -->
                   <div class="card-footer justify-content-center">
                     <a href="https://www.facebook.com/nada.donia" class="btn btn-link btn-just-icon">
                       <i class="fa fa-facebook-square"></i>
@@ -103,11 +103,11 @@
                     <br>
                     <small class="card-description text-muted">CO-Founder</small>
                   </h4>
-                  <div class="card-body">
-                    <p class="card-description">You can write here details about one of your team members. You can give more details about what they
-                      do. Feel free to add some
-                      <a style="cursor: pointer;">links</a> for people to be able to follow them outside the site.</p>
-                  </div>
+                  <!-- <div class="card-body"> -->
+                  <!-- <p class="card-description">You can write here details about one of your team members. You can give more details about what they -->
+                  <!-- do. Feel free to add some -->
+                  <!-- <a style="cursor: pointer;">links</a> for people to be able to follow them outside the site.</p> -->
+                  <!-- </div> -->
                   <div class="card-footer justify-content-center">
                     <a href="https://www.facebook.com/hagar.y.omar" class="btn btn-link btn-just-icon">
                       <i class="fa fa-facebook-square"></i>
@@ -126,11 +126,11 @@
                     <br>
                     <small class="card-description text-muted">CO-Founder</small>
                   </h4>
-                  <div class="card-body">
-                    <p class="card-description">You can write here details about one of your team members. You can give more details about what they
-                      do. Feel free to add some
-                      <a style="cursor: pointer;">links</a> for people to be able to follow them outside the site.</p>
-                  </div>
+                  <!-- <div class="card-body"> -->
+                  <!-- <p class="card-description">You can write here details about one of your team members. You can give more details about what they -->
+                  <!-- do. Feel free to add some -->
+                  <!-- <a style="cursor: pointer;">links</a> for people to be able to follow them outside the site.</p> -->
+                  <!-- </div> -->
                   <div class="card-footer justify-content-center">
                     <a href="https://www.facebook.com/profile.php?id=100004676860728" class="btn btn-link btn-just-icon">
                       <i class="fa fa-facebook-square"></i>
@@ -148,29 +148,30 @@
         <div class="row">
           <div class="col-md-8 ml-auto mr-auto">
             <h2 class="text-center title">Contact Us</h2>
-            <h4 class="text-center description">Do you have any information to share with us ? Feedback, complains, or suggestions. Everything is welcome ! Don't hesitate to contact us</h4>
+            <h4 class="text-center description">Do you have any information to share with us ? Feedback, complains, or suggestions. Everything is welcome ! Don't
+              hesitate to contact us</h4>
             <form class="contact-form">
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="bmd-label-floating">Your Name</label>
-                    <input type="email" class="form-control">
+                    <input [(ngModel)]="contactName" name="contactName" class="form-control">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="bmd-label-floating">Your Email</label>
-                    <input type="email" class="form-control">
+                    <input [(ngModel)]="contactEmail" name="emailContact" class="form-control">
                   </div>
                 </div>
               </div>
               <div class="form-group">
                 <label for="exampleMessage" class="bmd-label-floating">Your Message</label>
-                <textarea type="email" class="form-control" rows="4" id="exampleMessage"></textarea>
+                <textarea [(ngModel)]="contactMessage" class="form-control" rows="4" name="message" id="exampleMessage"></textarea>
               </div>
               <div class="row">
                 <div class="col-md-4 ml-auto mr-auto text-center">
-                  <button class="btn btn-primary btn-raised">
+                  <button (click)="submitContactForm()" class="btn btn-primary btn-raised">
                     Send Message
                   </button>
                 </div>
