@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {ChatService} from '../../services/chat.service';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ChatService } from '../../services/chat.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import './js/jquery.emojipicker.js';
 import './js/jquery.emojis.js';
-import {AuthService} from "../../services/auth.service";
-import {appConfig} from "../../app.config";
+import { AuthService } from "../../services/auth.service";
+import { appConfig } from "../../app.config";
 
 @Component({
   selector: 'app-chat',
@@ -25,15 +25,16 @@ export class ChatComponent implements OnInit {
   sub;
 
   constructor(private chat: ChatService,
-              private route: ActivatedRoute,
-              private auth: AuthService) {
+    private route: ActivatedRoute,
+    private auth: AuthService,
+    private router: Router) {
   }
 
   ngOnInit() {
 
     this.sub = this.route.params.subscribe(params => {
 
-      this.chat.OpenChats().subscribe(res => {});
+      this.chat.OpenChats().subscribe(res => { });
       this.initChats();
       this.chat.initSocket();
       if (params['id']) {
@@ -89,25 +90,23 @@ export class ChatComponent implements OnInit {
               this.currentChat = chatObj;
             }
           });
-
         }
       });
 
     });
-
-
-    // this.sendMessage("Test Message");
   }
 
   sendMessage(msg) {
     if (this.currentChat) {
-      var message = {text: msg};
+      if (!msg) {
+        return false;
+      }
+      var message = { text: msg };
       this.currentChat.messages.push(message);
       this.chat.send(msg, this.currentChat.chat._id);
       this.msgToServer = "";
-      this.chat.SeenChat(this.currentChat.chat._id).subscribe(res=>{});
-      for(var i = 0; i < this.currentChat.messages.length; i++)
-      {
+      this.chat.SeenChat(this.currentChat.chat._id).subscribe(res => { });
+      for (var i = 0; i < this.currentChat.messages.length; i++) {
         this.currentChat.messages[i].seen_at = Date.now();
       }
 
@@ -119,47 +118,61 @@ export class ChatComponent implements OnInit {
    */
   initChats() {
 
-    return this.chat.getAllChats().subscribe((res: any) => {
-      if (res.err != null) {
-        /*generate error*/
-      }
+    return this.chat.getAllChats().subscribe(
+      (res: any) => {
 
-      var chats = res.data;
-      for (var i = 0; i < chats.length; i++) {
-        this.appendChat(chats[i])
+        var chats = res.data;
+        for (var i = 0; i < chats.length; i++) {
+          this.appendChat(chats[i])
+        }
       }
-    });
+      , (err) => {
+        new Noty({
+          type: 'error',
+          text: 'Something went wrong',
+          timeout: 3000,
+          progressBar: true
+        }).show();
+        this.router.navigate(['/']);
+      }
+    );
   }
 
   appendChat(chat) {
 
-    this.chat.getChat(chat._id).subscribe((res: any) => {
-      if (res.err != null) {
-        /*generate error*/
-      }
+    this.chat.getChat(chat._id).subscribe(
+      (res: any) => {
 
-      var chatObj = {
-        chat: chat,
-        messages: res.data
-      };
-      for (var i = 0; i < this.chats.length; i++) {
-        if (this.chats[i].chat._id == chatObj.chat._id) {
-          var index = this.chats.indexOf(this.chats[i]);
-          if (index > -1) {
-            this.chats.splice(index, 1);
+        var chatObj = {
+          chat: chat,
+          messages: res.data
+        };
+        for (var i = 0; i < this.chats.length; i++) {
+          if (this.chats[i].chat._id == chatObj.chat._id) {
+            var index = this.chats.indexOf(this.chats[i]);
+            if (index > -1) {
+              this.chats.splice(index, 1);
+            }
           }
         }
-      }
-      this.chats.push(chatObj);
-      this.currentChat = this.chats[0];
-    });
+        this.chats.push(chatObj);
+        this.currentChat = this.chats[0];
+      },
+      (err) => {
+        new Noty({
+          type: 'error',
+          text: 'Something went wrong',
+          timeout: 3000,
+          progressBar: true
+        }).show();
+        this.router.navigate(['/']);
+      });
   }
 
   changeCurrentChat(chat) {
     this.currentChat = chat;
-    this.chat.SeenChat(chat.chat._id).subscribe(res=>{});
-    for(var i = 0; i < chat.messages.length; i++)
-    {
+    this.chat.SeenChat(chat.chat._id).subscribe(res => { });
+    for (var i = 0; i < chat.messages.length; i++) {
       chat.messages[i].seen_at = Date.now();
     }
   }
@@ -167,9 +180,4 @@ export class ChatComponent implements OnInit {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
-
-
 }
-
-
-//5ad5d1f704720812d763ca7b
