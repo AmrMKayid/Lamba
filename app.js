@@ -40,8 +40,14 @@ app.use(multer({
 
 
 // Middleware to log all of the requests that comes to the server
+logger.token('id', function getName(req) {
+    if (req.decodedToken)
+        return req.decodedToken.user.name.firstName + ' ' + req.decodedToken.user.name.lastName;
+    return '';
+})
+
 app.use(
-    logger(':method :url :status :response-time ms - :res[content-length] :req[x-real-ip]', {
+    logger(':method :url :status :response-time ms - :res[content-length] :req[x-real-ip] :id', {
         skip: function (req, res) {
             return req.originalUrl.endsWith('.js') || req.originalUrl.endsWith('.jpg')
                 || req.originalUrl.startsWith('/styles') || req.originalUrl.startsWith('/inline') || req.originalUrl.startsWith('/scripts')
