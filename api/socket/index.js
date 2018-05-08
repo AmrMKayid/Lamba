@@ -1,5 +1,3 @@
-import { INSPECT_MAX_BYTES } from 'buffer';
-
 const Message = require('../models/message.model');
 var mongoose = require('mongoose');
 const User = mongoose.model('User');
