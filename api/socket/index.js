@@ -1,3 +1,5 @@
+import { INSPECT_MAX_BYTES } from 'buffer';
+
 const Message = require('../models/message.model');
 var mongoose = require('mongoose');
 const User = mongoose.model('User');
@@ -8,7 +10,7 @@ var config = require('../config');
 
 // array the will store all the connected users
 var clients = [];
-var socketio; 
+var socketio;
 
 
 module.exports = function socket(io) {
@@ -27,19 +29,17 @@ module.exports = function socket(io) {
  *                                                      *
  ********************************************************/
 
- /** socket -> void
-   * Makes sure the user is authenticated and adds him to the connected users list
-   *
-   */
-function onNewConnection(socket)
-{
+/** socket -> void
+  * Makes sure the user is authenticated and adds him to the connected users list
+  *
+  */
+function onNewConnection(socket) {
 
     console.log("new user is attempting to connect");
 
     /*gets the authorization token*/
-    socket.on("authorize", function(data){
-        try
-        {
+    socket.on("authorize", function (data) {
+        try {
             // gets the logged in user id
             const secret = config.SECRET;
             decoded = jwt.verify(data, secret);
@@ -52,8 +52,7 @@ function onNewConnection(socket)
             };
             clients.push(client);
         }
-        catch(e)
-        {
+        catch (e) {
             socket.disconnect(true);
         }
     });
@@ -62,13 +61,11 @@ function onNewConnection(socket)
 
     // removes the client from the list on disconnection
     socket.on('disconnect', function () {
-        for( var i=0, len=clients.length; i<len; ++i )
-        {
+        for (var i = 0, len = clients.length; i < len; ++i) {
             var c = clients[i];
 
-            if(c.socket.id == socket.id)
-            {
-                clients.splice(i,1);
+            if (c.socket.id == socket.id) {
+                clients.splice(i, 1);
                 console.log('client disconnected');
                 break;
             }
@@ -85,20 +82,16 @@ function onNewConnection(socket)
   * recevies a message, stores it in the database and forwards it to the correct destination if any
   *
   */
-function onMessage(data)
-{
-    var msg; 
-    try
-    {
+function onMessage(data) {
+    var msg;
+    try {
         msg = JSON.parse(data)
     }
-    catch(e)
-    {
+    catch (e) {
         return;
     }
 
-    if(!msg.authorization || !msg.reciever_id)
-    {
+    if (!msg.authorization || !msg.reciever_id) {
         return;
     }
 
@@ -112,13 +105,10 @@ function onMessage(data)
   *
   * return the client or null if not found
   */
-function getClient(user_id)
-{
+function getClient(user_id) {
 
-    for(var i = 0; i < clients.length; i++)
-    {
-        if(clients[i].id == user_id)
-        {
+    for (var i = 0; i < clients.length; i++) {
+        if (clients[i].id == user_id) {
             return clients[i];
         }
     }
@@ -126,41 +116,47 @@ function getClient(user_id)
 }
 
 
-function sendMessage(msg)
-{  
-    try
-    {
+function sendMessage(msg) {
+    try {
         const secret = config.SECRET;
         decoded = jwt.verify(msg.authorization, secret);
         var user_id = decoded.user._id;
-        message = 
-        {
-            from: user_id,
-            to: msg.reciever_id,
-            text: msg.data,
-            created: Date.now()
-        };
-        User.findById(message.to, function(err, retrievedUser){
-            if(err || retrievedUser._id != message.to)
+        message =
             {
+                from: user_id,
+                to: msg.reciever_id,
+                text: msg.data,
+                created: Date.now()
+            };
+
+        if (!message.from || !message.to || !message.text) {
+            return res.status(422).json({
+                err: null,
+                msg: "Invalid message",
+                data: null
+            });
+        }
+
+        User.findById(message.to, function (err, retrievedUser) {
+            if (err || retrievedUser._id != message.to) {
                 return;
             }
             var messagedb = new Message(message);
-            messagedb.save();
+            messagedb.save((err, savedMsg) => {
+                if (err)
+                    return next(err);
+            });
         });
-        
-        for(var i = 0; i < clients.length; i++)
-        {
-            if(clients[i].id == message.to)
-            {
-                messagestr  = JSON.stringify(message);
+
+        for (var i = 0; i < clients.length; i++) {
+            if (clients[i].id == message.to) {
+                messagestr = JSON.stringify(message);
                 clients[i].socket.emit("message", messagestr);
             }
         }
     }
-    catch(e)
-    {
-        
+    catch (e) {
+
     }
 
 }
