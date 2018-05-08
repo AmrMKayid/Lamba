@@ -40,6 +40,7 @@ import { ForgotPasswordComponent } from './shared/forgot-password/forgot-passwor
 import { ResetPasswordComponent } from './shared/reset-password/reset-password.component';
 import { LoginGuard } from './guards/login.guard';
 import { ChildGuard } from './guards/child.guard';
+import { NonAuthGuard } from './guards/non-auth.guard';
 
 
 @NgModule({
@@ -77,6 +78,7 @@ import { ChildGuard } from './guards/child.guard';
   ],
   providers: [
     AuthGuard,
+    NonAuthGuard,
     LoginGuard,
     ChildGuard,
     ErrorInterceptorProvider,
