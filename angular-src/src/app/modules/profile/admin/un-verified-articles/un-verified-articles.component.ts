@@ -103,7 +103,6 @@ export class UnVerifiedArticlesComponent implements OnInit {
       (res: any) => {
       },
       err => {
-        console.log(err);
       });
   }
 
