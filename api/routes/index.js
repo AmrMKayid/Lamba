@@ -28,10 +28,10 @@ router.post('/auth/child', mw.isAuthenticated, mw.isNotChild, authCtrl.addChild)
 router.get('/user/viewAdmins', mw.isAuthenticated, userCtrl.viewAdmins);
 router.post('/auth/admin', mw.isAuthenticated, authCtrl.addAdmin);
 //-----------------------------------User Routes-------------------------------------//
-router.get('/user/getAllUsers', userCtrl.getAllUsers);
+router.get('/user/getAllUsers', mw.isAuthenticated, userCtrl.getAllUsers);
 router.get('/user/getUserChildren/:userID', userCtrl.getUserChildren);
-router.patch('/user/updateImage/:userID', userCtrl.updateImage);
-router.patch('/user/updateCoverImage/:userID', userCtrl.updateCoverImage);
+router.patch('/user/updateImage', mw.isAuthenticated, userCtrl.updateImage);
+router.patch('/user/updateCoverImage', mw.isAuthenticated, userCtrl.updateCoverImage);
 router.get('/user/getChild/:childId', mw.isAuthenticated, userCtrl.getChildByID);
 router.get('/admin/teachers_verfication', mw.isAuthenticated, mw.isAdmin, userCtrl.getPendingTeachers);
 router.get('/admin/accept_teacher/:teacherID', mw.isAuthenticated, mw.isAdmin, userCtrl.acceptTeacher);
@@ -44,7 +44,7 @@ router.post('/user/addStudent/:childId', mw.isAuthenticated, userCtrl.addStudent
 
 router.get('/user/getParent/:parentId', mw.isAuthenticated, userCtrl.getParent);
 
-router.patch('/user/updateUser/:userId', mw.isAuthenticated, userCtrl.updateUser);
+router.patch('/user/updateUser', mw.isAuthenticated, userCtrl.updateUser);
 router.get('/user/getUserInfo/:userId', userCtrl.getUserInfo);
 router.get('/user/getUserByID/:id', mw.isAuthenticated, userCtrl.getUser);
 router.patch('/user/assignArticleToChild/:childID', mw.isAuthenticated, userCtrl.assignArticleToChild);
@@ -72,9 +72,7 @@ router.post('/store/create', mw.isAuthenticated, storeCtrl.createItems);
 router.post('/store/upload', storeCtrl.uploadItemPhoto);
 router.get('/store/getItemsById', storeCtrl.getItemsById);
 
-// TODO add mw.isAuthenticated
 router.get('/store/countItmes', mw.isAuthenticated, storeCtrl.countItmes);
-// router.get('/store/view/:tuplesPerPage/:pageNumber', mw.isAuthenticated, storeCtrl.viewItems);
 router.get('/store/view/', mw.isAuthenticated, storeCtrl.viewItems);
 
 router.patch('/store/edit/:itemId', storeCtrl.editItems);

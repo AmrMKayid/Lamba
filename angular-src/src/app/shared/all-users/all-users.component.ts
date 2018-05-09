@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { appConfig } from "../../app.config";
 import { Router, ActivatedRoute } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
@@ -26,7 +26,12 @@ export class AllUsersComponent implements OnInit {
   }
 
   getAllUsers(firstName, lastName) {
-    this.http.get(appConfig.apiUrl + `/user/getAllUsers?first=${firstName}&last=${lastName}`)
+    this.http.get(appConfig.apiUrl + `/user/getAllUsers?first=${firstName}&last=${lastName}`, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('authentication')
+      })
+    })
       .subscribe((res: any) => {
         this.Users = res.data;
         this.Users = this.Users.filter(user => user._id != this.auth.getCurrentUser()._id);

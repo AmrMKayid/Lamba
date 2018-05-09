@@ -149,7 +149,7 @@ export class ParentComponent implements OnInit {
       about: updatedAbout,
     };
 
-    this.http.patch(appConfig.apiUrl + '/user/updateUser/' + this.currentUser._id, updatedUser, this.httpOptions).subscribe(
+    this.http.patch(appConfig.apiUrl + '/user/updateUser', updatedUser, this.httpOptions).subscribe(
       (res: any) => {
 
         this.modalref.close();
@@ -186,7 +186,12 @@ export class ParentComponent implements OnInit {
       return;
     }
     this.currentUser.photo = response.filename;
-    this.http.patch(appConfig.apiUrl + '/user/updateImage/' + this.currentUser._id, { photo: response.filename })
+    this.http.patch(appConfig.apiUrl + '/user/updateImage', { photo: response.filename }, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('authentication')
+      })
+    })
       .subscribe((res: any) => {
         localStorage.setItem('authentication', res.data);
         this.modalref.close();
@@ -215,7 +220,12 @@ export class ParentComponent implements OnInit {
       return;
     }
     this.currentUser.coverPhoto = response.filename;
-    this.http.patch(appConfig.apiUrl + '/user/updateCoverImage/' + this.currentUser._id, { coverPhoto: response.filename })
+    this.http.patch(appConfig.apiUrl + '/user/updateCoverImage', { coverPhoto: response.filename }, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('authentication')
+      })
+    })
       .subscribe((res: any) => {
         localStorage.setItem('authentication', res.data);
         this.modalref.close();

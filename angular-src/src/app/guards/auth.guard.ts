@@ -9,7 +9,6 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router, private authService: AuthService) {
   }
 
-  //TODO: Role specific guards (and children)
   canActivate(next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     //TODO: Check expiration, reach out to server?
