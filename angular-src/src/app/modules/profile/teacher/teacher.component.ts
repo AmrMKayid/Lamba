@@ -244,7 +244,12 @@ export class TeacherComponent implements OnInit {
       return;
     }
     this.currentUser.coverPhoto = response.filename;
-    this.http.patch(appConfig.apiUrl + '/user/updateCoverImage/' + this.currentUser._id, { coverPhoto: response.filename })
+    this.http.patch(appConfig.apiUrl + '/user/updateCoverImage', { coverPhoto: response.filename }, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('authentication')
+      })
+    })
       .subscribe((res: any) => {
         localStorage.setItem('authentication', res.data);
         this.modalref.close();
