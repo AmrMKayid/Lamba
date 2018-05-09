@@ -28,7 +28,7 @@ router.post('/auth/child', mw.isAuthenticated, mw.isNotChild, authCtrl.addChild)
 router.get('/user/viewAdmins', mw.isAuthenticated, userCtrl.viewAdmins);
 router.post('/auth/admin', mw.isAuthenticated, authCtrl.addAdmin);
 //-----------------------------------User Routes-------------------------------------//
-router.get('/user/getAllUsers', userCtrl.getAllUsers);
+router.get('/user/getAllUsers', mw.isAuthenticated, userCtrl.getAllUsers);
 router.get('/user/getUserChildren/:userID', userCtrl.getUserChildren);
 router.patch('/user/updateImage/:userID', userCtrl.updateImage);
 router.patch('/user/updateCoverImage/:userID', userCtrl.updateCoverImage);
