@@ -44,7 +44,7 @@ router.post('/user/addStudent/:childId', mw.isAuthenticated, userCtrl.addStudent
 
 router.get('/user/getParent/:parentId', mw.isAuthenticated, userCtrl.getParent);
 
-router.patch('/user/updateUser/:userId', mw.isAuthenticated, userCtrl.updateUser);
+router.patch('/user/updateUser', mw.isAuthenticated, userCtrl.updateUser);
 router.get('/user/getUserInfo/:userId', userCtrl.getUserInfo);
 router.get('/user/getUserByID/:id', mw.isAuthenticated, userCtrl.getUser);
 router.patch('/user/assignArticleToChild/:childID', mw.isAuthenticated, userCtrl.assignArticleToChild);

@@ -639,20 +639,6 @@ module.exports.getUserInfo = function (req, res, next) {
 
 module.exports.updateUser = function (req, res, next) {
 
-  if (req.decodedToken.user._id != req.params.userId) {
-    return res.status(401).json({
-      err: null,
-      msg: 'Not authorized.',
-      data: null
-    });
-  }
-  if (!Validations.isObjectId(req.params.userId)) {
-    return res.status(422).json({
-      err: null,
-      msg: 'userId parameter must be a valid ObjectId.',
-      data: null
-    });
-  }
   delete req.body.role;
   delete req.body.joinedAt;
   delete req.body.password;
@@ -679,10 +665,17 @@ module.exports.updateUser = function (req, res, next) {
     });
   }
 
+  const set = {
+    name: req.body.name,
+    address: req.body.address,
+    birthday: req.body.birthday,
+    phone: req.body.phone,
+    about: req.body.about
+  };
 
   User.findByIdAndUpdate(
-    req.params.userId, {
-      $set: req.body
+    req.decodedToken.user._id, {
+      $set: set
     }, {
       new: true
     }

@@ -168,7 +168,7 @@ export class TeacherComponent implements OnInit {
       about: updatedAbout,
     };
 
-    this.http.patch(appConfig.apiUrl + '/user/updateUser/' + this.currentUser._id, updatedUser, this.httpOptions).subscribe(
+    this.http.patch(appConfig.apiUrl + '/user/updateUser', updatedUser, this.httpOptions).subscribe(
       (res: any) => {
 
         this.modalref.close();
