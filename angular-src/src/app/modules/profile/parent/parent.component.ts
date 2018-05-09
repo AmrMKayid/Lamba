@@ -186,7 +186,12 @@ export class ParentComponent implements OnInit {
       return;
     }
     this.currentUser.photo = response.filename;
-    this.http.patch(appConfig.apiUrl + '/user/updateImage/' + this.currentUser._id, { photo: response.filename })
+    this.http.patch(appConfig.apiUrl + '/user/updateImage', { photo: response.filename }, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('authentication')
+      })
+    })
       .subscribe((res: any) => {
         localStorage.setItem('authentication', res.data);
         this.modalref.close();

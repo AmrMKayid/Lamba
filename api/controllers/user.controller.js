@@ -202,16 +202,10 @@ module.exports.getUserChildren = function (req, res, next) {
 };
 
 module.exports.updateImage = function (req, res, next) {
-  if (!Validations.isObjectId(req.params.userID)) {
-    return res.status(422).json({
-      err: null,
-      msg: 'userId parameter must be a valid ObjectId.',
-      data: null
-    });
-  }
+
   User.findByIdAndUpdate(
-    req.params.userID, {
-      $set: req.body
+    req.decodedToken.user._id, {
+      $set: { photo: req.body.photo }
     }, {
       new: true
     }
@@ -222,8 +216,8 @@ module.exports.updateImage = function (req, res, next) {
     }
     if (!updateUser) {
       Child.findByIdAndUpdate(
-        req.params.userID, {
-          $set: req.body
+        req.decodedToken.user._id, {
+          $set: { photo: req.body.photo }
         }, {
           new: true
         }

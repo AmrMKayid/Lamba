@@ -30,7 +30,7 @@ router.post('/auth/admin', mw.isAuthenticated, authCtrl.addAdmin);
 //-----------------------------------User Routes-------------------------------------//
 router.get('/user/getAllUsers', mw.isAuthenticated, userCtrl.getAllUsers);
 router.get('/user/getUserChildren/:userID', userCtrl.getUserChildren);
-router.patch('/user/updateImage/:userID', userCtrl.updateImage);
+router.patch('/user/updateImage', mw.isAuthenticated, userCtrl.updateImage);
 router.patch('/user/updateCoverImage', mw.isAuthenticated, userCtrl.updateCoverImage);
 router.get('/user/getChild/:childId', mw.isAuthenticated, userCtrl.getChildByID);
 router.get('/admin/teachers_verfication', mw.isAuthenticated, mw.isAdmin, userCtrl.getPendingTeachers);
