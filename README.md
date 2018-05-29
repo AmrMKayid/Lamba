@@ -1,4 +1,5 @@
-<h1 align="center">  T20  </h1>
+<h1 align="center">  T20 | Lamba 💡 </h1>
+
 
 <p align="center">
   <img src ="pics/HomePage.png" />
@@ -7,6 +8,10 @@
 ---
 
 # <h2 align="center"> [Nawwar Educational Platform](https://nawwar.tk) </h2>
+
+
+# Awards:
+### Top Nawwar Team 🏆 🏅
 
 ## Getting Started:
 > Open **3** Terminals and run each of the following command
