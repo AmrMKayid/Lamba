@@ -30,7 +30,7 @@
     "@ngx-translate/core": "^9.1.1",
     "@ngx-translate/http-loader": "^2.0.1",
     "@types/socket.io-client": "^1.4.32",
-    "ajv": "^6.4.0",
+    "ajv": "^6.12.3",
     "angular-bootstrap-md": "^5.2.3",
     "angular2-image-upload": "^1.0.0-rc.0",
     "angular5-toaster": "^1.0.2",
