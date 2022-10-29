@@ -57,7 +57,7 @@
     "noty": "^3.1.4",
     "popper.js": "^1.14.1",
     "rxjs": "^5.5.6",
-    "socket.io-client": "^2.1.0",
+    "socket.io-client": "^2.5.0",
     "splash-screen": "^4.0.1",
     "yarn": "^1.5.1",
     "zone.js": "^0.8.19"
@@ -75,7 +75,7 @@
     "codelyzer": "^4.0.1",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
-    "karma": "~2.0.0",
+    "karma": "~6.4.1",
     "karma-chrome-launcher": "~2.2.0",
     "karma-cli": "~1.0.1",
     "karma-coverage-istanbul-reporter": "^1.2.1",
